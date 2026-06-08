@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FundaAI — Research Report</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 48px 48px;
+            color: #1a1a1a;
+            line-height: 1.75;
+            background: #fff;
+        }
+
+        .doc-header {
+            border-bottom: 3px solid #1b5e20;
+            padding-bottom: 32px;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #1b5e20;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .doc-title {
+            font-size: 2.4em;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin: 0 0 8px 0;
+            line-height: 1.15;
+        }
+
+        .doc-subtitle {
+            font-size: 1.15em;
+            color: #555;
+            margin: 0 0 18px 0;
+        }
+
+        .doc-meta {
+            font-size: 0.85em;
+            color: #888;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        h2 {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1.35em;
+            color: #1b5e20;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 56px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            color: #1a1a1a;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        .callout {
+            background: #f1f8e9;
+            border-left: 4px solid #1b5e20;
+            padding: 16px 20px;
+            margin: 24px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .callout-amber {
+            background: #fffde7;
+            border-left: 4px solid #f9a825;
+        }
+
+        .callout-label {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.72em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1b5e20;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .callout-amber .callout-label {
+            color: #e65100;
+        }
+
+        .callout p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 28px 0;
+            font-size: 0.9em;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        th {
+            background: #1b5e20;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e8e8e8;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background: #f9f9f9;
+        }
+
+        ul, ol {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .exec-grid {
+            display: grid;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .exec-finding {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .exec-num {
+            background: #1b5e20;
+            color: white;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: bold;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .exec-text {
+            font-size: 0.95em;
+        }
+
+        .exec-text strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .case-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .case-title {
+            font-weight: bold;
+            font-size: 0.98em;
+        }
+
+        .case-meta {
+            font-size: 0.78em;
+            color: #888;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .case-lesson {
+            background: #f1f8e9;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 0.88em;
+            margin-top: 12px;
+            font-style: italic;
+            color: #333;
+        }
+
+        .phase-block {
+            border-left: 3px solid #1b5e20;
+            padding: 12px 18px;
+            margin-bottom: 14px;
+            background: #fafafa;
+        }
+
+        .phase-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 4px;
+        }
+
+        .phase-time {
+            font-size: 0.8em;
+            color: #888;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 52px 0;
+        }
+
+        .doc-footer {
+            margin-top: 64px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.82em;
+            color: #aaa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        @media print {
+            body { max-width: 100%; padding: 24px; }
+            h2 { page-break-after: avoid; }
+            .case-card { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+    <div class="section-label">Research Report · Confidential</div>
+    <div class="doc-title">FundaAI — Research Findings</div>
+    <div class="doc-subtitle">AI Literacy for South African Workplaces</div>
+    <div class="doc-meta">June 2026 &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; Thandolwenkosi Nkala &nbsp;·&nbsp; thandobnkala@gmail.com</div>
+</div>
+
+
+<!-- EXECUTIVE SUMMARY -->
+<h2>Executive Summary</h2>
+
+<p>This document summarizes six fields of research completed in preparation for the FundaAI pilot program. The research covers the SA competitive landscape, regulatory context, sector entry strategy, course design, business model, and African AI case study library. Primary learner research (survey) is currently in the field.</p>
+
+<div class="exec-grid">
+
+    <div class="exec-finding">
+        <div class="exec-num">1</div>
+        <div class="exec-text"><strong>No SA competitor has SETA accreditation for AI training.</strong> The first program to achieve MICT SETA accreditation enables corporate buyers to recover 40–60% of costs through the Skills Development Levy grant system — making it structurally the most price-competitive option in the market regardless of list price.</div>
+    </div>
+
+    <div class="exec-finding">
+        <div class="exec-num">2</div>
+        <div class="exec-text"><strong>The middle professional is unclaimed.</strong> Existing SA providers target either entry-level staff with shallow tool tutorials or executives with strategic AI programs. Nobody is delivering well-assessed AI literacy for the team lead, analyst, coordinator, and operations manager.</div>
+    </div>
+
+    <div class="exec-finding">
+        <div class="exec-num">3</div>
+        <div class="exec-text"><strong>ICT/telecoms is the fastest entry sector.</strong> B-BBEE training mandates, MICT SETA affiliation, private-sector procurement speed (4–10 weeks), and the ICASA network connection make this the strongest first market entry point.</div>
+    </div>
+
+    <div class="exec-finding">
+        <div class="exec-num">4</div>
+        <div class="exec-text"><strong>SA's own AI policy failure is the strongest teaching case.</strong> In April 2026, South Africa withdrew its draft national AI policy after journalists discovered it contained AI-fabricated academic citations. The professionals who drafted it knew how to use AI. They did not know when to question it. That is exactly the gap FundaAI closes.</div>
+    </div>
+
+    <div class="exec-finding">
+        <div class="exec-num">5</div>
+        <div class="exec-text"><strong>Facilitated cohorts are a learning requirement, not a preference.</strong> Self-paced AI courses complete at 5–15%. Live facilitated cohorts complete at 70%+. FundaAI is designed as a 6-session live program — which means it competes on learning outcomes, not just content access.</div>
+    </div>
+
+    <div class="exec-finding">
+        <div class="exec-num">6</div>
+        <div class="exec-text"><strong>B-BBEE makes training spend mandatory at scale.</strong> SA companies above certain revenue thresholds must spend 6% of annual payroll on qualifying training or risk a B-BBEE level downgrade. A company with a R100M payroll must spend R6M per year on qualifying training. A FundaAI cohort of 20 people at R10,000/person is 3.3% of that budget.</div>
+    </div>
+
+    <div class="exec-finding">
+        <div class="exec-num">7</div>
+        <div class="exec-text"><strong>Primary learner research is in progress.</strong> An AI use-at-work survey is currently being distributed to SA professional networks. Responses will validate the course competency framework and inform pilot design.</div>
+    </div>
+
+</div>
+
+<hr>
+
+
+<!-- MARKET CONTEXT -->
+<h2>Why South Africa, Why Now</h2>
+
+<h3>AI adoption is moving faster than training</h3>
+<p>Across SA corporate and government environments, professionals are already experimenting with AI tools — ChatGPT, Microsoft Copilot, Gemini, WhatsApp-integrated AI — without organizational policy, shared standards, or judgment skills. The problem is not that AI is coming. It is already here, unevenly and without governance.</p>
+
+<div class="callout callout-amber">
+    <div class="callout-label">Core buyer pitch</div>
+    <p>"Your staff are probably already using AI. The question is whether they are using it safely, effectively, and consistently."</p>
+</div>
+
+<h3>Microsoft created awareness — not judgment</h3>
+<p>Microsoft SA committed in 2025 to train 1 million South Africans in AI skills by 2026. As of mid-2026: 4 million engaged, 1.4 million trained, nearly 500,000 credentialed. The training is product-specific (Copilot, Azure AI) and tool-focused. It creates AI awareness at scale. It does not teach professionals when to trust AI, when not to, or how to remain accountable for AI-assisted decisions.</p>
+
+<p><strong>FundaAI positioning:</strong> Microsoft taught your team to use the tools. FundaAI teaches them to think with the tools.</p>
+
+<h3>South Africa's AI policy moment</h3>
+<p>In April 2026, South Africa withdrew its draft national AI policy after journalists discovered the document contained fabricated academic citations created by generative AI. The Minister of Communications confirmed that AI was used in drafting without proper human verification. A revised policy is expected in January 2027.</p>
+
+<p>This is not just policy news. It is a teaching case. The professionals responsible for governing AI in South Africa demonstrated exactly the skills gap FundaAI is designed to close.</p>
+
+<h3>B-BBEE makes training spend mandatory</h3>
+<p>South Africa's Broad-Based Black Economic Empowerment (B-BBEE) scorecard includes Skills Development as a priority element worth up to 25 points. Companies above certain revenue thresholds must spend 6% of annual payroll on qualifying training (Generic Scorecard) or face an automatic one-level B-BBEE downgrade — which directly affects their ability to win government and corporate procurement contracts. AI literacy training is not a discretionary purchase for SA companies. It is a compliance investment.</p>
+
+<hr>
+
+
+<!-- SECTOR ENTRY -->
+<h2>Sector Entry Strategy</h2>
+
+<p>Five SA sectors were evaluated on three criteria: speed to first signed contract, market access leverage, and available training budget. Below is the ranked output.</p>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Sector</th>
+        <th>Speed to Contract</th>
+        <th>Why</th>
+    </tr>
+    <tr>
+        <td><strong>1</strong></td>
+        <td>ICT / Telecoms</td>
+        <td>4–10 weeks</td>
+        <td>ICASA network, MICT SETA affiliation, B-BBEE mandate, private procurement speed, documented middle-professional gap</td>
+    </tr>
+    <tr>
+        <td><strong>2</strong></td>
+        <td>Finance & Banking</td>
+        <td>6–12 weeks</td>
+        <td>FSCA/PA 2025 report identifies AI skills as #1 constraint to sector growth; 50%+ of banks plan R20M+ AI investment</td>
+    </tr>
+    <tr>
+        <td><strong>3</strong></td>
+        <td>Government (parallel)</td>
+        <td>3–9 months</td>
+        <td>High credibility value; pursue via ICASA relationship in parallel — not the primary revenue path</td>
+    </tr>
+    <tr>
+        <td><strong>4</strong></td>
+        <td>Healthcare</td>
+        <td>6–16 weeks</td>
+        <td>Real need in private sector; hold for Track 3 or 4</td>
+    </tr>
+    <tr>
+        <td><strong>5</strong></td>
+        <td>Education / Teachers</td>
+        <td>6–18 months</td>
+        <td>High mission value; low commercial speed; designed as a social impact track funded by commercial revenue</td>
+    </tr>
+</table>
+
+<h3>Track Architecture</h3>
+
+<table>
+    <tr>
+        <th>Track</th>
+        <th>Build Order</th>
+        <th>Primary Buyer</th>
+    </tr>
+    <tr>
+        <td><strong>Core Track</strong> — AI Judgment for SA Professionals</td>
+        <td>First — the pilot</td>
+        <td>Any SA corporate; ICT sector first via ICASA connection</td>
+    </tr>
+    <tr>
+        <td><strong>Track 1</strong> — AI Judgment for Finance Professionals</td>
+        <td>Second</td>
+        <td>SA banks, insurers, financial services providers</td>
+    </tr>
+    <tr>
+        <td><strong>Track 2</strong> — AI Judgment for Government & Public Sector</td>
+        <td>Third (parallel slow burn)</td>
+        <td>ICASA, DCDT, national and provincial departments</td>
+    </tr>
+    <tr>
+        <td><strong>Track 3</strong> — AI Judgment for ICT Professionals</td>
+        <td>After Core validates</td>
+        <td>SA telecoms, ICT companies, ICASA licensees</td>
+    </tr>
+    <tr>
+        <td><strong>Track 4</strong> — AI Literacy for Teachers</td>
+        <td>Last — social impact</td>
+        <td>NGOs, foundations, Department of Basic Education</td>
+    </tr>
+</table>
+
+<div class="callout">
+    <div class="callout-label">Naming note</div>
+    <p>Prospen Africa already markets tracks named "AI for HR" and "AI for Finance." FundaAI uses "AI Judgment for..." — which signals critical evaluation in the title itself and distinguishes from Prospen's positioning from the first word.</p>
+</div>
+
+<hr>
+
+
+<!-- COMPETITIVE LANDSCAPE -->
+<h2>Competitive Landscape</h2>
+
+<p>Six SA providers were analyzed. None have SETA accreditation for AI training. The market space FundaAI targets — assessed AI literacy for middle professionals with documented African context — is currently unclaimed.</p>
+
+<table>
+    <tr>
+        <th>Provider</th>
+        <th>Target</th>
+        <th>Approach</th>
+        <th>Gap</th>
+    </tr>
+    <tr>
+        <td><strong>College Africa Group</strong></td>
+        <td>HR, finance, admin staff</td>
+        <td>One-day tool tutorials. Nationwide reach.</td>
+        <td>No critical evaluation. No documented SA case studies. No SETA accreditation for AI.</td>
+    </tr>
+    <tr>
+        <td><strong>Prospen Africa</strong></td>
+        <td>Executives, C-suite</td>
+        <td>Role-based AI programs (3–5 days). Claims "African context."</td>
+        <td>Executive-only. "African context" is marketing language without proof. No SETA.</td>
+    </tr>
+    <tr>
+        <td><strong>AAAI</strong></td>
+        <td>Leadership teams</td>
+        <td>Strategic AI + governance. Partners with GIBS, Henley, UCT.</td>
+        <td>Not competing for middle professional. Premium price. No SETA.</td>
+    </tr>
+    <tr>
+        <td><strong>UCT / Henley</strong></td>
+        <td>Executives</td>
+        <td>AI ethics and policy. University pricing.</td>
+        <td>Expensive. Not designed for corporate team cohorts. No SETA.</td>
+    </tr>
+    <tr>
+        <td><strong>NobleProg</strong></td>
+        <td>Developers, technical staff</td>
+        <td>Technical AI — ML, NLP, cloud AI.</td>
+        <td>Different audience entirely.</td>
+    </tr>
+</table>
+
+<div class="callout callout-amber">
+    <div class="callout-label">Most important competitive finding</div>
+    <p>No SA provider has SETA accreditation for AI training as of June 2026. The first program to achieve MICT SETA accreditation allows buyers to recover 40–60% of training costs through the SDL grant system. This makes FundaAI structurally the most price-competitive serious AI literacy option in the market — before a single price negotiation happens.</p>
+</div>
+
+<hr>
+
+
+<!-- CASE STUDIES -->
+<h2>South African AI Case Study Library</h2>
+
+<p>FundaAI's primary competitive advantage is a library of documented, SA-specific case studies that competitors cannot replicate. Every case is used as a teaching artifact in the core course. The library currently contains 10 cases. Additional success cases are in development.</p>
+
+<h3>Five Cross-Case Themes</h3>
+<ol>
+    <li><strong>"It works" does not mean "it's fair."</strong> AI can improve aggregate outcomes while producing discriminatory results for specific individuals or groups.</li>
+    <li><strong>AI inherits the biases of the world it learned from.</strong> In SA, data carries the history of apartheid, gender inequality, and unequal digital access. AI trained on SA data without bias auditing reproduces SA's structural inequalities.</li>
+    <li><strong>Verification is a professional skill, not a technical one.</strong> The DCDT policy hallucination scandal was a governance failure, not a software error. The skill gap is human.</li>
+    <li><strong>"The algorithm decided" is not an acceptable explanation.</strong> When AI affects people's livelihoods — credit, employment, healthcare, justice — someone at the institution is accountable.</li>
+    <li><strong>Context matters.</strong> What works in one SA context may not work in another. AI tools built for Western populations, validated on Western data, fail disproportionately in African professional and community contexts.</li>
+</ol>
+
+<h3>Selected Cases</h3>
+
+<div class="case-card">
+    <div class="case-header">
+        <div class="case-title">Case 001 — SA Government AI Policy Hallucination Scandal</div>
+        <div class="case-meta">Government · South Africa · April 2026</div>
+    </div>
+    <p>The Department of Communications and Digital Technologies (DCDT) published an 86-page draft national AI policy containing fabricated academic citations. The document was withdrawn 16 days after publication. The Minister confirmed that generative AI was used in drafting without proper human verification. SA must now restart major portions of the consultation process.</p>
+    <div class="case-lesson">Lesson: Using AI is not the same as trusting AI. Verification is a professional responsibility — not an optional step for when you have time.</div>
+</div>
+
+<div class="case-card">
+    <div class="case-header">
+        <div class="case-title">Case 004 — African Fintech Credit Scoring: 37% Gender Penalty</div>
+        <div class="case-meta">Finance · SA, Nigeria, Kenya · 2025</div>
+    </div>
+    <p>A 2025 audit of 10 credit scoring algorithms found that women-led SMEs faced a 37% underfunding penalty compared to similarly positioned male-led businesses. The bias operated through hidden proxies: sector risk misclassification and linguistic patterns associated with collaborative leadership. No individual loan officer discriminated. The algorithm did it systematically and invisibly.</p>
+    <div class="case-lesson">Lesson: Discrimination can happen without discriminatory intent. Someone at the institution is accountable for the outcomes — and that someone works there.</div>
+</div>
+
+<div class="case-card">
+    <div class="case-header">
+        <div class="case-title">Case 006 — SA 2024 Election Deepfakes</div>
+        <div class="case-meta">Media / Politics · South Africa · May 2024</div>
+    </div>
+    <p>During South Africa's May 2024 general elections, AI-generated deepfake videos were circulated across social media to manipulate voter perceptions. Videos appeared to show political figures making statements they never made. The content was indistinguishable from genuine footage for most ordinary viewers. No specific deepfake regulation existed at the time.</p>
+    <div class="case-lesson">Lesson: AI-generated content now includes video and audio, not just text. Verification skills must extend across all media types.</div>
+</div>
+
+<div class="case-card">
+    <div class="case-header">
+        <div class="case-title">Case 007 — AI Recruitment and SA Employment Equity Act Exposure</div>
+        <div class="case-meta">Human Resources / Legal · South Africa · 2025</div>
+    </div>
+    <p>SA law firm Cliffe Dekker Hofmeyr issued a 2025 alert: employers using AI recruitment tools are liable under the Employment Equity Act 55/1998 if the AI produces discriminatory outcomes — even if no human made the discriminatory decision. Amazon's AI recruitment tool (trained on historical male-dominated hiring data) systematically downgraded female applicants. SA companies using similar tools face the same exposure.</p>
+    <div class="case-lesson">Lesson: "The algorithm decided" is not a legal defense. HR professionals using AI for shortlisting carry organizational and personal accountability.</div>
+</div>
+
+<div class="case-card">
+    <div class="case-header">
+        <div class="case-title">Case 010 — Dr Math: AI Education Done Right</div>
+        <div class="case-meta">Education · South Africa · Ongoing (CSIR)</div>
+    </div>
+    <p>The CSIR's AI-powered mathematics tutoring system provides after-hours support to learners in under-resourced SA schools that lack qualified tutors. Clear purpose, appropriate context, augments rather than replaces human teaching. A genuine success case that shows what thoughtful AI deployment looks like in an African educational context.</p>
+    <div class="case-lesson">Lesson: The question is not "AI yes or no?" It's "AI for what purpose, for whom, in what context, with what validation?"</div>
+</div>
+
+<p style="font-size: 0.88em; color: #888; font-style: italic;">Full library of 10 cases available in the research files. Additional success cases are in development to balance the current failure/risk ratio.</p>
+
+<hr>
+
+
+<!-- COMPETENCY FRAMEWORK -->
+<h2>Course Competency Framework</h2>
+
+<p>FundaAI's Core Track is built around 18 observable, assessable competencies across five domains. All 18 are at Bloom's Apply level or above — none require only memorization. Learners demonstrate competency; they don't just recall it. This is what makes the certificate credible.</p>
+
+<table>
+    <tr>
+        <th>Domain</th>
+        <th>Competencies</th>
+        <th>Bloom's Level</th>
+    </tr>
+    <tr>
+        <td><strong>1. Understanding AI</strong></td>
+        <td>Demystify AI · Map AI types to real applications · Know what AI cannot do · Understand how AI learns</td>
+        <td>Understand → Apply</td>
+    </tr>
+    <tr>
+        <td><strong>2. Critical Evaluation</strong></td>
+        <td>Verify before acting · Identify bias patterns · Evaluate output quality · Question the decision · Recognize deepfakes</td>
+        <td>Analyze → Evaluate</td>
+    </tr>
+    <tr>
+        <td><strong>3. Professional Application</strong></td>
+        <td>When/when not framework · Effective task delegation to AI · Data privacy and POPIA compliance</td>
+        <td>Apply</td>
+    </tr>
+    <tr>
+        <td><strong>4. Ethics & Governance</strong></td>
+        <td>Organizational AI accountability · Raise a substantive AI concern · Navigate an ethical dilemma</td>
+        <td>Evaluate → Create</td>
+    </tr>
+    <tr>
+        <td><strong>5. Organizational Navigation</strong></td>
+        <td>Evaluate vendor claims · Contribute to AI governance · Advocate for responsible AI in your team</td>
+        <td>Evaluate → Create</td>
+    </tr>
+</table>
+
+<h3>The Funda Five — The Core Decision Framework</h3>
+
+<p>The Funda Five is FundaAI's proprietary decision framework. Learners apply it to every AI task — in the course, and in their professional work long after it ends. It is introduced in Session 1 and reinforced in every subsequent session.</p>
+
+<table>
+    <tr>
+        <th>Step</th>
+        <th>Name</th>
+        <th>The question to ask</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td><strong>Task</strong></td>
+        <td>What exactly am I trying to do? Is this the right kind of job for AI?</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td><strong>Data</strong></td>
+        <td>What information is involved? Is any of it personal, confidential, client/citizen data, or POPIA-protected?</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td><strong>Tool</strong></td>
+        <td>What type of AI fits this task? Is this tool approved by my organization?</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td><strong>Trust</strong></td>
+        <td>How reliable is AI for this specific task? What are its failure modes? How would I detect an error?</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td><strong>Human</strong></td>
+        <td>Who checks the output before it matters? Who is accountable if it is wrong?</td>
+    </tr>
+</table>
+
+<hr>
+
+
+<!-- GTM -->
+<h2>Business Model & Go-to-Market</h2>
+
+<h3>The SETA Pricing Advantage</h3>
+
+<p>Once MICT SETA accredited, FundaAI training qualifies for the Skills Development Levy discretionary grant — allowing corporate buyers to recover 40–60% of the cost. This creates a structural pricing advantage that no competitor currently has.</p>
+
+<table>
+    <tr>
+        <th>Provider Type</th>
+        <th>List Price</th>
+        <th>Effective Cost After SDL Recovery</th>
+    </tr>
+    <tr>
+        <td>One-day tool tutorial (College Africa Group style)</td>
+        <td>R3,000–R8,000/person</td>
+        <td>Not recoverable — no SETA accreditation</td>
+    </tr>
+    <tr>
+        <td>Executive program (Prospen style)</td>
+        <td>R8,000–R20,000/person</td>
+        <td>Not recoverable — no SETA accreditation</td>
+    </tr>
+    <tr>
+        <td>University-affiliated program (UCT/Henley)</td>
+        <td>R15,000–R40,000/person</td>
+        <td>Partially recoverable</td>
+    </tr>
+    <tr>
+        <td><strong>FundaAI Core Track</strong></td>
+        <td><strong>R6,000–R12,000/person</strong></td>
+        <td><strong>R2,400–R7,200/person effective cost (with SETA)</strong></td>
+    </tr>
+</table>
+
+<h3>ICASA Licensee Pipeline</h3>
+
+<p>ICASA (the Independent Communications Authority of South Africa) licenses and regulates every major SA ICT company — MTN, Vodacom, Telkom, BCX, MultiChoice, Rain, Cell C, SABC, Liquid Intelligent Technologies, Dimension Data, and 400+ smaller operators. FundaAI has a professional network connection to ICASA, giving it warm introductions to the entire ICT sector. No SA competitor has this entry point.</p>
+
+<h3>How SA L&D Buyers Think About Training</h3>
+
+<p>SA corporate buyers speak in B-BBEE and Skills Development Levy terminology. FundaAI materials and sales conversations are built around this language:</p>
+
+<ul>
+    <li><em>SETA accredited</em> — qualifies the training for SDL cost recovery</li>
+    <li><em>NQF aligned</em> — registered on the National Qualifications Framework</li>
+    <li><em>WSP eligible</em> — can be included in the Workplace Skills Plan submission</li>
+    <li><em>SDL claimable</em> — employer recovers levy costs through discretionary grant</li>
+    <li><em>Skills Development spend</em> — maps directly to the B-BBEE scorecard priority element</li>
+</ul>
+
+<h3>Product Tiers</h3>
+
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Format</th>
+        <th>Purpose</th>
+    </tr>
+    <tr>
+        <td>AI at Work: Awareness Workshop</td>
+        <td>90 minutes, live</td>
+        <td>Entry point — lead generation into the Core Track</td>
+    </tr>
+    <tr>
+        <td>FundaAI Core Track</td>
+        <td>6 sessions, 6–8 weeks, 12–20 learners</td>
+        <td>Main product — Phase 1 pilot</td>
+    </tr>
+    <tr>
+        <td>Manager Add-on</td>
+        <td>2 sessions + toolkit</td>
+        <td>Team charter, risk escalation, adoption plan</td>
+    </tr>
+    <tr>
+        <td>Sector Track (Finance / Government / ICT)</td>
+        <td>Additional sessions + sector cases</td>
+        <td>Higher-value customization — Phase 2</td>
+    </tr>
+</table>
+
+<hr>
+
+
+<!-- INSTRUCTIONAL DESIGN -->
+<h2>Instructional Design</h2>
+
+<h3>Why Facilitated Cohorts</h3>
+
+<table>
+    <tr>
+        <th>Delivery Format</th>
+        <th>Completion Rate</th>
+        <th>Long-term Retention</th>
+    </tr>
+    <tr>
+        <td>Self-paced online, no facilitator</td>
+        <td>5–15%</td>
+        <td>Low</td>
+    </tr>
+    <tr>
+        <td>Cohort-based with live facilitator</td>
+        <td>70%+</td>
+        <td>High</td>
+    </tr>
+    <tr>
+        <td>Cohort + formative assessments each session</td>
+        <td>80%+</td>
+        <td>High (+25–40% over 6 months)</td>
+    </tr>
+</table>
+
+<p>FundaAI Phase 1 is live-facilitated — 6 sessions over 6–8 weeks, 12–20 learners per cohort, in-person or virtual. Self-paced delivery is not used in Phase 1. A live facilitator is a product requirement for learning outcomes, not a premium add-on.</p>
+
+<h3>Session Structure — The Same Four Phases Every Session</h3>
+
+<p>Every FundaAI session follows a four-phase structure drawn from Kolb's experiential learning cycle and Freire's problem-posing pedagogy. Starting with the learner's experience before introducing theory is what makes learning transfer. Most corporate AI training skips this — jumping straight to content. FundaAI does not.</p>
+
+<div class="phase-block">
+    <div class="phase-title">Phase 1 — Encounter <span class="phase-time">(20 min)</span></div>
+    <p style="margin: 6px 0 0 0; font-size: 0.93em;">Learners engage with a real AI output — a document, recommendation, or decision — before it is explained. Task: "What do you notice? What would you do with this?" Facilitator listens. Learner instincts are the raw material.</p>
+</div>
+
+<div class="phase-block">
+    <div class="phase-title">Phase 2 — Reflect <span class="phase-time">(20 min)</span></div>
+    <p style="margin: 6px 0 0 0; font-size: 0.93em;">Guided questions surface what just happened. "What made you trust or distrust that output? Has something like this come up in your work?" Peer discussion. Facilitator asks, does not tell.</p>
+</div>
+
+<div class="phase-block">
+    <div class="phase-title">Phase 3 — Concept <span class="phase-time">(30 min)</span></div>
+    <p style="margin: 6px 0 0 0; font-size: 0.93em;">The framework that explains what learners just experienced is introduced. Content connects directly to the Phase 1 artifact — not generic theory pulled from a slide deck. SA case studies throughout.</p>
+</div>
+
+<div class="phase-block">
+    <div class="phase-title">Phase 4 — Apply <span class="phase-time">(30 min)</span></div>
+    <p style="margin: 6px 0 0 0; font-size: 0.93em;">A new artifact from the learner's sector. Task: apply the framework. Output: a brief written or verbal judgment — not just a feeling. This is where competency is built.</p>
+</div>
+
+<h3>The Certificate — What It Actually Means</h3>
+
+<p>FundaAI does not issue a completion certificate. It issues a competency certificate. To receive it, learners submit a capstone portfolio — a 600–900 word evaluation of a real AI system they encountered during the course, assessed against a rubric by a trained human assessor.</p>
+
+<p><strong>Certificate wording:</strong> <em>"This certificate confirms that [Name] has demonstrated AI judgment competency — the ability to critically evaluate AI systems and their outputs in professional contexts — as assessed against the FundaAI Standard."</em></p>
+
+<p>The wording says <em>demonstrated</em>, not <em>completed</em>. That distinction is the certificate.</p>
+
+<hr>
+
+
+<!-- RESEARCH IN PROGRESS -->
+<h2>Primary Research — In Progress</h2>
+
+<div class="callout callout-amber">
+    <div class="callout-label">Field 1 — Learner Research (active)</div>
+    <p>An AI use-at-work survey is currently being distributed to SA professional networks via the SA team and ICASA contacts. Target: 30+ responses by July 2026. Survey results will validate the competency framework and inform pilot session design before the first cohort delivers.</p>
+</div>
+
+<p>The survey covers: current AI tool use, task types, confidence level, frustration points, direct AI failure experience, workplace policy awareness, data-sharing comfort across 10 task types, training format preferences, certificate value, shadow AI use, and language preferences.</p>
+
+<p>All desk research (Fields 0, 2, 3, 4, 5, 6) was completed before primary research to ensure survey questions are grounded in SA-specific context rather than imported assumptions.</p>
+
+<hr>
+
+
+<!-- NEXT STEPS -->
+<h2>Next Steps</h2>
+
+<table>
+    <tr>
+        <th>Action</th>
+        <th>Deadline</th>
+        <th>Owner</th>
+    </tr>
+    <tr>
+        <td>Distribute AI use-at-work survey to SA network and ICASA contact</td>
+        <td>Jun 9, 2026</td>
+        <td>Thurston & Ntando</td>
+    </tr>
+    <tr>
+        <td>Confirm FundaAI name and register domain (fundaai.co.za or .com)</td>
+        <td>Jun 9, 2026</td>
+        <td>Family decision</td>
+    </tr>
+    <tr>
+        <td>Initiate ICASA outreach — first research conversation</td>
+        <td>Jul 15, 2026</td>
+        <td>Thando</td>
+    </tr>
+    <tr>
+        <td>Draft one-page capability statement and course brochure</td>
+        <td>Jul 15, 2026</td>
+        <td>Thando</td>
+    </tr>
+    <tr>
+        <td>Analyze survey results once minimum responses are reached</td>
+        <td>Jul 31, 2026</td>
+        <td>Thando</td>
+    </tr>
+    <tr>
+        <td>Identify South African educator to co-review the curriculum</td>
+        <td>Jul 31, 2026</td>
+        <td>All</td>
+    </tr>
+    <tr>
+        <td>Begin pilot facilitator guide and learner workbook</td>
+        <td>August 2026</td>
+        <td>Thando</td>
+    </tr>
+    <tr>
+        <td>Submit MICT SETA Letter of Intent for accreditation inquiry</td>
+        <td>August 2026</td>
+        <td>Thando</td>
+    </tr>
+</table>
+
+<div class="doc-footer">
+    FundaAI — Research Report &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; Thandolwenkosi Nkala &nbsp;·&nbsp; Confidential
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funda — AI Literacy Landscape Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap');
+
+    :root {
+      --brand:       #1B4332;
+      --brand-mid:   #2D6A4F;
+      --brand-light: #D8F3DC;
+      --accent:      #F4A261;
+      --accent-light:#FFF3E6;
+      --text:        #1A1A2E;
+      --text-muted:  #5A5A72;
+      --border:      #D6D6E4;
+      --bg:          #FAFAFA;
+      --white:       #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ─── COVER PAGE ─── */
+    .cover {
+      background: var(--brand);
+      color: white;
+      padding: 80px 0 60px;
+      min-height: 280px;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .cover-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .cover .label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #95D5B2;
+      margin-bottom: 14px;
+    }
+    .cover h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 36px;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .cover h1 span { color: var(--accent); }
+    .cover .subtitle {
+      font-size: 16px;
+      color: #B7E4C7;
+      max-width: 520px;
+    }
+    .cover .meta {
+      margin-top: 36px;
+      font-size: 12px;
+      color: #74C69D;
+      display: flex;
+      gap: 32px;
+    }
+
+    /* ─── LAYOUT ─── */
+    .content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* ─── SECTION HEADERS ─── */
+    .section-divider {
+      margin: 52px 0 28px;
+      border-top: 3px solid var(--brand);
+      padding-top: 20px;
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--brand-mid);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 24px;
+      color: var(--brand);
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 10px;
+    }
+    h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 20px 0 8px;
+    }
+
+    p { margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+    li { margin-bottom: 6px; }
+
+    /* ─── CALLOUT BOXES ─── */
+    .callout {
+      border-left: 4px solid var(--brand-mid);
+      background: var(--brand-light);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 20px 0;
+    }
+    .callout.orange {
+      border-left-color: var(--accent);
+      background: var(--accent-light);
+    }
+    .callout.gray {
+      border-left-color: var(--border);
+      background: #F4F4F8;
+    }
+    .callout strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+    /* ─── TABLES ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    th {
+      background: var(--brand);
+      color: white;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #F4F7F5; }
+    td:first-child { font-weight: 500; }
+
+    /* ─── INSIGHT GRID ─── */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .insight-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .insight-card .card-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .insight-card h4 {
+      margin: 0 0 8px;
+      color: var(--brand);
+      font-size: 13px;
+    }
+    .insight-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ─── STATUS TAGS ─── */
+    .tag {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .tag.exists    { background: #D8F3DC; color: #1B4332; }
+    .tag.partial   { background: #FFF3E6; color: #9C4221; }
+    .tag.missing   { background: #FFE4E4; color: #9B1C1C; }
+
+    /* ─── ADDIE PHASES ─── */
+    .addie-row {
+      display: flex;
+      gap: 0;
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .addie-phase {
+      flex: 1;
+      padding: 14px 12px;
+      text-align: center;
+      background: #E9F5ED;
+      border-right: 2px solid white;
+    }
+    .addie-phase:last-child { border-right: none; }
+    .addie-phase.active {
+      background: var(--brand);
+      color: white;
+    }
+    .addie-phase .letter {
+      font-size: 22px;
+      font-weight: 700;
+      font-family: 'Merriweather', serif;
+    }
+    .addie-phase .word {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+      opacity: 0.8;
+    }
+    .addie-phase.active .word { opacity: 1; color: #95D5B2; }
+
+    /* ─── TOC ─── */
+    .toc {
+      background: var(--brand-light);
+      border: 1px solid #95D5B2;
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .toc h3 { margin: 0 0 14px; color: var(--brand); font-size: 14px; }
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .toc li {
+      font-size: 13px;
+      margin-bottom: 5px;
+      color: var(--brand-mid);
+    }
+    .toc a {
+      color: var(--brand-mid);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .toc a:hover { border-bottom-color: var(--brand-mid); }
+
+    /* ─── PAGE SETUP ─── */
+    @page { size: letter portrait; margin: 0.65in 0.5in; }
+    @page :first { margin: 0; }
+
+    /* ─── PRINT ─── */
+    @media print {
+      body { font-size: 13px; line-height: 1.6; background: white; }
+
+      /* Full-bleed cover — vertically centered, shares page 1 with TOC */
+      .cover { padding: 0 72px; min-height: 40vh; display: flex; flex-direction: column; justify-content: center; }
+      .cover h1 { font-size: 30px; }
+      .cover-inner { max-width: 100%; padding: 0; }
+
+      /* Content — @page margin handles gutters */
+      .content { max-width: 100%; padding: 0 0 60px; }
+      .section-divider { margin-top: 0; padding-top: 16px; page-break-before: always; break-before: page; }
+      .section-divider:first-of-type { page-break-before: avoid; break-before: avoid; }
+
+      /* Sections 3.4 and 6.3 — keep heading + callout together */
+      .s34-block, .s63-block { break-inside: avoid; page-break-inside: avoid; }
+
+      /* All tables — uniform sizing */
+      table td, table th { padding: 5px 8px; font-size: 11.5px; }
+
+      /* Section 5.2 callout — tighter spacing so steps fit on same page as heading */
+      .s52-callout { padding: 10px 14px; font-size: 12px; line-height: 1.45; }
+      .s52-callout br + br { display: none; }
+
+      /* Section 4 grid — tighter spacing to keep 4.3 bullets on same page */
+      .s4-grid .insight-card { padding: 10px 12px; }
+      .s4-grid .card-icon { font-size: 17px; margin-bottom: 5px; }
+      .s4-grid h4 { margin-bottom: 4px; }
+      .s4-grid p { font-size: 12px; line-height: 1.45; }
+
+      /* Headings stay with the line below them */
+      h2 { page-break-after: avoid; break-after: avoid; }
+      h3 { page-break-after: avoid; break-after: avoid; }
+
+      /* Keep these specific blocks from splitting mid-element */
+      tr { page-break-inside: avoid; break-inside: avoid; }
+      .callout { page-break-inside: avoid; break-inside: avoid; }
+      .insight-card { page-break-inside: avoid; break-inside: avoid; }
+      .insight-grid { grid-template-columns: 1fr 1fr; page-break-inside: avoid; break-inside: avoid; }
+      .addie-row { border: 1px solid var(--border); page-break-inside: avoid; break-inside: avoid; }
+      li { margin-bottom: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ COVER -->
+  <div class="cover">
+    <div class="cover-inner">
+      <div class="label">Funda AI Literacy Initiative</div>
+      <h1>AI Literacy<br /><span>Landscape Report</span></h1>
+      <p class="subtitle">Understanding the global AI literacy landscape before we build — what exists, what works, what's missing, and where Funda fits.</p>
+      <div class="meta">
+        <span>Version 1.0</span>
+        <span>June 2026</span>
+        <span>ADDIE Phase: Analysis</span>
+        <span>Status: Draft</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- TOC -->
+    <div class="toc">
+      <h3>Contents</h3>
+      <ol>
+        <li><a href="#section-1">Executive Summary</a></li>
+        <li><a href="#section-2">Framing: How We're Approaching This (ADDIE)</a></li>
+        <li><a href="#section-3">The Global AI Literacy Landscape — What Exists</a></li>
+        <li><a href="#section-4">The Africa-Specific Context — What Exists and What Doesn't</a></li>
+        <li><a href="#section-5">The AI Tools Landscape — Taxonomy and the Overwhelm Problem</a></li>
+        <li><a href="#section-6">What Works — Evidence from Adult Tech Literacy Research</a></li>
+        <li><a href="#section-7">What Funda Must Teach — Curriculum Implications</a></li>
+        <li><a href="#section-8">Where Funda Fits — The Differentiated Position</a></li>
+        <li><a href="#section-9">Open Questions — What We Still Need to Validate</a></li>
+        <li><a href="#section-10">Next Steps — Moving to ADDIE Design Phase</a></li>
+      </ol>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 1 -->
+    <div class="section-divider" id="section-1">
+      <div class="section-label">Section 1</div>
+      <h2>Executive Summary</h2>
+    </div>
+
+    <p>The global AI literacy market has exploded — hundreds of courses, dozens of bootcamps, billions of dollars in corporate training spend. Yet almost none of it was built for African professionals. What exists in Africa is either tool tutorials repackaged with local branding, or developer-track programs for engineers. The gap isn't in volume — it's in depth, context, and philosophy.</p>
+
+    <p>This report synthesizes research across five areas: the global program landscape, Africa-specific initiatives, the AI tools landscape, instructional design methodology, and evidence on what works in adult tech literacy. Together, they answer the questions Funda needs to answer before building anything.</p>
+
+    <div class="callout">
+      <strong>The core finding:</strong>
+      The market teaches people to use specific tools. Nobody is teaching people to think well about AI — to choose the right tool, evaluate outputs critically, identify failure modes, and stay in control of AI-assisted decisions. That's Funda's lane.
+    </div>
+
+    <div class="callout gray">
+      <strong>Who is Funda for? Meet Nomvula.</strong><br /><br />
+      Nomvula is 31 years old. She works as a communications officer at a mid-sized South African ICT company in Johannesburg. She has a degree, six years of experience, and is good at her job. Her company recently rolled out Microsoft Copilot across all staff. Her manager told her to "start using AI." She's spent three evenings watching YouTube tutorials. She can make Copilot summarize an email. But she has no idea whether what it produces is accurate, whether she should trust it for a client-facing report, or whether some of what she's being asked to do with AI crosses an ethical line.<br /><br />
+      She's not behind. She's not unintelligent. She has no framework — and nobody in her organization does either. That's who Funda teaches.
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="card-icon">🌍</div>
+        <h4>Africa Programs</h4>
+        <p>ALX has trained 285,000+ learners. AiAfrica targets 11M by 2028. But most programs are developer-track or tool tutorials — not critical AI literacy for working professionals.</p>
+      </div>
+      <div class="insight-card">
+        <div class="card-icon">🎓</div>
+        <h4>Global Programs</h4>
+        <p>Google, IBM, Microsoft, Coursera, DeepLearning.AI all have courses. 1.8M people have taken Finland's free Elements of AI. Quality varies wildly — most are tool tutorials.</p>
+      </div>
+      <div class="insight-card">
+        <div class="card-icon">🛠️</div>
+        <h4>Tools Explosion</h4>
+        <p>200+ significant AI tools across 12+ categories. Tools shift every 6 months. Teaching specific tools is therefore the wrong strategy — teach the framework for choosing.</p>
+      </div>
+      <div class="insight-card">
+        <div class="card-icon">📊</div>
+        <h4>Training ROI</h4>
+        <p>Organizations with formal AI upskilling report 2× higher AI ROI. Average 340% return within 18 months. Employers pay — this validates the B2B model directly.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 2 -->
+    <div class="section-divider" id="section-2">
+      <div class="section-label">Section 2</div>
+      <h2>Framing: How We're Approaching This (ADDIE)</h2>
+    </div>
+
+    <p>Professional course developers use a framework called <strong>ADDIE</strong> — the industry standard for instructional design. It stands for five phases that happen in sequence:</p>
+
+    <div class="addie-row">
+      <div class="addie-phase active">
+        <div class="letter">A</div>
+        <div class="word">Analysis</div>
+      </div>
+      <div class="addie-phase">
+        <div class="letter">D</div>
+        <div class="word">Design</div>
+      </div>
+      <div class="addie-phase">
+        <div class="letter">D</div>
+        <div class="word">Develop</div>
+      </div>
+      <div class="addie-phase">
+        <div class="letter">I</div>
+        <div class="word">Implement</div>
+      </div>
+      <div class="addie-phase">
+        <div class="letter">E</div>
+        <div class="word">Evaluate</div>
+      </div>
+    </div>
+
+    <p>We are currently in <strong>Phase 1: Analysis</strong> — the phase where you understand the landscape before designing anything. This document is the output of that phase.</p>
+
+    <table>
+      <tr>
+        <th>Phase</th>
+        <th>What It Produces</th>
+        <th>Status for Funda</th>
+      </tr>
+      <tr>
+        <td>Analysis</td>
+        <td>Needs Analysis Report — learner profile, landscape, gaps, implications</td>
+        <td><span class="tag exists">In Progress</span></td>
+      </tr>
+      <tr>
+        <td>Design</td>
+        <td>Learning Design Brief — objectives, structure, pedagogy, assessment strategy</td>
+        <td><span class="tag missing">Not Started</span></td>
+      </tr>
+      <tr>
+        <td>Develop</td>
+        <td>Actual course content — modules, exercises, materials, facilitator guides</td>
+        <td><span class="tag missing">Not Started</span></td>
+      </tr>
+      <tr>
+        <td>Implement</td>
+        <td>Pilot delivery — run it with real learners, gather feedback</td>
+        <td><span class="tag missing">Not Started</span></td>
+      </tr>
+      <tr>
+        <td>Evaluate</td>
+        <td>Effectiveness measurement — did learners actually get better?</td>
+        <td><span class="tag missing">Not Started</span></td>
+      </tr>
+    </table>
+
+    <div class="callout gray">
+      <strong>Why not a Project Charter / PID instead?</strong>
+      A Project Charter is a project management document — it answers "what are we building, who's responsible, what are the risks." ADDIE is an instructional design process — it answers "how do we build something that actually works for learners." For Funda, we need both: the Learning Design Brief (from ADDIE Design phase) is the course-specific scoping document; a separate Project Charter covers the business and delivery side. This report feeds both.
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 3 -->
+    <div class="section-divider" id="section-3">
+      <div class="section-label">Section 3</div>
+      <h2>The Global AI Literacy Landscape</h2>
+    </div>
+
+    <h3>3.1 Major Programs and Providers</h3>
+
+    <table class="s3-table">
+      <colgroup>
+        <col style="width: 11%">
+        <col style="width: 21%">
+        <col style="width: 16%">
+        <col style="width: 12%">
+        <col style="width: 40%">
+      </colgroup>
+      <tr>
+        <th>Provider</th>
+        <th>Program</th>
+        <th>Audience</th>
+        <th>Cost</th>
+        <th>What It Teaches</th>
+      </tr>
+      <tr>
+        <td>Google</td>
+        <td>AI Essentials</td>
+        <td>All levels, non-technical</td>
+        <td>Free (cert paid)</td>
+        <td>AI fundamentals, Gemini tools, responsible AI basics</td>
+      </tr>
+      <tr>
+        <td>IBM</td>
+        <td>AI Fundamentals + Generative AI Professional Certificate</td>
+        <td>Beginners to practitioners</td>
+        <td>Free audit / paid cert</td>
+        <td>GenAI foundations, ChatGPT, responsible AI, LLM application</td>
+      </tr>
+      <tr>
+        <td>Microsoft</td>
+        <td>AI Skills Challenge + Copilot training</td>
+        <td>Enterprise employees</td>
+        <td>Free</td>
+        <td>Microsoft AI tools (Copilot), productivity integration</td>
+      </tr>
+      <tr>
+        <td>DeepLearning.AI</td>
+        <td>Multiple short courses</td>
+        <td>Developers + practitioners</td>
+        <td>Paid</td>
+        <td>Prompt engineering, LLM building, RAG, agents</td>
+      </tr>
+      <tr>
+        <td>University of Helsinki</td>
+        <td>Elements of AI</td>
+        <td>General public</td>
+        <td>Free</td>
+        <td>How AI works conceptually, social implications, no coding</td>
+      </tr>
+      <tr>
+        <td>Coursera / various</td>
+        <td>300+ AI courses</td>
+        <td>Varies widely</td>
+        <td>Free audit / paid cert</td>
+        <td>Full spectrum from literacy to engineering</td>
+      </tr>
+      <tr>
+        <td>LinkedIn Learning</td>
+        <td>AI for Business series</td>
+        <td>Working professionals</td>
+        <td>Subscription</td>
+        <td>Tool overviews, productivity use cases, AI strategy</td>
+      </tr>
+      <tr>
+        <td>Udemy / Zero To Mastery</td>
+        <td>"30-day" bootcamps</td>
+        <td>Self-directed learners</td>
+        <td>Low cost ($10–30)</td>
+        <td>Specific tools: ChatGPT, LLMs, prompt engineering, Cursor, etc.</td>
+      </tr>
+    </table>
+
+    <h3>3.2 The Bootcamp Pattern — What Thando Is Seeing in Her Feed</h3>
+
+    <p>The "30-day AI challenge" format flooding social media and course platforms follows a very specific structure. Understanding it explains both the market demand and the gap Funda fills.</p>
+
+    <div class="callout orange">
+      <strong>The bootcamp formula:</strong>
+      Pick one specific tool (ChatGPT, Claude Code, Canva AI, Midjourney, Cursor). Teach that tool's features. Add a "build X projects" project-based hook. Market with urgency ("learn before everyone else"). Deliver via video + exercises. Offer a certificate. Price at $15–30.
+    </div>
+
+    <p>These programs exist because <strong>they sell well</strong>. They answer "how do I use this specific tool?" — which is what learners think they need. The problem: tools change every 6 months. A "ChatGPT Bootcamp from 2023" is already partially obsolete. The learner who finishes it knows that one tool — but when a new tool appears, they have no framework to evaluate it.</p>
+
+    <h3>3.3 What These Programs Teach vs. What They Don't</h3>
+
+    <table>
+      <tr>
+        <th>What Most Programs Teach</th>
+        <th>What Almost None Teach</th>
+      </tr>
+      <tr>
+        <td>How to use tool X (step by step)</td>
+        <td>How to decide if tool X is right for your task</td>
+      </tr>
+      <tr>
+        <td>Prompt engineering for better outputs</td>
+        <td>How to verify and critique AI outputs</td>
+      </tr>
+      <tr>
+        <td>Features of popular tools</td>
+        <td>How to identify bias or failure in AI outputs</td>
+      </tr>
+      <tr>
+        <td>GenAI text/image generation</td>
+        <td>When NOT to use AI</td>
+      </tr>
+      <tr>
+        <td>AI productivity tricks</td>
+        <td>Organizational and ethical implications</td>
+      </tr>
+      <tr>
+        <td>Technical concepts (LLMs, RAG, agents)</td>
+        <td>How AI fails — and how to catch it before it matters</td>
+      </tr>
+      <tr>
+        <td>Generic, Western-context examples and case studies</td>
+        <td>Content contextualized for African professional realities and work contexts</td>
+      </tr>
+    </table>
+
+    <div class="s34-block">
+      <h3>3.4 The Gold Standard — Elements of AI</h3>
+      <p>The University of Helsinki's <em>Elements of AI</em> is worth studying closely — it has reached 1.8 million learners and is genuinely free with no paywall. Key characteristics that made it successful:</p>
+      <ul>
+        <li>Conceptual, not tool-based — teaches how AI works, not how to use a specific product</li>
+        <li>No coding required — genuinely accessible to non-technical learners</li>
+        <li>Available in 25+ languages (explicitly inclusive)</li>
+        <li>Interactive exercises that build intuition, not passive video watching</li>
+        <li>Translated for national digital literacy initiatives in multiple countries</li>
+      </ul>
+      <p>This is the closest analog to what Funda should be — but it was built for European contexts and doesn't engage with African professional realities at all.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 4 -->
+    <div class="section-divider" id="section-4">
+      <div class="section-label">Section 4</div>
+      <h2>The Africa-Specific Context</h2>
+    </div>
+
+    <div class="callout orange">
+      <strong>Phase 1 geography: South Africa.</strong>
+      Funda's Phase 1 market is South Africa specifically — not "Africa." SA has the continent's most mature AI policy framework, a large established corporate training market, mandatory B-BBEE training requirements, and existing ICT sector networks for initial market entry. Everything in this section that references Africa broadly is context; the MVP operates in South Africa and expands from there.
+    </div>
+
+    <h3>4.1 What Currently Exists in Africa</h3>
+
+    <table>
+      <tr>
+        <th>Initiative</th>
+        <th>Scale</th>
+        <th>Focus</th>
+        <th>What It Does Well</th>
+        <th>Gap</th>
+      </tr>
+      <tr>
+        <td>ALX Africa</td>
+        <td>285,000+ learners, 54 countries</td>
+        <td>Tech careers, professional skills</td>
+        <td>Scale, pan-African reach, employment outcomes</td>
+        <td>Developer/career track — not general AI literacy</td>
+      </tr>
+      <tr>
+        <td>AiAfrica Project</td>
+        <td>2.3M participants, target 11M by 2028</td>
+        <td>AI skills broadly</td>
+        <td>Massive reach ambition</td>
+        <td>Breadth over depth — still largely tool-tutorial oriented</td>
+      </tr>
+      <tr>
+        <td>Anthropic × ALX × Rwanda</td>
+        <td>Hundreds of thousands of learners</td>
+        <td>AI learning companion (Chidi) in education</td>
+        <td>National government integration, AI in schools</td>
+        <td>School-focused, not working professional / corporate context</td>
+      </tr>
+      <tr>
+        <td>Microsoft SA AI Skills</td>
+        <td>Target 1M South Africans by 2026</td>
+        <td>Microsoft tools AI integration</td>
+        <td>Scale, free access</td>
+        <td>Microsoft-stack only, product-led not conceptually deep</td>
+      </tr>
+      <tr>
+        <td>Kenya National AI Strategy 2025–2030</td>
+        <td>National policy</td>
+        <td>Digital infrastructure, talent, governance</td>
+        <td>Government mandate for AI literacy</td>
+        <td>Policy without curriculum — the delivery layer doesn't exist yet</td>
+      </tr>
+      <tr>
+        <td>University of Lagos OpenAI Academy</td>
+        <td>University-level</td>
+        <td>Capacity building</td>
+        <td>First on continent</td>
+        <td>Academic track, not working professional / B2B</td>
+      </tr>
+    </table>
+
+    <h3>4.2 Critical Gaps in the African AI Education Landscape</h3>
+
+    <div class="insight-grid s4-grid">
+      <div class="insight-card">
+        <div class="card-icon">📱</div>
+        <h4>Phase 2 Opportunity: Mobile Access</h4>
+        <p>Only 36% of Africans have broadband. Mobile internet reached 46% of Sub-Saharan Africa in 2023. Phase 1 corporate/gov clients are in offices with good connectivity — but no program has yet built AI literacy for mobile, low-bandwidth access. That's a Phase 2 opening Funda should design toward from the start.</p>
+      </div>
+      <div class="insight-card">
+        <div class="card-icon">🌐</div>
+        <h4>No African-Context Case Studies</h4>
+        <p>Only 0.2% of AI training data comes from Africa and South America. Courses use US/European examples. A government ministry official in Zimbabwe learning AI has no relevant cases to learn from — until Funda builds them.</p>
+      </div>
+      <div class="insight-card">
+        <div class="card-icon">🏢</div>
+        <h4>No B2B Corporate Track</h4>
+        <p>African companies deploying AI tools have no structured training for their staff. The corporate L&D gap is completely unaddressed — ALX targets individuals, not organizations. This is the highest-value, most underdeveloped segment.</p>
+      </div>
+      <div class="insight-card">
+        <div class="card-icon">🧭</div>
+        <h4>No Critical AI Literacy</h4>
+        <p>Programs teach tool use, not AI critique. No African program currently teaches professionals to evaluate AI outputs, identify bias, or make informed decisions about AI adoption in their organizational context.</p>
+      </div>
+    </div>
+
+    <h3>4.3 Infrastructure Context — Relevant for Future Expansion</h3>
+    <p>Phase 1 corporate and government clients operate in office environments — this section is not a current constraint, but it shapes how Funda designs for scalability. Build the MVP so expansion doesn't require rebuilding from scratch.</p>
+    <ul>
+      <li><strong>Data costs (future):</strong> Mobile data in sub-Saharan Africa is among the most expensive globally relative to income. When expanding to public access, video-heavy courses will exclude many learners — design content so it can be lightened later.</li>
+      <li><strong>Connectivity (future):</strong> Outside major cities, intermittent connection is the norm. The corporate/gov Phase 1 audience largely sits in well-connected offices — but expansion beyond that requires offline-capable content.</li>
+      <li><strong>Device reality (future):</strong> Broader public access eventually means mobile. Phase 1 can be desktop-first, but content structure should not depend on features that break on mobile.</li>
+      <li><strong>Language (both phases):</strong> English is the working language for most Phase 1 corporate/gov clients. Francophone and Lusophone markets are expansion opportunities — even Phase 1 content should be translation-ready.</li>
+    </ul>
+
+    <h3>4.4 South Africa — The Phase 1 Market in Detail</h3>
+
+    <h4 style="margin-top: 20px; margin-bottom: 8px; color: var(--dark);">The B-BBEE Training Demand Driver</h4>
+    <p>South Africa's Broad-Based Black Economic Empowerment (B-BBEE) legislation creates structural, legally-mandated demand for corporate training. This is Funda's most important market entry insight.</p>
+    <ul>
+      <li><strong>Skills Development Levy (SDL):</strong> Any South African company with a payroll exceeding R500,000/year must contribute 1% of total payroll to the SDL — paid whether or not it is used for training.</li>
+      <li><strong>B-BBEE scorecard:</strong> Skills Development carries 20 points on the B-BBEE scorecard. To earn maximum points, companies must spend at least 6% of annual payroll on qualifying training. Non-compliance drops their B-BBEE rating, affecting procurement eligibility with government and large corporates.</li>
+      <li><strong>SETA grant recovery:</strong> Companies that submit a Workplace Skills Plan (WSP) to their SETA by 30 April each year can recover 20% of their levy as mandatory grants, plus 40–60% of project costs through discretionary grants for SETA-accredited programs.</li>
+      <li><strong>Implication for Funda:</strong> SA corporate buyers are not deciding whether to spend on training — they are legally required to. The question is where that spend goes. Funda competes for an existing, mandated budget, not for discretionary spend. This is a fundamentally different sales environment than cold B2B ed-tech.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>SETA accreditation — the strategic unlock:</strong>
+      If Funda's curriculum is SETA-accredited, employers can recover 40–60% of training costs through discretionary grants. This dramatically improves the price-to-value ratio for corporate buyers and opens the public tender procurement pathway. Accreditation is not an MVP requirement — but it should begin after the first pilot establishes the curriculum. Target: SETA accreditation by end of Year 1.
+    </div>
+
+    <h4 style="margin-top: 20px; margin-bottom: 8px; color: var(--dark);">South Africa AI Policy — The Government Partnership Window</h4>
+    <p>South Africa's Department of Communications and Digital Technologies (DCDT) released its National AI Policy Framework in August 2024. The draft policy was approved by Cabinet on 25 March 2026 and entered public consultation in April 2026. Five pillars guide the policy: <strong>skills capacity, responsible governance, ethical and inclusive AI, cultural preservation, and human-centered deployment.</strong></p>
+    <p>Skills capacity is Pillar 1 — the policy explicitly identifies AI literacy for working professionals as a national priority. The delivery layer for this policy does not yet exist. Funda can be that delivery layer.</p>
+    <p>Recommended action: Funda should formally respond to the DCDT consultation, position as a potential implementation partner, and initiate contact with the Department's digital skills unit. A government-aligned program has a moat that no private competitor can buy.</p>
+
+    <h4 style="margin-top: 20px; margin-bottom: 8px; color: var(--dark);">South Africa Competitive Landscape — Who Already Exists</h4>
+
+    <table>
+      <tr>
+        <th>Provider</th>
+        <th>Focus</th>
+        <th>Audience</th>
+        <th>Gap vs. Funda</th>
+      </tr>
+      <tr>
+        <td>African Academy of AI (AAAI)</td>
+        <td>AI strategy, governance, leadership; bespoke consulting; partnered with GIBS, Henley, UCT</td>
+        <td>Senior executives, boards, financial sector</td>
+        <td>Executive-only, high-cost, not for mid-level working professionals; not Freire-informed critical literacy</td>
+      </tr>
+      <tr>
+        <td>College Africa Group</td>
+        <td>ChatGPT, Microsoft Copilot tool training; volume corporate contracts</td>
+        <td>HR, admin, finance, leadership teams</td>
+        <td>Pure tool tutorials — exactly what Funda is differentiated from; no evaluation or judgment component</td>
+      </tr>
+      <tr>
+        <td>Prospen Africa</td>
+        <td>"AI for Leaders and Managers" — AI strategy and applications</td>
+        <td>Management level</td>
+        <td>Strategy framing, not working-professional critical literacy; no African context depth</td>
+      </tr>
+      <tr>
+        <td>NobleProg</td>
+        <td>Instructor-led technical AI courses — LLMs, agents, prompt engineering</td>
+        <td>Developers, practitioners</td>
+        <td>Developer / technical track — not for the working professional Funda serves</td>
+      </tr>
+      <tr>
+        <td>UCT GSB / Henley SA</td>
+        <td>Executive education — "AI Leadership in Action," "Advanced AI Leadership"</td>
+        <td>Senior executives, MBA-level</td>
+        <td>High cost, executive credential focus, not working professional critical literacy</td>
+      </tr>
+    </table>
+
+    <p>The gap is clear and unoccupied: <strong>no South African provider delivers AI critical literacy — judgment, evaluation, ethics — for mid-level working professionals, at a B2B corporate price point, with African professional context built in.</strong> The closest competitor (AAAI) targets executives and doesn't operate at the learner level Funda serves.</p>
+
+    <h4 style="margin-top: 20px; margin-bottom: 8px; color: var(--dark);">Pricing Context</h4>
+    <p>Exact pricing for SA corporate AI training is not publicly listed (providers quote custom). Based on market research, the indicative landscape is:</p>
+    <ul>
+      <li><strong>Executive programs (UCT, Henley):</strong> R25,000–R50,000+ per participant</li>
+      <li><strong>AAAI bespoke:</strong> Custom, likely R15,000–R40,000/person depending on scope</li>
+      <li><strong>College Africa Group volume:</strong> R3,000–R8,000/person for short courses</li>
+      <li><strong>NobleProg instructor-led:</strong> R15,000–R25,000/person/day for onsite</li>
+    </ul>
+    <p>Funda's target price point (to be validated with buyer conversations):</p>
+    <ul>
+      <li><strong>Corporate cohort (full core track, ~6–8 weeks):</strong> R6,000–R12,000/person for groups of 10–25</li>
+      <li><strong>Volume (25+ seats):</strong> R4,000–R8,000/person</li>
+      <li>With SETA accreditation, effective net cost to employer drops to R2,400–R7,200/person after grant recovery — making Funda highly competitive against any tool-tutorial provider</li>
+    </ul>
+    <p><em>These are hypotheses to validate with buyer conversations, not confirmed prices. Do not use externally until validated.</em></p>
+
+    <!-- ═══════════════════════════════════════════ SECTION 5 -->
+    <div class="section-divider" id="section-5">
+      <div class="section-label">Section 5</div>
+      <h2>The AI Tools Landscape — Taxonomy &amp; the Overwhelm Problem</h2>
+    </div>
+
+    <p>There are now over 200 significant AI tools. New ones launch weekly. Teaching any specific tool is therefore a losing strategy — what you teach today may be obsolete in 12 months. <strong>The right approach is to teach the taxonomy and the decision framework, then use tools as examples.</strong></p>
+
+    <h3>5.1 The Complete AI Tools Taxonomy (2026)</h3>
+
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>What It Does</th>
+        <th>Major Examples</th>
+        <th>When to Use</th>
+      </tr>
+      <tr>
+        <td>Conversational AI / Chatbots</td>
+        <td>Text dialogue, reasoning, Q&amp;A, brainstorming</td>
+        <td>ChatGPT, Claude, Gemini, Copilot, Grok</td>
+        <td>Thinking partner, drafting, explaining, summarizing</td>
+      </tr>
+      <tr>
+        <td>Writing &amp; Content</td>
+        <td>Generate, edit, rewrite text at scale</td>
+        <td>Jasper, Writesonic, Copy.ai, Notion AI</td>
+        <td>Marketing copy, reports, social media, proposals</td>
+      </tr>
+      <tr>
+        <td>Image Generation</td>
+        <td>Create images from text prompts</td>
+        <td>Midjourney, DALL·E 3, Stable Diffusion, Ideogram, Canva AI</td>
+        <td>Visuals, presentations, design concepts, social media</td>
+      </tr>
+      <tr>
+        <td>Video Generation</td>
+        <td>Create or edit video from text/images</td>
+        <td>Sora, Veo 3, Runway, Kling, Pika, Vidnoz</td>
+        <td>Marketing, training materials, explainers</td>
+      </tr>
+      <tr>
+        <td>Audio &amp; Voice</td>
+        <td>Generate speech, music, voice cloning</td>
+        <td>ElevenLabs, Suno, Udio, Murf, Nova Sonic</td>
+        <td>Voiceovers, podcasts, multilingual content</td>
+      </tr>
+      <tr>
+        <td>Coding &amp; Development</td>
+        <td>Write, debug, refactor, review code</td>
+        <td>GitHub Copilot, Cursor, Claude Code, Tabnine, Replit AI</td>
+        <td>Software development, automation scripts, data pipelines</td>
+      </tr>
+      <tr>
+        <td>Productivity &amp; Automation</td>
+        <td>Integrate AI into workflows, automate tasks</td>
+        <td>Notion AI, MS Copilot, Google Workspace AI, Zapier AI</td>
+        <td>Email, documents, scheduling, repetitive task automation</td>
+      </tr>
+      <tr>
+        <td>Research &amp; Knowledge</td>
+        <td>Search, synthesize, cite information</td>
+        <td>Perplexity, Consensus, Elicit, Google NotebookLM</td>
+        <td>Literature reviews, market research, fact-checking</td>
+      </tr>
+      <tr>
+        <td>Meeting &amp; Notes</td>
+        <td>Transcribe, summarize, extract action items</td>
+        <td>Otter.ai, Fireflies, Granola, Zoom AI</td>
+        <td>Meeting notes, decisions log, follow-up tracking</td>
+      </tr>
+      <tr>
+        <td>Data &amp; Analysis</td>
+        <td>Analyze data, generate insights, visualize</td>
+        <td>Julius, ChatGPT Data Analysis, Tableau Pulse</td>
+        <td>Business reporting, trend analysis, non-coder data work</td>
+      </tr>
+      <tr>
+        <td>Agents &amp; Workflows</td>
+        <td>Multi-step autonomous task execution</td>
+        <td>n8n, Make, Zapier Agents, CrewAI, AutoGPT</td>
+        <td>Complex automated workflows, multi-tool orchestration</td>
+      </tr>
+      <tr>
+        <td>Presentation &amp; Design</td>
+        <td>Build slide decks, design assets</td>
+        <td>Canva AI, Gamma, Beautiful.ai, Tome</td>
+        <td>Presentations, proposals, visual communications</td>
+      </tr>
+    </table>
+
+    <h3>5.2 The Right-Tool-for-Task Framework</h3>
+    <p>Rather than memorizing tools, Funda graduates should internalize this decision logic:</p>
+
+    <div class="callout s52-callout">
+      <strong>Step 1 — Define the task clearly.</strong> What exactly am I trying to produce? (A draft? An image? A decision? An analysis?) Vague tasks produce bad tool choices.<br /><br />
+      <strong>Step 2 — Identify the task category.</strong> Is this a writing task? A visual task? A research task? An automation task? Each category has an appropriate tool class.<br /><br />
+      <strong>Step 3 — Choose from the right category.</strong> Don't use a coding assistant to write a report. Don't use a chatbot to generate images. Match tool to task class first.<br /><br />
+      <strong>Step 4 — Evaluate the output, not just the tool.</strong> The best tool for the task still needs your judgment. Is this accurate? Is it complete? Is it appropriate for my audience and context?<br /><br />
+      <strong>Step 5 — Know when to stop.</strong> Some tasks — judgment calls, relationship-sensitive decisions, ethically complex situations — should not be delegated to AI regardless of which tool you pick.
+    </div>
+
+    <h3>5.3 The Tools Explosion — Why It Creates the Demand for Funda</h3>
+    <p>200+ tools, new ones weekly, constant hype cycles, and FOMO-driven bootcamp marketing creates a specific kind of anxiety in working professionals: <em>"I don't know what I'm supposed to know."</em></p>
+    <p>This is Funda's entry point. The anxiety isn't irrational — there really are a lot of tools. But the solution isn't to learn every tool. It's to have a framework that makes the landscape navigable regardless of what's new. That's what Funda teaches.</p>
+
+    <!-- ═══════════════════════════════════════════ SECTION 6 -->
+    <div class="section-divider" id="section-6">
+      <div class="section-label">Section 6</div>
+      <h2>What Works — Evidence from Adult Tech Literacy Research</h2>
+    </div>
+
+    <h3>6.1 From Adult Learning Research</h3>
+
+    <table>
+      <tr>
+        <th>Principle</th>
+        <th>What It Means for Course Design</th>
+        <th>Evidence Source</th>
+      </tr>
+      <tr>
+        <td>Relevance to daily life is mandatory</td>
+        <td>Examples and exercises must come from learners' actual work contexts. Abstract examples fail.</td>
+        <td>National Academies, LINCS</td>
+      </tr>
+      <tr>
+        <td>Hands-on practice over passive content</td>
+        <td>Watching videos doesn't build competence. 70% of learners skip onboarding videos anyway. Learning requires doing.</td>
+        <td>McKinsey M365 Copilot study</td>
+      </tr>
+      <tr>
+        <td>Confidence first, complexity second</td>
+        <td>Tech anxiety is a real barrier. Early wins that feel achievable reduce resistance. Start with success, add nuance.</td>
+        <td>Ireland digital literacy study, 2025</td>
+      </tr>
+      <tr>
+        <td>Social and peer learning drives adoption</td>
+        <td>Colleagues explaining AI in job-relevant terms outperform formal training videos. Peer learning hubs matter.</td>
+        <td>McKinsey, Correlation One</td>
+      </tr>
+      <tr>
+        <td>Change management, not just training</td>
+        <td>Corporate AI adoption requires addressing mindset and culture, not just skill. Training without change management fails.</td>
+        <td>McKinsey, DataSociety</td>
+      </tr>
+      <tr>
+        <td>Emotional and cognitive dimensions matter</td>
+        <td>Tech literacy isn't only technical. Fear, identity, and self-efficacy all affect outcomes.</td>
+        <td>arxiv 2502.10166</td>
+      </tr>
+    </table>
+
+    <h3>6.2 What Works Specifically in Corporate AI Training</h3>
+    <ul>
+      <li><strong>Personalized, adaptive paths:</strong> All-employees training that ignores role-specific context fails. Marketing staff and operations staff need different AI applications.</li>
+      <li><strong>Manager capability is the multiplier:</strong> When managers understand AI and can coach their teams, adoption accelerates. Manager training is higher ROI than individual contributor training alone.</li>
+      <li><strong>Experiential over instructional:</strong> "I like that you have to poke around" — experiential approaches that spark inquiry outperform lecture-based AI literacy instruction.</li>
+      <li><strong>Ongoing support, not one-shot training:</strong> A single 2-day workshop doesn't change behavior. Sustained engagement, check-ins, and peer learning loops do.</li>
+      <li><strong>ROI is measurable:</strong> Organizations with mature AI upskilling report 340% return within 18 months, 30–60 minutes saved per employee per day. This is real and quantifiable — critical for selling to corporates.</li>
+    </ul>
+
+    <div class="s63-block">
+      <h3>6.3 The Critical Thinking Gap — The Biggest Finding</h3>
+      <p>Research from the World Economic Forum (2025) and multiple academic studies confirms: <strong>AI literacy as a core competency is about judgment and evaluation, not tool operation.</strong></p>
+
+      <div class="callout orange">
+        <strong>What this means for Funda:</strong>
+        The differentiator isn't teaching more tools — it's teaching the human skills AI can't replicate: evaluating outputs, identifying bias, deciding when not to use AI, and maintaining judgment in AI-assisted workflows. That's what makes a Funda graduate genuinely more capable, not just certified.
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 7 -->
+    <div class="section-divider" id="section-7">
+      <div class="section-label">Section 7</div>
+      <h2>What Funda Must Teach — Curriculum Implications</h2>
+    </div>
+
+    <h3>7.1 The Non-Negotiables (Based on Research)</h3>
+
+    <table>
+      <tr>
+        <th>Competency</th>
+        <th>Why It Must Be Included</th>
+        <th>Bloom's Level</th>
+      </tr>
+      <tr>
+        <td>What AI is — and what it isn't</td>
+        <td>Misconceptions drive both fear and over-trust. Getting this right is the foundation for everything else.</td>
+        <td>Understand</td>
+      </tr>
+      <tr>
+        <td>The AI tools taxonomy — navigating the landscape</td>
+        <td>Tools change. The framework for choosing doesn't. Teach the map, not the specific destinations.</td>
+        <td>Apply</td>
+      </tr>
+      <tr>
+        <td>Evaluating AI outputs critically</td>
+        <td>Hallucination, bias, incompleteness. The most important skill — and the most ignored by competitors.</td>
+        <td>Evaluate</td>
+      </tr>
+      <tr>
+        <td>When to use AI vs. when not to</td>
+        <td>Inappropriate AI use creates risk. Learners need principled judgment, not just enthusiasm.</td>
+        <td>Evaluate / Analyze</td>
+      </tr>
+      <tr>
+        <td>Prompt engineering for real tasks</td>
+        <td>Getting better outputs from tools people already use. Immediate practical value.</td>
+        <td>Apply</td>
+      </tr>
+      <tr>
+        <td>AI ethics in professional context</td>
+        <td>Bias, privacy, data governance. African professionals face these in real deployments — need frameworks.</td>
+        <td>Evaluate</td>
+      </tr>
+      <tr>
+        <td>AI in your specific domain</td>
+        <td>Relevance is the #1 factor in adult learning effectiveness. Generic training fails. Sector-specific wins.</td>
+        <td>Apply / Create</td>
+      </tr>
+    </table>
+
+    <h3>7.2 What to Leave Out (Scope Guard)</h3>
+    <ul>
+      <li><strong>How to build AI systems</strong> — that's developer training. Funda is for professionals who use AI, not build it.</li>
+      <li><strong>Deep technical explanations</strong> — LLM architecture, transformer mechanics, training data pipelines. Not relevant to our learner.</li>
+      <li><strong>Single-tool deep dives</strong> — "30 days of ChatGPT" is the competitor, not the template.</li>
+      <li><strong>Completion certificates with no competency backing</strong> — a certificate that just means "you watched all the videos" adds no value. What to avoid is the credential factory model, not certificates themselves (see 7.3).</li>
+    </ul>
+
+    <h3>7.3 Certification — Yes, But Tied to Competency</h3>
+    <p>Funda should offer a certificate of completion. People want proof they did something — it drives enrollment, supports professional development requirements, and gives learners something to share. Certificates are not the problem; empty certificates are.</p>
+
+    <div class="callout">
+      <strong>The Funda certificate should mean something:</strong>
+      Tie it to demonstrated competency — a short assessment, a practical exercise, or a reflection task — not just attendance or video completion. That way, when a learner shares their certificate, it carries weight. Credential credibility builds over time as more Funda graduates prove their capability in real work contexts.
+    </div>
+
+    <p>Practically, this means:</p>
+    <ul>
+      <li>Each module or the final core track assessment includes a competency check (not just a multiple-choice quiz)</li>
+      <li>Certificates are branded Funda — as the program builds reputation, so does the certificate's value</li>
+      <li>Future goal: pursue recognition from professional bodies or government ministries so the certificate carries formal weight — but that's a Phase 2+ credentialing strategy, not an MVP blocker</li>
+      <li>Even without external validation today, a Funda certificate from an African-built, African-contextualized program will be distinctive — nothing else looks like it</li>
+    </ul>
+
+    <h3>7.4 Assessment Strategy</h3>
+    <p>Competency-based certification requires a designed assessment approach — not a final quiz. The following is the intended structure, to be fully specified in the ADDIE Design phase:</p>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>When</th>
+        <th>What It Measures</th>
+        <th>Format (indicative)</th>
+      </tr>
+      <tr>
+        <td>Diagnostic (pre-course)</td>
+        <td>Before Module 1</td>
+        <td>Baseline AI literacy, existing tool use, prior knowledge assumptions</td>
+        <td>Short scenario survey — "what would you do?" situations, no right/wrong framing</td>
+      </tr>
+      <tr>
+        <td>Formative (in-module)</td>
+        <td>End of each module</td>
+        <td>Comprehension check + reflection — did the learner understand and can they apply?</td>
+        <td>Brief scenario-based questions + one structured reflection prompt per module</td>
+      </tr>
+      <tr>
+        <td>Summative (end of track)</td>
+        <td>After final module</td>
+        <td>Integrated competency — can the learner evaluate AI in their real professional context?</td>
+        <td>Authentic task: review an AI-generated output from their own domain, flag issues, make a recommendation</td>
+      </tr>
+      <tr>
+        <td>Certificate trigger</td>
+        <td>Post-summative</td>
+        <td>Pass/not yet — specific threshold to be defined (e.g., identifies ≥3 of 5 issues in summative task)</td>
+        <td>Rubric-scored by facilitator or structured peer review</td>
+      </tr>
+    </table>
+
+    <div class="callout gray">
+      <strong>Design note (for ADDIE Design phase):</strong>
+      Every learning objective in Section 7.1 must have at least one assessment item that directly measures it. Before Design phase begins, map each objective to a specific formative or summative assessment moment. If an objective has no assessment, either the objective isn't real or the assessment is missing.
+    </div>
+
+    <h3>7.5 Delivery Model Framework</h3>
+    <p>Self-paced online learning alone has poor completion and retention rates for working adult learners — research is consistent on this. Funda's delivery model must include human touchpoints. Three options exist, each with different cost and quality implications:</p>
+
+    <table>
+      <tr>
+        <th>Model</th>
+        <th>Description</th>
+        <th>Cost to Deliver</th>
+        <th>Best For</th>
+        <th>Funda Readiness</th>
+      </tr>
+      <tr>
+        <td>Funda-facilitated (direct)</td>
+        <td>Thando or Funda staff delivers cohort sessions with online content as backbone</td>
+        <td>High — limited by founder time</td>
+        <td>Pilot phase, first clients; high-touch, high-quality</td>
+        <td>Ready for pilot — limited scale</td>
+      </tr>
+      <tr>
+        <td>Local facilitator / Master Trainer model</td>
+        <td>Train facilitators within client organizations or from SA training market; they deliver with Funda materials</td>
+        <td>Low per learner (~R6/learner at scale); upfront facilitator training cost</td>
+        <td>Scale phase; most sustainable; culturally resonant</td>
+        <td>Year 1 goal — train first cohort of SA facilitators after pilot</td>
+      </tr>
+      <tr>
+        <td>Self-paced with async support</td>
+        <td>Online platform delivery; facilitator available asynchronously via discussion board or check-in calls</td>
+        <td>Medium — platform cost, minimal facilitator time</td>
+        <td>Cost-sensitive clients, large learner cohorts, Phase 2 public access</td>
+        <td>Phase 2 — requires platform build</td>
+      </tr>
+    </table>
+
+    <p><strong>Pilot recommendation:</strong> Start with Funda-facilitated delivery to a cohort of 10–20 learners at the first pilot organization. This maximizes quality control, generates feedback directly, and produces the case study evidence needed to justify the local facilitator model. Do not build the platform before the pilot validates the curriculum.</p>
+
+    <h3>7.6 Mission Integrity Policy</h3>
+    <p>The following red lines apply to every client engagement. They exist not to be inflexible, but because the first negotiation that erodes them sets a precedent that compounds.</p>
+
+    <div class="callout orange">
+      <strong>Funda will not:</strong><br /><br />
+      — Strip or significantly minimize the critical evaluation / AI judgment components at a client's request<br />
+      — Deliver training that is primarily tool-tutorial in nature (step-by-step walkthroughs of specific products), regardless of how the request is framed<br />
+      — Issue certificates for completion-only programs with no competency assessment<br /><br />
+      <strong>Funda will:</strong><br /><br />
+      — Customize sector-specific examples, case studies, and context for each client<br />
+      — Adapt pacing, delivery format, and facilitation approach to the client's environment<br />
+      — Decline or renegotiate engagements where requirements conflict with the above<br /><br />
+      <strong>Why this matters:</strong> When the first corporate buyer asks Funda to remove the "critical evaluation" component and just teach tool use, the answer must be pre-decided — not negotiated under contract pressure. Without this policy, the answer becomes a business development call. With it, the answer is clear. Every compromise erodes the one thing that makes Funda worth paying for.
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 8 -->
+    <div class="section-divider" id="section-8">
+      <div class="section-label">Section 8</div>
+      <h2>Where Funda Fits — The Differentiated Position</h2>
+    </div>
+
+    <p>Based on the research, here is Funda's position in the landscape. Note the Phase 1 / Phase 2 distinction — some differentiators are MVP priorities, others are expansion goals.</p>
+
+    <table class="s8-table">
+      <tr>
+        <th>Dimension</th>
+        <th>Existing Programs</th>
+        <th>Funda — Phase 1 (MVP)</th>
+        <th>Funda — Phase 2 (Expansion)</th>
+      </tr>
+      <tr>
+        <td>Content approach</td>
+        <td>Tool tutorials, feature walkthroughs</td>
+        <td>Framework thinking + critical evaluation</td>
+        <td>Same, deeper sector specialization</td>
+      </tr>
+      <tr>
+        <td>Audience</td>
+        <td>Global (US/Europe default), individuals</td>
+        <td>South African corporate + gov staff (B2B contracts)</td>
+        <td>Broader African professionals, public access</td>
+      </tr>
+      <tr>
+        <td>Infrastructure</td>
+        <td>Desktop-first, always-on internet assumed</td>
+        <td>Desktop/laptop, office broadband — same as competitors, but African context</td>
+        <td>Mobile-first, low-bandwidth, offline-capable</td>
+      </tr>
+      <tr>
+        <td>Context</td>
+        <td>Generic, Western professional contexts</td>
+        <td>African corporate/gov case studies, local work realities</td>
+        <td>Community, rural, and multilingual contexts</td>
+      </tr>
+      <tr>
+        <td>Philosophy</td>
+        <td>Banking model — fill learners with content</td>
+        <td>Problem-posing (Freire) — start from learner questions</td>
+        <td>Same</td>
+      </tr>
+      <tr>
+        <td>Revenue model</td>
+        <td>Individual subscriptions, certifications</td>
+        <td>B2B corporate and government training contracts</td>
+        <td>B2B + individual / public access tier</td>
+      </tr>
+      <tr>
+        <td>Depth</td>
+        <td>Breadth over depth (tool catalogues)</td>
+        <td>Depth over breadth — one excellent core track</td>
+        <td>Core track + multiple sector-specialized tracks</td>
+      </tr>
+      <tr>
+        <td>Inclusion</td>
+        <td>Default male, urban, high-literacy</td>
+        <td>Gender equity built in from design — even in corporate contexts</td>
+        <td>Full inclusion design: women, rural, lower prior digital exposure</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <strong>Funda's unique value proposition (Phase 1):</strong>
+      The only AI literacy program purpose-built for African corporate and government professionals — rooted in African work contexts, teaching judgment and critical evaluation rather than tool tutorials, delivered through B2B partnerships with companies and ministries investing in their people.
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SECTION 9 -->
+    <div class="section-divider" id="section-9">
+      <div class="section-label">Section 9</div>
+      <h2>Open Questions — What We Still Need to Validate</h2>
+    </div>
+
+    <p>The Analysis phase doesn't end with research. Before moving to Design, there are questions that need answers from real people — potential learners, potential corporate buyers, and subject matter experts. These are the questions for the next phase of work.</p>
+
+    <h3>9.1 Learner-Side Questions (Need Primary Research)</h3>
+    <ul>
+      <li>What AI tools are South African working professionals already using (or trying to use) today?</li>
+      <li>What specific problems are they hitting that they think AI could solve?</li>
+      <li>What are their biggest fears or hesitations about AI?</li>
+      <li>How do they currently learn new professional skills? (Formal training? YouTube? Colleagues?)</li>
+      <li>What languages do they work and learn in?</li>
+      <li>What devices do they primarily use for learning outside of work?</li>
+    </ul>
+
+    <h3>9.2 Buyer-Side Questions (Need Corporate/Gov Conversations)</h3>
+    <ul>
+      <li>What is a company or government ministry currently spending on AI training (if anything)?</li>
+      <li>What would make them buy an AI literacy program from Funda instead of Microsoft or Google?</li>
+      <li>What does "success" look like for an L&D buyer — is it completion rates, behavior change, productivity metrics?</li>
+      <li>How do procurement decisions work for training programs in target markets?</li>
+      <li>What sectors have the most active AI adoption and therefore the most urgent training need?</li>
+    </ul>
+
+    <h3>9.3 Competitive Intelligence Questions</h3>
+    <ul>
+      <li>Is anyone working on the B2B African AI literacy market that we haven't found yet?</li>
+      <li>What have ALX and AiAfrica explicitly avoided — and why?</li>
+      <li>Are there African-built AI literacy programs in languages other than English that we missed?</li>
+    </ul>
+
+    <h3>9.4 Design Decisions Still Open</h3>
+    <ul>
+      <li>What is the minimum viable course — the single module that proves the model?</li>
+      <li>Should the core track be self-paced, facilitated, or blended?</li>
+      <li>What sectors should the first specialized track serve? (Government? Finance? NGO? Healthcare?)</li>
+      <li>Should Funda build its own web platform or deliver through an existing LMS (Teachable, Thinkific, Moodle, custom)?</li>
+      <li>What does the certificate look like — digital badge, PDF, verifiable credential? What platform supports this?</li>
+    </ul>
+
+    <h3>9.5 Risk Register</h3>
+    <p>These are the top risks to the Funda initiative before Design phase begins. Each has a probability rating (L/M/H), impact rating (L/M/H), and a specific response strategy — not just acknowledgment.</p>
+
+    <table>
+      <tr>
+        <th>Risk</th>
+        <th>Prob</th>
+        <th>Impact</th>
+        <th>Response Strategy</th>
+      </tr>
+      <tr>
+        <td><strong>Primary research invalidates assumed learner profile.</strong> Interviews reveal the target learner is different from assumed — wrong job level, different pain points, different context.</td>
+        <td>M</td>
+        <td>H</td>
+        <td><em>Accept + contingency:</em> This is why interviews come first. If the profile shifts significantly, pause Design phase and update Analysis before proceeding. Budget time for this: don't schedule Design phase work within 4 weeks of starting interviews.</td>
+      </tr>
+      <tr>
+        <td><strong>Mission drift under client pressure.</strong> First paying client requests removal or significant dilution of the critical evaluation component in exchange for contract.</td>
+        <td>H</td>
+        <td>H</td>
+        <td><em>Avoid:</em> Mission Integrity Policy (Section 7.6) is the pre-decided answer. Share the policy with clients during the sales process, not after contract signing. Clients who push back before signing are self-selecting out — that's valuable information.</td>
+      </tr>
+      <tr>
+        <td><strong>Pilot procurement takes 9+ months.</strong> Target organization is willing in principle but government/corporate procurement cycles delay the pilot start by over a year.</td>
+        <td>M</td>
+        <td>M</td>
+        <td><em>Mitigate:</em> Pursue two pilot candidates simultaneously. Include at least one private-sector and one ICT-sector organization (faster procurement) alongside any government target. Don't put the critical path on a single organization.</td>
+      </tr>
+      <tr>
+        <td><strong>Founder-dependency / single point of failure.</strong> All program knowledge, relationships, and design capability currently lives with Thando. If she becomes unavailable, the project stops.</td>
+        <td>L</td>
+        <td>H</td>
+        <td><em>Mitigate:</em> This document is the first mitigation — externalizing knowledge. Second mitigation: identify at least one African educator or co-designer to bring into the Design phase. Third: keep VISION.md and HANDOFF.md current as living documents.</td>
+      </tr>
+      <tr>
+        <td><strong>"African-centered" claim not operationally backed.</strong> Funda goes to market with African-centered as the primary differentiator, but curriculum is designed without significant African educator input — creating a credibility gap.</td>
+        <td>M</td>
+        <td>H</td>
+        <td><em>Avoid:</em> Before Design phase produces any curriculum, identify at least one African educator or learning designer to co-review. Before any external marketing, document specifically: (1) which African professionals were interviewed in primary research, (2) which case studies come from real SA work contexts, (3) who reviewed the curriculum. These become the proof points.</td>
+      </tr>
+      <tr>
+        <td><strong>Well-resourced competitor enters the SA market.</strong> Google, Microsoft, or AAAI launches a "South African working professionals" AI literacy track before Funda establishes its position.</td>
+        <td>L</td>
+        <td>M</td>
+        <td><em>Accept + mitigate:</em> Speed is the primary defense — get to market before this happens. Secondary: build moat assets (government alignment, SETA accreditation, alumni network, SA case study library) that a late entrant can't replicate quickly. A Google module is not a program with local facilitators and a government endorsement.</td>
+      </tr>
+    </table>
+
+    <!-- ═══════════════════════════════════════════ SECTION 10 -->
+    <div class="section-divider" id="section-10">
+      <div class="section-label">Section 10</div>
+      <h2>Next Steps — Moving to ADDIE Design Phase</h2>
+    </div>
+
+    <div class="callout">
+      <strong>Definition of Done — Design Phase Can Begin When:</strong><br /><br />
+      <strong>Hard gates (must be true):</strong><br />
+      ✓ &nbsp;5+ interviews with South African working professionals completed and synthesized<br />
+      ✓ &nbsp;Learner persona validated or updated based on real interviews (not assumed)<br />
+      ✓ &nbsp;At least 1 buyer conversation with an SA HR/L&D decision-maker completed<br /><br />
+      <strong>Run in parallel with Design (do not wait for these):</strong><br />
+      ○ &nbsp;Pricing hypothesis confirmed or revised based on buyer feedback<br />
+      ○ &nbsp;Pilot organization identified with a named contact and agreed timeline<br />
+      ○ &nbsp;At least one African educator/co-designer identified for curriculum review<br /><br />
+      <em>The three hard gates ensure Design is built on real knowledge of real people. The parallel items continue alongside early Design work — they inform and refine as they come in.</em>
+    </div>
+
+    <p>The Analysis phase has established the landscape. Here is the recommended sequence before the Design phase can begin:</p>
+
+    <table class="s10-table">
+      <tr>
+        <th>#</th>
+        <th>Action</th>
+        <th>What It Produces</th>
+        <th>Priority</th>
+        <th>Est. Time</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Conduct 5–8 interviews with South African working professionals (ICT sector, corporate, or government) — focus on AI anxiety, current tool use, learning habits</td>
+        <td>Validated learner profile with real job contexts, frustrations, and learning habits — replaces current assumed persona</td>
+        <td>High — gates Design phase</td>
+        <td>6–10 weeks (outreach, scheduling, conducting, synthesis)</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Conduct 3–4 conversations with SA B2B buyers (HR/L&D leads at ICT companies, corporates, or government ministries) — validate pricing hypothesis and procurement process</td>
+        <td>Validated buying signals, confirmed or revised pricing benchmarks, procurement pathway understanding</td>
+        <td>High — validates business model</td>
+        <td>4–8 weeks (can run parallel to Step 1)</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Identify and confirm one pilot organization (SA ICT sector preferred for Phase 1 market entry). Criteria: 10–25 learners available, L&D budget allocated, willing to be a design partner — not just a customer</td>
+        <td>Real constraints, real learners, real feedback. Design partner locks in the context for the entire curriculum.</td>
+        <td>High — de-risks everything downstream</td>
+        <td>8–16 weeks depending on procurement (pursue 2 candidates simultaneously)</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Identify at least one African educator / learning designer as curriculum co-reviewer</td>
+        <td>Operational proof for the "African-centered" claim; catches cultural blind spots before content is built</td>
+        <td>High — required for credibility</td>
+        <td>2–4 weeks (parallel to Steps 1–3)</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Validate pricing hypothesis with buyers from Step 2 — confirm the R6,000–R12,000/person range or revise</td>
+        <td>Confirmed price point and contract structure; basis for first proposal</td>
+        <td>High — needed before first proposal</td>
+        <td>Embedded in Step 2 conversations</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Study Elements of AI methodology in depth</td>
+        <td>Detailed analysis of what made it work — interaction design, content structure, assessment</td>
+        <td>Medium — informs Design phase</td>
+        <td>2–3 weeks (can run parallel)</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Competitive deep-dive: College Africa Group, AAAI, Prospen — what exactly do they teach, what do learners say, what's missing</td>
+        <td>Sharper differentiation; avoids inadvertently replicating what already exists</td>
+        <td>Medium — prevents duplication</td>
+        <td>2–3 weeks (can run parallel)</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Begin SETA accreditation inquiry (not application — just understand requirements, timelines, and costs)</td>
+        <td>Decision: pursue accreditation in Year 1 or defer? Knowing the path informs pilot design.</td>
+        <td>Medium — strategic priority</td>
+        <td>2–4 weeks for inquiry; 6–12 months for full accreditation</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Define the Learning Design Brief</td>
+        <td>The ADDIE Design phase deliverable: validated audience profile, learning objectives, module structure, pedagogy, assessment strategy, constraints</td>
+        <td>Follows Steps 1–5</td>
+        <td>3–4 weeks after steps 1–5 complete</td>
+      </tr>
+    </table>
+
+    <div class="callout orange">
+      <strong>Realistic timeline to Design phase start:</strong>
+      If Steps 1–5 run in parallel where possible, the earliest realistic Design phase start is <strong>3–4 months</strong> from beginning primary research. Steps 6–8 can run during that period. Do not compress the interview and buyer conversation phases — the quality of those conversations determines the quality of everything built afterward.
+    </div>
+
+    <hr style="margin: 52px 0 32px; border: none; border-top: 2px solid var(--border);" />
+    <p style="font-size: 12px; color: var(--text-muted); text-align: center;">
+      Funda AI Literacy Initiative — AI Literacy Landscape Report v1.0 — June 2026<br />
+      This document is the output of ADDIE Phase 1: Analysis. It feeds the Learning Design Brief (Phase 2: Design).
+    </p>
+
+  </div>
+</body>
+</html>
