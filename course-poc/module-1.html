@@ -94,13 +94,28 @@
         <label>What do you notice about this document? Write your first reaction — anything at all.</label>
         <textarea class="reflect-q__field" id="enc-1" placeholder="It looks official. The statistics seem specific. But..."></textarea>
       </div>
-      <div class="reflect-q">
-        <label>If your manager sent you this document and asked you to base a training budget decision on it — what would you do?</label>
-        <textarea class="reflect-q__field" id="enc-2" placeholder="I would..."></textarea>
-      </div>
 
       <div style="text-align:right; margin-top:24px;">
-        <button class="btn btn--primary" onclick="advance(1)">I've read it — continue to Reflect →</button>
+        <button class="btn btn--primary" onclick="advance(1)">I've read it →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREVIEW END BLOCK — shown after Phase 1, replaces unlocking Phase 2 -->
+  <div id="preview-end" style="display:none; margin-bottom:32px;">
+    <div class="preview-end-block">
+      <div style="font-size:1.8em; margin-bottom:12px;">🎯</div>
+      <h3 style="margin-bottom:8px;">You've experienced the Encounter phase.</h3>
+      <p style="font-size:0.93em; color:var(--muted); max-width:520px; margin:0 auto 8px;">This is how every AfriversalAI module begins — a real artifact, no context, just your instincts.</p>
+      <p style="font-size:0.93em; color:var(--muted); max-width:520px; margin:0 auto 20px;">The full module takes you through three more phases with a cohort and facilitator:</p>
+      <div class="preview-end-phases">
+        <div class="preview-end-phase">② Reflect — surface what you were sensing</div>
+        <div class="preview-end-phase">③ Concept — the real DCDT story explained</div>
+        <div class="preview-end-phase">④ Apply — use the Funda Five yourself</div>
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="mailto:afriversalai@gmail.com?subject=Course Enrollment — AfriversalAI" class="btn btn--primary btn--lg">Register to enroll →</a>
+        <a href="course.html" class="btn btn--outline btn--lg">See the full course</a>
       </div>
     </div>
   </div>
@@ -268,7 +283,7 @@
 <!-- FOOTER -->
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a></span>
 </footer>
 
 <script>
@@ -293,12 +308,21 @@ function advance(fromPhase) {
     }
   }
 
-  const next    = document.getElementById('phase-' + (fromPhase + 1));
   const progCur = document.getElementById('prog-' + fromPhase);
-  const progNxt = document.getElementById('prog-' + (fromPhase + 1));
-
   current.classList.add('is-done');
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
+
+  // Phase 1 in preview mode: show enrollment CTA instead of unlocking Phase 2
+  if (fromPhase === 1) {
+    const previewEnd = document.getElementById('preview-end');
+    previewEnd.style.display = 'block';
+    setTimeout(() => previewEnd.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    return;
+  }
+
+  // Full course: unlock next phase normally
+  const next    = document.getElementById('phase-' + (fromPhase + 1));
+  const progNxt = document.getElementById('prog-' + (fromPhase + 1));
 
   if (next) {
     next.classList.remove('is-locked');

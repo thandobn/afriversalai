@@ -88,3 +88,36 @@
 - `C:\Users\thand\Workspace\Funda\research\findings\field-4-sa-market-gtm.md`
 - `C:\Users\thand\Workspace\Funda\research\findings\field-5-instructional-design.md`
 - `C:\Users\thand\Workspace\Funda\research\findings\field-6-competitive-intel.md`
+
+---
+
+## Session: 2026-06-08
+
+**What was worked on:**
+- Created the official research summary document (`research/funda-research-report.html`) — clean, professional, shareable; covers all 6 fields in one document; suitable for Google Drive alongside landscape report and kickoff doc
+- Set up GitHub repo: https://github.com/thandobn/funda (private) — installed gh CLI via winget, authenticated, initial push
+- Added README.md to the repo with project overview, folder structure, current status, and the Funda Five
+- Committed 3 times this session: initial commit (15 files), README, ChatGPT source research files
+- Organized Downloads folder: project files moved to workspace (Funda/research, NJ-Food-Access, MMF, Brothers-Animation), personal files sorted into subfolders, 13 old VSCode duplicates deleted, debug.log and test.pdf deleted
+
+**Decisions made:**
+- Funda GitHub repo is private — competitive intel and pricing strategy in the files
+- ChatGPT source research files (5 .md files) stored in `research/` as raw source material, distinct from the processed findings in `research/findings/`
+- Downloads organization: project-related files live in Workspace, not Downloads
+
+**Open items / next steps:**
+- `Funda — AI Literacy Landscape Report.pdf` still in Downloads root — was open in another process when we tried to move it; manually drag to `Workspace\Funda\research\` and commit
+- Field 1 primary learner survey: parents distributing via SA network + ICASA contact; target 30+ responses by Jul 2026
+- Jun 9 family meeting: confirm FundaAI name, SA legal entity timing, African collaborator identification
+- ICASA outreach: Thando to initiate by Jul 15
+- Capability statement draft: by Jul 15
+- Domain registration: fundaai.co.za or .com by Jul 31
+
+**Files created this session:**
+- `C:\Users\thand\Workspace\Funda\research\funda-research-report.html`
+- `C:\Users\thand\Workspace\Funda\README.md`
+- `C:\Users\thand\Workspace\Funda\research\funda_ai_literacy_deep_dive_research.md` (moved from Downloads)
+- `C:\Users\thand\Workspace\Funda\research\funda_ai_literacy_deep_dive_research_part_two.md` (moved from Downloads)
+- `C:\Users\thand\Workspace\Funda\research\funda_gap_analysis_part_three.md` (moved from Downloads)
+- `C:\Users\thand\Workspace\Funda\research\funda_part_four_south_africa_market_strategy.md` (moved from Downloads)
+- `C:\Users\thand\Workspace\Funda\research\funda_round_five_clean_room_research.md` (moved from Downloads)
