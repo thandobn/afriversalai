@@ -7,20 +7,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 </head>
 <body>
 
 <!-- NAV -->
 <nav class="nav">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo">Afriversal<span>AI</span></a>
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html">The Course</a></li>
       <li><a href="module-1.html" class="active">Preview Module 1</a></li>
       <li><a href="funda-five.html">The Funda Five</a></li>
       <li><a href="certificate.html">Certificate</a></li>
-      <li><a href="mailto:thandobnkala@gmail.com" class="btn btn--primary btn--sm">Register Interest</a></li>
+      <li><a href="mailto:afriversalai@gmail.com" class="btn btn--primary btn--sm">Register Interest</a></li>
     </ul>
   </div>
 </nav>
@@ -267,25 +268,41 @@
 <!-- FOOTER -->
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:thandobnkala@gmail.com">thandobnkala@gmail.com</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a></span>
 </footer>
 
 <script>
 function advance(fromPhase) {
-  const current = document.getElementById('phase-' + fromPhase);
+  const current   = document.getElementById('phase-' + fromPhase);
+  const textareas = current.querySelectorAll('textarea');
+
+  // Remove any previous error
+  const prevErr = current.querySelector('.advance-err');
+  if (prevErr) prevErr.remove();
+
+  // Validate: phases with textareas need at least 5 chars total (20 in production)
+  if (textareas.length > 0) {
+    const total = [...textareas].reduce((sum, ta) => sum + ta.value.trim().length, 0);
+    if (total < 5) {
+      const err = document.createElement('p');
+      err.className = 'advance-err';
+      err.textContent = 'Please write at least a few words before moving on.';
+      const btnRow = current.querySelector('button[onclick]').closest('div');
+      btnRow.parentNode.insertBefore(err, btnRow);
+      return;
+    }
+  }
+
   const next    = document.getElementById('phase-' + (fromPhase + 1));
   const progCur = document.getElementById('prog-' + fromPhase);
   const progNxt = document.getElementById('prog-' + (fromPhase + 1));
 
-  // Mark current done
   current.classList.add('is-done');
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
 
-  // Unlock next
   if (next) {
     next.classList.remove('is-locked');
     if (progNxt) progNxt.classList.add('is-active');
-    // Smooth scroll to next phase
     setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 }
