@@ -57,7 +57,7 @@ section.bg-white { background: var(--white); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 72px;
 }
 .nav__logo {
   font-weight: 800;
@@ -67,7 +67,7 @@ section.bg-white { background: var(--white); }
   letter-spacing: -0.5px;
 }
 .nav__logo span { color: var(--gold-dark); }
-.nav__logo-img  { height: 40px; width: auto; display: block; }
+.nav__logo-img  { height: 52px; width: auto; display: block; }
 .nav__links {
   display: flex;
   gap: 28px;
@@ -697,7 +697,7 @@ footer a { color: rgba(255,255,255,0.7); }
   .nav__inner    { padding: 0 24px; }
   .module-grid { grid-template-columns: 1fr; }
   .five-grid { grid-template-columns: repeat(2, 1fr); }
-  .nav__logo-img { height: 32px; }
+  .nav__logo-img { height: 40px; }
   .problem-stats-stack .stat-block { flex-direction: column; text-align: center; gap: 8px; }
   .problem-stats-stack .stat-block__number { text-align: center; min-width: unset; }
   .problem-stats-stack .stat-block__label  { text-align: center; }
