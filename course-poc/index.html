@@ -211,6 +211,7 @@
           <div class="sector-mod-row"><span class="sector-mod-badge">M2</span>How AI hiring tools expose your organisation to EEA liability</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Verifying AI output before it reaches a client or decision-maker</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Who answers when an AI recommendation harms an employee</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge sector-mod-badge--coming">+</span><em>Your sector module: AI Tools for Corporate & Business — coming soon</em></div>
           <a href="mailto:afriversalai@gmail.com?subject=Corporate Interest — AfriversalAI" class="btn btn--primary btn--sm" style="margin-top:14px; display:inline-block;">Register interest →</a>
         </div>
       </div>
@@ -225,6 +226,7 @@
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>The DCDT AI policy hallucination — what failed and what it cost</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M3</span>How predictive systems reproduce inequality in public services</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Accountability when algorithmic decisions affect citizens' rights</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge sector-mod-badge--coming">+</span><em>Your sector module: AI Tools for Government & Public Sector — coming soon</em></div>
           <a href="mailto:afriversalai@gmail.com?subject=Government Interest — AfriversalAI" class="btn btn--primary btn--sm" style="margin-top:14px; display:inline-block;">Register interest →</a>
         </div>
       </div>
@@ -239,6 +241,7 @@
           <div class="sector-mod-row"><span class="sector-mod-badge">M2</span>The African fintech gender penalty — how bias hides in credit models</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M3</span>Discriminatory AI outputs and your POPIA obligations</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Regulatory accountability for AI-assisted lending decisions</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge sector-mod-badge--coming">+</span><em>Your sector module: AI Tools for Finance & Banking — coming soon</em></div>
           <a href="mailto:afriversalai@gmail.com?subject=Finance Interest — AfriversalAI" class="btn btn--primary btn--sm" style="margin-top:14px; display:inline-block;">Register interest →</a>
         </div>
       </div>
@@ -253,6 +256,7 @@
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>When AI-generated clinical information looks authoritative but isn't</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Verification standards before acting on AI diagnostic support</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M6</span>Dr Math (what works) vs. clinical decision AI (what doesn't yet)</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge sector-mod-badge--coming">+</span><em>Your sector module: AI Tools for Medical & Healthcare — coming soon</em></div>
           <a href="mailto:afriversalai@gmail.com?subject=Healthcare Interest — AfriversalAI" class="btn btn--primary btn--sm" style="margin-top:14px; display:inline-block;">Register interest →</a>
         </div>
       </div>
@@ -267,6 +271,7 @@
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>Hallucination in student submissions and institutional documents</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Building AI verification into assessment and curriculum design</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M6</span>Dr Math as a model for AI-assisted learning that actually works</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge sector-mod-badge--coming">+</span><em>Your sector module: AI Tools for Education — coming soon</em></div>
           <a href="mailto:afriversalai@gmail.com?subject=Education Interest — AfriversalAI" class="btn btn--primary btn--sm" style="margin-top:14px; display:inline-block;">Register interest →</a>
         </div>
       </div>
@@ -340,6 +345,14 @@
       setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
     }
   }
+
+  // Close sector cards when clicking outside them
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.sector-card')) {
+      document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
+      document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = 'See your path →');
+    }
+  });
 
   // Hero rotating headlines
   let heroIdx = 0;
