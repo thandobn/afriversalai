@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .reg-tabs { display: flex; gap: 0; border: 2px solid var(--green-mid); border-radius: var(--radius); overflow: hidden; margin-bottom: 32px; width: fit-content; }
+    .reg-tab { padding: 12px 28px; font-family: inherit; font-size: 0.9em; font-weight: 600; border: none; cursor: pointer; background: var(--white); color: var(--muted); transition: background 0.15s, color 0.15s; }
+    .reg-tab.active { background: var(--green-mid); color: white; }
+    .reg-tab:first-child { border-right: 2px solid var(--green-mid); }
+    .reg-form { max-width: 620px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.85em; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group label .req { color: var(--green-mid); margin-left: 2px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-family: inherit; font-size: 0.92em; color: var(--text);
+      background: var(--white); transition: border-color 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.1);
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+    .form-note { font-size: 0.8em; color: var(--muted); margin-top: 4px; }
+    .reg-aside { background: var(--green-pale); border-radius: var(--radius-lg); padding: 28px 24px; }
+    .reg-aside h3 { font-size: 0.95em; font-weight: 700; margin-bottom: 14px; }
+    .reg-aside ul { padding-left: 18px; font-size: 0.85em; line-height: 1.9; color: var(--muted); }
+    .reg-aside ul li { margin-bottom: 2px; }
+    .reg-aside .seta-note { margin-top: 20px; padding: 12px 14px; background: var(--gold-light); border-left: 3px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.8em; color: var(--text); }
+    .reg-layout { display: grid; grid-template-columns: 1fr 340px; gap: 56px; align-items: start; }
+    .thankyou { display: none; text-align: center; padding: 64px 32px; }
+    .thankyou__icon { font-size: 3em; margin-bottom: 16px; }
+    .thankyou h2 { color: var(--green-dark); margin-bottom: 12px; }
+    .thankyou p { color: var(--muted); max-width: 480px; margin: 0 auto 28px; }
+    @media (max-width: 900px) {
+      .reg-layout { grid-template-columns: 1fr; gap: 32px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .reg-tab { padding: 10px 18px; font-size: 0.82em; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li><a href="certificate.html">Certificate</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--primary btn--sm active">Register →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom: 48px;">
+  <span class="eyebrow eyebrow--light">Register</span>
+  <h1>Join the next cohort.</h1>
+  <p class="lead lead--light">Tell us about yourself and we'll be in touch with cohort dates, pricing, and next steps. No commitment required.</p>
+</section>
+
+<!-- FORM SECTION -->
+<section class="bg-white">
+  <div class="container">
+
+    <div id="formWrap">
+      <!-- Tab switcher -->
+      <div class="reg-tabs" role="tablist">
+        <button class="reg-tab active" role="tab" aria-selected="true" onclick="switchTab('individual', this)">I'm an individual</button>
+        <button class="reg-tab" role="tab" aria-selected="false" onclick="switchTab('team', this)">I'm registering a team</button>
+      </div>
+
+      <div class="reg-layout">
+        <!-- FORM -->
+        <div class="reg-form">
+
+          <!-- Individual form -->
+          <form id="form-individual" class="form-section active"
+                action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="New Individual Registration — AfriversalAI" />
+            <input type="hidden" name="registration_type" value="Individual" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full name <span class="req">*</span></label>
+                <input type="text" name="full_name" required placeholder="e.g. Nomvula Dlamini" />
+              </div>
+              <div class="form-group">
+                <label>Work email <span class="req">*</span></label>
+                <input type="email" name="email" required placeholder="name@company.co.za" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Job title <span class="req">*</span></label>
+                <input type="text" name="job_title" required placeholder="e.g. HR Manager" />
+              </div>
+              <div class="form-group">
+                <label>Sector <span class="req">*</span></label>
+                <select name="sector" required>
+                  <option value="" disabled selected>Select your sector</option>
+                  <option>Corporate &amp; Business</option>
+                  <option>Government &amp; Public Sector</option>
+                  <option>Finance &amp; Banking</option>
+                  <option>Medical &amp; Healthcare</option>
+                  <option>Education</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>City / Province</label>
+              <input type="text" name="location" placeholder="e.g. Johannesburg, Gauteng" />
+            </div>
+
+            <div class="form-group">
+              <label>What do you hope to get from the course?</label>
+              <textarea name="goals" placeholder="Tell us what brought you here and what you're hoping to walk away with…"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>How did you hear about AfriversalAI?</label>
+              <select name="referral">
+                <option value="" disabled selected>Select one</option>
+                <option>LinkedIn</option>
+                <option>Word of mouth / colleague</option>
+                <option>Google search</option>
+                <option>Social media</option>
+                <option>Event or conference</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
+              Submit registration →
+            </button>
+            <p class="form-note" style="margin-top:10px; text-align:center;">We'll respond within 2 business days with cohort details and next steps.</p>
+          </form>
+
+          <!-- Team form -->
+          <form id="form-team" class="form-section"
+                action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="New Team Registration — AfriversalAI" />
+            <input type="hidden" name="registration_type" value="Team / Company" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your name <span class="req">*</span></label>
+                <input type="text" name="contact_name" required placeholder="Contact person's name" />
+              </div>
+              <div class="form-group">
+                <label>Work email <span class="req">*</span></label>
+                <input type="email" name="email" required placeholder="name@company.co.za" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Company / Organisation <span class="req">*</span></label>
+                <input type="text" name="company" required placeholder="e.g. Standard Bank" />
+              </div>
+              <div class="form-group">
+                <label>Your role <span class="req">*</span></label>
+                <input type="text" name="job_title" required placeholder="e.g. L&amp;D Manager" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Industry / Sector <span class="req">*</span></label>
+                <select name="sector" required>
+                  <option value="" disabled selected>Select sector</option>
+                  <option>Corporate &amp; Business</option>
+                  <option>Government &amp; Public Sector</option>
+                  <option>Finance &amp; Banking</option>
+                  <option>Medical &amp; Healthcare</option>
+                  <option>Education</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Team size <span class="req">*</span></label>
+                <select name="team_size" required>
+                  <option value="" disabled selected>Number of learners</option>
+                  <option>2–10 people</option>
+                  <option>11–50 people</option>
+                  <option>51–200 people</option>
+                  <option>200+ people</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>What do you want your team to be able to do after this course? <span class="req">*</span></label>
+              <textarea name="goals" required placeholder="e.g. We want our analysts to be able to evaluate AI outputs before they reach clients. We're also concerned about POPIA compliance when using AI tools…"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Any specific timeline or deadline?</label>
+              <input type="text" name="timeline" placeholder="e.g. Before Q3 2026, no rush, ASAP" />
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
+              Submit team registration →
+            </button>
+            <p class="form-note" style="margin-top:10px; text-align:center;">We'll respond within 2 business days with a tailored proposal and pricing.</p>
+          </form>
+        </div>
+
+        <!-- ASIDE -->
+        <div class="reg-aside">
+          <h3>What happens next</h3>
+          <ul>
+            <li>We review your registration</li>
+            <li>You receive cohort dates and full pricing</li>
+            <li>You confirm your place (no payment yet)</li>
+            <li>Cohort kicks off on the 1st of the month</li>
+            <li>6 weeks of live + self-paced learning</li>
+            <li>Submit your capstone to earn the certificate</li>
+          </ul>
+
+          <div class="seta-note">
+            <strong>For L&amp;D and HR teams:</strong> AfriversalAI is pursuing MICT SETA accreditation. Once approved, employers can recover 40–60% of training costs through the Skills Development Levy.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thank-you state (shown after submit) -->
+    <div class="thankyou" id="thankyou">
+      <div class="thankyou__icon">✅</div>
+      <h2>Registration received.</h2>
+      <p>Thank you for your interest in AfriversalAI. We'll be in touch at the email you provided within 2 business days with cohort details and next steps.</p>
+      <a href="index.html" class="btn btn--primary btn--lg">Back to home</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+</footer>
+
+<script>
+  function switchTab(type, btn) {
+    document.querySelectorAll('.reg-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+    document.getElementById('form-' + type).classList.add('active');
+  }
+
+  // Handle Formspree AJAX submission for both forms
+  ['form-individual', 'form-team'].forEach(id => {
+    const form = document.getElementById(id);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type=submit]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (res.ok) {
+          document.getElementById('formWrap').style.display = 'none';
+          document.getElementById('thankyou').style.display = 'block';
+        } else {
+          btn.textContent = 'Something went wrong — try emailing us directly';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Network error — try emailing afriversalai@gmail.com';
+        btn.disabled = false;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

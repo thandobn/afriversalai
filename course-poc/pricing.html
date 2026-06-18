@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; max-width: 860px; margin-left: auto; margin-right: auto; }
+    .pricing-card { border: 2px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; background: var(--white); position: relative; }
+    .pricing-card--featured { border-color: var(--green-mid); }
+    .pricing-card__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--green-mid); color: white; font-size: 0.72em; font-weight: 700; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+    .pricing-card__tier { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
+    .pricing-card__name { font-size: 1.4em; font-weight: 800; color: var(--green-dark); margin-bottom: 8px; }
+    .pricing-card__desc { font-size: 0.88em; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .pricing-card__price { font-size: 2.4em; font-weight: 800; color: var(--green-dark); line-height: 1; margin-bottom: 4px; }
+    .pricing-card__price span { font-size: 0.42em; font-weight: 500; color: var(--muted); vertical-align: middle; }
+    .pricing-card__price-note { font-size: 0.78em; color: var(--muted); margin-bottom: 28px; }
+    .pricing-card__divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+    .pricing-card__features { list-style: none; padding: 0; margin: 0 0 28px; }
+    .pricing-card__features li { font-size: 0.88em; padding: 7px 0; display: flex; gap: 10px; align-items: flex-start; border-bottom: 1px solid var(--bg); line-height: 1.5; }
+    .pricing-card__features li::before { content: '✓'; color: var(--green-mid); font-weight: 700; flex-shrink: 0; }
+    .pricing-card__features li.muted { color: var(--muted); }
+    .pricing-card__features li.muted::before { content: '—'; color: var(--border); }
+    .seta-banner { background: var(--gold-light); border: 1px solid var(--gold); border-radius: var(--radius-lg); padding: 28px 32px; max-width: 860px; margin: 40px auto 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; }
+    .seta-banner__icon { font-size: 2em; }
+    .seta-banner__title { font-weight: 700; margin-bottom: 6px; }
+    .seta-banner__text { font-size: 0.88em; color: var(--muted); line-height: 1.6; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 700; margin-bottom: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .faq-q::after { content: '+'; font-size: 1.2em; color: var(--muted); flex-shrink: 0; transition: transform 0.15s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { font-size: 0.9em; color: var(--muted); line-height: 1.7; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    @media (max-width: 768px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .seta-banner { grid-template-columns: 1fr; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li><a href="certificate.html">Certificate</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom: 48px;">
+  <span class="eyebrow eyebrow--light">Pricing</span>
+  <h1>Invest in judgment.</h1>
+  <p class="lead lead--light">Pricing is finalised ahead of our first cohort. Register your interest now and we'll send you full pricing when it's confirmed — no commitment required.</p>
+</section>
+
+<!-- PRICING CARDS -->
+<section class="bg-white">
+  <div class="container" style="text-align:center;">
+
+    <div class="pricing-grid">
+
+      <!-- Individual -->
+      <div class="pricing-card">
+        <div class="pricing-card__tier">Individual</div>
+        <div class="pricing-card__name">Personal Enrolment</div>
+        <div class="pricing-card__desc">For professionals registering on their own or with employer support.</div>
+        <div class="pricing-card__price">TBD <span>/ cohort</span></div>
+        <div class="pricing-card__price-note">Pricing confirmed before first cohort opens</div>
+        <hr class="pricing-card__divider" />
+        <ul class="pricing-card__features">
+          <li>Full 6-module course access</li>
+          <li>3 live group sessions per cohort</li>
+          <li>Asynchronous Q&amp;A with facilitator</li>
+          <li>Capstone assessment + human review</li>
+          <li>AfriversalAI certificate on passing</li>
+          <li>Sector-specific learning path</li>
+          <li class="muted">Team dashboard</li>
+          <li class="muted">Group invoice / L&amp;D reporting</li>
+        </ul>
+        <a href="register.html" class="btn btn--outline btn--lg" style="width:100%; justify-content:center; display:flex;">Register interest →</a>
+      </div>
+
+      <!-- Team -->
+      <div class="pricing-card pricing-card--featured">
+        <div class="pricing-card__badge">Most popular for organisations</div>
+        <div class="pricing-card__tier">Team / Corporate</div>
+        <div class="pricing-card__name">Organisation Enrolment</div>
+        <div class="pricing-card__desc">For L&amp;D teams, HR departments, and employers training a group of 5 or more.</div>
+        <div class="pricing-card__price">TBD <span>/ learner</span></div>
+        <div class="pricing-card__price-note">Volume discounts available · SETA rebate eligible</div>
+        <hr class="pricing-card__divider" />
+        <ul class="pricing-card__features">
+          <li>Everything in Individual</li>
+          <li>Dedicated cohort for your organisation (10+ learners)</li>
+          <li>Custom sector focus and case study alignment</li>
+          <li>Group invoice and L&amp;D reporting</li>
+          <li>Facilitator briefing call before cohort</li>
+          <li>Volume pricing for 10+ learners</li>
+          <li>SETA accreditation SDLevy rebate eligible</li>
+          <li>Post-cohort impact report</li>
+        </ul>
+        <a href="register.html" class="btn btn--primary btn--lg" style="width:100%; justify-content:center; display:flex;">Register your team →</a>
+      </div>
+
+    </div>
+
+    <!-- SETA banner -->
+    <div class="seta-banner">
+      <div class="seta-banner__icon">🏛️</div>
+      <div>
+        <div class="seta-banner__title">MICT SETA accreditation in progress — recover 40–60% of training costs</div>
+        <div class="seta-banner__text">South African employers can claim back a significant portion of training spend through the Skills Development Levy (SDL) discretionary grant system, once AfriversalAI holds MICT SETA accreditation. We're pursuing this actively — register your interest now and we'll keep you updated on accreditation status.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-pale">
+  <div class="container--sm">
+    <span class="eyebrow">Frequently Asked Questions</span>
+    <h2>Pricing questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">When will pricing be confirmed?</div>
+      <div class="faq-a">Pricing will be confirmed ahead of our first cohort opening. Register your interest and you'll be the first to know — before we open publicly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can my employer pay for the course?</div>
+      <div class="faq-a">Yes. We issue invoices to organisations, provide L&amp;D reporting documentation, and once SETA accreditation is in place, your employer can recover 40–60% of the cost through the SDL discretionary grant system. Use the team registration form and we'll handle the rest.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is there a discount for large groups?</div>
+      <div class="faq-a">Yes — volume discounts apply for organisations enrolling 10 or more learners. Contact us or use the team registration form and we'll include volume pricing in the proposal we send back.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What if I don't pass the capstone?</div>
+      <div class="faq-a">You get one revision opportunity. Your assessor will give you specific, written feedback on which criteria you need to address. If you don't meet the standard after revision, you can re-attempt in the next cohort — we'll work out a fair arrangement for returning learners.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is there a free trial or preview?</div>
+      <div class="faq-a">Yes — Module 1, Phase 1 is free to preview right now. You'll encounter the core document, reflect on it, and experience how the course feels before committing to anything. No account required.</div>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center;">
+      <p style="color:var(--muted); margin-bottom:16px;">Still have questions?</p>
+      <a href="contact.html" class="btn btn--outline btn--lg">Contact us →</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bg-dark">
+  <div class="container text-center">
+    <span class="eyebrow eyebrow--light">Ready to start?</span>
+    <h2 style="color:white;">Register your interest today.</h2>
+    <p class="lead lead--light">No payment required. We'll send you cohort dates and confirmed pricing as soon as they're set — and you'll get early access before we open publicly.</p>
+    <div class="hero__ctas">
+      <a href="register.html" class="btn btn--gold btn--lg">Register interest →</a>
+      <a href="module-1.html" class="btn btn--white btn--lg">Preview Module 1 first</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>

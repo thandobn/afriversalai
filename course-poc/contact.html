@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .contact-layout { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.85em; font-weight: 600; margin-bottom: 6px; }
+    .form-group label .req { color: var(--green-mid); margin-left: 2px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-family: inherit; font-size: 0.92em; color: var(--text);
+      background: var(--white); transition: border-color 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.1);
+    }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+    .contact-aside { background: var(--green-pale); border-radius: var(--radius-lg); padding: 28px 24px; }
+    .contact-aside h3 { font-size: 0.95em; font-weight: 700; margin-bottom: 20px; }
+    .contact-method { display: flex; gap: 12px; margin-bottom: 20px; align-items: flex-start; }
+    .contact-method__icon { font-size: 1.3em; flex-shrink: 0; margin-top: 1px; }
+    .contact-method__label { font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 3px; }
+    .contact-method__value { font-size: 0.88em; font-weight: 600; }
+    .contact-method__value a { color: var(--green-dark); text-decoration: none; }
+    .contact-method__value a:hover { text-decoration: underline; }
+    .thankyou { display: none; text-align: center; padding: 64px 32px; }
+    .thankyou__icon { font-size: 3em; margin-bottom: 16px; }
+    .thankyou h2 { color: var(--green-dark); margin-bottom: 12px; }
+    .thankyou p { color: var(--muted); max-width: 480px; margin: 0 auto 28px; }
+    @media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; gap: 32px; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li><a href="certificate.html">Certificate</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom: 48px;">
+  <span class="eyebrow eyebrow--light">Contact</span>
+  <h1>Get in touch.</h1>
+  <p class="lead lead--light">Questions about the course, partnerships, SETA accreditation, or media enquiries — we respond within 2 business days.</p>
+</section>
+
+<!-- FORM SECTION -->
+<section class="bg-white">
+  <div class="container">
+
+    <div id="formWrap">
+      <div class="contact-layout">
+
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input type="hidden" name="_subject" value="New Contact Message — AfriversalAI" />
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label>Your name <span class="req">*</span></label>
+              <input type="text" name="name" required placeholder="Full name" />
+            </div>
+            <div class="form-group">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" name="email" required placeholder="name@example.com" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Subject <span class="req">*</span></label>
+            <select name="subject" required>
+              <option value="" disabled selected>What's this about?</option>
+              <option>General enquiry</option>
+              <option>Course registration</option>
+              <option>Team / corporate training</option>
+              <option>Partnership or sponsorship</option>
+              <option>SETA accreditation</option>
+              <option>Media or press</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Message <span class="req">*</span></label>
+            <textarea name="message" required placeholder="Tell us what you'd like to know or discuss…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
+            Send message →
+          </button>
+        </form>
+
+        <div class="contact-aside">
+          <h3>Other ways to reach us</h3>
+
+          <div class="contact-method">
+            <div class="contact-method__icon">📧</div>
+            <div>
+              <div class="contact-method__label">Email</div>
+              <div class="contact-method__value"><a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a></div>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-method__icon">🕐</div>
+            <div>
+              <div class="contact-method__label">Response time</div>
+              <div class="contact-method__value">Within 2 business days (SAST)</div>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-method__icon">📋</div>
+            <div>
+              <div class="contact-method__label">For course registration</div>
+              <div class="contact-method__value"><a href="register.html">Use the registration form →</a></div>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+            <p style="font-size:0.82em; color:var(--muted); line-height:1.65;">For L&amp;D teams, HR departments, and corporate training enquiries — please use the team registration form. We'll respond with a tailored proposal.</p>
+            <a href="register.html" class="btn btn--outline btn--sm" style="margin-top:12px; display:inline-block;">Team registration form →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="thankyou" id="thankyou">
+      <div class="thankyou__icon">✅</div>
+      <h2>Message sent.</h2>
+      <p>Thanks for getting in touch. We'll respond to the email you provided within 2 business days.</p>
+      <a href="index.html" class="btn btn--primary btn--lg">Back to home</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+</footer>
+
+<script>
+  const form = document.querySelector('form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('thankyou').style.display = 'block';
+      } else {
+        btn.textContent = 'Something went wrong — email us directly';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Network error — try emailing afriversalai@gmail.com';
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
