@@ -17,11 +17,22 @@
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html" class="active">The Course</a></li>
-      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li><a href="funda-five.html">The Funda Five</a></li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
   </div>
 </nav>
 
@@ -29,7 +40,7 @@
 <section class="hero">
   <span class="eyebrow eyebrow--light">Core Course</span>
   <h1>AI Judgment for<br>South African Professionals</h1>
-  <p class="lead lead--light">Six modules. Six real SA case studies. One framework you'll use for the rest of your career. Built for the professional who already encounters AI at work and needs to know what to do with it.</p>
+  <p class="lead lead--light">A free foundation module, then six core modules — each built around a real SA case study. One framework you'll use for the rest of your career. Built for the professional who encounters AI at work and needs to know what to actually do with it.</p>
 </section>
 
 <!-- COURSE FACTS -->
@@ -38,7 +49,7 @@
     <div class="stat-row">
       <div class="stat-block">
         <div class="stat-block__number">6</div>
-        <div class="stat-block__label">Modules · each built around a real SA case study</div>
+        <div class="stat-block__label">Core modules · each built around a real SA case study · plus a free foundation module</div>
       </div>
       <div class="stat-block">
         <div class="stat-block__number">18</div>
@@ -58,6 +69,25 @@
     <span class="eyebrow">Module Map</span>
     <h2>What you'll learn — and what you'll do with it</h2>
     <p class="lead">Every module follows the same four-phase structure. You engage with the case study before any theory is introduced. The learning comes from working through it, not being told about it.</p>
+
+    <!-- Module 0 foundation card spans full width before the grid -->
+    <div style="background:var(--green-dark); border-radius:var(--radius-lg); padding:32px 36px; margin-bottom:24px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center;">
+      <div>
+        <div style="font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); margin-bottom:10px;">Module 0 · Foundation · Free — start here</div>
+        <h3 style="color:white; margin-bottom:10px; font-size:1.3em;">AI Fundamentals: What Is It, Really?</h3>
+        <p style="font-size:0.88em; color:rgba(255,255,255,0.72); margin-bottom:16px; max-width:600px; line-height:1.65;">Before the case studies, build a shared foundation. No assumptions, no jargon. What AI is, what it isn't, where you already encounter it at work, and what it cannot do — regardless of how confidently it sounds. Every learner does this module first, no matter which sector trajectory they choose.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:0.82em; color:rgba(255,255,255,0.55);">
+          <span>45 minutes</span>
+          <span>·</span>
+          <span>All sectors</span>
+          <span>·</span>
+          <span>No technical background required</span>
+          <span>·</span>
+          <span style="color:var(--gold); font-weight:600;">Fully free · no registration required</span>
+        </div>
+      </div>
+      <a href="module-0.html" class="btn btn--gold btn--lg" style="white-space:nowrap; flex-shrink:0;">Start Module 0 →</a>
+    </div>
 
     <div class="module-grid">
 
@@ -201,8 +231,11 @@
 
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
 </footer>
 
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
 </body>
 </html>

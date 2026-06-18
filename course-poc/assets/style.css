@@ -34,6 +34,7 @@ body {
 /* ---- Layout ---- */
 .container       { max-width: 1440px; margin: 0 auto; padding: 0 52px; }
 .container--sm   { max-width: 920px;  margin: 0 auto; padding: 0 52px; }
+.container--course { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
 
 section          { padding: 80px 0; }
 section.bg-pale  { background: var(--green-pale); }
@@ -82,6 +83,54 @@ section.bg-white { background: var(--white); }
   transition: color 0.15s;
 }
 .nav__links a:hover, .nav__links a.active { color: var(--green-dark); }
+
+/* Hamburger button (hidden on desktop) */
+.nav__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--green-dark);
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.nav__hamburger__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--green-dark);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav__hamburger.is-active .nav__hamburger__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__hamburger.is-active .nav__hamburger__bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__hamburger.is-active .nav__hamburger__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- Language switcher ---- */
+.lang-switcher { display: flex; gap: 3px; align-items: center; margin-right: 8px; }
+.lang-switcher button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 0.68em;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  color: var(--muted);
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  line-height: 1;
+}
+.lang-switcher button:hover { border-color: var(--green-mid); color: var(--green-dark); }
+.lang-switcher button.is-active {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: white;
+}
 
 /* ---- Buttons ---- */
 .btn {
@@ -748,6 +797,7 @@ footer a { color: rgba(255,255,255,0.7); }
 @media (max-width: 1024px) {
   .container     { padding: 0 36px; }
   .container--sm { padding: 0 36px; }
+  .container--course { padding: 0 36px; }
   .nav__inner    { padding: 0 36px; }
   .problem-layout { grid-template-columns: 1fr; gap: 48px; }
   .module-grid { grid-template-columns: repeat(2, 1fr); }
@@ -770,6 +820,7 @@ footer a { color: rgba(255,255,255,0.7); }
   h2 { font-size: 1.45em; }
   .container     { padding: 0 24px; }
   .container--sm { padding: 0 24px; }
+  .container--course { padding: 0 24px; }
   .nav__inner    { padding: 0 24px; }
   .module-grid { grid-template-columns: 1fr; }
   .five-grid { grid-template-columns: repeat(2, 1fr); }
@@ -780,9 +831,39 @@ footer a { color: rgba(255,255,255,0.7); }
   .problem-stats-stack .stat-block__label  { text-align: center; }
 }
 
+/* Mobile nav — 768px (hamburger replaces full nav links) */
+@media (max-width: 768px) {
+  .nav__inner { padding: 0 24px; }
+  .nav__hamburger { display: flex; }
+  .nav__links {
+    display: none;
+    position: fixed;
+    top: 84px;
+    left: 0; right: 0;
+    background: var(--white);
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0 20px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    z-index: 999;
+    align-items: flex-start;
+  }
+  .nav__links.is-open { display: flex; }
+  .nav__links li { width: 100%; }
+  .nav__links a { display: block; padding: 12px 24px; font-size: 0.95em; color: var(--text); }
+  .nav__links a:hover, .nav__links a.active { background: var(--green-pale); color: var(--green-dark); }
+  .nav__links .btn--primary {
+    margin: 8px 24px 0;
+    display: inline-block;
+    width: auto;
+    color: var(--white) !important;
+    background: var(--green-dark);
+  }
+}
+
 /* Mobile — 600px */
 @media (max-width: 600px) {
-  .nav__links { display: none; }
   .hero { padding: 60px 20px; }
   h1 { font-size: 1.75em; }
   section { padding: 48px 0; }
@@ -795,6 +876,7 @@ footer a { color: rgba(255,255,255,0.7); }
   h1 { font-size: 1.55em; }
   .container { padding: 0 16px; }
   .container--sm { padding: 0 16px; }
+  .container--course { padding: 0 16px; }
   .hero { padding: 48px 16px; }
   .five-grid { grid-template-columns: 1fr; }
   .sector-grid { grid-template-columns: 1fr; }

@@ -47,12 +47,23 @@
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html">The Course</a></li>
-      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li><a href="funda-five.html">The Funda Five</a></li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li>
       <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
   </div>
 </nav>
 
@@ -72,21 +83,22 @@
 
         <form action="https://formspree.io/f/xrevwegy" method="POST">
           <input type="hidden" name="_subject" value="New Contact Message — AfriversalAI" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
             <div class="form-group">
-              <label>Your name <span class="req">*</span></label>
-              <input type="text" name="name" required placeholder="Full name" />
+              <label for="c-name">Your name <span class="req">*</span></label>
+              <input id="c-name" type="text" name="name" required placeholder="Full name" />
             </div>
             <div class="form-group">
-              <label>Email <span class="req">*</span></label>
-              <input type="email" name="email" required placeholder="name@example.com" />
+              <label for="c-email">Email <span class="req">*</span></label>
+              <input id="c-email" type="email" name="email" required placeholder="name@example.com" />
             </div>
           </div>
 
           <div class="form-group">
-            <label>Subject <span class="req">*</span></label>
-            <select name="subject" required>
+            <label for="c-subject">Subject <span class="req">*</span></label>
+            <select id="c-subject" name="subject" required>
               <option value="" disabled selected>What's this about?</option>
               <option>General enquiry</option>
               <option>Course registration</option>
@@ -99,13 +111,14 @@
           </div>
 
           <div class="form-group">
-            <label>Message <span class="req">*</span></label>
-            <textarea name="message" required placeholder="Tell us what you'd like to know or discuss…"></textarea>
+            <label for="c-message">Message <span class="req">*</span></label>
+            <textarea id="c-message" name="message" required placeholder="Tell us what you'd like to know or discuss…"></textarea>
           </div>
 
           <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
             Send message →
           </button>
+          <p style="font-size:0.8em; color:var(--muted); margin-top:10px;">By submitting, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is processed via Formspree (US servers) and used only to respond to your enquiry.</p>
         </form>
 
         <div class="contact-aside">
@@ -156,7 +169,7 @@
 
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
 </footer>
 
 <script>
@@ -185,6 +198,9 @@
     }
   });
 </script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
 
 </body>
 </html>

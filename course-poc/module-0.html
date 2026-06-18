@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 0: AI Fundamentals — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .module-hero { background: var(--green-dark); color: white; padding: 64px 52px 48px; }
+    .module-hero .eyebrow { color: var(--gold); }
+    .module-hero h1 { font-size: 2.2em; font-weight: 800; margin: 12px 0 16px; line-height: 1.2; color: white; }
+    .module-hero .lead { color: rgba(255,255,255,0.75); max-width: 680px; }
+    @media (max-width: 768px) { .module-hero { padding: 48px 24px 36px; } }
+
+    /* Phase layout */
+    .phase { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px; }
+    .phase__header { display: flex; align-items: center; gap: 16px; padding: 20px 28px; background: var(--green-pale); border-bottom: 1px solid var(--border); }
+    .phase__num { width: 40px; height: 40px; background: var(--green-dark); color: white; border-radius: 50%; display: flex; align-items:center; justify-content:center; font-weight: 800; font-size: 0.95em; flex-shrink: 0; }
+    .phase__title { font-weight: 700; font-size: 1.05em; }
+    .phase__subtitle { font-size: 0.82em; color: var(--muted); margin-top: 2px; }
+    .phase__body { padding: 32px 28px; background: var(--white); }
+    .phase.is-locked { opacity: 0.4; pointer-events: none; }
+    .phase.is-done .phase__header { background: var(--green-light); }
+
+    /* Activity cards */
+    .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+    .activity-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; background: var(--bg); cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
+    .activity-card:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .activity-card.selected-ai { border-color: var(--green-mid); background: var(--green-pale); }
+    .activity-card.selected-not-ai { border-color: var(--gold); background: var(--gold-light); }
+    .activity-card__icon { font-size: 2em; margin-bottom: 10px; }
+    .activity-card__name { font-weight: 700; font-size: 0.92em; margin-bottom: 4px; }
+    .activity-card__hint { font-size: 0.8em; color: var(--muted); }
+    .activity-card.revealed.is-ai { border-color: var(--green-mid) !important; background: var(--green-pale) !important; }
+    .activity-card.revealed.not-ai { border-color: var(--gold) !important; background: var(--gold-light) !important; }
+    .reveal-badge { display: none; font-size: 0.72em; font-weight: 700; margin-top: 8px; padding: 3px 10px; border-radius: 12px; }
+    .activity-card.revealed .reveal-badge { display: inline-block; }
+    .is-ai .reveal-badge { background: var(--green-light); color: var(--green-dark); }
+    .not-ai .reveal-badge { background: var(--gold-light); color: var(--gold-dark); }
+
+    /* Concept blocks */
+    .concept-block { border-left: 4px solid var(--green-mid); background: var(--green-pale); padding: 20px 24px; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; margin: 20px 0; }
+    .concept-block h4 { font-size: 0.88em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green-dark); margin-bottom: 8px; }
+    .concept-block p { font-size: 0.92em; color: var(--text); margin: 0; }
+    .misconception-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .myth-box { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+    .myth-box--myth { background: #FFF5F5; border-color: #FCA5A5; }
+    .myth-box--truth { background: var(--green-pale); border-color: var(--green-light); }
+    .myth-box__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .myth-box--myth .myth-box__label { color: #DC2626; }
+    .myth-box--truth .myth-box__label { color: var(--green-dark); }
+    .myth-box p { font-size: 0.88em; margin: 0; line-height: 1.65; }
+    @media (max-width: 600px) { .misconception-row { grid-template-columns: 1fr; } }
+
+    .callout { background: var(--gold-light); border-left: 4px solid var(--gold); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 20px 0; font-size: 0.9em; }
+
+    /* Progress bar */
+    .module-progress { display: flex; gap: 8px; padding: 16px 28px; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .prog-step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
+    .prog-step.is-active { background: var(--gold); }
+    .prog-step.is-done { background: var(--green-mid); }
+
+    /* Preview end */
+    .preview-end { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
+    .preview-end h2 { color: white; margin-bottom: 12px; }
+    .preview-end p { color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .preview-end-phases { display: flex; gap: 12px; justify-content: center; margin-bottom: 28px; flex-wrap: wrap; }
+    .preview-phase { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius); padding: 10px 18px; font-size: 0.82em; font-weight: 600; color: rgba(255,255,255,0.8); }
+
+    .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-0.html" class="active">AI Fundamentals</a></li>
+      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li><a href="certificate.html">Certificate</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MODULE HERO -->
+<div class="module-hero">
+  <div style="max-width:1440px; margin:0 auto;">
+    <span class="eyebrow eyebrow--light" data-i18n="m0_eyebrow">Module 0 · Foundation · Free — start here</span>
+    <h1 data-i18n-html="m0_h1">AI Fundamentals:<br>What Is It, Really?</h1>
+    <p class="lead" data-i18n="m0_lead">Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it's where we all start.</p>
+    <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">45 minutes · 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors · No technical background required</span>
+      <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Fully free — no registration required</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="module-progress" id="progressBar">
+  <div class="prog-step is-active" id="prog-0"></div>
+  <div class="prog-step" id="prog-1"></div>
+  <div class="prog-step" id="prog-2"></div>
+  <div class="prog-step" id="prog-3"></div>
+</div>
+
+<section class="bg-pale">
+  <div class="container--course">
+
+    <!-- PHASE 0: ENCOUNTER -->
+    <div class="phase" id="phase-0">
+      <div class="phase__header">
+        <div class="phase__num">1</div>
+        <div>
+          <div class="phase__title">Encounter — Spot the AI</div>
+          <div class="phase__subtitle">Before any explanation, try it yourself · ~10 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>Below are 10 everyday tools and situations. Before you read anything about what AI is — just pick your gut answer: does this use AI, or not?</p>
+        <p style="font-size:0.88em; color:var(--muted);">Click once to mark <strong style="color:var(--green-dark);">AI</strong> (green) · click again to mark <strong style="color:var(--gold-dark);">Not AI</strong> (amber) · click a third time to clear. No right answers yet — just your instinct.</p>
+
+        <div class="activity-grid" id="aiSortGrid">
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📧</div>
+            <div class="activity-card__name">Gmail spam filter</div>
+            <div class="activity-card__hint">Automatically puts junk email in your spam folder</div>
+            <span class="reveal-badge">AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🎵</div>
+            <div class="activity-card__name">Spotify Discover Weekly</div>
+            <div class="activity-card__hint">New music playlist generated for you every Monday</div>
+            <span class="reveal-badge">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🔢</div>
+            <div class="activity-card__name">Excel =SUM formula</div>
+            <div class="activity-card__hint">Adds up the numbers in a column</div>
+            <span class="reveal-badge">Not AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📱</div>
+            <div class="activity-card__name">Face ID / facial recognition</div>
+            <div class="activity-card__hint">Your phone unlocking when it sees your face</div>
+            <span class="reveal-badge">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🔎</div>
+            <div class="activity-card__name">Ctrl+F search in a document</div>
+            <div class="activity-card__hint">Find a specific word in a file</div>
+            <span class="reveal-badge">Not AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🛒</div>
+            <div class="activity-card__name">"You may also like" product suggestions</div>
+            <div class="activity-card__hint">Shopping site recommendations based on browsing</div>
+            <span class="reveal-badge">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📋</div>
+            <div class="activity-card__name">A PDF form you fill in manually</div>
+            <div class="activity-card__hint">Digital form with fixed fields — no automation</div>
+            <span class="reveal-badge">Not AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🏦</div>
+            <div class="activity-card__name">Credit application decision</div>
+            <div class="activity-card__hint">Your bank loan approved or declined in seconds</div>
+            <span class="reveal-badge">AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">💬</div>
+            <div class="activity-card__name">Autocorrect on your phone</div>
+            <div class="activity-card__hint">Your phone predicting your next word while typing</div>
+            <span class="reveal-badge">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📅</div>
+            <div class="activity-card__name">Calendar reminder at 9am daily</div>
+            <div class="activity-card__hint">A scheduled alarm you set yourself</div>
+            <span class="reveal-badge">Not AI</span>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn--outline btn--sm" onclick="revealAnswers()">Reveal answers</button>
+          <button class="btn btn--primary btn--sm" onclick="advancePhase(0)">Done — see the concept →</button>
+        </div>
+        <div id="err-0" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please click on at least a few cards before moving on.</div>
+      </div>
+    </div>
+
+    <!-- PHASE 1: REFLECT -->
+    <div class="phase is-locked" id="phase-1">
+      <div class="phase__header">
+        <div class="phase__num">2</div>
+        <div>
+          <div class="phase__title">Reflect — What surprised you?</div>
+          <div class="phase__subtitle">No right answers here — just your honest reaction · ~10 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>Now that you've seen the answers — what caught you off guard?</p>
+
+        <div style="margin: 20px 0;">
+          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;">Which one surprised you most — AI or not AI? Why?</label>
+          <textarea id="reflect-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. I didn't know the credit decision happened through AI — I thought a person was reviewing my application..."></textarea>
+        </div>
+
+        <div style="margin: 20px 0;">
+          <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">Where do you encounter AI in your own job? (Even if you're not sure — take a guess.)</label>
+          <textarea id="reflect-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The HR system that shortlists CVs, the chatbot on our website, the fraud alerts our bank sends..."></textarea>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting — show me the concept →</button>
+        </div>
+        <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in both boxes before moving on.</div>
+      </div>
+    </div>
+
+    <!-- PHASE 2: CONCEPT -->
+    <div class="phase is-locked" id="phase-2">
+      <div class="phase__header">
+        <div class="phase__num">3</div>
+        <div>
+          <div class="phase__title">Concept — What AI actually is</div>
+          <div class="phase__subtitle">The real explanation, without the hype · ~15 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+
+        <h3 style="margin-bottom:12px;">The one-sentence definition that actually works</h3>
+        <div class="concept-block">
+          <h4>What AI is</h4>
+          <p>AI is software that learns patterns from large amounts of data and uses those patterns to make predictions, generate content, or take actions — without being explicitly programmed with rules for every situation.</p>
+        </div>
+
+        <p>That's it. No magic. No thinking. No understanding. AI is pattern recognition at massive scale. Let's unpack what that means in practice.</p>
+
+        <h3 style="margin: 28px 0 12px;">What "learning from data" actually means</h3>
+        <p>Imagine training a new employee. You show them thousands of examples of loan applications that were approved and thousands that were rejected. Over time, they start to notice patterns: applications with certain income-to-debt ratios tend to get approved; applications from certain postal codes tend to get rejected.</p>
+        <p>AI works similarly — except instead of a person, it's a mathematical model, and instead of thousands of examples, it might be trained on millions. The model doesn't understand credit risk. It doesn't understand people. It has learned to match patterns in new applications to patterns in the training data.</p>
+
+        <div class="callout">
+          <strong>The South African credit context:</strong> If historical credit data reflects the effects of apartheid — where Black South Africans were excluded from formal credit markets and forced into lower-income areas — an AI trained on that data will learn those patterns. It may then use postal code as a proxy for creditworthiness without anyone programming it to discriminate. The bias is in the data, not a deliberate choice.
+        </div>
+
+        <h3 style="margin: 28px 0 12px;">The three most common types of AI you'll encounter at work</h3>
+
+        <div style="margin:20px 0;">
+          <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:12px;">
+            <div style="background:var(--green-dark); color:white; padding:14px 20px; display:flex; align-items:center; gap:12px;">
+              <span style="font-weight:800; background:rgba(255,255,255,0.2); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</span>
+              <strong>Generative AI — makes new content</strong>
+            </div>
+            <div style="padding:18px 20px;">
+              <p style="font-size:0.92em; margin:0;"><strong>Examples:</strong> ChatGPT, Copilot, Gemini, Claude<br>
+              <strong>What it does:</strong> Generates text, images, code, and summaries by predicting what comes next based on patterns in training data<br>
+              <strong>Strength:</strong> Drafting, summarising, brainstorming, explaining<br>
+              <strong>Key weakness:</strong> Cannot verify facts — it generates plausible-sounding content, not accurate content. It will confidently invent sources, statistics, and names that don't exist.</p>
+            </div>
+          </div>
+          <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:12px;">
+            <div style="background:var(--green-dark); color:white; padding:14px 20px; display:flex; align-items:center; gap:12px;">
+              <span style="font-weight:800; background:rgba(255,255,255,0.2); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</span>
+              <strong>Predictive / Decision AI — makes classifications and scores</strong>
+            </div>
+            <div style="padding:18px 20px;">
+              <p style="font-size:0.92em; margin:0;"><strong>Examples:</strong> Credit scoring systems, fraud detection, HR shortlisting tools, spam filters<br>
+              <strong>What it does:</strong> Takes inputs (a loan application, a CV, an email) and outputs a score, classification, or decision<br>
+              <strong>Strength:</strong> Processing many cases at consistent speed — faster than a human reviewer for high-volume decisions<br>
+              <strong>Key weakness:</strong> Reflects biases in historical training data. If past decisions were discriminatory, the model learns to repeat them.</p>
+            </div>
+          </div>
+          <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="background:var(--green-dark); color:white; padding:14px 20px; display:flex; align-items:center; gap:12px;">
+              <span style="font-weight:800; background:rgba(255,255,255,0.2); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</span>
+              <strong>Computer Vision — makes sense of images and video</strong>
+            </div>
+            <div style="padding:18px 20px;">
+              <p style="font-size:0.92em; margin:0;"><strong>Examples:</strong> Face ID, medical imaging analysis, security cameras, document scanning<br>
+              <strong>What it does:</strong> Identifies objects, faces, text, or anomalies in visual data<br>
+              <strong>Strength:</strong> Consistent processing of visual information at scale<br>
+              <strong>Key weakness:</strong> Performance drops sharply for faces and scenarios underrepresented in training data — accuracy is often lower for darker skin tones in systems trained primarily on lighter-skinned faces.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin: 28px 0 12px;">Five things AI cannot do — regardless of how it sounds</h3>
+        <div class="misconception-row">
+          <div class="myth-box myth-box--myth">
+            <div class="myth-box__label">Myth</div>
+            <p>AI knows facts — it retrieves information like a search engine</p>
+          </div>
+          <div class="myth-box myth-box--truth">
+            <div class="myth-box__label">Reality</div>
+            <p>Generative AI generates plausible text based on patterns — it does not retrieve from a verified database. It cannot tell when it is wrong.</p>
+          </div>
+        </div>
+        <div class="misconception-row">
+          <div class="myth-box myth-box--myth">
+            <div class="myth-box__label">Myth</div>
+            <p>AI is neutral — it makes decisions based on pure data, without bias</p>
+          </div>
+          <div class="myth-box myth-box--truth">
+            <div class="myth-box__label">Reality</div>
+            <p>AI reflects the biases in its training data. Data from unequal systems produces AI that perpetuates those inequalities.</p>
+          </div>
+        </div>
+        <div class="misconception-row">
+          <div class="myth-box myth-box--myth">
+            <div class="myth-box__label">Myth</div>
+            <p>AI understands context — it knows what you mean, not just what you said</p>
+          </div>
+          <div class="myth-box myth-box--truth">
+            <div class="myth-box__label">Reality</div>
+            <p>AI processes the text you give it. It has no understanding of your organisation, your situation, or what you're trying to achieve beyond the words in your prompt.</p>
+          </div>
+        </div>
+        <div class="misconception-row">
+          <div class="myth-box myth-box--myth">
+            <div class="myth-box__label">Myth</div>
+            <p>AI can take responsibility — "the algorithm decided"</p>
+          </div>
+          <div class="myth-box myth-box--truth">
+            <div class="myth-box__label">Reality</div>
+            <p>Under South African law and internationally, accountability for AI decisions rests with the people and organisations that deploy them — not the software.</p>
+          </div>
+        </div>
+        <div class="misconception-row">
+          <div class="myth-box myth-box--myth">
+            <div class="myth-box__label">Myth</div>
+            <p>Confident output = correct output</p>
+          </div>
+          <div class="myth-box myth-box--truth">
+            <div class="myth-box__label">Reality</div>
+            <p>AI outputs are expressed with the same tone and style whether they are accurate or completely fabricated. Confidence is not a signal of accuracy.</p>
+          </div>
+        </div>
+
+        <div style="text-align:right; margin-top:28px;">
+          <button class="btn btn--primary" onclick="advancePhase(2)">Understood — take me to Apply →</button>
+        </div>
+        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: APPLY -->
+    <div class="phase is-locked" id="phase-3">
+      <div class="phase__header">
+        <div class="phase__num">4</div>
+        <div>
+          <div class="phase__title">Apply — AI in your workplace</div>
+          <div class="phase__subtitle">Take it back to your own job · ~10 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>You've seen what AI is, what it isn't, and the three types you're most likely to encounter. Now bring it to your world.</p>
+
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
+          <p style="font-weight:700; margin-bottom:16px;">Answer these three questions about your own workplace:</p>
+
+          <div style="margin-bottom:20px;">
+            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;">1. Name one AI tool you or your colleagues already use at work (or suspect might be AI-powered).</label>
+            <textarea id="apply-1" style="width:100%; min-height:70px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The HR system, the customer chatbot, Teams transcription, fraud alerts..."></textarea>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;">2. Which type of AI is it — Generative, Predictive/Decision, or Computer Vision?</label>
+            <textarea id="apply-2" style="width:100%; min-height:70px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. It's probably predictive AI — it scores candidates and filters them before a human sees the CV..."></textarea>
+          </div>
+
+          <div>
+            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;">3. What's one failure mode or risk you can now see — that you couldn't see before this module?</label>
+            <textarea id="apply-3" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. I hadn't thought about the training data — if our past hiring decisions were biased, the AI might be reinforcing those decisions without anyone noticing..."></textarea>
+          </div>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 0 →</button>
+        </div>
+        <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please answer all three questions before completing the module.</div>
+      </div>
+    </div>
+
+    <!-- MODULE COMPLETE -->
+    <div id="module-complete" style="display:none;" class="preview-end">
+      <h2>Module 0 complete.</h2>
+      <p>You now have the foundation every other module builds on. You know what AI is, what it isn't, and how to start seeing it in your own workplace.</p>
+      <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Next: Module 1 shows you what happens when AI goes wrong at the highest level — South Africa's national AI policy crisis. You'll use the Funda Five to work through it.</p>
+      <div class="preview-end-phases">
+        <span class="preview-phase">Module 1: What AI Actually Is</span>
+        <span class="preview-phase">Real SA case study</span>
+        <span class="preview-phase">The Funda Five framework</span>
+        <span class="preview-phase">Apply to your own sector</span>
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="module-1.html" class="btn btn--gold btn--lg">Start Module 1 →</a>
+        <a href="register.html" class="btn btn--white btn--lg">Register for the full course</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+
+  <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
+</footer>
+
+<script>
+function sortCard(card) {
+  if (card.classList.contains('selected-not-ai')) {
+    card.classList.remove('selected-not-ai');
+  } else if (card.classList.contains('selected-ai')) {
+    card.classList.remove('selected-ai');
+    card.classList.add('selected-not-ai');
+  } else {
+    card.classList.add('selected-ai');
+  }
+}
+
+function revealAnswers() {
+  document.querySelectorAll('.activity-card').forEach(card => {
+    card.classList.remove('selected-ai', 'selected-not-ai');
+    card.classList.add('revealed');
+    if (card.dataset.answer === 'ai') card.classList.add('is-ai');
+    else card.classList.add('not-ai');
+  });
+}
+
+function advancePhase(fromPhase) {
+  const errEl = document.getElementById('err-' + fromPhase);
+
+  // Phase 0: require some card interaction
+  if (fromPhase === 0) {
+    const interacted = document.querySelectorAll('.activity-card.selected-ai').length;
+    if (interacted < 3) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Click on at least a few cards to sort them before moving on.';
+      return;
+    }
+    errEl.style.display = 'none';
+    revealAnswers();
+  }
+
+  // Phase 1: require text in both textareas
+  if (fromPhase === 1) {
+    const t1 = document.getElementById('reflect-1').value.trim();
+    const t2 = document.getElementById('reflect-2').value.trim();
+    if (t1.length < 8 || t2.length < 8) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Please write a few words in both reflection boxes before moving on.';
+      return;
+    }
+    errEl.style.display = 'none';
+  }
+
+  // Phase 2: concept — no input needed, just read
+  if (fromPhase === 2) {
+    errEl.style.display = 'none';
+  }
+
+  // Phase 3: require all three apply boxes
+  if (fromPhase === 3) {
+    const a1 = document.getElementById('apply-1').value.trim();
+    const a2 = document.getElementById('apply-2').value.trim();
+    const a3 = document.getElementById('apply-3').value.trim();
+    if (a1.length < 5 || a2.length < 5 || a3.length < 10) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Please answer all three questions before completing the module.';
+      return;
+    }
+    // Complete!
+    document.getElementById('phase-' + fromPhase).classList.add('is-done');
+    document.getElementById('prog-' + fromPhase).classList.remove('is-active');
+    document.getElementById('prog-' + fromPhase).classList.add('is-done');
+    const complete = document.getElementById('module-complete');
+    complete.style.display = 'block';
+    setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    return;
+  }
+
+  // Advance to next phase
+  const current = document.getElementById('phase-' + fromPhase);
+  const next = document.getElementById('phase-' + (fromPhase + 1));
+  const progCur = document.getElementById('prog-' + fromPhase);
+  const progNxt = document.getElementById('prog-' + (fromPhase + 1));
+
+  current.classList.add('is-done');
+  if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
+
+  if (next) {
+    next.classList.remove('is-locked');
+    if (progNxt) progNxt.classList.add('is-active');
+    setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+}
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+
+</body>
+</html>

@@ -31,7 +31,7 @@
     .seta-banner__text { font-size: 0.88em; color: var(--muted); line-height: 1.6; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
-    .faq-q { font-weight: 700; margin-bottom: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .faq-q { font-weight: 700; margin-bottom: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; background: none; border: none; text-align: left; font-family: inherit; font-size: 1em; color: var(--text); padding: 0; }
     .faq-q::after { content: '+'; font-size: 1.2em; color: var(--muted); flex-shrink: 0; transition: transform 0.15s; }
     .faq-item.open .faq-q::after { transform: rotate(45deg); }
     .faq-a { font-size: 0.9em; color: var(--muted); line-height: 1.7; display: none; }
@@ -50,12 +50,23 @@
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html">The Course</a></li>
-      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li><a href="funda-five.html">The Funda Five</a></li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html" class="active">Pricing</a></li>
       <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
   </div>
 </nav>
 
@@ -63,7 +74,7 @@
 <section class="hero" style="padding-bottom: 48px;">
   <span class="eyebrow eyebrow--light">Pricing</span>
   <h1>Invest in judgment.</h1>
-  <p class="lead lead--light">Pricing is finalised ahead of our first cohort. Register your interest now and we'll send you full pricing when it's confirmed — no commitment required.</p>
+  <p class="lead lead--light">Pilot cohort introductory pricing — below. Register your interest and we'll confirm your place with no payment required upfront.</p>
 </section>
 
 <!-- PRICING CARDS -->
@@ -77,8 +88,8 @@
         <div class="pricing-card__tier">Individual</div>
         <div class="pricing-card__name">Personal Enrolment</div>
         <div class="pricing-card__desc">For professionals registering on their own or with employer support.</div>
-        <div class="pricing-card__price">TBD <span>/ cohort</span></div>
-        <div class="pricing-card__price-note">Pricing confirmed before first cohort opens</div>
+        <div class="pricing-card__price">R2,995 <span>/ cohort</span></div>
+        <div class="pricing-card__price-note">Pilot cohort introductory pricing · subject to revision after Cohort 1</div>
         <hr class="pricing-card__divider" />
         <ul class="pricing-card__features">
           <li>Full 6-module course access</li>
@@ -99,8 +110,8 @@
         <div class="pricing-card__tier">Team / Corporate</div>
         <div class="pricing-card__name">Organisation Enrolment</div>
         <div class="pricing-card__desc">For L&amp;D teams, HR departments, and employers training a group of 5 or more.</div>
-        <div class="pricing-card__price">TBD <span>/ learner</span></div>
-        <div class="pricing-card__price-note">Volume discounts available · SETA rebate eligible</div>
+        <div class="pricing-card__price">R2,295 <span>/ learner</span></div>
+        <div class="pricing-card__price-note">10+ learners · after 40–60% SETA SDL recovery: ~R920–R1,380 per learner</div>
         <hr class="pricing-card__divider" />
         <ul class="pricing-card__features">
           <li>Everything in Individual</li>
@@ -121,8 +132,8 @@
     <div class="seta-banner">
       <div class="seta-banner__icon">🏛️</div>
       <div>
-        <div class="seta-banner__title">MICT SETA accreditation in progress — recover 40–60% of training costs</div>
-        <div class="seta-banner__text">South African employers can claim back a significant portion of training spend through the Skills Development Levy (SDL) discretionary grant system, once AfriversalAI holds MICT SETA accreditation. We're pursuing this actively — register your interest now and we'll keep you updated on accreditation status.</div>
+        <div class="seta-banner__title">MICT SETA accreditation — application in preparation</div>
+        <div class="seta-banner__text">South African employers can recover 40–60% of training spend through the Skills Development Levy (SDL) discretionary grant system once AfriversalAI holds MICT SETA accreditation. <strong>SDL rebate eligibility is pending accreditation approval</strong> — we will notify registered organisations as soon as accreditation is confirmed. Register your interest now to be first in line.</div>
       </div>
     </div>
 
@@ -135,29 +146,33 @@
     <span class="eyebrow">Frequently Asked Questions</span>
     <h2>Pricing questions</h2>
 
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">When will pricing be confirmed?</div>
-      <div class="faq-a">Pricing will be confirmed ahead of our first cohort opening. Register your interest and you'll be the first to know — before we open publicly.</div>
+    <div style="background: var(--green-pale); border: 1px solid var(--green-light); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 32px; font-size: 0.9em; color: var(--text);">
+      <strong>Why cohort? Self-paced AI courses complete at 5–15%.</strong> AfriversalAI's cohort model targets 70%+ completion through active, judgment-focused learning and peer accountability. You finish — and you walk away with a demonstrated competency, not just a certificate that says you clicked through.
     </div>
 
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Can my employer pay for the course?</div>
+      <button class="faq-q" onclick="toggleFaq(this)" type="button">Are these the final prices?</button>
+      <div class="faq-a">These are pilot cohort introductory prices. Pricing may be revised after Cohort 1 based on costs and market feedback. Early registrants lock in pilot pricing for their cohort.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)" type="button">Can my employer pay for the course?</button>
       <div class="faq-a">Yes. We issue invoices to organisations, provide L&amp;D reporting documentation, and once SETA accreditation is in place, your employer can recover 40–60% of the cost through the SDL discretionary grant system. Use the team registration form and we'll handle the rest.</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Is there a discount for large groups?</div>
+      <button class="faq-q" onclick="toggleFaq(this)" type="button">Is there a discount for large groups?</button>
       <div class="faq-a">Yes — volume discounts apply for organisations enrolling 10 or more learners. Contact us or use the team registration form and we'll include volume pricing in the proposal we send back.</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What if I don't pass the capstone?</div>
+      <button class="faq-q" onclick="toggleFaq(this)" type="button">What if I don't pass the capstone?</button>
       <div class="faq-a">You get one revision opportunity. Your assessor will give you specific, written feedback on which criteria you need to address. If you don't meet the standard after revision, you can re-attempt in the next cohort — we'll work out a fair arrangement for returning learners.</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Is there a free trial or preview?</div>
-      <div class="faq-a">Yes — Module 1, Phase 1 is free to preview right now. You'll encounter the core document, reflect on it, and experience how the course feels before committing to anything. No account required.</div>
+      <button class="faq-q" onclick="toggleFaq(this)" type="button">Is there a free trial or preview?</button>
+      <div class="faq-a">Yes — Module 0 (AI Fundamentals) is fully free with no registration required. It's a 45-minute foundation module covering what AI is, what it isn't, and where you already encounter it at work. Module 1, Phase 1 is also free to experience. Start at <a href="module-0.html">Module 0 →</a></div>
     </div>
 
     <div style="margin-top: 40px; text-align: center;">
@@ -175,14 +190,14 @@
     <p class="lead lead--light">No payment required. We'll send you cohort dates and confirmed pricing as soon as they're set — and you'll get early access before we open publicly.</p>
     <div class="hero__ctas">
       <a href="register.html" class="btn btn--gold btn--lg">Register interest →</a>
-      <a href="module-1.html" class="btn btn--white btn--lg">Preview Module 1 first</a>
+      <a href="module-0.html" class="btn btn--white btn--lg">Start with Module 0 — free</a>
     </div>
   </div>
 </section>
 
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
 </footer>
 
 <script>
@@ -193,6 +208,9 @@
     if (!isOpen) item.classList.add('open');
   }
 </script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
 
 </body>
 </html>

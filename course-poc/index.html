@@ -18,19 +18,30 @@
     <ul class="nav__links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="course.html">The Course</a></li>
-      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li><a href="funda-five.html">The Funda Five</a></li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <span class="eyebrow eyebrow--light">AI Literacy · South Africa</span>
-  <div class="hero-headlines">
-    <h1 class="hero-headline active">Your team is using AI.<br>Are they using it wisely?</h1>
+  <span class="eyebrow eyebrow--light" data-i18n="hero_eyebrow">AI Literacy · South Africa</span>
+  <div class="hero-headlines" aria-live="polite" aria-atomic="true">
+    <h1 class="hero-headline active">SA's only AI literacy course built on judgment — not just tools.</h1>
     <h1 class="hero-headline">1.4 million SA professionals trained on AI tools.<br>Zero trained on AI judgment.</h1>
     <h1 class="hero-headline">When SA's national AI policy fell apart,<br>it wasn't a tech problem — it was a judgment problem.</h1>
   </div>
@@ -39,10 +50,10 @@
     <button class="hero-dot" aria-label="Headline 2"></button>
     <button class="hero-dot" aria-label="Headline 3"></button>
   </div>
-  <p class="lead lead--light">AfriversalAI teaches South African professionals how to think with AI — not just how to use it. Critical judgment, real SA case studies, a certificate that actually means something.</p>
+  <p class="lead lead--light" data-i18n="hero_lead">AfriversalAI teaches South African professionals how to think with AI — not just how to use it. Critical judgment, real SA case studies, a certificate that actually means something.</p>
   <div class="hero__ctas">
-    <a href="module-1.html" class="btn btn--gold btn--lg">Preview Module 1 →</a>
-    <a href="course.html" class="btn btn--white btn--lg">See the full course</a>
+    <a href="module-0.html" class="btn btn--gold btn--lg" data-i18n="hero_cta_primary">Start Module 0 — free →</a>
+    <a href="course.html" class="btn btn--white btn--lg" data-i18n="hero_cta_secondary">See the full course</a>
   </div>
 </section>
 
@@ -142,10 +153,18 @@
 <section class="bg-pale">
   <div class="container">
     <span class="eyebrow">The Course</span>
-    <h2>6 modules. 6 SA case studies.<br>One framework you'll actually use.</h2>
-    <p class="lead">Each module follows the same structure: engage with a real SA case study before any theory is introduced, then work through to a practical judgment using the Funda Five.</p>
+    <h2>Start from zero. Build real judgment.<br>6 case studies. One framework that works.</h2>
+    <p class="lead">Module 0 builds the shared foundation — what AI actually is, what it isn't, where you already encounter it. Then 6 core modules each apply the Funda Five to a real SA case study.</p>
 
     <div class="module-grid">
+      <div class="module-card" style="border-color: var(--gold); background: var(--gold-light);">
+        <div class="module-card__num" style="color: var(--gold-dark);">Module 0 · Foundation · Free</div>
+        <h3>AI Fundamentals: What Is It, Really?</h3>
+        <p style="font-size:0.9em;color:var(--muted);">What AI is, what it isn't, the three types you'll encounter at work, and five things it cannot do — regardless of how confident it sounds. Every learner starts here.</p>
+        <div class="module-card__case" style="background:var(--gold-light); color:var(--gold-dark);">45 min · No case study · All sectors · Fully free</div>
+        <br><br>
+        <a href="module-0.html" class="btn btn--outline btn--sm">Start Module 0 →</a>
+      </div>
       <div class="module-card module-card--preview">
         <div class="module-card__num">Module 1 · Preview available</div>
         <h3>What AI Actually Is</h3>
@@ -309,10 +328,10 @@
   <div class="container--sm">
     <span class="eyebrow">Get Started</span>
     <h2>Ready to see what it feels like?</h2>
-    <p class="lead" style="margin: 0 auto 36px;">Module 1 is available to preview in full — no account required. See the Funda Five in action with the DCDT policy hallucination case study.</p>
+    <p class="lead" style="margin: 0 auto 36px;">Start with Module 0 — the free foundation module, no registration required. Or jump into Module 1 and see the Funda Five in action with a real SA case study.</p>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-      <a href="module-1.html" class="btn btn--primary btn--lg">Preview Module 1 →</a>
-      <a href="register.html" class="btn btn--outline btn--lg">Register Interest</a>
+      <a href="module-0.html" class="btn btn--primary btn--lg">Start Module 0 — free →</a>
+      <a href="module-1.html" class="btn btn--outline btn--lg">Preview Module 1</a>
     </div>
   </div>
 </section>
@@ -320,7 +339,7 @@
 <!-- FOOTER -->
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
 </footer>
 
 <script>
@@ -378,6 +397,9 @@
 
   heroTimer = setInterval(() => goHero(heroIdx + 1), 3800);
 </script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
 
 </body>
 </html>

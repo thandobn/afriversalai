@@ -59,12 +59,23 @@
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html">The Course</a></li>
-      <li><a href="module-1.html">Preview Module 1</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li><a href="funda-five.html">The Funda Five</a></li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li>
       <li><a href="register.html" class="btn btn--primary btn--sm active">Register →</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
   </div>
 </nav>
 
@@ -95,26 +106,27 @@
                 action="https://formspree.io/f/xrevwegy" method="POST">
             <input type="hidden" name="_subject" value="New Individual Registration — AfriversalAI" />
             <input type="hidden" name="registration_type" value="Individual" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
             <div class="form-row">
               <div class="form-group">
-                <label>Full name <span class="req">*</span></label>
-                <input type="text" name="full_name" required placeholder="e.g. Nomvula Dlamini" />
+                <label for="ind-name">Full name <span class="req">*</span></label>
+                <input id="ind-name" type="text" name="full_name" required placeholder="e.g. Nomvula Dlamini" />
               </div>
               <div class="form-group">
-                <label>Work email <span class="req">*</span></label>
-                <input type="email" name="email" required placeholder="name@company.co.za" />
+                <label for="ind-email">Work email <span class="req">*</span></label>
+                <input id="ind-email" type="email" name="email" required placeholder="name@company.co.za" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label>Job title <span class="req">*</span></label>
-                <input type="text" name="job_title" required placeholder="e.g. HR Manager" />
+                <label for="ind-title">Job title <span class="req">*</span></label>
+                <input id="ind-title" type="text" name="job_title" required placeholder="e.g. HR Manager" />
               </div>
               <div class="form-group">
-                <label>Sector <span class="req">*</span></label>
-                <select name="sector" required>
+                <label for="ind-sector">Sector <span class="req">*</span></label>
+                <select id="ind-sector" name="sector" required>
                   <option value="" disabled selected>Select your sector</option>
                   <option>Corporate &amp; Business</option>
                   <option>Government &amp; Public Sector</option>
@@ -127,18 +139,18 @@
             </div>
 
             <div class="form-group">
-              <label>City / Province</label>
-              <input type="text" name="location" placeholder="e.g. Johannesburg, Gauteng" />
+              <label for="ind-location">City / Province</label>
+              <input id="ind-location" type="text" name="location" placeholder="e.g. Johannesburg, Gauteng" />
             </div>
 
             <div class="form-group">
-              <label>What do you hope to get from the course?</label>
-              <textarea name="goals" placeholder="Tell us what brought you here and what you're hoping to walk away with…"></textarea>
+              <label for="ind-goals">What do you hope to get from the course?</label>
+              <textarea id="ind-goals" name="goals" placeholder="Tell us what brought you here and what you're hoping to walk away with…"></textarea>
             </div>
 
             <div class="form-group">
-              <label>How did you hear about AfriversalAI?</label>
-              <select name="referral">
+              <label for="ind-referral">How did you hear about AfriversalAI?</label>
+              <select id="ind-referral" name="referral">
                 <option value="" disabled selected>Select one</option>
                 <option>LinkedIn</option>
                 <option>Word of mouth / colleague</option>
@@ -153,6 +165,7 @@
               Submit registration →
             </button>
             <p class="form-note" style="margin-top:10px; text-align:center;">We'll respond within 2 business days with cohort details and next steps.</p>
+            <p class="form-note" style="margin-top:6px; text-align:center;">By submitting, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is processed via Formspree (US servers) and used only to follow up on your registration.</p>
           </form>
 
           <!-- Team form -->
@@ -160,33 +173,34 @@
                 action="https://formspree.io/f/xrevwegy" method="POST">
             <input type="hidden" name="_subject" value="New Team Registration — AfriversalAI" />
             <input type="hidden" name="registration_type" value="Team / Company" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
             <div class="form-row">
               <div class="form-group">
-                <label>Your name <span class="req">*</span></label>
-                <input type="text" name="contact_name" required placeholder="Contact person's name" />
+                <label for="team-name">Your name <span class="req">*</span></label>
+                <input id="team-name" type="text" name="contact_name" required placeholder="Contact person's name" />
               </div>
               <div class="form-group">
-                <label>Work email <span class="req">*</span></label>
-                <input type="email" name="email" required placeholder="name@company.co.za" />
+                <label for="team-email">Work email <span class="req">*</span></label>
+                <input id="team-email" type="email" name="email" required placeholder="name@company.co.za" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label>Company / Organisation <span class="req">*</span></label>
-                <input type="text" name="company" required placeholder="e.g. Standard Bank" />
+                <label for="team-company">Company / Organisation <span class="req">*</span></label>
+                <input id="team-company" type="text" name="company" required placeholder="e.g. Standard Bank" />
               </div>
               <div class="form-group">
-                <label>Your role <span class="req">*</span></label>
-                <input type="text" name="job_title" required placeholder="e.g. L&amp;D Manager" />
+                <label for="team-role">Your role <span class="req">*</span></label>
+                <input id="team-role" type="text" name="job_title" required placeholder="e.g. L&amp;D Manager" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label>Industry / Sector <span class="req">*</span></label>
-                <select name="sector" required>
+                <label for="team-sector">Industry / Sector <span class="req">*</span></label>
+                <select id="team-sector" name="sector" required>
                   <option value="" disabled selected>Select sector</option>
                   <option>Corporate &amp; Business</option>
                   <option>Government &amp; Public Sector</option>
@@ -197,8 +211,8 @@
                 </select>
               </div>
               <div class="form-group">
-                <label>Team size <span class="req">*</span></label>
-                <select name="team_size" required>
+                <label for="team-size">Team size <span class="req">*</span></label>
+                <select id="team-size" name="team_size" required>
                   <option value="" disabled selected>Number of learners</option>
                   <option>2–10 people</option>
                   <option>11–50 people</option>
@@ -209,19 +223,20 @@
             </div>
 
             <div class="form-group">
-              <label>What do you want your team to be able to do after this course? <span class="req">*</span></label>
-              <textarea name="goals" required placeholder="e.g. We want our analysts to be able to evaluate AI outputs before they reach clients. We're also concerned about POPIA compliance when using AI tools…"></textarea>
+              <label for="team-goals">What do you want your team to be able to do after this course? <span class="req">*</span></label>
+              <textarea id="team-goals" name="goals" required placeholder="e.g. We want our analysts to be able to evaluate AI outputs before they reach clients. We're also concerned about POPIA compliance when using AI tools…"></textarea>
             </div>
 
             <div class="form-group">
-              <label>Any specific timeline or deadline?</label>
-              <input type="text" name="timeline" placeholder="e.g. Before Q3 2026, no rush, ASAP" />
+              <label for="team-timeline">Any specific timeline or deadline?</label>
+              <input id="team-timeline" type="text" name="timeline" placeholder="e.g. Before Q3 2026, no rush, ASAP" />
             </div>
 
             <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
               Submit team registration →
             </button>
             <p class="form-note" style="margin-top:10px; text-align:center;">We'll respond within 2 business days with a tailored proposal and pricing.</p>
+            <p class="form-note" style="margin-top:6px; text-align:center;">By submitting, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is processed via Formspree (US servers) and used only to follow up on your registration.</p>
           </form>
         </div>
 
@@ -257,7 +272,7 @@
 
 <footer>
   <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a></span>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
 </footer>
 
 <script>
@@ -297,6 +312,9 @@
     });
   });
 </script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
 
 </body>
 </html>
