@@ -72,6 +72,13 @@
 
     .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
 
+    /* Reveal explanations on cards */
+    .activity-grid { align-items: start; }
+    .reveal-explanation { display: none; font-size: 0.78em; line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1); }
+    .activity-card.revealed .reveal-explanation { display: block; }
+    .is-ai .reveal-explanation { color: var(--green-dark); }
+    .not-ai .reveal-explanation { color: #7a5800; }
+
     /* Knowledge check quiz */
     .quiz-opts { margin-top: 12px; }
     .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.92em; line-height: 1.5; }
@@ -569,66 +576,87 @@
         <p style="font-size:0.88em; color:var(--muted);">Click once to mark <strong style="color:var(--green-dark);">AI</strong> (green) · click again to mark <strong style="color:var(--gold-dark);">Not AI</strong> (amber) · click a third time to clear.</p>
 
         <div class="activity-grid" id="aiSortGrid">
+
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
             <div class="activity-card__icon">📧</div>
             <div class="activity-card__name" data-i18n="card_gmail_name">Gmail spam filter</div>
             <div class="activity-card__hint" data-i18n="card_gmail_hint">Automatically puts junk email in your spam folder</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+            <span class="reveal-badge" data-i18n="badge_ai">AI ✓</span>
+            <div class="reveal-explanation">No human wrote a list of rules for every type of spam. The filter <strong>learned patterns</strong> from millions of flagged emails. Each time you correct it, it updates. That learning from examples — not rules — is the hallmark of AI.</div>
           </div>
+
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
             <div class="activity-card__icon">🎵</div>
             <div class="activity-card__name" data-i18n="card_spotify_name">Spotify Discover Weekly</div>
             <div class="activity-card__hint" data-i18n="card_spotify_hint">New music playlist generated for you every Monday</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+            <span class="reveal-badge" data-i18n="badge_ai">AI ✓</span>
+            <div class="reveal-explanation">A recommendation model analysed your listening history and compared it to millions of users with similar taste to <strong>predict</strong> what you'd enjoy next. No human curated that playlist. Prediction from patterns across massive data is AI.</div>
           </div>
+
           <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
             <div class="activity-card__icon">🔢</div>
             <div class="activity-card__name" data-i18n="card_excel_name">Excel =SUM formula</div>
             <div class="activity-card__hint" data-i18n="card_excel_hint">Adds up the numbers in a column</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI ✓</span>
+            <div class="reveal-explanation">It executes an <strong>exact rule you gave it</strong>: add these numbers. It will never get "better" at summing no matter how many times you use it. No learning. No prediction. Software that follows fixed instructions without adapting is automation — not AI.</div>
           </div>
+
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
             <div class="activity-card__icon">📱</div>
             <div class="activity-card__name" data-i18n="card_faceid_name">Face ID / facial recognition</div>
             <div class="activity-card__hint" data-i18n="card_faceid_hint">Your phone unlocking when it sees your face</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+            <span class="reveal-badge" data-i18n="badge_ai">AI ✓</span>
+            <div class="reveal-explanation">Trained on thousands of facial images to recognise structural patterns unique to your face. There is no rule like "if nose = X, unlock" — the system <strong>learned what your face looks like from examples</strong>. That's computer vision AI.</div>
           </div>
+
           <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
             <div class="activity-card__icon">🔎</div>
             <div class="activity-card__name" data-i18n="card_ctrlf_name">Ctrl+F search in a document</div>
             <div class="activity-card__hint" data-i18n="card_ctrlf_hint">Find a specific word in a file</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI ✓</span>
+            <div class="reveal-explanation">Scans text character by character for an <strong>exact match</strong>. No interpretation, no understanding of meaning, no learning. Search "cat" and it won't find "kitten." The same input always gives the same output. Fully deterministic — the opposite of AI.</div>
           </div>
+
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
             <div class="activity-card__icon">🛒</div>
             <div class="activity-card__name" data-i18n="card_shopping_name">"You may also like" product suggestions</div>
             <div class="activity-card__hint" data-i18n="card_shopping_hint">Shopping site recommendations based on browsing</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+            <span class="reveal-badge" data-i18n="badge_ai">AI ✓</span>
+            <div class="reveal-explanation">A recommendation algorithm detected patterns in your browsing, your purchases, and the behaviour of shoppers who bought similar things — then <strong>predicted</strong> what you'd likely buy next. The output changes as you change. That's AI adapting to you.</div>
           </div>
+
           <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
             <div class="activity-card__icon">📋</div>
             <div class="activity-card__name" data-i18n="card_pdf_name">A PDF form you fill in manually</div>
             <div class="activity-card__hint" data-i18n="card_pdf_hint">Digital form with fixed fields — no automation</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI ✓</span>
+            <div class="reveal-explanation">A static digital document. No processing happens until you submit it. The software does <strong>nothing with your input on its own</strong> — it holds space for your data. Digitising paper is not AI. There is no learning, no prediction, no pattern recognition.</div>
           </div>
+
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
             <div class="activity-card__icon">🏦</div>
             <div class="activity-card__name" data-i18n="card_credit_name">Credit application decision</div>
             <div class="activity-card__hint" data-i18n="card_credit_hint">Your bank loan approved or declined in seconds</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+            <span class="reveal-badge" data-i18n="badge_ai">AI ✓</span>
+            <div class="reveal-explanation">A predictive model scored your application against patterns learned from <strong>millions of historical loan outcomes</strong> — income ratios, repayment history, location, employment type. It learned which profiles repay. This is also where data bias enters: if past lending was discriminatory, the AI learns to repeat it.</div>
           </div>
+
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
             <div class="activity-card__icon">💬</div>
             <div class="activity-card__name" data-i18n="card_autocorrect_name">Autocorrect on your phone</div>
             <div class="activity-card__hint" data-i18n="card_autocorrect_hint">Your phone predicting your next word while typing</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+            <span class="reveal-badge" data-i18n="badge_ai">AI ✓</span>
+            <div class="reveal-explanation">Trained on billions of words to <strong>predict</strong> the most likely next word as you type. Modern autocorrect also learns your personal vocabulary over time. It uses the same core mechanism as ChatGPT — just at word level rather than paragraph level.</div>
           </div>
+
           <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
             <div class="activity-card__icon">📅</div>
             <div class="activity-card__name" data-i18n="card_calendar_name">Calendar reminder at 9am daily</div>
             <div class="activity-card__hint" data-i18n="card_calendar_hint">A scheduled alarm you set yourself</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI ✓</span>
+            <div class="reveal-explanation">You wrote the rule: <em>alert me at 9am.</em> The system executes it exactly, every time, without variation or improvement. This is <strong>automation</strong> — it follows your instructions. AI, by contrast, figures out its own patterns from data. Knowing this difference is one of the most useful things you'll take from this course.</div>
           </div>
+
         </div>
 
         <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
@@ -636,6 +664,45 @@
           <button class="btn btn--primary btn--sm" onclick="advancePhase(1)" data-i18n="p0_btn_done">Done — see what I spotted →</button>
         </div>
         <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please click on at least a few cards before moving on.</div>
+
+        <!-- PRINCIPLES — shown after reveal -->
+        <div id="encounter-principles" style="display:none; margin-top:32px;">
+          <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+            <div style="flex:1; height:1px; background:var(--border);"></div>
+            <span style="font-size:0.78em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1.2px; white-space:nowrap;">What you just learned</span>
+            <div style="flex:1; height:1px; background:var(--border);"></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;">
+            <div style="border:1.5px solid var(--green-light); border-radius:var(--radius-lg); padding:20px; background:var(--green-pale);">
+              <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:12px;">Signs it IS AI</div>
+              <ul style="margin:0; padding-left:16px; font-size:0.88em; line-height:2; color:var(--text);">
+                <li>It <strong>learned from examples</strong>, not rules someone wrote</li>
+                <li>It <strong>predicts, recommends, or classifies</strong> something</li>
+                <li>It improves or adapts <strong>without being reprogrammed</strong></li>
+                <li>Its output can vary — even for the same input</li>
+                <li>No human could have manually written a rule for every case</li>
+              </ul>
+            </div>
+            <div style="border:1.5px solid #FCA5A5; border-radius:var(--radius-lg); padding:20px; background:#FFF5F5;">
+              <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#DC2626; margin-bottom:12px;">Signs it is NOT AI</div>
+              <ul style="margin:0; padding-left:16px; font-size:0.88em; line-height:2; color:#7F1D1D;">
+                <li>It <strong>follows rules a human explicitly wrote</strong></li>
+                <li>The same input <strong>always gives the same output</strong></li>
+                <li>It <strong>never improves</strong> no matter how much you use it</li>
+                <li>It holds, displays, or moves data — but doesn't interpret it</li>
+                <li>You could, in theory, write every rule yourself on paper</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:28px 32px;">
+            <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">The one question that cuts through everything</p>
+            <p style="font-size:1.1em; font-weight:700; color:white; margin-bottom:12px; line-height:1.4;">Did a human write every rule — or did the system learn the rules from data?</p>
+            <p style="color:rgba(255,255,255,0.75); font-size:0.9em; line-height:1.75; margin-bottom:16px;">If a human wrote every rule: <strong style="color:white;">not AI.</strong> If the system figured out the rules by analysing examples: <strong style="color:var(--gold);">AI.</strong></p>
+            <p style="color:rgba(255,255,255,0.65); font-size:0.85em; margin:0; line-height:1.7;">Use this question on anything you encounter at work. Your HR shortlisting tool — did someone write every criterion, or did it learn from past hires? Your fraud alert — did someone list every fraud pattern, or did it learn from millions of transactions? The answer tells you whether AI is involved — and whether you need to think carefully about bias, accountability, and error.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -832,6 +899,13 @@ function revealAnswers() {
     if (card.dataset.answer === 'ai') card.classList.add('is-ai');
     else card.classList.add('not-ai');
   });
+  var principles = document.getElementById('encounter-principles');
+  if (principles) {
+    principles.style.display = 'block';
+    setTimeout(function() {
+      principles.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+  }
 }
 
 function advancePhase(fromPhase) {
