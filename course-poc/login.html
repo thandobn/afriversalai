@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign In — AfriversalAI</title>
+  <title>Sign In â€” AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -31,7 +31,7 @@
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="module-0.html">AI Fundamentals</a></li>
-      <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register â†’</a></li>
     </ul>
     <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
       <span class="nav__hamburger__bar"></span>
@@ -59,7 +59,7 @@
         <input type="password" id="password" name="password" required placeholder="Your password" autocomplete="current-password" />
       </div>
       <button type="submit" class="btn btn--primary btn--lg" style="width:100%; margin-top:8px;" id="submit-btn">
-        Sign in →
+        Sign in â†’
       </button>
     </form>
 
@@ -83,7 +83,7 @@
     const btn = document.getElementById('submit-btn')
     const errEl = document.getElementById('auth-error')
     errEl.style.display = 'none'
-    btn.textContent = 'Signing in…'
+    btn.textContent = 'Signing inâ€¦'
     btn.disabled = true
 
     try {
@@ -95,9 +95,9 @@
       const next = params.get('next')
       window.location.href = next && next !== 'login.html' ? next : 'dashboard.html'
     } catch (err) {
-      errEl.textContent = err.message || 'Sign in failed — check your email and password.'
+      errEl.textContent = err.message || 'Sign in failed â€” check your email and password.'
       errEl.style.display = 'block'
-      btn.textContent = 'Sign in →'
+      btn.textContent = 'Sign in â†’'
       btn.disabled = false
     }
   }
