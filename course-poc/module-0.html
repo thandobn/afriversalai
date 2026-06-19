@@ -133,163 +133,10 @@
 <section class="bg-pale">
   <div class="container">
 
-    <!-- PHASE 0: ENCOUNTER -->
+    <!-- PHASE 1: CONCEPT -->
     <div class="phase" id="phase-0">
       <div class="phase__header">
         <div class="phase__num">1</div>
-        <div>
-          <div class="phase__title" data-i18n="p0_title">Encounter — Spot the AI</div>
-          <div class="phase__subtitle" data-i18n="p0_sub">Before any explanation, try it yourself · ~10 min</div>
-        </div>
-      </div>
-      <div class="phase__body">
-        <p>Below are 10 everyday tools and situations. Before you read anything about what AI is — just pick your gut answer: does this use AI, or not?</p>
-        <p style="font-size:0.88em; color:var(--muted);">Click once to mark <strong style="color:var(--green-dark);">AI</strong> (green) · click again to mark <strong style="color:var(--gold-dark);">Not AI</strong> (amber) · click a third time to clear. No right answers yet — just your instinct.</p>
-
-        <div class="activity-grid" id="aiSortGrid">
-          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">📧</div>
-            <div class="activity-card__name" data-i18n="card_gmail_name">Gmail spam filter</div>
-            <div class="activity-card__hint" data-i18n="card_gmail_hint">Automatically puts junk email in your spam folder</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
-          </div>
-          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">🎵</div>
-            <div class="activity-card__name" data-i18n="card_spotify_name">Spotify Discover Weekly</div>
-            <div class="activity-card__hint" data-i18n="card_spotify_hint">New music playlist generated for you every Monday</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
-          </div>
-          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">🔢</div>
-            <div class="activity-card__name" data-i18n="card_excel_name">Excel =SUM formula</div>
-            <div class="activity-card__hint" data-i18n="card_excel_hint">Adds up the numbers in a column</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
-          </div>
-          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">📱</div>
-            <div class="activity-card__name" data-i18n="card_faceid_name">Face ID / facial recognition</div>
-            <div class="activity-card__hint" data-i18n="card_faceid_hint">Your phone unlocking when it sees your face</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
-          </div>
-          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">🔎</div>
-            <div class="activity-card__name" data-i18n="card_ctrlf_name">Ctrl+F search in a document</div>
-            <div class="activity-card__hint" data-i18n="card_ctrlf_hint">Find a specific word in a file</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
-          </div>
-          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">🛒</div>
-            <div class="activity-card__name" data-i18n="card_shopping_name">"You may also like" product suggestions</div>
-            <div class="activity-card__hint" data-i18n="card_shopping_hint">Shopping site recommendations based on browsing</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
-          </div>
-          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">📋</div>
-            <div class="activity-card__name" data-i18n="card_pdf_name">A PDF form you fill in manually</div>
-            <div class="activity-card__hint" data-i18n="card_pdf_hint">Digital form with fixed fields — no automation</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
-          </div>
-          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">🏦</div>
-            <div class="activity-card__name" data-i18n="card_credit_name">Credit application decision</div>
-            <div class="activity-card__hint" data-i18n="card_credit_hint">Your bank loan approved or declined in seconds</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
-          </div>
-          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">💬</div>
-            <div class="activity-card__name" data-i18n="card_autocorrect_name">Autocorrect on your phone</div>
-            <div class="activity-card__hint" data-i18n="card_autocorrect_hint">Your phone predicting your next word while typing</div>
-            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
-          </div>
-          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
-            <div class="activity-card__icon">📅</div>
-            <div class="activity-card__name" data-i18n="card_calendar_name">Calendar reminder at 9am daily</div>
-            <div class="activity-card__hint" data-i18n="card_calendar_hint">A scheduled alarm you set yourself</div>
-            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
-          </div>
-        </div>
-
-        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-          <button class="btn btn--outline btn--sm" onclick="revealAnswers()" data-i18n="p0_btn_reveal">Reveal answers</button>
-          <button class="btn btn--primary btn--sm" onclick="advancePhase(0)" data-i18n="p0_btn_done">Done — see the concept →</button>
-        </div>
-        <div id="err-0" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please click on at least a few cards before moving on.</div>
-      </div>
-    </div>
-
-    <!-- TEASER GATE — shown when phase 0 completes, rest stays locked -->
-    <div id="teaser-gate" style="display:none;">
-      <div style="background:var(--green-dark); border-radius:var(--radius-lg); padding:52px 44px; margin:32px 0; text-align:center; color:white;">
-        <p style="color:var(--gold); font-weight:700; font-size:0.78em; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;" data-i18n="teaser_eyebrow">You've seen what AI is. Now learn what to do with it.</p>
-        <h2 style="color:white; font-size:1.7em; margin-bottom:14px; line-height:1.25;" data-i18n="teaser_h2">Three more phases unlock with the full course.</h2>
-        <p style="color:rgba(255,255,255,0.7); max-width:560px; margin:0 auto 32px; line-height:1.75;" data-i18n="teaser_p">This was the Encounter phase — your instinct before any explanation. The full Module 0 takes you through Reflect, Concept, and Apply: what AI actually is, the three types you'll meet at work, and how to spot them in your own role.</p>
-        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:36px;">
-          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:180px;">
-            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;" data-i18n="teaser_p2_label">Phase 2 — Reflect</div>
-            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;" data-i18n="teaser_p2_body">What surprised you? Where is AI showing up in your job right now?</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:180px;">
-            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;" data-i18n="teaser_p3_label">Phase 3 — Concept</div>
-            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;" data-i18n="teaser_p3_body">The 3 AI types, 5 things AI can never do — plus what the SA credit data reveals about training bias</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:180px;">
-            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;" data-i18n="teaser_p4_label">Phase 4 — Apply</div>
-            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;" data-i18n="teaser_p4_body">Name one AI tool in your workplace — and identify a failure mode you didn't see before</div>
-          </div>
-        </div>
-        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a href="register.html" class="btn btn--gold btn--lg" data-i18n="teaser_btn_register">Register free — unlock all phases →</a>
-          <a href="course-outline.html" class="btn" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.3); padding:14px 24px; font-size:0.92em; font-weight:600; border-radius:var(--radius); text-decoration:none;" data-i18n="teaser_btn_outline">View full course outline</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- PHASE 1: REFLECT -->
-    <div class="phase is-locked" id="phase-1">
-      <div class="phase__header">
-        <div class="phase__num">2</div>
-        <div>
-          <div class="phase__title" data-i18n="p1_title">Reflect — What surprised you?</div>
-          <div class="phase__subtitle" data-i18n="p1_sub">No right answers here — just your honest reaction · ~10 min</div>
-        </div>
-      </div>
-      <div class="phase__body">
-        <p>Now that you've seen the answers — what caught you off guard?</p>
-
-        <!-- Branching question -->
-        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
-          <p style="font-weight:700; margin-bottom:14px;" data-i18n="p1_branch_q">First — one quick question about your workplace:</p>
-          <p style="font-size:0.9em; color:var(--muted); margin-bottom:16px;" data-i18n="p1_branch_sub">Does your organisation currently use AI tools in day-to-day work?</p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button type="button" class="btn btn--outline btn--sm" id="branch-yes" onclick="setBranch('yes')" data-i18n="p1_branch_yes">Yes, definitely</button>
-            <button type="button" class="btn btn--outline btn--sm" id="branch-unsure" onclick="setBranch('unsure')" data-i18n="p1_branch_unsure">Not sure / maybe</button>
-            <button type="button" class="btn btn--outline btn--sm" id="branch-no" onclick="setBranch('no')" data-i18n="p1_branch_no">Not really / no</button>
-          </div>
-        </div>
-
-        <!-- Q1 — same for everyone -->
-        <div style="margin: 20px 0;">
-          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;" data-i18n="p1_q1_label">Which one surprised you most — AI or not AI? Why?</label>
-          <textarea id="reflect-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. I didn't realise the spam filter counted as AI — I thought AI meant something more like a robot..." data-i18n-placeholder="p1_q1_placeholder"></textarea>
-        </div>
-
-        <!-- Q2 — changes based on branch -->
-        <div style="margin: 20px 0;" id="reflect-q2-wrap">
-          <label for="reflect-2" id="reflect-2-label" style="display:block; font-weight:600; margin-bottom:8px;">Where do you encounter AI in your own job? (Even if you're not sure — take a guess.)</label>
-          <textarea id="reflect-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The HR system that shortlists CVs, the chatbot on our website, the fraud alerts our bank sends..."></textarea>
-        </div>
-
-        <div style="text-align:right; margin-top:24px;">
-          <button class="btn btn--primary" onclick="advancePhase(1)" data-i18n="p1_btn">Done reflecting — show me the concept →</button>
-        </div>
-        <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please answer both questions before moving on.</div>
-      </div>
-    </div>
-
-    <!-- PHASE 2: CONCEPT -->
-    <div class="phase" id="phase-2">
-      <div class="phase__header">
-        <div class="phase__num">3</div>
         <div>
           <div class="phase__title" data-i18n="p2_title">Concept — What AI actually is</div>
           <div class="phase__subtitle" data-i18n="p2_sub">The real explanation, without the hype · ~25 min</div>
@@ -699,16 +546,165 @@
             </div>
             <div id="quiz-result" style="display:none; margin-top:20px;"></div>
             <div id="quiz-advance-wrap" style="display:none; text-align:right; margin-top:16px;">
-              <button class="btn btn--primary" type="button" onclick="advancePhase(2)" data-i18n="quiz_btn_advance">Move to Apply →</button>
+              <button class="btn btn--primary" type="button" onclick="advancePhase(0)" data-i18n="quiz_btn_advance">Move to Encounter →</button>
             </div>
 
           </div>
         </div>
-        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;"></div>
+        <div id="err-0" class="advance-err" role="alert" aria-live="polite" style="display:none;"></div>
       </div>
     </div>
 
-    <!-- PHASE 3: APPLY -->
+    <!-- PHASE 2: ENCOUNTER -->
+    <div class="phase is-locked" id="phase-1">
+      <div class="phase__header">
+        <div class="phase__num">2</div>
+        <div>
+          <div class="phase__title" data-i18n="p0_title">Encounter — Spot the AI</div>
+          <div class="phase__subtitle" data-i18n="p0_sub">Now that you know what AI is — spot it in the wild · ~10 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>Below are 10 everyday tools and situations. Pick your gut answer: does this use AI, or not?</p>
+        <p style="font-size:0.88em; color:var(--muted);">Click once to mark <strong style="color:var(--green-dark);">AI</strong> (green) · click again to mark <strong style="color:var(--gold-dark);">Not AI</strong> (amber) · click a third time to clear.</p>
+
+        <div class="activity-grid" id="aiSortGrid">
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📧</div>
+            <div class="activity-card__name" data-i18n="card_gmail_name">Gmail spam filter</div>
+            <div class="activity-card__hint" data-i18n="card_gmail_hint">Automatically puts junk email in your spam folder</div>
+            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🎵</div>
+            <div class="activity-card__name" data-i18n="card_spotify_name">Spotify Discover Weekly</div>
+            <div class="activity-card__hint" data-i18n="card_spotify_hint">New music playlist generated for you every Monday</div>
+            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🔢</div>
+            <div class="activity-card__name" data-i18n="card_excel_name">Excel =SUM formula</div>
+            <div class="activity-card__hint" data-i18n="card_excel_hint">Adds up the numbers in a column</div>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📱</div>
+            <div class="activity-card__name" data-i18n="card_faceid_name">Face ID / facial recognition</div>
+            <div class="activity-card__hint" data-i18n="card_faceid_hint">Your phone unlocking when it sees your face</div>
+            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🔎</div>
+            <div class="activity-card__name" data-i18n="card_ctrlf_name">Ctrl+F search in a document</div>
+            <div class="activity-card__hint" data-i18n="card_ctrlf_hint">Find a specific word in a file</div>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🛒</div>
+            <div class="activity-card__name" data-i18n="card_shopping_name">"You may also like" product suggestions</div>
+            <div class="activity-card__hint" data-i18n="card_shopping_hint">Shopping site recommendations based on browsing</div>
+            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📋</div>
+            <div class="activity-card__name" data-i18n="card_pdf_name">A PDF form you fill in manually</div>
+            <div class="activity-card__hint" data-i18n="card_pdf_hint">Digital form with fixed fields — no automation</div>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">🏦</div>
+            <div class="activity-card__name" data-i18n="card_credit_name">Credit application decision</div>
+            <div class="activity-card__hint" data-i18n="card_credit_hint">Your bank loan approved or declined in seconds</div>
+            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+          </div>
+          <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">💬</div>
+            <div class="activity-card__name" data-i18n="card_autocorrect_name">Autocorrect on your phone</div>
+            <div class="activity-card__hint" data-i18n="card_autocorrect_hint">Your phone predicting your next word while typing</div>
+            <span class="reveal-badge" data-i18n="badge_ai">AI</span>
+          </div>
+          <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
+            <div class="activity-card__icon">📅</div>
+            <div class="activity-card__name" data-i18n="card_calendar_name">Calendar reminder at 9am daily</div>
+            <div class="activity-card__hint" data-i18n="card_calendar_hint">A scheduled alarm you set yourself</div>
+            <span class="reveal-badge" data-i18n="badge_not_ai">Not AI</span>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn--outline btn--sm" onclick="revealAnswers()" data-i18n="p0_btn_reveal">Reveal answers</button>
+          <button class="btn btn--primary btn--sm" onclick="advancePhase(1)" data-i18n="p0_btn_done">Done — see what I spotted →</button>
+        </div>
+        <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please click on at least a few cards before moving on.</div>
+      </div>
+    </div>
+
+    <!-- TEASER GATE — shown after Encounter for guests -->
+    <div id="teaser-gate" style="display:none;">
+      <div style="background:var(--green-dark); border-radius:var(--radius-lg); padding:52px 44px; margin:32px 0; text-align:center; color:white;">
+        <p style="color:var(--gold); font-weight:700; font-size:0.78em; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">You've sorted the cards. Ready to reflect?</p>
+        <h2 style="color:white; font-size:1.7em; margin-bottom:14px; line-height:1.25;">Two more phases unlock with the full course.</h2>
+        <p style="color:rgba(255,255,255,0.7); max-width:560px; margin:0 auto 32px; line-height:1.75;">You've learned what AI is and spotted it in the wild. The full Module 0 takes you through Reflect and Apply — processing what surprised you and connecting it directly to your own workplace.</p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:36px;">
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:200px;">
+            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Phase 3 — Reflect</div>
+            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;">What surprised you? Where is AI already showing up in your job?</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:200px;">
+            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Phase 4 — Apply</div>
+            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;">Name one AI tool in your workplace and identify a failure mode you didn't see before</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="register.html" class="btn btn--gold btn--lg">Register free — unlock all phases →</a>
+          <a href="course-outline.html" class="btn" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.3); padding:14px 24px; font-size:0.92em; font-weight:600; border-radius:var(--radius); text-decoration:none;">View full course outline</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: REFLECT -->
+    <div class="phase is-locked" id="phase-2">
+      <div class="phase__header">
+        <div class="phase__num">3</div>
+        <div>
+          <div class="phase__title" data-i18n="p1_title">Reflect — What surprised you?</div>
+          <div class="phase__subtitle" data-i18n="p1_sub">No right answers here — just your honest reaction · ~10 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>Now that you've seen the answers — what caught you off guard?</p>
+
+        <!-- Branching question -->
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
+          <p style="font-weight:700; margin-bottom:14px;" data-i18n="p1_branch_q">First — one quick question about your workplace:</p>
+          <p style="font-size:0.9em; color:var(--muted); margin-bottom:16px;" data-i18n="p1_branch_sub">Does your organisation currently use AI tools in day-to-day work?</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button type="button" class="btn btn--outline btn--sm" id="branch-yes" onclick="setBranch('yes')" data-i18n="p1_branch_yes">Yes, definitely</button>
+            <button type="button" class="btn btn--outline btn--sm" id="branch-unsure" onclick="setBranch('unsure')" data-i18n="p1_branch_unsure">Not sure / maybe</button>
+            <button type="button" class="btn btn--outline btn--sm" id="branch-no" onclick="setBranch('no')" data-i18n="p1_branch_no">Not really / no</button>
+          </div>
+        </div>
+
+        <!-- Q1 — same for everyone -->
+        <div style="margin: 20px 0;">
+          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;" data-i18n="p1_q1_label">Which one surprised you most — AI or not AI? Why?</label>
+          <textarea id="reflect-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. I didn't realise the spam filter counted as AI — I thought AI meant something more like a robot..." data-i18n-placeholder="p1_q1_placeholder"></textarea>
+        </div>
+
+        <!-- Q2 — changes based on branch -->
+        <div style="margin: 20px 0;" id="reflect-q2-wrap">
+          <label for="reflect-2" id="reflect-2-label" style="display:block; font-weight:600; margin-bottom:8px;">Where do you encounter AI in your own job? (Even if you're not sure — take a guess.)</label>
+          <textarea id="reflect-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The HR system that shortlists CVs, the chatbot on our website, the fraud alerts our bank sends..."></textarea>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary" onclick="advancePhase(2)" data-i18n="p1_btn">Done reflecting — move to Apply →</button>
+        </div>
+        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please answer both questions before moving on.</div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: APPLY -->
     <div class="phase is-locked" id="phase-3">
       <div class="phase__header">
         <div class="phase__num">4</div>
@@ -841,8 +837,13 @@ function revealAnswers() {
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
-  // Phase 0: require some card interaction OR answers already revealed, then show teaser gate
+  // Phase 0: Concept — quiz already validated; advance to Encounter
   if (fromPhase === 0) {
+    errEl.style.display = 'none';
+  }
+
+  // Phase 1: Encounter — require card interaction, then show teaser gate for guests
+  if (fromPhase === 1) {
     const alreadyRevealed = document.querySelectorAll('.activity-card.revealed').length > 0;
     const interacted = document.querySelectorAll('.activity-card.selected-ai').length;
     if (!alreadyRevealed && interacted < 3) {
@@ -853,35 +854,30 @@ function advancePhase(fromPhase) {
     }
     errEl.style.display = 'none';
     revealAnswers();
-    document.getElementById('phase-0').classList.add('is-done');
-    document.getElementById('prog-0').classList.remove('is-active');
-    document.getElementById('prog-0').classList.add('is-done');
-    saveProgress('module-0', 0);
+    document.getElementById('phase-1').classList.add('is-done');
+    document.getElementById('prog-1').classList.remove('is-active');
+    document.getElementById('prog-1').classList.add('is-done');
+    saveProgress('module-0', 1);
     const gate = document.getElementById('teaser-gate');
     gate.style.display = 'block';
     setTimeout(() => gate.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
     return;
   }
 
-  // Phase 1: require text in both textareas
-  if (fromPhase === 1) {
+  // Phase 2: Reflect — require text in both textareas
+  if (fromPhase === 2) {
     const t1 = document.getElementById('reflect-1').value.trim();
     const t2 = document.getElementById('reflect-2').value.trim();
     if (t1.length < 8 || t2.length < 8) {
-      var tl1 = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
+      var tl2 = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
       errEl.style.display = 'block';
-      errEl.textContent = tl1.p1_err || 'Please write a few words in both reflection boxes before moving on.';
+      errEl.textContent = tl2.p1_err || 'Please write a few words in both reflection boxes before moving on.';
       return;
     }
     errEl.style.display = 'none';
   }
 
-  // Phase 2: concept — no input needed, just read
-  if (fromPhase === 2) {
-    errEl.style.display = 'none';
-  }
-
-  // Phase 3: require all three apply boxes
+  // Phase 3: Apply — require all three boxes
   if (fromPhase === 3) {
     const a1 = document.getElementById('apply-1').value.trim();
     const a2 = document.getElementById('apply-2').value.trim();
@@ -892,18 +888,17 @@ function advancePhase(fromPhase) {
       errEl.textContent = tl3.p3_err || 'Please answer all three questions before completing the module.';
       return;
     }
-    // Complete!
     saveProgress('module-0', 3);
-    document.getElementById('phase-' + fromPhase).classList.add('is-done');
-    document.getElementById('prog-' + fromPhase).classList.remove('is-active');
-    document.getElementById('prog-' + fromPhase).classList.add('is-done');
+    document.getElementById('phase-3').classList.add('is-done');
+    document.getElementById('prog-3').classList.remove('is-active');
+    document.getElementById('prog-3').classList.add('is-done');
     const complete = document.getElementById('module-complete');
     complete.style.display = 'block';
     setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     return;
   }
 
-  // Advance to next phase
+  // Generic: mark current done, unlock next
   const current = document.getElementById('phase-' + fromPhase);
   const next = document.getElementById('phase-' + (fromPhase + 1));
   const progCur = document.getElementById('prog-' + fromPhase);
