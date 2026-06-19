@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Settings — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .settings-wrap { max-width: 680px; margin: 0 auto; padding: 48px 16px 80px; }
+    .settings-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 32px 36px; margin-bottom: 20px; }
+    .settings-card h2 { font-size: 1em; font-weight: 700; color: var(--green-dark); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.85em; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group input, .form-group select {
+      width: 100%; padding: 10px 13px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-family: inherit; font-size: 0.92em; color: var(--text);
+      background: white; transition: border-color 0.15s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none; border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.1);
+    }
+    .form-group input[readonly] { background: var(--bg); color: var(--muted); cursor: not-allowed; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .save-status { font-size: 0.85em; margin-left: 12px; }
+    .save-status.success { color: var(--green-mid); }
+    .save-status.error { color: #DC2626; }
+    .danger-zone { border-color: #FECACA; }
+    .danger-zone h2 { color: #DC2626; border-bottom-color: #FECACA; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .settings-card { padding: 24px 20px; } }
+  </style>
+</head>
+<body class="bg-pale">
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="dashboard.html">My Dashboard</a></li>
+      <li><a href="settings.html" class="active">Settings</a></li>
+      <li><a href="#" onclick="afSignOut(); return false;" class="btn btn--outline btn--sm">Sign out</a></li>
+    </ul>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="settings-wrap">
+  <div style="margin-bottom:28px;">
+    <a href="dashboard.html" style="font-size:0.85em; color:var(--green-mid); text-decoration:none; font-weight:600;">← Back to dashboard</a>
+    <h1 style="font-size:1.6em; font-weight:800; color:var(--green-dark); margin-top:12px;">Account Settings</h1>
+  </div>
+
+  <!-- Profile info -->
+  <div class="settings-card">
+    <h2>Profile Information</h2>
+    <form id="profile-form" onsubmit="saveProfile(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="s-name">Full name</label>
+          <input type="text" id="s-name" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label for="s-email">Email address</label>
+          <input type="email" id="s-email" readonly title="Email cannot be changed here" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="s-role">Job title</label>
+          <input type="text" id="s-role" placeholder="e.g. HR Manager" />
+        </div>
+        <div class="form-group">
+          <label for="s-org">Organisation</label>
+          <input type="text" id="s-org" placeholder="e.g. Standard Bank" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="s-sector">Sector</label>
+        <select id="s-sector">
+          <option value="" disabled>Select your sector</option>
+          <option value="corporate">Corporate &amp; Business</option>
+          <option value="government">Government &amp; Public Sector</option>
+          <option value="finance">Finance &amp; Banking</option>
+          <option value="healthcare">Medical &amp; Healthcare</option>
+          <option value="education">Education</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div style="display:flex; align-items:center;">
+        <button type="submit" class="btn btn--primary" id="profile-save-btn">Save changes</button>
+        <span class="save-status" id="profile-status"></span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Password -->
+  <div class="settings-card">
+    <h2>Change Password</h2>
+    <form id="password-form" onsubmit="savePassword(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="s-pw-new">New password</label>
+          <input type="password" id="s-pw-new" placeholder="At least 8 characters" minlength="8" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label for="s-pw-confirm">Confirm new password</label>
+          <input type="password" id="s-pw-confirm" placeholder="Repeat new password" autocomplete="new-password" />
+        </div>
+      </div>
+      <div style="display:flex; align-items:center;">
+        <button type="submit" class="btn btn--primary" id="pw-save-btn">Update password</button>
+        <span class="save-status" id="pw-status"></span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Danger zone -->
+  <div class="settings-card danger-zone">
+    <h2>Sign Out</h2>
+    <p style="font-size:0.88em; color:var(--muted); margin-bottom:16px;">You'll need to sign back in to access your dashboard and course progress.</p>
+    <button type="button" class="btn btn--outline" onclick="afSignOut()" style="border-color:#DC2626; color:#DC2626;">Sign out of AfriversalAI</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+async function initSettings() {
+  const session = await requireAuth('settings.html')
+  if (!session) return
+
+  const profile = await getProfile()
+  if (profile) {
+    document.getElementById('s-name').value  = profile.full_name    || ''
+    document.getElementById('s-role').value  = profile.role         || ''
+    document.getElementById('s-org').value   = profile.organisation || ''
+    const sectorEl = document.getElementById('s-sector')
+    if (profile.sector) sectorEl.value = profile.sector
+  }
+  document.getElementById('s-email').value = session.user.email
+}
+
+async function saveProfile(e) {
+  e.preventDefault()
+  const btn = document.getElementById('profile-save-btn')
+  const status = document.getElementById('profile-status')
+  btn.disabled = true
+  btn.textContent = 'Saving…'
+  status.textContent = ''
+  status.className = 'save-status'
+  try {
+    await updateProfile({
+      full_name:    document.getElementById('s-name').value.trim(),
+      role:         document.getElementById('s-role').value.trim(),
+      organisation: document.getElementById('s-org').value.trim(),
+      sector:       document.getElementById('s-sector').value,
+    })
+    status.textContent = 'Saved.'
+    status.className = 'save-status success'
+  } catch (err) {
+    status.textContent = err.message || 'Save failed.'
+    status.className = 'save-status error'
+  }
+  btn.disabled = false
+  btn.textContent = 'Save changes'
+}
+
+async function savePassword(e) {
+  e.preventDefault()
+  const btn = document.getElementById('pw-save-btn')
+  const status = document.getElementById('pw-status')
+  const newPw = document.getElementById('s-pw-new').value
+  const confirm = document.getElementById('s-pw-confirm').value
+  status.textContent = ''
+  status.className = 'save-status'
+
+  if (newPw !== confirm) {
+    status.textContent = 'Passwords do not match.'
+    status.className = 'save-status error'
+    return
+  }
+  btn.disabled = true
+  btn.textContent = 'Updating…'
+  try {
+    const { error } = await _supabase.auth.updateUser({ password: newPw })
+    if (error) throw error
+    status.textContent = 'Password updated.'
+    status.className = 'save-status success'
+    document.getElementById('s-pw-new').value = ''
+    document.getElementById('s-pw-confirm').value = ''
+  } catch (err) {
+    status.textContent = err.message || 'Update failed.'
+    status.className = 'save-status error'
+  }
+  btn.disabled = false
+  btn.textContent = 'Update password'
+}
+
+initSettings()
+</script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

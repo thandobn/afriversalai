@@ -82,6 +82,16 @@ async function requireAuth(redirectTo) {
   return session
 }
 
+async function updateProfile(updates) {
+  const session = await getSession()
+  if (!session) throw new Error('Not logged in')
+  const { error } = await _supabase
+    .from('profiles')
+    .update(updates)
+    .eq('id', session.user.id)
+  if (error) throw error
+}
+
 async function updateNavForAuth() {
   const session = await getSession()
   const registerLink = document.querySelector('a[href="register.html"]')
