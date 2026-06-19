@@ -25,4 +25,9 @@
       burger.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // Update nav for auth state if auth.js is loaded
+  if (typeof updateNavForAuth === 'function') {
+    updateNavForAuth();
+  }
 })();
