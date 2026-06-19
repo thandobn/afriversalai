@@ -115,7 +115,7 @@
     <h1 data-i18n-html="m0_h1">AI Fundamentals:<br>What Is It, Really?</h1>
     <p class="lead" data-i18n="m0_lead">Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it's where we all start.</p>
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
-      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">45 minutes · 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">55 minutes · 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors · No technical background required</span>
       <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Phase 1 free — register to unlock all phases</span>
     </div>
@@ -292,10 +292,230 @@
         <div class="phase__num">3</div>
         <div>
           <div class="phase__title" data-i18n="p2_title">Concept — What AI actually is</div>
-          <div class="phase__subtitle" data-i18n="p2_sub">The real explanation, without the hype · ~15 min</div>
+          <div class="phase__subtitle" data-i18n="p2_sub">The real explanation, without the hype · ~25 min</div>
         </div>
       </div>
       <div class="phase__body">
+
+        <!-- ═══════════════════════════════════════════════
+             FOUNDATION LESSONS — story-first entry to AI
+             ═══════════════════════════════════════════════ -->
+
+        <!-- Lesson 1: The World's Fastest Guesser -->
+        <div style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 1</span>
+            <h3 style="margin:0; font-size:1.15em;">The World's Fastest Guesser</h3>
+          </div>
+          <p>Imagine I show you this sentence:</p>
+          <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:20px 24px; border-radius:0 var(--radius-lg) var(--radius-lg) 0; margin:16px 0; font-size:1.05em; font-style:italic;">
+            The sun rises in the _____.
+          </div>
+          <p>You immediately know the answer. Why? Because you've seen thousands of examples before. Now try this:</p>
+          <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:20px 24px; border-radius:0 var(--radius-lg) var(--radius-lg) 0; margin:16px 0; font-size:1.05em; font-style:italic;">
+            Happy birthday to _____.
+          </div>
+          <p>You can probably guess: <em>you, her, him.</em> Again — you're predicting.</p>
+          <p>Now imagine you had read every book, every website, millions of conversations, billions of sentences. You'd become extraordinarily good at guessing what word comes next.</p>
+          <div class="concept-block">
+            <h4>That is essentially what ChatGPT does</h4>
+            <p>Not thinking. Not understanding. <strong>Predicting.</strong></p>
+          </div>
+        </div>
+
+        <!-- Exercise: Fill in the blank -->
+        <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:36px;">
+          <div style="background:var(--gold); padding:14px 24px;">
+            <span style="font-weight:800; font-size:0.85em; letter-spacing:0.5px; color:#1a1a1a;">Try it yourself</span>
+          </div>
+          <div style="padding:24px 28px;">
+            <p style="margin-top:0;">Finish these sentences — write the first word that comes to mind:</p>
+            <div style="margin-bottom:16px;">
+              <label style="display:block; font-size:0.95em; font-weight:600; margin-bottom:8px;">1. Peanut butter and&nbsp;&nbsp;<input type="text" id="fill-1" placeholder="…" style="border:none; border-bottom:2px solid var(--green-mid); font-size:1em; font-family:inherit; padding:2px 8px; width:130px; outline:none; color:var(--text); font-weight:700; background:transparent;"></label>
+            </div>
+            <div style="margin-bottom:16px;">
+              <label style="display:block; font-size:0.95em; font-weight:600; margin-bottom:8px;">2. Roses are red, violets are&nbsp;&nbsp;<input type="text" id="fill-2" placeholder="…" style="border:none; border-bottom:2px solid var(--green-mid); font-size:1em; font-family:inherit; padding:2px 8px; width:130px; outline:none; color:var(--text); font-weight:700; background:transparent;"></label>
+            </div>
+            <div style="margin-bottom:22px;">
+              <label style="display:block; font-size:0.95em; font-weight:600; margin-bottom:8px;">3. Once upon a&nbsp;&nbsp;<input type="text" id="fill-3" placeholder="…" style="border:none; border-bottom:2px solid var(--green-mid); font-size:1em; font-family:inherit; padding:2px 8px; width:130px; outline:none; color:var(--text); font-weight:700; background:transparent;"></label>
+            </div>
+            <button class="btn btn--primary btn--sm" onclick="revealFillIn()" id="fill-btn">See the connection →</button>
+            <div id="fill-reveal" style="display:none; margin-top:22px; background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:24px 28px;">
+              <p style="color:var(--gold); font-weight:800; font-size:0.85em; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">Congratulations.</p>
+              <p style="font-size:1.05em; margin-bottom:10px; color:white; font-weight:700;">You just did the same thing AI does.</p>
+              <p style="color:rgba(255,255,255,0.78); margin:0; font-size:0.92em; line-height:1.7;">The difference? <strong style="color:white;">You understand meaning. AI predicts patterns.</strong> That one distinction explains almost everything you need to know about how AI works — and why it sometimes gets things badly wrong.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 2: Why AI Feels Intelligent -->
+        <div style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 2</span>
+            <h3 style="margin:0; font-size:1.15em;">Why AI Feels Intelligent</h3>
+          </div>
+          <p>Why does a parrot sound like it understands English?</p>
+          <p>Because it can repeat words.</p>
+          <p>Why does AI sound intelligent? Because it has seen enormous amounts of language and learned patterns.</p>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
+            <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Example</p>
+            <p style="margin-bottom:8px; font-size:0.92em;">If I ask AI to write a resignation letter — it has seen millions of resignation letters. It predicts what one usually looks like.</p>
+            <p style="margin-bottom:0; font-size:0.92em; color:var(--muted);">But it doesn't know your boss, your feelings, or your company. <strong style="color:var(--text);">It only knows patterns.</strong></p>
+          </div>
+        </div>
+
+        <!-- Lesson 3: The Librarian Analogy -->
+        <div style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 3</span>
+            <h3 style="margin:0; font-size:1.15em;">The Librarian Analogy</h3>
+          </div>
+          <p>Imagine a librarian who has read every book in the library.</p>
+          <p>You ask: <em>"How do I start a business?"</em></p>
+          <p>The librarian doesn't think. The librarian remembers patterns from all the books — what business books usually say when someone asks that question.</p>
+          <div class="concept-block">
+            <h4>AI is similar</h4>
+            <p>Except it has read far more than any library — and responds much faster. But like the librarian, it is recalling patterns, not reasoning from scratch.</p>
+          </div>
+        </div>
+
+        <!-- Lesson 4: Why AI Makes Stuff Up -->
+        <div style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 4</span>
+            <h3 style="margin:0; font-size:1.15em;">Why AI Makes Stuff Up</h3>
+          </div>
+          <p>Imagine I ask you: <em>"Tell me what happened at my wedding."</em></p>
+          <p>You can't know. But some people — trying to be helpful — will guess anyway.</p>
+          <p>AI does the same thing. When it doesn't know, it predicts. And prediction sometimes creates fiction.</p>
+          <div style="border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid #FCA5A5; margin:20px 0;">
+            <div style="background:#DC2626; padding:12px 20px;">
+              <span style="color:white; font-weight:800; font-size:0.85em; letter-spacing:0.5px;">This is called Hallucination</span>
+            </div>
+            <div style="padding:18px 20px; background:#FFF5F5;">
+              <p style="margin:0; font-size:0.92em; color:#7F1D1D; line-height:1.65;">Not because AI is broken or lying — because it is <strong>guessing</strong>. It completes the pattern even when it has no real information to draw on.</p>
+            </div>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
+            <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Try this yourself</p>
+            <p style="margin-bottom:10px; font-size:0.92em;">Open ChatGPT, Copilot, or any AI and ask:</p>
+            <div style="background:var(--green-dark); color:var(--gold); font-family:monospace; font-size:0.9em; padding:14px 18px; border-radius:var(--radius); margin-bottom:12px; line-height:1.6; user-select:all;">
+              Give me five books written by Nelson Mandela about artificial intelligence.
+            </div>
+            <p style="margin:0; font-size:0.88em; color:var(--muted);">It will likely invent titles — confidently. Because it is completing a pattern, not checking whether those books exist.</p>
+          </div>
+        </div>
+
+        <!-- Lesson 5: AI Is Not One Thing -->
+        <div style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 5</span>
+            <h3 style="margin:0; font-size:1.15em;">AI Is Not One Thing</h3>
+          </div>
+          <p>People think of AI as a robot, or a chatbot. But you're already using AI every day — you just didn't know it was AI.</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:12px; margin:20px 0;">
+            <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
+              <div style="font-size:1.8em; margin-bottom:8px;">🎵</div>
+              <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Spotify</div>
+              <div style="font-size:0.78em; color:var(--muted);">Predicts music you'll like</div>
+            </div>
+            <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
+              <div style="font-size:1.8em; margin-bottom:8px;">🎬</div>
+              <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Netflix</div>
+              <div style="font-size:0.78em; color:var(--muted);">Predicts shows you'll watch</div>
+            </div>
+            <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
+              <div style="font-size:1.8em; margin-bottom:8px;">📧</div>
+              <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Gmail</div>
+              <div style="font-size:0.78em; color:var(--muted);">Predicts what's spam</div>
+            </div>
+            <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
+              <div style="font-size:1.8em; margin-bottom:8px;">📱</div>
+              <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Face ID</div>
+              <div style="font-size:0.78em; color:var(--muted);">Predicts whether it's your face</div>
+            </div>
+            <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
+              <div style="font-size:1.8em; margin-bottom:8px;">🏦</div>
+              <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Credit Score</div>
+              <div style="font-size:0.78em; color:var(--muted);">Predicts whether you'll repay</div>
+            </div>
+            <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
+              <div style="font-size:1.8em; margin-bottom:8px;">💬</div>
+              <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">ChatGPT</div>
+              <div style="font-size:0.78em; color:var(--muted);">Predicts the next word</div>
+            </div>
+          </div>
+          <div class="concept-block">
+            <h4>The key insight</h4>
+            <p>AI is not a robot. AI is <strong>prediction applied to different problems</strong>. The tool changes. The core mechanism — learn patterns, make predictions — stays the same.</p>
+          </div>
+        </div>
+
+        <!-- Lesson 6: Smart at Some Things, Helpless at Others -->
+        <div style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 6</span>
+            <h3 style="margin:0; font-size:1.15em;">Smart at Some Things, Helpless at Others</h3>
+          </div>
+          <p>A dog can recognise faces, learn commands, and solve problems. But a dog doesn't understand mathematics.</p>
+          <p>AI is similar. It can be incredibly capable in some areas — and completely unreliable in others.</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0;">
+            <div style="border:1.5px solid var(--green-light); border-radius:var(--radius-lg); padding:18px; background:var(--green-pale);">
+              <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:10px;">Where AI is powerful</div>
+              <ul style="margin:0; padding-left:16px; font-size:0.88em; line-height:1.9; color:var(--text);">
+                <li>Processing huge amounts of text quickly</li>
+                <li>Finding patterns in data humans would miss</li>
+                <li>Drafting, summarising, translating</li>
+                <li>Recognising images and faces at scale</li>
+              </ul>
+            </div>
+            <div style="border:1.5px solid #FCA5A5; border-radius:var(--radius-lg); padding:18px; background:#FFF5F5;">
+              <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#DC2626; margin-bottom:10px;">Where AI fails</div>
+              <ul style="margin:0; padding-left:16px; font-size:0.88em; line-height:1.9; color:#7F1D1D;">
+                <li>Knowing when it's wrong</li>
+                <li>Checking facts or verifying sources</li>
+                <li>Understanding your specific context</li>
+                <li>Taking moral responsibility for decisions</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>The mistake most people make:</strong> "If AI is smart at one thing, it must be smart at everything." That assumption is where most AI mistakes in the workplace happen.
+          </div>
+        </div>
+
+        <!-- Lesson 7: The Most Important Rule -->
+        <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:40px 36px; margin-bottom:40px; text-align:center;">
+          <span style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85); font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:20px; display:inline-block; margin-bottom:20px;">Lesson 7 — The Most Important Rule</span>
+          <h3 style="color:var(--gold); font-size:1.55em; margin:0 0 16px; line-height:1.3;">AI is a prediction engine,<br>not a truth engine.</h3>
+          <p style="color:rgba(255,255,255,0.78); max-width:540px; margin:0 auto 28px; line-height:1.8; font-size:0.95em;">Once you have this, everything else clicks into place.</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(195px, 1fr)); gap:12px; text-align:left; max-width:720px; margin:0 auto 28px;">
+            <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
+              <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;">Bias?</div>
+              <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction from historical patterns that contain discrimination</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
+              <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;">Hallucinations?</div>
+              <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction without enough real information to draw on</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
+              <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;">Recommendations?</div>
+              <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction of what you'll like, based on what others did</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
+              <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;">Credit scoring?</div>
+              <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction of repayment, based on patterns in past data</div>
+            </div>
+          </div>
+          <p style="color:rgba(255,255,255,0.55); font-size:0.85em; max-width:520px; margin:0 auto; font-style:italic;">If you finish this section understanding only one thing — this is the one. Everything else in this course builds on it.</p>
+        </div>
+
+        <!-- Divider into technical deep-dive -->
+        <div style="display:flex; align-items:center; gap:16px; margin:0 0 32px;">
+          <div style="flex:1; height:1px; background:var(--border);"></div>
+          <span style="font-size:0.78em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1.2px; white-space:nowrap;">Now let's go deeper</span>
+          <div style="flex:1; height:1px; background:var(--border);"></div>
+        </div>
 
         <h3 style="margin-bottom:12px;">The one-sentence definition that actually works</h3>
         <div class="concept-block">
@@ -553,6 +773,19 @@
 </footer>
 
 <script>
+function revealFillIn() {
+  var f1 = document.getElementById('fill-1').value.trim();
+  var f2 = document.getElementById('fill-2').value.trim();
+  var f3 = document.getElementById('fill-3').value.trim();
+  if (!f1 && !f2 && !f3) {
+    document.getElementById('fill-1').focus();
+    return;
+  }
+  document.getElementById('fill-reveal').style.display = 'block';
+  document.getElementById('fill-btn').style.display = 'none';
+  document.getElementById('fill-reveal').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 function getReflectQ2() {
   var t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
   return {
