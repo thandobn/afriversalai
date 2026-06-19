@@ -150,8 +150,11 @@ section.bg-white { background: var(--white); }
 .btn--primary:hover { background: var(--green-mid); }
 .btn--outline  { border-color: var(--green-dark); color: var(--green-dark); background: transparent; }
 .btn--outline:hover { background: var(--green-pale); }
-.btn--gold     { background: var(--gold); color: var(--text); border-color: var(--gold); }
+.btn--gold     { background: var(--gold); color: var(--green-dark); border-color: var(--gold); }
 .btn--gold:hover { background: var(--gold-dark); color: var(--white); }
+/* Nav specificity fix: .nav__links a overrides color — re-assert gold button text */
+.nav__links a.btn--gold       { color: var(--green-dark); }
+.nav__links a.btn--gold:hover { color: var(--white); }
 .btn--white    { background: var(--white); color: var(--green-dark); }
 .btn--white:hover { background: var(--green-light); }
 .btn--lg       { padding: 14px 32px; font-size: 1em; }
