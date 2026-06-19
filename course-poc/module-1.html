@@ -274,13 +274,18 @@
         </div>
       </div>
 
-      <!-- COMPLETION -->
-      <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:32px;">
+      <div style="text-align:right; margin-top:24px;">
+        <button class="btn btn--primary btn--lg" onclick="advance(4)">Complete Module 1 →</button>
+      </div>
+
+      <!-- COMPLETION — shown after completing the Apply phase -->
+      <div id="module-complete" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:32px;">
         <div style="font-size:1.8em; margin-bottom:12px;">✅</div>
         <h3 style="margin-bottom:8px;">You've completed Module 1.</h3>
         <p style="font-size:0.9em; color:var(--muted); max-width:480px; margin:0 auto 24px;">In a real cohort, your facilitator would debrief the Funda Five responses with the group and connect your answers to other sectors. The real learning is in hearing how colleagues in different roles approached the same case differently.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a href="course.html" class="btn btn--primary">See the full 6-module course →</a>
+          <a href="dashboard.html" class="btn btn--primary" id="complete-dashboard-link" style="display:none;">Back to Dashboard →</a>
+          <a href="course.html" class="btn btn--primary" id="complete-course-link">See the full 6-module course →</a>
           <a href="funda-five.html" class="btn btn--outline">Explore the Funda Five</a>
         </div>
       </div>
@@ -306,7 +311,7 @@ function advance(fromPhase) {
   const prevErr = current.querySelector('.advance-err');
   if (prevErr) prevErr.remove();
 
-  // Validate: phases with textareas need at least 5 chars total (20 in production)
+  // Validate: phases with textareas need at least 5 chars total
   if (textareas.length > 0) {
     const total = [...textareas].reduce((sum, ta) => sum + ta.value.trim().length, 0);
     if (total < 5) {
@@ -325,15 +330,28 @@ function advance(fromPhase) {
   current.classList.add('is-done');
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
 
-  // Phase 1 in preview mode: show enrollment CTA instead of unlocking Phase 2
-  if (fromPhase === 1) {
+  // Save progress for logged-in users (0-indexed: phase 1 = index 0)
+  if (window.isLoggedIn) {
+    saveProgress('module-1', fromPhase - 1);
+  }
+
+  // Phase 1: guests see enrollment CTA; logged-in users continue to phase 2
+  if (fromPhase === 1 && !window.isLoggedIn) {
     const previewEnd = document.getElementById('preview-end');
     previewEnd.style.display = 'block';
     setTimeout(() => previewEnd.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     return;
   }
 
-  // Full course: unlock next phase normally
+  // Phase 4 (Apply): show completion block
+  if (fromPhase === 4) {
+    const complete = document.getElementById('module-complete');
+    complete.style.display = 'block';
+    setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    return;
+  }
+
+  // Unlock next phase
   const next    = document.getElementById('phase-' + (fromPhase + 1));
   const progNxt = document.getElementById('prog-' + (fromPhase + 1));
 
@@ -349,6 +367,35 @@ function advance(fromPhase) {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script>
+  getSession().then(async session => {
+    await updateNavForAuth()
+    if (!session) return
+    window.isLoggedIn = true
+    // Unlock all phases for logged-in users
+    document.getElementById('phase-2').classList.remove('is-locked')
+    document.getElementById('phase-3').classList.remove('is-locked')
+    document.getElementById('phase-4').classList.remove('is-locked')
+    // Swap completion links: dashboard for logged-in, course page for guests
+    document.getElementById('complete-dashboard-link').style.display = 'inline-block'
+    document.getElementById('complete-course-link').style.display = 'none'
+    // Restore previously completed phases
+    const done = await getModuleProgress('module-1')
+    done.forEach(phaseIndex => {
+      const phaseId = phaseIndex + 1
+      const el = document.getElementById('phase-' + phaseId)
+      const prog = document.getElementById('prog-' + phaseId)
+      if (el) el.classList.add('is-done')
+      if (prog) { prog.classList.remove('is-active'); prog.classList.add('is-done') }
+    })
+    if (done.length > 0 && done.length < 4) {
+      document.getElementById('prog-' + (done.length + 1)).classList.add('is-active')
+    }
+    if (done.length === 4) {
+      document.getElementById('module-complete').style.display = 'block'
+    }
+  })
+</script>
 <script src="assets/nav.js"></script>
 
 </body>

@@ -108,65 +108,65 @@
 
     <div class="section-label">Core Course — Modules 1–6</div>
     <div class="module-grid">
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+      <div class="module-card" id="card-module-1">
+        <span class="module-card__badge badge--free" id="badge-module-1">Module 1</span>
         <h3>Module 1 — What AI Actually Is</h3>
         <p>SA Government AI Policy Scandal · April 2026. What hallucination looks like in the wild.</p>
-        <div class="phase-dots">
+        <div class="phase-dots" id="dots-module-1">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-1.html" class="continue-link" id="link-module-1">Start module →</a>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--locked">In development</span>
         <h3>Module 2 — How AI Learns and Fails</h3>
         <p>African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.</p>
         <div class="phase-dots">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <span style="font-size:0.82em; color:var(--muted);">Coming in Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--locked">In development</span>
         <h3>Module 3 — Bias and Discrimination</h3>
         <p>SA Predictive Policing. Discrimination without discriminatory intent.</p>
         <div class="phase-dots">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <span style="font-size:0.82em; color:var(--muted);">Coming in Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--locked">In development</span>
         <h3>Module 4 — Verification and Judgment</h3>
         <p>SA 2024 Election Deepfakes. How to know when AI output is good enough to act on.</p>
         <div class="phase-dots">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <span style="font-size:0.82em; color:var(--muted);">Coming in Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--locked">In development</span>
         <h3>Module 5 — Accountability and Governance</h3>
         <p>AI Recruitment + Employment Equity Act. "The algorithm decided" is not a defence.</p>
         <div class="phase-dots">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <span style="font-size:0.82em; color:var(--muted);">Coming in Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--locked">In development</span>
         <h3>Module 6 — When AI Works and When It Doesn't</h3>
         <p>Dr Math vs Clinical AI Decision Support. The full Funda Five synthesis.</p>
         <div class="phase-dots">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <span style="font-size:0.82em; color:var(--muted);">Coming in Cohort 1</span>
       </div>
     </div>
 
@@ -234,6 +234,23 @@ async function initDashboard() {
     document.querySelector('#card-module-0 .module-card__badge').textContent = 'In progress'
     document.querySelector('#card-module-0 .module-card__badge').className = 'module-card__badge badge--progress'
     m0Link.textContent = 'Continue →'
+  }
+
+  // Module 1 progress dots
+  renderDots('module-1', progress)
+  const m1Phases = progress.filter(r => r.module_id === 'module-1').map(r => r.phase)
+  const m1Link = document.getElementById('link-module-1')
+  const m1Card = document.getElementById('card-module-1')
+  const m1Badge = document.getElementById('badge-module-1')
+  if (m1Phases.length === 4) {
+    m1Card.classList.add('is-complete')
+    m1Badge.textContent = 'Complete'
+    m1Badge.className = 'module-card__badge badge--complete'
+    m1Link.textContent = 'Review module →'
+  } else if (m1Phases.length > 0) {
+    m1Badge.textContent = 'In progress'
+    m1Badge.className = 'module-card__badge badge--progress'
+    m1Link.textContent = 'Continue →'
   }
 }
 
