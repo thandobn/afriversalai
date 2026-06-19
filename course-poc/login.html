@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
+    .auth-card { background: white; border-radius: var(--radius-lg); padding: 48px 44px; width: 100%; max-width: 460px; box-shadow: var(--shadow-md); }
+    .auth-logo { display: block; height: 52px; width: auto; margin-bottom: 28px; }
+    .auth-card h1 { font-size: 1.5em; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
+    .auth-card p.sub { color: var(--muted); font-size: 0.9em; margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.85em; font-weight: 600; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.92em; color: var(--text); background: white; transition: border-color 0.15s; }
+    .form-group input:focus { outline: none; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(45,106,79,0.1); }
+    .auth-error { display: none; background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; border-radius: var(--radius); padding: 12px 14px; font-size: 0.85em; margin-bottom: 16px; }
+    .auth-footer { margin-top: 24px; text-align: center; font-size: 0.85em; color: var(--muted); }
+    .auth-footer a { color: var(--green-mid); font-weight: 600; text-decoration: none; }
+  </style>
+</head>
+<body class="bg-pale">
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
+      <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
+    </ul>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <img src="assets/logo.jpg" alt="AfriversalAI" class="auth-logo" />
+    <h1>Welcome back</h1>
+    <p class="sub">Sign in to access your course dashboard and continue where you left off.</p>
+
+    <div id="auth-error" class="auth-error"></div>
+
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Your password" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn btn--primary btn--lg" style="width:100%; margin-top:8px;" id="submit-btn">
+        Sign in →
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Don't have an account? <a href="register.html">Register free</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+  // If already logged in, send straight to dashboard
+  getSession().then(session => {
+    if (session) window.location.href = 'dashboard.html'
+  })
+
+  async function handleLogin(e) {
+    e.preventDefault()
+    const btn = document.getElementById('submit-btn')
+    const errEl = document.getElementById('auth-error')
+    errEl.style.display = 'none'
+    btn.textContent = 'Signing in…'
+    btn.disabled = true
+
+    try {
+      await afSignIn(
+        document.getElementById('email').value.trim(),
+        document.getElementById('password').value
+      )
+      const params = new URLSearchParams(window.location.search)
+      const next = params.get('next')
+      window.location.href = next && next !== 'login.html' ? next : 'dashboard.html'
+    } catch (err) {
+      errEl.textContent = err.message || 'Sign in failed — check your email and password.'
+      errEl.style.display = 'block'
+      btn.textContent = 'Sign in →'
+      btn.disabled = false
+    }
+  }
+</script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

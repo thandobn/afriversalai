@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Dashboard — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .dash-hero { background: var(--green-dark); color: white; padding: 52px 0 44px; }
+    .dash-hero h1 { font-size: 1.9em; font-weight: 800; color: white; margin-bottom: 6px; }
+    .dash-hero p { color: rgba(255,255,255,0.7); font-size: 0.95em; }
+    .dash-hero .sector-tag { display: inline-block; background: var(--gold); color: var(--green-dark); font-size: 0.75em; font-weight: 700; padding: 3px 12px; border-radius: 12px; margin-top: 12px; }
+
+    .module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 32px; }
+    .module-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; transition: box-shadow 0.15s; }
+    .module-card:hover { box-shadow: var(--shadow-md); }
+    .module-card.is-complete { border-color: var(--green-mid); }
+    .module-card.is-locked { opacity: 0.55; pointer-events: none; }
+
+    .module-card__badge { font-size: 0.72em; font-weight: 700; padding: 3px 10px; border-radius: 12px; display: inline-block; margin-bottom: 12px; }
+    .badge--free { background: var(--gold-light); color: var(--gold-dark); }
+    .badge--locked { background: var(--border); color: var(--muted); }
+    .badge--progress { background: #DBEAFE; color: #1D4ED8; }
+    .badge--complete { background: var(--green-light); color: var(--green-dark); }
+
+    .module-card h3 { font-size: 1em; font-weight: 700; margin-bottom: 6px; }
+    .module-card p { font-size: 0.82em; color: var(--muted); margin-bottom: 16px; line-height: 1.55; }
+
+    .phase-dots { display: flex; gap: 6px; margin-bottom: 16px; }
+    .phase-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    .phase-dot.done { background: var(--green-mid); }
+    .phase-dot.active { background: var(--gold); }
+
+    .continue-link { font-size: 0.85em; font-weight: 600; color: var(--green-mid); text-decoration: none; }
+    .continue-link:hover { text-decoration: underline; }
+
+    .stat-bar { display: flex; gap: 32px; margin-top: 16px; flex-wrap: wrap; }
+    .stat-bar__item { text-align: center; }
+    .stat-bar__num { font-size: 1.8em; font-weight: 800; color: white; line-height: 1; }
+    .stat-bar__label { font-size: 0.78em; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+    .section-label { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 16px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html" class="active">My Dashboard</a></li>
+      <li><a href="course-outline.html">Course Outline</a></li>
+      <li><a href="#" onclick="afSignOut(); return false;" class="btn btn--outline btn--sm">Sign out</a></li>
+    </ul>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="dash-hero">
+  <div class="container">
+    <p style="color:rgba(255,255,255,0.55); font-size:0.82em; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">Your Course Portal</p>
+    <h1 id="dash-greeting">Welcome back</h1>
+    <p id="dash-org"></p>
+    <span id="dash-sector" class="sector-tag" style="display:none;"></span>
+
+    <div class="stat-bar" style="margin-top:28px;">
+      <div class="stat-bar__item">
+        <div class="stat-bar__num" id="stat-phases">0</div>
+        <div class="stat-bar__label">Phases complete</div>
+      </div>
+      <div class="stat-bar__item">
+        <div class="stat-bar__num" id="stat-modules">0</div>
+        <div class="stat-bar__label">Modules started</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-pale">
+  <div class="container">
+
+    <div class="section-label">Foundation</div>
+    <div class="module-grid" id="foundation-grid">
+      <!-- Module 0 -->
+      <div class="module-card" id="card-module-0">
+        <span class="module-card__badge badge--free">Free · All sectors</span>
+        <h3>Module 0 — AI Fundamentals</h3>
+        <p>What AI is, what it isn't, and how to start seeing it in your own workplace.</p>
+        <div class="phase-dots" id="dots-module-0">
+          <div class="phase-dot" title="Encounter"></div>
+          <div class="phase-dot" title="Reflect"></div>
+          <div class="phase-dot" title="Concept"></div>
+          <div class="phase-dot" title="Apply"></div>
+        </div>
+        <a href="module-0.html" class="continue-link" id="link-module-0">Start module →</a>
+      </div>
+    </div>
+
+    <div class="section-label">Core Course — Modules 1–6</div>
+    <div class="module-grid">
+      <div class="module-card is-locked">
+        <span class="module-card__badge badge--locked">Coming soon</span>
+        <h3>Module 1 — What AI Actually Is</h3>
+        <p>SA Government AI Policy Scandal · April 2026. What hallucination looks like in the wild.</p>
+        <div class="phase-dots">
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+        </div>
+        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+      </div>
+      <div class="module-card is-locked">
+        <span class="module-card__badge badge--locked">Coming soon</span>
+        <h3>Module 2 — How AI Learns and Fails</h3>
+        <p>African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.</p>
+        <div class="phase-dots">
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+        </div>
+        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+      </div>
+      <div class="module-card is-locked">
+        <span class="module-card__badge badge--locked">Coming soon</span>
+        <h3>Module 3 — Bias and Discrimination</h3>
+        <p>SA Predictive Policing. Discrimination without discriminatory intent.</p>
+        <div class="phase-dots">
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+        </div>
+        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+      </div>
+      <div class="module-card is-locked">
+        <span class="module-card__badge badge--locked">Coming soon</span>
+        <h3>Module 4 — Verification and Judgment</h3>
+        <p>SA 2024 Election Deepfakes. How to know when AI output is good enough to act on.</p>
+        <div class="phase-dots">
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+        </div>
+        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+      </div>
+      <div class="module-card is-locked">
+        <span class="module-card__badge badge--locked">Coming soon</span>
+        <h3>Module 5 — Accountability and Governance</h3>
+        <p>AI Recruitment + Employment Equity Act. "The algorithm decided" is not a defence.</p>
+        <div class="phase-dots">
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+        </div>
+        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+      </div>
+      <div class="module-card is-locked">
+        <span class="module-card__badge badge--locked">Coming soon</span>
+        <h3>Module 6 — When AI Works and When It Doesn't</h3>
+        <p>Dr Math vs Clinical AI Decision Support. The full Funda Five synthesis.</p>
+        <div class="phase-dots">
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+          <div class="phase-dot"></div><div class="phase-dot"></div>
+        </div>
+        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+      </div>
+    </div>
+
+    <div class="section-label" id="sector-section-label" style="display:none;">Your Sector Module</div>
+    <div class="module-grid" id="sector-grid"></div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a></span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+const SECTOR_MODULES = {
+  corporate:   { id: 'module-7-corporate',   href: 'module-7-corporate.html',   title: 'Module 7 — Corporate & Business',   desc: 'DCDT AI hallucination scandal. AI risk management for business professionals.' },
+  government:  { id: 'module-7-government',  href: 'module-7-government.html',  title: 'Module 7 — Government & Public Sector', desc: 'SASSA SRD automated exclusion. AI in public services and citizen impact.' },
+  finance:     { id: 'module-7-finance',     href: 'module-7-finance.html',     title: 'Module 7 — Finance & Banking',      desc: 'SA credit scoring exclusion. AI bias in financial decision-making.' },
+  healthcare:  { id: 'module-7-healthcare',  href: 'module-7-healthcare.html',  title: 'Module 7 — Healthcare',             desc: 'Mediclinic AI restructuring. AI tools in clinical and administrative settings.' },
+  education:   { id: 'module-7-education',   href: 'module-7-education.html',   title: 'Module 7 — Education',              desc: 'UCT AI detection tools. AI integrity, equity, and pedagogy.' },
+}
+
+async function initDashboard() {
+  const session = await requireAuth('dashboard.html')
+  if (!session) return
+
+  const profile = await getProfile()
+  const progress = await getAllProgress()
+
+  // Greeting
+  if (profile?.full_name) {
+    document.getElementById('dash-greeting').textContent =
+      'Welcome back, ' + profile.full_name.split(' ')[0] + '.'
+  }
+  if (profile?.organisation) {
+    document.getElementById('dash-org').textContent = profile.organisation
+  }
+  if (profile?.sector) {
+    const sectorEl = document.getElementById('dash-sector')
+    sectorEl.textContent = profile.sector.charAt(0).toUpperCase() + profile.sector.slice(1) + ' sector'
+    sectorEl.style.display = 'inline-block'
+    renderSectorModule(profile.sector, progress)
+  }
+
+  // Stats
+  document.getElementById('stat-phases').textContent = progress.length
+  const modulesStarted = new Set(progress.map(r => r.module_id)).size
+  document.getElementById('stat-modules').textContent = modulesStarted
+
+  // Module 0 progress dots
+  renderDots('module-0', progress)
+  const m0Phases = progress.filter(r => r.module_id === 'module-0').map(r => r.phase)
+  const m0Link = document.getElementById('link-module-0')
+  const m0Card = document.getElementById('card-module-0')
+  if (m0Phases.length === 4) {
+    m0Card.classList.add('is-complete')
+    document.querySelector('#card-module-0 .module-card__badge').textContent = 'Complete'
+    document.querySelector('#card-module-0 .module-card__badge').className = 'module-card__badge badge--complete'
+    m0Link.textContent = 'Review module →'
+  } else if (m0Phases.length > 0) {
+    document.querySelector('#card-module-0 .module-card__badge').textContent = 'In progress'
+    document.querySelector('#card-module-0 .module-card__badge').className = 'module-card__badge badge--progress'
+    m0Link.textContent = 'Continue →'
+  }
+}
+
+function renderDots(moduleId, progress) {
+  const container = document.getElementById('dots-' + moduleId)
+  if (!container) return
+  const done = progress.filter(r => r.module_id === moduleId).map(r => r.phase)
+  container.querySelectorAll('.phase-dot').forEach((dot, i) => {
+    if (done.includes(i)) dot.classList.add('done')
+  })
+}
+
+function renderSectorModule(sector, progress) {
+  const mod = SECTOR_MODULES[sector]
+  if (!mod) return
+  document.getElementById('sector-section-label').style.display = 'block'
+  const done = progress.filter(r => r.module_id === mod.id).map(r => r.phase)
+  const isComplete = done.length === 4
+  const inProgress = done.length > 0 && !isComplete
+  const badgeClass = isComplete ? 'badge--complete' : inProgress ? 'badge--progress' : 'badge--free'
+  const badgeText = isComplete ? 'Complete' : inProgress ? 'In progress' : 'Your sector'
+  const linkText = isComplete ? 'Review module →' : inProgress ? 'Continue →' : 'Start module →'
+  const dots = [0,1,2,3].map(i =>
+    `<div class="phase-dot${done.includes(i) ? ' done' : ''}"></div>`
+  ).join('')
+
+  document.getElementById('sector-grid').innerHTML = `
+    <div class="module-card${isComplete ? ' is-complete' : ''}">
+      <span class="module-card__badge ${badgeClass}">${badgeText}</span>
+      <h3>${mod.title}</h3>
+      <p>${mod.desc}</p>
+      <div class="phase-dots">${dots}</div>
+      <a href="${mod.href}" class="continue-link">${linkText}</a>
+    </div>
+  `
+}
+
+initDashboard()
+</script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

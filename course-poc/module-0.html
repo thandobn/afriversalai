@@ -495,6 +495,7 @@ function advancePhase(fromPhase) {
     document.getElementById('phase-0').classList.add('is-done');
     document.getElementById('prog-0').classList.remove('is-active');
     document.getElementById('prog-0').classList.add('is-done');
+    saveProgress('module-0', 0);
     const gate = document.getElementById('teaser-gate');
     gate.style.display = 'block';
     setTimeout(() => gate.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
@@ -529,6 +530,7 @@ function advancePhase(fromPhase) {
       return;
     }
     // Complete!
+    saveProgress('module-0', 3);
     document.getElementById('phase-' + fromPhase).classList.add('is-done');
     document.getElementById('prog-' + fromPhase).classList.remove('is-active');
     document.getElementById('prog-' + fromPhase).classList.add('is-done');
@@ -544,6 +546,7 @@ function advancePhase(fromPhase) {
   const progCur = document.getElementById('prog-' + fromPhase);
   const progNxt = document.getElementById('prog-' + (fromPhase + 1));
 
+  saveProgress('module-0', fromPhase);
   current.classList.add('is-done');
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
 
@@ -553,6 +556,32 @@ function advancePhase(fromPhase) {
     setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+  // If logged in: update nav + unlock all phases (skip teaser gate)
+  getSession().then(async session => {
+    await updateNavForAuth()
+    if (!session) return
+    // Unlock phase 1 immediately — logged-in users get the full module
+    document.getElementById('phase-1').classList.remove('is-locked')
+    document.getElementById('phase-2').classList.remove('is-locked')
+    document.getElementById('phase-3').classList.remove('is-locked')
+    // Restore any previously completed phases
+    const done = await getModuleProgress('module-0')
+    done.forEach(phase => {
+      const el = document.getElementById('phase-' + phase)
+      const prog = document.getElementById('prog-' + phase)
+      if (el) el.classList.add('is-done')
+      if (prog) { prog.classList.remove('is-active'); prog.classList.add('is-done') }
+    })
+    if (done.length > 0) {
+      const next = done.length < 4 ? done.length : null
+      if (next !== null) document.getElementById('prog-' + next).classList.add('is-active')
+    }
+  })
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>

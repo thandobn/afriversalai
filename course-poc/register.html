@@ -101,71 +101,58 @@
         <!-- FORM -->
         <div class="reg-form">
 
-          <!-- Individual form -->
-          <form id="form-individual" class="form-section active"
-                action="https://formspree.io/f/xrevwegy" method="POST">
-            <input type="hidden" name="_subject" value="New Individual Registration — AfriversalAI" />
-            <input type="hidden" name="registration_type" value="Individual" />
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <!-- Individual form — Supabase auth -->
+          <form id="form-individual" class="form-section active" onsubmit="handleIndividualSignup(event)">
+
+            <div id="reg-error" style="display:none; background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; border-radius:var(--radius); padding:12px 14px; font-size:0.85em; margin-bottom:16px;"></div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="ind-name">Full name <span class="req">*</span></label>
-                <input id="ind-name" type="text" name="full_name" required placeholder="e.g. Nomvula Dlamini" />
+                <input id="ind-name" type="text" required placeholder="e.g. Nomvula Dlamini" autocomplete="name" />
               </div>
               <div class="form-group">
                 <label for="ind-email">Work email <span class="req">*</span></label>
-                <input id="ind-email" type="email" name="email" required placeholder="name@company.co.za" />
+                <input id="ind-email" type="email" required placeholder="name@company.co.za" autocomplete="email" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
+                <label for="ind-password">Create a password <span class="req">*</span></label>
+                <input id="ind-password" type="password" required placeholder="At least 8 characters" autocomplete="new-password" minlength="8" />
+              </div>
+              <div class="form-group">
                 <label for="ind-title">Job title <span class="req">*</span></label>
-                <input id="ind-title" type="text" name="job_title" required placeholder="e.g. HR Manager" />
+                <input id="ind-title" type="text" required placeholder="e.g. HR Manager" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ind-org">Organisation</label>
+                <input id="ind-org" type="text" placeholder="e.g. Standard Bank" />
               </div>
               <div class="form-group">
                 <label for="ind-sector">Sector <span class="req">*</span></label>
-                <select id="ind-sector" name="sector" required>
+                <select id="ind-sector" required>
                   <option value="" disabled selected>Select your sector</option>
-                  <option>Corporate &amp; Business</option>
-                  <option>Government &amp; Public Sector</option>
-                  <option>Finance &amp; Banking</option>
-                  <option>Medical &amp; Healthcare</option>
-                  <option>Education</option>
-                  <option>Other</option>
+                  <option value="corporate">Corporate &amp; Business</option>
+                  <option value="government">Government &amp; Public Sector</option>
+                  <option value="finance">Finance &amp; Banking</option>
+                  <option value="healthcare">Medical &amp; Healthcare</option>
+                  <option value="education">Education</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="ind-location">City / Province</label>
-              <input id="ind-location" type="text" name="location" placeholder="e.g. Johannesburg, Gauteng" />
-            </div>
-
-            <div class="form-group">
-              <label for="ind-goals">What do you hope to get from the course?</label>
-              <textarea id="ind-goals" name="goals" placeholder="Tell us what brought you here and what you're hoping to walk away with…"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="ind-referral">How did you hear about AfriversalAI?</label>
-              <select id="ind-referral" name="referral">
-                <option value="" disabled selected>Select one</option>
-                <option>LinkedIn</option>
-                <option>Word of mouth / colleague</option>
-                <option>Google search</option>
-                <option>Social media</option>
-                <option>Event or conference</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
-              Submit registration →
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;" id="reg-submit-btn">
+              Create account &amp; go to dashboard →
             </button>
-            <p class="form-note" style="margin-top:10px; text-align:center;">We'll respond within 2 business days with cohort details and next steps.</p>
-            <p class="form-note" style="margin-top:6px; text-align:center;">By submitting, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is processed via Formspree (US servers) and used only to follow up on your registration.</p>
+            <p class="form-note" style="margin-top:10px; text-align:center;">You'll be taken straight to your course dashboard.</p>
+            <p class="form-note" style="margin-top:6px; text-align:center;">By registering, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is stored securely and used only for your course access.</p>
+            <p class="form-note" style="margin-top:8px; text-align:center;">Already have an account? <a href="login.html" style="color:var(--green-mid); font-weight:600;">Sign in →</a></p>
           </form>
 
           <!-- Team form -->
@@ -275,7 +262,15 @@
   <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
 <script>
+  // If already logged in, go straight to dashboard
+  getSession().then(session => {
+    if (session) window.location.href = 'dashboard.html'
+  })
+
   function switchTab(type, btn) {
     document.querySelectorAll('.reg-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
     btn.classList.add('active');
@@ -284,33 +279,59 @@
     document.getElementById('form-' + type).classList.add('active');
   }
 
-  // Handle Formspree AJAX submission for both forms
-  ['form-individual', 'form-team'].forEach(id => {
-    const form = document.getElementById(id);
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('button[type=submit]');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' }
-        });
-        if (res.ok) {
-          document.getElementById('formWrap').style.display = 'none';
-          document.getElementById('thankyou').style.display = 'block';
-        } else {
-          btn.textContent = 'Something went wrong — try emailing us directly';
-          btn.disabled = false;
+  // Individual form — Supabase signup
+  async function handleIndividualSignup(e) {
+    e.preventDefault()
+    const errEl = document.getElementById('reg-error')
+    const btn = document.getElementById('reg-submit-btn')
+    errEl.style.display = 'none'
+    btn.textContent = 'Creating account…'
+    btn.disabled = true
+
+    try {
+      await afSignUp(
+        document.getElementById('ind-email').value.trim(),
+        document.getElementById('ind-password').value,
+        {
+          full_name:    document.getElementById('ind-name').value.trim(),
+          role:         document.getElementById('ind-title').value.trim(),
+          organisation: document.getElementById('ind-org').value.trim(),
+          sector:       document.getElementById('ind-sector').value,
         }
-      } catch {
-        btn.textContent = 'Network error — try emailing afriversalai@gmail.com';
-        btn.disabled = false;
+      )
+      window.location.href = 'dashboard.html'
+    } catch (err) {
+      errEl.textContent = err.message || 'Registration failed — please try again.'
+      errEl.style.display = 'block'
+      btn.textContent = 'Create account & go to dashboard →'
+      btn.disabled = false
+    }
+  }
+
+  // Team form — still Formspree (B2B inquiry, not individual auth)
+  document.getElementById('form-team').addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const btn = e.target.querySelector('button[type=submit]')
+    btn.textContent = 'Sending…'
+    btn.disabled = true
+    try {
+      const res = await fetch(e.target.action, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: { Accept: 'application/json' }
+      })
+      if (res.ok) {
+        document.getElementById('formWrap').style.display = 'none'
+        document.getElementById('thankyou').style.display = 'block'
+      } else {
+        btn.textContent = 'Something went wrong — email us at afriversalai@gmail.com'
+        btn.disabled = false
       }
-    });
-  });
+    } catch {
+      btn.textContent = 'Network error — email afriversalai@gmail.com'
+      btn.disabled = false
+    }
+  })
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
