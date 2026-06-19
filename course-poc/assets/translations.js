@@ -32,7 +32,7 @@ window.TRANSLATIONS = {
     m0_eyebrow: 'Module 0 · Foundation · Free — start here',
     m0_h1:      'AI Fundamentals: What Is It, Really?',
     m0_lead:    'Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it’s where we all start.',
-    m0_free_note: 'Fully free — no registration required',
+    m0_free_note: 'Phase 1 free — register to unlock all phases',
   },
 
   af: {
@@ -56,7 +56,7 @@ window.TRANSLATIONS = {
     m0_eyebrow: 'Module 0 · Grondslag · Gratis — begin hier',
     m0_h1:      'KI-Grondbeginsels: Wat Is Dit, Regtig?',
     m0_lead:    'Voordat ons by KI-oordeel kom, moet ons ‘n gemeenskaplike grondslag bou. Geen aannames nie. Geen jargon nie. Hierdie module geld vir elke leerder, elke sektor — dit is waar ons almal begin.',
-    m0_free_note: 'Heeltemal gratis — geen registrasie benodig',
+    m0_free_note: 'Fase 1 gratis — registreer om alle fases te ontsluit',
   },
 
   fr: {
@@ -80,7 +80,7 @@ window.TRANSLATIONS = {
     m0_eyebrow: 'Module 0 · Fondation · Gratuit — commencez ici',
     m0_h1:      'Les Bases de l’IA : De quoi s’agit-il vraiment ?',
     m0_lead:    'Avant d’aborder le jugement sur l’IA, nous devons bâtir une base commune. Aucune hypothèse. Aucun jargon. Ce module s’applique à chaque apprenant, chaque secteur — c’est là que nous commençons tous.',
-    m0_free_note: 'Entièrement gratuit — aucune inscription requise',
+    m0_free_note: 'Phase 1 gratuite — inscrivez-vous pour accéder à toutes les phases',
   },
 
   zu: {
@@ -104,7 +104,7 @@ window.TRANSLATIONS = {
     m0_eyebrow: 'Imoduli 0 · Isisekelo · Mahala — qala lapha',
     m0_h1:      'Izisekelo ze-AI: Kuyini, Ngempela?',
     m0_lead:    'Ngaphambi kokungena ekwahluleleni i-AI, sidinga ukwakha isisekelo esifanayo. Azikho izinkambo. Awukho ujargon. Imoduli isebenza kumfundi wonke, kuso sonke isifunda — lapha sonke siqala.',
-    m0_free_note: 'Kufakelwe mahala — akudingeka ukubhalisa',
+    m0_free_note: 'Isigaba 1 mahala — bhalisa ukuvula zonke izigaba',
   },
 
 };

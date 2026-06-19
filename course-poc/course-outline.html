@@ -17,12 +17,25 @@
     }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      color: var(--text); background: var(--white);
-      line-height: 1.7; font-size: 15px; max-width: 860px;
-      margin: 0 auto; padding: 48px 40px 80px;
+      color: var(--text); background: #EAECEF;
+      line-height: 1.7; font-size: 15px;
+      margin: 0; padding: 32px 16px 64px;
+    }
+    .doc-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 52px 64px 80px;
+      border-radius: 4px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.10);
+    }
+    @media (max-width: 700px) {
+      body { padding: 0; }
+      .doc-wrap { padding: 32px 24px 60px; border-radius: 0; }
     }
     @media print {
-      body { padding: 24px 28px; font-size: 13px; }
+      body { background: white; padding: 0; }
+      .doc-wrap { padding: 24px 28px; box-shadow: none; border-radius: 0; }
       .no-print { display: none; }
       h2 { page-break-before: always; }
       h2:first-of-type { page-break-before: avoid; }
@@ -30,7 +43,7 @@
     /* Cover */
     .cover { text-align: center; padding: 48px 0 56px; border-bottom: 3px solid var(--green-dark); margin-bottom: 52px; }
     .cover-logo { font-weight: 800; font-size: 0.85em; letter-spacing: 3px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 32px; }
-    .cover-logo img { height: 80px; width: auto; }
+    .cover-logo img { height: 160px; width: auto; }
     .cover h1 { font-size: 2em; font-weight: 800; color: var(--green-dark); margin-bottom: 10px; letter-spacing: -0.5px; }
     .cover-sub { font-size: 1.1em; color: var(--muted); margin-bottom: 28px; }
     .cover-meta { font-size: 0.82em; color: var(--muted); }
@@ -83,6 +96,7 @@
   </style>
 </head>
 <body>
+<div class="doc-wrap">
 
 <div class="no-print" style="margin-bottom: 24px;">
   <a href="index.html" style="font-size:0.85em; color:var(--green-mid); text-decoration:none;">← Back to site</a>
@@ -602,5 +616,6 @@
   <span style="font-size:0.9em;">Confidential — for stakeholder review</span>
 </footer>
 
+</div><!-- /.doc-wrap -->
 </body>
 </html>

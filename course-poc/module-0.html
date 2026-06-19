@@ -110,7 +110,7 @@
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">45 minutes · 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors · No technical background required</span>
-      <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Fully free — no registration required</span>
+      <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Phase 1 free — register to unlock all phases</span>
     </div>
   </div>
 </div>
@@ -207,6 +207,33 @@
           <button class="btn btn--primary btn--sm" onclick="advancePhase(0)">Done — see the concept →</button>
         </div>
         <div id="err-0" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please click on at least a few cards before moving on.</div>
+      </div>
+    </div>
+
+    <!-- TEASER GATE — shown when phase 0 completes, rest stays locked -->
+    <div id="teaser-gate" style="display:none;">
+      <div style="background:var(--green-dark); border-radius:var(--radius-lg); padding:52px 44px; margin:32px 0; text-align:center; color:white;">
+        <p style="color:var(--gold); font-weight:700; font-size:0.78em; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">You've seen what AI is. Now learn what to do with it.</p>
+        <h2 style="color:white; font-size:1.7em; margin-bottom:14px; line-height:1.25;">Three more phases unlock with the full course.</h2>
+        <p style="color:rgba(255,255,255,0.7); max-width:560px; margin:0 auto 32px; line-height:1.75;">This was the Encounter phase — your instinct before any explanation. The full Module 0 takes you through Reflect, Concept, and Apply: what AI actually is, the three types you'll meet at work, and how to spot them in your own role.</p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:36px;">
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:180px;">
+            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Phase 2 — Reflect</div>
+            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;">What surprised you? Where is AI showing up in your job right now?</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:180px;">
+            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Phase 3 — Concept</div>
+            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;">The 3 AI types, 5 things AI can never do — plus what the SA credit data reveals about training bias</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:16px 22px; text-align:left; min-width:155px; max-width:180px;">
+            <div style="font-weight:800; color:var(--gold); font-size:0.7em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">Phase 4 — Apply</div>
+            <div style="font-size:0.82em; color:rgba(255,255,255,0.75); line-height:1.55;">Name one AI tool in your workplace — and identify a failure mode you didn't see before</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="register.html" class="btn btn--gold btn--lg">Register free — unlock all phases →</a>
+          <a href="course-outline.html" class="btn" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.3); padding:14px 24px; font-size:0.92em; font-weight:600; border-radius:var(--radius); text-decoration:none;">View full course outline</a>
+        </div>
       </div>
     </div>
 
@@ -454,7 +481,7 @@ function revealAnswers() {
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
-  // Phase 0: require some card interaction OR answers already revealed
+  // Phase 0: require some card interaction OR answers already revealed, then show teaser gate
   if (fromPhase === 0) {
     const alreadyRevealed = document.querySelectorAll('.activity-card.revealed').length > 0;
     const interacted = document.querySelectorAll('.activity-card.selected-ai').length;
@@ -465,6 +492,13 @@ function advancePhase(fromPhase) {
     }
     errEl.style.display = 'none';
     revealAnswers();
+    document.getElementById('phase-0').classList.add('is-done');
+    document.getElementById('prog-0').classList.remove('is-active');
+    document.getElementById('prog-0').classList.add('is-done');
+    const gate = document.getElementById('teaser-gate');
+    gate.style.display = 'block';
+    setTimeout(() => gate.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+    return;
   }
 
   // Phase 1: require text in both textareas
