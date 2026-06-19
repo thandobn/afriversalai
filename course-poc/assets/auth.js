@@ -92,6 +92,17 @@ async function updateProfile(updates) {
   if (error) throw error
 }
 
+async function validateOrgCode(code) {
+  const { data, error } = await _supabase
+    .from('organisations')
+    .select('id, name, max_seats')
+    .eq('code', code.toUpperCase().trim())
+    .eq('active', true)
+    .single()
+  if (error || !data) throw new Error('Access code not recognised — check with your organisation.')
+  return data
+}
+
 async function updateNavForAuth() {
   const session = await getSession()
   const registerLink = document.querySelector('a[href="register.html"]')

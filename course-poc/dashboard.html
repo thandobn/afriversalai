@@ -203,7 +203,7 @@ async function initDashboard() {
   // Greeting
   if (profile?.full_name) {
     document.getElementById('dash-greeting').textContent =
-      'Welcome back, ' + profile.full_name.split(' ')[0] + '.'
+      'Welcome back, ' + profile.full_name.split(' ')[0] + '!'
   }
   if (profile?.organisation) {
     document.getElementById('dash-org').textContent = profile.organisation

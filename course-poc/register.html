@@ -131,7 +131,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="ind-org">Organisation</label>
-                <input id="ind-org" type="text" placeholder="e.g. Standard Bank" />
+                <input id="ind-org" type="text" placeholder="e.g. Standard Bank" autocomplete="organization" />
               </div>
               <div class="form-group">
                 <label for="ind-sector">Sector <span class="req">*</span></label>
@@ -145,6 +145,12 @@
                   <option value="other">Other</option>
                 </select>
               </div>
+            </div>
+
+            <div class="form-group">
+              <label for="ind-code">Access code <span style="color:var(--muted); font-weight:400; font-size:0.9em;">(optional — if your employer enrolled you)</span></label>
+              <input id="ind-code" type="text" placeholder="e.g. NEDBANK-2026" autocomplete="off" style="text-transform:uppercase; letter-spacing:0.5px;" />
+              <div id="code-feedback" style="display:none; margin-top:8px; font-size:0.82em; border-radius:var(--radius); padding:8px 12px;"></div>
             </div>
 
             <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;" id="reg-submit-btn">
@@ -279,6 +285,31 @@
     document.getElementById('form-' + type).classList.add('active');
   }
 
+  // Access code — live validation on blur
+  document.getElementById('ind-code').addEventListener('blur', async function () {
+    const code = this.value.trim()
+    const fb = document.getElementById('code-feedback')
+    if (!code) { fb.style.display = 'none'; return }
+    try {
+      const org = await validateOrgCode(code)
+      fb.style.display = 'block'
+      fb.style.cssText = 'display:block; margin-top:8px; font-size:0.82em; border-radius:var(--radius); padding:8px 12px; background:var(--green-pale); color:var(--green-dark); border:1px solid var(--green-light);'
+      fb.textContent = '✓ ' + org.name + ' — code recognised. Your account will be linked to this organisation.'
+      const orgField = document.getElementById('ind-org')
+      if (!orgField.value) orgField.value = org.name
+    } catch (err) {
+      fb.style.cssText = 'display:block; margin-top:8px; font-size:0.82em; border-radius:var(--radius); padding:8px 12px; background:#FEF2F2; color:#DC2626; border:1px solid #FECACA;'
+      fb.textContent = err.message
+    }
+  })
+
+  // Also uppercase the code as the user types
+  document.getElementById('ind-code').addEventListener('input', function () {
+    const pos = this.selectionStart
+    this.value = this.value.toUpperCase()
+    this.setSelectionRange(pos, pos)
+  })
+
   // Individual form — Supabase signup
   async function handleIndividualSignup(e) {
     e.preventDefault()
@@ -289,14 +320,26 @@
     btn.disabled = true
 
     try {
+      const codeVal = document.getElementById('ind-code').value.trim()
+      let orgId = null
+
+      if (codeVal) {
+        const org = await validateOrgCode(codeVal)
+        orgId = org.id
+        // If org name available and user left org field empty, fill it
+        const orgField = document.getElementById('ind-org')
+        if (!orgField.value) orgField.value = org.name
+      }
+
       await afSignUp(
         document.getElementById('ind-email').value.trim(),
         document.getElementById('ind-password').value,
         {
-          full_name:    document.getElementById('ind-name').value.trim(),
-          role:         document.getElementById('ind-title').value.trim(),
-          organisation: document.getElementById('ind-org').value.trim(),
-          sector:       document.getElementById('ind-sector').value,
+          full_name:       document.getElementById('ind-name').value.trim(),
+          role:            document.getElementById('ind-title').value.trim(),
+          organisation:    document.getElementById('ind-org').value.trim(),
+          sector:          document.getElementById('ind-sector').value,
+          organisation_id: orgId,
         }
       )
       window.location.href = 'dashboard.html'

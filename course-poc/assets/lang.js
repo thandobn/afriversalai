@@ -54,6 +54,12 @@
       if (strings[key] !== undefined) el.innerHTML = strings[key];
     });
 
+    /* data-i18n-placeholder elements — for input/textarea placeholder text */
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      var key = el.dataset.i18nPlaceholder;
+      if (strings[key] !== undefined) el.placeholder = strings[key];
+    });
+
     /* Update html lang attribute */
     document.documentElement.lang = code;
   }
@@ -69,6 +75,7 @@
 
   /* Expose globally so onclick handlers in HTML can call it */
   window.setLang = setLang;
+  window.getCurrentLang = getLang;
 
   document.addEventListener('DOMContentLoaded', function () {
     var lang = getLang();
