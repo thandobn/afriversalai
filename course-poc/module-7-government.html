@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 7: AI in Government & Public Sector — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .module-hero { background: var(--green-dark); color: white; padding: 64px 52px 48px; }
+    .module-hero .eyebrow { color: var(--gold); }
+    .module-hero h1 { font-size: 2.2em; font-weight: 800; margin: 12px 0 16px; line-height: 1.2; color: white; }
+    .module-hero .lead { color: rgba(255,255,255,0.75); max-width: 680px; }
+    @media (max-width: 768px) { .module-hero { padding: 48px 24px 36px; } }
+
+    .phase { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px; }
+    .phase__header { display: flex; align-items: center; gap: 16px; padding: 20px 28px; background: var(--green-pale); border-bottom: 1px solid var(--border); }
+    .phase__num { width: 40px; height: 40px; background: var(--green-dark); color: white; border-radius: 50%; display: flex; align-items:center; justify-content:center; font-weight: 800; font-size: 0.95em; flex-shrink: 0; }
+    .phase__title { font-weight: 700; font-size: 1.05em; }
+    .phase__subtitle { font-size: 0.82em; color: var(--muted); margin-top: 2px; }
+    .phase__body { padding: 32px 28px; background: var(--white); }
+    .phase.is-locked { opacity: 0.45; pointer-events: none; }
+    .phase.is-done .phase__header { background: var(--green-light); }
+
+    .sms-card { background: #1B1B2E; border-radius: 18px 18px 18px 4px; padding: 18px 22px; max-width: 380px; margin: 24px 0; }
+    .sms-sender { font-size: 0.75em; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .sms-text { color: white; font-size: 0.95em; line-height: 1.6; }
+    .sms-text strong { color: #F87171; }
+
+    .concept-block { border-left: 4px solid var(--green-mid); background: var(--green-pale); padding: 20px 24px; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; margin: 20px 0; }
+    .concept-block h4 { font-size: 0.88em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green-dark); margin-bottom: 8px; }
+    .callout { background: var(--gold-light); border-left: 4px solid var(--gold); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 20px 0; font-size: 0.9em; }
+
+    .scenario-card { background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 16px; }
+    .scenario-card h4 { margin-bottom: 8px; }
+    .scenario-card .scenario-role { font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green-mid); margin-bottom: 10px; }
+
+    .funda-apply { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin: 20px 0; }
+    .funda-step { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .funda-step:last-child { border-bottom: none; }
+    .funda-step__num { width: 36px; height: 36px; background: var(--green-dark); color: white; border-radius: 50%; display: flex; align-items:center; justify-content:center; font-weight: 800; font-size: 0.88em; flex-shrink: 0; margin-top: 2px; }
+    .funda-step__label { font-weight: 700; font-size: 0.88em; color: var(--green-dark); }
+    .funda-step__q { font-size: 0.85em; color: var(--muted); margin-top: 2px; }
+    .funda-step textarea { width: 100%; min-height: 64px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.88em; resize: vertical; margin-top: 8px; background: var(--bg); }
+    .funda-step textarea:focus { outline: none; border-color: var(--green-mid); background: var(--white); }
+
+    .module-progress { display: flex; gap: 8px; padding: 16px 28px; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .prog-step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
+    .prog-step.is-active { background: var(--gold); }
+    .prog-step.is-done { background: var(--green-mid); }
+
+    .preview-end { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
+    .preview-end h2 { color: white; margin-bottom: 12px; }
+    .preview-end p { color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+    .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
+
+    .vote-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
+    .vote-card:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .vote-card.selected-yes { border-color: #DC2626; background: #FFF5F5; }
+    .vote-card.selected-no  { border-color: var(--green-mid); background: var(--green-pale); }
+    .vote-card.selected-partial { border-color: var(--gold); background: var(--gold-light); }
+    .vote-card__q { font-weight: 600; font-size: 0.92em; margin-bottom: 6px; }
+    .vote-card__context { font-size: 0.82em; color: var(--muted); }
+    .vote-badge { display: none; font-size: 0.72em; font-weight: 700; margin-top: 8px; padding: 3px 10px; border-radius: 12px; }
+    .selected-yes .vote-badge     { display:inline-block; background: #FCA5A5; color: #7F1D1D; }
+    .selected-no  .vote-badge     { display:inline-block; background: var(--green-light); color: var(--green-dark); }
+    .selected-partial .vote-badge { display:inline-block; background: var(--gold-light); color: var(--gold-dark); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
+      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li><a href="certificate.html">Certificate</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--primary btn--sm">Register →</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="module-hero">
+  <div style="max-width:1440px; margin:0 auto;">
+    <span class="eyebrow eyebrow--light">Module 7 · Sector Specific · Government &amp; Public Sector</span>
+    <h1>AI and the Citizen:<br>Accountability in the Public Sector</h1>
+    <p class="lead">When government deploys AI, the people most affected often have the least power to challenge it. This module starts with a real message that millions of South Africans have received — and traces who is responsible when that message is wrong.</p>
+    <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">60 minutes · 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">Government &amp; Public Sector track · Requires Module 0 foundation</span>
+    </div>
+  </div>
+</div>
+
+<div class="module-progress" id="progressBar">
+  <div class="prog-step is-active" id="prog-0"></div>
+  <div class="prog-step" id="prog-1"></div>
+  <div class="prog-step" id="prog-2"></div>
+  <div class="prog-step" id="prog-3"></div>
+</div>
+
+<section class="bg-pale">
+  <div class="container">
+
+    <!-- PHASE 1: ENCOUNTER -->
+    <div class="phase" id="phase-0">
+      <div class="phase__header">
+        <div class="phase__num">1</div>
+        <div>
+          <div class="phase__title">Encounter — A message, no explanation</div>
+          <div class="phase__subtitle">Before you know what drove it · ~15 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>This is a real type of notification that millions of South Africans applying for SASSA's Social Relief of Distress grant have received. Read it first. Then answer the questions below before we reveal what generated it.</p>
+
+        <div style="background:#F1F5F9; border-radius:var(--radius-lg); padding:24px 28px; margin:24px 0;">
+          <div style="font-size:0.78em; font-weight:600; color:var(--muted); margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;">SMS received · SASSA-SRD</div>
+          <div class="sms-card">
+            <div class="sms-sender">SASSA SRD</div>
+            <div class="sms-text">
+              Your SRD application for the period <strong>March 2026</strong> has been reviewed.<br><br>
+              Status: <strong>DECLINED</strong><br>
+              Reason: <strong>Alternative Income Source Identified</strong><br><br>
+              To appeal: srd.sassa.gov.za
+            </div>
+          </div>
+          <p style="font-size:0.82em; color:var(--muted); margin-top:12px;">The grant amount is R370 per month. The recipient is a 47-year-old domestic worker with no formal employment. There is no contact number in the message. The appeal requires a smartphone and mobile data.</p>
+        </div>
+
+        <p style="font-weight:600; margin-bottom:16px;">Before reading anything further — answer these two questions in your own words:</p>
+
+        <div id="vote-section">
+          <div class="vote-card" onclick="toggleVote(this, 'selected-yes', 'HUMAN DECISION')">
+            <div class="vote-card__q">1. Was this decision made by a person or an algorithm?</div>
+            <div class="vote-card__context">Click the option that matches your gut: Human · Algorithm · You're not sure</div>
+            <span class="vote-badge">HUMAN DECISION</span>
+          </div>
+
+          <div class="vote-card" onclick="cycleVote2(this)">
+            <div class="vote-card__q">2. Who is accountable if this decision is wrong?</div>
+            <div class="vote-card__context">Click: SASSA official · The database system · No clear owner · The government in general</div>
+            <span class="vote-badge">SELECT ONE</span>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <button class="btn btn--outline btn--sm" onclick="revealGovCase()">Reveal what actually happened →</button>
+          <button class="btn btn--primary btn--sm" onclick="advancePhase(0)" style="margin-left:12px;">Done — continue →</button>
+        </div>
+        <div id="err-0" class="advance-err" style="display:none;"></div>
+
+        <div id="gov-reveal" style="display:none; margin-top:32px;">
+          <hr style="border:none; border-top:2px solid var(--border); margin-bottom:28px;">
+          <span class="eyebrow">What Actually Happened</span>
+          <h3 style="margin-bottom:12px;">The decision was made by an automated multi-database cross-reference engine — with no human in the loop.</h3>
+
+          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:22px; margin-bottom:20px;">
+            <p style="font-weight:700; margin-bottom:10px;">How SASSA's SRD system works:</p>
+            <p style="font-size:0.9em; line-height:1.7;">Every month, SASSA's system cross-references applicant data against SARS, UIF, NSFAS, Home Affairs, and bank account records. If any bank account shows deposits totalling R628 or more in a calendar month, the system automatically declines the application. No human reviews a flagged case before the decline is issued. The decision is fully automated.</p>
+            <p style="font-size:0.9em; margin-top:12px; line-height:1.7;">The system cannot distinguish between a salary and a once-off informal payment. A domestic worker who received R700 for a single cleaning job is flagged the same as someone with regular employment income. There is no explanation in the SMS of what "Alternative Income Source" was found, or where it came from.</p>
+          </div>
+
+          <div class="callout">
+            <strong>The accountability gap:</strong> An IEJ analysis found approximately 75% of actual social grant fraud involves government officials — not beneficiaries. Yet all automated fraud-targeting is aimed at the beneficiary population. When a legitimate recipient is wrongly declined, there is no named person at SASSA responsible for that error. The algorithm is the decision-maker. Nobody owns the mistake.
+          </div>
+
+          <p style="margin-top:16px;">This is not a failure in the technology. It's a failure in the <em>design of accountability</em> around the technology.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2: REFLECT -->
+    <div class="phase is-locked" id="phase-1">
+      <div class="phase__header">
+        <div class="phase__num">2</div>
+        <div>
+          <div class="phase__title">Reflect — Who should own this decision?</div>
+          <div class="phase__subtitle">Think through your own context · ~10 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <p>The SASSA case shows what happens when automated decisions affect people's basic needs and there's no clear human accountable for errors. Now think about your own role.</p>
+
+        <div style="margin: 20px 0;">
+          <label for="ref-1" style="display:block; font-weight:600; margin-bottom:8px;">Are there automated systems in your department or organisation that make decisions affecting citizens or beneficiaries? Describe one — even roughly.</label>
+          <textarea id="ref-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Our HR system auto-shortlists applications for public service posts. Our procurement system flags suppliers above certain risk thresholds automatically. Our grants team uses an automated eligibility checker..."></textarea>
+        </div>
+
+        <div style="margin: 20px 0;">
+          <label for="ref-2" style="display:block; font-weight:600; margin-bottom:8px;">If that system made an error affecting a citizen — who in your organisation would be responsible? Is there a named person, a process, or is it unclear?</label>
+          <textarea id="ref-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Honestly, it's unclear — we'd probably escalate it up the management chain but there's no formal process. The system vendor might be involved but the contract doesn't specify liability..."></textarea>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary" onclick="advancePhase(1)">Done — show me the concept →</button>
+        </div>
+        <div id="err-1" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: CONCEPT -->
+    <div class="phase is-locked" id="phase-2">
+      <div class="phase__header">
+        <div class="phase__num">3</div>
+        <div>
+          <div class="phase__title">Concept — The framework for public sector AI accountability</div>
+          <div class="phase__subtitle">Laws, obligations, and where the gaps are · ~20 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+
+        <h3 style="margin-bottom:12px;">Why automated decisions need a different standard in government</h3>
+        <p>When a private company makes a bad recommendation, a customer can take their business elsewhere. When a government system wrongly denies someone a grant they need to eat, there is no alternative. The stakes of AI errors in public services are categorically different — and the legal framework reflects that, though incompletely.</p>
+
+        <div class="concept-block">
+          <h4>The core principle</h4>
+          <p>Automated government decisions that affect citizens' rights, benefits, or legal status must be explainable, contestable, and linked to a named accountable official — not just "the system." This is not optional ethics. It's the constitutional obligation under Section 33 (just administrative action) and the statutory obligation under PAIA and POPIA.</p>
+        </div>
+
+        <h3 style="margin: 28px 0 12px;">The four laws that apply when government AI goes wrong</h3>
+
+        <div style="margin-bottom:16px;">
+          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
+            <p style="font-weight:700; margin-bottom:4px;">POPIA Section 71 — Right against automated decision-making</p>
+            <p style="font-size:0.88em; color:var(--muted);">A data subject may not be subject to a decision based <em>solely</em> on automated processing if that decision has legal or substantial personal consequences. SASSA must provide an opportunity for the affected person to make representations and must disclose sufficient information about the logic used. Critical gap: POPIA doesn't require SASSA to tell the person the decision was automated. Without notification, the right can't be invoked.</p>
+          </div>
+          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
+            <p style="font-weight:700; margin-bottom:4px;">PAIA — Promotion of Access to Information Act</p>
+            <p style="font-size:0.88em; color:var(--muted);">Citizens can request the records behind a government decision that affects them. In theory, a declined SASSA beneficiary can file a PAIA request to understand what data drove the automated exclusion. In practice: PAIA requests can take months; there is no requirement to produce the algorithm's logic — only the data held about the individual.</p>
+          </div>
+          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
+            <p style="font-weight:700; margin-bottom:4px;">PEPUDA — Equality Act</p>
+            <p style="font-size:0.88em; color:var(--muted);">Algorithmic systems that discriminate on race, gender, disability, or socioeconomic status violate PEPUDA. An AI trained on historical data reflecting apartheid-era inequality can reproduce that inequality. Courts can order audits. But proving algorithmic discrimination requires access to the model — which is not currently required to be disclosed.</p>
+          </div>
+          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
+            <p style="font-weight:700; margin-bottom:4px;">PFMA — Public Finance Management Act</p>
+            <p style="font-size:0.88em; color:var(--muted);">Accounting officers (directors-general, municipal managers) are personally accountable for systems deployed with public funds. When AI causes harm — wrongly withholding grants, wrongly targeting citizens — PFMA creates a chain of accountability upward. In practice, this has not yet been invoked for AI-caused harm in SA.</p>
+          </div>
+        </div>
+
+        <h3 style="margin: 28px 0 12px;">Where public sector AI does work: MomConnect</h3>
+
+        <div class="callout" style="background:var(--green-pale); border-color:var(--green-mid);">
+          <strong>MomConnect — advisory, not gatekeeping:</strong> The Department of Health's WhatsApp-based maternal health platform handles 880,000+ questions across all 11 official languages. Its AI detects urgency and routes serious cases to human health workers. What makes it work: the AI extends human capacity, it doesn't replace human judgment on consequential decisions. A false positive results in a human call. A false negative in SASSA's system results in a person going without food money for a month. The difference is in how the human override is designed.
+        </div>
+
+        <h3 style="margin: 28px 0 12px;">The 5 AI systems active in SA government right now</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0;">
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+            <p style="font-weight:700; font-size:0.88em;">SASSA SRD — automated eligibility engine</p>
+            <p style="font-size:0.8em; color:var(--muted);">Cross-references SARS, UIF, NSFAS, Home Affairs, bank data. No human review before exclusion decisions.</p>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+            <p style="font-weight:700; font-size:0.88em;">SARS — AI auto-assessment</p>
+            <p style="font-size:0.8em; color:var(--muted);">5.8 million taxpayers auto-assessed in 2025. ML flags high-risk taxpayers for human audit. Dispute pathway exists but requires taxpayer initiative.</p>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+            <p style="font-weight:700; font-size:0.88em;">Home Affairs — biometric verification</p>
+            <p style="font-size:0.8em; color:var(--muted);">Facial recognition + fingerprint matched against National Population Register. Used by SASSA, Treasury, and banks. 2025 upgrade reduced error rate below 1%.</p>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+            <p style="font-weight:700; font-size:0.88em;">Vumacam — Safe City surveillance (Joburg)</p>
+            <p style="font-size:0.8em; color:var(--muted);">7,000+ cameras, AI license plate recognition, 28,000 "vehicle of interest" alerts per day. Private company operating public safety infrastructure. Affluent areas have coverage; townships don't.</p>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px; grid-column: span 2;">
+            <p style="font-weight:700; font-size:0.88em;">Department of Health — MomConnect AI (WhatsApp)</p>
+            <p style="font-size:0.8em; color:var(--muted);">422,000+ monthly users. 83% FAQ accuracy, 85% urgency detection accuracy. ~100,000 urgent cases escalated to human health workers. All 11 official languages. SMS fallback for non-smartphone users.</p>
+          </div>
+        </div>
+
+        <div style="text-align:right; margin-top:28px;">
+          <button class="btn btn--primary" onclick="advancePhase(2)">Got it — take me to Apply →</button>
+        </div>
+        <div id="err-2" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: APPLY -->
+    <div class="phase is-locked" id="phase-3">
+      <div class="phase__header">
+        <div class="phase__num">4</div>
+        <div>
+          <div class="phase__title">Apply — The SASSA field officer's dilemma</div>
+          <div class="phase__subtitle">Run the Funda Five on a real public sector scenario · ~15 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <div class="scenario-card">
+          <div class="scenario-role">Scenario — SASSA Field Officer · Khayelitsha</div>
+          <h4>You have a queue of declined beneficiaries. The system says they all have "Alternative Income." You have no override.</h4>
+          <p style="font-size:0.88em; color:var(--muted); margin-top:8px;">A 47-year-old domestic worker shows you an R800 bank deposit from March — she cleaned someone's house once. The system flagged her. You have no authority to override the automated decision. You can only direct her to the online appeals portal, which requires a smartphone and data she doesn't have. Fifteen more people are in the queue behind her.</p>
+        </div>
+
+        <div class="callout">
+          <strong>Your task:</strong> Use the Funda Five to analyse what is happening in this system — and what you, as the public servant in the room, can and cannot do about it.
+        </div>
+
+        <div class="funda-apply">
+          <div class="funda-step">
+            <div class="funda-step__num">1</div>
+            <div style="flex:1;">
+              <div class="funda-step__label">TASK — Is this the right job for AI?</div>
+              <div class="funda-step__q">What is the AI being asked to do in SASSA's system? Is cross-referencing financial databases an appropriate AI task? Where does the task scope go wrong?</div>
+              <textarea id="app-1" placeholder="e.g. Database cross-referencing is an appropriate AI task. The problem is the scope — the system was designed to detect fraud but it's also blocking legitimate recipients because it can't understand context (once-off informal income vs. regular employment)..."></textarea>
+            </div>
+          </div>
+          <div class="funda-step">
+            <div class="funda-step__num">2</div>
+            <div style="flex:1;">
+              <div class="funda-step__label">DATA — What data is the system using, and what is it missing?</div>
+              <div class="funda-step__q">What data sources does the automated system cross-reference? What context about the beneficiary does it not have access to? How does missing context produce wrong decisions?</div>
+              <textarea id="app-2" placeholder="e.g. It uses SARS, UIF, NSFAS, Home Affairs, and bank records. It doesn't have context about whether income is a once-off or recurring. It can't see the difference between R800 from a one-time cleaning job and R800 monthly salary..."></textarea>
+            </div>
+          </div>
+          <div class="funda-step">
+            <div class="funda-step__num">3</div>
+            <div style="flex:1;">
+              <div class="funda-step__label">TOOL — Is a fully automated system appropriate for benefit eligibility decisions at this stakes level?</div>
+              <div class="funda-step__q">What would a better-designed system look like? At minimum, what human oversight should exist before a decline is issued?</div>
+              <textarea id="app-3" placeholder="e.g. Automated screening to flag potential issues is appropriate. But the final decision — especially a decline — should require human review or at least a clear appeals pathway that doesn't require digital access. The system shouldn't be the final word..."></textarea>
+            </div>
+          </div>
+          <div class="funda-step">
+            <div class="funda-step__num">4</div>
+            <div style="flex:1;">
+              <div class="funda-step__label">TRUST — What would it take to verify whether the system's decision is correct in this specific case?</div>
+              <div class="funda-step__q">You're the field officer. What information would you need to assess whether this specific decline is legitimate or an error? Do you have access to that information?</div>
+              <textarea id="app-4" placeholder="e.g. I'd need to see what data source triggered the flag, what the income was classified as, and the exact amount. I currently have none of that — I only see the outcome. The system is a black box from my position..."></textarea>
+            </div>
+          </div>
+          <div class="funda-step">
+            <div class="funda-step__num">5</div>
+            <div style="flex:1;">
+              <div class="funda-step__label">HUMAN — Who is accountable for this error? What can you do from where you sit?</div>
+              <div class="funda-step__q">Name the specific people or roles that should bear accountability for a wrongful decline in this system. As a field officer with no override, what legitimate channels do you have — and what is your professional obligation to the person in front of you?</div>
+              <textarea id="app-5" placeholder="e.g. Accountability should sit with the SASSA official who signed off on the system design, and the Director-General under PFMA. As a field officer, I can document the case, escalate to my supervisor, and direct the beneficiary to the PAIA process even if the digital appeals portal isn't accessible to her..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 — Government →</button>
+        </div>
+        <div id="err-3" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- MODULE COMPLETE -->
+    <div id="module-complete" style="display:none;" class="preview-end">
+      <h2>Module 7 — Government &amp; Public Sector complete.</h2>
+      <p>You can now identify the specific ways automated government systems create accountability gaps, name the laws that apply, and articulate what a professionally responsible response looks like from your position.</p>
+      <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Register for the full course to complete the capstone assessment and earn your AfriversalAI certificate.</p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="register.html" class="btn btn--gold btn--lg">Register for the full course →</a>
+        <a href="index.html#sectors" class="btn btn--white btn--lg">See other sector modules</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>AfriversalAI</strong> · AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a></span>
+</footer>
+
+<script>
+function toggleVote(card, cls, label) {
+  const was = card.classList.contains(cls);
+  card.classList.remove('selected-yes','selected-no','selected-partial');
+  if (!was) { card.classList.add(cls); card.querySelector('.vote-badge').textContent = label; }
+}
+
+const vote2Options = ['selected-yes','selected-no','selected-partial'];
+const vote2Labels  = ['SASSA OFFICIAL','THE DATABASE SYSTEM','NO CLEAR OWNER'];
+let v2idx = -1;
+function cycleVote2(card) {
+  v2idx = (v2idx + 1) % 3;
+  vote2Options.forEach(c => card.classList.remove(c));
+  card.classList.add(vote2Options[v2idx]);
+  card.querySelector('.vote-badge').textContent = vote2Labels[v2idx];
+}
+
+function revealGovCase() {
+  document.getElementById('gov-reveal').style.display = 'block';
+  setTimeout(() => document.getElementById('gov-reveal').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+function advancePhase(fromPhase) {
+  const errEl = document.getElementById('err-' + fromPhase);
+
+  if (fromPhase === 0) { errEl.style.display='none'; revealGovCase(); }
+  if (fromPhase === 1) {
+    const t1 = document.getElementById('ref-1').value.trim();
+    const t2 = document.getElementById('ref-2').value.trim();
+    if (t1.length < 8 || t2.length < 8) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes.'; return; }
+    errEl.style.display='none';
+  }
+  if (fromPhase === 2) { errEl.style.display='none'; }
+  if (fromPhase === 3) {
+    const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
+    if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
+    document.getElementById('phase-3').classList.add('is-done');
+    document.getElementById('prog-3').classList.remove('is-active');
+    document.getElementById('prog-3').classList.add('is-done');
+    const complete = document.getElementById('module-complete');
+    complete.style.display = 'block';
+    setTimeout(() => complete.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    return;
+  }
+
+  const current = document.getElementById('phase-' + fromPhase);
+  const next    = document.getElementById('phase-' + (fromPhase + 1));
+  const pCur    = document.getElementById('prog-' + fromPhase);
+  const pNxt    = document.getElementById('prog-' + (fromPhase + 1));
+
+  current.classList.add('is-done');
+  if (pCur) { pCur.classList.remove('is-active'); pCur.classList.add('is-done'); }
+  if (next) {
+    next.classList.remove('is-locked');
+    if (pNxt) pNxt.classList.add('is-active');
+    setTimeout(() => next.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+  }
+}
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+
+</body>
+</html>

@@ -124,7 +124,7 @@
 </div>
 
 <section class="bg-pale">
-  <div class="container--course">
+  <div class="container">
 
     <!-- PHASE 0: ENCOUNTER -->
     <div class="phase" id="phase-0">
@@ -454,10 +454,11 @@ function revealAnswers() {
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
-  // Phase 0: require some card interaction
+  // Phase 0: require some card interaction OR answers already revealed
   if (fromPhase === 0) {
+    const alreadyRevealed = document.querySelectorAll('.activity-card.revealed').length > 0;
     const interacted = document.querySelectorAll('.activity-card.selected-ai').length;
-    if (interacted < 3) {
+    if (!alreadyRevealed && interacted < 3) {
       errEl.style.display = 'block';
       errEl.textContent = 'Click on at least a few cards to sort them before moving on.';
       return;

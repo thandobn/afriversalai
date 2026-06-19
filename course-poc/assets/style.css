@@ -654,6 +654,11 @@ footer {
 footer strong { color: rgba(255,255,255,0.85); }
 footer a { color: rgba(255,255,255,0.7); }
 
+/* ---- Split image layouts ---- */
+.split-img { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.split-img img { border-radius:var(--radius-lg); width:100%; object-fit:cover; }
+@media (max-width:768px) { .split-img { grid-template-columns:1fr; gap:32px; } }
+
 /* ---- Utils ---- */
 .text-center { text-align: center; }
 .mb-2 { margin-bottom: 8px; }
