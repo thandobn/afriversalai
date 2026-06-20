@@ -253,8 +253,9 @@
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
             <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;" data-i18n="lesson_try_label">Try this yourself</p>
             <p style="margin-bottom:10px; font-size:0.92em;">Open ChatGPT, Copilot, or any AI and ask:</p>
-            <div style="background:var(--green-dark); color:var(--gold); font-family:monospace; font-size:0.9em; padding:14px 18px; border-radius:var(--radius); margin-bottom:12px; line-height:1.6; user-select:all;">
-              What were the three main findings of the 2023 Human Sciences Research Council report on AI use in South African workplaces?
+            <div style="position:relative; background:var(--green-dark); border-radius:var(--radius); margin-bottom:12px;">
+              <div style="color:var(--gold); font-family:monospace; font-size:0.9em; padding:14px 18px; padding-right:80px; line-height:1.6; user-select:all;">What were the three main findings of the 2023 Human Sciences Research Council report on AI use in South African workplaces?</div>
+              <button type="button" onclick="copyLesson4Prompt(this)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.85); font-size:0.75em; font-weight:700; padding:4px 10px; border-radius:6px; cursor:pointer; letter-spacing:0.5px; transition:background 0.15s;">Copy</button>
             </div>
             <p style="margin:0; font-size:0.88em; color:var(--muted);">It will likely produce three detailed, specific, confident findings — complete with percentages and recommendations. That report may not exist at all. AI is completing the pattern of what a research report <em>usually sounds like</em>, not retrieving a real document.</p>
           </div>
@@ -836,6 +837,14 @@
 </footer>
 
 <script>
+function copyLesson4Prompt(btn) {
+  var text = 'What were the three main findings of the 2023 Human Sciences Research Council report on AI use in South African workplaces?';
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
 function revealFillIn() {
   var f1 = document.getElementById('fill-1').value.trim();
   var f2 = document.getElementById('fill-2').value.trim();
