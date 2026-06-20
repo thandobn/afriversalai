@@ -4,8 +4,12 @@
  */
 
 async function getSession() {
-  const { data: { session } } = await _supabase.auth.getSession()
-  return session
+  try {
+    const { data: { session } } = await _supabase.auth.getSession()
+    return session
+  } catch {
+    return null
+  }
 }
 
 async function getProfile() {

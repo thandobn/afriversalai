@@ -30,4 +30,11 @@
   if (typeof updateNavForAuth === 'function') {
     updateNavForAuth();
   }
+
+  // Accessibility: aria-labels for language switcher buttons
+  var langLabels = { en: 'Switch to English', af: 'Switch to Afrikaans', fr: 'Switch to French', zu: 'Switch to Zulu' };
+  document.querySelectorAll('[data-lang-btn]').forEach(function(btn) {
+    var code = btn.getAttribute('data-lang-btn');
+    if (langLabels[code]) btn.setAttribute('aria-label', langLabels[code]);
+  });
 })();
