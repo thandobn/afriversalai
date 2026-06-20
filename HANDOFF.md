@@ -121,3 +121,129 @@
 - `C:\Users\thand\Workspace\Funda\research\funda_gap_analysis_part_three.md` (moved from Downloads)
 - `C:\Users\thand\Workspace\Funda\research\funda_part_four_south_africa_market_strategy.md` (moved from Downloads)
 - `C:\Users\thand\Workspace\Funda\research\funda_round_five_clean_room_research.md` (moved from Downloads)
+
+---
+
+## Session: 2026-06-19
+
+**What was worked on:**
+
+- Deep research into SA accreditation landscape (SETA/QCTO) — what it is, how it works, what's required
+- Full 6-expert council review on accreditation strategy and sequencing (all findings accepted)
+- Clarified the SA vs. US entity question and confirmed both are needed
+- Confirmed parents have already started SA entity registration (ahead of schedule)
+- Drafted WhatsApp message to parents about SA entity registration
+
+---
+
+### Background: The Accreditation Landscape (read this carefully)
+
+**The 2024 transition everyone needs to know:**
+As of June 30, 2024, QCTO (Quality Council for Trades and Occupations) replaced SETAs as the body that accredits training providers. Services SETA stopped taking new applications in September 2022. MICT SETA (Media, Information and Communication Technologies) is the relevant SETA for AI/tech training — but accreditation now flows through QCTO, with MICT SETA acting as a Development Quality Partner (DQP) for new qualifications.
+
+**Why accreditation matters commercially (the SDL mechanism):**
+SA companies with a payroll above R500K pay 1% of it monthly to the government as a Skills Development Levy (SDL). If they spend on training from a QCTO-accredited provider, they can claim back 40% of that levy (mandatory grant — doubled from 20% in the 2026 SDL reform). This means accredited training is essentially "free" for the company — they've already paid the levy. Additionally, accredited training spend counts toward the company's B-BBEE Skills Development scorecard. Without accreditation, Funda competes for discretionary budget instead of ring-fenced SDL money. Much harder sell.
+
+**The B-BBEE scorecard:**
+Companies are scored on Black Economic Empowerment across multiple elements. The Skills Development element rewards companies for spending on training of Black employees with accredited providers. If Funda is accredited, a company buying Funda's training gets both: SDL clawback + B-BBEE scorecard points. This is a procurement-rational purchase, not just a nice-to-have.
+
+**There is no AI literacy occupational qualification on the QCTO register:**
+The only AI-related qualification registered with QCTO is "Artificial Intelligence Software Developer" (SAQA ID: 118792, NQF Level 5) — which is about building AI systems, not AI literacy. This means Funda cannot just apply for SDP accreditation against an existing qualification. There is a significant first-mover opportunity here.
+
+---
+
+### The Three Accreditation Paths Identified
+
+**Path A — Occupational Skills Programme (OSP):**
+Register a short learning programme directly with QCTO without it being a full qualification. Faster to market (~3–6 months). Cheaper. But B-BBEE recognition is Category E only (companies can claim back course fees but not learner stipends). Council verdict: viable as a bridge but probably not strong enough to close enterprise deals on its own. Corporate L&D buyers want maximum B-BBEE scorecard impact — Category E gives them less than a full qualification.
+
+**Path B — Develop a new occupational qualification:**
+Work with MICT SETA (as DQP) to design and register a brand new qualification — e.g. "AI Literacy Practitioner" at NQF Level 4 or 5. Once registered on QCTO's register, apply for SDP accreditation against it. Full qualification = Category B/C/D B-BBEE recognition (both fees and stipends count). Timeline: 18–36 months. Expensive. But this builds the only durable competitive moat: you become the founding organization of the qualification. Competitors apply to deliver YOUR qualification. Council verdict: this is the long game and the right one.
+
+**Path C — Partner with an existing QCTO-accredited SDP:**
+Find a training provider already QCTO-accredited for ICT programmes, deliver Funda content under their accreditation. Fastest to market (1–3 months). Revenue split (typically 30–50% to partner). Council critical finding: this path does NOT exist without a named, approached, relationship-building partner — "find a partner" is not a strategy. Also critical: if Funda delivers under the partner's QCTO accreditation and the partner's name is on the certificates/employer records, the partner builds brand equity while Funda does the work. Co-branding must be contractually mandatory. Alternatively: research whether a "white-label licence agreement" (Funda licenses content to partner, delivered under Funda's brand) is QCTO-compliant — this would flip the brand equity direction entirely.
+
+---
+
+### Council Review — Key Findings (2026-06-19, all accepted)
+
+**Experts:** Dr. Amara Diallo (Africa/SA policy), Dr. Solomon Adesanya (Business Strategy), Dr. Zara Okonkwo (Legal/Compliance), Rachel Kim (Finance), Victor Osei-Mensah (Project Management), Naledi Dlamini (Marketing/Brand)
+
+**Critical findings:**
+
+1. SA entity is prerequisite for everything — QCTO accreditation, CSD registration, government contracts, MICT SETA grants. Parents confirmed they've already started this process.
+2. Entity ownership structure is a B-BBEE decision. Note: parents and Thando are NOT SA citizens — this means the entity likely does not qualify as Black-owned under B-BBEE codes (which require SA citizenship or PR). Doesn't block QCTO accreditation but does affect B-BBEE standing. This was noted — not a blocker, just a known constraint.
+3. No capital plan for the 18–24 month accreditation runway. The business needs to fund QMS development, consultant fees, OHS assessment, facilitator contracts, and operations before any SDL revenue arrives. Bridge options: MICT SETA discretionary grants (non-dilutive, available pre-accreditation), pilot cohort revenue, SEDFA (Small Enterprise Development and Finance Agency) advisory and financing, NEF (National Empowerment Fund).
+4. Path C requires a named partner — identify 3–5 QCTO-accredited ICT training providers and initiate contact. Do this in parallel with everything else.
+5. Pre-accreditation revenue gap: the SDL/B-BBEE hook disappears during the 18–24 month accreditation period. Recommended bridge: pilot cohort model — sell 2–4 cohorts at reduced fee (~R15–25K each), positioned as "help us co-design SA's first QCTO-accredited AI literacy programme — pilot cohort, priority access, co-brand credit." Generates revenue + learner research data + testimonials simultaneously.
+
+**Major findings:**
+
+- Path B's first task is a MICT SETA DQP phone call — NOT a QCTO form submission. MICT SETA is the development partner who develops the qualification and brings it to QCTO. That relationship is the unlock. Find the DQP contact at MICT SETA and call them.
+- MICT SETA discretionary grants are available now (pre-accreditation) for ICT-sector training programme development. Non-dilutive. Apply early.
+- Moat window is time-limited: today there is no QCTO-registered AI literacy qualification. Funda developing it = founding organization status. In 3–5 years competitors will be accredited against it. Build brand equity now during the window when this is a Point of Difference, not a Point of Parity.
+- DCDT (Department of Communications and Digital Technologies) Draft AI Policy 2026 public comment window is currently open (April 2026, active as of mid-2026). Submitting a substantive comment establishes Funda in official SA government AI policy records as a recognized stakeholder — at near-zero cost. Do this now.
+- Pre-accreditation buyer (early adopter with innovation mandate) ≠ post-accreditation buyer (pragmatist needing SDL lever). Requires two distinct ICPs and messaging strategies during the gap.
+- POPIA compliance on the live AfriversalAI site: flagged in Session 4 (2026-06-18), still unresolved. The site is live and collecting SA resident data without a compliant privacy notice at point of collection. This is an active Section 18 POPIA issue. Fix before any marketing drives traffic to the site.
+
+---
+
+### Entity Structure — Current State
+
+**US entity (NY):** Being registered. Handles US-side operations, US banking, US taxes.
+
+**SA entity (Pty Ltd):** Parents (Thurston and Ntando Davis, SA-based) have ALREADY STARTED registration — confirmed this session. This is the entity that will pursue QCTO accreditation, register on CSD for government procurement, receive SDL-eligible contracts, and hold SA client relationships.
+
+**Relationship between entities:** Parallel (two independent entities, same family owners) for now. Parent-subsidiary structure can be considered later when there are intercompany transactions to manage.
+
+**B-BBEE note:** Parents and Thando are US citizens, not SA citizens or permanent residents. B-BBEE "black-owned" classification under SA codes requires SA citizenship or PR. The entity will still be able to get QCTO accreditation — citizenship is not a requirement for that. But the Level 1 B-BBEE contributor status the council flagged as a commercial asset may not apply. This is a known constraint, not a blocker.
+
+---
+
+### Recommended Action Sequencing (council consensus)
+
+| Priority | Action | Who | Status |
+| -------- | ------ | --- | ------ |
+| 1 | SA entity registration (CIPC Pty Ltd) | Parents (SA-based) | Already started |
+| 2 | NY entity registration | Thando/Parents | In progress |
+| 3 | MICT SETA DQP contact — intro call | Thando | Not started |
+| 4 | Identify 3–5 QCTO-accredited ICT SDP partners for Path C research | Thando | Not started |
+| 5 | DCDT Draft AI Policy 2026 public comment submission | Thando | Not started (window open now) |
+| 6 | MICT SETA discretionary grant application research | Thando | Not started |
+| 7 | Pilot cohort outreach: approach 1–2 early-adopter organisations | Thando | Not started |
+| 8 | Buyer validation: 3–5 L&D manager conversations to test Path A viability | Thando | Not started |
+| 9 | Fix POPIA / privacy policy on AfriversalAI site | Thando | Unresolved since Session 4 |
+
+---
+
+### Key Vocabulary for This Space
+
+A fresh session should know these terms:
+
+- **QCTO** — Quality Council for Trades and Occupations. The body that now accredits all Skills Development Providers (SDPs) in SA. Replaced SETAs for accreditation as of June 2024.
+- **MICT SETA** — Media, Information and Communication Technologies Sector Education and Training Authority. The relevant SETA for AI/tech training. Acts as DQP (Development Quality Partner) for new qualifications in the ICT space.
+- **DQP** — Development Quality Partner. The SETA role in developing new occupational qualifications and bringing them to QCTO for registration.
+- **SDL** — Skills Development Levy. 1% of payroll paid monthly by SA employers with payroll above R500K. Companies can reclaim 40% (mandatory grant) if they spend on accredited training and submit WSP/ATR.
+- **WSP/ATR** — Workplace Skills Plan / Annual Training Report. Documents employers submit to their SETA to claim SDL mandatory grants.
+- **SDP** — Skills Development Provider. Any organisation accredited by QCTO to deliver occupational qualifications or skills programmes.
+- **OQSF** — Occupational Qualifications Sub-Framework. The framework under which QCTO registers qualifications.
+- **EISA** — External Integrated Summative Assessment. The national exam learners write to earn a QCTO occupational certificate.
+- **OSP** — Occupational Skills Programme. A shorter learning programme that doesn't lead to a full qualification. Faster to register than a full qualification. Category E B-BBEE recognition only.
+- **CSD** — Central Supplier Database. The SA government's supplier registration system. Required to receive any government contract.
+- **B-BBEE** — Broad-Based Black Economic Empowerment. SA policy framework that scores companies on economic transformation. Skills Development is one of the scored elements. Using accredited providers improves a company's score.
+- **NQF** — National Qualifications Framework. SA's system for classifying qualifications by level (1–10). Most vocational/professional qualifications sit at NQF 4–6.
+- **CIPC** — Companies and Intellectual Property Commission. The SA body for company registration (via bizportal.gov.za).
+- **SEDFA** — Small Enterprise Development and Finance Agency. SA government support body for SMMEs — advisory, incubation, and financing.
+- **DCDT** — Department of Communications and Digital Technologies. The SA ministry responsible for AI and digital skills policy. Published Draft National AI Policy 2026 for public comment (currently open).
+
+---
+
+### Open Items for Next Session
+
+- Follow up with parents on SA entity registration status (registration number? SARS done?)
+- Make the MICT SETA DQP call — this is the most important unstarted task
+- Research 3–5 QCTO-accredited ICT SDP partners for Path C
+- Submit DCDT Draft AI Policy 2026 public comment (window open now — closes when policy is finalised)
+- Fix POPIA/privacy policy on AfriversalAI site (standing issue since Session 4)
+- Research MICT SETA discretionary grant application process
+- Identify 1–2 early-adopter organisations for pilot cohort outreach
