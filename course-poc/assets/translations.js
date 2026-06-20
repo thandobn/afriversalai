@@ -109,9 +109,9 @@ window.TRANSLATIONS = {
     mc6_num: 'Module 6',
     mc6_h3:  `When AI Works — and When It Doesn't`,
     mc6_p:   'Apply the full Funda Five to two contrasting SA cases: a clear success and a clear failure. Build your personal AI judgment statement.',
-    mc7_num: 'Module 7 · Sector: Education',
-    mc7_h3:  'AI in Education',
-    mc7_p:   'UCT scrapped AI detection software that was producing unfair results. Build the framework educators need to evaluate AI in assessment, teaching, and institutional governance.',
+    mc7_num: 'Module 7 · Sector-Specific',
+    mc7_h3:  'Your Sector Deep Dive',
+    mc7_p:   'A module built for your sector — tailored case studies, sector-specific AI failure modes, and the Funda Five applied to your professional context. Tracks available for Education, Finance, Government, Healthcare, and Corporate.',
 
     /* ── Sector section ── */
     sector_eyebrow:      'Find Your Sector',
@@ -513,9 +513,9 @@ window.TRANSLATIONS = {
     mc6_num: 'Module 6',
     mc6_h3:  'Wanneer KI Werk — en Wanneer Nie',
     mc6_p:   `Pas die volledige Funda Vyf toe op twee kontrasterende SA-gevalle: 'n duidelike sukses en 'n duidelike mislukking. Bou jou persoonlike KI-oordeelstelling.`,
-    mc7_num: 'Module 7 · Sektor: Onderwys',
-    mc7_h3:  'KI in Onderwys',
-    mc7_p:   'UCT het KI-opsporingsagteware geskrap wat onregverdige resultate gelewer het. Bou die raamwerk wat opvoeders nodig het om KI in assessering, onderrig en institusionele bestuur te evalueer.',
+    mc7_num: 'Module 7 · Sektorspesifiek',
+    mc7_h3:  'Jou Sektorverdieping',
+    mc7_p:   `'n Module gebou vir jou sektor — pasgemaakte gevallestudies, sektorspesifieke KI-mislukkingsmodusse, en die Funda Vyf toegepas op jou professionele konteks. Paaie beskikbaar vir Onderwys, Finansies, Regering, Gesondheidsorg en Korporatief.`,
 
     /* Sectors */
     sector_eyebrow:      'Vind Jou Sektor',
@@ -917,9 +917,9 @@ window.TRANSLATIONS = {
     mc6_num: 'Module 6',
     mc6_h3:  `Quand l'IA fonctionne — et quand elle ne fonctionne pas`,
     mc6_p:   `Appliquez les cinq Funda à deux cas SA contrastés : un succès clair et un échec clair. Construisez votre déclaration personnelle de jugement IA.`,
-    mc7_num: `Module 7 · Secteur : Éducation`,
-    mc7_h3:  `L'IA dans l'éducation`,
-    mc7_p:   `L'UCT a supprimé un logiciel de détection d'IA qui produisait des résultats inéquitables. Construisez le cadre dont les éducateurs ont besoin pour évaluer l'IA dans l'évaluation, l'enseignement et la gouvernance institutionnelle.`,
+    mc7_num: `Module 7 · Spécifique au secteur`,
+    mc7_h3:  `Votre module sectoriel`,
+    mc7_p:   `Un module conçu pour votre secteur — études de cas adaptées, modes de défaillance de l'IA spécifiques au secteur, et les cinq Funda appliqués à votre contexte professionnel. Parcours disponibles pour l'éducation, la finance, le gouvernement, la santé et le secteur des entreprises.`,
 
     /* Sector card names + descriptions */
     sector_corp_name:  'Entreprise et Affaires',
