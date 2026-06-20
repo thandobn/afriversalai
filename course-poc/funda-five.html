@@ -51,27 +51,27 @@
     <p class="lead" data-i18n="f5_framework_lead">The Funda Five is introduced in Module 1 and applied in every module after that. By Module 6, it's automatic — the way you think about every AI encounter at work.</p>
 
     <div class="five-grid">
-      <div class="five-card" id="f1">
+      <div class="five-card" id="f1" tabindex="0" role="button" aria-expanded="false">
         <div class="five-card__num">1</div>
         <div class="five-card__name" data-i18n="f5_1_name">Task</div>
         <div class="five-card__q" data-i18n="f5_1_q_full">Is this the right kind of job for AI? What exactly am I trying to accomplish?</div>
       </div>
-      <div class="five-card" id="f2">
+      <div class="five-card" id="f2" tabindex="0" role="button" aria-expanded="false">
         <div class="five-card__num">2</div>
         <div class="five-card__name" data-i18n="f5_2_name">Data</div>
         <div class="five-card__q" data-i18n="f5_2_q_full">What information is involved? Is any of it personal, confidential, client data, or POPIA-protected?</div>
       </div>
-      <div class="five-card" id="f3">
+      <div class="five-card" id="f3" tabindex="0" role="button" aria-expanded="false">
         <div class="five-card__num">3</div>
         <div class="five-card__name" data-i18n="f5_3_name">Tool</div>
         <div class="five-card__q" data-i18n="f5_3_q_full">What type of AI fits this task? Is it approved by my organisation? Do I understand its limitations?</div>
       </div>
-      <div class="five-card" id="f4">
+      <div class="five-card" id="f4" tabindex="0" role="button" aria-expanded="false">
         <div class="five-card__num">4</div>
         <div class="five-card__name" data-i18n="f5_4_name">Trust</div>
         <div class="five-card__q" data-i18n="f5_4_q_full">How reliable is AI for this specific task? What are its failure modes here? How would I detect an error?</div>
       </div>
-      <div class="five-card" id="f5">
+      <div class="five-card" id="f5" tabindex="0" role="button" aria-expanded="false">
         <div class="five-card__num">5</div>
         <div class="five-card__name" data-i18n="f5_5_name">Human</div>
         <div class="five-card__q" data-i18n="f5_5_q_full">Who checks the output before it matters? Who is accountable if it is wrong?</div>
@@ -214,14 +214,26 @@
   document.querySelectorAll('.five-card').forEach(card => {
     card.addEventListener('click', () => {
       const wasOpen = card.classList.contains('is-open');
-      document.querySelectorAll('.five-card').forEach(c => c.classList.remove('is-open'));
-      if (!wasOpen) card.classList.add('is-open');
+      document.querySelectorAll('.five-card').forEach(c => {
+        c.classList.remove('is-open');
+        c.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        card.classList.add('is-open');
+        card.setAttribute('aria-expanded', 'true');
+      }
+    });
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
     });
   });
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>

@@ -130,7 +130,7 @@
 </div>
 
 <!-- PROGRESS BAR -->
-<div class="module-progress" id="progressBar">
+<div class="module-progress" id="progressBar" role="progressbar" aria-label="Module 0 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
   <div class="prog-step is-active" id="prog-0"></div>
   <div class="prog-step" id="prog-1"></div>
   <div class="prog-step" id="prog-2"></div>
@@ -917,6 +917,11 @@ function revealAnswers() {
   }
 }
 
+function syncProgressAria() {
+  var bar = document.getElementById('progressBar');
+  if (bar) bar.setAttribute('aria-valuenow', bar.querySelectorAll('.is-done').length);
+}
+
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
@@ -990,6 +995,7 @@ function advancePhase(fromPhase) {
   saveProgress('module-0', fromPhase);
   current.classList.add('is-done');
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
+  syncProgressAria();
 
   if (next) {
     next.classList.remove('is-locked');
@@ -1078,7 +1084,7 @@ function resetQuiz() {
   document.getElementById('quiz-advance-wrap').style.display = 'none';
 }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script>
