@@ -152,7 +152,8 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Module 0 · Foundation · Free — start here',
     m0_h1:        'AI Fundamentals:<br>What Is It, Really?',
     m0_lead:      'Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it\'s where we all start.',
-    m0_free_note: 'Phase 1 free — register to unlock all phases',
+    m0_free_note:        'Phase 1 free — register to unlock all phases',
+    m0_objectives_html:  '<strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the three types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one AI system you already encounter at work and classify it by type</li></ol>',
     m0_dur:       '45 minutes · 4 phases',
     m0_sectors:   'All sectors · No technical background required',
 
@@ -541,7 +542,8 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Module 0 · Grondslag · Gratis — begin hier',
     m0_h1:        'KI-Grondbeginsels:<br>Wat Is Dit, Regtig?',
     m0_lead:      `Voordat ons by KI-oordeel kom, moet ons \'n gemeenskaplike grondslag bou. Geen aannames nie. Geen jargon nie. Hierdie module geld vir elke leerder, elke sektor — dit is waar ons almal begin.`,
-    m0_free_note: 'Fase 1 gratis — registreer om alle fases te ontsluit',
+    m0_free_note:        'Fase 1 gratis — registreer om alle fases te ontsluit',
+    m0_objectives_html:  `<strong>Teen die einde van hierdie module sal jy in staat wees om:</strong><ol><li>Die verskil tussen KI- en nie-KI-sagteware te verduidelik aan die hand van voorbeelde uit jou eie werk</li><li>Die drie tipes KI te benoem en te beskryf wat jy die meeste in die Suid-Afrikaanse werksplek sal teëkom</li><li>Te verduidelik waarom KI-uitvoere gesagvol kan klink en steeds verkeerd kan wees</li><li>Ten minste een KI-stelsel wat jy reeds by die werk teëkom te identifiseer en dit na tipe te klassifiseer</li></ol>`,
     m0_dur:       '45 minute · 4 fases',
     m0_sectors:   'Alle sektore · Geen tegniese agtergrond benodig nie',
 
@@ -953,7 +955,8 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Module 0 · Fondation · Gratuit — commencez ici',
     m0_h1:        'Les Bases de l’IA :<br>De quoi s’agit-il vraiment ?',
     m0_lead:      'Avant d’aborder le jugement sur l’IA, nous devons bâtir une base commune. Aucune hypothèse. Aucun jargon. Ce module s’applique à chaque apprenant, chaque secteur — c’est là que nous commençons tous.',
-    m0_free_note: 'Phase 1 gratuite — inscrivez-vous pour accéder à toutes les phases',
+    m0_free_note:        'Phase 1 gratuite — inscrivez-vous pour accéder à toutes les phases',
+    m0_objectives_html:  `<strong>À la fin de ce module, vous serez capable de :</strong><ol><li>Expliquer la différence entre les logiciels IA et non-IA avec des exemples tirés de votre propre travail</li><li>Nommer et décrire les trois types d'IA que vous rencontrerez le plus souvent au travail en Afrique du Sud</li><li>Expliquer pourquoi les résultats de l'IA peuvent sembler fiables et être pourtant erronés</li><li>Identifier au moins un système d'IA que vous rencontrez déjà au travail et le classer par type</li></ol>`,
     m0_dur:       '45 minutes · 4 phases',
     m0_sectors:   'Tous les secteurs · Aucune formation technique requise',
 
