@@ -14,15 +14,30 @@
       links.classList.remove('is-open');
       burger.classList.remove('is-active');
       burger.setAttribute('aria-expanded', 'false');
+      document.querySelectorAll('.nav__dropdown.is-open').forEach(function (d) {
+        d.classList.remove('is-open');
+      });
     }
   });
 
-  // Close on nav link click (single-page feel)
+  // Close mobile menu on nav link click — skip dropdown triggers (they toggle sub-menu instead)
   links.querySelectorAll('a').forEach(function (a) {
     a.addEventListener('click', function () {
+      if (a.parentElement.classList.contains('nav__dropdown')) return;
       links.classList.remove('is-open');
       burger.classList.remove('is-active');
       burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Dropdown toggle: click on mobile toggles sub-menu; desktop uses CSS hover
+  document.querySelectorAll('.nav__dropdown > a').forEach(function (trigger) {
+    trigger.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        var dropdown = trigger.closest('.nav__dropdown');
+        dropdown.classList.toggle('is-open');
+      }
     });
   });
 
