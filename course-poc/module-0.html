@@ -481,7 +481,7 @@
           </div>
         </div>
 
-        <div class="callout" style="margin-top:28px;">
+        <div id="glossary-note" class="callout" style="margin-top:28px; display:none;">
           <strong>New to some of these terms?</strong> The <a href="glossary.html" style="color:var(--green-dark); font-weight:700;">AI Glossary →</a> has plain-language definitions for every term used in this course.
         </div>
 
@@ -1086,6 +1086,9 @@ function resetQuiz() {
   getSession().then(async session => {
     await updateNavForAuth()
     if (!session) return
+    // Reveal glossary note for authenticated users
+    var gn = document.getElementById('glossary-note')
+    if (gn) gn.style.display = ''
     // Unlock phase 1 immediately — logged-in users get the full module
     document.getElementById('phase-1').classList.remove('is-locked')
     document.getElementById('phase-2').classList.remove('is-locked')
