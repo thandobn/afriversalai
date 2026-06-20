@@ -43,6 +43,7 @@ window.TRANSLATIONS = {
     hero_lead:          'AfriversalAI teaches South African professionals how to think with AI — not just how to use it. Critical judgment, real SA case studies, a certificate that actually means something.',
     hero_cta_primary:   'Start Module 0 — free →',
     hero_cta_secondary: 'See the full course',
+    hero_proof:         `Certificate says <em>demonstrated</em>, not <em>completed</em> — assessed on a real AI evaluation from your own job.`,
 
     /* ── Problem section ── */
     prob_eyebrow:    'The Problem',
@@ -442,6 +443,7 @@ window.TRANSLATIONS = {
     hero_lead:          `AfriversalAI leer Suid-Afrikaanse professionele persone hoe om met KI te dink — nie net hoe om dit te gebruik nie. Kritiese oordeel, werklike SA-gevallestudies, \'n sertifikaat wat werklik iets beteken.`,
     hero_cta_primary:   'Begin Module 0 — gratis →',
     hero_cta_secondary: 'Sien die volledige kursus',
+    hero_proof:         `Sertifikaat sê <em>gedemonstreer</em>, nie <em>voltooi</em> nie — beoordeel aan 'n werklike KI-evaluasie uit jou eie werk.`,
 
     /* Problem section */
     prob_eyebrow:   'Die Probleem',
@@ -841,6 +843,7 @@ window.TRANSLATIONS = {
     hero_lead:          'AfriversalAI enseigne aux professionnels sud-africains à raisonner avec l’IA — et pas seulement à l’utiliser. Jugement critique, études de cas réelles en Afrique du Sud, un certificat qui a du sens.',
     hero_cta_primary:   'Commencer le Module 0 — gratuit →',
     hero_cta_secondary: 'Voir le cours complet',
+    hero_proof:         `Le certificat dit <em>démontré</em>, pas <em>complété</em> — évalué sur une vraie évaluation d'IA issue de votre travail.`,
 
     /* Problem section */
     prob_eyebrow:   'Le Problème',
@@ -1238,6 +1241,7 @@ window.TRANSLATIONS = {
     hero_lead:          'I-AfriversalAI ifundisa abasebenzi baseNingizimu Afrika ukucabanga nge-AI — hhayi nje ukuyisebenzisa. Ukwahlulela okubalulekile, izifundo eziqinisekile zase-SA, isitifiketi esitholakala ngezinsuku.',
     hero_cta_primary:   'Qala iModuli 0 — mahala →',
     hero_cta_secondary: 'Bona ikhosi ephelele',
+    hero_proof:         `Isitifiketi sithi <em>kubonisiwe</em>, hhayi <em>kuphela kufezekisiwe</em> — kuvivinywwe ngokuhlola i-AI kwangempela emsebenzini wakho.`,
 
     /* Sectors */
     sector_toggle_open:  'Bona indlela yakho →',
