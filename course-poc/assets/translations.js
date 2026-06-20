@@ -91,7 +91,7 @@ window.TRANSLATIONS = {
     mc0_h3:  'AI Fundamentals: What Is It, Really?',
     mc0_p:   `What AI is, what it isn't, the three types you'll encounter at work, and five things it cannot do — regardless of how confident it sounds. Every learner starts here.`,
     mc0_tag: '45 min · No case study · All sectors · Fully free',
-    mc1_num: 'Module 1 · Preview available',
+    mc1_num: 'Module 1',
     mc1_h3:  'What AI Actually Is',
     mc1_p:   `What makes AI different from a calculator? What can it not do? Why does it sound confident when it's wrong?`,
     mc2_num: 'Module 2',
@@ -109,6 +109,9 @@ window.TRANSLATIONS = {
     mc6_num: 'Module 6',
     mc6_h3:  `When AI Works — and When It Doesn't`,
     mc6_p:   'Apply the full Funda Five to two contrasting SA cases: a clear success and a clear failure. Build your personal AI judgment statement.',
+    mc7_num: 'Module 7 · Sector: Education',
+    mc7_h3:  'AI in Education',
+    mc7_p:   'UCT scrapped AI detection software that was producing unfair results. Build the framework educators need to evaluate AI in assessment, teaching, and institutional governance.',
 
     /* ── Sector section ── */
     sector_eyebrow:      'Find Your Sector',
@@ -492,7 +495,7 @@ window.TRANSLATIONS = {
     mc0_h3:  'KI-Grondbeginsels: Wat Is Dit, Regtig?',
     mc0_p:   'Wat KI is, wat dit nie is nie, die drie tipes wat jy by die werk sal teëkom, en vyf dinge wat dit nie kan doen nie — ongeag hoe seker dit klink. Elke leerder begin hier.',
     mc0_tag: '45 min · Geen gevallestudie · Alle sektore · Heeltemal gratis',
-    mc1_num: 'Module 1 · Voorskou beskikbaar',
+    mc1_num: 'Module 1',
     mc1_h3:  'Wat KI Regtig Is',
     mc1_p:   `Wat maak KI anders as 'n sakrekenaar? Wat kan dit nie doen nie? Hoekom klink dit seker wanneer dit fout is?`,
     mc2_num: 'Module 2',
@@ -510,6 +513,9 @@ window.TRANSLATIONS = {
     mc6_num: 'Module 6',
     mc6_h3:  'Wanneer KI Werk — en Wanneer Nie',
     mc6_p:   `Pas die volledige Funda Vyf toe op twee kontrasterende SA-gevalle: 'n duidelike sukses en 'n duidelike mislukking. Bou jou persoonlike KI-oordeelstelling.`,
+    mc7_num: 'Module 7 · Sektor: Onderwys',
+    mc7_h3:  'KI in Onderwys',
+    mc7_p:   'UCT het KI-opsporingsagteware geskrap wat onregverdige resultate gelewer het. Bou die raamwerk wat opvoeders nodig het om KI in assessering, onderrig en institusionele bestuur te evalueer.',
 
     /* Sectors */
     sector_eyebrow:      'Vind Jou Sektor',
@@ -893,7 +899,7 @@ window.TRANSLATIONS = {
     mc0_h3:  `Fondamentaux de l'IA : Qu'est-ce que c'est, vraiment ?`,
     mc0_p:   `Ce qu'est l'IA, ce qu'elle n'est pas, les trois types que vous rencontrerez au travail, et cinq choses qu'elle ne peut pas faire — quelle que soit sa confiance apparente. Chaque apprenant commence ici.`,
     mc0_tag: `45 min · Pas d'étude de cas · Tous secteurs · Entièrement gratuit`,
-    mc1_num: `Module 1 · Aperçu disponible`,
+    mc1_num: 'Module 1',
     mc1_h3:  `Ce qu'est vraiment l'IA`,
     mc1_p:   `Qu'est-ce qui différencie l'IA d'une calculatrice ? Que ne peut-elle pas faire ? Pourquoi semble-t-elle confiante quand elle se trompe ?`,
     mc2_num: 'Module 2',
@@ -911,6 +917,9 @@ window.TRANSLATIONS = {
     mc6_num: 'Module 6',
     mc6_h3:  `Quand l'IA fonctionne — et quand elle ne fonctionne pas`,
     mc6_p:   `Appliquez les cinq Funda à deux cas SA contrastés : un succès clair et un échec clair. Construisez votre déclaration personnelle de jugement IA.`,
+    mc7_num: `Module 7 · Secteur : Éducation`,
+    mc7_h3:  `L'IA dans l'éducation`,
+    mc7_p:   `L'UCT a supprimé un logiciel de détection d'IA qui produisait des résultats inéquitables. Construisez le cadre dont les éducateurs ont besoin pour évaluer l'IA dans l'évaluation, l'enseignement et la gouvernance institutionnelle.`,
 
     /* Sector card names + descriptions */
     sector_corp_name:  'Entreprise et Affaires',

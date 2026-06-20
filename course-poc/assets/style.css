@@ -198,8 +198,10 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
 .hero__ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .hero__proof { margin-top: 16px; font-size: 0.82em; color: rgba(255,255,255,0.65); letter-spacing: 0.2px; }
 .hero__proof em { color: rgba(255,255,255,0.9); font-style: normal; font-weight: 600; }
+.hero--condensed { padding-bottom: 48px; }
 .ai-disclosure { padding: 16px 0; border-top: 1px solid var(--border); background: var(--white); }
 .ai-disclosure p { font-size: 0.8em; color: var(--muted); margin: 0; }
+.footer__sub { margin-top: 8px; display: block; }
 
 /* ---- Module hero (narrower) ---- */
 .module-hero {
