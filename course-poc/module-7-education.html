@@ -1,9 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 7: AI in Education â€” AfriversalAI</title>
+  <title>Module 7: AI in Education — AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -76,10 +76,16 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html">The Course</a></li>
       <li><a href="module-0.html">AI Fundamentals</a></li>
-      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+        </ul>
+      </li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="register.html" class="btn btn--gold btn--sm">Register â†’</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register ?</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button data-lang-btn="en" onclick="setLang('en')">EN</button>
@@ -97,12 +103,12 @@
 
 <div class="module-hero">
   <div style="max-width:1440px; margin:0 auto;">
-    <span class="eyebrow eyebrow--light">Module 7 Â· Sector Specific Â· Education</span>
+    <span class="eyebrow eyebrow--light">Module 7 · Sector Specific · Education</span>
     <h1>AI in Education:<br>When the Detection Tool Is the Problem</h1>
-    <p class="lead">UCT became the first South African university to formally scrap AI detection software â€” because the tool designed to catch cheating was itself producing unfair results. This module starts with that decision and builds the framework educators need to think clearly about AI in assessment, teaching, and institutional governance.</p>
+    <p class="lead">UCT became the first South African university to formally scrap AI detection software — because the tool designed to catch cheating was itself producing unfair results. This module starts with that decision and builds the framework educators need to think clearly about AI in assessment, teaching, and institutional governance.</p>
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
-      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">60 minutes Â· 4 phases</span>
-      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">Education track Â· Requires Module 0 foundation</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">60 minutes · 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">Education track · Requires Module 0 foundation</span>
     </div>
   </div>
 </div>
@@ -122,54 +128,54 @@
       <div class="phase__header">
         <div class="phase__num">1</div>
         <div>
-          <div class="phase__title">Encounter â€” The university that stopped detecting AI</div>
-          <div class="phase__subtitle">Two headlines. One institutional decision. What do you think? Â· ~15 min</div>
+          <div class="phase__title">Encounter — The university that stopped detecting AI</div>
+          <div class="phase__subtitle">Two headlines. One institutional decision. What do you think? · ~15 min</div>
         </div>
       </div>
       <div class="phase__body">
         <p>Read these two stories. They are about the same problem, approached from different angles. Then answer the questions below before we unpack the full picture.</p>
 
         <div class="news-card">
-          <div class="news-date">Daily Maverick Â· 5 April 2025 Â· "CheatGPT Crisis"</div>
+          <div class="news-date">Daily Maverick · 5 April 2025 · "CheatGPT Crisis"</div>
           <div class="news-headline">SA universities faced with a burgeoning degree of AI-written academic assignments</div>
-          <div class="news-sub">Lecturers at UCT, Wits, UJ, and Unisa are receiving assignments they suspect are AI-generated but cannot prove it. AI detection software is described by one contract lecturer as "a victim of hope and marketing." A survey of undergraduates found 37.3% had used ChatGPT to answer an essay question. Students report using AI primarily to understand concepts their lecturers didn't explain clearly â€” not simply to avoid doing work.</div>
+          <div class="news-sub">Lecturers at UCT, Wits, UJ, and Unisa are receiving assignments they suspect are AI-generated but cannot prove it. AI detection software is described by one contract lecturer as "a victim of hope and marketing." A survey of undergraduates found 37.3% had used ChatGPT to answer an essay question. Students report using AI primarily to understand concepts their lecturers didn't explain clearly — not simply to avoid doing work.</div>
         </div>
 
         <div class="news-card">
-          <div class="news-date">UCT News Â· 24 July 2025</div>
-          <div class="news-headline">UCT scraps flawed AI detectors â€” Turnitin AI Score discontinued from 1 October 2025</div>
+          <div class="news-date">UCT News · 24 July 2025</div>
+          <div class="news-headline">UCT scraps flawed AI detectors — Turnitin AI Score discontinued from 1 October 2025</div>
           <div class="news-sub">The University of Cape Town announced it will discontinue the use of all AI detection tools, including Turnitin's AI Score, effective 1 October 2025. The Senate Teaching and Learning Committee found the tools produce unreliable false positives and false negatives. The official reason: continued use "compromises student trust and academic fairness." UCT's Framework for AI in Education was simultaneously released, establishing principles for constructive integration rather than detection and punishment.</div>
         </div>
 
         <p style="font-weight:600; margin: 24px 0 16px;">Before reading further:</p>
 
         <div class="reflection-q">
-          <label>1. UCT stopped using AI detection because it produces false positives and false negatives. Who is most at risk of a false positive â€” and why does it matter in the SA context specifically?</label>
-          <textarea id="enc-1" placeholder="e.g. Students who write formal academic English differently â€” because it's their second or third language â€” are flagged at higher rates. In SA, that's a large proportion of university students. A false positive accusation of AI use, made against an isiZulu or Sesotho home-language speaker writing in formal English, is a fairness problem, not just a technical glitch..."></textarea>
+          <label>1. UCT stopped using AI detection because it produces false positives and false negatives. Who is most at risk of a false positive — and why does it matter in the SA context specifically?</label>
+          <textarea id="enc-1" placeholder="e.g. Students who write formal academic English differently — because it's their second or third language — are flagged at higher rates. In SA, that's a large proportion of university students. A false positive accusation of AI use, made against an isiZulu or Sesotho home-language speaker writing in formal English, is a fairness problem, not just a technical glitch..."></textarea>
         </div>
 
         <div class="reflection-q">
           <label>2. If you can't detect AI use reliably, what do you do? Do you: ignore the problem, redesign the assessments, or something else?</label>
-          <textarea id="enc-2" placeholder="e.g. Redesigning assessments seems like the right instinct â€” if AI can answer the question, the question might not be testing the right things. Contextual knowledge, oral defence, in-class work, process portfolios â€” these are harder to fully AI-substitute. But they also require more from lecturers who are already stretched..."></textarea>
+          <textarea id="enc-2" placeholder="e.g. Redesigning assessments seems like the right instinct — if AI can answer the question, the question might not be testing the right things. Contextual knowledge, oral defence, in-class work, process portfolios — these are harder to fully AI-substitute. But they also require more from lecturers who are already stretched..."></textarea>
         </div>
 
         <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-          <button class="btn btn--outline btn--sm" onclick="revealEduCase()">Reveal what the research shows â†’</button>
-          <button class="btn btn--primary btn--sm" onclick="advancePhase(0)">Done â€” continue â†’</button>
+          <button class="btn btn--outline btn--sm" onclick="revealEduCase()">Reveal what the research shows ?</button>
+          <button class="btn btn--primary btn--sm" onclick="advancePhase(0)">Done — continue ?</button>
         </div>
         <div id="err-0" class="advance-err" style="display:none;"></div>
 
         <div id="edu-reveal" style="display:none; margin-top:32px;">
           <hr style="border:none; border-top:2px solid var(--border); margin-bottom:28px;">
           <span class="eyebrow">What the Research Shows</span>
-          <h3 style="margin-bottom:12px;">The detection tools have a documented equity problem â€” and SA's multilingual student population is exactly where that problem is sharpest.</h3>
+          <h3 style="margin-bottom:12px;">The detection tools have a documented equity problem — and SA's multilingual student population is exactly where that problem is sharpest.</h3>
           <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:22px; margin-bottom:20px;">
-            <p style="font-size:0.9em; line-height:1.7;"><strong>What the tools actually do:</strong> AI detection tools like Turnitin's AI Score work by identifying stylistic patterns associated with AI-generated text â€” formal structure, certain syntactic patterns, lack of idiomatic variation. The problem: these are also features of writing by people for whom academic English is not their first language. A student writing formal, careful, less idiomatic English because it's their second or third language can be flagged by the same patterns the system uses to identify AI text.</p>
-            <p style="font-size:0.9em; margin-top:12px; line-height:1.7;"><strong>The SA dimension:</strong> In a country with 11 official languages, where over 60% of university students are writing academic work in a language that is not their home language, this is not a marginal edge case â€” it is the mainstream population. UCT named "compromising student trust" as the key reason for scrapping the tools. That's institutional acknowledgement of the equity problem.</p>
-            <p style="font-size:0.9em; margin-top:12px; line-height:1.7;"><strong>What students say:</strong> Research across UCT, Cape Peninsula University of Technology, Stellenbosch, Rhodes, and Wits found that the primary stated use of AI among students was understanding concepts their lecturers hadn't explained clearly â€” not avoiding work. 41% of AI use happens on laptops; 29.8% on smartphones, meaning a significant proportion of student AI interaction is mobile-first.</p>
+            <p style="font-size:0.9em; line-height:1.7;"><strong>What the tools actually do:</strong> AI detection tools like Turnitin's AI Score work by identifying stylistic patterns associated with AI-generated text — formal structure, certain syntactic patterns, lack of idiomatic variation. The problem: these are also features of writing by people for whom academic English is not their first language. A student writing formal, careful, less idiomatic English because it's their second or third language can be flagged by the same patterns the system uses to identify AI text.</p>
+            <p style="font-size:0.9em; margin-top:12px; line-height:1.7;"><strong>The SA dimension:</strong> In a country with 11 official languages, where over 60% of university students are writing academic work in a language that is not their home language, this is not a marginal edge case — it is the mainstream population. UCT named "compromising student trust" as the key reason for scrapping the tools. That's institutional acknowledgement of the equity problem.</p>
+            <p style="font-size:0.9em; margin-top:12px; line-height:1.7;"><strong>What students say:</strong> Research across UCT, Cape Peninsula University of Technology, Stellenbosch, Rhodes, and Wits found that the primary stated use of AI among students was understanding concepts their lecturers hadn't explained clearly — not avoiding work. 41% of AI use happens on laptops; 29.8% on smartphones, meaning a significant proportion of student AI interaction is mobile-first.</p>
           </div>
           <div class="callout">
-            <strong>The core tension:</strong> AI detection tries to solve an academic integrity problem by using AI â€” a technology that produces unreliable results in exactly the context where it's most consequential. UCT's response is the cleaner one: if you can't detect reliably, design so there's nothing to detect.
+            <strong>The core tension:</strong> AI detection tries to solve an academic integrity problem by using AI — a technology that produces unreliable results in exactly the context where it's most consequential. UCT's response is the cleaner one: if you can't detect reliably, design so there's nothing to detect.
           </div>
         </div>
       </div>
@@ -180,25 +186,25 @@
       <div class="phase__header">
         <div class="phase__num">2</div>
         <div>
-          <div class="phase__title">Reflect â€” AI in your educational context</div>
-          <div class="phase__subtitle">Map where you sit in this Â· ~10 min</div>
+          <div class="phase__title">Reflect — AI in your educational context</div>
+          <div class="phase__subtitle">Map where you sit in this · ~10 min</div>
         </div>
       </div>
       <div class="phase__body">
-        <p>The UCT case sits at the institution level â€” a policy decision about detection tools. But AI in education also touches individual professionals: how you assess, how you teach, and how you make decisions about tools your institution or department adopts.</p>
+        <p>The UCT case sits at the institution level — a policy decision about detection tools. But AI in education also touches individual professionals: how you assess, how you teach, and how you make decisions about tools your institution or department adopts.</p>
 
         <div class="reflection-q">
-          <label for="ref-1">What is your current policy or practice when you suspect a student has used AI? Is there a formal institutional process â€” or is it left to individual educators to decide?</label>
-          <textarea id="ref-1" placeholder="e.g. Our institution uses Turnitin but the AI Score isn't acted on officially â€” it's discretionary. In practice, individual lecturers decide how to respond, which means there's no consistency. Some colleagues flag it automatically, others ignore it entirely..."></textarea>
+          <label for="ref-1">What is your current policy or practice when you suspect a student has used AI? Is there a formal institutional process — or is it left to individual educators to decide?</label>
+          <textarea id="ref-1" placeholder="e.g. Our institution uses Turnitin but the AI Score isn't acted on officially — it's discretionary. In practice, individual lecturers decide how to respond, which means there's no consistency. Some colleagues flag it automatically, others ignore it entirely..."></textarea>
         </div>
 
         <div class="reflection-q">
-          <label for="ref-2">Is there an AI tool being used in your institution â€” for learning, administration, or assessment â€” that you didn't choose and may not fully understand? Who made that decision, and who is accountable if it produces unfair outcomes?</label>
+          <label for="ref-2">Is there an AI tool being used in your institution — for learning, administration, or assessment — that you didn't choose and may not fully understand? Who made that decision, and who is accountable if it produces unfair outcomes?</label>
           <textarea id="ref-2" placeholder="e.g. Our LMS now has AI-generated feedback suggestions built in. I don't know how it works, what it was trained on, or whether it's been validated for our student population. The decision to include it was made by IT, not by academic staff..."></textarea>
         </div>
 
         <div style="text-align:right; margin-top:24px;">
-          <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting â†’</button>
+          <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting ?</button>
         </div>
         <div id="err-1" class="advance-err" style="display:none;"></div>
       </div>
@@ -209,40 +215,40 @@
       <div class="phase__header">
         <div class="phase__num">3</div>
         <div>
-          <div class="phase__title">Concept â€” The regulatory and institutional framework for AI in SA education</div>
-          <div class="phase__subtitle">What applies, what's missing, and where Siyavula got it right Â· ~20 min</div>
+          <div class="phase__title">Concept — The regulatory and institutional framework for AI in SA education</div>
+          <div class="phase__subtitle">What applies, what's missing, and where Siyavula got it right · ~20 min</div>
         </div>
       </div>
       <div class="phase__body">
 
         <h3 style="margin-bottom:12px;">The structural challenge: SA's AI tools weren't built for SA classrooms</h3>
-        <p>The vast majority of AI tools deployed in SA education were trained on English-language, high-connectivity, Global North data. SA classrooms â€” with 11 official languages, urban/rural device disparity, load shedding, and a multilingual student population â€” require something different. When you import a tool that wasn't built for your context, the question isn't whether it will fail â€” it's who it will fail for.</p>
+        <p>The vast majority of AI tools deployed in SA education were trained on English-language, high-connectivity, Global North data. SA classrooms — with 11 official languages, urban/rural device disparity, load shedding, and a multilingual student population — require something different. When you import a tool that wasn't built for your context, the question isn't whether it will fail — it's who it will fail for.</p>
 
         <div class="concept-block">
           <h4>The language equity problem in practical terms</h4>
-          <p>SA's Language in Education Policy requires instruction in a learner's home language where reasonably practicable, especially in the Foundation Phase. AI tutoring tools, writing assistants, and grading tools are overwhelmingly trained on English data. They will systematically perform worse for learners whose primary language is isiZulu, Sesotho, Afrikaans, isiXhosa, or any of the other 8 official languages. This is not a hypothetical â€” it's a predictable consequence of where training data exists globally.</p>
+          <p>SA's Language in Education Policy requires instruction in a learner's home language where reasonably practicable, especially in the Foundation Phase. AI tutoring tools, writing assistants, and grading tools are overwhelmingly trained on English data. They will systematically perform worse for learners whose primary language is isiZulu, Sesotho, Afrikaans, isiXhosa, or any of the other 8 official languages. This is not a hypothetical — it's a predictable consequence of where training data exists globally.</p>
         </div>
 
         <h3 style="margin: 28px 0 12px;">AI tools active in SA education right now</h3>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0;">
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
-            <p style="font-weight:700; font-size:0.88em;">Siyavula â€” CAPS-aligned adaptive practice (2M+ learners, Grades 4â€“12)</p>
-            <p style="font-size:0.8em; color:var(--muted);">ML algorithm sequences practice questions by demonstrated mastery. Zero-rated by Vodacom and MTN. 10M+ DBE textbooks printed for schools without devices. Designed for the constraint from the start â€” not retrofitted.</p>
+            <p style="font-weight:700; font-size:0.88em;">Siyavula — CAPS-aligned adaptive practice (2M+ learners, Grades 4–12)</p>
+            <p style="font-size:0.8em; color:var(--muted);">ML algorithm sequences practice questions by demonstrated mastery. Zero-rated by Vodacom and MTN. 10M+ DBE textbooks printed for schools without devices. Designed for the constraint from the start — not retrofitted.</p>
           </div>
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
-            <p style="font-weight:700; font-size:0.88em;">Ms Zora â€” DBE-endorsed coding and robotics AI tutor</p>
-            <p style="font-size:0.8em; color:var(--muted);">Designed specifically to support the DBE's Coding and Robotics curriculum rollout â€” which launched without enough trained teachers. Curriculum-aligned, low-device compatible, teacher analytics dashboard. Built for SA curriculum before any other market.</p>
+            <p style="font-weight:700; font-size:0.88em;">Ms Zora — DBE-endorsed coding and robotics AI tutor</p>
+            <p style="font-size:0.8em; color:var(--muted);">Designed specifically to support the DBE's Coding and Robotics curriculum rollout — which launched without enough trained teachers. Curriculum-aligned, low-device compatible, teacher analytics dashboard. Built for SA curriculum before any other market.</p>
           </div>
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
-            <p style="font-weight:700; font-size:0.88em;">Turnitin AI Score â€” being discontinued at UCT from Oct 2025</p>
-            <p style="font-size:0.8em; color:var(--muted);">Stylistic pattern detection for AI text. Documented false positive rate disproportionately affects non-native English writers. UCT formally stopped using it. Other SA institutions still use it â€” policy is not consistent nationally.</p>
+            <p style="font-weight:700; font-size:0.88em;">Turnitin AI Score — being discontinued at UCT from Oct 2025</p>
+            <p style="font-size:0.8em; color:var(--muted);">Stylistic pattern detection for AI text. Documented false positive rate disproportionately affects non-native English writers. UCT formally stopped using it. Other SA institutions still use it — policy is not consistent nationally.</p>
           </div>
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
-            <p style="font-weight:700; font-size:0.88em;">Lelapa AI VulaVula â€” isiZulu, Afrikaans, Sesotho, English NLP</p>
+            <p style="font-weight:700; font-size:0.88em;">Lelapa AI VulaVula — isiZulu, Afrikaans, Sesotho, English NLP</p>
             <p style="font-size:0.8em; color:var(--muted);">SA-built speech-to-text, transcription, and translation for African languages. Not yet deployed at classroom scale but represents the infrastructure needed for truly multilingual AI in SA education. Founded by Dr. Pelonomi Moiloa.</p>
           </div>
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px; grid-column:span 2;">
-            <p style="font-weight:700; font-size:0.88em;">Google Workspace for Education + DHET partnership (2025) Â· Microsoft Copilot via DHET MOU</p>
+            <p style="font-weight:700; font-size:0.88em;">Google Workspace for Education + DHET partnership (2025) · Microsoft Copilot via DHET MOU</p>
             <p style="font-size:0.8em; color:var(--muted);">Both major platforms are entering SA higher education through formal government partnerships. 10,000 Google Career Certificate scholarships, AI teacher training, curriculum support. Copilot embedded in Microsoft 365 across universities and TVET colleges. Institutional-level decisions made without systematic AI literacy training for the educators who'll use them.</p>
           </div>
         </div>
@@ -250,25 +256,25 @@
         <h3 style="margin: 28px 0 12px;">What applies legally in SA education contexts</h3>
         <div style="margin-bottom:16px;">
           <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
-            <p style="font-weight:700; margin-bottom:4px;">POPIA â€” Learner data is personal information subject to full protection</p>
-            <p style="font-size:0.88em; color:var(--muted);">Parental consent is required for processing personal information of learners under 18. AI platforms embedded in school systems create structural consent problems â€” learners often cannot opt out without losing access to the educational tool. Learner records must be retained for 7 years after leaving, meaning data held in AI platforms needs appropriate long-term security. When a UK-based edtech company deploys in SA schools, whose data protection law governs?</p>
+            <p style="font-weight:700; margin-bottom:4px;">POPIA — Learner data is personal information subject to full protection</p>
+            <p style="font-size:0.88em; color:var(--muted);">Parental consent is required for processing personal information of learners under 18. AI platforms embedded in school systems create structural consent problems — learners often cannot opt out without losing access to the educational tool. Learner records must be retained for 7 years after leaving, meaning data held in AI platforms needs appropriate long-term security. When a UK-based edtech company deploys in SA schools, whose data protection law governs?</p>
           </div>
           <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
-            <p style="font-weight:700; margin-bottom:4px;">SA Schools Act â€” School Governing Bodies have procurement authority</p>
-            <p style="font-size:0.88em; color:var(--muted);">SGBs have governance authority over school management decisions, including technology procurement. If a principal adopts an AI platform, the SGB has a governance role in that decision. The Act also protects learner rights in ways that intersect with AI â€” a learner cannot be disciplined for suspected AI use without due process that the school must be able to demonstrate.</p>
+            <p style="font-weight:700; margin-bottom:4px;">SA Schools Act — School Governing Bodies have procurement authority</p>
+            <p style="font-size:0.88em; color:var(--muted);">SGBs have governance authority over school management decisions, including technology procurement. If a principal adopts an AI platform, the SGB has a governance role in that decision. The Act also protects learner rights in ways that intersect with AI — a learner cannot be disciplined for suspected AI use without due process that the school must be able to demonstrate.</p>
           </div>
           <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
-            <p style="font-weight:700; margin-bottom:4px;">HEQC and Umalusi â€” accreditation implications of AI in assessment</p>
-            <p style="font-size:0.88em; color:var(--muted);">Changes to assessment methods that affect accredited programme outcomes can have HEQC accreditation implications. Umalusi's integrity framework for matric exams (human invigilation, centralised marking) means the NSC is currently the least AI-affected assessment tier â€” but that position requires active maintenance as AI tools become more capable. Institutions that significantly change their assessment design in response to AI need to consider whether those changes require HEQC notification.</p>
+            <p style="font-weight:700; margin-bottom:4px;">HEQC and Umalusi — accreditation implications of AI in assessment</p>
+            <p style="font-size:0.88em; color:var(--muted);">Changes to assessment methods that affect accredited programme outcomes can have HEQC accreditation implications. Umalusi's integrity framework for matric exams (human invigilation, centralised marking) means the NSC is currently the least AI-affected assessment tier — but that position requires active maintenance as AI tools become more capable. Institutions that significantly change their assessment design in response to AI need to consider whether those changes require HEQC notification.</p>
           </div>
         </div>
 
         <div class="callout" style="background:var(--green-pale); border-color:var(--green-mid);">
-          <strong>What Siyavula gets right that most SA EdTech gets wrong:</strong> Siyavula designed for the constraint before building the product. Zero-rated access (no data costs for students). Print layer for schools without devices (10M textbooks distributed). CAPS-aligned before any other market. The adaptive AI sequences based on SA curriculum â€” not imported from a US or UK context. The result: 2 million learners, including township and rural learners at a scale no private school platform has reached. This is the design benchmark: start with the SA constraint, not the Global North assumption.
+          <strong>What Siyavula gets right that most SA EdTech gets wrong:</strong> Siyavula designed for the constraint before building the product. Zero-rated access (no data costs for students). Print layer for schools without devices (10M textbooks distributed). CAPS-aligned before any other market. The adaptive AI sequences based on SA curriculum — not imported from a US or UK context. The result: 2 million learners, including township and rural learners at a scale no private school platform has reached. This is the design benchmark: start with the SA constraint, not the Global North assumption.
         </div>
 
         <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)">Got it â€” take me to Apply â†’</button>
+          <button class="btn btn--primary" onclick="advancePhase(2)">Got it — take me to Apply ?</button>
         </div>
         <div id="err-2" class="advance-err" style="display:none;"></div>
       </div>
@@ -279,15 +285,15 @@
       <div class="phase__header">
         <div class="phase__num">4</div>
         <div>
-          <div class="phase__title">Apply â€” The platform pitch scenario</div>
-          <div class="phase__subtitle">Run the Funda Five before a school adopts an AI tool Â· ~15 min</div>
+          <div class="phase__title">Apply — The platform pitch scenario</div>
+          <div class="phase__subtitle">Run the Funda Five before a school adopts an AI tool · ~15 min</div>
         </div>
       </div>
       <div class="phase__body">
         <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:22px; margin-bottom:20px;">
-          <div style="font-size:0.78em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:10px;">Scenario â€” School Principal Â· Soweto</div>
+          <div style="font-size:0.78em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:10px;">Scenario — School Principal · Soweto</div>
           <h4 style="margin-bottom:8px;">A UK edtech company is pitching an AI tutoring platform for your 1,200 learners. The results look impressive. The data collection is extensive.</h4>
-          <p style="font-size:0.88em; color:var(--muted); margin-top:8px;">An edtech company based in the UK pitches you an AI-powered personalised tutoring platform for Grades 7â€“12. The pitch deck shows results from schools in the UK and Kenya. The platform collects data on learning behaviour, performance, device usage, and content engagement. The server infrastructure is based in the Netherlands. The subscription costs R240 per learner per year. Your school has 1,200 learners, 40% of whom share a device, and 4â€“8 hour daily load shedding.</p>
+          <p style="font-size:0.88em; color:var(--muted); margin-top:8px;">An edtech company based in the UK pitches you an AI-powered personalised tutoring platform for Grades 7–12. The pitch deck shows results from schools in the UK and Kenya. The platform collects data on learning behaviour, performance, device usage, and content engagement. The server infrastructure is based in the Netherlands. The subscription costs R240 per learner per year. Your school has 1,200 learners, 40% of whom share a device, and 4–8 hour daily load shedding.</p>
           <p style="font-size:0.88em; color:var(--muted); margin-top:8px;">The company representative says: "We've seen amazing results. The AI adapts to each student's level." The pitch includes a 30-day free trial. You are being asked to make a decision before the next term starts.</p>
         </div>
 
@@ -299,47 +305,47 @@
           <div class="funda-step">
             <div class="funda-step__num">1</div>
             <div style="flex:1;">
-              <div class="funda-step__label">TASK â€” Is this the right kind of job for AI?</div>
-              <div class="funda-step__q">Personalised tutoring is a legitimate AI application. But is this AI built for the task as it exists in your school â€” or built for a different context and sold here? What questions would tell you whether the AI was designed for SA learners?</div>
-              <textarea id="app-1" placeholder="e.g. I'd ask: is the platform CAPS-aligned? Was it trained on SA curriculum examples or imported content? Can it handle isiZulu or Sesotho learners writing in English as a second language? The Kenya evidence is better than the UK evidence, but neither is Soweto. 'Adapts to each student's level' â€” adapts based on what training data, from which population?..."></textarea>
+              <div class="funda-step__label">TASK — Is this the right kind of job for AI?</div>
+              <div class="funda-step__q">Personalised tutoring is a legitimate AI application. But is this AI built for the task as it exists in your school — or built for a different context and sold here? What questions would tell you whether the AI was designed for SA learners?</div>
+              <textarea id="app-1" placeholder="e.g. I'd ask: is the platform CAPS-aligned? Was it trained on SA curriculum examples or imported content? Can it handle isiZulu or Sesotho learners writing in English as a second language? The Kenya evidence is better than the UK evidence, but neither is Soweto. 'Adapts to each student's level' — adapts based on what training data, from which population?..."></textarea>
             </div>
           </div>
           <div class="funda-step">
             <div class="funda-step__num">2</div>
             <div style="flex:1;">
-              <div class="funda-step__label">DATA â€” What learner data is this platform collecting? Under which law?</div>
-              <div class="funda-step__q">The servers are in the Netherlands. The learners are SA minors. What POPIA obligations apply? What parental consent process is required before learners' data is processed? Who owns the data â€” your school, the SGB, or the company?</div>
-              <textarea id="app-2" placeholder="e.g. Learners are under 18 â€” POPIA requires parental consent for processing their personal information. Cross-border data transfer to Netherlands servers requires that the receiving country or company provides adequate protection equivalent to POPIA. I'd need the company's data processing agreement and to have that reviewed before signing anything. The SGB should be involved in this decision..."></textarea>
+              <div class="funda-step__label">DATA — What learner data is this platform collecting? Under which law?</div>
+              <div class="funda-step__q">The servers are in the Netherlands. The learners are SA minors. What POPIA obligations apply? What parental consent process is required before learners' data is processed? Who owns the data — your school, the SGB, or the company?</div>
+              <textarea id="app-2" placeholder="e.g. Learners are under 18 — POPIA requires parental consent for processing their personal information. Cross-border data transfer to Netherlands servers requires that the receiving country or company provides adequate protection equivalent to POPIA. I'd need the company's data processing agreement and to have that reviewed before signing anything. The SGB should be involved in this decision..."></textarea>
             </div>
           </div>
           <div class="funda-step">
             <div class="funda-step__num">3</div>
             <div style="flex:1;">
-              <div class="funda-step__label">TOOL â€” Is this platform built for your school's infrastructure reality?</div>
-              <div class="funda-step__q">40% of your learners share devices. You have 4â€“8 hours of load shedding daily. Does this platform work offline? Does it work on a low-end smartphone? What happens to learning continuity during a power cut? The pitch didn't mention either of these.</div>
+              <div class="funda-step__label">TOOL — Is this platform built for your school's infrastructure reality?</div>
+              <div class="funda-step__q">40% of your learners share devices. You have 4–8 hours of load shedding daily. Does this platform work offline? Does it work on a low-end smartphone? What happens to learning continuity during a power cut? The pitch didn't mention either of these.</div>
               <textarea id="app-3" placeholder="e.g. If it requires continuous internet access, it fails for 40% of my learners immediately. Load shedding means even the 60% with devices lose connectivity. I need to ask specifically: does it have offline mode? Does it sync when connectivity resumes? If the answer is no, the 'personalised learning' story falls apart for the students who need it most..."></textarea>
             </div>
           </div>
           <div class="funda-step">
             <div class="funda-step__num">4</div>
             <div style="flex:1;">
-              <div class="funda-step__label">TRUST â€” How would you detect if the AI is teaching something wrong?</div>
+              <div class="funda-step__label">TRUST — How would you detect if the AI is teaching something wrong?</div>
               <div class="funda-step__q">AI tutors can produce incorrect explanations, especially for topics underrepresented in training data. What monitoring process would catch a systematic error before it affected a large number of learners? Does the company provide any mechanism for reporting and correcting AI errors?</div>
-              <textarea id="app-4" placeholder="e.g. I'd need to pilot with a small group first and have a teacher check AI explanations against the curriculum before scaling. I'd want to know if the company has a SA-based contact who can address curriculum errors quickly. A 30-day free trial is not enough to detect systematic errors in content â€” especially in subjects that are less well-represented in English-language training data..."></textarea>
+              <textarea id="app-4" placeholder="e.g. I'd need to pilot with a small group first and have a teacher check AI explanations against the curriculum before scaling. I'd want to know if the company has a SA-based contact who can address curriculum errors quickly. A 30-day free trial is not enough to detect systematic errors in content — especially in subjects that are less well-represented in English-language training data..."></textarea>
             </div>
           </div>
           <div class="funda-step">
             <div class="funda-step__num">5</div>
             <div style="flex:1;">
-              <div class="funda-step__label">HUMAN â€” Who is accountable if a learner is taught incorrectly and it affects their matric results?</div>
+              <div class="funda-step__label">HUMAN — Who is accountable if a learner is taught incorrectly and it affects their matric results?</div>
               <div class="funda-step__q">The company is based in the UK. If the AI teaches the wrong interpretation of a CAPS topic and a learner uses it in the final exam, who is responsible? What does the contract say about liability? And who at your school owns this decision under the SA Schools Act?</div>
-              <textarea id="app-5" placeholder="e.g. The contract almost certainly assigns liability to the school and limits the company's. Under the SA Schools Act, the SGB has governance authority over this decision â€” this can't be my call alone. I also need to understand: if I'm the signatory on a contract with a company in the UK, and a learner is harmed by the AI content, what legal recourse do my learners or their parents have?..."></textarea>
+              <textarea id="app-5" placeholder="e.g. The contract almost certainly assigns liability to the school and limits the company's. Under the SA Schools Act, the SGB has governance authority over this decision — this can't be my call alone. I also need to understand: if I'm the signatory on a contract with a company in the UK, and a learner is harmed by the AI content, what legal recourse do my learners or their parents have?..."></textarea>
             </div>
           </div>
         </div>
 
         <div style="text-align:right; margin-top:24px;">
-          <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 â€” Education â†’</button>
+          <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 — Education ?</button>
         </div>
         <div id="err-3" class="advance-err" style="display:none;"></div>
       </div>
@@ -347,11 +353,11 @@
 
     <!-- MODULE COMPLETE -->
     <div id="module-complete" style="display:none;" class="preview-end">
-      <h2>Module 7 â€” Education complete.</h2>
-      <p>You can now evaluate an AI tool for educational use against SA-specific constraints, name the POPIA and SA Schools Act obligations that apply, and explain why the tools designed for SA learners outperform imported ones â€” and what "designed for SA" actually means in practice.</p>
+      <h2>Module 7 — Education complete.</h2>
+      <p>You can now evaluate an AI tool for educational use against SA-specific constraints, name the POPIA and SA Schools Act obligations that apply, and explain why the tools designed for SA learners outperform imported ones — and what "designed for SA" actually means in practice.</p>
       <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Register for the full course to complete the capstone assessment and earn your AfriversalAI certificate.</p>
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-        <a href="register.html" class="btn btn--gold btn--lg">Register for the full course â†’</a>
+        <a href="register.html" class="btn btn--gold btn--lg">Register for the full course ?</a>
         <a href="index.html#sectors" class="btn btn--white btn--lg">See other sector modules</a>
       </div>
     </div>
@@ -360,8 +366,8 @@
 </section>
 
 <footer>
-  <strong>AfriversalAI</strong> Â· <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">Â© 2026 AfriversalAI Â· <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> Â· <a href="course-outline.html">Course Overview</a> Â· <a href="contact.html">Contact</a> Â· <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <strong>AfriversalAI</strong> · <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script>

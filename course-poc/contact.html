@@ -1,9 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact â€” AfriversalAI</title>
+  <title>Contact — AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -48,10 +48,16 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="course.html">The Course</a></li>
       <li><a href="module-0.html">AI Fundamentals</a></li>
-      <li><a href="funda-five.html">The Funda Five</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+        </ul>
+      </li>
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="register.html" class="btn btn--gold btn--sm">Register â†’</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register ?</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button data-lang-btn="en" onclick="setLang('en')">EN</button>
@@ -71,7 +77,7 @@
 <section class="hero" style="padding-bottom: 48px;">
   <span class="eyebrow eyebrow--light">Contact</span>
   <h1>Get in touch.</h1>
-  <p class="lead lead--light">Questions about the course, partnerships, SETA accreditation, or media enquiries â€” we respond within 2 business days.</p>
+  <p class="lead lead--light">Questions about the course, partnerships, SETA accreditation, or media enquiries — we respond within 2 business days.</p>
 </section>
 
 <!-- FORM SECTION -->
@@ -82,7 +88,7 @@
       <div class="contact-layout">
 
         <form action="https://formspree.io/f/xrevwegy" method="POST">
-          <input type="hidden" name="_subject" value="New Contact Message â€” AfriversalAI" />
+          <input type="hidden" name="_subject" value="New Contact Message — AfriversalAI" />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
@@ -112,11 +118,11 @@
 
           <div class="form-group">
             <label for="c-message">Message <span class="req">*</span></label>
-            <textarea id="c-message" name="message" required placeholder="Tell us what you'd like to know or discussâ€¦"></textarea>
+            <textarea id="c-message" name="message" required placeholder="Tell us what you'd like to know or discuss…"></textarea>
           </div>
 
           <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
-            Send message â†’
+            Send message ?
           </button>
           <p style="font-size:0.8em; color:var(--muted); margin-top:10px;">By submitting, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is processed via Formspree (US servers) and used only to respond to your enquiry.</p>
         </form>
@@ -125,7 +131,7 @@
           <h3>Other ways to reach us</h3>
 
           <div class="contact-method">
-            <div class="contact-method__icon">ğŸ“§</div>
+            <div class="contact-method__icon">??</div>
             <div>
               <div class="contact-method__label">Email</div>
               <div class="contact-method__value"><a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a></div>
@@ -133,7 +139,7 @@
           </div>
 
           <div class="contact-method">
-            <div class="contact-method__icon">ğŸ•</div>
+            <div class="contact-method__icon">??</div>
             <div>
               <div class="contact-method__label">Response time</div>
               <div class="contact-method__value">Within 2 business days (SAST)</div>
@@ -141,16 +147,16 @@
           </div>
 
           <div class="contact-method">
-            <div class="contact-method__icon">ğŸ“‹</div>
+            <div class="contact-method__icon">??</div>
             <div>
               <div class="contact-method__label">For course registration</div>
-              <div class="contact-method__value"><a href="register.html">Use the registration form â†’</a></div>
+              <div class="contact-method__value"><a href="register.html">Use the registration form ?</a></div>
             </div>
           </div>
 
           <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
-            <p style="font-size:0.82em; color:var(--muted); line-height:1.65;">For L&amp;D teams, HR departments, and corporate training enquiries â€” please use the team registration form. We'll respond with a tailored proposal.</p>
-            <a href="register.html" class="btn btn--outline btn--sm" style="margin-top:12px; display:inline-block;">Team registration form â†’</a>
+            <p style="font-size:0.82em; color:var(--muted); line-height:1.65;">For L&amp;D teams, HR departments, and corporate training enquiries — please use the team registration form. We'll respond with a tailored proposal.</p>
+            <a href="register.html" class="btn btn--outline btn--sm" style="margin-top:12px; display:inline-block;">Team registration form ?</a>
           </div>
         </div>
 
@@ -158,7 +164,7 @@
     </div>
 
     <div class="thankyou" id="thankyou">
-      <div class="thankyou__icon">âœ…</div>
+      <div class="thankyou__icon">?</div>
       <h2>Message sent.</h2>
       <p>Thanks for getting in touch. We'll respond to the email you provided within 2 business days.</p>
       <a href="index.html" class="btn btn--primary btn--lg">Back to home</a>
@@ -168,8 +174,8 @@
 </section>
 
 <footer>
-  <strong>AfriversalAI</strong> Â· <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">Â© 2026 AfriversalAI Â· <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> Â· <a href="course-outline.html">Course Overview</a> Â· <a href="contact.html">Contact</a> Â· <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <strong>AfriversalAI</strong> · <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script>
@@ -177,7 +183,7 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = form.querySelector('button[type=submit]');
-    btn.textContent = 'Sendingâ€¦';
+    btn.textContent = 'Sending…';
     btn.disabled = true;
     try {
       const res = await fetch(form.action, {
@@ -189,11 +195,11 @@
         document.getElementById('formWrap').style.display = 'none';
         document.getElementById('thankyou').style.display = 'block';
       } else {
-        btn.textContent = 'Something went wrong â€” email us directly';
+        btn.textContent = 'Something went wrong — email us directly';
         btn.disabled = false;
       }
     } catch {
-      btn.textContent = 'Network error â€” try emailing afriversalai@gmail.com';
+      btn.textContent = 'Network error — try emailing afriversalai@gmail.com';
       btn.disabled = false;
     }
   });
