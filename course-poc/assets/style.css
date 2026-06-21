@@ -776,6 +776,26 @@ footer a { color: rgba(255,255,255,0.7); }
   background: var(--gold-light); color: var(--gold-dark);
   border: 1px solid var(--gold);
 }
+.sector-tackle {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.sector-tackle__label {
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.sector-tackle__item {
+  font-size: 0.82em;
+  color: var(--body);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+.sector-tackle__item:last-child { margin-bottom: 0; }
 
 /* ---- Preview-end block ---- */
 .preview-end-block {
