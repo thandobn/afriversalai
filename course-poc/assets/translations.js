@@ -37,9 +37,9 @@ window.TRANSLATIONS = {
 
     /* ── Landing page hero ── */
     hero_eyebrow:       'AI Literacy · South Africa',
-    hero_h1_1:          'SA\'s only AI literacy course built on judgment — not just tools.',
+    hero_h1_1_html:     'SA\'s only AI literacy course<br>built on judgment — not just tools.',
     hero_h1_2_html:     '1.4 million SA professionals trained on AI tools.<br>Zero trained on AI judgment.',
-    hero_h1_3_html:     'When SA\'s national AI policy fell apart,<br>it wasn\'t a tech problem — it was a judgment problem.',
+    hero_h1_3_html:     'When SA\'s national AI policy fell apart,<br>it wasn\'t a tech problem — it was judgment.',
     hero_lead:          'AfriversalAI teaches South African professionals how to think with AI — not just how to use it. Critical judgment, real SA case studies, a certificate that actually means something.',
     hero_cta_primary:   'Start Module 0 — free →',
     hero_cta_secondary: 'See the full course',
@@ -494,9 +494,9 @@ window.TRANSLATIONS = {
 
     /* Hero */
     hero_eyebrow:       'KI-Geletterdheid · Suid-Afrika',
-    hero_h1_1:          'SA se enigste KI-geletterdheids­kursus gebou op oordeel — nie net gereedskap nie.',
+    hero_h1_1_html:     'SA se enigste KI-geletterdheids­kursus<br>gebou op oordeel — nie net gereedskap nie.',
     hero_h1_2_html:     '1,4 miljoen SA-professionele persone opgelei op KI-gereedskap.<br>Nul opgelei op KI-oordeel.',
-    hero_h1_3_html:     `Toe SA se nasionale KI-beleid inmekaar gestort het,<br>was dit nie \'n tegnologiese probleem nie — dit was \'n oordeelsprobleem.`,
+    hero_h1_3_html:     `Toe SA se nasionale KI-beleid inmekaar gestort het,<br>was dit nie \'n tegnologiese probleem nie — dit was oordeel.`,
     hero_lead:          `AfriversalAI leer Suid-Afrikaanse professionele persone hoe om met KI te dink — nie net hoe om dit te gebruik nie. Kritiese oordeel, werklike SA-gevallestudies, \'n sertifikaat wat werklik iets beteken.`,
     hero_cta_primary:   'Begin Module 0 — gratis →',
     hero_cta_secondary: 'Sien die volledige kursus',
@@ -939,9 +939,9 @@ window.TRANSLATIONS = {
 
     /* Hero */
     hero_eyebrow:       'Littératie IA · Afrique du Sud',
-    hero_h1_1:          'Le seul cours sud-africain de littératie IA construit sur le jugement — pas seulement les outils.',
-    hero_h1_2_html:     '1,4 million de professionnels sud-africains formés aux outils IA.<br>Zéro formé au jugement sur l’IA.',
-    hero_h1_3_html:     'Quand la politique nationale d’IA de l’Afrique du Sud s’est effondrée,<br>ce n’était pas un problème technique — c’était un problème de jugement.',
+    hero_h1_1_html:     ‘Le seul cours sud-africain de littératie IA<br>construit sur le jugement — pas seulement les outils.’,
+    hero_h1_2_html:     ‘1,4 million de professionnels sud-africains formés aux outils IA.<br>Zéro formé au jugement sur l’IA.’,
+    hero_h1_3_html:     ‘Quand la politique nationale d’IA de l’Afrique du Sud s’est effondrée,<br>ce n’était pas un problème technique — c’était du jugement.’,
     hero_lead:          'AfriversalAI enseigne aux professionnels sud-africains à raisonner avec l’IA — et pas seulement à l’utiliser. Jugement critique, études de cas réelles en Afrique du Sud, un certificat qui a du sens.',
     hero_cta_primary:   'Commencer le Module 0 — gratuit →',
     hero_cta_secondary: 'Voir le cours complet',

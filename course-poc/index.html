@@ -47,7 +47,7 @@
 <section class="hero">
   <span class="eyebrow eyebrow--light" data-i18n="hero_eyebrow">AI Literacy &middot; South Africa</span>
   <div class="hero-headlines" aria-live="polite" aria-atomic="true">
-    <h1 class="hero-headline active" data-i18n="hero_h1_1">SA's only AI literacy course built on judgment &mdash; not just tools.</h1>
+    <h1 class="hero-headline active" data-i18n-html="hero_h1_1_html">SA's only AI literacy course<br>built on judgment &mdash; not just tools.</h1>
     <h1 class="hero-headline" data-i18n-html="hero_h1_2_html">1.4 million SA professionals trained on AI tools.<br>Zero trained on AI judgment.</h1>
     <h1 class="hero-headline" data-i18n-html="hero_h1_3_html">When SA's national AI policy fell apart,<br>it wasn't a tech problem &mdash; it was a judgment problem.</h1>
   </div>
@@ -416,11 +416,11 @@
     dot.addEventListener('click', () => {
       clearInterval(heroTimer);
       goHero(i);
-      heroTimer = setInterval(() => goHero(heroIdx + 1), 3800);
+      heroTimer = setInterval(() => goHero(heroIdx + 1), 5300);
     });
   });
 
-  heroTimer = setInterval(() => goHero(heroIdx + 1), 3800);
+  heroTimer = setInterval(() => goHero(heroIdx + 1), 5300);
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>

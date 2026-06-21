@@ -68,7 +68,7 @@ section.bg-white { background: var(--white); }
   letter-spacing: -0.5px;
 }
 .nav__logo span { color: var(--gold-dark); }
-.nav__logo-img  { height: 68px; width: auto; display: block; }
+.nav__logo-img  { height: 82px; width: auto; display: block; }
 .nav__links {
   display: flex;
   gap: 28px;
