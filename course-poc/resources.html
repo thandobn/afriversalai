@@ -68,9 +68,16 @@
     .res-card__link { font-size: 0.82em; font-weight: 600; color: var(--green-mid); text-decoration: none; }
     .res-card__link:hover { text-decoration: underline; }
 
+    /* ── Vertical book/report card ───────────────── */
+    .res-grid--books { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+    .res-card--vert { flex-direction: column; padding: 0; gap: 0; overflow: hidden; align-items: stretch; }
+    .res-card__cover { width: 100%; height: 210px; object-fit: cover; object-position: top center; display: block; background: var(--green-pale); flex-shrink: 0; border-radius: 0; }
+    .res-card--vert .res-card__body { padding: 14px 16px 18px; }
+
     @media (max-width: 640px) {
       .res-hero h1 { font-size: 1.6em; }
       .res-grid { grid-template-columns: 1fr; }
+      .res-grid--books { grid-template-columns: repeat(2, 1fr); }
       .res-card__img { width: 60px; height: 60px; }
       .res-card__img--book { height: 84px; }
     }
@@ -291,11 +298,11 @@
     <p class="res-section__intro">Books and reports for learners who want to go beyond the course. Each one earns its place.</p>
 
     <div class="res-sub-label">Books</div>
-    <div class="res-grid">
+    <div class="res-grid res-grid--books">
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/book-ai-snake-oil.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/book-ai-snake-oil.jpg" alt="AI Snake Oil cover" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/book-ai-snake-oil.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/book-ai-snake-oil.jpg" alt="AI Snake Oil cover" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Book &middot; 2024</div>
           <div class="res-card__title">AI Snake Oil</div>
@@ -305,21 +312,21 @@
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/book-weapons-math.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/book-weapons-math.jpg" alt="Weapons of Math Destruction cover" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/book-weapons-math.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/book-weapons-math.jpg" alt="Weapons of Math Destruction cover" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Book &middot; 2016</div>
           <div class="res-card__title">Weapons of Math Destruction</div>
           <div class="res-card__author">Cathy O'Neil</div>
-          <div class="res-card__desc">How algorithms harm the poor, reinforce discrimination, and threaten democracy. The classic case for why AI judgment matters — and why "the data doesn't lie" is never quite right.</div>
+          <div class="res-card__desc">How algorithms harm the poor, reinforce discrimination, and threaten democracy. The classic case for why AI judgment matters.</div>
           <a href="https://mathbabe.org/book/" target="_blank" rel="noopener" class="res-card__link">&rarr; Find on Takealot or your library</a>
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/book-race-after-tech.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/book-race-after-tech.jpg" alt="Race After Technology cover" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/book-race-after-tech.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/book-race-after-tech.jpg" alt="Race After Technology cover" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Book &middot; 2019</div>
           <div class="res-card__title">Race After Technology</div>
@@ -329,26 +336,26 @@
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/book-power-prediction.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/book-power-prediction.jpg" alt="Power and Prediction cover" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/book-power-prediction.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/book-power-prediction.jpg" alt="Power and Prediction cover" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Book &middot; 2022</div>
           <div class="res-card__title">Power and Prediction</div>
           <div class="res-card__author">Agrawal, Gans &amp; Goldfarb</div>
-          <div class="res-card__desc">The business economics of AI: why AI is fundamentally about shifting who makes predictions, what that does to power, and how professionals need to adapt. Practical, not theoretical.</div>
+          <div class="res-card__desc">The business economics of AI: why AI is about shifting who makes predictions, what that does to power, and how professionals need to adapt.</div>
           <a href="https://www.predictionmachines.ai" target="_blank" rel="noopener" class="res-card__link">&rarr; Find on Takealot or your library</a>
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/book-alignment-problem.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/book-alignment-problem.jpg" alt="The Alignment Problem cover" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/book-alignment-problem.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/book-alignment-problem.jpg" alt="The Alignment Problem cover" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Book &middot; 2020</div>
           <div class="res-card__title">The Alignment Problem</div>
           <div class="res-card__author">Brian Christian</div>
-          <div class="res-card__desc">What it actually takes to build AI that does what we want — and the many ways it goes wrong. Accessible deep dive into how AI systems fail, for the curious non-engineer.</div>
+          <div class="res-card__desc">What it takes to build AI that does what we want — and the many ways it goes wrong. Accessible deep dive into AI failure modes, for the curious non-engineer.</div>
           <a href="https://brianchristian.org/the-alignment-problem/" target="_blank" rel="noopener" class="res-card__link">&rarr; brianchristian.org</a>
         </div>
       </div>
@@ -356,23 +363,23 @@
     </div><!-- /books grid -->
 
     <div class="res-sub-label">Reports &amp; Policy Documents</div>
-    <div class="res-grid">
+    <div class="res-grid res-grid--books">
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/report-fsca-ai.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/report-fsca-ai.jpg" alt="FSCA AI in Financial Sector report" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/report-fsca-ai.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/report-fsca-ai.jpg" alt="FSCA AI in Financial Sector report" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Report &middot; November 2025</div>
           <div class="res-card__title">AI in the South African Financial Sector</div>
           <div class="res-card__author">FSCA &amp; Prudential Authority</div>
-          <div class="res-card__desc">The first comprehensive look at how SA's major financial institutions are deploying AI and where the gaps are. If you're in finance, this is what your regulator already knows about AI in your sector.</div>
+          <div class="res-card__desc">The first comprehensive look at how SA's major financial institutions are deploying AI and where the gaps are. What your regulator already knows about AI in your sector.</div>
           <a href="https://www.masthead.co.za/newsletter/artificial-intelligence-in-the-south-african-financial-sector-what-fsps-need-to-know-in-2026/" target="_blank" rel="noopener" class="res-card__link">&rarr; Read the summary</a>
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/report-icasa-ict.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/report-icasa-ict.jpg" alt="ICASA State of ICT Sector report" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/report-icasa-ict.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/report-icasa-ict.jpg" alt="ICASA State of ICT Sector report" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Report &middot; 2025</div>
           <div class="res-card__title">State of the ICT Sector in South Africa</div>
@@ -382,38 +389,38 @@
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/report-au-ai-strategy.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/report-au-ai-strategy.jpg" alt="AU Continental AI Strategy document" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/report-au-ai-strategy.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/report-au-ai-strategy.jpg" alt="AU Continental AI Strategy document" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Policy Document</div>
           <div class="res-card__title">Continental AI Strategy for Africa</div>
           <div class="res-card__author">African Union</div>
-          <div class="res-card__desc">The continental framework for AI development in Africa. Shows how SA's AI policy fits into the broader African picture — and where Africa's governance priorities differ from the US or EU.</div>
+          <div class="res-card__desc">The continental framework for AI development in Africa. Shows how SA's policy fits into the broader African picture and where Africa's governance priorities differ from the US or EU.</div>
           <a href="https://au.int/en/documents/20240213/ai-continental-strategy-africa" target="_blank" rel="noopener" class="res-card__link">&rarr; African Union &rarr;</a>
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/report-unesco-ai-ethics.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/report-unesco-ai-ethics.jpg" alt="UNESCO AI Ethics Recommendation" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/report-unesco-ai-ethics.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/report-unesco-ai-ethics.jpg" alt="UNESCO AI Ethics Recommendation" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Policy Document &middot; 2021</div>
           <div class="res-card__title">Recommendation on the Ethics of AI</div>
           <div class="res-card__author">UNESCO</div>
-          <div class="res-card__desc">The global consensus document on responsible AI — adopted by 193 countries. Shows what international AI governance actually requires, in plain terms. The foundation for understanding what "ethical AI" means in practice.</div>
+          <div class="res-card__desc">The global consensus document on responsible AI — adopted by 193 countries. The foundation for understanding what "ethical AI" actually requires in practice.</div>
           <a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener" class="res-card__link">&rarr; UNESCO.org &rarr;</a>
         </div>
       </div>
 
-      <div class="res-card">
-        <!-- Drop image at: assets/resources/report-cipesa-africa.jpg (recommended 120×168px portrait) -->
-        <img src="assets/resources/report-cipesa-africa.jpg" alt="CIPESA State of Internet Freedom report" class="res-card__img res-card__img--book" loading="lazy" />
+      <div class="res-card res-card--vert">
+        <!-- Drop image at: assets/resources/report-cipesa-africa.jpg (recommended 200×280px portrait) -->
+        <img src="assets/resources/report-cipesa-africa.jpg" alt="CIPESA State of Internet Freedom report" class="res-card__cover" loading="lazy" />
         <div class="res-card__body">
           <div class="res-card__type">Report &middot; 2025</div>
           <div class="res-card__title">State of Internet Freedom in Africa</div>
           <div class="res-card__author">CIPESA</div>
-          <div class="res-card__desc">Covers AI-enabled surveillance, deepfake disinformation, and digital rights across 25 African countries. The most comprehensive annual review of how AI is intersecting with freedom, democracy, and rights on the continent.</div>
+          <div class="res-card__desc">Covers AI-enabled surveillance, deepfake disinformation, and digital rights across 25 African countries. The most comprehensive annual review of AI vs. freedom on the continent.</div>
           <a href="https://cipesa.org/2025/09/state-of-internet-freedom-in-africa-report/" target="_blank" rel="noopener" class="res-card__link">&rarr; cipesa.org &rarr;</a>
         </div>
       </div>
