@@ -577,6 +577,10 @@ window.TRANSLATIONS = {
     mc7_p:   `'n Module gebou vir jou sektor — pasgemaakte gevallestudies, sektorspesifieke KI-mislukkingsmodusse, en die Funda Vyf toegepas op jou professionele konteks. Paaie beskikbaar vir Onderwys, Finansies, Regering, Gesondheidsorg en Korporatief.`,
 
     /* Sectors */
+    sector_callout_eyebrow: 'Sektorspesifieke Leer',
+    sector_callout_h2:      'Watter beroep jy ook al het, jou sektor is deel van die kursus.',
+    sector_callout_p:       'Elke module bou oordeel wat oral van toepassing is — maar AfriversalAI stop nie by algemene beginsels nie. Sektorspesifieke gevallestudies loop deur die hele kursus, en Module 7 is heeltemal gebou rondom die KI-risiko\'s, gereedskap en besluite wat jou beroep definieer.',
+    sector_callout_btn:     'Vind jou sektorpad ↓',
     sector_eyebrow:      'Vind Jou Sektor',
     sector_h2_html:      'Elke module is van toepassing op alle sektore.<br>Maar sommige gevallestudies tref harder in jou wêreld.',
     sector_lead:         'Klik op jou sektor om te sien watter modules en gevallestudies die mees relevant is vir jou rol.',
@@ -1034,8 +1038,12 @@ window.TRANSLATIONS = {
     sector_edu_desc:   'Éducateurs et administrateurs dans l’enseignement supérieur et les écoles gérant l’utilisation de l’IA par les étudiants',
 
     /* Sectors */
-    sector_eyebrow:      'Trouver Votre Secteur',
-    sector_h2_html:      'Chaque module s’applique à tous les secteurs.<br>Mais certaines études de cas touchent plus durement à votre réalité.',
+    sector_callout_eyebrow: ‘Apprentissage Sectoriel’,
+    sector_callout_h2:      ‘Quelle que soit votre profession, votre secteur fait partie du cours.’,
+    sector_callout_p:       ‘Chaque module développe un jugement applicable partout — mais AfriversalAI ne s’arrête pas aux principes généraux. Des études de cas sectorielles traversent tout le cours, et le Module 7 est entièrement construit autour des risques, outils et décisions IA qui définissent votre métier.’,
+    sector_callout_btn:     ‘Trouvez votre parcours sectoriel ↓’,
+    sector_eyebrow:      ‘Trouver Votre Secteur’,
+    sector_h2_html:      ‘Chaque module s’applique à tous les secteurs.<br>Mais certaines études de cas touchent plus durement à votre réalité.’,
     sector_lead:         'Cliquez sur votre secteur pour voir quels modules et études de cas sont les plus pertinents pour votre rôle.',
     sector_toggle_open:  'Voir votre parcours →',
     sector_toggle_close: 'Fermer ↑',
@@ -1397,6 +1405,10 @@ window.TRANSLATIONS = {
     hero_proof:         `Isitifiketi sithi <em>kubonisiwe</em>, hhayi <em>kuphela kufezekisiwe</em> — kuvivinywwe ngokuhlola i-AI kwangempela emsebenzini wakho.`,
 
     /* Sectors */
+    sector_callout_eyebrow: 'Ukufunda Okwezigaba',
+    sector_callout_h2:      'Noma ngabe ungumsebenzi muni, isigaba sakho siyingxenye yekosi.',
+    sector_callout_p:       'Imoduli ngayinye yakha ukwahlulela okusebenzayo noma kuphi — kodwa i-AfriversalAI ayimi emikhakha ejwayelekile. Izifundo zemicimbi yezigaba zizoqhubeka kuyo yonke ikosi, futhi iModuli 7 akhiwe ngokuphelele ngezinhlobo zobungozi be-AI, amathuluzi nezinqumo ezichaza umsebenzi wakho.',
+    sector_callout_btn:     'Thola indlela yakho yesigaba ↓',
     sector_toggle_open:  'Bona indlela yakho →',
     sector_toggle_close: 'Vala ↑',
     sector_path_label:   'Izifundo zakho ezibalulekile',
