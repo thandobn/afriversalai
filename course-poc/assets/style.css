@@ -36,7 +36,7 @@ body {
 .container--sm   { max-width: 920px;  margin: 0 auto; padding: 0 52px; }
 .container--course { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
 
-section          { padding: 80px 0; }
+section          { padding: 52px 0; }
 section.bg-pale  { background: var(--green-pale); }
 section.bg-dark  { background: var(--green-dark); color: var(--white); }
 section.bg-white { background: var(--white); }
@@ -233,7 +233,7 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
 .hero {
   background: var(--green-dark);
   color: var(--white);
-  padding: 100px 28px;
+  padding: 68px 28px;
   text-align: center;
 }
 .hero h1 { max-width: 760px; margin: 0 auto 20px; }
