@@ -250,7 +250,7 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
 .module-hero {
   background: var(--green-dark);
   color: var(--white);
-  padding: 48px 28px;
+  padding: 48px 52px;
 }
 .module-hero__inner {
   max-width: 1440px;
