@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -85,6 +85,7 @@
     .m0-apply-feedback__item:last-child { margin-bottom: 0; }
     .m0-apply-feedback__q { font-size: 0.82em; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 5px; }
     .m0-apply-feedback__a { font-size: 0.82em; color: rgba(255,255,255,0.62); line-height: 1.65; }
+    .m0-apply-feedback__example { margin-top: 8px; color: rgba(255,255,255,0.4); font-size: 0.82em; line-height: 1.65; }
 
     /* Reveal explanations on cards */
     .activity-grid { align-items: start; }
@@ -122,10 +123,10 @@
       <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
-      <button data-lang-btn="en" onclick="setLang('en')">EN</button>
-      <button data-lang-btn="af" onclick="setLang('af')">AF</button>
-      <button data-lang-btn="fr" onclick="setLang('fr')">FR</button>
-      <button data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
     </div>
     <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
       <span class="nav__hamburger__bar"></span>
@@ -892,6 +893,29 @@
 
       <p style="color:rgba(255,255,255,0.55); font-size:0.85em; margin-bottom:24px;">Your written answers have been recorded and will be reviewed as part of Cohort 1 assessment.</p>
 
+      <!-- Apply phase model answer reveal -->
+      <div class="m0-apply-feedback">
+        <div class="m0-apply-feedback__label">How your answers compare</div>
+
+        <div class="m0-apply-feedback__item">
+          <div class="m0-apply-feedback__q">Q1: An AI tool in your workplace</div>
+          <div class="m0-apply-feedback__a" id="feedback-a1"></div>
+          <div class="m0-apply-feedback__example">Strong answer example: <em>"Our HR platform ranks CVs before a hiring manager sees them — I think it's predictive AI trained on who we hired before."</em></div>
+        </div>
+
+        <div class="m0-apply-feedback__item">
+          <div class="m0-apply-feedback__q">Q2: Type of AI</div>
+          <div class="m0-apply-feedback__a" id="feedback-a2"></div>
+          <div class="m0-apply-feedback__example">Strong answer example: <em>"Predictive/Decision AI — it produces a score or ranking based on patterns in past data, not generated text. It doesn't know anything; it predicts from history."</em></div>
+        </div>
+
+        <div class="m0-apply-feedback__item">
+          <div class="m0-apply-feedback__q">Q3: A failure mode you can now see</div>
+          <div class="m0-apply-feedback__a" id="feedback-a3"></div>
+          <div class="m0-apply-feedback__example">Strong answer example: <em>"If our past hiring decisions were biased — even unintentionally — the AI could quietly replicate that. Nobody would flag it as discrimination because it looks like a neutral algorithm."</em></div>
+        </div>
+      </div>
+
       <div class="preview-end-phases">
         <span class="preview-phase">Module 1: What AI Actually Is</span>
         <span class="preview-phase">Real SA case study</span>
@@ -1063,6 +1087,12 @@ function advancePhase(fromPhase) {
     document.getElementById('phase-3').classList.add('is-done');
     document.getElementById('prog-3').classList.remove('is-active');
     document.getElementById('prog-3').classList.add('is-done');
+    // Populate feedback with user's own answers before reveal
+    [['apply-1','feedback-a1'],['apply-2','feedback-a2'],['apply-3','feedback-a3']].forEach(([src, tgt]) => {
+      const val = document.getElementById(src).value.trim();
+      const el = document.getElementById(tgt);
+      if (el) el.textContent = val ? 'Your answer: ' + val : '';
+    });
     const complete = document.getElementById('module-complete');
     complete.style.display = 'block';
     setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
