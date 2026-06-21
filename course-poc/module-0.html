@@ -1270,6 +1270,18 @@ function resetQuizP3() {
       const nextPhaseEl = document.getElementById('phase-' + nextPhaseNum)
       if (nextPhaseEl) setTimeout(() => nextPhaseEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
     }
+
+    // Persist textarea answers to localStorage (keyed by user so multi-user browsers don't clash)
+    const uid = session.user.id
+    const answerFields = ['reflect-1', 'reflect-2', 'apply-1', 'apply-2', 'apply-3']
+    answerFields.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const key = 'afv_' + uid + '_m0_' + id
+      const saved = localStorage.getItem(key)
+      if (saved) el.value = saved
+      el.addEventListener('input', () => localStorage.setItem(key, el.value))
+    })
   })
 </script>
 <script src="assets/translations.js"></script>
