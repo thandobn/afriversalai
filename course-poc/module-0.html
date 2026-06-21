@@ -22,8 +22,9 @@
     .phase__title { font-weight: 700; font-size: 1.05em; }
     .phase__subtitle { font-size: 0.82em; color: var(--muted); margin-top: 2px; }
     .phase__body { padding: 32px 28px; background: var(--white); }
-    .phase.is-locked { opacity: 0.4; pointer-events: none; }
-    .phase.is-done .phase__header { background: var(--green-light); }
+    .phase.is-done .phase__header { background: var(--green-light); cursor: pointer; }
+    .phase.is-done .phase__body { display: none; }
+    .phase.is-done.is-expanded .phase__body { display: block; }
 
     /* Activity cards */
     .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
@@ -56,12 +57,6 @@
     @media (max-width: 600px) { .misconception-row { grid-template-columns: 1fr; } }
 
     .callout { background: var(--gold-light); border-left: 4px solid var(--gold); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 20px 0; font-size: 0.9em; }
-
-    /* Progress bar */
-    .module-progress { display: flex; gap: 8px; padding: 16px 28px; background: var(--bg); border-bottom: 1px solid var(--border); }
-    .prog-step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
-    .prog-step.is-active { background: var(--gold); }
-    .prog-step.is-done { background: var(--green-mid); }
 
     /* Preview end */
     .preview-end { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
@@ -151,12 +146,14 @@
   </div>
 </div>
 
-<!-- PROGRESS BAR -->
-<div class="module-progress" id="progressBar" role="progressbar" aria-label="Module 0 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
-  <div class="prog-step is-active" id="prog-0"></div>
-  <div class="prog-step" id="prog-1"></div>
-  <div class="prog-step" id="prog-2"></div>
-  <div class="prog-step" id="prog-3"></div>
+<!-- PROGRESS TRACKER -->
+<div class="container" style="padding-top:12px; padding-bottom:0;">
+  <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 0 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+    <div class="progress-step is-active" id="prog-0">1 · Concept</div>
+    <div class="progress-step" id="prog-1">2 · Encounter</div>
+    <div class="progress-step" id="prog-2">3 · Reflect</div>
+    <div class="progress-step" id="prog-3">4 · Apply</div>
+  </div>
 </div>
 
 <section class="bg-pale">
@@ -1140,6 +1137,18 @@ function shuffleQuizOptions() {
   });
 }
 document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
+
+// Click a completed phase header to expand/collapse it
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.phase__header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var phase = header.closest('.phase');
+      if (phase && phase.classList.contains('is-done')) {
+        phase.classList.toggle('is-expanded');
+      }
+    });
+  });
+});
 
 // === Phase 1 Knowledge Check (3 questions — core concepts) ===
 
