@@ -24,7 +24,7 @@ window.TRANSLATIONS = {
     /* ── Nav ── */
     nav_home:         'Home',
     nav_course:       'The Course',
-    nav_fundamentals: 'AI Fundamentals',
+    nav_fundamentals: 'Preview Course',
     nav_funda_five:   'The Funda Five',
     nav_certificate:  'Certificate',
     nav_pricing:      'Pricing',
@@ -147,7 +147,7 @@ window.TRANSLATIONS = {
     /* ── CTA section ── */
     cta_eyebrow:    'Get Started',
     cta_h2:         'Ready to see what it feels like?',
-    cta_lead:       'Start with Module 0 — Phase 1 is free, no registration required. Register to unlock all phases and the full course.',
+    cta_lead:       'Start with Module 0 — Phases 1 & 2 are free, no registration required. Register to unlock all phases and the full course.',
     cta_btn_m0:     'Start Module 0 — free →',
     cta_btn_outline:'View course outline',
 
@@ -155,7 +155,7 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Module 0 · Foundation · Free — start here',
     m0_h1:        'AI Fundamentals:<br>What Is It, Really?',
     m0_lead:      'Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it\'s where we all start.',
-    m0_free_note:        'Phase 1 free — register to unlock all phases',
+    m0_free_note:        'Phases 1 & 2 free — register to unlock all phases',
     m0_objectives_html:  '<strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the three types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one AI system you already encounter at work and classify it by type</li></ol>',
     m0_dur:       '45 minutes · 4 phases',
     m0_sectors:   'All sectors · No technical background required',
@@ -481,7 +481,7 @@ window.TRANSLATIONS = {
     /* Nav */
     nav_home:         'Tuis',
     nav_course:       'Die Kursus',
-    nav_fundamentals: 'KI-Grondbeginsels',
+    nav_fundamentals: 'Voorskou Kursus',
     nav_funda_five:   'Die Funda Vyf',
     nav_certificate:  'Sertifikaat',
     nav_pricing:      'Pryse',
@@ -593,7 +593,7 @@ window.TRANSLATIONS = {
     /* CTA */
     cta_eyebrow:     'Begin',
     cta_h2:          'Gereed om te sien hoe dit voel?',
-    cta_lead:        `Begin met Module 0 — Fase 1 is gratis, geen registrasie benodig nie. Registreer om alle fases en die volledige kursus te ontsluit.`,
+    cta_lead:        `Begin met Module 0 — Fases 1 & 2 is gratis, geen registrasie benodig nie. Registreer om alle fases en die volledige kursus te ontsluit.`,
     cta_btn_m0:      'Begin Module 0 — gratis →',
     cta_btn_outline: 'Sien kursusomlyning',
 
@@ -601,7 +601,7 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Module 0 · Grondslag · Gratis — begin hier',
     m0_h1:        'KI-Grondbeginsels:<br>Wat Is Dit, Regtig?',
     m0_lead:      `Voordat ons by KI-oordeel kom, moet ons \'n gemeenskaplike grondslag bou. Geen aannames nie. Geen jargon nie. Hierdie module geld vir elke leerder, elke sektor — dit is waar ons almal begin.`,
-    m0_free_note:        'Fase 1 gratis — registreer om alle fases te ontsluit',
+    m0_free_note:        'Fases 1 & 2 gratis — registreer om alle fases te ontsluit',
     m0_objectives_html:  `<strong>Teen die einde van hierdie module sal jy in staat wees om:</strong><ol><li>Die verskil tussen KI- en nie-KI-sagteware te verduidelik aan die hand van voorbeelde uit jou eie werk</li><li>Die drie tipes KI te benoem en te beskryf wat jy die meeste in die Suid-Afrikaanse werksplek sal teëkom</li><li>Te verduidelik waarom KI-uitvoere gesagvol kan klink en steeds verkeerd kan wees</li><li>Ten minste een KI-stelsel wat jy reeds by die werk teëkom te identifiseer en dit na tipe te klassifiseer</li></ol>`,
     m0_dur:       '45 minute · 4 fases',
     m0_sectors:   'Alle sektore · Geen tegniese agtergrond benodig nie',
@@ -926,7 +926,7 @@ window.TRANSLATIONS = {
     /* Nav */
     nav_home:         'Accueil',
     nav_course:       'Le Cours',
-    nav_fundamentals: 'Les Bases de l’IA',
+    nav_fundamentals: ‘Aperçu du cours’,
     nav_funda_five:   'Les Cinq Funda',
     nav_certificate:  'Certificat',
     nav_pricing:      'Tarifs',
@@ -1050,7 +1050,7 @@ window.TRANSLATIONS = {
     /* CTA */
     cta_eyebrow:    'Commencer',
     cta_h2:         'Prêt à voir ce que ça fait ?',
-    cta_lead:       'Commencez avec le Module 0 — la Phase 1 est gratuite, sans inscription requise. Inscrivez-vous pour débloquer toutes les phases et le cours complet.',
+    cta_lead:       'Commencez avec le Module 0 — les Phases 1 & 2 sont gratuites, sans inscription requise. Inscrivez-vous pour débloquer toutes les phases et le cours complet.',
     cta_btn_m0:     'Commencer le Module 0 — gratuit →',
     cta_btn_outline:'Voir le programme du cours',
 
@@ -1058,7 +1058,7 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Module 0 · Fondation · Gratuit — commencez ici',
     m0_h1:        'Les Bases de l’IA :<br>De quoi s’agit-il vraiment ?',
     m0_lead:      'Avant d’aborder le jugement sur l’IA, nous devons bâtir une base commune. Aucune hypothèse. Aucun jargon. Ce module s’applique à chaque apprenant, chaque secteur — c’est là que nous commençons tous.',
-    m0_free_note:        'Phase 1 gratuite — inscrivez-vous pour accéder à toutes les phases',
+    m0_free_note:        'Phases 1 & 2 gratuites — inscrivez-vous pour accéder à toutes les phases',
     m0_objectives_html:  `<strong>À la fin de ce module, vous serez capable de :</strong><ol><li>Expliquer la différence entre les logiciels IA et non-IA avec des exemples tirés de votre propre travail</li><li>Nommer et décrire les trois types d'IA que vous rencontrerez le plus souvent au travail en Afrique du Sud</li><li>Expliquer pourquoi les résultats de l'IA peuvent sembler fiables et être pourtant erronés</li><li>Identifier au moins un système d'IA que vous rencontrez déjà au travail et le classer par type</li></ol>`,
     m0_dur:       '45 minutes · 4 phases',
     m0_sectors:   'Tous les secteurs · Aucune formation technique requise',
@@ -1372,7 +1372,7 @@ window.TRANSLATIONS = {
     /* Nav */
     nav_home:         'Ikhaya',
     nav_course:       'Ikhosi',
-    nav_fundamentals: 'Izisekelo ze-AI',
+    nav_fundamentals: 'Sibonise Ikhosi',
     nav_funda_five:   'Izinhlanu ze-Funda',
     nav_certificate:  'Isitifiketi',
     nav_pricing:      'Amanani',
@@ -1408,7 +1408,7 @@ window.TRANSLATIONS = {
     m0_eyebrow:   'Imoduli 0 · Isisekelo · Mahala — qala lapha',
     m0_h1:        'Izisekelo ze-AI:<br>Kuyini, Ngempela?',
     m0_lead:      'Ngaphambi kokungena ekwahluleleni i-AI, sidinga ukwakha isisekelo esifanayo. Azikho izinkambo. Awukho ujargon. Imoduli isebenza kumfundi wonke, kuso sonke isifunda — lapha sonke siqala.',
-    m0_free_note: 'Isigaba 1 mahala — bhalisa ukuvula zonke izigaba',
+    m0_free_note: 'Izigaba 1 & 2 mahala — bhalisa ukuvula zonke izigaba',
     m0_dur:       'Imizuzu engu-45 · izigaba ezi-4',
     m0_sectors:   'Yonke imikhakha · Akudingi ulwazi lwezobuchwepheshe',
 
