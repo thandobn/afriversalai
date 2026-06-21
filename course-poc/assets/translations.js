@@ -55,7 +55,7 @@ window.TRANSLATIONS = {
 
     /* ── What we teach ── */
     teach_eyebrow:  'What AfriversalAI Teaches',
-    teach_h2_html:  'Not how to use AI tools.<br>How to think with them.',
+    teach_h2_html:  'Not how to use AI tools.<br><span style="color:var(--green-mid)">How to think with them.</span>',
     teach_lead:     'Three things no other SA AI training program currently delivers together.',
     feat1_h3:       'Critical judgment, not tool tutorials',
     feat1_p:        'Learners leave knowing when to trust AI output, when to verify it, and who is accountable when it\'s wrong — not just which buttons to press.',
@@ -518,7 +518,7 @@ window.TRANSLATIONS = {
 
     /* What we teach */
     teach_eyebrow:  'Wat AfriversalAI Leer',
-    teach_h2_html:  'Nie hoe om KI-gereedskap te gebruik nie.<br>Hoe om daarmee te dink.',
+    teach_h2_html:  'Nie hoe om KI-gereedskap te gebruik nie.<br><span style="color:var(--green-mid)">Hoe om daarmee te dink.</span>',
     teach_lead:     'Drie dinge wat geen ander SA KI-opleidingsprogram tans saam lewer nie.',
     feat1_h3:       'Kritiese oordeel, nie gereedskap-tutoriale nie',
     feat1_p:        'Leerders vertrek met kennis oor wanneer om KI-uitset te vertrou, wanneer om dit te verifieer, en wie verantwoordelik is wanneer dit fout gaan — nie net watter knoppies om te druk nie.',
@@ -967,7 +967,7 @@ window.TRANSLATIONS = {
 
     /* What we teach */
     teach_eyebrow:  'Ce qu’enseigne AfriversalAI',
-    teach_h2_html:  'Pas comment utiliser les outils IA.<br>Comment raisonner avec eux.',
+    teach_h2_html:  'Pas comment utiliser les outils IA.<br><span style="color:var(--green-mid)">Comment raisonner avec eux.</span>',
     teach_lead:     'Trois choses qu’aucun autre programme de formation IA sud-africain ne propose actuellement ensemble.',
     feat1_h3:       'Jugement critique, pas des tutoriels d’outils',
     feat1_p:        'Les apprenants repartent en sachant quand faire confiance au résultat IA, quand le vérifier, et qui est responsable quand il est erroné — pas seulement quels boutons appuyer.',

@@ -319,3 +319,111 @@ A fresh session should know these terms:
 - course-poc/module-0.html (nav, footer)
 - course-poc/pricing.html (CSS content fix, nav, footer)
 - course-poc/about.html, certificate.html, contact.html, funda-five.html, glossary.html, login.html, module-1.html, module-7-*.html (×5), privacy.html, register.html, terms.html (nav + footer across all)
+
+---
+
+## Session: 2026-06-21 (this session)
+
+**What was worked on:**
+
+- pricing.html FAQ: fixed "Phase 1 is free" → "Phases 1 and 2 (Concept and Encounter) are free" (HTML entity `&rarr;` was missed by prior script)
+- module-0.html: fixed `m0_free_note` fallback text ("Phase 1 free" → "Phases 1 & 2 free")
+- module-0.html: added Fisher-Yates quiz option shuffle (`shuffleQuizOptions()`) — runs on load and on reset; order randomises every time
+- module-0.html: quiz correctness refactored from positional index (`P1_QUIZ_CORRECT`) to `data-correct="true"` attribute on each label — required so shuffle doesn't break scoring
+- module-0.html: Done/Continue button made conditional — if user clicks "Reveal answers" before making any selections, button says "Continue →"; if they made selections first it says "Done — see what I spotted →"
+- module-0.html: Done button moved to after the dark "One Question" box (was above it — confusing read order)
+- module-0.html: removed fake AI grading section from module-complete screen (was a static placeholder, nothing ever ran); replaced with "answers recorded, will be reviewed" note
+- module-0.html: "Register for the full course" button hidden for logged-in users
+- about.html: all three founder bios split into 2+ paragraphs
+- pricing.html: removed "Why R14,995 Works" value anchor box entirely (user decision — don't over-explain the price)
+- Hero carousel: all three headlines restructured to clean two-liners with deliberate `<br>` break; auto-advance slowed 3800ms → 5300ms; logo height 68px → 82px
+- course.html: module count updated to 7; Module 7 card added (sector deep-dive, 5 tracks); sector cards section added (was missing); M0 badge fixed to "Phases 1 & 2 free"
+- index.html: sector-aware learning callout section added above Funda Five teaser (eyebrow, h2, body copy, sector chips, CTA button)
+- style.css: `.sector-callout`, `.sector-chips`, `.sector-chip` CSS classes added
+- translations.js: `sector_callout_*` keys added to EN, AF, FR, ZU; `f5_cta_lead/btn1/btn2` updated in all 4 languages (module-0 link + correct copy)
+- funda-five.html: CTA buttons fixed (module-1.html → module-0.html; certificate.html → course.html); nav dropdown now includes The Certificate; Register arrow fixed to `&rarr;`
+- Verified: glossary.html auth guard already done (`requireAuth('glossary.html')` line 366)
+- Verified: module-0 Phase 1 restructure already done (Let's Go Deeper in Phase 3 / Reflect at line 655; Lesson 7 ends Phase 1)
+- certificate.html: handed to mom — she will update content directly; no longer our task
+
+**Decisions made:**
+
+- Pricing value anchor box removed — don't explain the price, let it stand
+- Quiz randomisation approach: `data-correct="true"` on labels (not positional index) is the correct pattern for any shuffle-compatible quiz
+- certificate.html is now mom's responsibility; removed from our open items
+- Hero headline copy shortened to fit single line before `<br>`: H2 "1.4 million SA professionals trained on AI tools" → "1.4 million trained on AI tools"; H3 "When SA's national AI policy fell apart" → "When SA's AI policy fell apart"
+
+**Open items / next steps:**
+
+- POPIA/privacy policy fix on the live site (standing since Session 4 — still unresolved)
+- Google Drive upload of course-outline.html (standing — needs manual upload or Google Doc)
+- Pricing hero lead still says "Pilot cohort introductory pricing" — may want to update to match R14,995 Founding Member framing
+- Sector callout AF/FR/ZU copy was machine-translated — worth a native speaker review before driving traffic
+
+**Files changed:**
+
+- course-poc/module-0.html (quiz shuffle, correctness refactor, done button, grading removal, register hide)
+- course-poc/about.html (bio paragraphs)
+- course-poc/pricing.html (value anchor removed, FAQ fix)
+- course-poc/funda-five.html (CTA links, nav dropdown, Register arrow)
+- course-poc/course.html (module count, Module 7 card, sector section, M0 badge)
+- course-poc/index.html (sector callout section, hero headlines, headline HTML fallbacks)
+- course-poc/assets/style.css (logo height, sector callout CSS)
+- course-poc/assets/translations.js (sector_callout keys EN/AF/FR/ZU; f5_cta keys all 4 langs; hero headline copy H2+H3 EN/AF/FR)
+
+---
+
+## Session: 2026-06-21 (continuation — afternoon)
+
+**What was worked on:**
+
+- course.html + style.css: Module 7 card pulled out of grid into full-width bookend (mirrors Module 0 pattern); fixed invisible background (`--gold-light` → `--gold-dark`); fixed text squished to corner (grid `1fr auto` + wrapper div for content + button sibling); all inline styles extracted to CSS classes (`.module-m7__desc`, `__outcomes-label`, `__outcomes`, `__btn`)
+- course.html sector cards: removed "See your path" toggle, all 5 cards always-expanded with `is-open` class, grid changed to `.sector-grid--detail` (3-col), sector CTAs changed from locked `module-7-*.html` → `register.html`, "In Module 7, you'll tackle" detail blocks already present
+- module-0.html: fixed teaser gate showing for logged-in users — `window._m0UserLoggedIn` flag set in getSession callback, checked in `advancePhase(1)` before showing gate
+- about.html: Thando and Thurston headshots replaced with new photos; per-image `object-position` in CSS (Thurston `50% 20%`, Thando `50% 30%`) to fix face centering vs mom whose square photo already cropped well
+- module-0.html: fixed restore logic — if `done.length >= 4`, show module-complete screen directly; else scroll to next incomplete phase
+- assets/auth.js: added `console.error` to `saveProgress`, `getModuleProgress`, `getAllProgress` for silent failure visibility
+- Supabase: RLS UPDATE policy added to `progress` table (INSERT + SELECT existed; UPDATE was missing, causing upsert to fail silently on re-saves)
+- module-0.html: localStorage persistence for textarea answers (`reflect-1`, `reflect-2`, `apply-1`, `apply-2`, `apply-3`) keyed by `afv_{userId}_m0_{fieldId}`
+- Site-wide audit via Explore agent: found module-1.html + all 5 module-7-*.html missing `requireAuth` — added to all 6 files
+- dashboard.html, settings.html, glossary.html: added language switcher HTML + `translations.js` + `lang.js` scripts (were missing entirely)
+- pricing.html + translations.js (all 4 langs): updated hero lead from "Pilot cohort introductory pricing" → "Founding Member pricing: R14,995 per learner for Cohort 1..."
+- Council review findings cross-check: 8 of 10 "still open" code items were already done; confirmed 2 genuinely remaining
+
+**Decisions made:**
+
+- Apply phase feedback (model answer after submission) deferred — user ran out of context before deciding format; pick up next session
+- aria-labels on lang switcher buttons sitewide: still to implement
+- Module 1 greyed out on dashboard is intentional ("Unlocks with Cohort 1") — not a bug
+- localStorage is acceptable for textarea answer persistence at POC stage (cross-device Supabase persistence deferred)
+
+**Open items / next steps — code:**
+
+1. aria-labels on lang switcher buttons sitewide (21 instances of `data-lang-btn` with no aria-label)
+2. Apply phase: show model answer / reflection guidance after "Complete Module 0" is clicked — format TBD (model answer vs reflection prompt vs both)
+
+**Open items — non-code (needs Thando):**
+
+- Named SA practitioner for "African-centered" claim
+- AF/ZU/FR translations native speaker review
+- Social proof (advisory board or pilot testimonials)
+- Physical address in terms.html (blocking payment collection)
+- Privacy policy completion (POPIA retention schedule, Formspree DPA, cross-border consent)
+- Assessment dispute process on certificate.html
+- SA CIPC entity registration
+- MICT SETA DQP relationship call
+
+**Files changed:**
+
+- course-poc/course.html (Module 7 bookend, inline style cleanup, sector cards always-expanded, grid class, CTAs)
+- course-poc/module-0.html (gate bypass for logged-in users, restore logic fix, localStorage textarea persistence)
+- course-poc/assets/style.css (`.module-m7` full layout, `.module-m7__*` classes, `.sector-grid--detail`, `.sector-cta-link`, `.module-m7__btn`)
+- course-poc/assets/auth.js (error logging on progress functions)
+- course-poc/assets/translations.js (pricing_lead all 4 languages)
+- course-poc/about.html (headshots + per-image object-position)
+- course-poc/dashboard.html (lang switcher + scripts)
+- course-poc/settings.html (lang switcher + scripts)
+- course-poc/glossary.html (lang switcher + scripts)
+- course-poc/pricing.html (hero lead text)
+- course-poc/module-1.html + module-7-*.html ×5 (requireAuth added)
+- Supabase dashboard: UPDATE policy added to progress table

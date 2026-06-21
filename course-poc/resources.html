@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resource Library — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    /* ── Hero ─────────────────────────────────────── */
+    .res-hero { background: var(--green-dark); padding: 52px 0 40px; }
+    .res-hero__eyebrow { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.6px; color: var(--gold); margin-bottom: 12px; }
+    .res-hero h1 { font-size: 2em; font-weight: 800; color: white; margin-bottom: 10px; }
+    .res-hero p { color: rgba(255,255,255,0.68); max-width: 620px; line-height: 1.65; font-size: 0.96em; }
+
+    /* ── Jump nav ─────────────────────────────────── */
+    .res-jumps { background: white; border-bottom: 1.5px solid var(--border); position: sticky; top: 0; z-index: 90; }
+    .res-jumps__inner { display: flex; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    .res-jumps__inner::-webkit-scrollbar { display: none; }
+    .res-jumps__inner a { display: block; padding: 14px 24px; font-size: 0.86em; font-weight: 600; color: var(--muted); text-decoration: none; white-space: nowrap; border-bottom: 3px solid transparent; transition: color 0.15s, border-color 0.15s; }
+    .res-jumps__inner a:hover, .res-jumps__inner a.is-active { color: var(--green-dark); border-bottom-color: var(--green-mid); }
+
+    /* ── Sections ─────────────────────────────────── */
+    .res-section { padding: 56px 0; }
+    .res-section--alt { background: var(--bg); }
+    .res-section h2 { font-size: 1.35em; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
+    .res-section__intro { color: var(--muted); font-size: 0.9em; margin-bottom: 36px; max-width: 640px; line-height: 1.65; }
+
+    /* ── Subsection label ─────────────────────────── */
+    .res-sub-label { font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.6px; color: var(--muted); margin: 40px 0 18px; padding-bottom: 10px; border-bottom: 1.5px solid var(--border); }
+    .res-sub-label:first-of-type { margin-top: 0; }
+
+    /* ── Case Studies ─────────────────────────────── */
+    .case-list { display: flex; flex-direction: column; }
+    .case-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .case-item:last-child { border-bottom: none; }
+    .case-item__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 7px; }
+    .case-tag { font-size: 0.7em; font-weight: 700; padding: 3px 10px; border-radius: 12px; background: var(--green-pale); color: var(--green-dark); white-space: nowrap; }
+    .case-tag--supp { background: var(--gold-light); color: var(--gold-dark); }
+    .case-item__context { font-size: 0.75em; color: var(--muted); }
+    .case-item__title { font-weight: 700; font-size: 0.95em; color: var(--text); margin-bottom: 6px; }
+    .case-item__desc { font-size: 0.87em; color: var(--muted); line-height: 1.7; margin-bottom: 9px; }
+    .case-item__link { font-size: 0.83em; font-weight: 600; color: var(--green-mid); text-decoration: none; }
+    .case-item__link:hover { text-decoration: underline; }
+
+    /* ── Divider with label ───────────────────────── */
+    .divider-label { display: flex; align-items: center; gap: 16px; margin: 32px 0 24px; }
+    .divider-label__line { flex: 1; height: 1px; background: var(--border); }
+    .divider-label__text { font-size: 0.7em; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; white-space: nowrap; }
+
+    /* ── Resource cards (reading / podcasts / YouTube) ── */
+    .res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .res-card { display: flex; gap: 16px; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; background: white; transition: box-shadow 0.15s; align-items: flex-start; }
+    .res-card:hover { box-shadow: var(--shadow-md); }
+
+    /* Card image */
+    .res-card__img { width: 72px; height: 72px; object-fit: cover; border-radius: var(--radius); border: 1.5px solid var(--border); flex-shrink: 0; background: var(--green-pale); display: block; }
+    .res-card__img--book { height: 102px; }
+
+    /* Card body */
+    .res-card__body { flex: 1; min-width: 0; }
+    .res-card__type { font-size: 0.68em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+    .res-card__title { font-weight: 700; font-size: 0.92em; color: var(--text); margin-bottom: 2px; line-height: 1.35; }
+    .res-card__author { font-size: 0.78em; color: var(--muted); margin-bottom: 8px; }
+    .res-card__desc { font-size: 0.83em; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+    .res-card__link { font-size: 0.82em; font-weight: 600; color: var(--green-mid); text-decoration: none; }
+    .res-card__link:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .res-hero h1 { font-size: 1.6em; }
+      .res-grid { grid-template-columns: 1fr; }
+      .res-card__img { width: 60px; height: 60px; }
+      .res-card__img--book { height: 84px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">My Dashboard</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+      <li><a href="course-outline.html">Course Outline</a></li>
+      <li><a href="resources.html" class="active">Resources</a></li>
+      <li><a href="#" onclick="afSignOut(); return false;" class="btn btn--outline btn--sm">Sign out</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO ──────────────────────────────────────────────── -->
+<div class="res-hero">
+  <div class="container">
+    <p class="res-hero__eyebrow">Resource Library</p>
+    <h1>Go deeper.</h1>
+    <p>Case studies from every module with sources. Books and reports that sharpen your thinking. Podcasts and channels worth following. Curated for professionals building real AI judgment.</p>
+  </div>
+</div>
+
+<!-- JUMP NAV ──────────────────────────────────────────── -->
+<div class="res-jumps">
+  <div class="container">
+    <div class="res-jumps__inner">
+      <a href="#case-studies">Case Studies</a>
+      <a href="#reading">Reading List</a>
+      <a href="#podcasts">Podcasts</a>
+      <a href="#channels">YouTube Channels</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CASE STUDIES
+     ═══════════════════════════════════════════════════════ -->
+<section class="res-section" id="case-studies">
+  <div class="container">
+    <h2>Course Case Studies</h2>
+    <p class="res-section__intro">Every real-world AI case referenced across the modules, with links to the original sources. Use these to revisit a case after a session or share with a colleague.</p>
+
+    <div class="case-list">
+
+      <!-- Module 1 -->
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 1</span>
+          <span class="case-item__context">Government &middot; South Africa &middot; April 2026</span>
+        </div>
+        <div class="case-item__title">SA Government AI Policy Hallucination Scandal</div>
+        <div class="case-item__desc">South Africa's Department of Communications published an 86-page national AI policy draft containing fabricated academic citations — journals that don't exist, papers that were never published. The policy was withdrawn within weeks. The people responsible for governing AI in SA didn't have the skills to verify AI output before releasing it publicly.</div>
+        <a href="https://theconversation.com/south-africas-ai-policy-cited-fake-research-created-by-ai-what-lessons-need-to-be-learned-281671" target="_blank" rel="noopener" class="case-item__link">Read: The Conversation &rarr;</a>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 2</span>
+          <span class="case-item__context">Finance &middot; SA / Nigeria / Kenya &middot; 2025</span>
+        </div>
+        <div class="case-item__title">Credit Scoring: The 37% Gender Penalty</div>
+        <div class="case-item__desc">An audit of 10 credit scoring algorithms across South Africa, Nigeria, and Kenya found that women-led SMEs faced a 37% underfunding penalty compared to similarly-positioned male-led businesses — through sector categorization bias and language pattern scoring in the models. No individual loan officer decided to discriminate. The algorithm did it invisibly.</div>
+        <a href="https://ar-journal.com/index.php/pub/article/view/76" target="_blank" rel="noopener" class="case-item__link">Read: Advanced Research Journal &rarr;</a>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 2</span>
+          <span class="case-item__context">Finance &middot; Kenya &middot; Ongoing</span>
+        </div>
+        <div class="case-item__title">Kenya Mobile Lending: When Access Becomes the Score</div>
+        <div class="case-item__desc">Kenya's digital lending apps score creditworthiness from phone usage data, browsing history, and social media activity. People with less digital footprint get worse credit scores — not because they're less creditworthy, but because they have less access to data, electricity, and smartphones. The AI is measuring infrastructure inequality and calling it credit risk.</div>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11540688/" target="_blank" rel="noopener" class="case-item__link">Read: PMC / Frontiers &rarr;</a>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 3</span>
+          <span class="case-item__context">Law Enforcement &middot; South Africa &middot; Ongoing</span>
+        </div>
+        <div class="case-item__title">SA Predictive Policing: Apartheid Data, Modern Algorithms</div>
+        <div class="case-item__desc">Predictive policing tools in South Africa were trained on historical crime data reflecting decades of apartheid-era over-policing of Black townships. The AI learned to flag the same communities. More policing followed. More arrests happened. The model was "confirmed." A feedback loop that encodes structural racism into an algorithm without anyone programming discrimination into it.</div>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11540688/" target="_blank" rel="noopener" class="case-item__link">Read: PMC / Frontiers &rarr;</a>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 3</span>
+          <span class="case-item__context">Biometrics &middot; Multi-country &middot; 2018&ndash;present</span>
+        </div>
+        <div class="case-item__title">Facial Recognition: Built for Some, Deployed for All</div>
+        <div class="case-item__desc">A landmark study tested commercial facial recognition APIs used across Africa in banking, border control, and law enforcement. Dark-skinned women were misclassified at substantially higher rates than light-skinned men. These systems were validated for Western populations and deployed in African contexts without re-validation. They are still in use.</div>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11540688/" target="_blank" rel="noopener" class="case-item__link">Read: PMC / Frontiers &rarr;</a>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 4</span>
+          <span class="case-item__context">Media &amp; Elections &middot; South Africa &middot; May 2024</span>
+        </div>
+        <div class="case-item__title">SA 2024 Election Deepfake Videos</div>
+        <div class="case-item__desc">During South Africa's May 2024 elections, AI-generated deepfake videos circulated across social media showing political figures making statements they never made. Most ordinary voters had no way to distinguish real from synthetic footage. South Africa had no deepfake regulation at the time, and most media organizations lacked verification protocols.</div>
+        <a href="https://cipesa.org/2025/09/state-of-internet-freedom-in-africa-report/" target="_blank" rel="noopener" class="case-item__link">Read: CIPESA State of Internet Freedom in Africa &rarr;</a>
+      </div>
+
+      <!-- Module 5 -->
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 5</span>
+          <span class="case-item__context">HR &amp; Legal &middot; South Africa &middot; 2025</span>
+        </div>
+        <div class="case-item__title">AI Recruitment and the Employment Equity Act</div>
+        <div class="case-item__desc">SA law firm Cliffe Dekker Hofmeyr issued a 2025 legal alert: if AI recruitment tools produce discriminatory outcomes, SA employers are liable under the Employment Equity Act — even if a human never made the decision. "The algorithm decided" is not a legal defence in South Africa. The pre-litigation window is open now.</div>
+        <a href="https://www.cliffedekkerhofmeyr.com/en/news/publications/2025/Practice/Employment-Law/Combined-employment-law-and-knowledge-management-alert-26-sept-How-algorithmic-bias-in-AI-hurts-your-business-and-what-you-can-do" target="_blank" rel="noopener" class="case-item__link">Read: Cliffe Dekker Hofmeyr Employment Law Alert &rarr;</a>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 5</span>
+          <span class="case-item__context">Finance &middot; South Africa &middot; Ongoing</span>
+        </div>
+        <div class="case-item__title">MyBucks: When "It Works" Isn't Enough</div>
+        <div class="case-item__desc">A South African fintech's AI credit scoring reduced loan defaults by 18% — a measurable business success. But the same model used opaque decision-making that couldn't be audited for individual fairness. Some customers were denied credit they deserved, with no explanation available. Aggregate improvement masked individual harm.</div>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11540688/" target="_blank" rel="noopener" class="case-item__link">Read: PMC / Frontiers &rarr;</a>
+      </div>
+
+      <!-- Module 6 -->
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 6</span>
+          <span class="case-item__context">Healthcare &middot; South Africa &middot; 2024&ndash;2025</span>
+        </div>
+        <div class="case-item__title">SA Healthcare AI: Ahead of Validation</div>
+        <div class="case-item__desc">South Africa reports above-global-average AI adoption in clinical settings — but the adoption is ahead of the validation infrastructure. Models are deployed before being tested on SA patient populations, disease burdens, and clinical contexts. When AI trained on Western patient data is applied to SA patients, error rates increase for patients who don't match the training profile.</div>
+        <a href="https://www.samajournals.co.za/index.php/samj/article/view/3672" target="_blank" rel="noopener" class="case-item__link">Read: South African Medical Journal &rarr;</a>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag">Module 6</span>
+          <span class="case-item__context">Education &middot; South Africa &middot; Ongoing</span>
+        </div>
+        <div class="case-item__title">Dr Math: What Responsible AI Deployment Looks Like</div>
+        <div class="case-item__desc">The CSIR's Dr Math program uses AI-powered maths tutoring to reach South African students in schools without qualified teachers. It works because the purpose is clear (expanding access, not replacing teachers), the context is understood, and the system augments human judgment rather than replacing it. A benchmark for responsible AI deployment.</div>
+        <a href="https://www.unesco.org/en/articles/good-practice-dr-math-whatsapp-platform" target="_blank" rel="noopener" class="case-item__link">Read: UNESCO Good Practice &rarr;</a>
+      </div>
+
+      <!-- Supplemental: African AI success stories -->
+      <div class="divider-label">
+        <div class="divider-label__line"></div>
+        <div class="divider-label__text">Supplemental: African AI Success Stories</div>
+        <div class="divider-label__line"></div>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag case-tag--supp">Supplemental</span>
+          <span class="case-item__context">Finance &middot; SA / Kenya / Ghana / Tanzania / Zambia</span>
+        </div>
+        <div class="case-item__title">Jumo: AI Lending to the Unbanked</div>
+        <div class="case-item__desc">Founded in Cape Town, Jumo uses AI to extend credit to people with no formal credit history — scoring creditworthiness from mobile usage patterns in partnership with MTN and Airtel. Operating across five African markets, Jumo is Africa-built AI solving a structural financial exclusion problem that traditional banking couldn't reach.</div>
+        <a href="https://jumo.world" target="_blank" rel="noopener" class="case-item__link">Visit: jumo.world &rarr;</a>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag case-tag--supp">Supplemental</span>
+          <span class="case-item__context">Civic Tech &amp; Health &middot; Johannesburg-based &middot; Multi-country</span>
+        </div>
+        <div class="case-item__title">Praekelt.org: Mobile-First AI for Public Health</div>
+        <div class="case-item__desc">This Johannesburg-founded nonprofit builds AI-enhanced platforms for government health programs across Africa. Their COVID-19 vaccine registration platform served millions of South Africans in 2021. Their WhatsApp-based health communications reach populations where other digital channels don't work. Africa-built, Africa-scaled, Africa-centered.</div>
+        <a href="https://praekelt.org" target="_blank" rel="noopener" class="case-item__link">Visit: praekelt.org &rarr;</a>
+      </div>
+
+      <div class="case-item">
+        <div class="case-item__meta">
+          <span class="case-tag case-tag--supp">Supplemental</span>
+          <span class="case-item__context">Education &middot; Cape Town-based &middot; SA-wide</span>
+        </div>
+        <div class="case-item__title">Siyavula: SA-Built Adaptive Learning AI</div>
+        <div class="case-item__desc">Built in Cape Town specifically for South Africa's CAPS curriculum, Siyavula's adaptive maths and science platform personalizes practice for SA high school students. The Department of Basic Education and several provinces have formal partnerships giving public school students free access. Locally-built AI designed from the ground up for a specific local context — not an import.</div>
+        <a href="https://www.siyavula.com" target="_blank" rel="noopener" class="case-item__link">Visit: siyavula.com &rarr;</a>
+      </div>
+
+    </div><!-- /case-list -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     READING LIST
+     ═══════════════════════════════════════════════════════ -->
+<section class="res-section res-section--alt" id="reading">
+  <div class="container">
+    <h2>Reading List</h2>
+    <p class="res-section__intro">Books and reports for learners who want to go beyond the course. Each one earns its place.</p>
+
+    <div class="res-sub-label">Books</div>
+    <div class="res-grid">
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/book-ai-snake-oil.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/book-ai-snake-oil.jpg" alt="AI Snake Oil cover" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Book &middot; 2024</div>
+          <div class="res-card__title">AI Snake Oil</div>
+          <div class="res-card__author">Arvind Narayanan &amp; Sayash Kapoor</div>
+          <div class="res-card__desc">The clearest explanation of what AI can and can't do — and why most AI claims are overblown. Essential for anyone navigating AI hype at work.</div>
+          <a href="https://www.aisnakeoil.com" target="_blank" rel="noopener" class="res-card__link">&rarr; aisnakeoil.com</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/book-weapons-math.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/book-weapons-math.jpg" alt="Weapons of Math Destruction cover" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Book &middot; 2016</div>
+          <div class="res-card__title">Weapons of Math Destruction</div>
+          <div class="res-card__author">Cathy O'Neil</div>
+          <div class="res-card__desc">How algorithms harm the poor, reinforce discrimination, and threaten democracy. The classic case for why AI judgment matters — and why "the data doesn't lie" is never quite right.</div>
+          <a href="https://mathbabe.org/book/" target="_blank" rel="noopener" class="res-card__link">&rarr; Find on Takealot or your library</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/book-race-after-tech.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/book-race-after-tech.jpg" alt="Race After Technology cover" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Book &middot; 2019</div>
+          <div class="res-card__title">Race After Technology</div>
+          <div class="res-card__author">Ruha Benjamin</div>
+          <div class="res-card__desc">How technologies designed by some, for some, become tools of racial inequity. Essential context for understanding why AI in Africa isn't a neutral import.</div>
+          <a href="https://www.ruhabenjamin.com/race-after-technology" target="_blank" rel="noopener" class="res-card__link">&rarr; ruhabenjamin.com</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/book-power-prediction.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/book-power-prediction.jpg" alt="Power and Prediction cover" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Book &middot; 2022</div>
+          <div class="res-card__title">Power and Prediction</div>
+          <div class="res-card__author">Agrawal, Gans &amp; Goldfarb</div>
+          <div class="res-card__desc">The business economics of AI: why AI is fundamentally about shifting who makes predictions, what that does to power, and how professionals need to adapt. Practical, not theoretical.</div>
+          <a href="https://www.predictionmachines.ai" target="_blank" rel="noopener" class="res-card__link">&rarr; Find on Takealot or your library</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/book-alignment-problem.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/book-alignment-problem.jpg" alt="The Alignment Problem cover" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Book &middot; 2020</div>
+          <div class="res-card__title">The Alignment Problem</div>
+          <div class="res-card__author">Brian Christian</div>
+          <div class="res-card__desc">What it actually takes to build AI that does what we want — and the many ways it goes wrong. Accessible deep dive into how AI systems fail, for the curious non-engineer.</div>
+          <a href="https://brianchristian.org/the-alignment-problem/" target="_blank" rel="noopener" class="res-card__link">&rarr; brianchristian.org</a>
+        </div>
+      </div>
+
+    </div><!-- /books grid -->
+
+    <div class="res-sub-label">Reports &amp; Policy Documents</div>
+    <div class="res-grid">
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/report-fsca-ai.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/report-fsca-ai.jpg" alt="FSCA AI in Financial Sector report" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Report &middot; November 2025</div>
+          <div class="res-card__title">AI in the South African Financial Sector</div>
+          <div class="res-card__author">FSCA &amp; Prudential Authority</div>
+          <div class="res-card__desc">The first comprehensive look at how SA's major financial institutions are deploying AI and where the gaps are. If you're in finance, this is what your regulator already knows about AI in your sector.</div>
+          <a href="https://www.masthead.co.za/newsletter/artificial-intelligence-in-the-south-african-financial-sector-what-fsps-need-to-know-in-2026/" target="_blank" rel="noopener" class="res-card__link">&rarr; Read the summary</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/report-icasa-ict.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/report-icasa-ict.jpg" alt="ICASA State of ICT Sector report" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Report &middot; 2025</div>
+          <div class="res-card__title">State of the ICT Sector in South Africa</div>
+          <div class="res-card__author">ICASA</div>
+          <div class="res-card__desc">Annual review of SA's telecoms and digital landscape. Essential context for how AI is entering the sector most actively adopting it — and what the regulator is watching.</div>
+          <a href="https://www.icasa.org.za/uploads/files/The-State-of-the-ICT-Sector-Report-of-South-Africa-2025.pdf" target="_blank" rel="noopener" class="res-card__link">&rarr; Download PDF (ICASA)</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/report-au-ai-strategy.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/report-au-ai-strategy.jpg" alt="AU Continental AI Strategy document" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Policy Document</div>
+          <div class="res-card__title">Continental AI Strategy for Africa</div>
+          <div class="res-card__author">African Union</div>
+          <div class="res-card__desc">The continental framework for AI development in Africa. Shows how SA's AI policy fits into the broader African picture — and where Africa's governance priorities differ from the US or EU.</div>
+          <a href="https://au.int/en/documents/20240213/ai-continental-strategy-africa" target="_blank" rel="noopener" class="res-card__link">&rarr; African Union &rarr;</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/report-unesco-ai-ethics.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/report-unesco-ai-ethics.jpg" alt="UNESCO AI Ethics Recommendation" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Policy Document &middot; 2021</div>
+          <div class="res-card__title">Recommendation on the Ethics of AI</div>
+          <div class="res-card__author">UNESCO</div>
+          <div class="res-card__desc">The global consensus document on responsible AI — adopted by 193 countries. Shows what international AI governance actually requires, in plain terms. The foundation for understanding what "ethical AI" means in practice.</div>
+          <a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener" class="res-card__link">&rarr; UNESCO.org &rarr;</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/report-cipesa-africa.jpg (recommended 120×168px portrait) -->
+        <img src="assets/resources/report-cipesa-africa.jpg" alt="CIPESA State of Internet Freedom report" class="res-card__img res-card__img--book" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Report &middot; 2025</div>
+          <div class="res-card__title">State of Internet Freedom in Africa</div>
+          <div class="res-card__author">CIPESA</div>
+          <div class="res-card__desc">Covers AI-enabled surveillance, deepfake disinformation, and digital rights across 25 African countries. The most comprehensive annual review of how AI is intersecting with freedom, democracy, and rights on the continent.</div>
+          <a href="https://cipesa.org/2025/09/state-of-internet-freedom-in-africa-report/" target="_blank" rel="noopener" class="res-card__link">&rarr; cipesa.org &rarr;</a>
+        </div>
+      </div>
+
+    </div><!-- /reports grid -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     PODCASTS
+     ═══════════════════════════════════════════════════════ -->
+<section class="res-section" id="podcasts">
+  <div class="container">
+    <h2>Podcasts</h2>
+    <p class="res-section__intro">Worth adding to your commute. All of these are genuinely good — no filler.</p>
+
+    <div class="res-grid">
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/podcast-hard-fork.jpg (recommended 160×160px square — use Hard Fork podcast cover art) -->
+        <img src="assets/resources/podcast-hard-fork.jpg" alt="Hard Fork podcast cover" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Weekly &middot; News &amp; Culture</div>
+          <div class="res-card__title">Hard Fork</div>
+          <div class="res-card__author">New York Times &mdash; Kevin Roose &amp; Casey Newton</div>
+          <div class="res-card__desc">The most accessible weekly podcast on AI and tech. Conversational, current, and honest about both the hype and the stakes. Good for staying current without getting lost in jargon.</div>
+          <a href="https://www.nytimes.com/column/hard-fork" target="_blank" rel="noopener" class="res-card__link">&rarr; nytimes.com/column/hard-fork</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/podcast-eye-on-ai.jpg (recommended 160×160px square — use Eye on AI cover art) -->
+        <img src="assets/resources/podcast-eye-on-ai.jpg" alt="Eye on AI podcast cover" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Weekly &middot; Research &amp; Industry</div>
+          <div class="res-card__title">Eye on AI</div>
+          <div class="res-card__author">Craig Smith</div>
+          <div class="res-card__desc">Weekly interviews with AI researchers, ethicists, and practitioners. Goes deep without losing the plot. Good for building real understanding of where AI is — not just where people say it's going.</div>
+          <a href="https://www.eye-on.ai" target="_blank" rel="noopener" class="res-card__link">&rarr; eye-on.ai</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/podcast-practical-ai.jpg (recommended 160×160px square — use Practical AI cover art) -->
+        <img src="assets/resources/podcast-practical-ai.jpg" alt="Practical AI podcast cover" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Weekly &middot; Applied &amp; Professional</div>
+          <div class="res-card__title">Practical AI</div>
+          <div class="res-card__author">Changelog &mdash; Daniel Whitenack &amp; Chris Benson</div>
+          <div class="res-card__desc">For professionals who want to apply AI at work, not just understand it theoretically. Business-focused, non-technical, grounded in what actually gets implemented — not just what gets announced.</div>
+          <a href="https://changelog.com/practicalai" target="_blank" rel="noopener" class="res-card__link">&rarr; changelog.com/practicalai</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/podcast-80k.jpg (recommended 160×160px square — use 80,000 Hours cover art) -->
+        <img src="assets/resources/podcast-80k.jpg" alt="80,000 Hours Podcast cover" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Long-form &middot; AI Safety &amp; Ethics</div>
+          <div class="res-card__title">80,000 Hours Podcast</div>
+          <div class="res-card__author">80,000 Hours</div>
+          <div class="res-card__desc">Long-form conversations on AI safety, governance, and the long-term consequences of AI development. Serious and evidence-based. Dense, but the episodes on AI risk and AI policy are worth the time.</div>
+          <a href="https://80000hours.org/podcast/" target="_blank" rel="noopener" class="res-card__link">&rarr; 80000hours.org/podcast</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/podcast-tech-cabal.jpg (recommended 160×160px square — use Tech Cabal podcast cover art) -->
+        <img src="assets/resources/podcast-tech-cabal.jpg" alt="Tech Cabal podcast cover" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">Weekly &middot; African Tech</div>
+          <div class="res-card__title">The TC Daily</div>
+          <div class="res-card__author">Tech Cabal</div>
+          <div class="res-card__desc">The African tech landscape from an African perspective. Covers AI, digital finance, and startup ecosystems across the continent. Essential for staying current on how AI is actually playing out in Africa.</div>
+          <a href="https://techcabal.com/podcast" target="_blank" rel="noopener" class="res-card__link">&rarr; techcabal.com/podcast</a>
+        </div>
+      </div>
+
+    </div><!-- /podcasts grid -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     YOUTUBE CHANNELS
+     ═══════════════════════════════════════════════════════ -->
+<section class="res-section res-section--alt" id="channels">
+  <div class="container">
+    <h2>YouTube Channels</h2>
+    <p class="res-section__intro">Five channels worth your time. Start with one video from each and go from there.</p>
+
+    <div class="res-grid">
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/channel-3b1b.jpg (recommended 160×160px square — use 3Blue1Brown channel icon) -->
+        <img src="assets/resources/channel-3b1b.jpg" alt="3Blue1Brown channel icon" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">YouTube &middot; Visual Explainers</div>
+          <div class="res-card__title">3Blue1Brown</div>
+          <div class="res-card__author">Grant Sanderson</div>
+          <div class="res-card__desc">The best visual explanation of how AI and machine learning actually work. His "Neural Networks" series is the clearest explanation of what's inside the black box — no coding required, just curiosity. Start here.</div>
+          <a href="https://www.youtube.com/@3blue1brown" target="_blank" rel="noopener" class="res-card__link">&rarr; youtube.com/@3blue1brown</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/channel-two-min-papers.jpg (recommended 160×160px square — use Two Minute Papers channel icon) -->
+        <img src="assets/resources/channel-two-min-papers.jpg" alt="Two Minute Papers channel icon" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">YouTube &middot; AI Research</div>
+          <div class="res-card__title">Two Minute Papers</div>
+          <div class="res-card__author">K&aacute;roly Zsolnai-F&eacute;h&eacute;r</div>
+          <div class="res-card__desc">Short, excited summaries of the latest AI research papers. Two minutes to understand what just changed in the field. Good for staying current on AI capabilities without reading academic papers yourself.</div>
+          <a href="https://www.youtube.com/@TwoMinutePapers" target="_blank" rel="noopener" class="res-card__link">&rarr; youtube.com/@TwoMinutePapers</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/channel-fireship.jpg (recommended 160×160px square — use Fireship channel icon) -->
+        <img src="assets/resources/channel-fireship.jpg" alt="Fireship channel icon" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">YouTube &middot; Fast Takes</div>
+          <div class="res-card__title">Fireship</div>
+          <div class="res-card__author">Jeff Delaney</div>
+          <div class="res-card__desc">Fast, entertaining explainers on AI tools and tech — usually 100 seconds to 10 minutes. If something is happening in AI right now, Fireship has probably made a video about it. Great for keeping up without going deep.</div>
+          <a href="https://www.youtube.com/@Fireship" target="_blank" rel="noopener" class="res-card__link">&rarr; youtube.com/@Fireship</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/channel-karpathy.jpg (recommended 160×160px square — use Andrej Karpathy channel icon) -->
+        <img src="assets/resources/channel-karpathy.jpg" alt="Andrej Karpathy channel icon" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">YouTube &middot; Deep Technical</div>
+          <div class="res-card__title">Andrej Karpathy</div>
+          <div class="res-card__author">Former Tesla AI Director &amp; OpenAI researcher</div>
+          <div class="res-card__desc">The most respected technical educator in AI. His "Let's build GPT from scratch" video is the clearest explanation of how large language models work. Rewards patience — this is the one to watch when you want to truly understand what's inside the tools you use every day.</div>
+          <a href="https://www.youtube.com/@AndrejKarpathy" target="_blank" rel="noopener" class="res-card__link">&rarr; youtube.com/@AndrejKarpathy</a>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <!-- Drop image at: assets/resources/channel-yannic-kilcher.jpg (recommended 160×160px square — use Yannic Kilcher channel icon) -->
+        <img src="assets/resources/channel-yannic-kilcher.jpg" alt="Yannic Kilcher channel icon" class="res-card__img" loading="lazy" />
+        <div class="res-card__body">
+          <div class="res-card__type">YouTube &middot; AI Research Papers</div>
+          <div class="res-card__title">Yannic Kilcher</div>
+          <div class="res-card__author">Yannic Kilcher</div>
+          <div class="res-card__desc">Deep walkthrough of landmark AI research papers — including the original Attention Is All You Need paper and GPT-series models. More technical than Two Minute Papers but far more thorough. Good for learners who want to understand the actual science.</div>
+          <a href="https://www.youtube.com/@YannicKilcher" target="_blank" rel="noopener" class="res-card__link">&rarr; youtube.com/@YannicKilcher</a>
+        </div>
+      </div>
+
+    </div><!-- /channels grid -->
+  </div>
+</section>
+
+<footer>
+  <strong>AfriversalAI</strong> &middot; AI Literacy for South African Workplaces<br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+async function initResources() {
+  const session = await requireAuth('resources.html')
+  if (!session) return
+}
+initResources()
+
+// Scrollspy — highlight active jump nav link as user scrolls
+const _sections = ['case-studies', 'reading', 'podcasts', 'channels']
+const _jumpLinks = document.querySelectorAll('.res-jumps__inner a')
+
+function _updateJumpNav() {
+  let current = _sections[0]
+  _sections.forEach(id => {
+    const el = document.getElementById(id)
+    if (el && window.scrollY >= el.offsetTop - 80) current = id
+  })
+  _jumpLinks.forEach(a => {
+    a.classList.toggle('is-active', a.getAttribute('href') === '#' + current)
+  })
+}
+
+window.addEventListener('scroll', _updateJumpNav, { passive: true })
+_updateJumpNav()
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>
