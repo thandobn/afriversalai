@@ -721,6 +721,38 @@ footer a { color: rgba(255,255,255,0.7); }
 .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
 
 /* ---- Sector callout band ---- */
+/* ---- Module 7 full-width bookend card ---- */
+.module-m7 {
+  background: var(--gold-light);
+  border: 2px solid var(--gold-dark);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+@media (max-width: 640px) { .module-m7 { grid-template-columns: 1fr; } }
+.module-m7__eyebrow {
+  font-size: 0.72em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-dark);
+  margin-bottom: 10px;
+}
+.module-m7__title { color: var(--gold-dark); margin-bottom: 10px; font-size: 1.3em; }
+.module-m7__tracks { display: flex; gap: 8px; flex-wrap: wrap; }
+.module-m7__track-chip {
+  background: var(--gold-dark);
+  color: white;
+  font-size: 0.78em;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
 .sector-callout { background: var(--green-dark); padding: 52px 0; }
 .sector-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
 .sector-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 8px 18px; font-size: 0.85em; color: white; font-weight: 600; }
