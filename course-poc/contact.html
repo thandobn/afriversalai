@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — AfriversalAI</title>
+  <title>Contact &mdash; AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -46,8 +46,6 @@
     <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="course.html">The Course</a></li>
-      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li class="nav__dropdown">
         <a href="about.html">About</a>
         <ul class="nav__dropdown-menu">
@@ -55,9 +53,12 @@
           <li><a href="funda-five.html">The Funda Five</a></li>
         </ul>
       </li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
+
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="register.html" class="btn btn--gold btn--sm">Register ?</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button data-lang-btn="en" onclick="setLang('en')">EN</button>
@@ -77,7 +78,7 @@
 <section class="hero" style="padding-bottom: 48px;">
   <span class="eyebrow eyebrow--light">Contact</span>
   <h1>Get in touch.</h1>
-  <p class="lead lead--light">Questions about the course, partnerships, SETA accreditation, or media enquiries — we respond within 2 business days.</p>
+  <p class="lead lead--light">Questions about the course, partnerships, SETA accreditation, or media enquiries &mdash; we respond within 2 business days.</p>
 </section>
 
 <!-- FORM SECTION -->
@@ -88,7 +89,7 @@
       <div class="contact-layout">
 
         <form action="https://formspree.io/f/xrevwegy" method="POST">
-          <input type="hidden" name="_subject" value="New Contact Message — AfriversalAI" />
+          <input type="hidden" name="_subject" value="New Contact Message &mdash; AfriversalAI" />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
@@ -118,7 +119,7 @@
 
           <div class="form-group">
             <label for="c-message">Message <span class="req">*</span></label>
-            <textarea id="c-message" name="message" required placeholder="Tell us what you'd like to know or discuss…"></textarea>
+            <textarea id="c-message" name="message" required placeholder="Tell us what you'd like to know or discuss&hellip;"></textarea>
           </div>
 
           <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
@@ -150,13 +151,13 @@
             <div class="contact-method__icon">??</div>
             <div>
               <div class="contact-method__label">For course registration</div>
-              <div class="contact-method__value"><a href="register.html">Use the registration form ?</a></div>
+              <div class="contact-method__value"><a href="register.html">Use the registration form &rarr;</a></div>
             </div>
           </div>
 
           <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
-            <p style="font-size:0.82em; color:var(--muted); line-height:1.65;">For L&amp;D teams, HR departments, and corporate training enquiries — please use the team registration form. We'll respond with a tailored proposal.</p>
-            <a href="register.html" class="btn btn--outline btn--sm" style="margin-top:12px; display:inline-block;">Team registration form ?</a>
+            <p style="font-size:0.82em; color:var(--muted); line-height:1.65;">For L&amp;D teams, HR departments, and corporate training enquiries &mdash; please use the team registration form. We'll respond with a tailored proposal.</p>
+            <a href="register.html" class="btn btn--outline btn--sm" style="margin-top:12px; display:inline-block;">Team registration form &rarr;</a>
           </div>
         </div>
 
@@ -174,8 +175,8 @@
 </section>
 
 <footer>
-  <strong>AfriversalAI</strong> · <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <strong>AfriversalAI</strong> &middot; <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> &middot; <a href="course-outline.html">Course Overview</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script>
@@ -183,7 +184,7 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = form.querySelector('button[type=submit]');
-    btn.textContent = 'Sending…';
+    btn.textContent = 'Sending&hellip;';
     btn.disabled = true;
     try {
       const res = await fetch(form.action, {
@@ -195,11 +196,11 @@
         document.getElementById('formWrap').style.display = 'none';
         document.getElementById('thankyou').style.display = 'block';
       } else {
-        btn.textContent = 'Something went wrong — email us directly';
+        btn.textContent = 'Something went wrong &mdash; email us directly';
         btn.disabled = false;
       }
     } catch {
-      btn.textContent = 'Network error — try emailing afriversalai@gmail.com';
+      btn.textContent = 'Network error &mdash; try emailing afriversalai@gmail.com';
       btn.disabled = false;
     }
   });

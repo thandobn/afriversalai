@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register — AfriversalAI</title>
+  <title>Register &mdash; AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -58,8 +58,6 @@
     <a href="index.html" class="nav__logo"><img src="assets/logo.jpg" alt="AfriversalAI" class="nav__logo-img"></a>
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="course.html">The Course</a></li>
-      <li><a href="module-0.html">AI Fundamentals</a></li>
       <li class="nav__dropdown">
         <a href="about.html">About</a>
         <ul class="nav__dropdown-menu">
@@ -67,9 +65,12 @@
           <li><a href="funda-five.html">The Funda Five</a></li>
         </ul>
       </li>
+      <li><a href="course.html">The Course</a></li>
+      <li><a href="module-0.html">AI Fundamentals</a></li>
+
       <li><a href="certificate.html">Certificate</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="register.html" class="btn btn--gold btn--sm">Register ?</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button data-lang-btn="en" onclick="setLang('en')">EN</button>
@@ -107,7 +108,7 @@
         <!-- FORM -->
         <div class="reg-form">
 
-          <!-- Individual form — Supabase auth -->
+          <!-- Individual form &mdash; Supabase auth -->
           <form id="form-individual" class="form-section active" onsubmit="handleIndividualSignup(event)">
 
             <div id="reg-error" style="display:none; background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; border-radius:var(--radius); padding:12px 14px; font-size:0.85em; margin-bottom:16px;"></div>
@@ -154,7 +155,7 @@
             </div>
 
             <div class="form-group">
-              <label for="ind-code">Access code <span style="color:var(--muted); font-weight:400; font-size:0.9em;">(optional — if your employer enrolled you)</span></label>
+              <label for="ind-code">Access code <span style="color:var(--muted); font-weight:400; font-size:0.9em;">(optional &mdash; if your employer enrolled you)</span></label>
               <input id="ind-code" type="text" placeholder="e.g. NEDBANK-2026" autocomplete="off" style="text-transform:uppercase; letter-spacing:0.5px;" />
               <div id="code-feedback" style="display:none; margin-top:8px; font-size:0.82em; border-radius:var(--radius); padding:8px 12px;"></div>
             </div>
@@ -164,13 +165,13 @@
             </button>
             <p class="form-note" style="margin-top:10px; text-align:center;">You'll be taken straight to your course dashboard.</p>
             <p class="form-note" style="margin-top:6px; text-align:center;">By registering, you agree to our <a href="privacy.html" style="color:var(--green-mid);">Privacy Policy</a>. Your data is stored securely and used only for your course access.</p>
-            <p class="form-note" style="margin-top:8px; text-align:center;">Already have an account? <a href="login.html" style="color:var(--green-mid); font-weight:600;">Sign in ?</a></p>
+            <p class="form-note" style="margin-top:8px; text-align:center;">Already have an account? <a href="login.html" style="color:var(--green-mid); font-weight:600;">Sign in &rarr;</a></p>
           </form>
 
           <!-- Team form -->
           <form id="form-team" class="form-section"
                 action="https://formspree.io/f/xrevwegy" method="POST">
-            <input type="hidden" name="_subject" value="New Team Registration — AfriversalAI" />
+            <input type="hidden" name="_subject" value="New Team Registration &mdash; AfriversalAI" />
             <input type="hidden" name="registration_type" value="Team / Company" />
             <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
@@ -213,9 +214,9 @@
                 <label for="team-size">Team size <span class="req">*</span></label>
                 <select id="team-size" name="team_size" required>
                   <option value="" disabled selected>Number of learners</option>
-                  <option>2–10 people</option>
-                  <option>11–50 people</option>
-                  <option>51–200 people</option>
+                  <option>2&ndash;10 people</option>
+                  <option>11&ndash;50 people</option>
+                  <option>51&ndash;200 people</option>
                   <option>200+ people</option>
                 </select>
               </div>
@@ -223,7 +224,7 @@
 
             <div class="form-group">
               <label for="team-goals">What do you want your team to be able to do after this course? <span class="req">*</span></label>
-              <textarea id="team-goals" name="goals" required placeholder="e.g. We want our analysts to be able to evaluate AI outputs before they reach clients. We're also concerned about POPIA compliance when using AI tools…"></textarea>
+              <textarea id="team-goals" name="goals" required placeholder="e.g. We want our analysts to be able to evaluate AI outputs before they reach clients. We're also concerned about POPIA compliance when using AI tools&hellip;"></textarea>
             </div>
 
             <div class="form-group">
@@ -252,7 +253,7 @@
           </ul>
 
           <div class="seta-note">
-            <strong>For L&amp;D and HR teams:</strong> AfriversalAI is pursuing QCTO accreditation, with MICT SETA as Development Quality Partner. Once approved, employers can recover 40–60% of training costs through the Skills Development Levy.
+            <strong>For L&amp;D and HR teams:</strong> AfriversalAI is pursuing QCTO accreditation, with MICT SETA as Development Quality Partner. Once approved, employers can recover 40&ndash;60% of training costs through the Skills Development Levy.
           </div>
         </div>
       </div>
@@ -270,8 +271,8 @@
 </section>
 
 <footer>
-  <strong>AfriversalAI</strong> · <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">© 2026 AfriversalAI · <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> · <a href="course-outline.html">Course Overview</a> · <a href="contact.html">Contact</a> · <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <strong>AfriversalAI</strong> &middot; <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> &middot; <a href="course-outline.html">Course Overview</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
@@ -291,7 +292,7 @@
     document.getElementById('form-' + type).classList.add('active');
   }
 
-  // Access code — live validation on blur
+  // Access code &mdash; live validation on blur
   document.getElementById('ind-code').addEventListener('blur', async function () {
     const code = this.value.trim()
     const fb = document.getElementById('code-feedback')
@@ -300,7 +301,7 @@
       const org = await validateOrgCode(code)
       fb.style.display = 'block'
       fb.style.cssText = 'display:block; margin-top:8px; font-size:0.82em; border-radius:var(--radius); padding:8px 12px; background:var(--green-pale); color:var(--green-dark); border:1px solid var(--green-light);'
-      fb.textContent = '? ' + org.name + ' — code recognised. Your account will be linked to this organisation.'
+      fb.textContent = '? ' + org.name + ' &mdash; code recognised. Your account will be linked to this organisation.'
       const orgField = document.getElementById('ind-org')
       if (!orgField.value) orgField.value = org.name
     } catch (err) {
@@ -316,13 +317,13 @@
     this.setSelectionRange(pos, pos)
   })
 
-  // Individual form — Supabase signup
+  // Individual form &mdash; Supabase signup
   async function handleIndividualSignup(e) {
     e.preventDefault()
     const errEl = document.getElementById('reg-error')
     const btn = document.getElementById('reg-submit-btn')
     errEl.style.display = 'none'
-    btn.textContent = 'Creating account…'
+    btn.textContent = 'Creating account&hellip;'
     btn.disabled = true
 
     try {
@@ -350,18 +351,18 @@
       )
       window.location.href = 'dashboard.html'
     } catch (err) {
-      errEl.textContent = err.message || 'Registration failed — please try again.'
+      errEl.textContent = err.message || 'Registration failed &mdash; please try again.'
       errEl.style.display = 'block'
       btn.textContent = 'Create account & go to dashboard ?'
       btn.disabled = false
     }
   }
 
-  // Team form — still Formspree (B2B inquiry, not individual auth)
+  // Team form &mdash; still Formspree (B2B inquiry, not individual auth)
   document.getElementById('form-team').addEventListener('submit', async (e) => {
     e.preventDefault()
     const btn = e.target.querySelector('button[type=submit]')
-    btn.textContent = 'Sending…'
+    btn.textContent = 'Sending&hellip;'
     btn.disabled = true
     try {
       const res = await fetch(e.target.action, {
@@ -373,11 +374,11 @@
         document.getElementById('formWrap').style.display = 'none'
         document.getElementById('thankyou').style.display = 'block'
       } else {
-        btn.textContent = 'Something went wrong — email us at afriversalai@gmail.com'
+        btn.textContent = 'Something went wrong &mdash; email us at afriversalai@gmail.com'
         btn.disabled = false
       }
     } catch {
-      btn.textContent = 'Network error — email afriversalai@gmail.com'
+      btn.textContent = 'Network error &mdash; email afriversalai@gmail.com'
       btn.disabled = false
     }
   })

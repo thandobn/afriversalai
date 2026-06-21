@@ -30,14 +30,12 @@
     });
   });
 
-  // Dropdown toggle: click on mobile toggles sub-menu; desktop uses CSS hover
+  // Dropdown toggle: always prevent navigation; mobile toggles .is-open, desktop relies on CSS hover
   document.querySelectorAll('.nav__dropdown > a').forEach(function (trigger) {
     trigger.addEventListener('click', function (e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        var dropdown = trigger.closest('.nav__dropdown');
-        dropdown.classList.toggle('is-open');
-      }
+      e.preventDefault();
+      var dropdown = trigger.closest('.nav__dropdown');
+      dropdown.classList.toggle('is-open');
     });
   });
 
