@@ -960,6 +960,8 @@ footer a { color: rgba(255,255,255,0.7); }
   position: absolute;
   top: 0; left: 0;
 }
+.founder-photo img[src*="about-thurston"] { object-position: 50% 20%; }
+.founder-photo img[src*="about-thando"] { object-position: 50% 30%; }
 .founder-photo__initials {
   font-size: 1.6em;
   font-weight: 800;
