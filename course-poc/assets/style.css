@@ -727,12 +727,7 @@ footer a { color: rgba(255,255,255,0.7); }
   border-radius: var(--radius-lg);
   padding: 32px 36px;
   margin-top: 24px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: center;
 }
-@media (max-width: 640px) { .module-m7 { grid-template-columns: 1fr; } }
 .module-m7__eyebrow {
   font-size: 0.72em;
   font-weight: 700;
