@@ -145,7 +145,7 @@
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">55 minutes &middot; 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; No technical background required</span>
-      <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Phase 1 free &mdash; register to unlock all phases</span>
+      <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Phases 1 &amp; 2 free &mdash; register to unlock all phases</span>
     </div>
   </div>
 </div>
@@ -400,7 +400,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">1. What best describes how AI works?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q0" value="0"> <span>It retrieves answers from a verified database of facts</span></label>
-                <label class="quiz-opt"><input type="radio" name="p1_q0" value="1"> <span>It learns patterns from large amounts of data to make predictions or generate content</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q0" value="1"> <span>It learns patterns from large amounts of data to make predictions or generate content</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q0" value="2"> <span>It follows explicit rules programmed for every situation</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q0" value="3"> <span>It thinks and reasons the way humans do</span></label>
               </div>
@@ -411,7 +411,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">2. A generative AI tool gives you a confident, detailed response. What should you do?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q1" value="0"> <span>Trust it &mdash; AI wouldn&apos;t sound confident if it weren&apos;t accurate</span></label>
-                <label class="quiz-opt"><input type="radio" name="p1_q1" value="1"> <span>Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q1" value="1"> <span>Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q1" value="2"> <span>Assume it&apos;s wrong &mdash; AI is generally unreliable</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q1" value="3"> <span>Ask the AI if it&apos;s sure, and trust that answer</span></label>
               </div>
@@ -423,7 +423,7 @@
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q2" value="0"> <span>They all use the same underlying AI model</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q2" value="1"> <span>They were all built to generate new content</span></label>
-                <label class="quiz-opt"><input type="radio" name="p1_q2" value="2"> <span>They all use pattern recognition to make predictions about what you want or need</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q2" value="2"> <span>They all use pattern recognition to make predictions about what you want or need</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q2" value="3"> <span>They all require a human to approve every decision</span></label>
               </div>
               <div class="quiz-feedback" id="p1qf-2"></div>
@@ -543,7 +543,6 @@
 
         <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
           <button class="btn btn--outline btn--sm" onclick="revealAnswers()" data-i18n="p0_btn_reveal">Reveal answers</button>
-          <button class="btn btn--primary btn--sm" onclick="advancePhase(1)" data-i18n="p0_btn_done">Done &mdash; see what I spotted &rarr;</button>
         </div>
         <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please click on at least a few cards before moving on.</div>
 
@@ -583,6 +582,9 @@
             <p style="font-size:1.1em; font-weight:700; color:white; margin-bottom:12px; line-height:1.4;">Did a human write every rule &mdash; or did the system learn the rules from data?</p>
             <p style="color:rgba(255,255,255,0.75); font-size:0.9em; line-height:1.75; margin-bottom:16px;">If a human wrote every rule: <strong style="color:white;">not AI.</strong> If the system figured out the rules by analysing examples: <strong style="color:var(--gold);">AI.</strong></p>
             <p style="color:rgba(255,255,255,0.65); font-size:0.85em; margin:0; line-height:1.7;">Use this question on anything you encounter at work. Your HR shortlisting tool &mdash; did someone write every criterion, or did it learn from past hires? Your fraud alert &mdash; did someone list every fraud pattern, or did it learn from millions of transactions? The answer tells you whether AI is involved &mdash; and whether you need to think carefully about bias, accountability, and error.</p>
+          </div>
+          <div style="margin-top:24px; text-align:right;">
+            <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(1)">Done &mdash; see what I spotted &rarr;</button>
           </div>
         </div>
       </div>
@@ -775,7 +777,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q1">1. What best describes how AI works?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p3_q0" value="0"> <span data-i18n="quiz_q1_a">It retrieves answers from a verified database of facts</span></label>
-                <label class="quiz-opt"><input type="radio" name="p3_q0" value="1"> <span data-i18n="quiz_q1_b">It learns patterns from large amounts of data to make predictions or generate content</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q0" value="1"> <span data-i18n="quiz_q1_b">It learns patterns from large amounts of data to make predictions or generate content</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q0" value="2"> <span data-i18n="quiz_q1_c">It follows explicit rules programmed for every situation</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q0" value="3"> <span data-i18n="quiz_q1_d">It thinks and reasons the way humans do</span></label>
               </div>
@@ -787,7 +789,7 @@
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p3_q1" value="0"> <span data-i18n="quiz_q2_a">A programming error that inserted the wrong postal codes</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q1" value="1"> <span data-i18n="quiz_q2_b">The AI independently decided those areas were too risky</span></label>
-                <label class="quiz-opt"><input type="radio" name="p3_q1" value="2"> <span data-i18n="quiz_q2_c">Training data that reflected historical lending discrimination against those areas</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q1" value="2"> <span data-i18n="quiz_q2_c">Training data that reflected historical lending discrimination against those areas</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q1" value="3"> <span data-i18n="quiz_q2_d">The system was manually configured to filter by postal code</span></label>
               </div>
               <div class="quiz-feedback" id="p3qf-1"></div>
@@ -798,7 +800,7 @@
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p3_q2" value="0"> <span data-i18n="quiz_q3_a">Generative AI &mdash; it generates new content</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q2" value="1"> <span data-i18n="quiz_q3_b">Computer Vision &mdash; it processes images and video</span></label>
-                <label class="quiz-opt"><input type="radio" name="p3_q2" value="2"> <span data-i18n="quiz_q3_c">Predictive / Decision AI &mdash; it classifies and scores inputs</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q2" value="2"> <span data-i18n="quiz_q3_c">Predictive / Decision AI &mdash; it classifies and scores inputs</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q2" value="3"> <span data-i18n="quiz_q3_d">None of the above &mdash; AI isn't used in hiring processes</span></label>
               </div>
               <div class="quiz-feedback" id="p3qf-2"></div>
@@ -808,7 +810,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q4">4. A generative AI tool gives you a detailed, confident response. What should you do?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p3_q3" value="0"> <span data-i18n="quiz_q4_a">Trust it &mdash; AI wouldn't sound confident if it weren't accurate</span></label>
-                <label class="quiz-opt"><input type="radio" name="p3_q3" value="1"> <span data-i18n="quiz_q4_b">Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q3" value="1"> <span data-i18n="quiz_q4_b">Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q3" value="2"> <span data-i18n="quiz_q4_c">Assume it's wrong &mdash; AI is generally unreliable</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q3" value="3"> <span data-i18n="quiz_q4_d">Ask the AI if it's sure, and trust that answer</span></label>
               </div>
@@ -820,7 +822,7 @@
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p3_q4" value="0"> <span data-i18n="quiz_q5_a">The AI itself &mdash; it made the decision</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q4" value="1"> <span data-i18n="quiz_q5_b">Only the engineers who originally wrote the code</span></label>
-                <label class="quiz-opt"><input type="radio" name="p3_q4" value="2"> <span data-i18n="quiz_q5_c">The organisation that deployed and used the AI</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q4" value="2"> <span data-i18n="quiz_q5_c">The organisation that deployed and used the AI</span></label>
                 <label class="quiz-opt"><input type="radio" name="p3_q4" value="3"> <span data-i18n="quiz_q5_d">No one &mdash; automated decisions don't carry legal accountability</span></label>
               </div>
               <div class="quiz-feedback" id="p3qf-4"></div>
@@ -888,22 +890,7 @@
       <p data-i18n="complete_p1">You now have the foundation every other module builds on. You know what AI is, what it isn't, and how to start seeing it in your own workplace.</p>
       <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;" data-i18n="complete_p2">Next: Module 1 shows you what happens when AI goes wrong at the highest level &mdash; South Africa's national AI policy crisis. You'll use the Funda Five to work through it.</p>
 
-      <div class="m0-apply-feedback" id="m0-apply-feedback">
-        <div class="m0-apply-feedback__label" id="m0-feedback-label">Grading your answers…</div>
-        <div class="m0-apply-feedback__item">
-          <div class="m0-apply-feedback__q">Q1 &mdash; Name one AI tool at work</div>
-          <div class="m0-apply-feedback__a" id="m0-feedback-q1"><span class="m0-feedback-loading">Analysing…</span></div>
-        </div>
-        <div class="m0-apply-feedback__item">
-          <div class="m0-apply-feedback__q">Q2 &mdash; Classify it</div>
-          <div class="m0-apply-feedback__a" id="m0-feedback-q2"><span class="m0-feedback-loading">Analysing…</span></div>
-        </div>
-        <div class="m0-apply-feedback__item">
-          <div class="m0-apply-feedback__q">Q3 &mdash; One failure mode you can now see</div>
-          <div class="m0-apply-feedback__a" id="m0-feedback-q3"><span class="m0-feedback-loading">Analysing…</span></div>
-        </div>
-        <div id="m0-feedback-overall" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.12); font-style:italic; color:rgba(255,255,255,0.65); font-size:0.85em; line-height:1.6;"></div>
-      </div>
+      <p style="color:rgba(255,255,255,0.55); font-size:0.85em; margin-bottom:24px;">Your written answers have been recorded and will be reviewed as part of Cohort 1 assessment.</p>
 
       <div class="preview-end-phases">
         <span class="preview-phase">Module 1: What AI Actually Is</span>
@@ -913,7 +900,7 @@
       </div>
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
         <a href="module-1.html" class="btn btn--gold btn--lg" data-i18n="complete_btn_m1">Start Module 1 &rarr;</a>
-        <a href="register.html" class="btn btn--white btn--lg" data-i18n="complete_btn_register">Register for the full course</a>
+        <a id="complete-register-btn" href="register.html" class="btn btn--white btn--lg" data-i18n="complete_btn_register">Register for the full course</a>
       </div>
     </div>
 
@@ -992,12 +979,15 @@ function sortCard(card) {
 }
 
 function revealAnswers() {
+  var hadSelections = document.querySelectorAll('.activity-card.selected-ai, .activity-card.selected-not-ai').length > 0;
   document.querySelectorAll('.activity-card').forEach(card => {
     card.classList.remove('selected-ai', 'selected-not-ai');
     card.classList.add('revealed');
     if (card.dataset.answer === 'ai') card.classList.add('is-ai');
     else card.classList.add('not-ai');
   });
+  var btn = document.getElementById('btn-done-encounter');
+  if (btn) btn.textContent = hadSelections ? 'Done — see what I spotted →' : 'Continue →';
   var principles = document.getElementById('encounter-principles');
   if (principles) {
     principles.style.display = 'block';
@@ -1094,8 +1084,20 @@ function advancePhase(fromPhase) {
   }
 }
 
+// === Quiz option shuffle (runs on load and on reset) ===
+function shuffleQuizOptions() {
+  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function(label) { opts.appendChild(label); });
+  });
+}
+document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
+
 // === Phase 1 Knowledge Check (3 questions — core concepts) ===
-const P1_QUIZ_CORRECT = [1, 1, 2];
 
 function submitQuizP1() {
   var allAnswered = true;
@@ -1108,10 +1110,10 @@ function submitQuizP1() {
     { ok: 'Correct \u2014 pattern recognition is the common thread across all types of AI.',
       no: 'They all use pattern recognition to make predictions \u2014 the same underlying approach even though they\'re built by different companies for different purposes.' },
   ];
-  P1_QUIZ_CORRECT.forEach(function(correct, i) {
+  [0, 1, 2].forEach(function(i) {
     var sel = document.querySelector('input[name="p1_q' + i + '"]:checked');
     if (!sel) { allAnswered = false; return; }
-    var isOk = parseInt(sel.value) === correct;
+    var isOk = sel.closest('label').dataset.correct === 'true';
     if (isOk) score++;
     var fb = document.getElementById('p1qf-' + i);
     var exp = explanations[i];
@@ -1149,11 +1151,10 @@ function resetQuizP1() {
   document.getElementById('quiz-p1-result').innerHTML = '';
   document.getElementById('quiz-p1-submit-wrap').style.display = 'block';
   document.getElementById('quiz-p1-advance-wrap').style.display = 'none';
+  shuffleQuizOptions();
 }
 
 // === Phase 3 Knowledge Check (5 questions — deeper material from Let's Go Deeper) ===
-const P3_QUIZ_CORRECT = [1, 2, 2, 1, 2];
-
 function getP3QuizExp() {
   var t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : null;
   if (!t) t = {};
@@ -1175,10 +1176,10 @@ function submitQuizP3() {
   var score = 0;
   var allAnswered = true;
   var quizExp = getP3QuizExp();
-  P3_QUIZ_CORRECT.forEach(function(correct, i) {
+  [0, 1, 2, 3, 4].forEach(function(i) {
     var sel = document.querySelector('input[name="p3_q' + i + '"]:checked');
     if (!sel) { allAnswered = false; return; }
-    var isOk = parseInt(sel.value) === correct;
+    var isOk = sel.closest('label').dataset.correct === 'true';
     if (isOk) score++;
     var fb = document.getElementById('p3qf-' + i);
     var exp = quizExp[i];
@@ -1221,6 +1222,7 @@ function resetQuizP3() {
   document.getElementById('quiz-p3-result').style.display = 'none';
   document.getElementById('quiz-p3-result').innerHTML = '';
   document.getElementById('quiz-p3-submit-wrap').style.display = 'block';
+  shuffleQuizOptions();
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
@@ -1234,6 +1236,9 @@ function resetQuizP3() {
     // Reveal glossary note for authenticated users
     var gn = document.getElementById('glossary-note')
     if (gn) gn.style.display = ''
+    // Hide "Register" CTA on module-complete for logged-in users
+    var regBtn = document.getElementById('complete-register-btn')
+    if (regBtn) regBtn.style.display = 'none'
     // Unlock phase 1 immediately &mdash; logged-in users get the full module
     document.getElementById('phase-1').classList.remove('is-locked')
     document.getElementById('phase-2').classList.remove('is-locked')
