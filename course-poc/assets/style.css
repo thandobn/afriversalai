@@ -723,8 +723,7 @@ footer a { color: rgba(255,255,255,0.7); }
 /* ---- Sector callout band ---- */
 /* ---- Module 7 full-width bookend card ---- */
 .module-m7 {
-  background: var(--gold-light);
-  border: 2px solid var(--gold-dark);
+  background: var(--gold-dark);
   border-radius: var(--radius-lg);
   padding: 32px 36px;
   margin-top: 24px;
@@ -739,13 +738,13 @@ footer a { color: rgba(255,255,255,0.7); }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--gold-dark);
+  color: rgba(255,255,255,0.7);
   margin-bottom: 10px;
 }
-.module-m7__title { color: var(--gold-dark); margin-bottom: 10px; font-size: 1.3em; }
+.module-m7__title { color: white; margin-bottom: 10px; font-size: 1.3em; }
 .module-m7__tracks { display: flex; gap: 8px; flex-wrap: wrap; }
 .module-m7__track-chip {
-  background: var(--gold-dark);
+  background: rgba(0,0,0,0.18);
   color: white;
   font-size: 0.78em;
   font-weight: 700;
