@@ -44,6 +44,12 @@
       <li><a href="settings.html" class="active">Settings</a></li>
       <li><a href="#" onclick="afSignOut(); return false;" class="btn btn--outline btn--sm">Sign out</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
     <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
       <span class="nav__hamburger__bar"></span>
       <span class="nav__hamburger__bar"></span>
@@ -207,6 +213,8 @@ async function savePassword(e) {
 
 initSettings()
 </script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
 <script src="assets/nav.js"></script>
 </body>
 </html>

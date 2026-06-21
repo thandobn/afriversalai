@@ -387,7 +387,7 @@ window.TRANSLATIONS = {
     /* ── pricing.html ── */
     pricing_eyebrow:     'Pricing',
     pricing_h1:          'Invest in judgment.',
-    pricing_lead:        'Pilot cohort introductory pricing — below. Register your interest and we\'ll confirm your place with no payment required upfront.',
+    pricing_lead:        'Founding Member pricing: R14,995 per learner for Cohort 1. No payment required to register — we\'ll confirm your place and send cohort dates when they\'re set.',
     pricing_ind_tier:    'Individual',
     pricing_ind_name:    'Personal Enrolment',
     pricing_ind_desc:    'For professionals registering on their own or with employer support.',
@@ -849,7 +849,7 @@ window.TRANSLATIONS = {
     /* pricing.html */
     pricing_eyebrow:     'Pryse',
     pricing_h1:          'Belê in oordeel.',
-    pricing_lead:        'Loodskohorte-inleidingspryse — hieronder. Registreer jou belangstelling en ons bevestig jou plek sonder dat voorafbetaling vereis word.',
+    pricing_lead:        'Stigterslid-pryse: R14,995 per leerder vir Kohort 1. Geen betaling benodig om te registreer nie — ons bevestig jou plek en stuur kohortdatums sodra hulle vasgestel is.',
     pricing_ind_tier:    'Individueel',
     pricing_ind_name:    'Persoonlike Inskrywing',
     pricing_ind_desc:    'Vir professioneles wat self inskryf of met werkgewersteun.',
@@ -1298,7 +1298,7 @@ window.TRANSLATIONS = {
     /* pricing.html */
     pricing_eyebrow:     'Tarification',
     pricing_h1:          'Investissez dans le jugement.',
-    pricing_lead:        'Tarification introductive de la cohorte pilote — ci-dessous. Inscrivez votre intérêt et nous confirmerons votre place sans paiement requis à l’avance.',
+    pricing_lead:        ‘Tarif Membre Fondateur : R14 995 par apprenant pour la Cohorte 1. Aucun paiement requis pour s\’inscrire — nous confirmerons votre place et enverrons les dates de cohorte dès qu\’elles seront fixées.’,
     pricing_ind_tier:    'Individuel',
     pricing_ind_name:    'Inscription Individuelle',
     pricing_ind_desc:    'Pour les professionnels s’inscrivant par eux-mêmes ou avec le soutien de leur employeur.',
@@ -1560,7 +1560,7 @@ window.TRANSLATIONS = {
     /* pricing.html */
     pricing_eyebrow:     'Amanani',
     pricing_h1:          'Tshala imali ekwahluleleni.',
-    pricing_lead:        'Amanani okwethula omgwaqo wokuqala — ngezansi. Bhalisela intshisekelo futhi sizoqinisekisa indawo yakho ngaphandle kokukhokha kusengaphambili.',
+    pricing_lead:        'Amanani Amalungu Asungulayo: R14,995 ngomfundi nge-Cohort 1. Akudingeki ukukhokha ukubhalisa — sizoqinisekisa indawo yakho futhi sithumele izinsuku ze-cohort uma sezibekiwe.',
     pricing_ind_tier:    'Umuntu Ngamunye',
     pricing_ind_name:    'Ukubhaliswa Komuntu Ngamunye',
     pricing_ind_desc:    'Kubafundi abasebenzela bengabodwa noma ngosizo lomqashi.',

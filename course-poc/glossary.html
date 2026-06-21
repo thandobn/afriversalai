@@ -63,6 +63,12 @@
       <li><a href="glossary.html" class="active">Glossary</a></li>
       <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
     <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
       <span class="nav__hamburger__bar"></span>
       <span class="nav__hamburger__bar"></span>
@@ -362,6 +368,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
 <script src="assets/nav.js"></script>
 <script>requireAuth('glossary.html');</script>
 </body>
