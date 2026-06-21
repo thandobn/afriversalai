@@ -389,76 +389,54 @@
 
         </div>
 
-        <!-- KNOWLEDGE CHECK -->
+        <!-- KNOWLEDGE CHECK: PHASE 1 -->
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;" data-i18n="quiz_badge">Knowledge Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);" data-i18n="quiz_sub">5 questions &middot; answer all before moving on</span>
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Knowledge Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">3 questions &middot; answer all before moving on</span>
           </div>
           <div style="padding:28px;">
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q1">1. What best describes how AI works?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">1. What best describes how AI works?</p>
               <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q0" value="0"> <span data-i18n="quiz_q1_a">It retrieves answers from a verified database of facts</span></label>
-                <label class="quiz-opt"><input type="radio" name="q0" value="1"> <span data-i18n="quiz_q1_b">It learns patterns from large amounts of data to make predictions or generate content</span></label>
-                <label class="quiz-opt"><input type="radio" name="q0" value="2"> <span data-i18n="quiz_q1_c">It follows explicit rules programmed for every situation</span></label>
-                <label class="quiz-opt"><input type="radio" name="q0" value="3"> <span data-i18n="quiz_q1_d">It thinks and reasons the way humans do</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q0" value="0"> <span>It retrieves answers from a verified database of facts</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q0" value="1"> <span>It learns patterns from large amounts of data to make predictions or generate content</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q0" value="2"> <span>It follows explicit rules programmed for every situation</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q0" value="3"> <span>It thinks and reasons the way humans do</span></label>
               </div>
-              <div class="quiz-feedback" id="qf-0"></div>
+              <div class="quiz-feedback" id="p1qf-0"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q2">2. A bank's AI keeps declining applications from certain postal codes. What's the most likely cause?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">2. A generative AI tool gives you a confident, detailed response. What should you do?</p>
               <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q1" value="0"> <span data-i18n="quiz_q2_a">A programming error that inserted the wrong postal codes</span></label>
-                <label class="quiz-opt"><input type="radio" name="q1" value="1"> <span data-i18n="quiz_q2_b">The AI independently decided those areas were too risky</span></label>
-                <label class="quiz-opt"><input type="radio" name="q1" value="2"> <span data-i18n="quiz_q2_c">Training data that reflected historical lending discrimination against those areas</span></label>
-                <label class="quiz-opt"><input type="radio" name="q1" value="3"> <span data-i18n="quiz_q2_d">The system was manually configured to filter by postal code</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q1" value="0"> <span>Trust it &mdash; AI wouldn&apos;t sound confident if it weren&apos;t accurate</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q1" value="1"> <span>Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q1" value="2"> <span>Assume it&apos;s wrong &mdash; AI is generally unreliable</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q1" value="3"> <span>Ask the AI if it&apos;s sure, and trust that answer</span></label>
               </div>
-              <div class="quiz-feedback" id="qf-1"></div>
+              <div class="quiz-feedback" id="p1qf-1"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q3">3. Which type of AI would most likely be used to automatically shortlist job applications?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">3. Spotify, Netflix, Gmail and Face ID all use AI. What do they have in common?</p>
               <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q2" value="0"> <span data-i18n="quiz_q3_a">Generative AI &mdash; it generates new content</span></label>
-                <label class="quiz-opt"><input type="radio" name="q2" value="1"> <span data-i18n="quiz_q3_b">Computer Vision &mdash; it processes images and video</span></label>
-                <label class="quiz-opt"><input type="radio" name="q2" value="2"> <span data-i18n="quiz_q3_c">Predictive / Decision AI &mdash; it classifies and scores inputs</span></label>
-                <label class="quiz-opt"><input type="radio" name="q2" value="3"> <span data-i18n="quiz_q3_d">None of the above &mdash; AI isn't used in hiring processes</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q2" value="0"> <span>They all use the same underlying AI model</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q2" value="1"> <span>They were all built to generate new content</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q2" value="2"> <span>They all use pattern recognition to make predictions about what you want or need</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q2" value="3"> <span>They all require a human to approve every decision</span></label>
               </div>
-              <div class="quiz-feedback" id="qf-2"></div>
+              <div class="quiz-feedback" id="p1qf-2"></div>
             </div>
 
-            <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q4">4. A generative AI tool gives you a detailed, confident response. What should you do?</p>
-              <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q3" value="0"> <span data-i18n="quiz_q4_a">Trust it &mdash; AI wouldn't sound confident if it weren't accurate</span></label>
-                <label class="quiz-opt"><input type="radio" name="q3" value="1"> <span data-i18n="quiz_q4_b">Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
-                <label class="quiz-opt"><input type="radio" name="q3" value="2"> <span data-i18n="quiz_q4_c">Assume it's wrong &mdash; AI is generally unreliable</span></label>
-                <label class="quiz-opt"><input type="radio" name="q3" value="3"> <span data-i18n="quiz_q4_d">Ask the AI if it's sure, and trust that answer</span></label>
-              </div>
-              <div class="quiz-feedback" id="qf-3"></div>
+            <div id="quiz-p1-submit-wrap">
+              <button class="btn btn--primary" type="button" onclick="submitQuizP1()">Check my answers &rarr;</button>
+              <div id="quiz-p1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 3 questions before checking.</div>
             </div>
-
-            <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q5">5. When an AI system makes a harmful decision, who is legally responsible?</p>
-              <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q4" value="0"> <span data-i18n="quiz_q5_a">The AI itself &mdash; it made the decision</span></label>
-                <label class="quiz-opt"><input type="radio" name="q4" value="1"> <span data-i18n="quiz_q5_b">Only the engineers who originally wrote the code</span></label>
-                <label class="quiz-opt"><input type="radio" name="q4" value="2"> <span data-i18n="quiz_q5_c">The organisation that deployed and used the AI</span></label>
-                <label class="quiz-opt"><input type="radio" name="q4" value="3"> <span data-i18n="quiz_q5_d">No one &mdash; automated decisions don't carry legal accountability</span></label>
-              </div>
-              <div class="quiz-feedback" id="qf-4"></div>
-            </div>
-
-            <div id="quiz-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuiz()" data-i18n="quiz_btn_check">Check my answers &rarr;</button>
-              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;" data-i18n="quiz_err">Please answer all 5 questions before checking.</div>
-            </div>
-            <div id="quiz-result" style="display:none; margin-top:20px;"></div>
-            <div id="quiz-advance-wrap" style="display:none; text-align:right; margin-top:16px;">
-              <button class="btn btn--primary" type="button" onclick="advancePhase(0)" data-i18n="quiz_btn_advance">Move to Encounter &rarr;</button>
+            <div id="quiz-p1-result" style="display:none; margin-top:20px;"></div>
+            <div id="quiz-p1-advance-wrap" style="display:none; text-align:right; margin-top:16px;">
+              <button class="btn btn--primary" type="button" onclick="advancePhase(0)">Move to Encounter &rarr;</button>
             </div>
 
           </div>
@@ -786,6 +764,77 @@
           </div>
         </div>
 
+        <!-- KNOWLEDGE CHECK: PHASE 3 -->
+        <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
+          <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;" data-i18n="quiz_badge">Knowledge Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">5 questions &middot; check your understanding</span>
+          </div>
+          <div style="padding:28px;">
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q1">1. What best describes how AI works?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q0" value="0"> <span data-i18n="quiz_q1_a">It retrieves answers from a verified database of facts</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q0" value="1"> <span data-i18n="quiz_q1_b">It learns patterns from large amounts of data to make predictions or generate content</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q0" value="2"> <span data-i18n="quiz_q1_c">It follows explicit rules programmed for every situation</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q0" value="3"> <span data-i18n="quiz_q1_d">It thinks and reasons the way humans do</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-0"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q2">2. A bank's AI keeps declining applications from certain postal codes. What's the most likely cause?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q1" value="0"> <span data-i18n="quiz_q2_a">A programming error that inserted the wrong postal codes</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q1" value="1"> <span data-i18n="quiz_q2_b">The AI independently decided those areas were too risky</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q1" value="2"> <span data-i18n="quiz_q2_c">Training data that reflected historical lending discrimination against those areas</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q1" value="3"> <span data-i18n="quiz_q2_d">The system was manually configured to filter by postal code</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-1"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q3">3. Which type of AI would most likely be used to automatically shortlist job applications?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q2" value="0"> <span data-i18n="quiz_q3_a">Generative AI &mdash; it generates new content</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q2" value="1"> <span data-i18n="quiz_q3_b">Computer Vision &mdash; it processes images and video</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q2" value="2"> <span data-i18n="quiz_q3_c">Predictive / Decision AI &mdash; it classifies and scores inputs</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q2" value="3"> <span data-i18n="quiz_q3_d">None of the above &mdash; AI isn't used in hiring processes</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-2"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q4">4. A generative AI tool gives you a detailed, confident response. What should you do?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q3" value="0"> <span data-i18n="quiz_q4_a">Trust it &mdash; AI wouldn't sound confident if it weren't accurate</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q3" value="1"> <span data-i18n="quiz_q4_b">Verify the key facts &mdash; AI confidence is not a signal of accuracy</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q3" value="2"> <span data-i18n="quiz_q4_c">Assume it's wrong &mdash; AI is generally unreliable</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q3" value="3"> <span data-i18n="quiz_q4_d">Ask the AI if it's sure, and trust that answer</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-3"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q5">5. When an AI system makes a harmful decision, who is legally responsible?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q4" value="0"> <span data-i18n="quiz_q5_a">The AI itself &mdash; it made the decision</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q4" value="1"> <span data-i18n="quiz_q5_b">Only the engineers who originally wrote the code</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q4" value="2"> <span data-i18n="quiz_q5_c">The organisation that deployed and used the AI</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q4" value="3"> <span data-i18n="quiz_q5_d">No one &mdash; automated decisions don't carry legal accountability</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-4"></div>
+            </div>
+
+            <div id="quiz-p3-submit-wrap">
+              <button class="btn btn--primary" type="button" onclick="submitQuizP3()" data-i18n="quiz_btn_check">Check my answers &rarr;</button>
+              <div id="quiz-p3-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;" data-i18n="quiz_err">Please answer all 5 questions before checking.</div>
+            </div>
+            <div id="quiz-p3-result" style="display:none; margin-top:20px;"></div>
+          </div>
+        </div>
+
         <div id="glossary-note" class="callout" style="margin-top:28px; display:none;">
           <strong>New to some of these terms?</strong> The <a href="glossary.html" style="color:var(--green-dark); font-weight:700;">AI Glossary &rarr;</a> has plain-language definitions for every term used in this course.
 
@@ -1046,36 +1095,93 @@ function advancePhase(fromPhase) {
   }
 }
 
-// Quiz: correct answer index (0-based) for each of the 5 questions
-const QUIZ_CORRECT = [1, 2, 2, 1, 2];
+// === Phase 1 Knowledge Check (3 questions — core concepts) ===
+const P1_QUIZ_CORRECT = [1, 1, 2];
 
-function getQuizExp() {
+function submitQuizP1() {
+  var allAnswered = true;
+  var score = 0;
+  var explanations = [
+    { ok: 'Right \u2014 AI is pattern recognition at massive scale, not fact retrieval or rule-following.',
+      no: 'Not quite. AI learns patterns from data \u2014 it doesn\u2019t retrieve from a database, follow pre-programmed rules, or think like a human.' },
+    { ok: 'Right \u2014 AI confidence is not a reliability signal. Always verify.',
+      no: 'Verification is the right move. AI confidence tells you nothing about accuracy \u2014 it can sound certain and still be wrong.' },
+    { ok: 'Correct \u2014 pattern recognition is the common thread across all types of AI.',
+      no: 'They all use pattern recognition to make predictions \u2014 the same underlying approach even though they\'re built by different companies for different purposes.' },
+  ];
+  P1_QUIZ_CORRECT.forEach(function(correct, i) {
+    var sel = document.querySelector('input[name="p1_q' + i + '"]:checked');
+    if (!sel) { allAnswered = false; return; }
+    var isOk = parseInt(sel.value) === correct;
+    if (isOk) score++;
+    var fb = document.getElementById('p1qf-' + i);
+    var exp = explanations[i];
+    fb.style.display = 'block';
+    fb.style.background = isOk ? 'var(--green-pale)' : '#FFF5F5';
+    fb.style.border = isOk ? '1px solid var(--green-light)' : '1px solid #FCA5A5';
+    fb.style.color = isOk ? 'var(--green-dark)' : '#7F1D1D';
+    fb.innerHTML = '<strong>' + (isOk ? 'Correct.' : 'Not quite.') + '</strong> ' + (isOk ? exp.ok : exp.no);
+    document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.disabled = true; });
+  });
+  if (!allAnswered) {
+    document.getElementById('quiz-p1-err').style.display = 'block';
+    return;
+  }
+  document.getElementById('quiz-p1-err').style.display = 'none';
+  document.getElementById('quiz-p1-submit-wrap').style.display = 'none';
+  var result = document.getElementById('quiz-p1-result');
+  result.style.display = 'block';
+  if (score >= 2) {
+    result.innerHTML = '<div style="background:var(--green-pale); border:1.5px solid var(--green-mid); border-radius:var(--radius); padding:16px 20px;"><strong style="color:var(--green-dark);">' + score + '/3 correct \u2014 well done.</strong><p style="margin:6px 0 0; font-size:0.9em;">You\'ve got the core concepts. Move to Encounter when you\'re ready.</p></div>';
+    document.getElementById('quiz-p1-advance-wrap').style.display = 'block';
+  } else {
+    result.innerHTML = '<div style="background:#FFF5F5; border:1.5px solid #FCA5A5; border-radius:var(--radius); padding:16px 20px;"><strong style="color:#DC2626;">' + score + '/3 correct \u2014 review the lessons above and try again.</strong><p style="margin:10px 0 0;"><button type="button" class="btn btn--outline btn--sm" onclick="resetQuizP1()">Try again &rarr;</button></p></div>';
+  }
+}
+
+function resetQuizP1() {
+  for (var i = 0; i < 3; i++) {
+    document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.disabled = false; r.checked = false; });
+    var fb = document.getElementById('p1qf-' + i);
+    fb.style.display = 'none';
+    fb.innerHTML = '';
+  }
+  document.getElementById('quiz-p1-result').style.display = 'none';
+  document.getElementById('quiz-p1-result').innerHTML = '';
+  document.getElementById('quiz-p1-submit-wrap').style.display = 'block';
+  document.getElementById('quiz-p1-advance-wrap').style.display = 'none';
+}
+
+// === Phase 3 Knowledge Check (5 questions — deeper material from Let's Go Deeper) ===
+const P3_QUIZ_CORRECT = [1, 2, 2, 1, 2];
+
+function getP3QuizExp() {
   var t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : null;
   if (!t) t = {};
   return [
-    { ok: t.qf0_ok || 'Right &mdash; AI is pattern recognition at massive scale, not fact retrieval or rule-following.',
-      no: t.qf0_no || 'Not quite. AI learns patterns from data &mdash; it doesn\'t retrieve from a database, follow pre-programmed rules, or think like a human.' },
-    { ok: t.qf1_ok || 'Correct &mdash; AI reflects the biases baked into its training data.',
+    { ok: t.qf0_ok || 'Right \u2014 AI is pattern recognition at massive scale, not fact retrieval or rule-following.',
+      no: t.qf0_no || 'Not quite. AI learns patterns from data \u2014 it doesn\u2019t retrieve from a database, follow pre-programmed rules, or think like a human.' },
+    { ok: t.qf1_ok || 'Correct \u2014 AI reflects the biases baked into its training data.',
       no: t.qf1_no || 'The culprit is training data. If historical lending data reflected discrimination, the AI learns to repeat those patterns.' },
-    { ok: t.qf2_ok || 'Correct &mdash; Predictive / Decision AI classifies and scores inputs at scale.',
+    { ok: t.qf2_ok || 'Correct \u2014 Predictive / Decision AI classifies and scores inputs at scale.',
       no: t.qf2_no || 'The right type is Predictive / Decision AI. Generative AI creates content; Computer Vision processes images and video.' },
-    { ok: t.qf3_ok || 'Right &mdash; AI confidence is not a reliability signal.',
+    { ok: t.qf3_ok || 'Right \u2014 AI confidence is not a reliability signal.',
       no: t.qf3_no || 'Verification is always the right move. AI confidence tells you nothing about accuracy.' },
-    { ok: t.qf4_ok || 'Correct &mdash; accountability rests with the organisations that deploy and use AI, not the software itself.',
+    { ok: t.qf4_ok || 'Correct \u2014 accountability rests with the organisations that deploy and use AI, not the software itself.',
       no: t.qf4_no || '"The algorithm decided" is not a legal defence. Accountability rests with the organisations that deploy and use AI.' },
   ];
 }
 
-function submitQuiz() {
+function submitQuizP3() {
   var score = 0;
   var allAnswered = true;
-  var quizExp = getQuizExp();
-  QUIZ_CORRECT.forEach(function(correct, i) {
-    var sel = document.querySelector('input[name="q' + i + '"]:checked');
+  var quizExp = getP3QuizExp();
+  P3_QUIZ_CORRECT.forEach(function(correct, i) {
+    var sel = document.querySelector('input[name="p3_q' + i + '"]:checked');
     if (!sel) { allAnswered = false; return; }
     var isOk = parseInt(sel.value) === correct;
     if (isOk) score++;
-    var fb = document.getElementById('qf-' + i);
+    var fb = document.getElementById('p3qf-' + i);
     var exp = quizExp[i];
     fb.style.display = 'block';
     if (isOk) {
@@ -1089,41 +1195,33 @@ function submitQuiz() {
       fb.style.color = '#7F1D1D';
       fb.innerHTML = '<strong>Not quite.</strong> ' + exp.no;
     }
-    document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    document.querySelectorAll('input[name="p3_q' + i + '"]').forEach(function(r) { r.disabled = true; });
   });
-
   if (!allAnswered) {
-    document.getElementById('quiz-err').style.display = 'block';
+    document.getElementById('quiz-p3-err').style.display = 'block';
     return;
   }
-  document.getElementById('quiz-err').style.display = 'none';
-  document.getElementById('quiz-submit-wrap').style.display = 'none';
-
-  var t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
-  var result = document.getElementById('quiz-result');
+  document.getElementById('quiz-p3-err').style.display = 'none';
+  document.getElementById('quiz-p3-submit-wrap').style.display = 'none';
+  var result = document.getElementById('quiz-p3-result');
   result.style.display = 'block';
   if (score >= 3) {
-    var passHtml = (t.quiz_pass_html || '<strong style="color:var(--green-dark);">{score}/5 correct &mdash; well done.</strong><p style="margin:6px 0 0; font-size:0.9em;">You\'ve got the core concepts. Move to Apply when you\'re ready.</p>').replace('{score}', score);
-    result.innerHTML = '<div style="background:var(--green-pale); border:1.5px solid var(--green-mid); border-radius:var(--radius); padding:16px 20px;">' + passHtml + '</div>';
-    document.getElementById('quiz-advance-wrap').style.display = 'block';
+    result.innerHTML = '<div style="background:var(--green-pale); border:1.5px solid var(--green-mid); border-radius:var(--radius); padding:16px 20px;"><strong style="color:var(--green-dark);">' + score + '/5 correct \u2014 well done.</strong><p style="margin:6px 0 0; font-size:0.9em;">You\'ve got the deeper concepts. Click \'Done reflecting\' below to move to Apply.</p></div>';
   } else {
-    var failHtml = (t.quiz_fail_html || '<strong style="color:#DC2626;">{score}/5 correct &mdash; review the content above and try again.</strong>').replace('{score}', score);
-    var retryBtn = '<p style="margin:10px 0 0;"><button type="button" class="btn btn--outline btn--sm" onclick="resetQuiz()">' + (t.quiz_btn_retry || 'Try again ?') + '</button></p>';
-    result.innerHTML = '<div style="background:#FFF5F5; border:1.5px solid #FCA5A5; border-radius:var(--radius); padding:16px 20px;">' + failHtml + retryBtn + '</div>';
+    result.innerHTML = '<div style="background:#FFF5F5; border:1.5px solid #FCA5A5; border-radius:var(--radius); padding:16px 20px;"><strong style="color:#DC2626;">' + score + '/5 \u2014 review the material above and try again.</strong><p style="margin:10px 0 0;"><button type="button" class="btn btn--outline btn--sm" onclick="resetQuizP3()">Try again &rarr;</button></p></div>';
   }
 }
 
-function resetQuiz() {
+function resetQuizP3() {
   for (var i = 0; i < 5; i++) {
-    document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = false; r.checked = false; });
-    var fb = document.getElementById('qf-' + i);
+    document.querySelectorAll('input[name="p3_q' + i + '"]').forEach(function(r) { r.disabled = false; r.checked = false; });
+    var fb = document.getElementById('p3qf-' + i);
     fb.style.display = 'none';
     fb.innerHTML = '';
   }
-  document.getElementById('quiz-result').style.display = 'none';
-  document.getElementById('quiz-result').innerHTML = '';
-  document.getElementById('quiz-submit-wrap').style.display = 'block';
-  document.getElementById('quiz-advance-wrap').style.display = 'none';
+  document.getElementById('quiz-p3-result').style.display = 'none';
+  document.getElementById('quiz-p3-result').innerHTML = '';
+  document.getElementById('quiz-p3-submit-wrap').style.display = 'block';
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>

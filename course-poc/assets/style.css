@@ -111,7 +111,7 @@ section.bg-white { background: var(--white); }
 
 /* ---- Nav dropdown ---- */
 .nav__dropdown { position: relative; }
-.nav__dropdown > a { display: flex; align-items: center; gap: 3px; }
+.nav__dropdown > a { display: inline-flex; align-items: center; gap: 3px; }
 .nav__dropdown > a::after { content: '▾'; font-size: 0.7em; opacity: 0.55; line-height: 1; margin-top: 1px; }
 .nav__dropdown-menu {
   display: none;
