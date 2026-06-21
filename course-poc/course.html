@@ -180,16 +180,16 @@
 
     <!-- Module 7 sector deep-dive spans full width below the grid -->
     <div class="module-m7">
-      <div class="module-m7__eyebrow">Module 7 &middot; Sector Deep-Dive &middot; Choose your track</div>
-      <h3 class="module-m7__title">Your Sector Deep-Dive</h3>
-      <p style="font-size:0.88em; color:rgba(255,255,255,0.8); margin-bottom:12px; line-height:1.65;">Apply everything you've built to the AI tools, risks, and decisions that define your specific sector. Each track uses case studies drawn from that industry &mdash; the risks your colleagues actually face, the tools your organisation is already buying.</p>
-      <p style="font-size:0.88em; font-weight:600; color:white; margin-bottom:6px;">You'll be able to:</p>
-      <ul style="font-size:0.88em; color:rgba(255,255,255,0.8); padding-left:18px; margin-bottom:16px;">
-        <li>Identify the highest-risk AI applications in your sector</li>
-        <li>Apply the Funda Five to sector-specific case studies</li>
-        <li>Produce a sector-relevant AI judgment for your capstone</li>
-      </ul>
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div class="module-m7__eyebrow">Module 7 &middot; Sector Deep-Dive &middot; Choose your track</div>
+        <h3 class="module-m7__title">Your Sector Deep-Dive</h3>
+        <p class="module-m7__desc">Apply everything you've built to the AI tools, risks, and decisions that define your specific sector. Each track uses case studies drawn from that industry &mdash; the risks your colleagues actually face, the tools your organisation is already buying.</p>
+        <p class="module-m7__outcomes-label">You'll be able to:</p>
+        <ul class="module-m7__outcomes">
+          <li>Identify the highest-risk AI applications in your sector</li>
+          <li>Apply the Funda Five to sector-specific case studies</li>
+          <li>Produce a sector-relevant AI judgment for your capstone</li>
+        </ul>
         <div class="module-m7__tracks">
           <span class="module-m7__track-chip">🏢 Corporate</span>
           <span class="module-m7__track-chip">🏛️ Government</span>
@@ -197,8 +197,8 @@
           <span class="module-m7__track-chip">🏥 Healthcare</span>
           <span class="module-m7__track-chip">🎓 Education</span>
         </div>
-        <a href="#sectors" class="btn btn--white btn--lg" style="white-space:nowrap;">Find your sector path &darr;</a>
       </div>
+      <a href="#sectors" class="btn btn--white btn--lg module-m7__btn">Find your sector path &darr;</a>
     </div>
 
   </div>
@@ -209,15 +209,14 @@
   <div class="container">
     <span class="eyebrow" data-i18n="sector_eyebrow">Find Your Sector</span>
     <h2 data-i18n-html="sector_h2_html">Every module applies across sectors.<br>But some case studies hit harder in your world.</h2>
-    <p class="lead" data-i18n="sector_lead">Click your sector to see which modules and case studies are most relevant to your role.</p>
+    <p class="lead">Choose your sector to see which modules and case studies hit hardest in your world &mdash; and what you&rsquo;ll work through in your sector deep-dive.</p>
 
-    <div class="sector-grid">
+    <div class="sector-grid sector-grid--detail">
 
-      <div class="sector-card" id="sc-corporate">
+      <div class="sector-card is-open" id="sc-corporate">
         <div class="sector-icon">🏢</div>
         <div class="sector-name" data-i18n="sector_corp_name">Corporate &amp; Business</div>
         <div class="sector-desc" data-i18n="sector_corp_desc">Operations, HR, marketing, and management teams using AI in professional workflows</div>
-        <button type="button" class="sector-toggle" onclick="toggleSector('sc-corporate', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M2</span>How AI hiring tools expose your organisation to EEA liability</div>
@@ -230,15 +229,14 @@
             <div class="sector-tackle__item">&rarr; Building a team AI use policy that protects your organisation without killing productivity</div>
             <div class="sector-tackle__item">&rarr; Prompting AI for business decisions: what to verify before anyone acts on the output</div>
           </div>
-          <a href="module-7-corporate.html" style="display:inline-block; margin-top:12px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+          <a href="register.html" class="sector-cta-link">Register to start your sector path &rarr;</a>
         </div>
       </div>
 
-      <div class="sector-card" id="sc-government">
+      <div class="sector-card is-open" id="sc-government">
         <div class="sector-icon">🏛️</div>
         <div class="sector-name" data-i18n="sector_gov_name">Government &amp; Public Sector</div>
         <div class="sector-desc" data-i18n="sector_gov_desc">Policy teams, administrators, and civil servants working with AI-assisted decisions</div>
-        <button type="button" class="sector-toggle" onclick="toggleSector('sc-government', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>The DCDT AI policy hallucination &mdash; what failed and what it cost</div>
@@ -251,15 +249,14 @@
             <div class="sector-tackle__item">&rarr; When and how to challenge an algorithmic recommendation in a policy or service context</div>
             <div class="sector-tackle__item">&rarr; Preparing your department for DCDT&rsquo;s incoming AI regulatory framework</div>
           </div>
-          <a href="module-7-government.html" style="display:inline-block; margin-top:12px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+          <a href="register.html" class="sector-cta-link">Register to start your sector path &rarr;</a>
         </div>
       </div>
 
-      <div class="sector-card" id="sc-finance">
+      <div class="sector-card is-open" id="sc-finance">
         <div class="sector-icon">💰</div>
         <div class="sector-name" data-i18n="sector_fin_name">Finance &amp; Banking</div>
         <div class="sector-desc" data-i18n="sector_fin_desc">Financial services professionals navigating AI-driven credit scoring, fraud detection, and compliance</div>
-        <button type="button" class="sector-toggle" onclick="toggleSector('sc-finance', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M2</span>The African fintech gender penalty &mdash; how bias hides in credit models</div>
@@ -272,15 +269,14 @@
             <div class="sector-tackle__item">&rarr; What FSCA expects from institutions using AI for client-facing financial decisions</div>
             <div class="sector-tackle__item">&rarr; Documenting AI use in lending and investment decisions to survive a compliance audit</div>
           </div>
-          <a href="module-7-finance.html" style="display:inline-block; margin-top:12px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+          <a href="register.html" class="sector-cta-link">Register to start your sector path &rarr;</a>
         </div>
       </div>
 
-      <div class="sector-card" id="sc-medical">
+      <div class="sector-card is-open" id="sc-medical">
         <div class="sector-icon">🏥</div>
         <div class="sector-name" data-i18n="sector_med_name">Medical &amp; Healthcare</div>
         <div class="sector-desc" data-i18n="sector_med_desc">Clinicians, health administrators, and public health professionals encountering clinical AI tools</div>
-        <button type="button" class="sector-toggle" onclick="toggleSector('sc-medical', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>When AI-generated clinical information looks authoritative but isn't</div>
@@ -293,15 +289,14 @@
             <div class="sector-tackle__item">&rarr; What informed consent looks like when AI plays a role in a patient recommendation</div>
             <div class="sector-tackle__item">&rarr; Reading a clinical AI study for what it actually proves vs. what the vendor is claiming</div>
           </div>
-          <a href="module-7-healthcare.html" style="display:inline-block; margin-top:12px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+          <a href="register.html" class="sector-cta-link">Register to start your sector path &rarr;</a>
         </div>
       </div>
 
-      <div class="sector-card" id="sc-education">
+      <div class="sector-card is-open" id="sc-education">
         <div class="sector-icon">🎓</div>
         <div class="sector-name" data-i18n="sector_edu_name">Education</div>
         <div class="sector-desc" data-i18n="sector_edu_desc">Educators and administrators in higher education and schools managing student AI use and institutional tools</div>
-        <button type="button" class="sector-toggle" onclick="toggleSector('sc-education', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>Hallucination in student submissions and institutional documents</div>
@@ -314,7 +309,7 @@
             <div class="sector-tackle__item">&rarr; Evaluating AI tutoring and assessment tools before procurement</div>
             <div class="sector-tackle__item">&rarr; Teaching students to use AI as a thinking partner, not a shortcut</div>
           </div>
-          <a href="module-7-education.html" style="display:inline-block; margin-top:12px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+          <a href="register.html" class="sector-cta-link">Register to start your sector path &rarr;</a>
         </div>
       </div>
 
