@@ -247,3 +247,75 @@ A fresh session should know these terms:
 - Fix POPIA/privacy policy on AfriversalAI site (standing issue since Session 4)
 - Research MICT SETA discretionary grant application process
 - Identify 1–2 early-adopter organisations for pilot cohort outreach
+
+---
+
+## Session: 2026-06-21 (morning)
+
+**What was worked on:**
+- about.html nav: Certificate was missing from About dropdown on about.html (data-i18n on Funda Five link broke the batch script's regex — fixed with direct Edit)
+- about.html bios: all three founders updated with mom's rewritten bios, new titles, updated credentials, new section header "Meet the Founding Team"
+- about.html: entity description updated to "US and South African registered entity"
+- pricing.html: Individual R2,995 → R14,995 Founding Member (future cohorts R19,995); Corporate R2,295/learner → R12,500/employee starting
+- pricing.html: added "Why R14,995 Works" value anchor section with SA professional spend comparisons
+- pricing.html: B-BBEE note updated to reflect dual entity registration
+- All pages: nav link "Course Preview" → "Preview Course" (19 HTML files + translations.js in all 4 languages)
+- All pages: "Phase 1 is free" → "Phases 1 & 2 are free" across HTML and translations.js (m0_free_note + cta_lead in EN/AF/FR/ZU)
+- pricing.html FAQ: updated to say Phases 1 and 2 (Concept and Encounter) are free
+
+**Decisions made:**
+- R14,995 Founding Member / R12,500 corporate validated against SA market: SETA-accredited short courses range R15,000–R45,000; non-accredited R2,000–R8,000/day. Pricing is credible and defensible.
+- Both Phase 1 (Concept) AND Phase 2 (Encounter) are free — gate sits after Encounter, before Reflect. All messaging updated to reflect this.
+- "Preview Course" (not "Course Preview") is the final nav label per user's latest direction
+- Dual entity (US + SA) is now confirmed — entity text and B-BBEE note updated accordingly
+
+**Open items / next steps:**
+- Auth guard on glossary.html (standing)
+- Certificate.html accuracy review (standing)
+- POPIA/privacy policy fix (standing)
+- Google Drive upload of course-outline.html (standing — needs manual upload or Google Doc creation)
+- Pricing hero lead text still says "Pilot cohort introductory pricing" — may want to update to match new R14,995 framing
+
+**Files changed:**
+- course-poc/about.html (bios, entity text, nav fix, free phase messaging)
+- course-poc/pricing.html (pricing restructure, FAQ, B-BBEE, free phase messaging)
+- course-poc/course.html, module-0.html, index.html (free phase messaging, nav rename)
+- course-poc/certificate.html, contact.html, funda-five.html, glossary.html, login.html, module-1.html, module-7-*.html (×5), privacy.html, register.html, terms.html (nav rename)
+- course-poc/assets/translations.js (nav_fundamentals, m0_free_note, cta_lead — all 4 languages)
+
+---
+
+## Session: 2026-06-21 (night — previous session)
+
+**What was worked on:**
+- Renamed "AI Fundamentals" nav link to "Course Preview" across all pages (19 files)
+- Moved Certificate from top-level nav into About dropdown (after The Funda Five) across all pages (18 files)
+- Reduced hero padding (100px → 68px) and section padding (80px → 52px) in style.css — too much vertical space
+- course.html "How It Works": reordered phases to Concept → Encounter → Reflect → Apply with updated copy
+- course.html: removed Module 1 "Free Preview" badge and button (Module 0 is the only free preview)
+- course.html: bottom CTA now links to Module 0 instead of Module 1
+- Removed "Course Overview" link from footers across all 18 pages (internal-only doc)
+- Fixed pricing.html: CSS `content` property was rendering `?` and `&mdash;` literally — replaced with actual Unicode chars
+- Fixed Module 6 card emoji showing as `?` across index.html, course.html, pricing.html
+- Explored moving teaser gate from after Encounter to after Concept — reverted at user request; gate stays after Encounter
+
+**Decisions made:**
+- Gate position: stays after Encounter (Phase 2), before Reflect. Guests can do Encounter for free, then hit the gate. Better UX than gating before Encounter.
+- "Course Preview" is clearer than "AI Fundamentals" for new visitors — sets expectation that it's a free sample, not the full course
+- Certificate belongs under About dropdown, not as a standalone nav item
+- Module 0 remains the only free/preview module; Module 1 is locked like the rest
+
+**Open items / next steps:**
+- Auth guard on glossary.html (logged-in users only — was on the list last session too)
+- Certificate.html accuracy review (content was flagged as possibly outdated)
+- POPIA/privacy policy fix (standing since Session 4)
+- Google Drive upload of course-outline.html — MCP doesn't support raw file upload; needs to be created as a Google Doc or uploaded manually to AfriversalAI Drive folder (ID: `1Rj51yfJCaf9CLyjWv6aPHbdxPB-SgmFl`)
+- Module-0 Let's Go Deeper and phase structure: user considered moving Let's Go Deeper from Phase 3 to Phase 2 (Encounter) but decided to leave it where it is
+
+**Files changed:**
+- course-poc/assets/style.css (hero + section padding)
+- course-poc/course.html (phases, Module 1 preview, CTA)
+- course-poc/index.html (emoji fix, nav, footer)
+- course-poc/module-0.html (nav, footer)
+- course-poc/pricing.html (CSS content fix, nav, footer)
+- course-poc/about.html, certificate.html, contact.html, funda-five.html, glossary.html, login.html, module-1.html, module-7-*.html (×5), privacy.html, register.html, terms.html (nav + footer across all)
