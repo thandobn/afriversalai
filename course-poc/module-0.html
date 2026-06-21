@@ -1027,9 +1027,12 @@ function advancePhase(fromPhase) {
     document.getElementById('prog-1').classList.add('is-done');
     saveProgress('module-0', 1);
     const gate = document.getElementById('teaser-gate');
-    gate.style.display = 'block';
-    setTimeout(() => gate.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
-    return;
+    if (!window._m0UserLoggedIn) {
+      gate.style.display = 'block';
+      setTimeout(() => gate.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+      return;
+    }
+    // Logged-in user: skip gate, fall through to generic phase advance
   }
 
   // Phase 2: Reflect &mdash; require text in both textareas
@@ -1233,6 +1236,7 @@ function resetQuizP3() {
   getSession().then(async session => {
     await updateNavForAuth()
     if (!session) return
+    window._m0UserLoggedIn = true
     // Reveal glossary note for authenticated users
     var gn = document.getElementById('glossary-note')
     if (gn) gn.style.display = ''
