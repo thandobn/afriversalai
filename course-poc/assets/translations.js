@@ -343,7 +343,7 @@ window.TRANSLATIONS = {
     /* ── course.html ── */
     course_hero_eyebrow:  'Core Course',
     course_hero_h1_html:  'AI Judgment for<br>South African Professionals',
-    course_hero_lead:     'A free foundation module, then six core modules — each built around a real SA case study. One framework you\'ll use for the rest of your career.',
+    course_hero_lead:     'A free foundation module, then seven core modules — each built around a real SA case study. One framework you\'ll use for the rest of your career.',
     course_map_eyebrow:   'Module Map',
     course_map_h2:        'What you\'ll learn — and what you\'ll do with it',
     course_how_eyebrow:   'How It Works',
@@ -801,7 +801,7 @@ window.TRANSLATIONS = {
     /* course.html */
     course_hero_eyebrow: 'Hoofkursus',
     course_hero_h1_html: 'KI-Oordeel vir<br>Suid-Afrikaanse Professioneles',
-    course_hero_lead:    `'n Gratis grondmodule, dan ses hoofmodules — elk gebou rondom 'n werklike Suid-Afrikaanse gevallestudie. 'n Raamwerk wat jy vir die res van jou loopbaan sal gebruik.`,
+    course_hero_lead:    `'n Gratis grondmodule, dan sewe hoofmodules — elk gebou rondom 'n werklike Suid-Afrikaanse gevallestudie. 'n Raamwerk wat jy vir die res van jou loopbaan sal gebruik.`,
     course_map_eyebrow:  'Moduleoorsig',
     course_map_h2:       'Wat jy sal leer — en wat jy daarmee sal doen',
     course_how_eyebrow:  'Hoe Dit Werk',
@@ -1246,7 +1246,7 @@ window.TRANSLATIONS = {
     /* course.html */
     course_hero_eyebrow:  'Cours Principal',
     course_hero_h1_html:  'Jugement sur l’IA pour<br>les Professionnels Sud-Africains',
-    course_hero_lead:     'Un module de base gratuit, puis six modules principaux — chacun construit autour d’une vraie étude de cas sud-africaine. Un cadre que vous utiliserez pour le reste de votre carrière.',
+    course_hero_lead:     ‘Un module de base gratuit, puis sept modules principaux — chacun construit autour d’une vraie étude de cas sud-africaine. Un cadre que vous utiliserez pour le reste de votre carrière.’,
     course_map_eyebrow:   'Plan du Cours',
     course_map_h2:        'Ce que vous apprendrez — et ce que vous en ferez',
     course_how_eyebrow:   'Comment ça Fonctionne',
@@ -1505,7 +1505,7 @@ window.TRANSLATIONS = {
     /* course.html */
     course_hero_eyebrow: 'Ikhosi Eyinhloko',
     course_hero_h1_html: 'Ukwahlulela I-AI<br>Kubachwepheshe baseNingizimu Afrika',
-    course_hero_lead:    'Imoduli yezisekelo yamahhala, bese imoduli eziyisithupha eziyinhloko — ngayinye yakhiwe phezu kwezimo zangempela zaseNingizimu Afrika.',
+    course_hero_lead:    'Imoduli yezisekelo yamahhala, bese imoduli eziyisikhombisa eziyinhloko — ngayinye yakhiwe phezu kwezimo zangempela zaseNingizimu Afrika.',
     course_map_eyebrow:  'Isifanekiso Sezamodul',
     course_map_h2:       'Okuzofundwa — nokozokwenza ngakho',
     course_how_eyebrow:  'Indlela Ekusebenza Ngayo',

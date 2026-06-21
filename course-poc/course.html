@@ -46,7 +46,7 @@
 <section class="hero">
   <span class="eyebrow eyebrow--light" data-i18n="course_hero_eyebrow">Core Course</span>
   <h1 data-i18n-html="course_hero_h1_html">AI Judgment for<br>South African Professionals</h1>
-  <p class="lead lead--light" data-i18n="course_hero_lead">A free foundation module, then six core modules &mdash; each built around a real SA case study. One framework you'll use for the rest of your career. Built for the professional who encounters AI at work and needs to know what to actually do with it.</p>
+  <p class="lead lead--light" data-i18n="course_hero_lead">A free foundation module, then seven core modules &mdash; each built around a real SA case study. One framework you'll use for the rest of your career. Built for the professional who encounters AI at work and needs to know what to actually do with it.</p>
 </section>
 
 <!-- COURSE FACTS -->
@@ -54,8 +54,8 @@
   <div class="container">
     <div class="stat-row">
       <div class="stat-block">
-        <div class="stat-block__number">6</div>
-        <div class="stat-block__label">Core modules &middot; each built around a real SA case study &middot; plus a free foundation module</div>
+        <div class="stat-block__number">7</div>
+        <div class="stat-block__label">Core modules &middot; including your sector deep-dive &middot; plus a free foundation module</div>
       </div>
       <div class="stat-block">
         <div class="stat-block__number">18</div>
@@ -89,7 +89,7 @@
           <span>&middot;</span>
           <span>No technical background required</span>
           <span>&middot;</span>
-          <span style="color:var(--gold); font-weight:600;">Phase 1 free &mdash; register to unlock all phases</span>
+          <span style="color:var(--gold); font-weight:600;">Phases 1 &amp; 2 free &mdash; register to unlock all phases</span>
         </div>
       </div>
       <a href="module-0.html" class="btn btn--gold btn--lg" style="white-space:nowrap; flex-shrink:0;" data-i18n="course_m0_btn">Start Module 0 &rarr;</a>
@@ -176,9 +176,133 @@
         <div class="module-card__case">✅ Dr Math (CSIR) vs. Clinical AI Decision Support</div>
       </div>
 
+      <div class="module-card" style="border:2px solid var(--gold-dark); background:var(--gold-light);">
+        <div class="module-card__num" style="color:var(--gold-dark);">Module 7</div>
+        <h3>Your Sector Deep-Dive</h3>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">Apply everything you've built to the AI tools, risks, and decisions that define your specific sector. Each track uses case studies drawn from that industry.</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <ul style="font-size:0.88em; color:var(--muted); padding-left:18px; margin-bottom:16px;">
+          <li>Identify the highest-risk AI applications in your sector</li>
+          <li>Apply the Funda Five to sector-specific case studies</li>
+          <li>Produce a sector-relevant AI judgment for your capstone</li>
+        </ul>
+        <div class="module-card__case" style="background:var(--gold-dark); color:white;">🏢 Corporate &nbsp;·&nbsp; 🏛️ Government &nbsp;·&nbsp; 💰 Finance &nbsp;·&nbsp; 🏥 Healthcare &nbsp;·&nbsp; 🎓 Education</div>
+      </div>
+
     </div>
   </div>
 </section>
+
+<!-- SECTOR TRACKS -->
+<section class="bg-pale" id="sectors">
+  <div class="container">
+    <span class="eyebrow" data-i18n="sector_eyebrow">Find Your Sector</span>
+    <h2 data-i18n-html="sector_h2_html">Every module applies across sectors.<br>But some case studies hit harder in your world.</h2>
+    <p class="lead" data-i18n="sector_lead">Click your sector to see which modules and case studies are most relevant to your role.</p>
+
+    <div class="sector-grid">
+
+      <div class="sector-card" id="sc-corporate">
+        <div class="sector-icon">🏢</div>
+        <div class="sector-name" data-i18n="sector_corp_name">Corporate &amp; Business</div>
+        <div class="sector-desc" data-i18n="sector_corp_desc">Operations, HR, marketing, and management teams using AI in professional workflows</div>
+        <button type="button" class="sector-toggle" onclick="toggleSector('sc-corporate', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
+        <div class="sector-path">
+          <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M2</span>How AI hiring tools expose your organisation to EEA liability</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Verifying AI output before it reaches a client or decision-maker</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Who answers when an AI recommendation harms an employee</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Corporate &amp; Business &mdash; your sector deep-dive</div>
+          <a href="module-7-corporate.html" style="display:inline-block; margin-top:8px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+        </div>
+      </div>
+
+      <div class="sector-card" id="sc-government">
+        <div class="sector-icon">🏛️</div>
+        <div class="sector-name" data-i18n="sector_gov_name">Government &amp; Public Sector</div>
+        <div class="sector-desc" data-i18n="sector_gov_desc">Policy teams, administrators, and civil servants working with AI-assisted decisions</div>
+        <button type="button" class="sector-toggle" onclick="toggleSector('sc-government', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
+        <div class="sector-path">
+          <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>The DCDT AI policy hallucination &mdash; what failed and what it cost</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M3</span>How predictive systems reproduce inequality in public services</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Accountability when algorithmic decisions affect citizens' rights</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Government &amp; Public Sector &mdash; your sector deep-dive</div>
+          <a href="module-7-government.html" style="display:inline-block; margin-top:8px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+        </div>
+      </div>
+
+      <div class="sector-card" id="sc-finance">
+        <div class="sector-icon">💰</div>
+        <div class="sector-name" data-i18n="sector_fin_name">Finance &amp; Banking</div>
+        <div class="sector-desc" data-i18n="sector_fin_desc">Financial services professionals navigating AI-driven credit scoring, fraud detection, and compliance</div>
+        <button type="button" class="sector-toggle" onclick="toggleSector('sc-finance', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
+        <div class="sector-path">
+          <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M2</span>The African fintech gender penalty &mdash; how bias hides in credit models</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M3</span>Discriminatory AI outputs and your POPIA obligations</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Regulatory accountability for AI-assisted lending decisions</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Finance &amp; Banking &mdash; your sector deep-dive</div>
+          <a href="module-7-finance.html" style="display:inline-block; margin-top:8px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+        </div>
+      </div>
+
+      <div class="sector-card" id="sc-medical">
+        <div class="sector-icon">🏥</div>
+        <div class="sector-name" data-i18n="sector_med_name">Medical &amp; Healthcare</div>
+        <div class="sector-desc" data-i18n="sector_med_desc">Clinicians, health administrators, and public health professionals encountering clinical AI tools</div>
+        <button type="button" class="sector-toggle" onclick="toggleSector('sc-medical', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
+        <div class="sector-path">
+          <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>When AI-generated clinical information looks authoritative but isn't</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Verification standards before acting on AI diagnostic support</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M6</span>Dr Math (what works) vs. clinical decision AI (what doesn't yet)</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Medical &amp; Healthcare &mdash; your sector deep-dive</div>
+          <a href="module-7-healthcare.html" style="display:inline-block; margin-top:8px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+        </div>
+      </div>
+
+      <div class="sector-card" id="sc-education">
+        <div class="sector-icon">🎓</div>
+        <div class="sector-name" data-i18n="sector_edu_name">Education</div>
+        <div class="sector-desc" data-i18n="sector_edu_desc">Educators and administrators in higher education and schools managing student AI use and institutional tools</div>
+        <button type="button" class="sector-toggle" onclick="toggleSector('sc-education', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
+        <div class="sector-path">
+          <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>Hallucination in student submissions and institutional documents</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Building AI verification into assessment and curriculum design</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M6</span>Dr Math as a model for AI-assisted learning that actually works</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Education &mdash; your sector deep-dive</div>
+          <a href="module-7-education.html" style="display:inline-block; margin-top:8px; font-size:0.82em; font-weight:600; color:var(--green-dark);" data-i18n="sector_start">Start your sector module &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<script>
+  function toggleSector(id, btn) {
+    const card = document.getElementById(id);
+    const isOpen = card.classList.contains('is-open');
+    const t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
+    const openText = t.sector_toggle_open || 'See your path →';
+    const closeText = t.sector_toggle_close || 'Close →';
+    document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
+    document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = openText);
+    if (!isOpen) {
+      card.classList.add('is-open');
+      btn.textContent = closeText;
+      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+    }
+  }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.sector-card')) {
+      const t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
+      document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
+      document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = t.sector_toggle_open || 'See your path →');
+    }
+  });
+</script>
 
 <!-- HOW EACH MODULE WORKS -->
 <section class="bg-white">
