@@ -49,30 +49,33 @@ async function afSignOut() {
 async function saveProgress(moduleId, phase) {
   const session = await getSession()
   if (!session) return
-  await _supabase.from('progress').upsert(
+  const { error } = await _supabase.from('progress').upsert(
     { user_id: session.user.id, module_id: moduleId, phase },
     { onConflict: 'user_id,module_id,phase' }
   )
+  if (error) console.error('[AfriversalAI] saveProgress failed:', error.message, '| code:', error.code)
 }
 
 async function getModuleProgress(moduleId) {
   const session = await getSession()
   if (!session) return []
-  const { data } = await _supabase
+  const { data, error } = await _supabase
     .from('progress')
     .select('phase')
     .eq('user_id', session.user.id)
     .eq('module_id', moduleId)
+  if (error) console.error('[AfriversalAI] getModuleProgress failed:', error.message)
   return data ? data.map(r => r.phase) : []
 }
 
 async function getAllProgress() {
   const session = await getSession()
   if (!session) return []
-  const { data } = await _supabase
+  const { data, error } = await _supabase
     .from('progress')
     .select('module_id, phase')
     .eq('user_id', session.user.id)
+  if (error) console.error('[AfriversalAI] getAllProgress failed:', error.message)
   return data || []
 }
 

@@ -1255,9 +1255,20 @@ function resetQuizP3() {
       if (el) el.classList.add('is-done')
       if (prog) { prog.classList.remove('is-active'); prog.classList.add('is-done') }
     })
-    if (done.length > 0) {
-      const next = done.length < 4 ? done.length : null
-      if (next !== null) document.getElementById('prog-' + next).classList.add('is-active')
+    if (done.length >= 4) {
+      // All phases complete — jump straight to module-complete screen
+      const complete = document.getElementById('module-complete')
+      if (complete) {
+        complete.style.display = 'block'
+        setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
+      }
+    } else if (done.length > 0) {
+      // In-progress — activate next phase indicator and scroll to it
+      const nextPhaseNum = done.length
+      const progNxt = document.getElementById('prog-' + nextPhaseNum)
+      if (progNxt) progNxt.classList.add('is-active')
+      const nextPhaseEl = document.getElementById('phase-' + nextPhaseNum)
+      if (nextPhaseEl) setTimeout(() => nextPhaseEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
     }
   })
 </script>
