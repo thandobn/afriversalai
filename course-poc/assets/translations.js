@@ -113,6 +113,12 @@ window.TRANSLATIONS = {
     mc7_h3:  'Your Sector Deep Dive',
     mc7_p:   'A module built for your sector — tailored case studies, sector-specific AI failure modes, and the Funda Five applied to your professional context. Tracks available for Education, Finance, Government, Healthcare, and Corporate.',
 
+    /* ── Sector callout band ── */
+    sector_callout_eyebrow: 'Sector-Aware Learning',
+    sector_callout_h2:      'Whatever your profession, your sector is part of the course.',
+    sector_callout_p:       'Every module builds judgment that applies anywhere — but AfriversalAI doesn\'t stop at general principles. Sector-specific case studies run through the whole course, and Module 7 is built entirely around the AI risks, tools, and decisions that define your line of work.',
+    sector_callout_btn:     'Find your sector path ↓',
+
     /* ── Sector section ── */
     sector_eyebrow:      'Find Your Sector',
     /* Sector card names + descriptions */
@@ -374,9 +380,9 @@ window.TRANSLATIONS = {
     f5_walk_h2:       'The Funda Five on the DCDT case',
     f5_walk_lead:     'Here\'s how the Funda Five would have caught the problem — before the policy was published.',
     f5_cta_h2:        'See the Funda Five in action.',
-    f5_cta_lead:      'Module 1 lets you apply the Funda Five yourself — to the same type of document that caused South Africa\'s real AI policy crisis.',
-    f5_cta_btn1:      'Try Module 1 →',
-    f5_cta_btn2:      'See the certificate',
+    f5_cta_lead:      'Start with Module 0 — free, no registration required. Then see the Funda Five applied across seven modules built around real South African AI cases.',
+    f5_cta_btn1:      'Start Module 0 — free →',
+    f5_cta_btn2:      'See the full course',
 
     /* ── pricing.html ── */
     pricing_eyebrow:     'Pricing',
@@ -832,9 +838,9 @@ window.TRANSLATIONS = {
     f5_walk_h2:       'Die Vyf Funda op die DCDT-saak',
     f5_walk_lead:     'Hier is hoe die Vyf Funda die probleem sou geïdentifiseer het — voordat die beleid gepubliseer is.',
     f5_cta_h2:        'Sien die Vyf Funda in aksie.',
-    f5_cta_lead:      'Module 1 laat jou die Vyf Funda self toepas — op dieselfde tipe dokument wat die werklike KI-beleidskrisis in Suid-Afrika veroorsaak het.',
-    f5_cta_btn1:      'Probeer Module 1 →',
-    f5_cta_btn2:      'Sien die sertifikaat',
+    f5_cta_lead:      'Begin met Module 0 — gratis, geen registrasie nodig nie. Sien dan hoe die Vyf Funda toegepas word oor sewe modules wat rondom werklike Suid-Afrikaanse KI-gevalle gebou is.',
+    f5_cta_btn1:      'Begin Module 0 — gratis →',
+    f5_cta_btn2:      'Sien die volledige kursus',
 
     /* pricing.html */
     pricing_eyebrow:     'Pryse',
@@ -1277,9 +1283,9 @@ window.TRANSLATIONS = {
     f5_walk_h2:       'Les Cinq Funda sur le cas DCDT',
     f5_walk_lead:     'Voici comment les Cinq Funda auraient identifié le problème — avant la publication de la politique.',
     f5_cta_h2:        'Voyez les Cinq Funda en action.',
-    f5_cta_lead:      'Le Module 1 vous permet d’appliquer les Cinq Funda vous-même — au même type de document qui a causé la vraie crise de la politique IA en Afrique du Sud.',
-    f5_cta_btn1:      'Essayer le Module 1 →',
-    f5_cta_btn2:      'Voir le certificat',
+    f5_cta_lead:      ‘Commencez par le Module 0 — gratuit, sans inscription. Voyez ensuite les Cinq Funda appliqués dans sept modules construits autour de cas réels d’IA en Afrique du Sud.’,
+    f5_cta_btn1:      ‘Commencer le Module 0 — gratuit →’,
+    f5_cta_btn2:      ‘Voir le cours complet’,
 
     /* pricing.html */
     pricing_eyebrow:     'Tarification',
@@ -1535,9 +1541,9 @@ window.TRANSLATIONS = {
     f5_walk_h2:       'Iziyisi Ezi-5 Ezikwezimo ze-DCDT',
     f5_walk_lead:     'Nansi indlela uhlaka olwabe luzohlonza inkinga ngayo — ngaphambi kokushicilelwa kwenqubomgomo.',
     f5_cta_h2:        'Bona Iziyisi Ezi-5 zisebenza.',
-    f5_cta_lead:      'IModuli 1 ikuvumela ukusebenzisa Iziyisi Ezi-5 ngokwakho — kulobu hlobo beziqiniseko ebadunga inkinga yangempela yenqubomgomo ye-AI eNingizimu Afrika.',
-    f5_cta_btn1:      'Zama iModuli 1 →',
-    f5_cta_btn2:      'Bona isitifiketi',
+    f5_cta_lead:      'Qala ngeModuli 0 — mahhala, akudingeki ukubhalisa. Bese ubona Iziyisi Ezi-5 zisebenza kumamoduli ayisikhombisa akhiwe ngezigameko zangempela ze-AI eNingizimu Afrika.',
+    f5_cta_btn1:      'Qala iModuli 0 — mahhala →',
+    f5_cta_btn2:      'Bona isifundo esigcwele',
 
     /* pricing.html */
     pricing_eyebrow:     'Amanani',
