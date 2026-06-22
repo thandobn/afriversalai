@@ -60,6 +60,14 @@
     .page-nav__btn:hover { background: var(--green-mid); color: white; }
     footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
     @media (max-width: 700px) { .stat-row, .profile-grid { grid-template-columns: 1fr; } .sector-row { grid-template-columns: repeat(2, 1fr); } }
+    .phil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0 28px; }
+    .phil-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; border-top: 3px solid var(--green-mid); }
+    .phil-card--wide { grid-column: 1 / -1; }
+    .phil-icon { font-size: 1.4em; margin-bottom: 10px; line-height: 1; }
+    .phil-title { font-size: 0.95em; font-weight: 700; color: var(--green-dark); margin-bottom: 5px; }
+    .phil-hook { font-size: 0.88em; font-weight: 600; color: var(--green-mid); margin-bottom: 10px; line-height: 1.5; }
+    .phil-body { font-size: 0.85em; color: var(--muted); line-height: 1.65; margin: 0; }
+    @media (max-width: 700px) { .phil-grid { grid-template-columns: 1fr; } .phil-card--wide { grid-column: auto; } }
   </style>
 </head>
 <body>
@@ -156,20 +164,44 @@
 
 <h2>Course Philosophy</h2>
 
-<h3>African-centred, not imported</h3>
-<p>Every case study, example, and regulatory reference is drawn from the South African context. POPIA, the Employment Equity Act, the DCDT policy crisis, the 2024 election deepfakes &mdash; learners encounter real events from their own professional and civic landscape, not anonymised US or European scenarios.</p>
+<div class="phil-grid">
 
-<h3>Judgment over tools</h3>
-<p>AI tools change rapidly. The judgment skills to evaluate any AI output do not. This course teaches transferable critical thinking, not software tutorials. A learner who completes the course will be able to evaluate any AI system they encounter &mdash; including ones that did not exist when the course was written.</p>
+  <div class="phil-card">
+    <div class="phil-icon">🌍</div>
+    <div class="phil-title">African-centred, not imported</div>
+    <div class="phil-hook">Real African contexts — not anonymised US or European scenarios.</div>
+    <p class="phil-body">POPIA, the Employment Equity Act, the DCDT policy crisis, the 2024 election deepfakes — learners encounter real events from their own professional and civic landscape.</p>
+  </div>
 
-<h3>Demonstrated competency, not completion</h3>
-<p>The AfriversalAI certificate is not awarded for watching videos or finishing modules. It is earned by submitting a real-world evaluation of an AI system from the learner's own job, assessed by a trained human assessor against a published rubric. The certificate says "demonstrated," not "completed."</p>
+  <div class="phil-card">
+    <div class="phil-icon">⚖️</div>
+    <div class="phil-title">Judgment over tools</div>
+    <div class="phil-hook">Transferable critical thinking that outlasts any specific AI tool.</div>
+    <p class="phil-body">AI tools change rapidly. The judgment skills to evaluate any AI output do not. A learner who completes the course can evaluate any AI system they encounter — including ones that didn't exist when the course was written.</p>
+  </div>
 
-<h3>Freire-informed pedagogy</h3>
-<p>The course draws on Paulo Freire's philosophy of critical consciousness-raising. Each module begins with experience before theory. Learners engage with a real artifact, reflect on their instincts, and then receive the conceptual framework that explains what they were sensing. The learning emerges from the tension between experience and understanding.</p>
+  <div class="phil-card">
+    <div class="phil-icon">🏅</div>
+    <div class="phil-title">Demonstrated competency, not completion</div>
+    <div class="phil-hook">The certificate is earned by a real-world assessment, assessed by a human.</div>
+    <p class="phil-body">Not awarded for watching videos or finishing modules. Earned by submitting a real-world evaluation of an AI system from the learner's own job, assessed against a published rubric. The certificate says "demonstrated," not "completed."</p>
+  </div>
 
-<h3>Accessible by design</h3>
-<p>The course assumes no prior technical knowledge. Jargon is introduced only when necessary, always defined in plain language, and grounded in a concrete example. Every concept is explained as if the learner has never formally thought about AI before &mdash; because most haven't.</p>
+  <div class="phil-card">
+    <div class="phil-icon">📖</div>
+    <div class="phil-title">Freire-informed pedagogy</div>
+    <div class="phil-hook">Experience before theory — artifact first, framework second.</div>
+    <p class="phil-body">Each module begins with a real artifact. Learners engage with it, reflect on their instincts, and then receive the conceptual framework that explains what they were sensing. Learning emerges from the tension between experience and understanding.</p>
+  </div>
+
+  <div class="phil-card phil-card--wide">
+    <div class="phil-icon">🔓</div>
+    <div class="phil-title">Accessible by design</div>
+    <div class="phil-hook">Zero prior technical knowledge required.</div>
+    <p class="phil-body">Jargon is introduced only when necessary, always defined in plain language, and grounded in a concrete example. Every concept is explained as if the learner has never formally thought about AI before — because most haven't.</p>
+  </div>
+
+</div>
 
 
 <h2>Target Audience &amp; Sectors</h2>
