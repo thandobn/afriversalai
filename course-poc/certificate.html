@@ -30,52 +30,6 @@
     .cert-tier--3 .cert-tier__head { background:#1A3A5C; } .cert-tier--3 .cert-tier__body { border-color:#1A3A5C; }
     .cert-tier--4 .cert-tier__head { background:#2C1654; } .cert-tier--4 .cert-tier__body { border-color:#2C1654; }
 
-    /* Certificate visual showcase */
-    .cert-showcase { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:40px; }
-    .cvis-card { border:3px solid #d4af37; border-radius:14px; padding:3px; background:linear-gradient(145deg, #fdf8ed 0%, #ffffff 50%, #fdf8ed 100%); box-shadow:0 10px 40px rgba(0,0,0,.14); position:relative; }
-    .cvis-inner { padding:18px 18px 14px 58px; position:relative; }
-    .cvis-ribbon { position:absolute; left:-10px; top:22px; width:58px; height:58px; border-radius:50%; border:3px solid #d4af37; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:2; box-shadow:0 3px 10px rgba(0,0,0,.25); }
-    .cvis-ribbon--1 { background:#1B4332; }
-    .cvis-ribbon--2 { background:#1A3A5C; }
-    .cvis-ribbon--3 { background:#0F2744; }
-    .cvis-ribbon--4 { background:#2C1654; }
-    .cvis-ribbon-level { font-size:0.43em; font-weight:800; letter-spacing:1.2px; color:#d4af37; text-transform:uppercase; line-height:1; }
-    .cvis-ribbon-num { font-size:1.55em; font-weight:800; color:white; line-height:1.1; }
-    .cvis-ribbon-sub { font-size:0.37em; font-weight:700; letter-spacing:0.3px; color:rgba(255,255,255,.85); text-transform:uppercase; text-align:center; line-height:1.3; max-width:44px; }
-    .cvis-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
-    .cvis-logo { font-size:1.0em; font-weight:800; color:#1B4332; }
-    .cvis-logo span { color:#d4af37; }
-    .cvis-tagline { font-size:0.44em; font-weight:600; letter-spacing:1.8px; color:#888; text-transform:uppercase; margin-top:1px; }
-    .cvis-cert-id { font-size:0.44em; color:#999; text-align:right; line-height:1.6; }
-    .cvis-seal { width:50px; height:50px; border-radius:50%; border:2.5px solid #d4af37; background:rgba(212,175,55,.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .cvis-seal-text { font-size:0.34em; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:0.2px; color:#b8962e; line-height:1.35; }
-    .cvis-type { font-size:0.62em; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; text-align:center; color:#1a1a1a; border-top:1px solid #d4af37; border-bottom:1px solid #d4af37; padding:5px 0; margin:6px 0; }
-    .cvis-awarded-to { font-size:0.5em; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#b8962e; text-align:center; margin-top:8px; }
-    .cvis-name { font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:1.45em; text-align:center; color:#1a1a1a; letter-spacing:0.5px; margin:3px 0 6px; }
-    .cvis-proficiency { font-size:0.48em; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#888; text-align:center; }
-    .cvis-title { font-size:1.0em; font-weight:800; text-align:center; margin:3px 0 6px; line-height:1.25; }
-    .cvis-title--1 { color:#1B4332; }
-    .cvis-title--2 { color:#1A3A5C; }
-    .cvis-title--3 { color:#0F2744; }
-    .cvis-title--4 { color:#2C1654; }
-    .cvis-desc { font-size:0.6em; color:#666; text-align:center; line-height:1.55; margin-bottom:10px; }
-    .cvis-badges { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin:8px 0; padding:8px 0; border-top:1px solid #e8e0cc; border-bottom:1px solid #e8e0cc; }
-    .cvis-badge { text-align:center; }
-    .cvis-badge-icon { font-size:1.1em; line-height:1; }
-    .cvis-badge-lbl { font-size:0.42em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#999; margin:2px 0 1px; }
-    .cvis-badge-val { font-size:0.56em; font-weight:700; color:#333; }
-    .cvis-cohort-row { text-align:center; margin:8px 0 6px; }
-    .cvis-cohort-pill { display:inline-block; font-size:0.52em; font-weight:700; padding:3px 14px; border-radius:14px; color:white; }
-    .cvis-cohort-pill--1 { background:#1B4332; }
-    .cvis-cohort-pill--2 { background:#2D6A4F; border:1px solid #1B4332; }
-    .cvis-cohort-pill--3 { background:#1A3A5C; }
-    .cvis-cohort-pill--4 { background:#2C1654; }
-    .cvis-sigs { display:flex; justify-content:space-around; padding-top:8px; border-top:1px solid #e8e0cc; margin-top:6px; }
-    .cvis-sig { text-align:center; }
-    .cvis-sig-script { font-family:Georgia,serif; font-style:italic; font-size:0.68em; color:#333; border-bottom:1px solid #ccc; padding-bottom:2px; margin-bottom:3px; }
-    .cvis-sig-name { font-size:0.5em; font-weight:700; color:#333; }
-    .cvis-sig-role { font-size:0.44em; color:#888; line-height:1.4; }
-    @media (max-width:768px) { .cert-showcase { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -214,166 +168,15 @@
 </section>
 
 <!-- THE FOUR CERTIFICATES — VISUAL -->
-<section class="bg-pale">
-  <div class="container">
+<section class="bg-white">
+  <div class="container text-center">
     <span class="eyebrow">What They Look Like</span>
-    <h2>Four certificates. One consistent design standard.</h2>
-    <p class="lead">Each layer earns a distinct certificate naming the exact program, assessment type, and assessor. Below are all four &mdash; same standard, different depth.</p>
-
-    <div class="cert-showcase">
-
-      <!-- Level 1 -->
-      <div class="cvis-card">
-        <div class="cvis-inner">
-          <div class="cvis-ribbon cvis-ribbon--1">
-            <div class="cvis-ribbon-level">LEVEL</div>
-            <div class="cvis-ribbon-num">1</div>
-            <div class="cvis-ribbon-sub">CORE</div>
-          </div>
-          <div class="cvis-head">
-            <div>
-              <div class="cvis-logo">friversal<span>Ai</span></div>
-              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
-            </div>
-            <div style="display:flex; align-items:flex-start; gap:10px;">
-              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
-              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
-            </div>
-          </div>
-          <div class="cvis-type">Certificate of Demonstration</div>
-          <div class="cvis-awarded-to">Awarded To</div>
-          <div class="cvis-name">Nomvula Dlamini</div>
-          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
-          <div class="cvis-title cvis-title--1">AI Judgment Foundations</div>
-          <div class="cvis-desc">The holder has demonstrated the ability to critically evaluate AI systems and their outputs in professional contexts &mdash; as assessed against the AfriversalAI Standard.</div>
-          <div class="cvis-badges">
-            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">AfriversalAI</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Performance Task</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
-          </div>
-          <div class="cvis-sigs">
-            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Level 2 -->
-      <div class="cvis-card">
-        <div class="cvis-inner">
-          <div class="cvis-ribbon cvis-ribbon--2">
-            <div class="cvis-ribbon-level">LEVEL</div>
-            <div class="cvis-ribbon-num">2</div>
-            <div class="cvis-ribbon-sub">SECTOR SPEC.</div>
-          </div>
-          <div class="cvis-head">
-            <div>
-              <div class="cvis-logo">friversal<span>Ai</span></div>
-              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
-            </div>
-            <div style="display:flex; align-items:flex-start; gap:10px;">
-              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
-              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
-            </div>
-          </div>
-          <div class="cvis-type">Certificate of Demonstration</div>
-          <div class="cvis-awarded-to">Awarded To</div>
-          <div class="cvis-name">Nomvula Dlamini</div>
-          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
-          <div class="cvis-title cvis-title--2">AI Solutions in Practice</div>
-          <div class="cvis-desc">The holder has demonstrated sector-specific AI capability to apply AI tools, comply with relevant frameworks, and solve real-world challenges &mdash; as assessed by a sector expert.</div>
-          <div class="cvis-badges">
-            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">Sector Expert</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Real-World Application</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
-          </div>
-          <div class="cvis-cohort-row"><span class="cvis-cohort-pill cvis-cohort-pill--2">Sector Specialization &middot; Pilot Q4 2026</span></div>
-          <div class="cvis-sigs">
-            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Level 3 -->
-      <div class="cvis-card">
-        <div class="cvis-inner">
-          <div class="cvis-ribbon cvis-ribbon--3">
-            <div class="cvis-ribbon-level">LEVEL</div>
-            <div class="cvis-ribbon-num">3</div>
-            <div class="cvis-ribbon-sub">PROF. COHORTS</div>
-          </div>
-          <div class="cvis-head">
-            <div>
-              <div class="cvis-logo">friversal<span>Ai</span></div>
-              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
-            </div>
-            <div style="display:flex; align-items:flex-start; gap:10px;">
-              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
-              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
-            </div>
-          </div>
-          <div class="cvis-type">Certificate of Demonstration</div>
-          <div class="cvis-awarded-to">Awarded To</div>
-          <div class="cvis-name">Nomvula Dlamini</div>
-          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
-          <div class="cvis-title cvis-title--3">AI Policy, Governance &amp; Compliance</div>
-          <div class="cvis-desc">The holder has demonstrated the ability to design governance structures, ensure compliance, and produce policy-grade deliverables &mdash; as assessed by expert review.</div>
-          <div class="cvis-badges">
-            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">Policy Expert</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Policy Submission</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
-          </div>
-          <div class="cvis-cohort-row"><span class="cvis-cohort-pill cvis-cohort-pill--3">Professional Cohort &middot; Enrolling 2027</span></div>
-          <div class="cvis-sigs">
-            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Level 4 -->
-      <div class="cvis-card">
-        <div class="cvis-inner">
-          <div class="cvis-ribbon cvis-ribbon--4">
-            <div class="cvis-ribbon-level">LEVEL</div>
-            <div class="cvis-ribbon-num">4</div>
-            <div class="cvis-ribbon-sub">EXECUTIVE PROG.</div>
-          </div>
-          <div class="cvis-head">
-            <div>
-              <div class="cvis-logo">friversal<span>Ai</span></div>
-              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
-            </div>
-            <div style="display:flex; align-items:flex-start; gap:10px;">
-              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
-              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
-            </div>
-          </div>
-          <div class="cvis-type">Certificate of Demonstration</div>
-          <div class="cvis-awarded-to">Awarded To</div>
-          <div class="cvis-name">Nomvula Dlamini</div>
-          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
-          <div class="cvis-title cvis-title--4">AI Leadership &amp; Board Strategy</div>
-          <div class="cvis-desc">The holder has demonstrated strategic leadership capability to guide AI initiatives, govern responsibly, and create enterprise value &mdash; as assessed by expert review.</div>
-          <div class="cvis-badges">
-            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">Executive Panel</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Strategic Plan</div></div>
-            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
-          </div>
-          <div class="cvis-cohort-row"><span class="cvis-cohort-pill cvis-cohort-pill--4">Executive Program &middot; Launch Q1 2027</span></div>
-          <div class="cvis-sigs">
-            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
-            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
-          </div>
-        </div>
-      </div>
-
+    <h2>Four certificates. One standard.</h2>
+    <p class="lead" style="margin:0 auto 36px;">Each layer earns a distinct certificate naming the exact program, the assessor, and the assessment type. The design is consistent &mdash; the credential earned is not.</p>
+    <div style="border-radius:var(--radius-lg); overflow:hidden; box-shadow:0 16px 56px rgba(0,0,0,.16); display:inline-block; width:100%;">
+      <img src="assets/certificates.png" alt="All four AfriversalAI certificates — Levels 1 through 4" style="width:100%; display:block;" />
     </div>
+    <p style="margin-top:18px; font-size:0.84em; color:var(--muted);">Certificates are issued digitally with a verifiable certificate ID. Physical copies available on request.</p>
   </div>
 </section>
 
@@ -403,44 +206,6 @@
           <li>Certificate says &ldquo;demonstrated AI judgment competency&rdquo;</li>
           <li>Employer can see exactly what the assessment required</li>
         </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SAMPLE CERTIFICATE -->
-<section class="bg-white">
-  <div class="container text-center">
-    <span class="eyebrow">What It Looks Like</span>
-    <h2>Layer 1 &mdash; Sample certificate</h2>
-    <p class="lead" style="margin:0 auto 40px;">This is the Layer 1 certificate learners receive upon passing the capstone assessment. Each subsequent layer earns a distinct certificate naming the specific program completed.</p>
-
-    <div class="cert-frame">
-      <div class="cert-logo">Afriversal<span>AI</span></div>
-      <div class="cert-presents">This certifies that</div>
-      <div class="cert-name">Nomvula Dlamini</div>
-      <div class="cert-title">AI Judgment Competency Certificate &mdash; Layer 1</div>
-      <div class="cert-statement">
-        has demonstrated AI judgment competency &mdash; the ability to critically evaluate AI systems and their outputs in professional contexts &mdash; as assessed against the AfriversalAI Standard.
-      </div>
-      <div class="cert-badge">Core Certification &middot; June 2026</div>
-      <div style="display:flex; justify-content:space-around; margin-top:32px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; gap:16px;">
-        <div style="text-align:center;">
-          <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">Assessed by</div>
-          <div style="font-size:0.88em; font-weight:600;">AfriversalAI</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">Assessment type</div>
-          <div style="font-size:0.88em; font-weight:600;">Written Performance Task</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">Framework applied</div>
-          <div style="font-size:0.88em; font-weight:600;">The Funda Five</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">SETA status</div>
-          <div style="font-size:0.88em; font-weight:600;">Accreditation in preparation</div>
-        </div>
       </div>
     </div>
   </div>
