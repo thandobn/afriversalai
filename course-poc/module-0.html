@@ -165,7 +165,7 @@
     <span class="eyebrow eyebrow--light" data-i18n="m0_eyebrow">Module 0 &middot; Foundation &middot; Free &mdash; start here</span>
     <h1 data-i18n-html="m0_h1">AI Fundamentals:<br>What Is It, Really?</h1>
     <p class="lead" data-i18n="m0_lead">Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector &mdash; it's where we all start.</p>
-    <div class="m0-objectives" data-i18n-html="m0_objectives_html"><strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the three types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one AI system you already encounter at work and classify it by type</li></ol></div>
+    <div class="m0-objectives" data-i18n-html="m0_objectives_html"><strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the four types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one AI system you already encounter at work and classify it by type</li></ol></div>
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">55 minutes &middot; 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; No technical background required</span>
@@ -747,7 +747,7 @@
           <strong>The South African credit context:</strong> If historical credit data reflects the effects of apartheid &mdash; where Black South Africans were excluded from formal credit markets and forced into lower-income areas &mdash; an AI trained on that data will learn those patterns. It may then use postal code as a proxy for creditworthiness without anyone programming it to discriminate. The bias is in the data, not a deliberate choice.
         </div>
 
-        <h3 style="margin: 28px 0 12px;">The three most common types of AI you'll encounter at work</h3>
+        <h3 style="margin: 28px 0 12px;">The four types of AI you're most likely to encounter at work</h3>
 
         <div style="margin:20px 0;">
           <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:12px;">
@@ -784,6 +784,21 @@
               <strong>What it does:</strong> Identifies objects, faces, text, or anomalies in visual data<br>
               <strong>Strength:</strong> Consistent processing of visual information at scale<br>
               <strong>Key weakness:</strong> Performance drops sharply for faces and scenarios underrepresented in training data &mdash; accuracy is often lower for darker skin tones in systems trained primarily on lighter-skinned faces.</p>
+            </div>
+          </div>
+          <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden;">
+            <div style="background:var(--green-dark); color:white; padding:14px 20px; display:flex; align-items:center; gap:12px;">
+              <span style="font-weight:800; background:rgba(255,255,255,0.2); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">4</span>
+              <strong>Agentic AI &mdash; takes sequences of actions to achieve goals</strong>
+            </div>
+            <div style="padding:18px 20px;">
+              <p style="font-size:0.92em; margin:0 0 12px;"><strong>Examples:</strong> AI assistants that research and draft reports autonomously, book travel, write and run code, send emails, or execute multi-step workflows without a human directing each individual step<br>
+              <strong>What it does:</strong> Uses a language model as a &ldquo;reasoning engine&rdquo; to plan and carry out sequences of actions &mdash; browsing, writing, clicking, submitting &mdash; toward a stated goal<br>
+              <strong>Strength:</strong> Automating complex, multi-step tasks that would normally require a human to coordinate several tools or systems over time<br>
+              <strong>Key weakness:</strong> Each step is a prediction, not a guaranteed correct action &mdash; and errors compound across steps. Critically: agentic AI can take real-world actions (sending an email, modifying a file, making a booking) that are difficult or impossible to reverse. Accountability for those actions remains with the person or organisation that deployed it.</p>
+              <div style="background:var(--gold-light); border-left:3px solid var(--gold); padding:10px 14px; border-radius:0 var(--radius) var(--radius) 0; font-size:0.88em;">
+                <strong>Why this matters in your workplace:</strong> As AI tools gain the ability to act on your behalf &mdash; automatically responding to emails, scheduling meetings, submitting forms &mdash; the question of &ldquo;who approved this?&rdquo; becomes critical. The Funda Five&rsquo;s <em>Human</em> check is even more important when AI can act without a human in the loop.
+              </div>
             </div>
           </div>
         </div>
@@ -952,7 +967,7 @@
           </div>
 
           <div style="margin-bottom:20px;">
-            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;" data-i18n="p3_q2_label">2. Which type of AI is it &mdash; Generative, Predictive/Decision, or Computer Vision?</label>
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;" data-i18n="p3_q2_label">2. Which type of AI is it &mdash; Generative, Predictive/Decision, Computer Vision, or Agentic?</label>
             <textarea id="apply-2" style="width:100%; min-height:70px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. It's probably predictive AI &mdash; it scores candidates and filters them before a human sees the CV..." data-i18n-placeholder="p3_q2_ph"></textarea>
           </div>
 
@@ -1368,7 +1383,7 @@ function getP3QuizExp() {
     { ok: t.qf1_ok || 'Correct \u2014 AI reflects the biases baked into its training data.',
       no: t.qf1_no || 'The culprit is training data. If historical lending data reflected discrimination, the AI learns to repeat those patterns.' },
     { ok: t.qf2_ok || 'Correct \u2014 Predictive / Decision AI classifies and scores inputs at scale.',
-      no: t.qf2_no || 'The right type is Predictive / Decision AI. Generative AI creates content; Computer Vision processes images and video.' },
+      no: t.qf2_no || 'The right type is Predictive / Decision AI. Generative AI creates content; Computer Vision processes images and video; Agentic AI takes sequences of autonomous actions.' },
     { ok: t.qf3_ok || 'Right \u2014 AI confidence is not a reliability signal.',
       no: t.qf3_no || 'Verification is always the right move. AI confidence tells you nothing about accuracy.' },
     { ok: t.qf4_ok || 'Correct \u2014 accountability rests with the organisations that deploy and use AI, not the software itself.',

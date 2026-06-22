@@ -57,11 +57,11 @@
     .layer-card--3 .layer-card__head { background: var(--navy); } .layer-card--3 .layer-card__body { border-color: var(--navy); } .layer-card--3 .layer-card__link { background: var(--navy); color: white; }
     .layer-card--4 .layer-card__head { background: var(--purple); } .layer-card--4 .layer-card__body { border-color: var(--purple); } .layer-card--4 .layer-card__link { background: var(--purple); color: white; }
     .sector-cert-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0 0; }
-    .sector-cert-chip { border: 1px solid rgba(255,255,255,.3); border-radius: var(--radius); padding: 8px 6px; text-align: center; font-size: 0.72em; background: rgba(255,255,255,.1); }
-    .sector-cert-chip__icon { font-size: 1.2em; margin-bottom: 3px; }
-    .sector-cert-chip__name { font-weight: 700; color: white; }
+    .sector-cert-chip { border: 1px solid var(--green-light); border-radius: var(--radius); padding: 8px 6px; text-align: center; font-size: 0.72em; background: var(--green-pale); }
+    .sector-cert-chip__icon { width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.82em; color: white; background: var(--green-dark); }
+    .sector-cert-chip__name { font-weight: 700; color: var(--green-dark); }
     .cohort-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-    .cohort-mini-chip { border: 1px solid rgba(255,255,255,.3); border-radius: var(--radius); padding: 8px 10px; font-size: 0.78em; text-align: center; background: rgba(255,255,255,.1); color: white; font-weight: 600; }
+    .cohort-mini-chip { border: 1px solid #B8D0E8; border-radius: var(--radius); padding: 8px 10px; font-size: 0.78em; text-align: center; background: #EAF2F8; color: #1A3A5C; font-weight: 600; }
     .page-nav { display: flex; justify-content: flex-end; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
     .page-nav__btn { display: inline-block; padding: 10px 22px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
     .page-nav__btn:hover { background: var(--green-mid); }
@@ -195,11 +195,11 @@
     </div>
     <div class="layer-card__body" style="flex-direction: column; align-items: flex-start;">
       <div class="sector-cert-row" style="width:100%; margin-bottom: 12px;">
-        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">&#127970;</div><div class="sector-cert-chip__name">Corporate</div></div>
-        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">&#127963;</div><div class="sector-cert-chip__name">Government</div></div>
-        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">&#128176;</div><div class="sector-cert-chip__name">Finance</div></div>
-        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">&#127973;</div><div class="sector-cert-chip__name">Healthcare</div></div>
-        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">&#127891;</div><div class="sector-cert-chip__name">Education</div></div>
+        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">C</div><div class="sector-cert-chip__name">Corporate</div></div>
+        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">G</div><div class="sector-cert-chip__name">Government</div></div>
+        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">F</div><div class="sector-cert-chip__name">Finance</div></div>
+        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">H</div><div class="sector-cert-chip__name">Healthcare</div></div>
+        <div class="sector-cert-chip"><div class="sector-cert-chip__icon">E</div><div class="sector-cert-chip__name">Education</div></div>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:10px;">
         <p style="font-size:0.88em; margin:0;">Deep-dive sector certification building on Layer 1 foundations. Each track covers sector-specific tools, SA legislation, and practitioner-level case studies.</p>
@@ -219,9 +219,9 @@
     </div>
     <div class="layer-card__body" style="flex-direction: column; align-items: flex-start;">
       <div class="cohort-mini" style="width:100%; margin-bottom: 12px;">
-        <div class="cohort-mini-chip">&#128203; AI Policy Cohort</div>
-        <div class="cohort-mini-chip">&#127959; AI Governance Cohort</div>
-        <div class="cohort-mini-chip">&#9878; AI Regulation Cohort</div>
+        <div class="cohort-mini-chip">AI Policy Cohort</div>
+        <div class="cohort-mini-chip">AI Governance Cohort</div>
+        <div class="cohort-mini-chip">AI Regulation Cohort</div>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:10px;">
         <p style="font-size:0.88em; margin:0;">Cross-industry specialist cohorts for professionals who shape how AI is governed, regulated, or overseen. 4-week intensives, max 20 learners each.</p>
