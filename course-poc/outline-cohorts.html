@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layer 3 Cohorts — AfriversalAI Professional Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+      --navy: #1A3A5C;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .doc-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.82em; flex-wrap: wrap; gap: 8px; }
+    .doc-topbar a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .print-btn { padding: 6px 14px; background: var(--green-dark); color: white; border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 600; cursor: pointer; }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+    .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    h2 { font-size: 1.15em; font-weight: 700; color: var(--green-dark); margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    ul { padding-left: 20px; margin-bottom: 10px; }
+    li { margin-bottom: 4px; line-height: 1.6; }
+    strong { font-weight: 600; }
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+    /* Cohort blocks */
+    .cohort-block { border: 1px solid var(--navy); border-radius: var(--radius-lg); overflow: hidden; margin: 22px 0; }
+    .cohort-block__head { background: var(--navy); color: white; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
+    .cohort-block__icon { font-size: 1.6em; flex-shrink: 0; }
+    .cohort-block__title { font-size: 1.05em; font-weight: 700; }
+    .cohort-block__cert { font-size: 0.77em; opacity: .8; font-style: italic; margin-top: 2px; }
+    .cohort-block__body { padding: 20px 22px; }
+    .cohort-block__who { display: inline-block; background: var(--green-pale); color: var(--green-dark); padding: 4px 12px; border-radius: 20px; font-size: 0.77em; font-weight: 600; margin-bottom: 14px; }
+    .week-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
+    .week-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+    .week-card__label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); margin-bottom: 5px; }
+    .week-card__title { font-weight: 700; font-size: 0.9em; margin-bottom: 4px; color: var(--navy); }
+    .week-card__desc { font-size: 0.82em; color: var(--muted); line-height: 1.55; }
+    .week-card--capstone { border-color: var(--navy); background: #f0f4f8; }
+    .page-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+    @media (max-width: 700px) { .week-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html" class="active">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">Layer 3 &middot; Specialist Credentials</div>
+  <h1 class="page-header__title">Professional Cohorts</h1>
+  <p class="page-header__desc">Three cross-industry specialist cohorts for professionals whose work directly shapes how AI is governed, regulated, or overseen. Prerequisite: Layer 1 Core Certification.</p>
+</div>
+
+<p>The three professional cohorts &mdash; AI Policy, AI Governance, and AI Regulation &mdash; are cross-industry by design. A healthcare lawyer, a government policy analyst, and a corporate compliance officer complete the same cohort together. The shared framework applied across different sector contexts is a deliberate choice: AI governance and regulation are cross-cutting disciplines. The peer diversity is part of the value.</p>
+
+<div class="callout--gold callout">
+  <strong>Format:</strong> 4-week intensives &middot; One live session per week (90 min) &middot; Asynchronous case work between sessions &middot; Max 20 learners &middot; Domain expert assessor (not a facilitator) &middot; Written capstone in Week 4
+</div>
+
+
+<!-- COHORT 1: AI POLICY -->
+<div class="cohort-block">
+  <div class="cohort-block__head">
+    <div class="cohort-block__icon">&#128203;</div>
+    <div>
+      <div class="cohort-block__title">AI Policy Cohort</div>
+      <div class="cohort-block__cert">Certified AI Policy Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="cohort-block__body">
+    <div class="cohort-block__who">For: Policy analysts &middot; Government advisors &middot; Researchers &middot; Advocacy professionals &middot; Civil servants</div>
+    <p style="font-size:0.9em; color:var(--muted); margin-bottom:14px;">Designed for professionals who write, evaluate, or influence AI-related policy decisions at an organisational, sectoral, or national level. The cohort covers both the South African landscape and the international frameworks shaping it.</p>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-card__label">Week 1</div>
+        <div class="week-card__title">SA AI Policy Landscape</div>
+        <div class="week-card__desc">DCDT AI strategy, Presidential Commission on the Fourth Industrial Revolution, national AI roadmap gaps, current policy instruments and their limitations. Case: the April 2026 AI hallucination incident.</div>
+      </div>
+      <div class="week-card">
+        <div class="week-card__label">Week 2</div>
+        <div class="week-card__title">International Frameworks</div>
+        <div class="week-card__desc">African Union AI Policy Framework, EU AI Act key provisions, UK pro-innovation approach, OECD AI Principles. How global frameworks are being adopted and adapted in the SA context.</div>
+      </div>
+      <div class="week-card">
+        <div class="week-card__label">Week 3</div>
+        <div class="week-card__title">Writing &amp; Evaluating AI Policy</div>
+        <div class="week-card__desc">Policy impact assessment methodology for AI deployments, structuring public participation processes, evidence standards for AI policy claims, evaluating vendor AI policy submissions.</div>
+      </div>
+      <div class="week-card week-card--capstone">
+        <div class="week-card__label">Week 4 &mdash; Capstone</div>
+        <div class="week-card__title">Policy Evaluation</div>
+        <div class="week-card__desc">Evaluate a real current SA AI policy document and produce a structured recommendation of 800&ndash;1200 words. Assessed by a domain expert. One revision opportunity if below standard.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- COHORT 2: AI GOVERNANCE -->
+<div class="cohort-block">
+  <div class="cohort-block__head">
+    <div class="cohort-block__icon">&#127959;</div>
+    <div>
+      <div class="cohort-block__title">AI Governance Cohort</div>
+      <div class="cohort-block__cert">Certified AI Governance Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="cohort-block__body">
+    <div class="cohort-block__who">For: Compliance officers &middot; Risk managers &middot; Internal auditors &middot; Board advisors &middot; Legal counsel</div>
+    <p style="font-size:0.9em; color:var(--muted); margin-bottom:14px;">Designed for professionals responsible for ensuring their organisation's AI use is governed, audited, and accountable. The cohort covers both the frameworks available and the practical reality of implementing them in South African organisations.</p>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-card__label">Week 1</div>
+        <div class="week-card__title">AI Governance Frameworks</div>
+        <div class="week-card__desc">ISO 42001 AI Management System requirements, NIST AI Risk Management Framework, King IV on technology governance, SA Companies Act implications. Comparative analysis for SA organisations.</div>
+      </div>
+      <div class="week-card">
+        <div class="week-card__label">Week 2</div>
+        <div class="week-card__title">Organisational AI Governance Design</div>
+        <div class="week-card__desc">Building AI risk registers, designing approval and escalation workflows, incident response protocols for AI failures, POPIA compliance checkpoints in AI procurement. Practical templates.</div>
+      </div>
+      <div class="week-card">
+        <div class="week-card__label">Week 3</div>
+        <div class="week-card__title">Board-Level AI Oversight</div>
+        <div class="week-card__desc">Reporting AI risk to boards and audit committees, non-executive director responsibilities, audit protocols for AI systems, connecting AI governance to existing enterprise risk management structures.</div>
+      </div>
+      <div class="week-card week-card--capstone">
+        <div class="week-card__label">Week 4 &mdash; Capstone</div>
+        <div class="week-card__title">Governance Framework Design</div>
+        <div class="week-card__desc">Design an AI governance framework for a real organisational context, including a risk register template, a board reporting structure, and an incident escalation protocol. Assessed by a domain expert.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- COHORT 3: AI REGULATION -->
+<div class="cohort-block">
+  <div class="cohort-block__head">
+    <div class="cohort-block__icon">&#9878;</div>
+    <div>
+      <div class="cohort-block__title">AI Regulation Cohort</div>
+      <div class="cohort-block__cert">Certified AI Regulation Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="cohort-block__body">
+    <div class="cohort-block__who">For: Lawyers &middot; Regulators &middot; Legal counsel &middot; Compliance specialists &middot; FSCA / ICASA / SAHPRA staff</div>
+    <p style="font-size:0.9em; color:var(--muted); margin-bottom:14px;">Designed for professionals who advise on, draft, or enforce AI-related legal and regulatory requirements. The cohort moves through the existing SA legal landscape, sector-specific regulatory approaches, and comparative international frameworks.</p>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-card__label">Week 1</div>
+        <div class="week-card__title">SA AI Legal Landscape</div>
+        <div class="week-card__desc">POPIA enforcement applied to AI systems, ECT Act implications for automated decisions, Employment Equity Act AI exposure, National Credit Act and AI credit scoring, Companies Act director liability for AI decisions.</div>
+      </div>
+      <div class="week-card">
+        <div class="week-card__label">Week 2</div>
+        <div class="week-card__title">Sector Regulators &amp; AI</div>
+        <div class="week-card__desc">FSCA-PA 2025 guidance on AI in financial services, ICASA and AI in communications, SAHPRA and AI medical devices, HPCSA clinical AI guidance. How regulators are interpreting existing frameworks for AI contexts.</div>
+      </div>
+      <div class="week-card">
+        <div class="week-card__label">Week 3</div>
+        <div class="week-card__title">Global Comparators &amp; Liability</div>
+        <div class="week-card__desc">EU AI Act obligations and SA implications, UK pro-innovation approach, product liability frameworks applied to AI systems, drafting AI regulatory guidance, anticipating South Africa's emerging AI legislation.</div>
+      </div>
+      <div class="week-card week-card--capstone">
+        <div class="week-card__label">Week 4 &mdash; Capstone</div>
+        <div class="week-card__title">Regulatory Guidance Note</div>
+        <div class="week-card__desc">Draft a regulatory guidance note for a specific AI use case in a South African sector, covering the applicable legal framework, key obligations, and recommended compliance approach. Assessed by a domain expert.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="callout" style="margin-top: 28px;">
+  <strong>Prerequisite for all Layer 3 cohorts:</strong> Layer 1 Core Certification (Certified AI-Ready Professional&trade;) or demonstrated equivalent competency assessed on application. Learners without Layer 1 certification must submit a portfolio of evidence for pre-assessment.
+</div>
+
+<div class="page-nav no-print">
+  <a href="outline-delivery.html" class="page-nav__btn page-nav__btn--ghost">&larr; Delivery &amp; Assessment</a>
+  <a href="outline-pathways.html" class="page-nav__btn">Next: Pathways &rarr;</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

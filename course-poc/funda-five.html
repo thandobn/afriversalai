@@ -8,6 +8,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    /* Funda Five tab panel */
+    .f5-tabs-wrapper { display:grid; grid-template-columns:280px 1fr; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; margin-top:40px; box-shadow:0 6px 32px rgba(0,0,0,.08); }
+    .f5-steplist { background:#F2F8F5; border-right:1.5px solid var(--border); display:flex; flex-direction:column; }
+    .f5-step { display:flex; align-items:center; gap:16px; padding:22px 20px; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; font-family:inherit; }
+    .f5-step:last-child { border-bottom:none; }
+    .f5-step:hover:not(.is-active) { background:var(--green-light); }
+    .f5-step.is-active { background:var(--green-dark); }
+    .f5-step__badge { width:42px; height:42px; border-radius:50%; background:rgba(27,67,50,.12); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.05em; color:var(--green-dark); flex-shrink:0; }
+    .f5-step.is-active .f5-step__badge { background:rgba(255,255,255,.2); color:white; }
+    .f5-step__name { font-weight:800; font-size:1.1em; color:var(--text); line-height:1.2; margin-bottom:4px; }
+    .f5-step.is-active .f5-step__name { color:var(--gold); }
+    .f5-step__q { font-size:0.84em; color:var(--muted); line-height:1.4; }
+    .f5-step.is-active .f5-step__q { color:rgba(255,255,255,.65); }
+    .f5-detail-pane { padding:44px 48px; min-height:400px; }
+    .f5-detail-item { display:none; }
+    .f5-detail-item.is-active { display:block; }
+    .f5-detail-step { font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; color:var(--gold-dark); margin-bottom:10px; }
+    .f5-detail-name { font-size:2.1em; font-weight:800; color:var(--green-dark); margin-bottom:6px; letter-spacing:-0.5px; }
+    .f5-detail-q { font-size:1.1em; color:var(--muted); font-style:italic; margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); line-height:1.6; }
+    .f5-detail-body { font-size:1.0em; line-height:1.85; margin-bottom:20px; }
+    .f5-callout { background:var(--gold-light); border-left:5px solid var(--gold-dark); padding:16px 20px; border-radius:0 8px 8px 0; font-size:0.97em; line-height:1.7; }
+    @media (max-width:768px) {
+      .f5-tabs-wrapper { grid-template-columns:1fr; }
+      .f5-steplist { flex-direction:row; overflow-x:auto; border-right:none; border-bottom:1.5px solid var(--border); -webkit-overflow-scrolling:touch; }
+      .f5-step { min-width:140px; border-bottom:none; border-right:1px solid var(--border); flex-direction:column; align-items:flex-start; gap:6px; padding:14px 14px; }
+      .f5-step:last-child { border-right:none; }
+      .f5-detail-pane { padding:28px 22px; min-height:auto; }
+      .f5-detail-name { font-size:1.6em; }
+    }
+  </style>
 </head>
 <body>
 
@@ -25,6 +56,19 @@
         </ul>
       </li>
       <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
       <li><a href="module-0.html">Preview Course</a></li>
       <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
@@ -53,112 +97,102 @@
 <section class="bg-white">
   <div class="container">
     <span class="eyebrow" data-i18n="f5_framework_eyebrow">The Framework</span>
-    <h2 data-i18n="f5_framework_h2">Click any step to expand it.</h2>
-    <p class="lead" data-i18n="f5_framework_lead">The Funda Five is introduced in Module 1 and applied in every module after that. By Module 6, it's automatic — the way you think about every AI encounter at work.</p>
+    <h2>Five questions. Any AI situation.</h2>
+    <p class="lead">The Funda Five is introduced in Module 1 and applied in every module after that. By Module 6, it&rsquo;s the way you think about every AI encounter at work. <strong>Select any step below to see what it means in practice.</strong></p>
 
-    <div class="five-grid">
-      <div class="five-card" id="f1" tabindex="0" role="button" aria-expanded="false">
-        <div class="five-card__num">1</div>
-        <div class="five-card__name" data-i18n="f5_1_name">Task</div>
-        <div class="five-card__q" data-i18n="f5_1_q_full">Is this the right kind of job for AI? What exactly am I trying to accomplish?</div>
+    <div class="f5-tabs-wrapper">
+
+      <!-- Step list -->
+      <div class="f5-steplist" role="tablist" aria-label="Funda Five steps">
+
+        <button class="f5-step is-active" data-target="f5p-1" role="tab" aria-selected="true" aria-controls="f5p-1">
+          <div class="f5-step__badge">1</div>
+          <div>
+            <div class="f5-step__name">Task</div>
+            <div class="f5-step__q">Is this the right kind of job for AI?</div>
+          </div>
+        </button>
+
+        <button class="f5-step" data-target="f5p-2" role="tab" aria-selected="false" aria-controls="f5p-2">
+          <div class="f5-step__badge">2</div>
+          <div>
+            <div class="f5-step__name">Data</div>
+            <div class="f5-step__q">Is any of this sensitive or POPIA-protected?</div>
+          </div>
+        </button>
+
+        <button class="f5-step" data-target="f5p-3" role="tab" aria-selected="false" aria-controls="f5p-3">
+          <div class="f5-step__badge">3</div>
+          <div>
+            <div class="f5-step__name">Tool</div>
+            <div class="f5-step__q">Is this AI type right for the task?</div>
+          </div>
+        </button>
+
+        <button class="f5-step" data-target="f5p-4" role="tab" aria-selected="false" aria-controls="f5p-4">
+          <div class="f5-step__badge">4</div>
+          <div>
+            <div class="f5-step__name">Trust</div>
+            <div class="f5-step__q">How would I detect an error in this output?</div>
+          </div>
+        </button>
+
+        <button class="f5-step" data-target="f5p-5" role="tab" aria-selected="false" aria-controls="f5p-5">
+          <div class="f5-step__badge">5</div>
+          <div>
+            <div class="f5-step__name">Human</div>
+            <div class="f5-step__q">Who checks this? Who is accountable?</div>
+          </div>
+        </button>
+
       </div>
-      <div class="five-card" id="f2" tabindex="0" role="button" aria-expanded="false">
-        <div class="five-card__num">2</div>
-        <div class="five-card__name" data-i18n="f5_2_name">Data</div>
-        <div class="five-card__q" data-i18n="f5_2_q_full">What information is involved? Is any of it personal, confidential, client data, or POPIA-protected?</div>
-      </div>
-      <div class="five-card" id="f3" tabindex="0" role="button" aria-expanded="false">
-        <div class="five-card__num">3</div>
-        <div class="five-card__name" data-i18n="f5_3_name">Tool</div>
-        <div class="five-card__q" data-i18n="f5_3_q_full">What type of AI fits this task? Is it approved by my organisation? Do I understand its limitations?</div>
-      </div>
-      <div class="five-card" id="f4" tabindex="0" role="button" aria-expanded="false">
-        <div class="five-card__num">4</div>
-        <div class="five-card__name" data-i18n="f5_4_name">Trust</div>
-        <div class="five-card__q" data-i18n="f5_4_q_full">How reliable is AI for this specific task? What are its failure modes here? How would I detect an error?</div>
-      </div>
-      <div class="five-card" id="f5" tabindex="0" role="button" aria-expanded="false">
-        <div class="five-card__num">5</div>
-        <div class="five-card__name" data-i18n="f5_5_name">Human</div>
-        <div class="five-card__q" data-i18n="f5_5_q_full">Who checks the output before it matters? Who is accountable if it is wrong?</div>
+
+      <!-- Detail panels -->
+      <div class="f5-detail-pane">
+
+        <div class="f5-detail-item is-active" id="f5p-1" role="tabpanel">
+          <div class="f5-detail-step">Step 1 of 5</div>
+          <div class="f5-detail-name">Task</div>
+          <div class="f5-detail-q">Is this the right kind of job for AI? What exactly am I trying to accomplish?</div>
+          <p class="f5-detail-body">Not every professional task benefits from AI assistance. Some tasks are well-suited &mdash; drafting, summarising, generating options. Others carry risks that outweigh the convenience &mdash; anything involving verification of facts, high-stakes decisions with individual consequences, or tasks where the process of thinking is itself the value.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> If the AI gets this wrong, what happens? Is the task low-stakes enough that a quick human scan is sufficient &mdash; or does it require rigorous human judgment at every step?</div>
+        </div>
+
+        <div class="f5-detail-item" id="f5p-2" role="tabpanel">
+          <div class="f5-detail-step">Step 2 of 5</div>
+          <div class="f5-detail-name">Data</div>
+          <div class="f5-detail-q">What information is involved? Is any of it personal, confidential, client data, or POPIA-protected?</div>
+          <p class="f5-detail-body">When you paste text into a public AI tool, that text may be used to improve the model, stored, or accessible to third parties. In South Africa, the Protection of Personal Information Act (POPIA) creates specific obligations around how personal information is processed &mdash; including by AI tools. Many AI tools fall outside POPIA-compliant infrastructure.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Does this involve client names, employee records, patient data, financial information, or confidential business information? If yes, is the AI tool I&rsquo;m using approved for this data type?</div>
+        </div>
+
+        <div class="f5-detail-item" id="f5p-3" role="tabpanel">
+          <div class="f5-detail-step">Step 3 of 5</div>
+          <div class="f5-detail-name">Tool</div>
+          <div class="f5-detail-q">What type of AI fits this task? Is it approved by my organisation? Do I understand its limitations?</div>
+          <p class="f5-detail-body">Different AI tools are built for different purposes. A language model is strong at generating and summarising text, weak at arithmetic and factual citation. An image model is strong at visuals, not at reasoning. Matching the tool to the task is a basic professional judgment &mdash; the same way you wouldn&rsquo;t use a spreadsheet to write a contract.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Is this tool approved by my organisation? Do I understand what it&rsquo;s actually doing &mdash; not just what it produces? What does it specifically struggle with that is relevant to this task?</div>
+        </div>
+
+        <div class="f5-detail-item" id="f5p-4" role="tabpanel">
+          <div class="f5-detail-step">Step 4 of 5</div>
+          <div class="f5-detail-name">Trust</div>
+          <div class="f5-detail-q">How reliable is AI for this specific task? What are its failure modes here? How would I detect an error?</div>
+          <p class="f5-detail-body">Trust in AI output should be calibrated &mdash; higher for tasks where errors are easy to spot, lower for tasks where errors are invisible until they cause harm. The key question isn&rsquo;t &ldquo;is this AI reliable?&rdquo; &mdash; it&rsquo;s &ldquo;how would I detect an error in this specific output?&rdquo; If you can&rsquo;t answer that question, the verification step is incomplete.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Can I independently verify the most important claims in this output? What&rsquo;s the specific check I would run? What would an error look like &mdash; and would I be able to see it?</div>
+        </div>
+
+        <div class="f5-detail-item" id="f5p-5" role="tabpanel">
+          <div class="f5-detail-step">Step 5 of 5</div>
+          <div class="f5-detail-name">Human</div>
+          <div class="f5-detail-q">Who checks the output before it matters? Who is accountable if it is wrong?</div>
+          <p class="f5-detail-body">When AI output affects a real person &mdash; their job application, their loan, their medical treatment, their legal standing &mdash; someone at the institution that deployed that AI is accountable. &ldquo;The algorithm decided&rdquo; is not a legal defence under South African law. The Employment Equity Act, POPIA, and consumer protection legislation all locate accountability in the organisation and its decision-makers.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Who signs off on this before it reaches someone who could be affected by it? Is there a clear review step in place &mdash; or is the AI output going straight into action? If something goes wrong, who answers for it?</div>
+        </div>
+
       </div>
     </div>
-  </div>
-</section>
 
-<!-- DEEP DIVE -->
-<section class="bg-pale">
-  <div class="container--sm">
-    <span class="eyebrow" data-i18n="f5_dive_eyebrow">Step by Step</span>
-    <h2 data-i18n="f5_dive_h2">What each step means in practice</h2>
-
-    <div style="margin-top:36px;">
-
-      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:16px; background:var(--white);">
-        <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px;">
-          <div style="width:36px; height:36px; border:2px solid rgba(255,255,255,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800;">1</div>
-          <div><strong>Task</strong> — Is this the right job for AI?</div>
-        </div>
-        <div style="padding:24px;">
-          <p style="font-size:0.93em; margin-bottom:12px;">Not every professional task benefits from AI assistance. Some tasks are well-suited — drafting, summarising, generating options. Others carry risks that outweigh the convenience — anything involving verification of facts, high-stakes decisions with individual consequences, or tasks where the process of thinking is itself the value.</p>
-          <div class="callout--gold callout" style="margin:0;">
-            <strong>Ask yourself:</strong> If the AI gets this wrong, what happens? Is the task low-stakes enough that a quick human scan is sufficient — or does it require rigorous human judgment at every step?
-          </div>
-        </div>
-      </div>
-
-      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:16px; background:var(--white);">
-        <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px;">
-          <div style="width:36px; height:36px; border:2px solid rgba(255,255,255,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800;">2</div>
-          <div><strong>Data</strong> — What information is involved?</div>
-        </div>
-        <div style="padding:24px;">
-          <p style="font-size:0.93em; margin-bottom:12px;">When you paste text into a public AI tool, that text may be used to improve the model, stored, or accessible to third parties. In South Africa, the Protection of Personal Information Act (POPIA) creates specific obligations around how personal information is processed — including by AI tools. Many AI tools fall outside POPIA-compliant infrastructure.</p>
-          <div class="callout--gold callout" style="margin:0;">
-            <strong>Ask yourself:</strong> Does this involve client names, employee records, patient data, financial information, or confidential business information? If yes, is the AI tool I'm using approved for this data type?
-          </div>
-        </div>
-      </div>
-
-      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:16px; background:var(--white);">
-        <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px;">
-          <div style="width:36px; height:36px; border:2px solid rgba(255,255,255,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800;">3</div>
-          <div><strong>Tool</strong> — Is this the right AI for the job?</div>
-        </div>
-        <div style="padding:24px;">
-          <p style="font-size:0.93em; margin-bottom:12px;">Different AI tools are built for different purposes. A language model is strong at generating and summarising text, weak at arithmetic and factual citation. An image model is strong at visuals, not at reasoning. Matching the tool to the task is a basic professional judgment — the same way you wouldn't use a spreadsheet to write a contract.</p>
-          <div class="callout--gold callout" style="margin:0;">
-            <strong>Ask yourself:</strong> Is this tool approved by my organisation? Do I understand what it's actually doing — not just what it produces? What does it specifically struggle with that is relevant to this task?
-          </div>
-        </div>
-      </div>
-
-      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:16px; background:var(--white);">
-        <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px;">
-          <div style="width:36px; height:36px; border:2px solid rgba(255,255,255,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800;">4</div>
-          <div><strong>Trust</strong> — How do I verify this before acting?</div>
-        </div>
-        <div style="padding:24px;">
-          <p style="font-size:0.93em; margin-bottom:12px;">Trust in AI output should be calibrated — higher for tasks where errors are easy to spot, lower for tasks where errors are invisible until they cause harm. The key question isn't "is this AI reliable?" — it's "how would I detect an error in this specific output?" If you can't answer that question, the verification step is incomplete.</p>
-          <div class="callout--gold callout" style="margin:0;">
-            <strong>Ask yourself:</strong> Can I independently verify the most important claims in this output? What's the specific check I would run? What would an error look like — and would I be able to see it?
-          </div>
-        </div>
-      </div>
-
-      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; background:var(--white);">
-        <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px;">
-          <div style="width:36px; height:36px; border:2px solid rgba(255,255,255,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800;">5</div>
-          <div><strong>Human</strong> — Who is accountable?</div>
-        </div>
-        <div style="padding:24px;">
-          <p style="font-size:0.93em; margin-bottom:12px;">When AI output affects a real person — their job application, their loan, their medical treatment, their legal standing — someone at the institution that deployed that AI is accountable. "The algorithm decided" is not a legal defence under South African law. The Employment Equity Act, POPIA, and consumer protection legislation all locate accountability in the organisation and its decision-makers.</p>
-          <div class="callout--gold callout" style="margin:0;">
-            <strong>Ask yourself:</strong> Who signs off on this before it reaches someone who could be affected by it? Is there a clear review step in place — or is the AI output going straight into action? If something goes wrong, who answers for it?
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -212,28 +246,26 @@
 </section>
 
 <footer>
-  <strong>AfriversalAI</strong> &middot; <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script>
-  document.querySelectorAll('.five-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const wasOpen = card.classList.contains('is-open');
-      document.querySelectorAll('.five-card').forEach(c => {
-        c.classList.remove('is-open');
-        c.setAttribute('aria-expanded', 'false');
+  document.querySelectorAll('.f5-step').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      document.querySelectorAll('.f5-step').forEach(b => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
       });
-      if (!wasOpen) {
-        card.classList.add('is-open');
-        card.setAttribute('aria-expanded', 'true');
-      }
+      document.querySelectorAll('.f5-detail-item').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(target).classList.add('is-active');
     });
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.click();
-      }
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
     });
   });
 </script>

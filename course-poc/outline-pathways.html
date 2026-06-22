@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pathways &amp; Next Steps — AfriversalAI Professional Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+      --navy: #1A3A5C; --purple: #2C1654;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .doc-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.82em; flex-wrap: wrap; gap: 8px; }
+    .doc-topbar a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .print-btn { padding: 6px 14px; background: var(--green-dark); color: white; border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 600; cursor: pointer; }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+    .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    h2 { font-size: 1.15em; font-weight: 700; color: var(--green-dark); margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
+    h3 { font-size: 1.0em; font-weight: 700; margin: 20px 0 8px; }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    ul { padding-left: 22px; margin-bottom: 14px; }
+    li { margin-bottom: 5px; line-height: 1.65; }
+    strong { font-weight: 600; }
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+    /* Sector cert grid */
+    .sector-cert-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 18px 0; }
+    .sector-cert-card { border: 1px solid var(--green-mid); border-radius: var(--radius-lg); overflow: hidden; }
+    .sector-cert-card__head { background: var(--green-mid); color: white; padding: 10px 10px 8px; text-align: center; font-size: 1.4em; }
+    .sector-cert-card__body { padding: 10px; text-align: center; font-size: 0.78em; background: var(--green-pale); }
+    .sector-cert-card__name { font-weight: 700; color: var(--green-dark); margin-bottom: 4px; }
+    .sector-cert-card__cert { font-size: 0.7em; color: var(--muted); line-height: 1.4; }
+    /* Executive cards */
+    .exec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    .exec-card { border: 1px solid var(--purple); border-radius: var(--radius-lg); overflow: hidden; }
+    .exec-card__head { background: var(--purple); color: white; padding: 14px 16px; }
+    .exec-card__title { font-weight: 700; font-size: 1.0em; }
+    .exec-card__who { font-size: 0.77em; opacity: .8; margin-top: 3px; }
+    .exec-card__body { padding: 14px 16px; font-size: 0.86em; }
+    .exec-card__body ul { padding-left: 16px; }
+    .exec-card__body li { margin-bottom: 4px; }
+    /* Next steps table */
+    .steps-table { width: 100%; border-collapse: collapse; font-size: 0.87em; margin-top: 14px; }
+    .steps-table th { background: var(--green-dark); color: white; padding: 9px 13px; text-align: left; }
+    .steps-table td { padding: 9px 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .steps-table tr:nth-child(even) td { background: var(--green-pale); }
+    .steps-table .layer-badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 0.72em; font-weight: 700; margin-left: 6px; vertical-align: middle; }
+    .layer-badge--1 { background: var(--green-light); color: var(--green-dark); }
+    .layer-badge--2 { background: #d4edda; color: var(--green-mid); }
+    .layer-badge--3 { background: #dce7f3; color: var(--navy); }
+    .layer-badge--4 { background: #ede4f3; color: var(--purple); }
+    /* Contact */
+    .contact-box { text-align: center; margin-top: 36px; padding: 28px; background: var(--green-pale); border-radius: var(--radius-lg); }
+    .page-nav { display: flex; justify-content: flex-start; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+    @media (max-width: 700px) { .sector-cert-grid { grid-template-columns: repeat(3, 1fr); } .exec-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html" class="active">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">Layers 2 &amp; 4 &middot; Roadmap</div>
+  <h1 class="page-header__title">Advanced Pathways &amp; Next Steps</h1>
+  <p class="page-header__desc">Layer 2 sector specializations, Layer 4 executive programs, and the institutional roadmap for 2026&ndash;2027.</p>
+</div>
+
+
+<h2>Layer 2 &mdash; Sector Specializations</h2>
+
+<p>After completing the Layer 1 Core Certification, learners can pursue a sector-named practitioner credential in their industry. Each track goes deeper into sector-specific AI tools, applicable SA legislation, regulatory bodies, and real cases from that industry. The Layer 1 Module 7 sector case study is the foundation that Layer 2 builds on.</p>
+
+<div class="sector-cert-grid">
+  <div class="sector-cert-card">
+    <div class="sector-cert-card__head">&#127970;</div>
+    <div class="sector-cert-card__body">
+      <div class="sector-cert-card__name">Corporate</div>
+      <div class="sector-cert-card__cert">Certified Corporate AI Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="sector-cert-card">
+    <div class="sector-cert-card__head">&#127963;</div>
+    <div class="sector-cert-card__body">
+      <div class="sector-cert-card__name">Government</div>
+      <div class="sector-cert-card__cert">Certified Government AI Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="sector-cert-card">
+    <div class="sector-cert-card__head">&#128176;</div>
+    <div class="sector-cert-card__body">
+      <div class="sector-cert-card__name">Finance</div>
+      <div class="sector-cert-card__cert">Certified Finance AI Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="sector-cert-card">
+    <div class="sector-cert-card__head">&#127973;</div>
+    <div class="sector-cert-card__body">
+      <div class="sector-cert-card__name">Healthcare</div>
+      <div class="sector-cert-card__cert">Certified Healthcare AI Practitioner&trade;</div>
+    </div>
+  </div>
+  <div class="sector-cert-card">
+    <div class="sector-cert-card__head">&#127891;</div>
+    <div class="sector-cert-card__body">
+      <div class="sector-cert-card__name">Education</div>
+      <div class="sector-cert-card__cert">Certified Education AI Practitioner&trade;</div>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <strong>Layer 2 format:</strong> 4-week intensive per sector &middot; Builds directly on Layer 1 Module 7 sector track &middot; Covers advanced sector-specific tools, full SA regulatory landscape for that sector, and a practitioner-level capstone assessed by a sector expert. Curriculum in development for Q4 2026 pilot.
+</div>
+
+
+<h2>Layer 4 &mdash; Executive Programs</h2>
+
+<p>Intensive programs for executives and board members responsible for AI strategy at an organisational level. Cohort-based with peer learning, expert panels, and a strategic AI readiness assessment deliverable. Small cohorts (max 15 learners). Two tracks:</p>
+
+<div class="exec-grid">
+  <div class="exec-card">
+    <div class="exec-card__head">
+      <div class="exec-card__title">AI Leadership Program</div>
+      <div class="exec-card__who">For: CEOs, COOs, CIOs, CTOs, and senior executives setting AI strategy</div>
+    </div>
+    <div class="exec-card__body">
+      <ul>
+        <li>AI strategy design and organisational readiness assessment</li>
+        <li>Leading cultural change in AI adoption</li>
+        <li>Evaluating AI vendor proposals and build-vs-buy decisions</li>
+        <li>Communicating AI risk to boards, investors, and regulators</li>
+        <li>Capstone: strategic AI readiness plan for their organisation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="exec-card">
+    <div class="exec-card__head">
+      <div class="exec-card__title">AI Board Governance Program</div>
+      <div class="exec-card__who">For: Non-executive directors, trustees, and board chairs</div>
+    </div>
+    <div class="exec-card__body">
+      <ul>
+        <li>Director duties and AI risk in the SA regulatory context</li>
+        <li>Questioning management AI recommendations effectively</li>
+        <li>AI audit committee structures and oversight protocols</li>
+        <li>Scenario-based board simulation: AI crisis response</li>
+        <li>Capstone: AI governance policy for board adoption</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="callout--gold callout">
+  <strong>Prerequisite:</strong> Layer 1 Core Certification or demonstrated equivalent competency assessed on application. Executive programs in design phase &mdash; target launch Q1 2027.
+</div>
+
+
+<div class="contact-box">
+  <p style="font-size:0.9em; color:var(--muted); margin-bottom:10px;">Questions, partnership enquiries, or sector pilot interest:</p>
+  <a href="mailto:ask@afriversal.ai" style="font-size:1.15em; font-weight:700; color:var(--green-dark); text-decoration:none;">ask@afriversal.ai</a>
+</div>
+
+<div class="page-nav no-print">
+  <a href="outline-cohorts.html" class="page-nav__btn page-nav__btn--ghost">&larr; Layer 3 Cohorts</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

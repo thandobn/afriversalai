@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -25,8 +25,22 @@
         </ul>
       </li>
       <li><a href="course.html" class="active">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
       <li><a href="module-0.html">Preview Course</a></li>
-      <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
@@ -44,44 +58,113 @@
 
 <!-- HERO -->
 <section class="hero">
-  <span class="eyebrow eyebrow--light" data-i18n="course_hero_eyebrow">Core Course</span>
+  <span class="eyebrow eyebrow--light" data-i18n="course_hero_eyebrow">Africa&rsquo;s Professional Standards Framework for AI</span>
   <h1 data-i18n-html="course_hero_h1_html">AI Judgment for<br>South African Professionals</h1>
-  <p class="lead lead--light" data-i18n="course_hero_lead">A free foundation module, then seven core modules &mdash; each built around a real SA case study. One framework you'll use for the rest of your career. Built for the professional who encounters AI at work and needs to know what to actually do with it.</p>
+  <p class="lead lead--light" data-i18n="course_hero_lead">A structured four-layer framework: begin with the Core Certification, advance through sector specializations, and progress to policy, governance, and executive programs. One shared foundation &mdash; the Funda Five &mdash; that works across every layer, every sector, every role.</p>
 </section>
 
-<!-- COURSE FACTS -->
+<!-- 4-LAYER FRAMEWORK OVERVIEW -->
 <section class="bg-white">
   <div class="container">
-    <div class="stat-row">
-      <div class="stat-block">
-        <div class="stat-block__number">7</div>
-        <div class="stat-block__label">Core modules &middot; including your sector deep-dive &middot; plus a free foundation module</div>
+    <span class="eyebrow">The Framework</span>
+    <h2>Four layers of professional AI development</h2>
+    <p class="lead">Each layer builds on the one before. All learners begin at Layer 1. From there, you choose your specialization, your sector, and your level of responsibility.</p>
+
+    <div style="display:grid; grid-template-columns:1fr; gap:12px; margin-top:32px;">
+
+      <!-- Layer 1 -->
+      <div style="border-radius:12px; overflow:hidden; border:1px solid #1B4332;">
+        <div style="background:#1B4332; padding:16px 20px 16px 60px; position:relative; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85em; color:white;">1</div>
+          <div>
+            <div style="font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#E9C46A; margin-bottom:4px;">Core Certification &middot; 7 Weeks</div>
+            <div style="font-weight:700; font-size:1.0em; color:white;">AI Literacy for South African Workplaces</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:20px; padding:3px 12px; font-size:0.72em; font-weight:600; color:white;">All Sectors</span>
+            <a href="#layer1" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Start here &darr;</a>
+          </div>
+        </div>
+        <div style="padding:14px 20px; font-size:0.88em; color:#6B7280; background:#fff;">
+          Modules 0&ndash;7. The Funda Five framework, applied to 7 real SA case studies. Ends with a sector deep-dive (Module 7) and a written capstone assessed by a human assessor. <strong style="color:#1B4332;">This is where everyone begins.</strong>
+        </div>
       </div>
-      <div class="stat-block">
-        <div class="stat-block__number">18</div>
-        <div class="stat-block__label">Assessable competencies &mdash; all at Apply level or above on Bloom's Taxonomy</div>
+
+      <!-- Layer 2 -->
+      <div style="border-radius:12px; overflow:hidden; border:1px solid #2D6A4F;">
+        <div style="background:#2D6A4F; padding:16px 20px 16px 60px; position:relative; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85em; color:white;">2</div>
+          <div>
+            <div style="font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#E9C46A; margin-bottom:4px;">Sector Specializations &middot; 4 Weeks Each</div>
+            <div style="font-weight:700; font-size:1.0em; color:white;">Certified AI Practitioner &mdash; by Sector</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:20px; padding:3px 12px; font-size:0.72em; font-weight:600; color:white;">5 Tracks &middot; Requires Layer 1</span>
+            <a href="outline-pathways.html" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Explore &rarr;</a>
+          </div>
+        </div>
+        <div style="padding:14px 20px; font-size:0.88em; color:#6B7280; background:#fff;">
+          Corporate &middot; Government &middot; Finance &middot; Healthcare &middot; Education. Each builds directly on your Layer 1 Module 7 sector track, going deeper into sector-specific tools, SA legislation, and regulatory bodies. Assessed by a sector expert. <em>Pilot launching Q4 2026.</em>
+        </div>
       </div>
-      <div class="stat-block">
-        <div class="stat-block__number">1</div>
-        <div class="stat-block__label">Framework &mdash; the Funda Five &mdash; that works on any AI situation, in any sector</div>
+
+      <!-- Layer 3 -->
+      <div style="border-radius:12px; overflow:hidden; border:1px solid #1A3A5C;">
+        <div style="background:#1A3A5C; padding:16px 20px 16px 60px; position:relative; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85em; color:white;">3</div>
+          <div>
+            <div style="font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#E9C46A; margin-bottom:4px;">Professional Cohorts &middot; 4 Weeks Each</div>
+            <div style="font-weight:700; font-size:1.0em; color:white;">AI Policy, Governance &amp; Regulation</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:20px; padding:3px 12px; font-size:0.72em; font-weight:600; color:white;">3 Cohorts &middot; Requires Layer 1</span>
+            <a href="outline-cohorts.html" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Explore &rarr;</a>
+          </div>
+        </div>
+        <div style="padding:14px 20px; font-size:0.88em; color:#6B7280; background:#fff;">
+          AI Policy Analysis &middot; AI Governance &amp; Oversight &middot; AI Regulation &amp; Compliance. For professionals who write policy, design governance frameworks, or work in regulatory roles. Small cohorts. Peer-learning intensive. <em>Enrolling 2027.</em>
+        </div>
       </div>
+
+      <!-- Layer 4 -->
+      <div style="border-radius:12px; overflow:hidden; border:1px solid #2C1654;">
+        <div style="background:#2C1654; padding:16px 20px 16px 60px; position:relative; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <div style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85em; color:white;">4</div>
+          <div>
+            <div style="font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#E9C46A; margin-bottom:4px;">Executive Programs &middot; Cohort-Based</div>
+            <div style="font-weight:700; font-size:1.0em; color:white;">AI Leadership &amp; Board Governance</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:20px; padding:3px 12px; font-size:0.72em; font-weight:600; color:white;">2 Programs &middot; Max 15 per cohort</span>
+            <a href="outline-pathways.html" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Explore &rarr;</a>
+          </div>
+        </div>
+        <div style="padding:14px 20px; font-size:0.88em; color:#6B7280; background:#fff;">
+          AI Leadership Program (CEOs, CIOs, COOs) &middot; AI Board Governance Program (NEDs, trustees, chairs). Strategic AI readiness assessments. Expert panels. Scenario-based board simulations. <em>Target launch Q1 2027.</em>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px; text-align:center;">
+      <a href="course-outline.html" class="btn btn--outline btn--lg">View full curriculum framework &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- MODULE MAP -->
-<section class="bg-pale">
+<!-- LAYER 1 MODULE MAP -->
+<section class="bg-pale" id="layer1">
   <div class="container">
-    <span class="eyebrow" data-i18n="course_map_eyebrow">Module Map</span>
-    <h2 data-i18n="course_map_h2">What you'll learn &mdash; and what you'll do with it</h2>
-    <p class="lead">Every module follows the same four-phase structure. You engage with the case study before any theory is introduced. The learning comes from working through it, not being told about it.</p>
+    <span class="eyebrow" data-i18n="course_map_eyebrow">Layer 1 &mdash; Core Certification</span>
+    <h2 data-i18n="course_map_h2">Modules 0&ndash;7: what you&rsquo;ll learn and what you&rsquo;ll do with it</h2>
+    <p class="lead">Every module follows the same four-phase structure: Concept, Encounter, Reflect, Apply. You engage with a real SA case study before any theory is introduced. The learning comes from working through it &mdash; not being told about it.</p>
 
-    <!-- Module 0 foundation card spans full width before the grid -->
+    <!-- Module 0 -->
     <div style="background:var(--green-dark); border-radius:var(--radius-lg); padding:32px 36px; margin-bottom:24px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center;">
       <div>
         <div style="font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); margin-bottom:10px;">Module 0 &middot; Foundation &middot; Free &mdash; start here</div>
         <h3 style="color:white; margin-bottom:10px; font-size:1.3em;">AI Fundamentals: What Is It, Really?</h3>
-        <p style="font-size:0.88em; color:rgba(255,255,255,0.72); margin-bottom:16px; max-width:600px; line-height:1.65;">Before the case studies, build a shared foundation. No assumptions, no jargon. What AI is, what it isn't, where you already encounter it at work, and what it cannot do &mdash; regardless of how confidently it sounds. Every learner does this module first, no matter which sector trajectory they choose.</p>
+        <p style="font-size:0.88em; color:rgba(255,255,255,0.72); margin-bottom:16px; max-width:600px; line-height:1.65;">Before the case studies, build a shared foundation. No assumptions, no jargon. What AI is, what it isn&rsquo;t, where you already encounter it at work, and what it cannot do &mdash; regardless of how confidently it sounds. Every learner does this module first, no matter which sector trajectory they choose.</p>
         <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:0.82em; color:rgba(255,255,255,0.55);">
           <span>45 minutes</span>
           <span>&middot;</span>
@@ -101,104 +184,108 @@
         <div class="module-card__num">Module 1</div>
         <h3>What AI Actually Is</h3>
         <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">What makes AI different from other software? What can generative AI not do &mdash; regardless of how confident it sounds? Why does it hallucinate sources and fabricate statistics?</p>
-        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px; margin-bottom:16px;">
-          <li>Explain how generative AI produces output without "knowing" anything</li>
+          <li>Explain how generative AI produces output without &ldquo;knowing&rdquo; anything</li>
           <li>Identify the key failure modes of language models</li>
           <li>Spot hallucination signals in a real document</li>
         </ul>
-        <div class="module-card__case">📰 SA Government AI Policy Scandal &middot; 2026</div>
-
+        <div class="module-card__case">&#128240; SA Government AI Policy Scandal &middot; 2026</div>
       </div>
 
       <div class="module-card">
         <div class="module-card__num">Module 2</div>
         <h3>How AI Learns &mdash; and Fails</h3>
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">AI is trained on data. That data reflects the world's inequalities. Understanding how AI learns is the first step to spotting when it's failing people.</p>
-        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">AI is trained on data. That data reflects the world&rsquo;s inequalities. Understanding how AI learns is the first step to spotting when it&rsquo;s failing people.</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px;">
           <li>Describe how AI learns from historical data</li>
           <li>Explain why training data reproduces systemic bias</li>
           <li>Identify proxy discrimination in an AI output</li>
         </ul>
-        <div class="module-card__case">💳 African Fintech Credit Scoring Bias &middot; 2025</div>
+        <div class="module-card__case">&#128179; African Fintech Credit Scoring Bias &middot; 2025</div>
       </div>
 
       <div class="module-card">
         <div class="module-card__num">Module 3</div>
         <h3>Bias and Discrimination</h3>
         <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">Discrimination can happen without discriminatory intent. In South Africa, AI trained on historical data carries the weight of apartheid and structural inequality forward.</p>
-        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px;">
           <li>Define algorithmic bias in non-technical terms</li>
           <li>Analyse an AI recommendation for disparate impact</li>
           <li>Apply an equity lens to AI deployment decisions</li>
         </ul>
-        <div class="module-card__case">🚔 SA Predictive Policing</div>
+        <div class="module-card__case">&#128268; SA Predictive Policing</div>
       </div>
 
       <div class="module-card">
         <div class="module-card__num">Module 4</div>
         <h3>Verification and Judgment</h3>
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">Verification isn't a technical skill &mdash; it's a professional one. How do you decide when AI output is good enough to act on, and when it needs a second look?</p>
-        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">Verification isn&rsquo;t a technical skill &mdash; it&rsquo;s a professional one. How do you decide when AI output is good enough to act on, and when it needs a second look?</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px;">
           <li>Apply the Funda Five verification steps to any AI output</li>
           <li>Identify deepfake and synthetic content signals</li>
           <li>Build a personal verification checklist for your role</li>
         </ul>
-        <div class="module-card__case">🎭 SA 2024 Election Deepfakes</div>
+        <div class="module-card__case">&#127917; SA 2024 Election Deepfakes</div>
       </div>
 
       <div class="module-card">
         <div class="module-card__num">Module 5</div>
         <h3>Accountability and Governance</h3>
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">"The algorithm decided" is not a legal or ethical defence. When AI affects someone's employment, credit, or healthcare &mdash; a person in an organisation is accountable.</p>
-        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">&ldquo;The algorithm decided&rdquo; is not a legal or ethical defence. When AI affects someone&rsquo;s employment, credit, or healthcare &mdash; a person in an organisation is accountable.</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px;">
           <li>Map the accountability chain for an AI decision in your organisation</li>
           <li>Identify SA Employment Equity Act exposure from AI recruitment tools</li>
           <li>Raise a substantive AI concern through the right channels</li>
         </ul>
-        <div class="module-card__case">⚖️ AI Recruitment + Employment Equity Act Liability &middot; 2025</div>
+        <div class="module-card__case">&#9878;&#65039; AI Recruitment + Employment Equity Act Liability &middot; 2025</div>
       </div>
 
       <div class="module-card">
         <div class="module-card__num">Module 6</div>
-        <h3>When AI Works &mdash; and When It Doesn't</h3>
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">The question is never "AI yes or no?" It's "AI for what purpose, for whom, in what context, with what oversight?" This module applies the full Funda Five to two contrasting cases.</p>
-        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You'll be able to:</p>
+        <h3>When AI Works &mdash; and When It Doesn&rsquo;t</h3>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">The question is never &ldquo;AI yes or no?&rdquo; It&rsquo;s &ldquo;AI for what purpose, for whom, in what context, with what oversight?&rdquo; This module applies the full Funda Five to two contrasting cases.</p>
+        <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px;">
           <li>Evaluate an AI deployment across all five Funda dimensions</li>
           <li>Write a professional AI judgment statement</li>
           <li>Brief a team or manager on responsible AI use</li>
         </ul>
-        <div class="module-card__case">✅ Dr Math (CSIR) vs. Clinical AI Decision Support</div>
+        <div class="module-card__case">&#9989; Dr Math (CSIR) vs. Clinical AI Decision Support</div>
       </div>
 
     </div><!-- end .module-grid -->
 
-    <!-- Module 7 sector deep-dive spans full width below the grid -->
+    <!-- Module 7 -->
     <div class="module-m7">
       <div>
         <div class="module-m7__eyebrow">Module 7 &middot; Sector Deep-Dive &middot; Choose your track</div>
         <h3 class="module-m7__title">Your Sector Deep-Dive</h3>
-        <p class="module-m7__desc">Apply everything you've built to the AI tools, risks, and decisions that define your specific sector. Each track uses case studies drawn from that industry &mdash; the risks your colleagues actually face, the tools your organisation is already buying.</p>
-        <p class="module-m7__outcomes-label">You'll be able to:</p>
+        <p class="module-m7__desc">Apply everything you&rsquo;ve built to the AI tools, risks, and decisions that define your specific sector. Each track uses case studies drawn from that industry &mdash; the risks your colleagues actually face, the tools your organisation is already buying.</p>
+        <p class="module-m7__outcomes-label">You&rsquo;ll be able to:</p>
         <ul class="module-m7__outcomes">
           <li>Identify the highest-risk AI applications in your sector</li>
           <li>Apply the Funda Five to sector-specific case studies</li>
           <li>Produce a sector-relevant AI judgment for your capstone</li>
         </ul>
         <div class="module-m7__tracks">
-          <span class="module-m7__track-chip">🏢 Corporate</span>
-          <span class="module-m7__track-chip">🏛️ Government</span>
-          <span class="module-m7__track-chip">💰 Finance</span>
-          <span class="module-m7__track-chip">🏥 Healthcare</span>
-          <span class="module-m7__track-chip">🎓 Education</span>
+          <span class="module-m7__track-chip">&#127970; Corporate</span>
+          <span class="module-m7__track-chip">&#127963;&#65039; Government</span>
+          <span class="module-m7__track-chip">&#128176; Finance</span>
+          <span class="module-m7__track-chip">&#127973; Healthcare</span>
+          <span class="module-m7__track-chip">&#127891; Education</span>
         </div>
+        <p style="margin-top:14px; font-size:0.84em; color:rgba(255,255,255,0.6);">Module 7 is also the gateway to <strong style="color:var(--gold);">Layer 2 Sector Specializations</strong> &mdash; a 4-week practitioner credential in your sector, building directly on the foundation you establish here.</p>
       </div>
       <a href="#sectors" class="btn btn--white btn--lg module-m7__btn">Find your sector path &darr;</a>
+    </div>
+
+    <div style="margin-top:16px; text-align:right;">
+      <a href="outline-core-modules.html" style="font-size:0.85em; color:var(--green-dark); font-weight:600; text-decoration:none;">View full module detail in the curriculum &rarr;</a>
     </div>
 
   </div>
@@ -207,14 +294,14 @@
 <!-- SECTOR TRACKS -->
 <section class="bg-pale" id="sectors">
   <div class="container">
-    <span class="eyebrow" data-i18n="sector_eyebrow">Find Your Sector</span>
+    <span class="eyebrow" data-i18n="sector_eyebrow">Module 7 &mdash; Sector Tracks</span>
     <h2 data-i18n-html="sector_h2_html">Every module applies across sectors.<br>But some case studies hit harder in your world.</h2>
     <p class="lead">Choose your sector to see which modules and case studies hit hardest in your world &mdash; and what you&rsquo;ll work through in your sector deep-dive.</p>
 
     <div class="sector-grid sector-grid--detail">
 
       <div class="sector-card is-open" id="sc-corporate">
-        <div class="sector-icon">🏢</div>
+        <div class="sector-icon">&#127970;</div>
         <div class="sector-name" data-i18n="sector_corp_name">Corporate &amp; Business</div>
         <div class="sector-desc" data-i18n="sector_corp_desc">Operations, HR, marketing, and management teams using AI in professional workflows</div>
         <div class="sector-path">
@@ -234,14 +321,14 @@
       </div>
 
       <div class="sector-card is-open" id="sc-government">
-        <div class="sector-icon">🏛️</div>
+        <div class="sector-icon">&#127963;&#65039;</div>
         <div class="sector-name" data-i18n="sector_gov_name">Government &amp; Public Sector</div>
         <div class="sector-desc" data-i18n="sector_gov_desc">Policy teams, administrators, and civil servants working with AI-assisted decisions</div>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>The DCDT AI policy hallucination &mdash; what failed and what it cost</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M3</span>How predictive systems reproduce inequality in public services</div>
-          <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Accountability when algorithmic decisions affect citizens' rights</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M5</span>Accountability when algorithmic decisions affect citizens&rsquo; rights</div>
           <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Government &amp; Public Sector &mdash; your sector deep-dive</div>
           <div class="sector-tackle">
             <div class="sector-tackle__label">In Module 7, you&rsquo;ll tackle</div>
@@ -254,7 +341,7 @@
       </div>
 
       <div class="sector-card is-open" id="sc-finance">
-        <div class="sector-icon">💰</div>
+        <div class="sector-icon">&#128176;</div>
         <div class="sector-name" data-i18n="sector_fin_name">Finance &amp; Banking</div>
         <div class="sector-desc" data-i18n="sector_fin_desc">Financial services professionals navigating AI-driven credit scoring, fraud detection, and compliance</div>
         <div class="sector-path">
@@ -274,14 +361,14 @@
       </div>
 
       <div class="sector-card is-open" id="sc-medical">
-        <div class="sector-icon">🏥</div>
+        <div class="sector-icon">&#127973;</div>
         <div class="sector-name" data-i18n="sector_med_name">Medical &amp; Healthcare</div>
         <div class="sector-desc" data-i18n="sector_med_desc">Clinicians, health administrators, and public health professionals encountering clinical AI tools</div>
         <div class="sector-path">
           <div class="sector-path-label" data-i18n="sector_path_label">Your key modules</div>
-          <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>When AI-generated clinical information looks authoritative but isn't</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M1</span>When AI-generated clinical information looks authoritative but isn&rsquo;t</div>
           <div class="sector-mod-row"><span class="sector-mod-badge">M4</span>Verification standards before acting on AI diagnostic support</div>
-          <div class="sector-mod-row"><span class="sector-mod-badge">M6</span>Dr Math (what works) vs. clinical decision AI (what doesn't yet)</div>
+          <div class="sector-mod-row"><span class="sector-mod-badge">M6</span>Dr Math (what works) vs. clinical decision AI (what doesn&rsquo;t yet)</div>
           <div class="sector-mod-row"><span class="sector-mod-badge" style="background:var(--gold-dark);">M7</span>AI Tools for Medical &amp; Healthcare &mdash; your sector deep-dive</div>
           <div class="sector-tackle">
             <div class="sector-tackle__label">In Module 7, you&rsquo;ll tackle</div>
@@ -294,7 +381,7 @@
       </div>
 
       <div class="sector-card is-open" id="sc-education">
-        <div class="sector-icon">🎓</div>
+        <div class="sector-icon">&#127891;</div>
         <div class="sector-name" data-i18n="sector_edu_name">Education</div>
         <div class="sector-desc" data-i18n="sector_edu_desc">Educators and administrators in higher education and schools managing student AI use and institutional tools</div>
         <div class="sector-path">
@@ -314,6 +401,11 @@
       </div>
 
     </div>
+
+    <div style="margin-top:24px; text-align:right;">
+      <a href="outline-sector-tracks.html" style="font-size:0.85em; color:var(--green-dark); font-weight:600; text-decoration:none;">View full sector track detail &rarr;</a>
+    </div>
+
   </div>
 </section>
 <script>
@@ -359,21 +451,21 @@
         <div style="width:48px; height:48px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; flex-shrink:0;">2</div>
         <div>
           <h3>Encounter <span style="font-size:0.75em; font-weight:400; color:var(--muted);">~20 min</span></h3>
-          <p style="font-size:0.93em;">You receive a real document, output, or scenario and engage with it &mdash; no guidance, no hints. Task: "What do you notice? What would you do with this?" Your instincts, sharpened by what you've just learned, are the starting material.</p>
+          <p style="font-size:0.93em;">You receive a real document, output, or scenario and engage with it &mdash; no guidance, no hints. Task: &ldquo;What do you notice? What would you do with this?&rdquo; Your instincts, sharpened by what you&rsquo;ve just learned, are the starting material.</p>
         </div>
       </div>
       <div style="display:flex; gap:20px; align-items:flex-start; margin-bottom:24px; padding:20px; background:var(--green-pale); border-radius:var(--radius-lg);">
         <div style="width:48px; height:48px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; flex-shrink:0;">3</div>
         <div>
           <h3>Reflect <span style="font-size:0.75em; font-weight:400; color:var(--muted);">~10 min</span></h3>
-          <p style="font-size:0.93em;">Guided questions surface what you noticed and where you already encounter AI in your own work. You write before you're given the answer &mdash; because your honest reaction is what makes the Apply phase meaningful.</p>
+          <p style="font-size:0.93em;">Guided questions surface what you noticed and where you already encounter AI in your own work. You write before you&rsquo;re given the answer &mdash; because your honest reaction is what makes the Apply phase meaningful.</p>
         </div>
       </div>
       <div style="display:flex; gap:20px; align-items:flex-start; padding:20px; background:var(--green-pale); border-radius:var(--radius-lg);">
         <div style="width:48px; height:48px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; flex-shrink:0;">4</div>
         <div>
           <h3>Apply <span style="font-size:0.75em; font-weight:400; color:var(--muted);">~10 min</span></h3>
-          <p style="font-size:0.93em;">Take it to your own workplace. Classify an AI tool you already use, identify a failure mode you hadn't seen before, and write a brief judgment. This is where competency is built &mdash; not just understanding.</p>
+          <p style="font-size:0.93em;">Take it to your own workplace. Classify an AI tool you already use, identify a failure mode you hadn&rsquo;t seen before, and write a brief judgment. This is where competency is built &mdash; not just understanding.</p>
         </div>
       </div>
     </div>
@@ -384,13 +476,35 @@
   </div>
 </section>
 
-<!-- CERTIFICATE TEASER -->
-<section class="bg-pale text-center">
-  <div class="container--sm">
-    <span class="eyebrow" data-i18n="course_cert_eyebrow">The Certificate</span>
-    <h2 data-i18n="course_cert_h2">Demonstrated, not completed.</h2>
-    <p class="lead" style="margin: 0 auto 32px;">The AfriversalAI certificate is earned through a real performance task &mdash; a written evaluation of an AI system from your own job, assessed by a trained human assessor against a published rubric.</p>
-    <a href="certificate.html" class="btn btn--outline btn--lg" data-i18n="course_cert_btn">Learn about the certificate &rarr;</a>
+<!-- CERTIFICATE AND PATHWAY -->
+<section class="bg-pale">
+  <div class="container--sm text-center">
+    <span class="eyebrow" data-i18n="course_cert_eyebrow">The Certificate &amp; Your Pathway</span>
+    <h2 data-i18n="course_cert_h2">Layer 1: demonstrated, not completed.</h2>
+    <p class="lead" style="margin: 0 auto 24px;">The AfriversalAI Layer 1 Certificate is earned through a real performance task &mdash; a written evaluation of an AI system from your own job, assessed by a trained human assessor against a published rubric. It is proof of judgment, not attendance.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:24px 0 32px; text-align:left;">
+      <div style="background:#F0F7F4; border-radius:10px; padding:18px 16px; border:1px solid #D8F3DC;">
+        <div style="font-size:1.4em; margin-bottom:8px;">&#127891;</div>
+        <div style="font-weight:700; font-size:0.9em; color:#1B4332; margin-bottom:4px;">Layer 1 Certificate</div>
+        <div style="font-size:0.82em; color:#6B7280;">Core AI literacy. The shared foundation for all further layers.</div>
+      </div>
+      <div style="background:#EEF3F8; border-radius:10px; padding:18px 16px; border:1px solid #c5d5e8;">
+        <div style="font-size:1.4em; margin-bottom:8px;">&#127775;</div>
+        <div style="font-weight:700; font-size:0.9em; color:#1A3A5C; margin-bottom:4px;">Sector Practitioner Cert</div>
+        <div style="font-size:0.82em; color:#6B7280;">Layer 2: your sector credential. Requires Layer 1. Pilot Q4 2026.</div>
+      </div>
+      <div style="background:#F3EFF8; border-radius:10px; padding:18px 16px; border:1px solid #d5c8e8;">
+        <div style="font-size:1.4em; margin-bottom:8px;">&#128081;</div>
+        <div style="font-weight:700; font-size:0.9em; color:#2C1654; margin-bottom:4px;">Executive &amp; Policy Programs</div>
+        <div style="font-size:0.82em; color:#6B7280;">Layers 3 &amp; 4: governance, policy, and leadership. 2027.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="certificate.html" class="btn btn--outline btn--lg" data-i18n="course_cert_btn">Learn about the certificate &rarr;</a>
+      <a href="course-outline.html" class="btn btn--primary btn--lg">View full curriculum &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -401,8 +515,9 @@
 </div>
 
 <footer>
-  <strong>AfriversalAI</strong> &middot; <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script src="assets/translations.js"></script>

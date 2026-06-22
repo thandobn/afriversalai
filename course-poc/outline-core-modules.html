@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core Modules — AfriversalAI Professional Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .doc-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.82em; flex-wrap: wrap; gap: 8px; }
+    .doc-topbar a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .print-btn { padding: 6px 14px; background: var(--green-dark); color: white; border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 600; cursor: pointer; }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+    .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    ul { padding-left: 22px; margin-bottom: 10px; }
+    li { margin-bottom: 4px; line-height: 1.6; }
+    strong { font-weight: 600; }
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+    .module-block { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin: 18px 0; }
+    .module-block__head { background: var(--green-dark); color: white; padding: 13px 18px; display: flex; align-items: center; gap: 14px; }
+    .module-block__num { background: rgba(255,255,255,.2); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.86em; flex-shrink: 0; }
+    .module-block__head strong { font-size: 0.97em; }
+    .module-block__head div { font-size: 0.78em; opacity: .75; margin-top: 2px; }
+    .module-block__body { padding: 18px 22px; }
+    .module-block__case { display: inline-block; background: var(--green-pale); color: var(--green-dark); padding: 3px 11px; border-radius: 12px; font-size: 0.76em; font-weight: 600; margin-bottom: 10px; }
+    .module-block__desc { font-size: 0.87em; color: var(--muted); margin-bottom: 10px; }
+    .obj-label { font-size: 0.73em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green-mid); margin: 12px 0 5px; }
+    .module-block__objectives { font-size: 0.86em; padding-left: 18px; }
+    .module-block__objectives li { margin-bottom: 3px; }
+    .phase-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+    .phase-chip { background: var(--green-pale); border-radius: var(--radius); padding: 8px 10px; font-size: 0.75em; text-align: center; }
+    .phase-chip strong { display: block; font-weight: 700; color: var(--green-dark); margin-bottom: 2px; }
+    .page-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+    @media (max-width: 700px) { .phase-row { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html" class="active">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">Layer 1 &middot; Core Curriculum</div>
+  <h1 class="page-header__title">Core Modules 0 &ndash; 6</h1>
+  <p class="page-header__desc">The foundation every AfriversalAI learner completes, regardless of sector or specialization. Seven modules, all built around real South African AI cases.</p>
+</div>
+
+<div class="callout">
+  <strong>Four-phase structure &mdash; every module:</strong>
+  Encounter (~20 min) &rarr; Reflect (~20 min) &rarr; Concept (~30 min) &rarr; Apply (~30 min).
+  Approximately 100 minutes per module self-paced. Facilitated sessions run 90&ndash;120 min with peer discussion.
+</div>
+
+
+<!-- MODULE 0 -->
+<div class="module-block" style="border-color: var(--gold);">
+  <div class="module-block__head" style="background: linear-gradient(135deg, #1B4332, #2D6A4F);">
+    <div class="module-block__num" style="background: var(--gold); color: var(--green-dark);">0</div>
+    <div>
+      <strong>AI Fundamentals: What Is It, Really?</strong>
+      <div>Free &middot; All sectors &middot; Required pre-work before cohort</div>
+    </div>
+  </div>
+  <div class="module-block__body">
+    <div class="callout--gold callout" style="margin-top:0; margin-bottom:12px; font-size:0.86em;">
+      Completed before the cohort begins &mdash; free, no registration required. Builds the shared vocabulary all sector tracks depend on. ~45 minutes self-paced.
+    </div>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Define AI in plain language and distinguish it from other software</li>
+      <li>Identify the three types of AI encountered in professional settings (Generative, Predictive, Computer Vision)</li>
+      <li>Name at least five things AI cannot do, regardless of how confident it sounds</li>
+      <li>Spot one AI system in their own workplace and classify it by type</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Concept</strong>3 types of AI, 5 things it cannot do</div>
+      <div class="phase-chip"><strong>Encounter</strong>Sort 10 everyday tools: AI or not AI?</div>
+      <div class="phase-chip"><strong>Reflect</strong>Where is AI already in your job?</div>
+      <div class="phase-chip"><strong>Apply</strong>Classify one workplace tool &amp; name a failure mode</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODULE 1 -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">1</div>
+    <div><strong>What AI Actually Is</strong><div>Free preview available</div></div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#128196; SA Government AI Policy Scandal &middot; April 2026</div>
+    <p class="module-block__desc">What makes AI different from other software? What can generative AI not do &mdash; regardless of how confident it sounds? Why does it hallucinate sources and fabricate statistics?</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Explain how generative AI produces output without "knowing" anything</li>
+      <li>Identify the key failure modes of large language models</li>
+      <li>Spot hallucination signals in a real document (the DCDT policy case)</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Read the DCDT policy excerpt &mdash; no context given</div>
+      <div class="phase-chip"><strong>Reflect</strong>What made you trust or distrust it?</div>
+      <div class="phase-chip"><strong>Concept</strong>AI hallucination explained via the real scandal</div>
+      <div class="phase-chip"><strong>Apply</strong>Apply the Funda Five to the DCDT scenario</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODULE 2 -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">2</div>
+    <div><strong>How AI Learns &mdash; and Fails</strong></div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#128176; African Fintech Credit Scoring Bias &middot; 2025</div>
+    <p class="module-block__desc">AI is trained on data. That data reflects the world's inequalities. Understanding how AI learns is the first step to spotting when it's failing people &mdash; including you.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Describe how AI learns from historical data in non-technical terms</li>
+      <li>Explain why training data reproduces systemic bias</li>
+      <li>Identify proxy discrimination in a real AI credit-scoring scenario</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>A credit decision output &mdash; something is off</div>
+      <div class="phase-chip"><strong>Reflect</strong>Who does this outcome affect?</div>
+      <div class="phase-chip"><strong>Concept</strong>Training data, proxy variables, feedback loops</div>
+      <div class="phase-chip"><strong>Apply</strong>Audit your organisation's data inputs</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODULE 3 -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">3</div>
+    <div><strong>Bias and Discrimination</strong></div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#128269; SA Predictive Policing &middot; Ongoing</div>
+    <p class="module-block__desc">Discrimination can happen without discriminatory intent. In South Africa, AI trained on historical data carries the weight of apartheid and structural inequality forward &mdash; often invisibly.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Define algorithmic bias in plain language for a non-technical audience</li>
+      <li>Analyse an AI recommendation for disparate impact on a protected group</li>
+      <li>Apply an equity lens to AI deployment decisions in their sector</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Policing scenario &mdash; who gets flagged?</div>
+      <div class="phase-chip"><strong>Reflect</strong>What assumptions are built into this system?</div>
+      <div class="phase-chip"><strong>Concept</strong>Disparate impact, proxy discrimination, SA law</div>
+      <div class="phase-chip"><strong>Apply</strong>Equity audit of a tool in your sector</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODULE 4 -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">4</div>
+    <div><strong>Verification and Judgment</strong></div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#128241; SA 2024 Election Deepfakes</div>
+    <p class="module-block__desc">Verification is a professional skill, not a technical one. How do you decide when AI output is good enough to act on &mdash; and when it needs a second look?</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Apply the Funda Five Trust step to any AI output</li>
+      <li>Identify deepfake and synthetic content signals in audio and video</li>
+      <li>Build a personal verification checklist relevant to their role</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>A campaign clip &mdash; real or synthetic?</div>
+      <div class="phase-chip"><strong>Reflect</strong>How would you verify before sharing?</div>
+      <div class="phase-chip"><strong>Concept</strong>Deepfake techniques and verification methods</div>
+      <div class="phase-chip"><strong>Apply</strong>Build your personal AI verification checklist</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODULE 5 -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">5</div>
+    <div><strong>Accountability and Governance</strong></div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#9878; AI Recruitment + Employment Equity Act Liability &middot; 2025</div>
+    <p class="module-block__desc">"The algorithm decided" is not a legal or ethical defence under South African law. When AI affects someone's employment, credit, or healthcare, a person in an organisation is accountable.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Map the accountability chain for an AI decision in their own organisation</li>
+      <li>Identify SA Employment Equity Act exposure from AI recruitment tools</li>
+      <li>Raise a substantive AI concern through the right organisational channels</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Candidate rejected by AI screener</div>
+      <div class="phase-chip"><strong>Reflect</strong>Who in your org made this decision?</div>
+      <div class="phase-chip"><strong>Concept</strong>EEA, POPIA, where accountability sits in law</div>
+      <div class="phase-chip"><strong>Apply</strong>Map your org's AI accountability chain</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODULE 6 -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">6</div>
+    <div><strong>When AI Works &mdash; and When It Doesn't</strong></div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#9989; Dr Math (CSIR) vs. Clinical AI Decision Support</div>
+    <p class="module-block__desc">The question is never "AI yes or no?" It's "AI for what purpose, for whom, in what context, with what oversight?" This module synthesises the entire course through two contrasting SA cases.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Evaluate an AI deployment across all five Funda Five dimensions</li>
+      <li>Write a professional AI judgment statement suitable for a team briefing</li>
+      <li>Articulate when AI deployment is and isn't appropriate in their sector</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Two AI systems &mdash; same goal, different design</div>
+      <div class="phase-chip"><strong>Reflect</strong>What makes one trustworthy and one not?</div>
+      <div class="phase-chip"><strong>Concept</strong>Full Funda Five applied to both cases</div>
+      <div class="phase-chip"><strong>Apply</strong>Write your personal AI judgment statement</div>
+    </div>
+  </div>
+</div>
+
+<div class="callout--gold callout" style="margin-top: 24px;">
+  After Module 6, every learner completes one sector-specific module &mdash; see <a href="outline-sector-tracks.html" style="color: var(--gold-dark); font-weight:600;">Sector Tracks &rarr;</a>
+</div>
+
+<div class="page-nav no-print">
+  <a href="outline-funda-five.html" class="page-nav__btn page-nav__btn--ghost">&larr; Funda Five</a>
+  <a href="outline-sector-tracks.html" class="page-nav__btn">Next: Sector Tracks &rarr;</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

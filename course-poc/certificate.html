@@ -1,29 +1,88 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Certificate &mdash; AfriversalAI</title>
+  <title>Certification &mdash; AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <style>
-    .rubric-alt th { background: var(--green-dark); color: white; padding: 12px 16px; text-align: left; font-weight:600; font-size:0.85em; }
-    .rubric-alt td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.88em; }
-    .rubric-alt td:first-child { font-weight: 600; width: 20%; }
-    .rubric-alt tr:nth-child(even) td { background: var(--green-pale); }
-    .rubric-alt { width: 100%; border-collapse: collapse; margin-top: 24px; }
-    .cert-dispute { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 32px; }
-    .cert-dispute h3 { margin-bottom: 8px; }
-    .cert-dispute p { font-size: 0.9em; color: var(--muted); line-height: 1.7; }
+    .rubric-alt { width:100%; border-collapse:collapse; margin-top:24px; }
+    .rubric-alt th { background:var(--green-dark); color:white; padding:12px 16px; text-align:left; font-weight:600; font-size:0.85em; }
+    .rubric-alt td { padding:12px 16px; border-bottom:1px solid var(--border); vertical-align:top; font-size:0.88em; }
+    .rubric-alt td:first-child { font-weight:600; width:20%; }
+    .rubric-alt tr:nth-child(even) td { background:var(--green-pale); }
+    .cert-dispute { border-top:1px solid var(--border); margin-top:40px; padding-top:32px; }
+    .cert-dispute p { font-size:0.9em; color:var(--muted); line-height:1.7; }
+    /* Certification pathway */
+    .cert-pathway { display:grid; grid-template-columns:1fr; gap:10px; margin-top:36px; }
+    .cert-tier { border-radius:12px; overflow:hidden; }
+    .cert-tier__head { padding:18px 24px 18px 68px; position:relative; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .cert-tier__num { position:absolute; left:18px; top:50%; transform:translateY(-50%); width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; color:white; }
+    .cert-tier__label { font-size:0.7em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:rgba(255,255,255,.6); margin-bottom:3px; }
+    .cert-tier__name { font-weight:700; font-size:1.0em; color:white; }
+    .cert-tier__badge { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:20px; padding:3px 12px; font-size:0.72em; font-weight:600; color:white; white-space:nowrap; }
+    .cert-tier__body { padding:14px 24px; font-size:0.88em; color:var(--muted); background:var(--white); border:1px solid; border-top:none; border-radius:0 0 12px 12px; }
+    .cert-tier--1 .cert-tier__head { background:var(--green-dark); } .cert-tier--1 .cert-tier__body { border-color:var(--green-dark); }
+    .cert-tier--2 .cert-tier__head { background:var(--green-mid); } .cert-tier--2 .cert-tier__body { border-color:var(--green-mid); }
+    .cert-tier--3 .cert-tier__head { background:#1A3A5C; } .cert-tier--3 .cert-tier__body { border-color:#1A3A5C; }
+    .cert-tier--4 .cert-tier__head { background:#2C1654; } .cert-tier--4 .cert-tier__body { border-color:#2C1654; }
+
+    /* Certificate visual showcase */
+    .cert-showcase { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:40px; }
+    .cvis-card { border:3px solid #d4af37; border-radius:14px; padding:3px; background:linear-gradient(145deg, #fdf8ed 0%, #ffffff 50%, #fdf8ed 100%); box-shadow:0 10px 40px rgba(0,0,0,.14); position:relative; }
+    .cvis-inner { padding:18px 18px 14px 58px; position:relative; }
+    .cvis-ribbon { position:absolute; left:-10px; top:22px; width:58px; height:58px; border-radius:50%; border:3px solid #d4af37; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:2; box-shadow:0 3px 10px rgba(0,0,0,.25); }
+    .cvis-ribbon--1 { background:#1B4332; }
+    .cvis-ribbon--2 { background:#1A3A5C; }
+    .cvis-ribbon--3 { background:#0F2744; }
+    .cvis-ribbon--4 { background:#2C1654; }
+    .cvis-ribbon-level { font-size:0.43em; font-weight:800; letter-spacing:1.2px; color:#d4af37; text-transform:uppercase; line-height:1; }
+    .cvis-ribbon-num { font-size:1.55em; font-weight:800; color:white; line-height:1.1; }
+    .cvis-ribbon-sub { font-size:0.37em; font-weight:700; letter-spacing:0.3px; color:rgba(255,255,255,.85); text-transform:uppercase; text-align:center; line-height:1.3; max-width:44px; }
+    .cvis-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
+    .cvis-logo { font-size:1.0em; font-weight:800; color:#1B4332; }
+    .cvis-logo span { color:#d4af37; }
+    .cvis-tagline { font-size:0.44em; font-weight:600; letter-spacing:1.8px; color:#888; text-transform:uppercase; margin-top:1px; }
+    .cvis-cert-id { font-size:0.44em; color:#999; text-align:right; line-height:1.6; }
+    .cvis-seal { width:50px; height:50px; border-radius:50%; border:2.5px solid #d4af37; background:rgba(212,175,55,.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .cvis-seal-text { font-size:0.34em; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:0.2px; color:#b8962e; line-height:1.35; }
+    .cvis-type { font-size:0.62em; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; text-align:center; color:#1a1a1a; border-top:1px solid #d4af37; border-bottom:1px solid #d4af37; padding:5px 0; margin:6px 0; }
+    .cvis-awarded-to { font-size:0.5em; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#b8962e; text-align:center; margin-top:8px; }
+    .cvis-name { font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:1.45em; text-align:center; color:#1a1a1a; letter-spacing:0.5px; margin:3px 0 6px; }
+    .cvis-proficiency { font-size:0.48em; font-weight:700; text-transform:uppercase; letter-spacing:1.8px; color:#888; text-align:center; }
+    .cvis-title { font-size:1.0em; font-weight:800; text-align:center; margin:3px 0 6px; line-height:1.25; }
+    .cvis-title--1 { color:#1B4332; }
+    .cvis-title--2 { color:#1A3A5C; }
+    .cvis-title--3 { color:#0F2744; }
+    .cvis-title--4 { color:#2C1654; }
+    .cvis-desc { font-size:0.6em; color:#666; text-align:center; line-height:1.55; margin-bottom:10px; }
+    .cvis-badges { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; margin:8px 0; padding:8px 0; border-top:1px solid #e8e0cc; border-bottom:1px solid #e8e0cc; }
+    .cvis-badge { text-align:center; }
+    .cvis-badge-icon { font-size:1.1em; line-height:1; }
+    .cvis-badge-lbl { font-size:0.42em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#999; margin:2px 0 1px; }
+    .cvis-badge-val { font-size:0.56em; font-weight:700; color:#333; }
+    .cvis-cohort-row { text-align:center; margin:8px 0 6px; }
+    .cvis-cohort-pill { display:inline-block; font-size:0.52em; font-weight:700; padding:3px 14px; border-radius:14px; color:white; }
+    .cvis-cohort-pill--1 { background:#1B4332; }
+    .cvis-cohort-pill--2 { background:#2D6A4F; border:1px solid #1B4332; }
+    .cvis-cohort-pill--3 { background:#1A3A5C; }
+    .cvis-cohort-pill--4 { background:#2C1654; }
+    .cvis-sigs { display:flex; justify-content:space-around; padding-top:8px; border-top:1px solid #e8e0cc; margin-top:6px; }
+    .cvis-sig { text-align:center; }
+    .cvis-sig-script { font-family:Georgia,serif; font-style:italic; font-size:0.68em; color:#333; border-bottom:1px solid #ccc; padding-bottom:2px; margin-bottom:3px; }
+    .cvis-sig-name { font-size:0.5em; font-weight:700; color:#333; }
+    .cvis-sig-role { font-size:0.44em; color:#888; line-height:1.4; }
+    @media (max-width:768px) { .cert-showcase { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
 
 <nav class="nav">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="friversalAi" class="nav__logo-img"></a>
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li class="nav__dropdown">
@@ -35,8 +94,22 @@
         </ul>
       </li>
       <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
       <li><a href="module-0.html">Preview Course</a></li>
-      <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
@@ -54,35 +127,280 @@
 
 <!-- HERO -->
 <section class="hero">
-  <span class="eyebrow eyebrow--light" data-i18n="cert_eyebrow">The Certificate</span>
-  <h1 data-i18n="cert_h1">Demonstrated, not completed.</h1>
-  <p class="lead lead--light" data-i18n="cert_lead">The AfriversalAI certificate is earned through a real performance task &mdash; a written evaluation of an AI system from your own workplace, assessed by a trained human against a published rubric. Not a quiz. Not a checkbox.</p>
+  <span class="eyebrow eyebrow--light">Certification Pathway</span>
+  <h1>Demonstrated, not completed.</h1>
+  <p class="lead lead--light">Every AfriversalAI certificate is earned through a real performance task &mdash; assessed by a trained human against a published rubric. Four certification layers. One consistent standard: proof of judgment, not attendance.</p>
 </section>
 
-<!-- THE DISTINCTION -->
+<!-- THE CERTIFICATION PATHWAY -->
 <section class="bg-white">
   <div class="container">
-    <span class="eyebrow" data-i18n="cert_diff_eyebrow">What Makes It Different</span>
-    <h2 data-i18n-html="cert_diff_h2_html">Most AI certificates say "completed."<br>This one says "demonstrated."</h2>
+    <span class="eyebrow">The Four Layers</span>
+    <h2>A certification pathway that grows with your career</h2>
+    <p class="lead">All learners begin at Layer 1. Each subsequent layer builds on the credential before it, going deeper into your sector, your governance role, or your leadership responsibilities.</p>
+
+    <div class="cert-pathway">
+
+      <div class="cert-tier cert-tier--1">
+        <div class="cert-tier__head">
+          <div class="cert-tier__num">1</div>
+          <div>
+            <div class="cert-tier__label">Layer 1 &middot; Core Certification &middot; All Sectors</div>
+            <div class="cert-tier__name">AI Judgment Competency Certificate&trade;</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+            <span class="cert-tier__badge">7 Weeks &middot; Available Now</span>
+            <a href="#layer1-detail" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">See how it works &darr;</a>
+          </div>
+        </div>
+        <div class="cert-tier__body">
+          Awarded on passing the Layer 1 capstone: a 600&ndash;900 word written evaluation of a real AI system from your own workplace, assessed by a human assessor against the published rubric. Required before any Layer 2, 3 or 4 program.
+        </div>
+      </div>
+
+      <div class="cert-tier cert-tier--2">
+        <div class="cert-tier__head">
+          <div class="cert-tier__num">2</div>
+          <div>
+            <div class="cert-tier__label">Layer 2 &middot; Sector Specialization &middot; 5 Tracks</div>
+            <div class="cert-tier__name">Certified AI Practitioner&trade; &mdash; by Sector</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+            <span class="cert-tier__badge">4 Weeks &middot; Pilot Q4 2026</span>
+            <a href="outline-pathways.html" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Explore &rarr;</a>
+          </div>
+        </div>
+        <div class="cert-tier__body">
+          Corporate &middot; Government &middot; Finance &middot; Healthcare &middot; Education. Each 4-week intensive goes deeper into sector-specific AI tools, applicable SA legislation, regulatory bodies, and real sector cases. Assessed by a sector expert. Requires Layer 1 certificate.
+        </div>
+      </div>
+
+      <div class="cert-tier cert-tier--3">
+        <div class="cert-tier__head">
+          <div class="cert-tier__num">3</div>
+          <div>
+            <div class="cert-tier__label">Layer 3 &middot; Professional Cohorts &middot; 3 Tracks</div>
+            <div class="cert-tier__name">AI Policy, Governance &amp; Regulation Certificate&trade;</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+            <span class="cert-tier__badge">4 Weeks &middot; Enrolling 2027</span>
+            <a href="outline-cohorts.html" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Explore &rarr;</a>
+          </div>
+        </div>
+        <div class="cert-tier__body">
+          AI Policy Analysis &middot; AI Governance &amp; Oversight &middot; AI Regulation &amp; Compliance. For professionals who write policy, design governance structures, or work in regulatory roles. Small cohort format, peer-learning intensive. Capstone: a policy brief, governance framework, or compliance audit submitted for expert assessment.
+        </div>
+      </div>
+
+      <div class="cert-tier cert-tier--4">
+        <div class="cert-tier__head">
+          <div class="cert-tier__num">4</div>
+          <div>
+            <div class="cert-tier__label">Layer 4 &middot; Executive Programs &middot; 2 Tracks</div>
+            <div class="cert-tier__name">AI Leadership &amp; Board Governance Certificate&trade;</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+            <span class="cert-tier__badge">Cohort-Based &middot; Launch Q1 2027</span>
+            <a href="outline-pathways.html" style="background:#E9C46A; color:#1B4332; padding:7px 16px; border-radius:8px; font-size:0.8em; font-weight:700; text-decoration:none; white-space:nowrap;">Explore &rarr;</a>
+          </div>
+        </div>
+        <div class="cert-tier__body">
+          AI Leadership Program (CEOs, CIOs, COOs) &middot; AI Board Governance Program (NEDs, trustees, chairs). Max 15 learners per cohort. Capstone: a strategic AI readiness plan or board-level AI governance policy, peer-reviewed and expert-assessed. Prerequisite: Layer 1 certificate or demonstrated equivalent.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THE FOUR CERTIFICATES — VISUAL -->
+<section class="bg-pale">
+  <div class="container">
+    <span class="eyebrow">What They Look Like</span>
+    <h2>Four certificates. One consistent design standard.</h2>
+    <p class="lead">Each layer earns a distinct certificate naming the exact program, assessment type, and assessor. Below are all four &mdash; same standard, different depth.</p>
+
+    <div class="cert-showcase">
+
+      <!-- Level 1 -->
+      <div class="cvis-card">
+        <div class="cvis-inner">
+          <div class="cvis-ribbon cvis-ribbon--1">
+            <div class="cvis-ribbon-level">LEVEL</div>
+            <div class="cvis-ribbon-num">1</div>
+            <div class="cvis-ribbon-sub">CORE</div>
+          </div>
+          <div class="cvis-head">
+            <div>
+              <div class="cvis-logo">friversal<span>Ai</span></div>
+              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:10px;">
+              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
+              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
+            </div>
+          </div>
+          <div class="cvis-type">Certificate of Demonstration</div>
+          <div class="cvis-awarded-to">Awarded To</div>
+          <div class="cvis-name">Nomvula Dlamini</div>
+          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
+          <div class="cvis-title cvis-title--1">AI Judgment Foundations</div>
+          <div class="cvis-desc">The holder has demonstrated the ability to critically evaluate AI systems and their outputs in professional contexts &mdash; as assessed against the AfriversalAI Standard.</div>
+          <div class="cvis-badges">
+            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">AfriversalAI</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Performance Task</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
+          </div>
+          <div class="cvis-sigs">
+            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 2 -->
+      <div class="cvis-card">
+        <div class="cvis-inner">
+          <div class="cvis-ribbon cvis-ribbon--2">
+            <div class="cvis-ribbon-level">LEVEL</div>
+            <div class="cvis-ribbon-num">2</div>
+            <div class="cvis-ribbon-sub">SECTOR SPEC.</div>
+          </div>
+          <div class="cvis-head">
+            <div>
+              <div class="cvis-logo">friversal<span>Ai</span></div>
+              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:10px;">
+              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
+              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
+            </div>
+          </div>
+          <div class="cvis-type">Certificate of Demonstration</div>
+          <div class="cvis-awarded-to">Awarded To</div>
+          <div class="cvis-name">Nomvula Dlamini</div>
+          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
+          <div class="cvis-title cvis-title--2">AI Solutions in Practice</div>
+          <div class="cvis-desc">The holder has demonstrated sector-specific AI capability to apply AI tools, comply with relevant frameworks, and solve real-world challenges &mdash; as assessed by a sector expert.</div>
+          <div class="cvis-badges">
+            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">Sector Expert</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Real-World Application</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
+          </div>
+          <div class="cvis-cohort-row"><span class="cvis-cohort-pill cvis-cohort-pill--2">Sector Specialization &middot; Pilot Q4 2026</span></div>
+          <div class="cvis-sigs">
+            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 3 -->
+      <div class="cvis-card">
+        <div class="cvis-inner">
+          <div class="cvis-ribbon cvis-ribbon--3">
+            <div class="cvis-ribbon-level">LEVEL</div>
+            <div class="cvis-ribbon-num">3</div>
+            <div class="cvis-ribbon-sub">PROF. COHORTS</div>
+          </div>
+          <div class="cvis-head">
+            <div>
+              <div class="cvis-logo">friversal<span>Ai</span></div>
+              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:10px;">
+              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
+              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
+            </div>
+          </div>
+          <div class="cvis-type">Certificate of Demonstration</div>
+          <div class="cvis-awarded-to">Awarded To</div>
+          <div class="cvis-name">Nomvula Dlamini</div>
+          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
+          <div class="cvis-title cvis-title--3">AI Policy, Governance &amp; Compliance</div>
+          <div class="cvis-desc">The holder has demonstrated the ability to design governance structures, ensure compliance, and produce policy-grade deliverables &mdash; as assessed by expert review.</div>
+          <div class="cvis-badges">
+            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">Policy Expert</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Policy Submission</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
+          </div>
+          <div class="cvis-cohort-row"><span class="cvis-cohort-pill cvis-cohort-pill--3">Professional Cohort &middot; Enrolling 2027</span></div>
+          <div class="cvis-sigs">
+            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 4 -->
+      <div class="cvis-card">
+        <div class="cvis-inner">
+          <div class="cvis-ribbon cvis-ribbon--4">
+            <div class="cvis-ribbon-level">LEVEL</div>
+            <div class="cvis-ribbon-num">4</div>
+            <div class="cvis-ribbon-sub">EXECUTIVE PROG.</div>
+          </div>
+          <div class="cvis-head">
+            <div>
+              <div class="cvis-logo">friversal<span>Ai</span></div>
+              <div class="cvis-tagline">African Professionals &middot; Global Impact</div>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:10px;">
+              <div class="cvis-cert-id">CERTIFICATE ID<br>AIC-2026-00125</div>
+              <div class="cvis-seal"><div class="cvis-seal-text">AFRIVERSAL<br>AI<br>OFFICIAL<br>SEAL</div></div>
+            </div>
+          </div>
+          <div class="cvis-type">Certificate of Demonstration</div>
+          <div class="cvis-awarded-to">Awarded To</div>
+          <div class="cvis-name">Nomvula Dlamini</div>
+          <div class="cvis-proficiency">Has Demonstrated Proficiency In</div>
+          <div class="cvis-title cvis-title--4">AI Leadership &amp; Board Strategy</div>
+          <div class="cvis-desc">The holder has demonstrated strategic leadership capability to guide AI initiatives, govern responsibly, and create enterprise value &mdash; as assessed by expert review.</div>
+          <div class="cvis-badges">
+            <div class="cvis-badge"><div class="cvis-badge-icon">🛡️</div><div class="cvis-badge-lbl">Assessed By</div><div class="cvis-badge-val">Executive Panel</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🎯</div><div class="cvis-badge-lbl">Assessment Type</div><div class="cvis-badge-val">Strategic Plan</div></div>
+            <div class="cvis-badge"><div class="cvis-badge-icon">🏛️</div><div class="cvis-badge-lbl">Status</div><div class="cvis-badge-val">Proficiency Demonstrated</div></div>
+          </div>
+          <div class="cvis-cohort-row"><span class="cvis-cohort-pill cvis-cohort-pill--4">Executive Program &middot; Launch Q1 2027</span></div>
+          <div class="cvis-sigs">
+            <div class="cvis-sig"><div class="cvis-sig-script">Ntando B Davis</div><div class="cvis-sig-name">Ntando B Davis</div><div class="cvis-sig-role">DIRECTOR<br>Strategy &amp; Partnerships</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thurston R Davis II</div><div class="cvis-sig-name">Thurston R Davis II</div><div class="cvis-sig-role">DIRECTOR<br>Learning &amp; Innovation</div></div>
+            <div class="cvis-sig"><div class="cvis-sig-script">Thandolwenkosi B Nkala</div><div class="cvis-sig-name">Thandolwenkosi B Nkala</div><div class="cvis-sig-role">DIRECTOR<br>Operations &amp; Impact</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHAT MAKES IT DIFFERENT -->
+<section class="bg-pale">
+  <div class="container">
+    <span class="eyebrow">What Makes It Different</span>
+    <h2>Most AI certificates say &ldquo;completed.&rdquo;<br>These say &ldquo;demonstrated.&rdquo;</h2>
 
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px;">
       <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; background:var(--bg);">
         <div style="font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:16px;">Typical AI training certificate</div>
-        <ul style="font-size:0.93em; color:var(--muted); padding-left:20px; line-height:2;">
+        <ul style="font-size:0.93em; color:var(--muted); padding-left:20px; line-height:2.1;">
           <li>Awarded for watching videos or completing modules</li>
           <li>Verified by multiple-choice quiz or progress tracking</li>
           <li>Does not test whether the learner can <em>actually</em> evaluate AI output</li>
-          <li>Certificate says "completed X-hour AI course"</li>
+          <li>Certificate says &ldquo;completed X-hour AI course&rdquo;</li>
           <li>Employer cannot verify what the learner can do</li>
         </ul>
       </div>
       <div style="border:2px solid var(--green-mid); border-radius:var(--radius-lg); padding:28px; background:var(--green-pale);">
-        <div style="font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:16px;">AfriversalAI certificate</div>
-        <ul style="font-size:0.93em; color:var(--text); padding-left:20px; line-height:2;">
+        <div style="font-size:0.8em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:16px;">AfriversalAI certification</div>
+        <ul style="font-size:0.93em; color:var(--text); padding-left:20px; line-height:2.1;">
           <li>Awarded for passing a real-world performance assessment</li>
           <li>Verified by a trained human assessor against a published rubric</li>
           <li>Requires the learner to evaluate a real AI system from their own job</li>
-          <li>Certificate says "demonstrated AI judgment competency"</li>
+          <li>Certificate says &ldquo;demonstrated AI judgment competency&rdquo;</li>
           <li>Employer can see exactly what the assessment required</li>
         </ul>
       </div>
@@ -91,48 +409,52 @@
 </section>
 
 <!-- SAMPLE CERTIFICATE -->
-<section class="bg-pale">
+<section class="bg-white">
   <div class="container text-center">
-    <span class="eyebrow" data-i18n="cert_sample_eyebrow">What It Looks Like</span>
-    <h2 data-i18n="cert_sample_h2">Sample certificate</h2>
-    <p class="lead" style="margin: 0 auto 40px;" data-i18n="cert_sample_lead">This is the certificate learners receive upon passing the capstone assessment.</p>
+    <span class="eyebrow">What It Looks Like</span>
+    <h2>Layer 1 &mdash; Sample certificate</h2>
+    <p class="lead" style="margin:0 auto 40px;">This is the Layer 1 certificate learners receive upon passing the capstone assessment. Each subsequent layer earns a distinct certificate naming the specific program completed.</p>
 
     <div class="cert-frame">
       <div class="cert-logo">Afriversal<span>AI</span></div>
       <div class="cert-presents">This certifies that</div>
       <div class="cert-name">Nomvula Dlamini</div>
-      <div class="cert-title">AI Judgment Competency Certificate</div>
+      <div class="cert-title">AI Judgment Competency Certificate &mdash; Layer 1</div>
       <div class="cert-statement">
         has demonstrated AI judgment competency &mdash; the ability to critically evaluate AI systems and their outputs in professional contexts &mdash; as assessed against the AfriversalAI Standard.
       </div>
-      <div class="cert-badge">Core Course &middot; June 2026</div>
-      <div style="display:flex; justify-content:space-around; margin-top:32px; padding-top:24px; border-top:1px solid var(--border);">
+      <div class="cert-badge">Core Certification &middot; June 2026</div>
+      <div style="display:flex; justify-content:space-around; margin-top:32px; padding-top:24px; border-top:1px solid var(--border); flex-wrap:wrap; gap:16px;">
         <div style="text-align:center;">
           <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">Assessed by</div>
           <div style="font-size:0.88em; font-weight:600;">AfriversalAI</div>
         </div>
         <div style="text-align:center;">
           <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">Assessment type</div>
-          <div style="font-size:0.88em; font-weight:600;">Performance Task</div>
+          <div style="font-size:0.88em; font-weight:600;">Written Performance Task</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">Framework applied</div>
+          <div style="font-size:0.88em; font-weight:600;">The Funda Five</div>
         </div>
         <div style="text-align:center;">
           <div style="font-size:0.78em; color:var(--muted); margin-bottom:4px;">SETA status</div>
-          <div style="font-size:0.88em; font-weight:600;">Application in preparation</div>
+          <div style="font-size:0.88em; font-weight:600;">Accreditation in preparation</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE ASSESSMENT -->
-<section class="bg-white">
+<!-- LAYER 1 ASSESSMENT DETAIL -->
+<section class="bg-pale" id="layer1-detail">
   <div class="container--sm">
-    <span class="eyebrow" data-i18n="cert_assess_eyebrow">The Assessment</span>
-    <h2 data-i18n="cert_assess_h2">What you actually have to do</h2>
-    <p class="lead" data-i18n="cert_assess_lead">The capstone brief is issued at Module 5. You submit after Module 6. One revision opportunity if you fall short of standard on any criterion.</p>
+    <span class="eyebrow">Layer 1 Assessment</span>
+    <h2>What you actually have to do</h2>
+    <p class="lead">The capstone brief is issued after Module 5. You submit after completing Module 6. One revision opportunity if you fall short of standard on any criterion. All other layers follow the same principle &mdash; a real deliverable assessed by a human expert.</p>
 
     <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; margin-top:8px;">
-      <div style="font-size:0.78em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:16px;">The Capstone Brief</div>
+      <div style="font-size:0.78em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:16px;">The Layer 1 Capstone Brief</div>
       <p style="font-size:0.95em; margin-bottom:20px;">Identify one AI system or AI-generated output that you encountered in your professional context during this course. Produce a written evaluation of 600&ndash;900 words that:</p>
       <ol style="font-size:0.93em; padding-left:20px; line-height:2.2;">
         <li>Describes what the AI system does and how it is being used in your context</li>
@@ -159,12 +481,12 @@
         <tr>
           <td>Describes AI accurately</td>
           <td>Vague or incorrect description of what the system does</td>
-          <td>Clear, jargon-free description of the system's function</td>
+          <td>Clear, jargon-free description of the system&rsquo;s function</td>
           <td>Shows understanding of how the system learns and fails, beyond surface description</td>
         </tr>
         <tr>
           <td>Identifies failure modes</td>
-          <td>Generic ("AI can be biased") without specifics</td>
+          <td>Generic (&ldquo;AI can be biased&rdquo;) without specifics</td>
           <td>Two specific mechanisms explained with reasoning</td>
           <td>Mechanisms tied to SA context and documented evidence</td>
         </tr>
@@ -182,7 +504,7 @@
         </tr>
         <tr>
           <td>Accountability</td>
-          <td>"The company is responsible" (generic)</td>
+          <td>&ldquo;The company is responsible&rdquo; (generic)</td>
           <td>Named accountability chain with specific role</td>
           <td>Identifies gaps in accountability and suggests what should be in place</td>
         </tr>
@@ -191,28 +513,29 @@
 
     <div class="cert-dispute">
       <h3>Assessment disputes</h3>
-      <p>If you believe your assessment was not evaluated correctly against the published rubric, you may request a reassessment review within 14 days of receiving your result. Email <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a> with your original submission, the criterion or criteria you are disputing, and a brief explanation of your reasoning. All dispute requests are reviewed by a second assessor who was not involved in the original assessment. You will receive a written response within 10 business days.</p>
+      <p>If you believe your assessment was not evaluated correctly against the published rubric, you may request a reassessment review within 14 days of receiving your result. Email <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> with your original submission, the criterion or criteria you are disputing, and a brief explanation of your reasoning. All dispute requests are reviewed by a second assessor who was not involved in the original assessment. You will receive a written response within 10 business days.</p>
     </div>
   </div>
 </section>
 
-<!-- SETA NOTE -->
-<section class="bg-pale">
+<!-- SETA / L&D -->
+<section class="bg-white">
   <div class="container--sm text-center">
-    <span class="eyebrow" data-i18n="cert_seta_eyebrow">For L&amp;D Buyers</span>
-    <h2 data-i18n="cert_seta_h2">QCTO accreditation in progress.</h2>
-    <p class="lead" style="margin: 0 auto 16px;">AfriversalAI is pursuing QCTO accreditation for this course, with MICT SETA as Development Quality Partner. Once accredited, learners' employers can recover 40&ndash;60% of training costs through the Skills Development Levy discretionary grant system &mdash; making AfriversalAI the most price-competitive assessed AI literacy program in South Africa.</p>
-    <p style="font-size:0.85em; color:var(--muted); max-width:600px; margin:0 auto 32px;"><strong>QCTO accreditation status: application in preparation &mdash; SDL rebate eligibility is pending accreditation approval.</strong> We will notify registered organisations as soon as accreditation is confirmed.</p>
+    <span class="eyebrow">For L&amp;D Buyers</span>
+    <h2>QCTO accreditation in progress.</h2>
+    <p class="lead" style="margin:0 auto 16px;">AfriversalAI is pursuing QCTO accreditation for the Layer 1 Core Certification, with MICT SETA as Development Quality Partner. Once accredited, employers can recover 40&ndash;60% of training costs through the Skills Development Levy discretionary grant system &mdash; making AfriversalAI the most price-competitive assessed AI literacy program in South Africa.</p>
+    <p style="font-size:0.85em; color:var(--muted); max-width:600px; margin:0 auto 32px;"><strong>QCTO accreditation status: application in preparation &mdash; SDL rebate eligibility is pending accreditation approval.</strong> Registered organisations will be notified as soon as accreditation is confirmed. Layers 2&ndash;4 accreditation applications will follow Layer 1 approval.</p>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-      <a href="register.html" class="btn btn--primary btn--lg" data-i18n="cert_seta_btn1">Register your organisation's interest</a>
-      <a href="course.html" class="btn btn--outline btn--lg" data-i18n="cert_seta_btn2">Explore the course</a>
+      <a href="register.html" class="btn btn--primary btn--lg">Register your organisation&rsquo;s interest</a>
+      <a href="course-outline.html" class="btn btn--outline btn--lg">View full curriculum</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <strong>AfriversalAI</strong> &middot; <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script src="assets/translations.js"></script>

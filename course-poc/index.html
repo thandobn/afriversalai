@@ -8,6 +8,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .f5-tabs-wrapper { display:grid; grid-template-columns:280px 1fr; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; margin-top:40px; box-shadow:0 6px 32px rgba(0,0,0,.08); }
+    .f5-steplist { background:#F2F8F5; border-right:1.5px solid var(--border); display:flex; flex-direction:column; }
+    .f5-step { display:flex; align-items:center; gap:16px; padding:22px 20px; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; font-family:inherit; }
+    .f5-step:last-child { border-bottom:none; }
+    .f5-step:hover:not(.is-active) { background:var(--green-light); }
+    .f5-step.is-active { background:var(--green-dark); }
+    .f5-step__badge { width:42px; height:42px; border-radius:50%; background:rgba(27,67,50,.12); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.05em; color:var(--green-dark); flex-shrink:0; }
+    .f5-step.is-active .f5-step__badge { background:rgba(255,255,255,.2); color:white; }
+    .f5-step__name { font-weight:800; font-size:1.1em; color:var(--text); line-height:1.2; margin-bottom:4px; }
+    .f5-step.is-active .f5-step__name { color:var(--gold); }
+    .f5-step__q { font-size:0.84em; color:var(--muted); line-height:1.4; }
+    .f5-step.is-active .f5-step__q { color:rgba(255,255,255,.65); }
+    .f5-detail-pane { padding:44px 48px; min-height:400px; }
+    .f5-detail-item { display:none; }
+    .f5-detail-item.is-active { display:block; }
+    .f5-detail-step { font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; color:var(--gold-dark); margin-bottom:10px; }
+    .f5-detail-name { font-size:2.1em; font-weight:800; color:var(--green-dark); margin-bottom:6px; letter-spacing:-0.5px; }
+    .f5-detail-q { font-size:1.1em; color:var(--muted); font-style:italic; margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); line-height:1.6; }
+    .f5-detail-body { font-size:1.0em; line-height:1.85; margin-bottom:20px; }
+    .f5-callout { background:var(--gold-light); border-left:5px solid var(--gold-dark); padding:16px 20px; border-radius:0 8px 8px 0; font-size:0.97em; line-height:1.7; }
+    @media (max-width:768px) {
+      .f5-tabs-wrapper { grid-template-columns:1fr; }
+      .f5-steplist { flex-direction:row; overflow-x:auto; border-right:none; border-bottom:1.5px solid var(--border); -webkit-overflow-scrolling:touch; }
+      .f5-step { min-width:140px; border-bottom:none; border-right:1px solid var(--border); flex-direction:column; align-items:flex-start; gap:6px; padding:14px 14px; }
+      .f5-step:last-child { border-right:none; }
+      .f5-detail-pane { padding:28px 22px; min-height:auto; }
+      .f5-detail-name { font-size:1.6em; }
+    }
+  </style>
 </head>
 <body>
 
@@ -26,6 +56,19 @@
         </ul>
       </li>
       <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
       <li><a href="module-0.html">Preview Course</a></li>
       <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
@@ -124,8 +167,17 @@
     <div style="display:flex; align-items:center; gap:48px; flex-wrap:wrap;">
 
       <!-- Image column -->
-      <div style="flex:0 0 420px; max-width:100%;">
-        <img src="assets/sector-aware.jpg" alt="Professional using AI tools in a South African workplace" style="width:100%; height:300px; object-fit:cover; object-position:center top; border-radius:12px; display:block; opacity:0.92;" />
+      <div style="flex:0 0 420px; max-width:100%; position:relative; border-radius:14px; overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.35);">
+        <img src="assets/sector-aware.jpg" alt="Professional using AI tools in a South African workplace" style="width:100%; height:340px; object-fit:cover; object-position:center top; display:block;" />
+        <!-- gradient overlay — dark on left blending to transparent right -->
+        <div style="position:absolute; inset:0; background:linear-gradient(100deg, rgba(27,67,50,0.88) 0%, rgba(27,67,50,0.45) 45%, transparent 80%);"></div>
+        <!-- floating stat badge -->
+        <div style="position:absolute; bottom:22px; left:22px;">
+          <div style="background:rgba(233,196,106,0.12); border:1.5px solid rgba(233,196,106,0.5); border-radius:10px; padding:14px 18px; backdrop-filter:blur(8px);">
+            <div style="font-size:2em; font-weight:800; color:#E9C46A; line-height:1;">5</div>
+            <div style="font-size:0.78em; color:rgba(255,255,255,0.85); margin-top:3px; font-weight:500;">Sector tracks &mdash; built for your industry</div>
+          </div>
+        </div>
       </div>
 
       <!-- Text column -->
@@ -149,39 +201,94 @@
 
 <!-- THE FUNDA FIVE TEASER -->
 <section class="bg-white">
-  <div class="container text-center">
+  <div class="container">
     <span class="eyebrow" data-i18n="f5_eyebrow">The Core Framework</span>
     <h2 data-i18n="f5_h2">The Funda Five</h2>
-    <p class="lead" style="margin: 0 auto 40px;" data-i18n="f5_lead">Every learner leaves with one framework they can apply to any AI encounter at work &mdash; in 2 minutes, without technical knowledge.</p>
+    <p class="lead" data-i18n="f5_lead">Every learner leaves with one framework they can apply to any AI encounter at work &mdash; in 2 minutes, without technical knowledge. <strong>Select any step to see what it means in practice.</strong></p>
 
-    <div class="five-grid" style="grid-template-columns: repeat(5,1fr); gap:12px; margin-bottom:36px;">
-      <div class="five-card">
-        <div class="five-card__num">1</div>
-        <div class="five-card__name" data-i18n="f5_1_name">Task</div>
-        <div class="five-card__q" data-i18n="f5_1_q">Is this the right kind of job for AI?</div>
+    <div class="f5-tabs-wrapper">
+
+      <div class="f5-steplist" role="tablist">
+        <button class="f5-step is-active" data-target="hp5p-1" role="tab" aria-selected="true">
+          <div class="f5-step__badge">1</div>
+          <div>
+            <div class="f5-step__name">Task</div>
+            <div class="f5-step__q">Is this the right kind of job for AI?</div>
+          </div>
+        </button>
+        <button class="f5-step" data-target="hp5p-2" role="tab" aria-selected="false">
+          <div class="f5-step__badge">2</div>
+          <div>
+            <div class="f5-step__name">Data</div>
+            <div class="f5-step__q">Is any of this sensitive or POPIA-protected?</div>
+          </div>
+        </button>
+        <button class="f5-step" data-target="hp5p-3" role="tab" aria-selected="false">
+          <div class="f5-step__badge">3</div>
+          <div>
+            <div class="f5-step__name">Tool</div>
+            <div class="f5-step__q">Is this AI type right for the task?</div>
+          </div>
+        </button>
+        <button class="f5-step" data-target="hp5p-4" role="tab" aria-selected="false">
+          <div class="f5-step__badge">4</div>
+          <div>
+            <div class="f5-step__name">Trust</div>
+            <div class="f5-step__q">How would I detect an error in this output?</div>
+          </div>
+        </button>
+        <button class="f5-step" data-target="hp5p-5" role="tab" aria-selected="false">
+          <div class="f5-step__badge">5</div>
+          <div>
+            <div class="f5-step__name">Human</div>
+            <div class="f5-step__q">Who checks this? Who is accountable?</div>
+          </div>
+        </button>
       </div>
-      <div class="five-card">
-        <div class="five-card__num">2</div>
-        <div class="five-card__name" data-i18n="f5_2_name">Data</div>
-        <div class="five-card__q" data-i18n="f5_2_q">Is any of this sensitive or POPIA-protected?</div>
+
+      <div class="f5-detail-pane">
+        <div class="f5-detail-item is-active" id="hp5p-1">
+          <div class="f5-detail-step">Step 1 of 5</div>
+          <div class="f5-detail-name">Task</div>
+          <div class="f5-detail-q">Is this the right kind of job for AI? What exactly am I trying to accomplish?</div>
+          <p class="f5-detail-body">Not every professional task benefits from AI assistance. Some tasks are well-suited &mdash; drafting, summarising, generating options. Others carry risks that outweigh the convenience &mdash; anything involving verification of facts, high-stakes decisions with individual consequences, or tasks where the process of thinking is itself the value.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> If the AI gets this wrong, what happens? Is the task low-stakes enough that a quick human scan is sufficient &mdash; or does it require rigorous human judgment at every step?</div>
+        </div>
+        <div class="f5-detail-item" id="hp5p-2">
+          <div class="f5-detail-step">Step 2 of 5</div>
+          <div class="f5-detail-name">Data</div>
+          <div class="f5-detail-q">What information is involved? Is any of it personal, confidential, client data, or POPIA-protected?</div>
+          <p class="f5-detail-body">When you paste text into a public AI tool, that text may be used to improve the model, stored, or accessible to third parties. In South Africa, POPIA creates specific obligations around how personal information is processed &mdash; including by AI tools. Many AI tools fall outside POPIA-compliant infrastructure.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Does this involve client names, employee records, patient data, financial information, or confidential business information? If yes, is the AI tool I&rsquo;m using approved for this data type?</div>
+        </div>
+        <div class="f5-detail-item" id="hp5p-3">
+          <div class="f5-detail-step">Step 3 of 5</div>
+          <div class="f5-detail-name">Tool</div>
+          <div class="f5-detail-q">What type of AI fits this task? Is it approved by my organisation? Do I understand its limitations?</div>
+          <p class="f5-detail-body">Different AI tools are built for different purposes. A language model is strong at generating and summarising text, weak at arithmetic and factual citation. Matching the tool to the task is a basic professional judgment &mdash; the same way you wouldn&rsquo;t use a spreadsheet to write a contract.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Is this tool approved by my organisation? Do I understand what it&rsquo;s actually doing &mdash; not just what it produces? What does it specifically struggle with that is relevant to this task?</div>
+        </div>
+        <div class="f5-detail-item" id="hp5p-4">
+          <div class="f5-detail-step">Step 4 of 5</div>
+          <div class="f5-detail-name">Trust</div>
+          <div class="f5-detail-q">How reliable is AI for this specific task? What are its failure modes here? How would I detect an error?</div>
+          <p class="f5-detail-body">Trust in AI output should be calibrated &mdash; higher for tasks where errors are easy to spot, lower for tasks where errors are invisible until they cause harm. The key question isn&rsquo;t &ldquo;is this AI reliable?&rdquo; &mdash; it&rsquo;s &ldquo;how would I detect an error in this specific output?&rdquo;</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Can I independently verify the most important claims in this output? What&rsquo;s the specific check I would run? What would an error look like &mdash; and would I be able to see it?</div>
+        </div>
+        <div class="f5-detail-item" id="hp5p-5">
+          <div class="f5-detail-step">Step 5 of 5</div>
+          <div class="f5-detail-name">Human</div>
+          <div class="f5-detail-q">Who checks the output before it matters? Who is accountable if it is wrong?</div>
+          <p class="f5-detail-body">When AI output affects a real person &mdash; their job application, their loan, their medical treatment &mdash; someone at the institution that deployed that AI is accountable. &ldquo;The algorithm decided&rdquo; is not a legal defence under South African law.</p>
+          <div class="f5-callout"><strong>Ask yourself:</strong> Who signs off on this before it reaches someone who could be affected by it? Is there a clear review step in place &mdash; or is the AI output going straight into action?</div>
+        </div>
       </div>
-      <div class="five-card">
-        <div class="five-card__num">3</div>
-        <div class="five-card__name" data-i18n="f5_3_name">Tool</div>
-        <div class="five-card__q" data-i18n="f5_3_q">Is this AI type approved by my organisation?</div>
-      </div>
-      <div class="five-card">
-        <div class="five-card__num">4</div>
-        <div class="five-card__name" data-i18n="f5_4_name">Trust</div>
-        <div class="five-card__q" data-i18n="f5_4_q">How would I detect an error in this output?</div>
-      </div>
-      <div class="five-card">
-        <div class="five-card__num">5</div>
-        <div class="five-card__name" data-i18n="f5_5_name">Human</div>
-        <div class="five-card__q" data-i18n="f5_5_q">Who checks this? Who is accountable if it's wrong?</div>
-      </div>
+
     </div>
-    <a href="funda-five.html" class="btn btn--outline" data-i18n="f5_btn">Explore the Funda Five &rarr;</a>
+
+    <div class="text-center" style="margin-top:32px;">
+      <a href="funda-five.html" class="btn btn--outline btn--lg" data-i18n="f5_btn">Explore the Funda Five in depth &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -348,7 +455,16 @@
         <h2 style="color:white;" data-i18n="for_h2">Built for the professional in the middle.</h2>
         <p class="lead lead--light" style="margin-bottom:0;" data-i18n="for_lead">Not a developer. Not a C-suite exec. The team lead, analyst, coordinator, HR manager, and finance officer who are already encountering AI at work &mdash; and need to know what to do with it.</p>
       </div>
-      <img src="assets/stock-7.jpg" alt="South African professionals learning together" style="box-shadow:0 12px 48px rgba(0,0,0,0.35);">
+      <div style="position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:0 12px 48px rgba(0,0,0,0.35);">
+        <img src="assets/stock-7.jpg" alt="South African professionals learning together" style="width:100%; height:300px; object-fit:cover; display:block; border-radius:0;" />
+        <!-- bottom-fade overlay -->
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 45%, rgba(27,67,50,0.88) 100%);"></div>
+        <!-- bottom caption badge -->
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:18px 20px;">
+          <div style="font-size:0.7em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:rgba(255,255,255,0.6); margin-bottom:4px;">Who It&rsquo;s For</div>
+          <div style="font-size:0.95em; font-weight:700; color:white; line-height:1.3;">The professional in the middle &mdash; not a dev, not a CEO.</div>
+        </div>
+      </div>
     </div>
 
     <div class="feature-row">
@@ -381,24 +497,46 @@
           <a href="course-outline.html" class="btn btn--outline btn--lg" data-i18n="cta_btn_outline">View course outline</a>
         </div>
       </div>
-      <img src="assets/stock-6.jpg" alt="Professional working with AI tools at desk" style="box-shadow:var(--shadow-md);">
+      <div style="position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md);">
+        <img src="assets/stock-6.jpg" alt="Professional working with AI tools at desk" style="width:100%; height:300px; object-fit:cover; display:block; border-radius:0;" />
+        <div style="position:absolute; inset:0; background:linear-gradient(145deg, rgba(27,67,50,0.55) 0%, transparent 55%);"></div>
+        <div style="position:absolute; top:18px; left:18px;">
+          <div style="background:#E9C46A; color:#1B4332; padding:7px 14px; border-radius:20px; font-size:0.78em; font-weight:700;">&#10003; Free to start</div>
+        </div>
+        <div style="position:absolute; bottom:18px; right:18px;">
+          <div style="background:rgba(255,255,255,0.95); color:#1B4332; padding:12px 16px; border-radius:10px; text-align:center; min-width:80px;">
+            <div style="font-size:1.6em; font-weight:800; line-height:1;">7</div>
+            <div style="font-size:0.72em; font-weight:600; margin-top:2px;">modules</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <strong>AfriversalAI</strong> &middot; <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:afriversalai@gmail.com">afriversalai@gmail.com</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script>
-  // Funda Five cards &mdash; click to expand
-  document.querySelectorAll('.five-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const wasOpen = card.classList.contains('is-open');
-      document.querySelectorAll('.five-card').forEach(c => c.classList.remove('is-open'));
-      if (!wasOpen) card.classList.add('is-open');
+  // Funda Five tab panel
+  document.querySelectorAll('.f5-step').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      document.querySelectorAll('.f5-step').forEach(b => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.f5-detail-item').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(target).classList.add('is-active');
+    });
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
     });
   });
 

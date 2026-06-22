@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why &amp; Who — AfriversalAI Professional Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+      --navy: #1A3A5C;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .doc-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.82em; flex-wrap: wrap; gap: 8px; }
+    .doc-topbar a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .print-btn { padding: 6px 14px; background: var(--green-dark); color: white; border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 600; cursor: pointer; }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+    .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    h2 { font-size: 1.15em; font-weight: 700; color: var(--green-dark); margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
+    h3 { font-size: 1.0em; font-weight: 700; margin: 20px 0 8px; }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    ul { padding-left: 22px; margin-bottom: 14px; }
+    li { margin-bottom: 5px; line-height: 1.65; }
+    strong { font-weight: 600; }
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+    .stat-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 18px; }
+    .stat-card__num { font-size: 2em; font-weight: 800; color: var(--green-dark); line-height: 1; margin-bottom: 6px; }
+    .stat-card__body { font-size: 0.85em; color: var(--muted); line-height: 1.55; }
+    .sector-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 16px 0; }
+    .sector-chip { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 8px; text-align: center; font-size: 0.76em; }
+    .sector-chip__icon { font-size: 1.3em; margin-bottom: 5px; }
+    .sector-chip__name { font-weight: 700; color: var(--text); }
+    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+    .profile-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; }
+    .profile-card__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold-dark); margin-bottom: 10px; }
+    .profile-card ul { padding-left: 18px; margin: 0; }
+    .profile-card li { font-size: 0.88em; margin-bottom: 5px; }
+    .page-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+    @media (max-width: 700px) { .stat-row, .profile-grid { grid-template-columns: 1fr; } .sector-row { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html" class="active">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">Context</div>
+  <h1 class="page-header__title">Why This Matters &amp; Who It's For</h1>
+  <p class="page-header__desc">The gap AfriversalAI is closing, the philosophy behind how it closes it, and the professionals it is designed for.</p>
+</div>
+
+
+<h2>The Problem We're Solving</h2>
+
+<p>In April 2026, South Africa's Department of Communications and Digital Technologies published a national AI policy draft containing fabricated academic citations &mdash; generated by AI without verification. The professionals who wrote it were not careless. They simply did not have the framework to know when to question AI output.</p>
+
+<p>This is not an isolated incident. It is the gap that exists across South African workplaces right now:</p>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <div class="stat-card__num">1.4M</div>
+    <div class="stat-card__body">South Africans trained on AI tools by programmes like Microsoft SA &mdash; on <em>how to use them</em>, not how to evaluate what they produce.</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__num">37%</div>
+    <div class="stat-card__body">Gender penalty faced by women-led SMEs in African fintech credit scoring due to AI bias &mdash; often invisible to the human acting on the recommendation.</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__num">5&ndash;15%</div>
+    <div class="stat-card__body">Completion rate for standard self-paced AI courses. The judgment gap doesn't close through passive learning.</div>
+  </div>
+</div>
+
+<p>Existing training programmes teach button-pressing. AfriversalAI teaches judgment. And no institution in Africa yet provides professional-level credentialing for the people who shape AI policy, govern AI systems, or regulate AI risk.</p>
+
+
+<h2>Course Philosophy</h2>
+
+<h3>African-centred, not imported</h3>
+<p>Every case study, example, and regulatory reference is drawn from the South African context. POPIA, the Employment Equity Act, the DCDT policy crisis, the 2024 election deepfakes &mdash; learners encounter real events from their own professional and civic landscape, not anonymised US or European scenarios.</p>
+
+<h3>Judgment over tools</h3>
+<p>AI tools change rapidly. The judgment skills to evaluate any AI output do not. This course teaches transferable critical thinking, not software tutorials. A learner who completes the course will be able to evaluate any AI system they encounter &mdash; including ones that did not exist when the course was written.</p>
+
+<h3>Demonstrated competency, not completion</h3>
+<p>The AfriversalAI certificate is not awarded for watching videos or finishing modules. It is earned by submitting a real-world evaluation of an AI system from the learner's own job, assessed by a trained human assessor against a published rubric. The certificate says "demonstrated," not "completed."</p>
+
+<h3>Freire-informed pedagogy</h3>
+<p>The course draws on Paulo Freire's philosophy of critical consciousness-raising. Each module begins with experience before theory. Learners engage with a real artifact, reflect on their instincts, and then receive the conceptual framework that explains what they were sensing. The learning emerges from the tension between experience and understanding.</p>
+
+<h3>Accessible by design</h3>
+<p>The course assumes no prior technical knowledge. Jargon is introduced only when necessary, always defined in plain language, and grounded in a concrete example. Every concept is explained as if the learner has never formally thought about AI before &mdash; because most haven't.</p>
+
+
+<h2>Target Audience &amp; Sectors</h2>
+
+<p>Designed for working professionals in five South African sectors &mdash; not for AI specialists, data scientists, or software engineers, but for the colleagues they work alongside.</p>
+
+<div class="sector-row">
+  <div class="sector-chip"><div class="sector-chip__icon">&#127970;</div><div class="sector-chip__name">Corporate &amp; Business</div></div>
+  <div class="sector-chip"><div class="sector-chip__icon">&#127963;</div><div class="sector-chip__name">Government &amp; Public Sector</div></div>
+  <div class="sector-chip"><div class="sector-chip__icon">&#128176;</div><div class="sector-chip__name">Finance &amp; Banking</div></div>
+  <div class="sector-chip"><div class="sector-chip__icon">&#127973;</div><div class="sector-chip__name">Medical &amp; Healthcare</div></div>
+  <div class="sector-chip"><div class="sector-chip__icon">&#127891;</div><div class="sector-chip__name">Education</div></div>
+</div>
+
+<div class="profile-grid">
+  <div class="profile-card">
+    <div class="profile-card__label">Layers 1 &amp; 2 &mdash; Primary Learner</div>
+    <ul>
+      <li>Working professional, 5+ years in their field</li>
+      <li>Already encountering AI tools at work</li>
+      <li>Not a developer &mdash; doesn't write code or train models</li>
+      <li>Accountable for decisions influenced by AI recommendations</li>
+      <li>Has not received formal AI literacy training</li>
+    </ul>
+  </div>
+  <div class="profile-card">
+    <div class="profile-card__label">Layer 3 &mdash; Professional Learner</div>
+    <ul>
+      <li>Policy analyst, compliance officer, legal counsel, or regulator</li>
+      <li>Directly shapes, oversees, or enforces AI-related decisions</li>
+      <li>Needs specialist credentials to operate at a professional standard</li>
+      <li>Layer 1 Core Certification required as prerequisite</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout--gold callout">
+  <strong>Organisational buyers (L&amp;D and HR):</strong> Corporate and government L&amp;D teams purchasing workforce training. The course is designed to be MICT SETA-accreditable, enabling employers to recover 40&ndash;60% of training costs through the Skills Development Levy discretionary grant system.
+</div>
+
+<div class="page-nav no-print">
+  <a href="course-outline.html" class="page-nav__btn page-nav__btn--ghost">&larr; Overview</a>
+  <a href="outline-funda-five.html" class="page-nav__btn">Next: Funda Five &rarr;</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

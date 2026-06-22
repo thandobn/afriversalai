@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Funda Five — AfriversalAI Professional Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .doc-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.82em; flex-wrap: wrap; gap: 8px; }
+    .doc-topbar a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .print-btn { padding: 6px 14px; background: var(--green-dark); color: white; border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 600; cursor: pointer; }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+    .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    strong { font-weight: 600; }
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+    /* Five steps visual */
+    .five-steps { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 28px 0; }
+    .step-card { display: flex; gap: 16px; align-items: flex-start; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; }
+    .step-card__num { width: 40px; height: 40px; border-radius: 50%; background: var(--green-dark); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.95em; flex-shrink: 0; }
+    .step-card__body { flex: 1; }
+    .step-card__title { font-weight: 700; font-size: 1.05em; color: var(--green-dark); margin-bottom: 3px; }
+    .step-card__question { font-weight: 600; font-size: 0.92em; margin-bottom: 5px; }
+    .step-card__desc { font-size: 0.86em; color: var(--muted); margin: 0; }
+    .step-card:nth-child(2n) { background: var(--green-pale); }
+    /* Table fallback */
+    .fw-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88em; }
+    .fw-table th { background: var(--green-dark); color: white; padding: 10px 14px; text-align: left; }
+    .fw-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .fw-table tr:nth-child(even) td { background: var(--green-pale); }
+    .fw-table td:first-child { font-weight: 700; }
+    .fw-table td:last-child { color: var(--muted); }
+    .page-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html" class="active">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">The Core Framework</div>
+  <h1 class="page-header__title">The Funda Five</h1>
+  <p class="page-header__desc">AfriversalAI's proprietary decision framework. Five questions. Any AI situation at work. Approximately two minutes. No technical knowledge required.</p>
+</div>
+
+<p>The Funda Five is the thread that runs through every module, every sector track, and every professional cohort. It is introduced in Module 1 and applied every subsequent module. By the end of the course, using it is instinctive.</p>
+
+<div class="callout--gold callout">
+  <strong style="font-size:1.05em;">Task &rarr; Data &rarr; Tool &rarr; Trust &rarr; Human</strong><br>
+  Five questions. Any AI situation. Two minutes. The judgment comes from you &mdash; the framework just makes sure you don't skip a step.
+</div>
+
+<div class="five-steps">
+
+  <div class="step-card">
+    <div class="step-card__num">1</div>
+    <div class="step-card__body">
+      <div class="step-card__title">Task</div>
+      <div class="step-card__question">Is this the right kind of job for AI?</div>
+      <p class="step-card__desc">Not every task suits AI assistance. This step assesses the risk profile of the task, what happens if the AI output is wrong, and whether the consequences are reversible. A draft email is low risk. A public policy citation is not.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card__num">2</div>
+    <div class="step-card__body">
+      <div class="step-card__title">Data</div>
+      <div class="step-card__question">What information is involved? Is any of it POPIA-protected?</div>
+      <p class="step-card__desc">What data is being fed into or produced by this AI system? Is it confidential? Is it personal information covered by POPIA? Is the AI tool authorised to process this type of data? Learners leave this step with a data sensitivity instinct.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card__num">3</div>
+    <div class="step-card__body">
+      <div class="step-card__title">Tool</div>
+      <div class="step-card__question">Is this the right AI for this task? Is it approved?</div>
+      <p class="step-card__desc">Different AI tools have different failure modes, risk profiles, and organisational approval status. Is ChatGPT approved for this task? Is this the right type of AI &mdash; generative, predictive, computer vision? Learners develop tool awareness, not tool loyalty.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card__num">4</div>
+    <div class="step-card__body">
+      <div class="step-card__title">Trust</div>
+      <div class="step-card__question">How would I detect an error in this output?</div>
+      <p class="step-card__desc">Before acting on AI output, can you articulate a specific, achievable verification step? "I'll cross-check the citations" is a verification step. "I'll read it carefully" is not. This step turns verification from a vague intention into a concrete action.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card__num">5</div>
+    <div class="step-card__body">
+      <div class="step-card__title">Human</div>
+      <div class="step-card__question">Who checks this? Who is accountable if it's wrong?</div>
+      <p class="step-card__desc">"The algorithm decided" is not a legal or ethical defence under South African law. This step requires learners to name the accountability chain &mdash; a specific person or role responsible for the decision &mdash; before AI output reaches anyone who could be affected by it.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="callout">
+  <strong>Applied in every module:</strong> From Module 1 onward, every Apply phase asks learners to use the Funda Five on a real scenario. By Module 6, they apply it instinctively to their own capstone case. Layer 3 professional cohorts extend the framework to policy, governance, and regulatory contexts.
+</div>
+
+<div class="page-nav no-print">
+  <a href="outline-foundation.html" class="page-nav__btn page-nav__btn--ghost">&larr; Why &amp; Who</a>
+  <a href="outline-core-modules.html" class="page-nav__btn">Next: Core Modules &rarr;</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

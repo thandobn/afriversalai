@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sector Tracks — AfriversalAI Professional Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .doc-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; font-size: 0.82em; flex-wrap: wrap; gap: 8px; }
+    .doc-topbar a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .print-btn { padding: 6px 14px; background: var(--green-dark); color: white; border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 600; cursor: pointer; }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+    .page-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    ul { padding-left: 22px; margin-bottom: 10px; }
+    li { margin-bottom: 4px; line-height: 1.6; }
+    strong { font-weight: 600; }
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+    .module-block { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin: 18px 0; }
+    .module-block__head { background: linear-gradient(135deg, #1B4332, #2D6A4F); color: white; padding: 13px 18px; display: flex; align-items: center; gap: 14px; }
+    .module-block__num { background: var(--gold); color: var(--green-dark); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.86em; flex-shrink: 0; }
+    .module-block__head strong { font-size: 0.97em; }
+    .module-block__head div { font-size: 0.78em; opacity: .75; margin-top: 2px; }
+    .module-block__body { padding: 18px 22px; }
+    .module-block__case { display: inline-block; background: var(--green-pale); color: var(--green-dark); padding: 3px 11px; border-radius: 12px; font-size: 0.76em; font-weight: 600; margin-bottom: 10px; }
+    .module-block__desc { font-size: 0.87em; color: var(--muted); margin-bottom: 10px; }
+    .obj-label { font-size: 0.73em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green-mid); margin: 12px 0 5px; }
+    .module-block__objectives { font-size: 0.86em; padding-left: 18px; }
+    .module-block__objectives li { margin-bottom: 3px; }
+    .phase-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+    .phase-chip { background: var(--green-pale); border-radius: var(--radius); padding: 8px 10px; font-size: 0.75em; text-align: center; }
+    .phase-chip strong { display: block; font-weight: 700; color: var(--green-dark); margin-bottom: 2px; }
+    .sector-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 24px; }
+    .sector-tab { border: 2px solid var(--border); border-radius: var(--radius); padding: 10px 8px; text-align: center; font-size: 0.76em; cursor: pointer; }
+    .sector-tab__icon { font-size: 1.3em; margin-bottom: 4px; }
+    .sector-tab__name { font-weight: 700; color: var(--text); }
+    .page-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+    @media (max-width: 700px) { .phase-row { grid-template-columns: repeat(2, 1fr); } .sector-tabs { grid-template-columns: repeat(3, 1fr); } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html" class="active">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">Layer 1 &middot; Sector Application &middot; Module 7</div>
+  <h1 class="page-header__title">Sector Tracks &mdash; Module 7A through 7E</h1>
+  <p class="page-header__desc">After completing Modules 0&ndash;6 together, learners diverge to complete the sector track for their industry. Each track applies the full Funda Five to a real AI situation from that sector.</p>
+</div>
+
+<div class="callout--gold callout">
+  <strong>One track per learner.</strong> Learners from different sectors may be in the same cohort &mdash; they reunite after Module 7 for assessment. The sector case study completed here also becomes the foundation for the Layer 2 Sector Specialization program.
+</div>
+
+
+<!-- 7A CORPORATE -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">7A</div>
+    <div>
+      <strong>Sector Track &mdash; Corporate &amp; Business</strong>
+      <div>For corporate professionals, team leads, and business managers</div>
+    </div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#127970; DCDT AI Hallucination Scandal &middot; April 2026</div>
+    <p class="module-block__desc">South Africa's DCDT published a national AI policy draft with fabricated academic citations generated by AI. The professionals who wrote it were not careless &mdash; they lacked the framework to know when to question AI output.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Assess the risk profile of 8 common corporate AI use cases using a structured framework</li>
+      <li>Identify which SA regulations (POPIA, CPA, EEA, B-BBEE) apply to their AI deployments</li>
+      <li>Evaluate AI tools (Copilot, ChatGPT, DeepSeek) against corporate risk criteria</li>
+      <li>Present a structured AI judgment recommendation to a board or senior team</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Rate 8 corporate AI scenarios: High / Medium / Low risk</div>
+      <div class="phase-chip"><strong>Reflect</strong>Where does AI affect decisions in your organisation?</div>
+      <div class="phase-chip"><strong>Concept</strong>GenAI tool risk profiles + SA regulatory exposure</div>
+      <div class="phase-chip"><strong>Apply</strong>Board presentation using the Funda Five</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 7B GOVERNMENT -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">7B</div>
+    <div>
+      <strong>Sector Track &mdash; Government &amp; Public Sector</strong>
+      <div>For civil servants, policy staff, and public service administrators</div>
+    </div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#127963; SASSA SRD Automated Exclusion &middot; Ongoing</div>
+    <p class="module-block__desc">Millions of SASSA Social Relief of Distress grant applications are declined by an automated system with the message "Alternative Income Source Identified" &mdash; often incorrectly. Applicants have no clear path to challenge the decision.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Identify when automated government decisions require human review under POPIA Section 71</li>
+      <li>Map the accountability chain for AI-assisted decisions in their department</li>
+      <li>Apply PAIA, PEPUDA, and PFMA considerations to AI procurement and deployment</li>
+      <li>Design a basic override and escalation protocol for automated decisions</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Read the SASSA SMS &mdash; what went wrong?</div>
+      <div class="phase-chip"><strong>Reflect</strong>Where does automation affect citizens in your dept?</div>
+      <div class="phase-chip"><strong>Concept</strong>POPIA s71, PFMA, active SA government AI systems</div>
+      <div class="phase-chip"><strong>Apply</strong>Field officer scenario &mdash; override or comply?</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 7C FINANCE -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">7C</div>
+    <div>
+      <strong>Sector Track &mdash; Finance &amp; Banking</strong>
+      <div>For financial analysts, credit officers, and banking professionals</div>
+    </div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#128176; SA Credit Scoring Structural Exclusion &middot; Ongoing</div>
+    <p class="module-block__desc">51% of South African adults are effectively invisible to formal AI credit scoring models. The informal economy &mdash; stokvels, cash income, township enterprise &mdash; generates no data trail that credit AI can read, creating structural exclusion that mirrors apartheid-era financial barriers.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Identify proxy discrimination in AI credit and fraud scoring outputs</li>
+      <li>Apply NCA Sections 80&ndash;81 and FSCA guidance to AI-assisted lending decisions</li>
+      <li>Evaluate risk profiles of major SA fintech AI tools (ABSA Abby, JUMO, FNB fraud detection)</li>
+      <li>Use the Funda Five to decide whether to act on an AI fraud flag</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>A loan declined in 4 seconds &mdash; what happened?</div>
+      <div class="phase-chip"><strong>Reflect</strong>Where do you rely on AI in financial decisions?</div>
+      <div class="phase-chip"><strong>Concept</strong>Credit AI tools, NCA, FSCA-PA 2025 guidance</div>
+      <div class="phase-chip"><strong>Apply</strong>FNB fraud analyst &mdash; 47 flags, 8 false positives. Act?</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 7D HEALTHCARE -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">7D</div>
+    <div>
+      <strong>Sector Track &mdash; Medical &amp; Healthcare</strong>
+      <div>For clinicians, healthcare administrators, and public health workers</div>
+    </div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#127973; Mediclinic AI Workforce Restructuring &middot; April 2025</div>
+    <p class="module-block__desc">Mediclinic implemented an AI-assisted workforce management system, followed by a hiring freeze and restructuring. After public backlash, the company denied AI was responsible for staffing decisions &mdash; while the AI remained in use.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Evaluate AI clinical decision support tools using patient safety and equity criteria</li>
+      <li>Apply HPCSA Booklet 20 and SAHPRA AI/ML guidance to tool assessment</li>
+      <li>Identify POPIA obligations for health data processed by AI systems</li>
+      <li>Use the Funda Five to decide when to override a clinical AI recommendation</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>Announcement and denial &mdash; what do you believe?</div>
+      <div class="phase-chip"><strong>Reflect</strong>Where is AI influencing clinical decisions in your context?</div>
+      <div class="phase-chip"><strong>Concept</strong>Aidoc, Qure.ai TB screening, HPCSA, SAHPRA, NHI</div>
+      <div class="phase-chip"><strong>Apply</strong>Limpopo clinic &mdash; PRIME CDS recommends. Override?</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 7E EDUCATION -->
+<div class="module-block">
+  <div class="module-block__head">
+    <div class="module-block__num">7E</div>
+    <div>
+      <strong>Sector Track &mdash; Education</strong>
+      <div>For educators, school leaders, and education administrators</div>
+    </div>
+  </div>
+  <div class="module-block__body">
+    <div class="module-block__case">&#127891; UCT Scraps AI Detection Tools &middot; July 2025</div>
+    <p class="module-block__desc">UCT formally discontinued Turnitin's AI detection tool after evidence of false positives at significantly higher rates for non-native English speakers &mdash; disproportionately affecting African students. The decision followed a wave of contested academic integrity rulings.</p>
+    <div class="obj-label">Learners will be able to:</div>
+    <ul class="module-block__objectives">
+      <li>Evaluate AI detection and learning tools for equity and false positive risk</li>
+      <li>Apply POPIA obligations for learner data and HEQC/Umalusi accreditation considerations</li>
+      <li>Identify the accountability chain when an AI detection tool flags a student</li>
+      <li>Use the Funda Five to assess an edtech platform pitch for their institution</li>
+    </ul>
+    <div class="phase-row">
+      <div class="phase-chip"><strong>Encounter</strong>CheatGPT crisis vs. UCT announcement</div>
+      <div class="phase-chip"><strong>Reflect</strong>How is AI shaping integrity decisions in your institution?</div>
+      <div class="phase-chip"><strong>Concept</strong>Siyavula, Turnitin, VulaVula, SA Schools Act, HEQC</div>
+      <div class="phase-chip"><strong>Apply</strong>Soweto principal &mdash; evaluate a UK edtech AI pitch</div>
+    </div>
+  </div>
+</div>
+
+<div class="page-nav no-print">
+  <a href="outline-core-modules.html" class="page-nav__btn page-nav__btn--ghost">&larr; Core Modules</a>
+  <a href="outline-delivery.html" class="page-nav__btn">Next: Delivery &amp; Assessment &rarr;</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>
