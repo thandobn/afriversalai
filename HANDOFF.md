@@ -427,3 +427,39 @@ A fresh session should know these terms:
 - course-poc/pricing.html (hero lead text)
 - course-poc/module-1.html + module-7-*.html ×5 (requireAuth added)
 - Supabase dashboard: UPDATE policy added to progress table
+
+---
+
+## Session: 2026-06-21 (resources + module-0 UX session)
+
+**What was worked on:**
+- resources.html: added images for all 7 YouTube channel cards (StatQuest + DeepLearning.AI newly added); fixed image positioning using CSS modifier classes (`.res-card__cover--center`, `--left`, `--bottom`) instead of inline styles
+- resources.html: added 2 new podcasts (Data Skeptic, The Cognitive Revolution) with images
+- resources.html: added 4 new books (You Look Like a Thing, AI Guide for Thinking Humans, How AI Thinks, AI Needs You) with images
+- resources.html: reordered sections to Reading List → Podcasts → YouTube Channels → Case Studies; fixed scrollspy default to highlight Reading List first
+- resources.html: fixed AI Needs You cover — .avif resaved as .jpg, src updated
+- style.css: standardised container bounds across all pages — `module-hero` padding fixed from 28px to 52px to match `.container`'s 52px side padding
+- module-0.html: fixed critical container bug — `<div class="container">` was closing after Phase 1 only; Phases 2–4 were rendering at full viewport width; fixed with second container div wrapping Phases 2–4
+- module-0.html: implemented one-phase-at-a-time UX — removed local `.phase.is-locked { opacity: 0.4; pointer-events: none }` override (global CSS already hides locked phase bodies); added `.phase.is-done .phase__body { display: none }` so completed phases collapse; added `.is-expanded` toggle class + JS click handler on done phase headers so users can re-open completed phases
+- module-0.html: replaced dots progress bar (`.module-progress` / `.prog-step`) with text-label tracker (`.progress-track` / `.progress-step`) matching module-1's pattern — labels: "1 · Concept", "2 · Encounter", "3 · Reflect", "4 · Apply"
+- course.html: fixed module grid from `repeat(4, 1fr)` back to `repeat(3, 1fr)` (3+3 layout)
+
+**Decisions made:**
+- CSS modifier classes over inline `object-position` on image cards — easier to maintain and prevents `replace_all` from touching unrelated cards
+- `is-expanded` toggle class pattern for re-opening done phases — CSS-only reveal, no extra state tracking needed
+- Progress bar IDs (`prog-0` through `prog-3`) kept the same — JS references IDs not class names, so no JS rewrites needed when switching from `.prog-step` to `.progress-step`
+- One-phase-at-a-time UX applies to module-0 only for now — apply to module-1 next session if mom approves the pattern
+
+**Open items / next steps:**
+- Apply one-phase-at-a-time UX to module-1 (pending mom's approval of module-0 pattern)
+- Delete `book-ai-needs-you.avif` from `assets/resources/` — old file still on disk, src already updated to .jpg
+- Resources page hero description text still says "Case studies from every module..." — doesn't reflect new section order
+- POPIA/privacy policy fix (standing since Session 4)
+- aria-labels on lang switcher buttons sitewide (21 instances — standing from previous session)
+- Apply phase model answer / reflection guidance after module complete (standing from previous session)
+
+**Files changed:**
+- course-poc/resources.html (new channels, podcasts, books; reordered sections; scrollspy fix; image positioning classes)
+- course-poc/module-0.html (container bug fix; one-phase-at-a-time UX; text progress tracker)
+- course-poc/assets/style.css (module-hero padding; module-grid column count)
+- course-poc/assets/resources/ (new images: channel-statquest.jpg, channel-deeplearning-ai.jpg, podcast-data-skeptic.jpg, podcast-cognitive-revolution.jpg, book-you-look-like.jpg, book-ai-guide-thinking.jpg, book-how-ai-thinks.jpg, book-ai-needs-you.jpg; re-cropped: channel-3b1b.jpg, channel-fireship.jpg)

@@ -22,9 +22,13 @@
     .phase__title { font-weight: 700; font-size: 1.05em; }
     .phase__subtitle { font-size: 0.82em; color: var(--muted); margin-top: 2px; }
     .phase__body { padding: 32px 28px; background: var(--white); }
-    .phase.is-done .phase__header { background: var(--green-light); cursor: pointer; }
-    .phase.is-done .phase__body { display: none; }
-    .phase.is-done.is-expanded .phase__body { display: block; }
+    .phase { display: none; }
+    .phase.is-active { display: block; }
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+    .phase-nav { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; margin-top: 32px; border-top: 1px solid var(--border); gap: 12px; }
+    .phase.is-done .phase__header { background: var(--green-light); }
+    .progress-step.is-done { cursor: pointer; }
 
     /* Activity cards */
     .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
@@ -160,7 +164,7 @@
   <div class="container">
 
     <!-- PHASE 1: CONCEPT -->
-    <div class="phase" id="phase-0">
+    <div class="phase is-active" id="phase-0">
       <div class="phase__header">
         <div class="phase__num">1</div>
         <div>
@@ -169,6 +173,7 @@
         </div>
       </div>
       <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-0-content">
 
         <!-- Technology adoption context — framing before lessons begin -->
         <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:24px 28px; margin-bottom:40px;">
@@ -394,6 +399,12 @@
 
         </div>
 
+          <div class="phase-nav" style="justify-content:flex-end;">
+            <button class="btn btn--primary" onclick="showScreen(0,'quiz')">Take the knowledge check &rarr;</button>
+          </div>
+        </div><!-- /ps-0-content -->
+
+        <div class="phase-screen" id="ps-0-quiz">
         <!-- KNOWLEDGE CHECK: PHASE 1 -->
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
@@ -440,21 +451,21 @@
               <div id="quiz-p1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 3 questions before checking.</div>
             </div>
             <div id="quiz-p1-result" style="display:none; margin-top:20px;"></div>
-            <div id="quiz-p1-advance-wrap" style="display:none; text-align:right; margin-top:16px;">
-              <button class="btn btn--primary" type="button" onclick="advancePhase(0)">Move to Encounter &rarr;</button>
-            </div>
-
           </div>
         </div>
-        <div id="err-0" class="advance-err" role="alert" aria-live="polite" style="display:none;"></div>
-      </div>
-    </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(0,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--primary" id="quiz-p1-advance" style="display:none" onclick="advancePhase(0)">Continue to Encounter &rarr;</button>
+        </div>
+        </div><!-- /ps-0-quiz -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-0 -->
 
   </div><!-- /container phase 1 -->
   <div class="container">
 
     <!-- PHASE 2: ENCOUNTER -->
-    <div class="phase is-locked" id="phase-1">
+    <div class="phase" id="phase-1">
       <div class="phase__header">
         <div class="phase__num">2</div>
         <div>
@@ -463,6 +474,7 @@
         </div>
       </div>
       <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-1-content">
         <p>Below are 10 everyday tools and situations. Pick your gut answer: does this use AI, or not?</p>
         <p style="font-size:0.88em; color:var(--muted);">Click once to mark <strong style="color:var(--green-dark);">AI</strong> (green) &middot; click again to mark <strong style="color:var(--gold-dark);">Not AI</strong> (amber) &middot; click a third time to clear.</p>
 
@@ -596,8 +608,12 @@
             <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(1)">Done &mdash; see what I spotted &rarr;</button>
           </div>
         </div>
-      </div>
-    </div>
+        <div class="phase-nav" style="justify-content:flex-start;">
+          <button type="button" class="btn btn--outline" onclick="goBack(0)">&larr; Concept</button>
+        </div>
+        </div><!-- /ps-1-content -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-1 -->
 
     <!-- TEASER GATE &mdash; shown after Encounter for guests -->
     <div id="teaser-gate" style="display:none;">
@@ -619,11 +635,14 @@
           <a href="register.html" class="btn btn--gold btn--lg">Register free &mdash; unlock all phases &rarr;</a>
           <a href="course-outline.html" class="btn" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.3); padding:14px 24px; font-size:0.92em; font-weight:600; border-radius:var(--radius); text-decoration:none;">View full course outline</a>
         </div>
+        <div style="margin-top:24px;">
+          <button type="button" class="btn btn--outline" style="color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.3);" onclick="showPhase(1)">&larr; Back to Encounter</button>
+        </div>
       </div>
     </div>
 
     <!-- PHASE 3: REFLECT -->
-    <div class="phase is-locked" id="phase-2">
+    <div class="phase" id="phase-2">
       <div class="phase__header">
         <div class="phase__num">3</div>
         <div>
@@ -632,6 +651,7 @@
         </div>
       </div>
       <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-2-reflect">
         <p>Now that you've seen the answers &mdash; what caught you off guard?</p>
 
         <!-- Branching question -->
@@ -656,8 +676,14 @@
           <label for="reflect-2" id="reflect-2-label" style="display:block; font-weight:600; margin-bottom:8px;">Where do you encounter AI in your own job? (Even if you're not sure &mdash; take a guess.)</label>
           <textarea id="reflect-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The HR system that shortlists CVs, the chatbot on our website, the fraud alerts our bank sends..."></textarea>
         </div>
+        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in both boxes before going deeper.</div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goBack(1)">&larr; Encounter</button>
+          <button type="button" class="btn btn--primary" onclick="goDeeper()">Go Deeper &rarr;</button>
+        </div>
+        </div><!-- /ps-2-reflect -->
 
-
+        <div class="phase-screen" id="ps-2-deep">
         <!-- Divider into technical deep-dive -->
         <div style="display:flex; align-items:center; gap:16px; margin:0 0 32px;">
           <div style="flex:1; height:1px; background:var(--border);"></div>
@@ -774,6 +800,13 @@
           </div>
         </div>
 
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'reflect')">&larr; Back to reflect</button>
+          <button type="button" class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
+        </div>
+        </div><!-- /ps-2-deep -->
+
+        <div class="phase-screen" id="ps-2-quiz">
         <!-- KNOWLEDGE CHECK: PHASE 3 -->
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
@@ -847,16 +880,17 @@
 
         <div id="glossary-note" class="callout" style="margin-top:28px; display:none;">
           <strong>New to some of these terms?</strong> The <a href="glossary.html" style="color:var(--green-dark); font-weight:700;">AI Glossary &rarr;</a> has plain-language definitions for every term used in this course.
-
-        <div style="text-align:right; margin-top:24px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)" data-i18n="p1_btn">Done reflecting &mdash; move to Apply &rarr;</button>
         </div>
-        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please answer both questions before moving on.</div>
-      </div>
-    </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'deep')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--primary" id="quiz-p3-advance" style="display:none" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
+        </div>
+        </div><!-- /ps-2-quiz -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-2 -->
 
     <!-- PHASE 4: APPLY -->
-    <div class="phase is-locked" id="phase-3">
+    <div class="phase" id="phase-3">
       <div class="phase__header">
         <div class="phase__num">4</div>
         <div>
@@ -865,6 +899,7 @@
         </div>
       </div>
       <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-3-content">
         <p data-i18n="p3_intro">You've seen what AI is, what it isn't, and the three types you're most likely to encounter. Now bring it to your world.</p>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
@@ -890,8 +925,12 @@
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)" data-i18n="p3_btn">Complete Module 0 &rarr;</button>
         </div>
         <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;" data-i18n="p3_err">Please answer all three questions before completing the module.</div>
-      </div>
-    </div>
+        <div class="phase-nav" style="justify-content:flex-start;">
+          <button type="button" class="btn btn--outline" onclick="goBack(2)">&larr; Reflect</button>
+        </div>
+        </div><!-- /ps-3-content -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-3 -->
 
     <!-- MODULE COMPLETE -->
     <div id="module-complete" style="display:none;" class="preview-end">
@@ -1034,18 +1073,77 @@ function syncProgressAria() {
   if (bar) bar.setAttribute('aria-valuenow', bar.querySelectorAll('.is-done').length);
 }
 
-function advancePhase(fromPhase) {
-  const errEl = document.getElementById('err-' + fromPhase);
+// --- Slideshow navigation ---
 
-  // Phase 0: Concept &mdash; quiz already validated; advance to Encounter
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function(s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack(toPhase) { showPhase(toPhase); }
+
+function showTeaserGate() {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  document.getElementById('teaser-gate').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateTracker(activePhaseNum) {
+  [0, 1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.classList.remove('is-active');
+    if (i < activePhaseNum) { if (!step.classList.contains('is-done')) step.classList.add('is-done'); }
+    else if (i === activePhaseNum) { step.classList.add('is-active'); }
+  });
+  syncProgressAria();
+}
+
+function goDeeper() {
+  var t1 = document.getElementById('reflect-1').value.trim();
+  var t2 = document.getElementById('reflect-2').value.trim();
+  var errEl = document.getElementById('err-2');
+  if (t1.length < 8 || t2.length < 8) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please write a few words in both reflection boxes before going deeper.';
+    return;
+  }
+  errEl.style.display = 'none';
+  showScreen(2, 'deep');
+}
+
+// --- Phase advance ---
+
+function advancePhase(fromPhase) {
+  var errEl = document.getElementById('err-' + fromPhase);
+
+  // Phase 0: quiz passed — continue button only shown after submitQuizP1 confirms all correct
   if (fromPhase === 0) {
-    errEl.style.display = 'none';
+    saveProgress('module-0', 0);
+    showPhase(1);
+    return;
   }
 
-  // Phase 1: Encounter &mdash; require card interaction, then show teaser gate for guests
+  // Phase 1: Encounter — require card interaction, then show teaser gate for guests
   if (fromPhase === 1) {
-    const alreadyRevealed = document.querySelectorAll('.activity-card.revealed').length > 0;
-    const interacted = document.querySelectorAll('.activity-card.selected-ai').length;
+    var alreadyRevealed = document.querySelectorAll('.activity-card.revealed').length > 0;
+    var interacted = document.querySelectorAll('.activity-card.selected-ai').length;
     if (!alreadyRevealed && interacted < 3) {
       var t0 = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
       errEl.style.display = 'block';
@@ -1054,74 +1152,52 @@ function advancePhase(fromPhase) {
     }
     errEl.style.display = 'none';
     revealAnswers();
-    document.getElementById('phase-1').classList.add('is-done');
-    document.getElementById('prog-1').classList.remove('is-active');
-    document.getElementById('prog-1').classList.add('is-done');
     saveProgress('module-0', 1);
-    const gate = document.getElementById('teaser-gate');
+    var prog1 = document.getElementById('prog-1');
+    if (prog1) { prog1.classList.remove('is-active'); prog1.classList.add('is-done'); }
     if (!window._m0UserLoggedIn) {
-      gate.style.display = 'block';
-      setTimeout(() => gate.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+      showTeaserGate();
       return;
     }
-    // Logged-in user: skip gate, fall through to generic phase advance
+    updateTracker(2);
+    showPhase(2);
+    return;
   }
 
-  // Phase 2: Reflect &mdash; require text in both textareas
+  // Phase 2: Reflect — called from quiz screen after passing; textareas validated by goDeeper
   if (fromPhase === 2) {
-    const t1 = document.getElementById('reflect-1').value.trim();
-    const t2 = document.getElementById('reflect-2').value.trim();
-    if (t1.length < 8 || t2.length < 8) {
-      var tl2 = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
-      errEl.style.display = 'block';
-      errEl.textContent = tl2.p1_err || 'Please write a few words in both reflection boxes before moving on.';
-      return;
-    }
-    errEl.style.display = 'none';
+    saveProgress('module-0', 2);
+    showPhase(3);
+    return;
   }
 
-  // Phase 3: Apply &mdash; require all three boxes
+  // Phase 3: Apply — require all three boxes filled
   if (fromPhase === 3) {
-    const a1 = document.getElementById('apply-1').value.trim();
-    const a2 = document.getElementById('apply-2').value.trim();
-    const a3 = document.getElementById('apply-3').value.trim();
+    var a1 = document.getElementById('apply-1').value.trim();
+    var a2 = document.getElementById('apply-2').value.trim();
+    var a3 = document.getElementById('apply-3').value.trim();
+    var tl3 = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
     if (a1.length < 5 || a2.length < 5 || a3.length < 10) {
-      var tl3 = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
       errEl.style.display = 'block';
       errEl.textContent = tl3.p3_err || 'Please answer all three questions before completing the module.';
       return;
     }
     saveProgress('module-0', 3);
-    document.getElementById('phase-3').classList.add('is-done');
-    document.getElementById('prog-3').classList.remove('is-active');
-    document.getElementById('prog-3').classList.add('is-done');
-    // Populate feedback with user's own answers before reveal
-    [['apply-1','feedback-a1'],['apply-2','feedback-a2'],['apply-3','feedback-a3']].forEach(([src, tgt]) => {
-      const val = document.getElementById(src).value.trim();
-      const el = document.getElementById(tgt);
+    [['apply-1','feedback-a1'],['apply-2','feedback-a2'],['apply-3','feedback-a3']].forEach(function(pair) {
+      var val = document.getElementById(pair[0]).value.trim();
+      var el = document.getElementById(pair[1]);
       if (el) el.textContent = val ? 'Your answer: ' + val : '';
     });
-    const complete = document.getElementById('module-complete');
+    [0,1,2,3].forEach(function(i) {
+      var step = document.getElementById('prog-' + i);
+      if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+    });
+    syncProgressAria();
+    document.getElementById('phase-3').classList.remove('is-active');
+    var complete = document.getElementById('module-complete');
     complete.style.display = 'block';
-    setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    setTimeout(function() { complete.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
     return;
-  }
-
-  // Generic: mark current done, unlock next
-  const current = document.getElementById('phase-' + fromPhase);
-  const next = document.getElementById('phase-' + (fromPhase + 1));
-  const progCur = document.getElementById('prog-' + fromPhase);
-  const progNxt = document.getElementById('prog-' + (fromPhase + 1));
-
-  saveProgress('module-0', fromPhase);
-  current.classList.add('is-done');
-  if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
-  syncProgressAria();
-
-  if (next) {
-    next.classList.remove('is-locked');
-    if (progNxt) progNxt.classList.add('is-active');
-    setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 }
 
@@ -1138,13 +1214,14 @@ function shuffleQuizOptions() {
 }
 document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
 
-// Click a completed phase header to expand/collapse it
+// Click a completed or active progress step to jump to that phase
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.phase__header').forEach(function(header) {
-    header.addEventListener('click', function() {
-      var phase = header.closest('.phase');
-      if (phase && phase.classList.contains('is-done')) {
-        phase.classList.toggle('is-expanded');
+  [0, 1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function() {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
+        showPhase(i);
       }
     });
   });
@@ -1154,7 +1231,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function submitQuizP1() {
   var allAnswered = true;
-  var score = 0;
+  var wrongCount = 0;
   var explanations = [
     { ok: 'Right \u2014 AI is pattern recognition at massive scale, not fact retrieval or rule-following.',
       no: 'Not quite. AI learns patterns from data \u2014 it doesn\u2019t retrieve from a database, follow pre-programmed rules, or think like a human.' },
@@ -1167,44 +1244,37 @@ function submitQuizP1() {
     var sel = document.querySelector('input[name="p1_q' + i + '"]:checked');
     if (!sel) { allAnswered = false; return; }
     var isOk = sel.closest('label').dataset.correct === 'true';
-    if (isOk) score++;
     var fb = document.getElementById('p1qf-' + i);
-    var exp = explanations[i];
     fb.style.display = 'block';
-    fb.style.background = isOk ? 'var(--green-pale)' : '#FFF5F5';
-    fb.style.border = isOk ? '1px solid var(--green-light)' : '1px solid #FCA5A5';
-    fb.style.color = isOk ? 'var(--green-dark)' : '#7F1D1D';
-    fb.innerHTML = '<strong>' + (isOk ? 'Correct.' : 'Not quite.') + '</strong> ' + (isOk ? exp.ok : exp.no);
-    document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    if (isOk) {
+      fb.style.background = 'var(--green-pale)';
+      fb.style.border = '1px solid var(--green-light)';
+      fb.style.color = 'var(--green-dark)';
+      fb.innerHTML = '<strong>Correct.</strong> ' + explanations[i].ok;
+      document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      wrongCount++;
+      fb.style.background = '#FFF5F5';
+      fb.style.border = '1px solid #FCA5A5';
+      fb.style.color = '#7F1D1D';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + explanations[i].no;
+      document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.checked = false; });
+    }
   });
+  var errEl = document.getElementById('quiz-p1-err');
   if (!allAnswered) {
-    document.getElementById('quiz-p1-err').style.display = 'block';
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please answer all 3 questions before checking.';
     return;
   }
-  document.getElementById('quiz-p1-err').style.display = 'none';
-  document.getElementById('quiz-p1-submit-wrap').style.display = 'none';
-  var result = document.getElementById('quiz-p1-result');
-  result.style.display = 'block';
-  if (score >= 2) {
-    result.innerHTML = '<div style="background:var(--green-pale); border:1.5px solid var(--green-mid); border-radius:var(--radius); padding:16px 20px;"><strong style="color:var(--green-dark);">' + score + '/3 correct \u2014 well done.</strong><p style="margin:6px 0 0; font-size:0.9em;">You\'ve got the core concepts. Move to Encounter when you\'re ready.</p></div>';
-    document.getElementById('quiz-p1-advance-wrap').style.display = 'block';
+  if (wrongCount === 0) {
+    errEl.style.display = 'none';
+    document.getElementById('quiz-p1-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-p1-advance').style.display = 'inline-block';
   } else {
-    result.innerHTML = '<div style="background:#FFF5F5; border:1.5px solid #FCA5A5; border-radius:var(--radius); padding:16px 20px;"><strong style="color:#DC2626;">' + score + '/3 correct \u2014 review the lessons above and try again.</strong><p style="margin:10px 0 0;"><button type="button" class="btn btn--outline btn--sm" onclick="resetQuizP1()">Try again &rarr;</button></p></div>';
+    errEl.style.display = 'block';
+    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look \u2014 check the hints above and try again.';
   }
-}
-
-function resetQuizP1() {
-  for (var i = 0; i < 3; i++) {
-    document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.disabled = false; r.checked = false; });
-    var fb = document.getElementById('p1qf-' + i);
-    fb.style.display = 'none';
-    fb.innerHTML = '';
-  }
-  document.getElementById('quiz-p1-result').style.display = 'none';
-  document.getElementById('quiz-p1-result').innerHTML = '';
-  document.getElementById('quiz-p1-submit-wrap').style.display = 'block';
-  document.getElementById('quiz-p1-advance-wrap').style.display = 'none';
-  shuffleQuizOptions();
 }
 
 // === Phase 3 Knowledge Check (5 questions — deeper material from Let's Go Deeper) ===
@@ -1226,56 +1296,44 @@ function getP3QuizExp() {
 }
 
 function submitQuizP3() {
-  var score = 0;
   var allAnswered = true;
+  var wrongCount = 0;
   var quizExp = getP3QuizExp();
   [0, 1, 2, 3, 4].forEach(function(i) {
     var sel = document.querySelector('input[name="p3_q' + i + '"]:checked');
     if (!sel) { allAnswered = false; return; }
     var isOk = sel.closest('label').dataset.correct === 'true';
-    if (isOk) score++;
     var fb = document.getElementById('p3qf-' + i);
-    var exp = quizExp[i];
     fb.style.display = 'block';
     if (isOk) {
       fb.style.background = 'var(--green-pale)';
       fb.style.border = '1px solid var(--green-light)';
       fb.style.color = 'var(--green-dark)';
-      fb.innerHTML = '<strong>Correct.</strong> ' + exp.ok;
+      fb.innerHTML = '<strong>Correct.</strong> ' + quizExp[i].ok;
+      document.querySelectorAll('input[name="p3_q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
+      wrongCount++;
       fb.style.background = '#FFF5F5';
       fb.style.border = '1px solid #FCA5A5';
       fb.style.color = '#7F1D1D';
-      fb.innerHTML = '<strong>Not quite.</strong> ' + exp.no;
+      fb.innerHTML = '<strong>Not quite.</strong> ' + quizExp[i].no;
+      document.querySelectorAll('input[name="p3_q' + i + '"]').forEach(function(r) { r.checked = false; });
     }
-    document.querySelectorAll('input[name="p3_q' + i + '"]').forEach(function(r) { r.disabled = true; });
   });
+  var errEl = document.getElementById('quiz-p3-err');
   if (!allAnswered) {
-    document.getElementById('quiz-p3-err').style.display = 'block';
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please answer all 5 questions before checking.';
     return;
   }
-  document.getElementById('quiz-p3-err').style.display = 'none';
-  document.getElementById('quiz-p3-submit-wrap').style.display = 'none';
-  var result = document.getElementById('quiz-p3-result');
-  result.style.display = 'block';
-  if (score >= 3) {
-    result.innerHTML = '<div style="background:var(--green-pale); border:1.5px solid var(--green-mid); border-radius:var(--radius); padding:16px 20px;"><strong style="color:var(--green-dark);">' + score + '/5 correct \u2014 well done.</strong><p style="margin:6px 0 0; font-size:0.9em;">You\'ve got the deeper concepts. Click \'Done reflecting\' below to move to Apply.</p></div>';
+  if (wrongCount === 0) {
+    errEl.style.display = 'none';
+    document.getElementById('quiz-p3-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-p3-advance').style.display = 'inline-block';
   } else {
-    result.innerHTML = '<div style="background:#FFF5F5; border:1.5px solid #FCA5A5; border-radius:var(--radius); padding:16px 20px;"><strong style="color:#DC2626;">' + score + '/5 \u2014 review the material above and try again.</strong><p style="margin:10px 0 0;"><button type="button" class="btn btn--outline btn--sm" onclick="resetQuizP3()">Try again &rarr;</button></p></div>';
+    errEl.style.display = 'block';
+    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look \u2014 check the hints above and try again.';
   }
-}
-
-function resetQuizP3() {
-  for (var i = 0; i < 5; i++) {
-    document.querySelectorAll('input[name="p3_q' + i + '"]').forEach(function(r) { r.disabled = false; r.checked = false; });
-    var fb = document.getElementById('p3qf-' + i);
-    fb.style.display = 'none';
-    fb.innerHTML = '';
-  }
-  document.getElementById('quiz-p3-result').style.display = 'none';
-  document.getElementById('quiz-p3-result').innerHTML = '';
-  document.getElementById('quiz-p3-submit-wrap').style.display = 'block';
-  shuffleQuizOptions();
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
@@ -1293,32 +1351,20 @@ function resetQuizP3() {
     // Hide "Register" CTA on module-complete for logged-in users
     var regBtn = document.getElementById('complete-register-btn')
     if (regBtn) regBtn.style.display = 'none'
-    // Unlock phase 1 immediately &mdash; logged-in users get the full module
-    document.getElementById('phase-1').classList.remove('is-locked')
-    document.getElementById('phase-2').classList.remove('is-locked')
-    document.getElementById('phase-3').classList.remove('is-locked')
     // Restore any previously completed phases
     const done = await getModuleProgress('module-0')
-    done.forEach(phase => {
-      const el = document.getElementById('phase-' + phase)
-      const prog = document.getElementById('prog-' + phase)
-      if (el) el.classList.add('is-done')
-      if (prog) { prog.classList.remove('is-active'); prog.classList.add('is-done') }
-    })
     if (done.length >= 4) {
-      // All phases complete — jump straight to module-complete screen
+      // All phases complete — show module-complete screen directly
+      updateTracker(4);
       const complete = document.getElementById('module-complete')
-      if (complete) {
-        complete.style.display = 'block'
-        setTimeout(() => complete.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
-      }
+      if (complete) complete.style.display = 'block'
     } else if (done.length > 0) {
-      // In-progress — activate next phase indicator and scroll to it
-      const nextPhaseNum = done.length
-      const progNxt = document.getElementById('prog-' + nextPhaseNum)
-      if (progNxt) progNxt.classList.add('is-active')
-      const nextPhaseEl = document.getElementById('phase-' + nextPhaseNum)
-      if (nextPhaseEl) setTimeout(() => nextPhaseEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
+      // In-progress — mark completed phases as done, show next phase
+      done.forEach(phase => {
+        const step = document.getElementById('prog-' + phase)
+        if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+      })
+      showPhase(done.length)
     }
 
     // Persist textarea answers to localStorage (keyed by user so multi-user browsers don't clash)
