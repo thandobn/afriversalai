@@ -492,12 +492,12 @@ A fresh session should know these terms:
 - This slideshow framework is the canonical pattern for all future modules (module-1 and beyond)
 
 **Open items / next steps:**
-- Test the full module-0 flow end-to-end in browser (guest + logged-in) before touching module-1
-- Apply same slideshow framework to module-1 (pending browser verification of module-0)
-- Delete `book-ai-needs-you.avif` from `assets/resources/` — old file still on disk, src already updated to .jpg
-- POPIA/privacy policy fix (standing since Session 4)
-- aria-labels on lang switcher buttons sitewide (21 instances — standing)
-- Apply phase model answer / reflection guidance after module complete (standing)
+- ~~Test the full module-0 flow end-to-end in browser (guest + logged-in) before touching module-1~~ (done)
+- ~~Apply same slideshow framework to module-1~~ (done)
+- ~~Delete `book-ai-needs-you.avif` from `assets/resources/`~~ (done)
+- ~~POPIA/privacy policy fix~~ (done — privacy.html has full POPIA, retention, Formspree DPA, cross-border notices)
+- ~~aria-labels on lang switcher buttons sitewide~~ (done — all buttons have aria-label attributes)
+- ~~Apply phase model answer / reflection guidance after module complete~~ (done — m0-apply-feedback section with example answers)
 
 **Files changed:**
 - course-poc/module-0.html (slideshow model — CSS, HTML structure, all JS navigation + quiz logic)
@@ -520,13 +520,12 @@ A fresh session should know these terms:
 - i18n fix approach: `LastIndexOf(U+2019)` per line correctly identifies closing delimiter vs apostrophe-as-content — no parser needed, no false positives
 
 **Open items / next steps:**
-- Test live language switching after GitHub Pages CDN propagates (push was `dc18b18`, should be live within minutes)
-- Test full module-0 end-to-end flow in browser (guest + logged-in)
-- Apply slideshow framework to module-1
-- Delete `book-ai-needs-you.avif` from `assets/resources/`
-- POPIA/privacy policy fix (standing since Session 4)
-- aria-labels on lang switcher buttons sitewide (21 instances)
-- Apply phase model answer / reflection guidance after module complete
+- ~~Test live language switching after GitHub Pages CDN propagates~~ (done)
+- ~~Apply slideshow framework to module-1~~ (done)
+- ~~Delete `book-ai-needs-you.avif` from `assets/resources/`~~ (done — 2026-06-23)
+- ~~POPIA/privacy policy fix~~ (done)
+- ~~aria-labels on lang switcher buttons sitewide~~ (done)
+- ~~Apply phase model answer / reflection guidance after module complete~~ (done)
 
 **Files changed:**
 - `index.html` (created at repo root — redirect to /course-poc/)
