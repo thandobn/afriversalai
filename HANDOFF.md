@@ -503,3 +503,33 @@ A fresh session should know these terms:
 - course-poc/module-0.html (slideshow model — CSS, HTML structure, all JS navigation + quiz logic)
 - MISTAKES.md (created)
 - HANDOFF.md (this entry)
+
+---
+
+## Session: 2026-06-23 (i18n fix + custom domain setup)
+
+**What was worked on:**
+- Custom domain routing: mom registered `afriversalai.com`, `afriversalai.co.za`, `afriversal.ai`; set up DNS A records + CNAME in GoDaddy for `afriversalai.com` → GitHub Pages; 301 redirect for `.co.za`; Namecheap redirect for `afriversal.ai`; GitHub Pages HTTPS enforced
+- Root redirect: created `index.html` at repo root with meta-refresh + `window.location.replace` to `/course-poc/` (site was loading repo root instead of course)
+- Read all repo files (full audit of mom's recent commits): Agentic AI added as 4th AI type in module-0, sector chips fixed in course-outline.html, certificate.html refactored to single image, about.html dual Africa/USA positioning
+- **Fixed broken French i18n (critical)**: Root cause was 15 lines in the `fr: {}` block using Unicode left/right curly quotes (U+2018 `'` / U+2019 `'`) as JS string delimiters instead of ASCII `'`. This silently prevented `window.TRANSLATIONS` from being assigned, breaking all language switching site-wide. Fix: PowerShell line-by-line — replace U+2018 → ASCII `'` (opener), replace LAST U+2019 per line → ASCII `'` (closer), leave interior U+2019 apostrophes untouched (valid JS string content). Verified with Node.js: all 4 language sections (en: 394 keys, af: 382, fr: 382, zu: 215) parse cleanly.
+
+**Decisions made:**
+- Use `afriversalai.com` as primary domain; `.co.za` and `.ai` redirect to it (301 permanent)
+- GitHub Pages HTTPS enforcement enabled (waiting ~24h for TLS provisioning at the time)
+- i18n fix approach: `LastIndexOf(U+2019)` per line correctly identifies closing delimiter vs apostrophe-as-content — no parser needed, no false positives
+
+**Open items / next steps:**
+- Test live language switching after GitHub Pages CDN propagates (push was `dc18b18`, should be live within minutes)
+- Test full module-0 end-to-end flow in browser (guest + logged-in)
+- Apply slideshow framework to module-1
+- Delete `book-ai-needs-you.avif` from `assets/resources/`
+- POPIA/privacy policy fix (standing since Session 4)
+- aria-labels on lang switcher buttons sitewide (21 instances)
+- Apply phase model answer / reflection guidance after module complete
+
+**Files changed:**
+- `index.html` (created at repo root — redirect to /course-poc/)
+- `CNAME` (auto-created by GitHub Pages when domain was set)
+- `course-poc/assets/translations.js` (15 curly quote delimiter lines fixed in fr: block)
+- `HANDOFF.md` (this entry)
