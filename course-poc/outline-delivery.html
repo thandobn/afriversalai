@@ -46,6 +46,12 @@
     .timeline-item__week { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); margin-bottom: 2px; }
     .timeline-item__title { font-weight: 700; font-size: 0.95em; margin-bottom: 3px; }
     .timeline-item__desc { font-size: 0.85em; color: var(--muted); line-height: 1.6; }
+    .timeline-item--live::before { background: #1A3A5C; box-shadow: 0 0 0 3px rgba(26,58,92,0.18); }
+    .timeline-item--cert::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(233,196,106,0.3); }
+    .vc-badge { display: inline-block; background: #1A3A5C; color: #fff; font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; padding: 2px 10px; border-radius: 20px; margin: 4px 0; }
+    .mod-badge { display: inline-block; background: var(--green-pale); border: 1px solid var(--green-light); color: var(--green-dark); font-size: 0.78em; font-weight: 700; padding: 2px 9px; border-radius: 6px; margin: 2px 4px 2px 0; }
+    .tl-deliv { font-size: 0.82em; color: var(--green-dark); font-weight: 600; margin-top: 4px; }
+    .tl-deliv b { color: var(--gold-dark); }
     .rubric-table { width: 100%; border-collapse: collapse; font-size: 0.84em; margin-top: 14px; }
     .rubric-table th { background: var(--green-dark); color: white; padding: 9px 12px; text-align: left; }
     .rubric-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -56,7 +62,7 @@
     .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
     .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
     .page-nav__btn:hover { background: var(--green-mid); color: white; }
-    footer.doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); text-align: center; }
+    footer.doc-footer { margin-top: 40px; padding: 26px 24px; border-radius: var(--radius-lg); background: var(--green-dark); font-size: 0.78em; color: rgba(255,255,255,0.72); text-align: center; }
   </style>
 </head>
 <body>
@@ -78,6 +84,7 @@
         <a href="course-outline.html" class="active">Curriculum</a>
         <ul class="nav__dropdown-menu">
           <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
           <li><a href="outline-foundation.html">Why &amp; Who</a></li>
           <li><a href="outline-funda-five.html">The Funda Five</a></li>
           <li><a href="outline-core-modules.html">Core Modules</a></li>
@@ -110,6 +117,7 @@
 <nav class="outline-nav no-print">
   <ul class="outline-nav__list">
     <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item"><a href="course-timetable.html">Timetable</a></li>
     <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
     <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
     <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
@@ -123,78 +131,119 @@
 <div class="page-header">
   <div class="page-header__label">Layer 1 &middot; How It Works</div>
   <h1 class="page-header__title">Cohort Delivery &amp; Assessment</h1>
-  <p class="page-header__desc">The seven-week cohort model, live session schedule, capstone brief, and the rubric against which every learner is assessed.</p>
+  <p class="page-header__desc">The eight-week cohort model, the four live video-conference forums, the workplace application project, and the rubric against which every learner is assessed. Full dates are on the <a href="course-timetable.html" style="color:var(--green-mid); font-weight:600;">Q3 2026 Timetable</a>.</p>
 </div>
 
-<p>AfriversalAI is delivered in structured cohorts &mdash; not open-ended self-paced content. Research consistently shows 70%+ completion rates for cohort-based learning versus 5&ndash;15% for self-paced. The accountability, peer discussion, and scheduled touchpoints are not optional extras &mdash; they are the mechanism by which learning actually happens.</p>
+<p>AfriversalAI is delivered in structured cohorts &mdash; self-paced online modules anchored by live, faculty-led video-conference forums. Research consistently shows 70%+ completion rates for cohort-based learning versus 5&ndash;15% for self-paced. The accountability, peer discussion, and scheduled touchpoints are not optional extras &mdash; they are the mechanism by which learning actually happens.</p>
 
-<h2>The Seven-Week Cohort</h2>
+<h2>The Eight-Week Cohort</h2>
 
-<p><strong>All eight modules and the capstone assessment are completed within the cohort window.</strong> Learners begin together and finish together.</p>
+<p><strong>All seven online modules (0&ndash;6), the four live forums, and the workplace application project are completed within the cohort window.</strong> Learners begin together on Monday 3 August 2026 and graduate together at the Certification Ceremony on Thursday 1 October 2026.</p>
 
 <div class="timeline">
-  <div class="timeline-item">
-    <div class="timeline-item__week">Week 0 &mdash; Pre-cohort</div>
-    <div class="timeline-item__title">Module 0 + Orientation</div>
-    <div class="timeline-item__desc">Required pre-work: Module 0 completed free, no registration. ~45 min self-paced. Orientation call (30 min): introductions, learning path, tech check, expectations. Can start up to two weeks before kickoff.</div>
+  <div class="timeline-item timeline-item--live">
+    <div class="timeline-item__week">Week 1 &mdash; Cohort Launch &amp; Foundations</div>
+    <div class="timeline-item__title">Modules 0 &amp; 1 &nbsp;+ Future Forum&trade;</div>
+    <div class="timeline-item__desc">
+      <span class="vc-badge">&#128249; Video Conference</span><br>
+      <strong>AfriversalAI Future Forum&trade;</strong> &mdash; Cohort Launch &amp; Future of Work Masterclass (Mon 3 Aug, 18:00&ndash;19:30 SAST, 90 min): welcome, meet the cohort and faculty, the AI landscape in Africa, and an introduction to the Funda Five.<br>
+      Online modules this week: <span class="mod-badge">Module 0 &middot; Fundamentals</span><span class="mod-badge">Module 1 &middot; What AI Actually Is</span>
+      <div class="tl-deliv"><b>Deliverable:</b> &ldquo;My AI Learning Goals&rdquo;</div>
+    </div>
+  </div>
+  <div class="timeline-item timeline-item--live">
+    <div class="timeline-item__week">Week 2 &mdash; How AI Learns, Fails &amp; Discriminates</div>
+    <div class="timeline-item__title">Modules 2 &amp; 3 &nbsp;+ ThinkLab&trade;</div>
+    <div class="timeline-item__desc">
+      Online modules: <span class="mod-badge">Module 2 &middot; How AI Learns &amp; Fails</span><span class="mod-badge">Module 3 &middot; Bias &amp; Discrimination</span><br>
+      <span class="vc-badge">&#128249; Video Conference</span><br>
+      <strong>AfriversalAI ThinkLab&trade;: &ldquo;Can AI Be Trusted?&rdquo;</strong> (Thu 13 Aug, 18:00&ndash;19:30 SAST) &mdash; AI failures, bias, human oversight, and real-world African case studies. Learners defend decisions and challenge assumptions.
+      <div class="tl-deliv"><b>Deliverable:</b> ThinkLab Reflection Paper</div>
+    </div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-item__week">Week 1</div>
-    <div class="timeline-item__title">Module 1 &mdash; What AI Actually Is &nbsp;+ Cohort Kickoff</div>
-    <div class="timeline-item__desc">Live kickoff (75 min): introductions, Funda Five preview, case study teaser. Module 1 completed self-paced during the week. Learners arrive with Module 0 done &mdash; this session builds directly on that foundation.</div>
+    <div class="timeline-item__week">Week 3 &mdash; Verification, Judgment &amp; Accountability</div>
+    <div class="timeline-item__title">Modules 4 &amp; 5</div>
+    <div class="timeline-item__desc">
+      Self-paced online modules: <span class="mod-badge">Module 4 &middot; Verification &amp; Judgment</span><span class="mod-badge">Module 5 &middot; Accountability &amp; Governance</span><br>
+      No live forum this week &mdash; focus on the modules.
+    </div>
+  </div>
+  <div class="timeline-item timeline-item--live">
+    <div class="timeline-item__week">Week 4 &mdash; When AI Works, and When It Doesn&rsquo;t</div>
+    <div class="timeline-item__title">Module 6 &nbsp;+ Governance Forum&trade; &nbsp;+ Workplace Assignment opens</div>
+    <div class="timeline-item__desc">
+      Online module: <span class="mod-badge">Module 6 &middot; When AI Works &amp; When It Doesn&rsquo;t</span><br>
+      <strong>Workplace Assignment opens</strong> &mdash; learners select a real workplace AI use case or process for assessment.<br>
+      <span class="vc-badge">&#128249; Video Conference</span><br>
+      <strong>AfriversalAI Governance Forum&trade;: &ldquo;Who Is Responsible When AI Gets It Wrong?&rdquo;</strong> (Thu 27 Aug, 18:00&ndash;19:30 SAST) &mdash; AI governance, ethics, policy, accountability, and regulation.
+      <div class="tl-deliv"><b>Deliverable:</b> Professional AI Position Statement</div>
+    </div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-item__week">Week 2</div>
-    <div class="timeline-item__title">Module 2 &mdash; How AI Goes Wrong</div>
-    <div class="timeline-item__desc">Self-paced module. Live group session (60 min) end of week: facilitator debriefs the SA case study; peer discussion of Apply exercises. Guest speaker option: SA AI researcher or civil society voice on algorithmic harm.</div>
+    <div class="timeline-item__week">Week 5 &mdash; Workplace Application Project</div>
+    <div class="timeline-item__title">Apply the Funda Five</div>
+    <div class="timeline-item__desc">Apply the Funda Five Framework to assess either a workplace process or an AI use case from your own professional context.</div>
+  </div>
+  <div class="timeline-item timeline-item--live">
+    <div class="timeline-item__week">Week 6 &mdash; Project Development</div>
+    <div class="timeline-item__title">Build the assessment &nbsp;+ Strategy Lab&trade;</div>
+    <div class="timeline-item__desc">
+      Develop your four assessments: <span class="mod-badge">Risk</span><span class="mod-badge">Governance</span><span class="mod-badge">Opportunity</span><span class="mod-badge">Human Oversight Plan</span><br>
+      <span class="vc-badge">&#128249; Video Conference</span><br>
+      <strong>AfriversalAI Strategy Lab&trade;: &ldquo;From AI User to AI Leader&rdquo;</strong> (Thu 10 Sep, 18:00&ndash;20:00 SAST) &mdash; learners present risks, opportunities, recommendations, and governance controls. Outcome: practical implementation planning.
+    </div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-item__week">Week 3</div>
-    <div class="timeline-item__title">Module 3 &mdash; Bias and Discrimination &nbsp;+ Capstone Brief Issued</div>
-    <div class="timeline-item__desc">Self-paced module. Live check-in (45 min): cohort applies the Funda Five to a shared current case. <strong>Capstone brief issued end of Week 3</strong> &mdash; learners have four weeks to identify their AI system and develop their evaluation.</div>
+    <div class="timeline-item__week">Week 7 &mdash; Final Project Refinement</div>
+    <div class="timeline-item__title">Faculty feedback, peer review &amp; revision</div>
+    <div class="timeline-item__desc">Refine the project against faculty feedback and peer review before final submission.</div>
   </div>
   <div class="timeline-item">
-    <div class="timeline-item__week">Week 4</div>
-    <div class="timeline-item__title">Module 4 &mdash; Verification and Judgment</div>
-    <div class="timeline-item__desc">Self-paced module. No required live session &mdash; focus on module and capstone planning. Optional 30 min drop-in office hours (facilitator-hosted). Learners identify their capstone AI system this week.</div>
+    <div class="timeline-item__week">Week 8 &mdash; Final Submission &amp; Certification Review</div>
+    <div class="timeline-item__title">Submit the portfolio</div>
+    <div class="timeline-item__desc">
+      Submit the four-part portfolio: <span class="mod-badge">Workplace AI Assessment</span><span class="mod-badge">Funda Five Analysis</span><span class="mod-badge">Professional AI Position Statement</span><span class="mod-badge">Workplace AI Action Plan</span><br>
+      <strong>Certification Review:</strong> Assessment Panel review &rarr; certification approval.
+    </div>
   </div>
-  <div class="timeline-item">
-    <div class="timeline-item__week">Week 5</div>
-    <div class="timeline-item__title">Modules 5 &amp; 6 &mdash; Accountability + Synthesis</div>
-    <div class="timeline-item__desc">Two shorter modules this week. Final live session (90 min): learners share draft AI judgment statements; peer feedback; facilitator reviews capstone requirements. <strong>Capstone submission window opens.</strong></div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-item__week">Week 6</div>
-    <div class="timeline-item__title">Module 7 &mdash; Sector Track &nbsp;+ Capstone Submission</div>
-    <div class="timeline-item__desc">Learners complete their sector module (Corporate / Government / Finance / Healthcare / Education). Learners in the same cohort diverge for Module 7. <strong>Capstone due end of Week 6, 23:59 SAST.</strong> No extensions &mdash; keeps assessment within the cohort window.</div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-item__week">Week 7</div>
-    <div class="timeline-item__title">Assessment, Results &amp; Certification</div>
-    <div class="timeline-item__desc">Submissions assessed by a trained human assessor within 5 business days. Results by Day 5. One revision opportunity for learners below standard (revised submission due within 2 days of results). <strong>Certificates issued digitally by end of Week 7.</strong> Graduates are eligible for Layer 2, 3, and 4 programs.</div>
+  <div class="timeline-item timeline-item--cert">
+    <div class="timeline-item__week">Certification</div>
+    <div class="timeline-item__title">&#127942; AfriversalAI Certification Ceremony&trade;</div>
+    <div class="timeline-item__desc">
+      <span class="vc-badge">&#128249; Video Conference</span><br>
+      Thursday 1 October 2026, 18:00&ndash;19:00 SAST.
+      <div class="tl-deliv"><b>Credential awarded:</b> AfriversalAI Certified AI Professional Practitioner&trade;</div>
+    </div>
   </div>
 </div>
 
-<h3>Live touchpoints summary</h3>
+<h3>The four live video-conference forums</h3>
 <ul>
-  <li><strong>Week 0:</strong> Orientation &mdash; 30 min</li>
-  <li><strong>Week 1:</strong> Kickoff session &mdash; 75 min</li>
-  <li><strong>Week 2:</strong> Module 2 debrief &mdash; 60 min</li>
-  <li><strong>Week 3:</strong> Funda Five practice &mdash; 45 min</li>
-  <li><strong>Week 4:</strong> Optional office hours &mdash; 30 min</li>
-  <li><strong>Week 5:</strong> Final synthesis session &mdash; 90 min</li>
-  <li><strong>Total facilitated time: ~5.5 hours across 7 weeks</strong></li>
+  <li><strong>Future Forum&trade;</strong> &mdash; Week 1 (Mon 3 Aug) &middot; Future of Work &middot; 90 min</li>
+  <li><strong>ThinkLab&trade;</strong> &mdash; Week 2 (Thu 13 Aug) &middot; Can AI Be Trusted? &middot; 90 min</li>
+  <li><strong>Governance Forum&trade;</strong> &mdash; Week 4 (Thu 27 Aug) &middot; Who Is Responsible? &middot; 90 min</li>
+  <li><strong>Strategy Lab&trade;</strong> &mdash; Week 6 (Thu 10 Sep) &middot; From AI User to AI Leader &middot; 120 min</li>
+  <li><strong>Certification Ceremony&trade;</strong> &mdash; Thu 1 Oct &middot; 60 min</li>
 </ul>
-<p style="font-size:0.88em; color:var(--muted);">Q&amp;A handled asynchronously via the cohort discussion space &mdash; facilitator responds within 24 hours. One guest speaker per cohort minimum.</p>
+<p style="font-size:0.88em; color:var(--muted);">All forums are live, faculty-led video conferences hosted on Zoom &mdash; interactive, not recorded lectures. Online modules in between are self-paced. Q&amp;A is handled asynchronously via the cohort discussion space, with faculty responding within 24 hours.</p>
 
 
-<h2>Assessment &mdash; The Capstone Brief</h2>
+<h2>Assessment &mdash; The Workplace Application Project</h2>
+
+<p>Assessment is not a multiple-choice exam. Over Weeks 5&ndash;8, every learner applies the Funda Five to a real AI use case or process from their own workplace and produces a four-part professional portfolio.</p>
 
 <div class="callout--gold callout">
-  <strong>The task:</strong> Identify one AI system or AI-generated output encountered in your professional context during this course. Produce a written evaluation of 600&ndash;900 words that: (1) describes what the AI system does and how it is used; (2) identifies at least two specific ways it could produce biased, incorrect, or unaccountable outputs; (3) applies the Funda Five to assess whether the output should be acted on; (4) states clearly what you would do &mdash; use it, modify how you use it, flag a concern, or recommend against it; (5) identifies who in your organisation is accountable if the AI produces a harmful outcome.
+  <strong>The final submission (Week 8) &mdash; four parts:</strong>
+  <ol style="margin:8px 0 0; padding-left:22px;">
+    <li><strong>Workplace AI Assessment</strong> &mdash; what the AI system does, how it is used, and at least two specific ways it could produce biased, incorrect, or unaccountable outputs.</li>
+    <li><strong>Funda Five Analysis</strong> &mdash; the five-step framework applied in full to decide whether the output should be acted on.</li>
+    <li><strong>Professional AI Position Statement</strong> &mdash; your reasoned position on responsible use, governance, and accountability (first drafted at the Governance Forum&trade;).</li>
+    <li><strong>Workplace AI Action Plan</strong> &mdash; risks, opportunities, recommendations, governance controls, and a human-oversight plan.</li>
+  </ol>
 </div>
 
-<p>Learners must meet or exceed standard on at least <strong>4 of 5 criteria</strong>. All assessment is conducted by a trained human assessor &mdash; not automated scoring.</p>
+<p>Learners must meet or exceed standard on at least <strong>4 of 5 criteria</strong>. All assessment is conducted by the Certification Review panel &mdash; trained human assessors, not automated scoring. One revision opportunity is offered to any learner below standard.</p>
 
 <table class="rubric-table">
   <thead>
@@ -249,7 +298,7 @@
 </div>
 
 <footer class="doc-footer">
-  <img src="assets/logo-black.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; June 2026
 </footer>
 
 </div>

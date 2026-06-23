@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q3 2026 Cohort Timetable — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px;
+      --navy: #1A3A5C;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; background: var(--white); padding: 36px 56px 72px; border-radius: 4px; box-shadow: 0 2px 24px rgba(0,0,0,.1); }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { padding: 24px 20px 56px; border-radius: 0; } }
+    @media print { body { background: #fff; padding: 0; } .doc-wrap { box-shadow: none; } .no-print { display: none; } }
+    .outline-nav { background: var(--green-dark); border-radius: var(--radius); margin-bottom: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .outline-nav__list { display: flex; list-style: none; white-space: nowrap; padding: 0; margin: 0; }
+    .outline-nav__item a { display: block; padding: 11px 13px; font-size: 0.77em; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: none; border-bottom: 3px solid transparent; transition: color .15s; }
+    .outline-nav__item a:hover { color: rgba(255,255,255,.9); }
+    .outline-nav__item--active a { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .page-header { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+    .page-header__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .page-header__title { font-size: 1.85em; font-weight: 800; color: var(--green-dark); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
+    .page-header__desc { color: var(--muted); font-size: 0.93em; margin: 0; line-height: 1.65; }
+    h2 { font-size: 1.15em; font-weight: 700; color: var(--green-dark); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    strong { font-weight: 600; }
+
+    /* At-a-glance meta cards */
+    .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0 8px; }
+    .meta-card { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; background: var(--green-pale); }
+    .meta-card__label { font-size: 0.68em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold-dark); margin-bottom: 6px; }
+    .meta-card__value { font-size: 0.92em; font-weight: 600; color: var(--green-dark); line-height: 1.45; }
+    .meta-card__value small { display: block; font-weight: 500; color: var(--muted); font-size: 0.86em; margin-top: 3px; }
+    @media (max-width: 700px) { .meta-grid { grid-template-columns: 1fr; } }
+
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.92em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold); }
+
+    .framework-strip { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; background: var(--green-dark); color: #fff; border-radius: var(--radius-lg); padding: 16px 20px; margin: 18px 0 8px; }
+    .framework-strip .fw-step { font-weight: 700; font-size: 0.9em; }
+    .framework-strip .fw-arrow { color: var(--gold); font-weight: 800; }
+    .framework-strip .fw-num { color: var(--gold); }
+
+    /* Timeline */
+    .tl { position: relative; margin: 8px 0 8px; padding-left: 0; }
+    .tl-week { position: relative; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin: 16px 0; }
+    .tl-week__head { background: var(--green-dark); color: #fff; padding: 11px 20px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .tl-week__num { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); }
+    .tl-week__title { font-size: 0.95em; font-weight: 700; }
+    .tl-week__body { padding: 18px 20px; }
+
+    .mod-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    @media (max-width: 600px) { .mod-row { grid-template-columns: 1fr; } }
+    .mod-chip { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; border: 1px solid var(--green-light); background: #fff; border-radius: var(--radius); padding: 13px 16px; }
+    .mod-chip__icon { grid-column: 1; grid-row: 1 / 3; font-size: 2.1em; line-height: 1; align-self: center; }
+    .mod-chip__tag { grid-column: 2; font-size: 0.68em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--green-mid); margin-bottom: 4px; }
+    .mod-chip__title { grid-column: 2; font-weight: 700; font-size: 0.9em; color: var(--green-dark); }
+
+    /* Legend — the two delivery formats */
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0 4px; }
+    .legend__item { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 12px 18px; background: #fff; flex: 1; min-width: 240px; }
+    .legend__icon { font-size: 2.2em; line-height: 1; flex-shrink: 0; }
+    .legend__title { font-weight: 800; font-size: 0.9em; color: var(--green-dark); }
+    .legend__sub { font-size: 0.8em; color: var(--muted); }
+    .legend__item--live { border-color: var(--navy); background: #f7f9fb; }
+
+    /* Live session card */
+    .live-card { border: 1px solid var(--navy); border-radius: var(--radius-lg); overflow: hidden; margin: 14px 0 4px; }
+    .live-card__head { background: var(--navy); color: #fff; padding: 15px 20px; display: flex; align-items: center; gap: 18px; }
+    .live-card__icon { font-size: 2.8em; line-height: 1; flex-shrink: 0; }
+    .live-card__eyebrow { font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.4px; color: var(--gold); }
+    .live-card__name { font-size: 1.0em; font-weight: 800; }
+    .live-card__theme { font-size: 0.8em; opacity: .85; font-style: italic; margin-top: 1px; }
+    .live-card__body { padding: 16px 18px; background: #f7f9fb; }
+    .live-card__when { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-light); border: 1px solid var(--gold); color: var(--green-dark); font-weight: 700; font-size: 0.8em; padding: 5px 13px; border-radius: 20px; margin-bottom: 12px; }
+    .live-card__live { display: inline-flex; align-items: center; gap: 7px; background: var(--navy); color: #fff; font-weight: 700; font-size: 0.78em; padding: 5px 13px; border-radius: 20px; margin: 0 0 12px 8px; }
+    .live-meta { font-size: 0.8em; color: var(--muted); margin: -4px 0 14px; }
+    .live-card__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .live-card__cols { grid-template-columns: 1fr; } }
+    .live-card__sub { font-size: 0.68em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; }
+    .live-card ul { padding-left: 18px; margin: 0; }
+    .live-card li { font-size: 0.85em; color: var(--muted); margin-bottom: 3px; line-height: 1.5; }
+    .live-card__deliverable { margin-top: 12px; font-size: 0.85em; }
+    .live-card__deliverable b { color: var(--green-dark); }
+
+    /* Milestone (assignment / submission / review) */
+    .milestone { border: 1px dashed var(--gold-dark); background: var(--gold-light); border-radius: var(--radius); padding: 12px 16px; margin: 10px 0 2px; font-size: 0.88em; }
+    .milestone__tag { font-size: 0.68em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); margin-bottom: 4px; }
+    .milestone__tag span { margin-right: 7px; }
+
+    /* Submission deliverables list */
+    .deliv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 6px; }
+    @media (max-width: 600px) { .deliv-grid { grid-template-columns: 1fr; } }
+    .deliv { border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 14px; font-size: 0.85em; font-weight: 600; color: var(--green-dark); background: #fff; }
+
+    /* Journey flow */
+    .journey { margin: 18px 0 6px; }
+    .journey__node { display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 18px; background: var(--green-pale); }
+    .journey__node--cert { background: var(--gold-light); border-color: var(--gold); }
+    .journey__icon { font-size: 1.6em; flex-shrink: 0; }
+    .journey__name { font-weight: 800; font-size: 0.92em; color: var(--green-dark); }
+    .journey__theme { font-size: 0.82em; color: var(--muted); }
+    .journey__arrow { text-align: center; color: var(--gold-dark); font-size: 1.2em; font-weight: 800; line-height: 1; margin: 4px 0; }
+
+    /* Credential */
+    .credential { text-align: center; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 26px 24px; background: var(--gold-light); margin: 20px 0 6px; }
+    .credential__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 8px; }
+    .credential__name { font-size: 1.25em; font-weight: 800; color: var(--green-dark); line-height: 1.3; }
+
+    .page-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); gap: 12px; flex-wrap: wrap; }
+    .page-nav__btn { display: inline-block; padding: 10px 20px; background: var(--green-dark); color: white; text-decoration: none; border-radius: var(--radius); font-size: 0.85em; font-weight: 600; }
+    .page-nav__btn--ghost { background: transparent; color: var(--green-dark); border: 1.5px solid var(--green-dark); }
+    .page-nav__btn:hover { background: var(--green-mid); color: white; }
+    .print-btn { padding: 8px 16px; background: var(--gold); color: var(--green-dark); border: none; border-radius: var(--radius); font-family: inherit; font-size: 0.82em; font-weight: 700; cursor: pointer; }
+    footer.doc-footer { margin-top: 40px; padding: 26px 24px; border-radius: var(--radius-lg); background: var(--green-dark); font-size: 0.78em; color: rgba(255,255,255,0.72); text-align: center; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+<div class="doc-wrap">
+
+<nav class="outline-nav no-print">
+  <ul class="outline-nav__list">
+    <li class="outline-nav__item"><a href="course-outline.html">Overview</a></li>
+    <li class="outline-nav__item outline-nav__item--active"><a href="course-timetable.html">Timetable</a></li>
+    <li class="outline-nav__item"><a href="outline-foundation.html">Why &amp; Who</a></li>
+    <li class="outline-nav__item"><a href="outline-funda-five.html">Funda Five</a></li>
+    <li class="outline-nav__item"><a href="outline-core-modules.html">Core Modules</a></li>
+    <li class="outline-nav__item"><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+    <li class="outline-nav__item"><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+    <li class="outline-nav__item"><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+    <li class="outline-nav__item"><a href="outline-pathways.html">Pathways</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header__label">Level 1 &middot; AI Professional Practitioner</div>
+  <h1 class="page-header__title">Q3 2026 Cohort Timetable</h1>
+  <p class="page-header__desc">The complete 8-week schedule for the Core Certification &mdash; from cohort launch on Monday 3 August 2026 to the Certification Ceremony on Thursday 1 October 2026. Four live, faculty-led <strong>video-conference forums</strong> &mdash; hosted on Zoom &mdash; anchor a self-paced journey that moves from understanding to critical thinking, governance, and leadership.</p>
+</div>
+
+<div class="meta-grid">
+  <div class="meta-card">
+    <div class="meta-card__label">Duration</div>
+    <div class="meta-card__value">8 Weeks Core Certification<small>3 Aug &ndash; 1 Oct 2026</small></div>
+  </div>
+  <div class="meta-card">
+    <div class="meta-card__label">Delivery Model</div>
+    <div class="meta-card__value">Self-paced + live online<small>4 mandatory live video-conference sessions (Zoom) &middot; workplace assignments &middot; final application project</small></div>
+  </div>
+  <div class="meta-card">
+    <div class="meta-card__label">Credential</div>
+    <div class="meta-card__value">Certified AI Professional Practitioner&trade;<small>Awarded after assessment panel review</small></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend__item">
+    <span class="legend__icon">&#128187;</span>
+    <div>
+      <div class="legend__title">Online Module</div>
+      <div class="legend__sub">Self-paced &middot; on-demand &middot; complete in your own time</div>
+    </div>
+  </div>
+  <div class="legend__item legend__item--live">
+    <span class="legend__icon">&#128249;</span>
+    <div>
+      <div class="legend__title">Video Conference</div>
+      <div class="legend__sub">Live &middot; faculty-led &middot; interactive on Zoom &mdash; 4 sessions</div>
+    </div>
+  </div>
+</div>
+
+<div class="callout callout--gold no-print" style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+  <span><strong>Q3 2026 cohort enrolment is open.</strong> All 4 video-conference sessions run live at 18:00 SAST. Seats are limited.</span>
+  <span style="display:flex; gap:8px; flex-wrap:wrap;">
+    <a href="register.html" class="page-nav__btn" style="padding:8px 16px;">Register &rarr;</a>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </span>
+</div>
+
+<h2>The Learning Framework</h2>
+<p>Every module follows the same four-phase cycle &mdash; the rhythm that builds judgment rather than recall:</p>
+<div class="framework-strip">
+  <span class="fw-step"><span class="fw-num">1</span> Concept</span><span class="fw-arrow">&rarr;</span>
+  <span class="fw-step"><span class="fw-num">2</span> Encounter</span><span class="fw-arrow">&rarr;</span>
+  <span class="fw-step"><span class="fw-num">3</span> Reflect</span><span class="fw-arrow">&rarr;</span>
+  <span class="fw-step"><span class="fw-num">4</span> Apply</span>
+</div>
+
+<h2>Week-by-Week Schedule</h2>
+<div class="tl">
+
+  <!-- WEEK 1 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 1</span><span class="tl-week__title">Cohort Launch &amp; Foundations</span></div>
+    <div class="tl-week__body">
+      <div class="live-card" style="margin-top:0;">
+        <div class="live-card__head">
+          <span class="live-card__icon">&#127757;</span>
+          <div>
+            <div class="live-card__eyebrow">Live Session 0 &middot; AfriversalAI Future Forum&trade;</div>
+            <div class="live-card__name">Cohort Launch &amp; Future of Work Masterclass</div>
+          </div>
+        </div>
+        <div class="live-card__body">
+          <span class="live-card__when">&#128197; Monday 3 August 2026 &middot; 18:00&ndash;19:30 SAST &middot; 90 min</span><span class="live-card__live">&#128249; VIDEO CONFERENCE</span>
+          <div class="live-card__cols">
+            <div>
+              <div class="live-card__sub">Purpose</div>
+              <ul>
+                <li>Welcome to AfriversalAI &amp; meet the cohort and faculty</li>
+                <li>Future of Work briefing &amp; the AI landscape in Africa</li>
+                <li>How certification works</li>
+                <li>Introduction to the Funda Five Framework</li>
+              </ul>
+            </div>
+            <div>
+              <div class="live-card__sub">Deliverable</div>
+              <ul><li><b>"My AI Learning Goals"</b></li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mod-row" style="margin-top:14px;">
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 0</div><div class="mod-chip__title">Fundamentals: What Is AI Really?</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 1</div><div class="mod-chip__title">What AI Actually Is</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 2</span><span class="tl-week__title">How AI Learns, Fails &amp; Discriminates</span></div>
+    <div class="tl-week__body">
+      <div class="mod-row">
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 2</div><div class="mod-chip__title">How AI Learns &amp; Fails</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 3</div><div class="mod-chip__title">Bias &amp; Discrimination</div></div>
+      </div>
+      <div class="live-card">
+        <div class="live-card__head">
+          <span class="live-card__icon">&#129504;</span>
+          <div>
+            <div class="live-card__eyebrow">Live Session 1 &middot; AfriversalAI ThinkLab&trade;</div>
+            <div class="live-card__name">Can AI Be Trusted?</div>
+            <div class="live-card__theme">Learners defend decisions and challenge assumptions</div>
+          </div>
+        </div>
+        <div class="live-card__body">
+          <span class="live-card__when">&#128197; Thursday 13 August 2026 &middot; 18:00&ndash;19:30 SAST</span><span class="live-card__live">&#128249; VIDEO CONFERENCE</span>
+          <div class="live-card__cols">
+            <div>
+              <div class="live-card__sub">Discussion Areas</div>
+              <ul>
+                <li>AI failures &amp; AI bias</li>
+                <li>Human oversight</li>
+                <li>Real-world African case studies</li>
+              </ul>
+            </div>
+            <div>
+              <div class="live-card__sub">Deliverable</div>
+              <ul><li><b>ThinkLab Reflection Paper</b></li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 3</span><span class="tl-week__title">Verification, Judgment &amp; Accountability</span></div>
+    <div class="tl-week__body">
+      <div class="mod-row">
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 4</div><div class="mod-chip__title">Verification &amp; Judgment</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 5</div><div class="mod-chip__title">Accountability &amp; Governance</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 4</span><span class="tl-week__title">When AI Works &mdash; And When It Doesn't</span></div>
+    <div class="tl-week__body">
+      <div class="mod-row" style="grid-template-columns:1fr;">
+        <div class="mod-chip"><span class="mod-chip__icon">&#128187;</span><div class="mod-chip__tag">Module 6</div><div class="mod-chip__title">When AI Works &mdash; And When It Doesn't</div></div>
+      </div>
+      <div class="milestone">
+        <div class="milestone__tag"><span>&#128221;</span>Workplace Assignment Opens</div>
+        Learners select a real workplace AI use case or process for assessment.
+      </div>
+      <div class="live-card">
+        <div class="live-card__head">
+          <span class="live-card__icon">&#9878;&#65039;</span>
+          <div>
+            <div class="live-card__eyebrow">Live Session 2 &middot; AfriversalAI Governance Forum&trade;</div>
+            <div class="live-card__name">Who Is Responsible When AI Gets It Wrong?</div>
+          </div>
+        </div>
+        <div class="live-card__body">
+          <span class="live-card__when">&#128197; Thursday 27 August 2026 &middot; 18:00&ndash;19:30 SAST</span><span class="live-card__live">&#128249; VIDEO CONFERENCE</span>
+          <div class="live-card__cols">
+            <div>
+              <div class="live-card__sub">Discussion Areas</div>
+              <ul>
+                <li>AI governance, ethics &amp; policy</li>
+                <li>Accountability</li>
+                <li>Regulation</li>
+              </ul>
+            </div>
+            <div>
+              <div class="live-card__sub">Deliverable</div>
+              <ul><li><b>Professional AI Position Statement</b></li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 5 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 5</span><span class="tl-week__title">Workplace Application Project</span></div>
+    <div class="tl-week__body">
+      <p style="margin:0; font-size:0.9em; color:var(--muted);">Apply the Funda Five Framework to assess either <strong>a workplace process</strong> or <strong>an AI use case</strong>.</p>
+    </div>
+  </div>
+
+  <!-- WEEK 6 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 6</span><span class="tl-week__title">Project Development</span></div>
+    <div class="tl-week__body">
+      <div class="mod-row">
+        <div class="mod-chip"><span class="mod-chip__icon">&#128202;</span><div class="mod-chip__tag">Develop</div><div class="mod-chip__title">Risk Assessment</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#128202;</span><div class="mod-chip__tag">Develop</div><div class="mod-chip__title">Governance Assessment</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#128202;</span><div class="mod-chip__tag">Develop</div><div class="mod-chip__title">Opportunity Assessment</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#128202;</span><div class="mod-chip__tag">Develop</div><div class="mod-chip__title">Human Oversight Plan</div></div>
+      </div>
+      <div class="live-card">
+        <div class="live-card__head">
+          <span class="live-card__icon">&#128640;</span>
+          <div>
+            <div class="live-card__eyebrow">Live Session 3 &middot; AfriversalAI Strategy Lab&trade;</div>
+            <div class="live-card__name">From AI User to AI Leader</div>
+            <div class="live-card__theme">Practical implementation planning</div>
+          </div>
+        </div>
+        <div class="live-card__body">
+          <span class="live-card__when">&#128197; Thursday 10 September 2026 &middot; 18:00&ndash;20:00 SAST</span><span class="live-card__live">&#128249; VIDEO CONFERENCE</span>
+          <div class="live-card__cols">
+            <div>
+              <div class="live-card__sub">Learners Present</div>
+              <ul>
+                <li>Risks</li>
+                <li>Opportunities</li>
+                <li>Recommendations</li>
+                <li>Governance controls</li>
+              </ul>
+            </div>
+            <div>
+              <div class="live-card__sub">Outcome</div>
+              <ul><li><b>Practical implementation planning</b></li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 7 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 7</span><span class="tl-week__title">Final Project Refinement</span></div>
+    <div class="tl-week__body">
+      <div class="mod-row">
+        <div class="mod-chip"><span class="mod-chip__icon">&#9999;&#65039;</span><div class="mod-chip__tag">Refine</div><div class="mod-chip__title">Faculty Feedback</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#9999;&#65039;</span><div class="mod-chip__tag">Refine</div><div class="mod-chip__title">Peer Review</div></div>
+        <div class="mod-chip"><span class="mod-chip__icon">&#9999;&#65039;</span><div class="mod-chip__tag">Refine</div><div class="mod-chip__title">Project Revision</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 8 -->
+  <div class="tl-week">
+    <div class="tl-week__head"><span class="tl-week__num">Week 8</span><span class="tl-week__title">Final Submission</span></div>
+    <div class="tl-week__body">
+      <div class="live-card__sub" style="color:var(--green-mid);">Submit</div>
+      <div class="deliv-grid">
+        <div class="deliv">Workplace AI Assessment</div>
+        <div class="deliv">Funda Five Analysis</div>
+        <div class="deliv">Professional AI Position Statement</div>
+        <div class="deliv">Workplace AI Action Plan</div>
+      </div>
+      <div class="milestone" style="margin-top:14px;">
+        <div class="milestone__tag"><span>&#127891;</span>Certification Review</div>
+        Assessment Panel Review &rarr; Certification Approval.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2>Certification Ceremony</h2>
+<div class="credential">
+  <div class="credential__label">&#127942; AfriversalAI Certification Ceremony&trade;</div>
+  <div class="credential__name">Thursday 1 October 2026 &middot; 18:00&ndash;19:00 SAST</div>
+  <p style="margin:14px 0 0; font-size:0.86em; color:var(--muted);">Awarded credential</p>
+  <div class="credential__name" style="font-size:1.05em; margin-top:4px;">AfriversalAI Certified AI Professional Practitioner&trade;</div>
+</div>
+
+<h2>The Complete Learning Journey</h2>
+<p>Four faculty-led forums carry the cohort from understanding through to leadership &mdash; each one a milestone, not a webinar:</p>
+<div class="journey">
+  <div class="journey__node">
+    <span class="journey__icon">&#127757;</span>
+    <div><div class="journey__name">AfriversalAI Future Forum&trade;</div><div class="journey__theme">Future of Work</div></div>
+  </div>
+  <div class="journey__arrow">&darr;</div>
+  <div class="journey__node">
+    <span class="journey__icon">&#129504;</span>
+    <div><div class="journey__name">AfriversalAI ThinkLab&trade;</div><div class="journey__theme">Can AI Be Trusted?</div></div>
+  </div>
+  <div class="journey__arrow">&darr;</div>
+  <div class="journey__node">
+    <span class="journey__icon">&#9878;&#65039;</span>
+    <div><div class="journey__name">AfriversalAI Governance Forum&trade;</div><div class="journey__theme">Who Is Responsible?</div></div>
+  </div>
+  <div class="journey__arrow">&darr;</div>
+  <div class="journey__node">
+    <span class="journey__icon">&#128640;</span>
+    <div><div class="journey__name">AfriversalAI Strategy Lab&trade;</div><div class="journey__theme">How Should We Implement AI?</div></div>
+  </div>
+  <div class="journey__arrow">&darr;</div>
+  <div class="journey__node journey__node--cert">
+    <span class="journey__icon">&#127941;</span>
+    <div><div class="journey__name">Certification Ceremony&trade;</div><div class="journey__theme">Certified AI Professional Practitioner&trade;</div></div>
+  </div>
+</div>
+
+<div class="callout">
+  This timetable aligns with the curriculum already built &mdash; <strong>Module 0 through Module 6</strong> &mdash; with no extra courses. The learner journey progresses naturally from <strong>Understanding &rarr; Critical Thinking &rarr; Governance &rarr; Leadership &rarr; Certification</strong>, closer to executive education than a traditional online AI course.
+</div>
+
+<div class="page-nav no-print">
+  <a href="course-outline.html" class="page-nav__btn page-nav__btn--ghost">&larr; Framework Overview</a>
+  <a href="register.html" class="page-nav__btn">Register for Q3 2026 &rarr;</a>
+</div>
+
+<footer class="doc-footer">
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:22px; width:auto; vertical-align:middle; margin-bottom:3px;" /> &middot; AI Literacy for South African Workplaces &middot; Q3 2026 Cohort
+</footer>
+
+</div>
+<script src="assets/translations.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>
