@@ -171,6 +171,10 @@
         👇 Read the excerpt below &mdash; a section from a South African government policy document. <strong>What do you notice? What would you do with this document?</strong>
       </div>
 
+      <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin-bottom:20px; font-size:0.88em; line-height:1.6;">
+        <strong>You'll notice this module works differently from Module 0.</strong> You're getting the material before any explanation — no framing, no context first. That's deliberate. We want to surface your instincts before we shape them. The concept comes after you've had a chance to react.
+      </div>
+
       <div class="artifact">
         <div class="artifact__bar">
           <span class="artifact__dot"></span>
@@ -255,6 +259,10 @@
         <label>Have you ever made a decision at work based on a document, report, or AI output that you didn't fully verify first? What happened?</label>
         <textarea class="reflect-q__field" id="ref-3" placeholder="Yes, when I... / Not that I can recall, but..."></textarea>
       </div>
+      <div class="reflect-q">
+        <label>Think about your own sector and role. If an AI-generated document landed on your desk, what type of claim would be hardest for you to verify? Where is your professional blind spot when it comes to AI output?</label>
+        <textarea class="reflect-q__field" id="ref-4" placeholder="In my work, the hardest thing to verify would be... because..."></textarea>
+      </div>
 
       <div class="phase-nav">
         <button type="button" class="btn btn--outline" onclick="showPhase(0)">&larr; Encounter</button>
@@ -319,7 +327,7 @@
 
           <div class="concept-block">
             <h4>What is AI hallucination?</h4>
-            <p>A <a href="glossary.html#llm" style="color:var(--green-dark); font-weight:600;">large language model (LLM)</a> like ChatGPT or Copilot doesn't "know" facts the way you look something up. It predicts what words should come next based on patterns in its training data. When asked to cite sources, it generates text that <em>sounds like</em> a citation &mdash; author, journal, page numbers and all &mdash; whether or not the source exists. It does this confidently, with no signal that anything is wrong. The output looks exactly the same whether the source is real or invented.</p>
+            <p>You already know from Module 0 that AI <strong>predicts</strong> rather than knows. When applied to citations, that prediction produces text that <em>sounds like</em> a real source &mdash; author, journal, page numbers and all &mdash; whether or not it exists. The output looks exactly the same whether the source is real or invented. There is no warning signal.</p>
           </div>
 
           <div class="concept-block" style="margin-top:16px;">
@@ -359,6 +367,26 @@
               <p style="margin:0; font-size:0.92em;">All three citations point to sources that are almost impossible to confirm. Real policy documents cite accessible public sources &mdash; government reports you can download, journals with DOIs, NGO publications with public links. If you can't find it in 5 minutes of searching, treat it as unverified.</p>
             </div>
           </div>
+        </div>
+
+        <!-- Pocket checklist -->
+        <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:24px 28px; margin:24px 0;">
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--gold); margin-bottom:14px;">Pocket checklist &mdash; use this before acting on any AI-generated document</p>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
+              <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
+              <span>Can I find every cited institution or author with a 30-second search?</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
+              <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
+              <span>Do the statistics look too precise and too dramatic to be real research?</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
+              <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
+              <span>Can I access at least one source independently &mdash; a real URL, a real DOI, a real shelf?</span>
+            </div>
+          </div>
+          <p style="font-size:0.8em; color:rgba(255,255,255,0.5); margin-top:14px; margin-bottom:0;">If any answer is "no" or "I'm not sure" &mdash; treat the document as unverified before acting on it.</p>
         </div>
 
         <!-- External resources -->
@@ -470,11 +498,96 @@
       </div>
     </div>
     <div class="phase__body">
+
+      <!-- ── SCREEN 1: Funda Five introduction ─────────────────────────── -->
+      <div class="phase-screen is-active" id="ps-3-intro">
+
+        <p style="font-size:0.88em; color:var(--muted); margin-bottom:24px;">Before you apply anything to the DCDT scenario, you need the tool you'll be using. This is it.</p>
+
+        <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:28px 32px; margin-bottom:28px;">
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); margin-bottom:6px;">AfriversalAI Core Framework</p>
+          <h3 style="color:white; margin:0 0 10px; font-size:1.4em;">The Funda Five</h3>
+          <p style="color:rgba(255,255,255,0.75); font-size:0.9em; margin-bottom:0; line-height:1.7;">Five questions every professional should ask before acting on AI output &mdash; or before using AI to produce something others will act on. You'll use these in every module. By Module 6, asking them will be automatic.</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:28px;">
+
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white); display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">1</div>
+            <div>
+              <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TASK</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What is this AI being used for?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">Is this the right kind of task for AI? Some uses are low-risk. Others &mdash; like producing citations, making legal decisions, or diagnosing patients &mdash; require a different level of scrutiny.</div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white); display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">2</div>
+            <div>
+              <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">DATA</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What information does this involve?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">What data went in, and what came out? Is any of it personal, sensitive, or regulated? AI can leak, misuse, or misrepresent data in ways that aren't obvious from the output alone.</div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white); display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">3</div>
+            <div>
+              <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TOOL</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What type of AI produced this?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">Different AI types have different failure modes. A language model hallucinates. A prediction model reflects historical bias. Knowing the tool tells you where to look for errors.</div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white); display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">4</div>
+            <div>
+              <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TRUST</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">How do I verify this before acting?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">AI confidence is not evidence. What specific steps would confirm or deny this output? If you can't describe a verification step, you're not ready to act on it.</div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white); display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">5</div>
+            <div>
+              <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">HUMAN</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">Who is accountable here?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">"The AI did it" is not a defence. Someone decided to use it, approved the output, and acted on it. Who is in that chain &mdash; and what should they have done differently?</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin-bottom:28px; font-size:0.88em; line-height:1.6;">
+          <strong>Now apply them.</strong> You've just read the DCDT scenario in detail. Work through each of the five questions as if you were the professional who received that document and had to decide what to do with it.
+        </div>
+
+        <div class="phase-nav" style="justify-content:flex-end;">
+          <button class="btn btn--primary" onclick="showScreen(3,'apply')">Apply the Funda Five &rarr;</button>
+        </div>
+
+      </div><!-- /ps-3-intro -->
+
+      <!-- ── SCREEN 2: Apply ──────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-apply">
+
       <div class="phase__task">
         🎯 <strong>Your task:</strong> Apply the Funda Five to the DCDT policy scenario. Work through each step as if you were a professional who just received this document from a colleague and needs to decide what to do with it.
       </div>
 
-      <p style="font-size:0.9em; color:var(--muted); margin-bottom:20px;"><em>The Funda Five is AfriversalAI's core decision framework. You'll use it in every module. By Module 6, it's automatic.</em></p>
+      <!-- Scaffold: worked example for Step 1 before they attempt all five -->
+      <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:24px;">
+        <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:12px;">Example &mdash; what a strong Step 1 response looks like</p>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="width:30px; height:30px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0;">1</div>
+          <div>
+            <div style="font-size:0.8em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TASK</div>
+            <p style="font-size:0.9em; color:var(--text); line-height:1.65; margin:0; font-style:italic;">"AI was being used to research and draft supporting evidence for a policy position. This is a high-risk use case because policy documents require verifiable citations &mdash; AI cannot reliably produce these."</p>
+          </div>
+        </div>
+        <p style="font-size:0.82em; color:var(--muted); margin:12px 0 0;">Notice: it names what AI was doing, then immediately evaluates whether that was appropriate. That's the standard for all five steps.</p>
+      </div>
 
       <div class="funda-apply">
         <div class="funda-apply-step">
@@ -549,8 +662,10 @@
       </div>
 
       <div class="phase-nav" style="justify-content:flex-start;">
-        <button type="button" class="btn btn--outline" onclick="showPhase(2)">&larr; Concept</button>
+        <button type="button" class="btn btn--outline" onclick="showScreen(3,'intro')">&larr; The Funda Five</button>
       </div>
+
+      </div><!-- /ps-3-apply -->
 
     </div><!-- /phase__body -->
   </div><!-- /phase-3 -->
@@ -861,6 +976,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     // All phases complete — show Apply with completion state restored
     showPhase(3)
+    showScreen(3, 'apply')
     const submitBtn = document.getElementById('m1-submit-btn')
     const feedback  = document.getElementById('m1-apply-feedback')
     const complete  = document.getElementById('m1-completion-block')
