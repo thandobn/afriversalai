@@ -53,6 +53,27 @@
 
     .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
 
+    .concept-quiz { margin-top: 32px; padding-top: 28px; border-top: 2px solid var(--border); }
+    .concept-quiz h4 { margin-bottom: 20px; }
+    .quiz-q { margin-bottom: 24px; }
+    .quiz-q__text { font-weight: 600; font-size: 0.95em; margin-bottom: 12px; line-height: 1.5; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.9em; line-height: 1.5; }
+    .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--green-mid); }
+    .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
+    .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
+    .quiz-feedback { display: none; margin-top: 8px; padding: 10px 14px; border-radius: var(--radius); font-size: 0.88em; line-height: 1.6; }
+    .quiz-feedback--ok { background: var(--green-pale); border-left: 4px solid var(--green-mid); color: var(--green-dark); }
+    .quiz-feedback--no { background: #FFF5F5; border-left: 4px solid #DC2626; color: #7F1D1D; }
+    .model-answers { margin: 32px 0; border: 1.5px solid var(--green-light); border-radius: var(--radius-lg); overflow: hidden; }
+    .model-answers__header { background: var(--green-dark); color: white; padding: 16px 24px; }
+    .model-answers__header h4 { color: white; margin: 0; font-size: 0.95em; }
+    .model-answer-item { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .model-answer-item:last-child { border-bottom: none; }
+    .model-answer-item__label { font-size: 0.78em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green-mid); margin-bottom: 8px; }
+    .model-answer-item p { font-size: 0.9em; line-height: 1.75; color: var(--text); margin: 0; }
+
     .reflection-q { margin-bottom: 20px; }
     .reflection-q label { display:block; font-weight: 600; margin-bottom: 8px; }
     .reflection-q textarea { width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical; }
@@ -283,7 +304,53 @@
         </div>
 
         <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)">Got it &mdash; take me to Apply &rarr;</button>
+          <button class="btn btn--primary" onclick="revealConceptQuiz()">Check your understanding &rarr;</button>
+        </div>
+
+        <!-- Knowledge Check Quiz -->
+        <div id="concept-quiz" class="concept-quiz" style="display:none;">
+          <h4>Knowledge Check &mdash; Answer all three to continue</h4>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">1. The HPCSA's November 2025 AI ethical guidelines establish that:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="hq0" value="0"> Registered AI diagnostic tools can make clinical recommendations that replace the clinician's judgment.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="hq0" value="1"> The practitioner retains full accountability for every clinical decision, even when AI assists. The AI recommends; the clinician decides.</label>
+              <label class="quiz-opt"><input type="radio" name="hq0" value="2"> Practitioners must obtain SAHPRA approval before using any AI tool in a clinical setting.</label>
+              <label class="quiz-opt"><input type="radio" name="hq0" value="3"> AI tools that achieve SAHPRA classification are exempt from the HPCSA's ethical guidance.</label>
+            </div>
+            <div id="hqf-0" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">2. The Qure.ai TB screening program uses AI to triage patients for follow-up testing, not to recommend treatment. This design choice reflects:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="hq1" value="0"> A technology limitation — AI cannot yet make reliable treatment recommendations.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="hq1" value="1"> A deliberate accountability design: a false positive means an extra test, while a false positive treatment recommendation could mean unnecessary medication or harm.</label>
+              <label class="quiz-opt"><input type="radio" name="hq1" value="2"> A cost decision — triaging is cheaper than full treatment recommendation systems.</label>
+              <label class="quiz-opt"><input type="radio" name="hq1" value="3"> A SAHPRA requirement that AI cannot recommend specific medications without clinical trial evidence.</label>
+            </div>
+            <div id="hqf-1" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">3. A patient's 2018 hospital records are used to train a 2024 AI diagnostic tool without their knowledge. Under POPIA, this most likely:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="hq2" value="0"> Is permitted — historical medical records processed for public health purposes are exempt from POPIA.</label>
+              <label class="quiz-opt"><input type="radio" name="hq2" value="1"> Is permitted if names and identifying information are removed from the dataset.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="hq2" value="2"> May violate POPIA — health information is Special Personal Information; repurposing it for AI training requires explicit consent that was not part of the original consultation.</label>
+              <label class="quiz-opt"><input type="radio" name="hq2" value="3"> Is regulated exclusively by SAHPRA and falls outside POPIA's scope for medical data.</label>
+            </div>
+            <div id="hqf-2" class="quiz-feedback"></div>
+          </div>
+
+          <div id="quiz-err" class="advance-err" style="display:none;"></div>
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px; flex-wrap:wrap;">
+            <div id="quiz-submit-wrap">
+              <button class="btn btn--primary" onclick="submitConceptQuiz()">Submit answers &rarr;</button>
+            </div>
+            <button id="quiz-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
+          </div>
         </div>
         <div id="err-2" class="advance-err" style="display:none;"></div>
       </div>
@@ -353,10 +420,39 @@
           </div>
         </div>
 
-        <div style="text-align:right; margin-top:24px;">
+        <div id="m7h-apply-submit" style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 &mdash; Healthcare &rarr;</button>
         </div>
         <div id="err-3" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- MODEL ANSWERS -->
+    <div id="model-answers-m7h" style="display:none;">
+      <div class="model-answers">
+        <div class="model-answers__header">
+          <h4>Model Answers &mdash; Nurse's Override Decision Scenario (Limpopo Clinic)</h4>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">1. TASK &mdash; What is PRIME doing? Is AI the right tool for this decision?</div>
+          <p>PRIME is a clinical decision support system — predictive AI that classifies urgency based on symptom inputs against SA clinical guidelines. It is appropriate as a decision support tool: it helps nurses in under-resourced settings apply guidelines consistently and flags cases that warrant escalation. What it cannot do is apply contextual judgment: the patient's specific circumstances, travel capacity, resource access, and the nurse's accumulated knowledge of this particular patient are all outside the model's inputs. The AI's recommendation is based on symptom patterns; the nurse's judgment includes everything the AI can't see. "Decision support" means it supports the decision — it doesn't make it.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">2. DATA &mdash; What data is PRIME using? What protection applies?</div>
+          <p>PRIME processes today's symptom inputs against SA clinical guideline thresholds. Patient consultation records are health information — Special Personal Information under POPIA, requiring the highest level of protection and explicit consent for any purpose beyond direct care. Who owns the data when it enters PRIME's system — the clinic, the health department, or the technology provider? This must be specified in the contract before any consultation data is recorded through the platform. The nurse's professional responsibility includes understanding the data governance arrangements for the tools they use, not just operating the tools.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">3. TOOL &mdash; Is PRIME the right tool here? Is the override documentation a feature or a burden?</div>
+          <p>PRIME is designed for exactly this context — extending clinical capacity in facilities without on-site physician access. It is the right tool. The override documentation requirement is a professional protection mechanism, not a burden. It creates a record that a qualified human professional assessed the situation and made an informed, reasoned decision to deviate from the AI recommendation. This record is what distinguishes defensible professional practice from casual dismissal of a clinical alert. Without the documentation, an adverse patient outcome has no evidence of clinical reasoning. The obligation to document is the obligation to think — and to show your thinking.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">4. TRUST &mdash; How would you detect if the override decision is wrong?</div>
+          <p>The safety net is not the override decision itself — it's the follow-up plan. Specific commitments that make the override defensible: a scheduled appointment within 48 hours, clear written instructions to the patient about warning signs that should trigger an immediate return visit, and activation of PRIME's remote review function so a supervising doctor can review the consultation. The override is not the last word on this patient's care — it is the beginning of a monitoring commitment that compensates for the decision not to escalate. An override without a follow-up plan is a professional risk, not a professional judgment.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">5. HUMAN &mdash; Who is accountable if the patient deteriorates after the override?</div>
+          <p>The nurse who overrode bears accountability for that decision — this is the HPCSA position. The override documentation is the evidence of clinical reasoning. If the record shows: genuine clinical judgment informed by knowledge of the patient and their context, a clear rationale for why escalation was not in the patient's best interest in these specific circumstances, and a documented follow-up plan — that is defensible practice under the Health Professions Act. If the patient deteriorates and the record shows the override was made because escalation was inconvenient rather than because the nurse's judgment was better, the documentation will reflect that too. The record is a mirror: it shows whether a professional decision was made or whether a decision was avoided.</p>
+        </div>
       </div>
     </div>
 
@@ -386,6 +482,55 @@ function revealHealthCase() {
   setTimeout(() => document.getElementById('health-reveal').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
+function revealConceptQuiz() {
+  var quiz = document.getElementById('concept-quiz');
+  quiz.style.display = 'block';
+  setTimeout(() => quiz.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+var HEA_QUIZ_ANSWERS = [1, 1, 2];
+var HEA_QUIZ_EXP = [
+  { ok: 'HPCSA\'s position is unambiguous: the registered practitioner holds full accountability, not the tool. The AI recommendation is clinical decision support — it does not transfer responsibility. This applies even when the AI is wrong, which is exactly why clinical judgment must remain in the loop.',
+    no: 'HPCSA guidance does not distribute accountability between manufacturers, hospitals, and practitioners. The practitioner holds full accountability because they hold the professional registration and the clinical relationship with the patient. AI is a tool — and a professional is accountable for how they use their tools.' },
+  { ok: 'Qure.ai\'s mandatory human review is a deliberate accountability architecture choice: AI flags, clinician confirms, clinician owns. It isn\'t about AI accuracy limits or regulation — it\'s about ensuring every diagnostic decision has a named professional responsible for it. The design answers "if this is wrong, who is accountable?" before deployment.',
+    no: 'South Africa doesn\'t currently mandate a human in the loop for all clinical AI decisions, and the requirement isn\'t about AI accuracy or insurance. It\'s a design philosophy: consequential decisions need a named human owner. Qure.ai\'s architecture ensures that even when the AI is right, a clinician has reviewed it. That\'s an accountability design choice, not a confidence limit.' },
+  { ok: 'Health data is Special Personal Information under POPIA — the highest-protection category. Processing it for AI training is a new purpose beyond the original collection purpose and typically requires explicit consent. "De-identified" is not a free pass: re-identification is often feasible with health records, and POPIA\'s research exemption is narrow with specific conditions.',
+    no: 'De-identification alone doesn\'t satisfy POPIA for Special Personal Information. Research exemptions are narrow and require specific conditions. Hospital approval alone doesn\'t override data subject rights — processing for AI training is a new purpose beyond original collection. HPCSA and POPIA both apply, and neither makes this straightforward.' }
+];
+
+function submitConceptQuiz() {
+  var allAnswered = true;
+  var allCorrect = true;
+  for (var i = 0; i < HEA_QUIZ_ANSWERS.length; i++) {
+    var sel = document.querySelector('input[name="hq' + i + '"]:checked');
+    var fb = document.getElementById('hqf-' + i);
+    if (!sel) { allAnswered = false; continue; }
+    var optIdx = parseInt(sel.value, 10);
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    fb.style.display = 'block';
+    if (optIdx === HEA_QUIZ_ANSWERS[i]) {
+      label.classList.add('quiz-opt--ok');
+      fb.className = 'quiz-feedback quiz-feedback--ok';
+      fb.innerHTML = '<strong>Correct.</strong> ' + HEA_QUIZ_EXP[i].ok;
+      document.querySelectorAll('input[name="hq' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      label.classList.add('quiz-opt--no');
+      fb.className = 'quiz-feedback quiz-feedback--no';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + HEA_QUIZ_EXP[i].no;
+      allCorrect = false;
+    }
+  }
+  var errEl = document.getElementById('quiz-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Answer all three questions before submitting.'; return; }
+  errEl.style.display = 'none';
+  if (allCorrect) {
+    document.getElementById('quiz-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-advance').style.display = 'inline-block';
+    document.getElementById('quiz-advance').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+}
+
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
@@ -394,6 +539,7 @@ function advancePhase(fromPhase) {
     const t2 = document.getElementById('enc-2').value.trim();
     if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please answer both questions before continuing.'; return; }
     errEl.style.display='none';
+    saveProgress('module-7-healthcare', 0);
     revealHealthCase();
   }
   if (fromPhase === 1) {
@@ -401,17 +547,25 @@ function advancePhase(fromPhase) {
     const t2 = document.getElementById('ref-2').value.trim();
     if (t1.length < 8 || t2.length < 8) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes.'; return; }
     errEl.style.display='none';
+    saveProgress('module-7-healthcare', 1);
   }
-  if (fromPhase === 2) { errEl.style.display='none'; }
+  if (fromPhase === 2) {
+    errEl.style.display='none';
+    saveProgress('module-7-healthcare', 2);
+  }
   if (fromPhase === 3) {
     const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
     if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
+    errEl.style.display='none';
+    saveProgress('module-7-healthcare', 3);
     document.getElementById('phase-3').classList.add('is-done');
     document.getElementById('prog-3').classList.remove('is-active');
     document.getElementById('prog-3').classList.add('is-done');
-    const complete = document.getElementById('module-complete');
-    complete.style.display = 'block';
-    setTimeout(() => complete.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    document.getElementById('m7h-apply-submit').style.display = 'none';
+    var answers = document.getElementById('model-answers-m7h');
+    answers.style.display = 'block';
+    setTimeout(() => answers.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
     return;
   }
 
@@ -435,7 +589,34 @@ function advancePhase(fromPhase) {
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>
-<script>requireAuth('module-7-healthcare.html')</script>
+<script>
+(function() {
+  getSession().then(async function(session) {
+    await updateNavForAuth();
+    if (!session) { window.location.href = 'login.html?next=module-7-healthcare.html'; return; }
+    var m0 = await getModuleProgress('module-0');
+    if (m0.length < 4) { window.location.href = 'module-0.html'; return; }
+    var done = await getModuleProgress('module-7-healthcare');
+    if (done.length >= 4) {
+      [0,1,2,3].forEach(function(i) {
+        var p = document.getElementById('phase-' + i); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + i); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      document.getElementById('model-answers-m7h').style.display = 'block';
+      document.getElementById('module-complete').style.display = 'block';
+    } else if (done.length > 0) {
+      done.forEach(function(idx) {
+        var p = document.getElementById('phase-' + idx); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + idx); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      var cur = done.length;
+      var curP = document.getElementById('phase-' + cur); if (curP) curP.classList.remove('is-locked');
+      var curS = document.getElementById('prog-' + cur); if (curS) curS.classList.add('is-active');
+      setTimeout(function() { if (curP) curP.scrollIntoView({ behavior:'smooth', block:'start' }); }, 200);
+    }
+  }).catch(function() { window.location.href = 'login.html?next=module-7-healthcare.html'; });
+})();
+</script>
 
 </body>
 </html>

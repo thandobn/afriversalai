@@ -57,6 +57,27 @@
 
     .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
 
+    .concept-quiz { margin-top: 32px; padding-top: 28px; border-top: 2px solid var(--border); }
+    .concept-quiz h4 { margin-bottom: 20px; }
+    .quiz-q { margin-bottom: 24px; }
+    .quiz-q__text { font-weight: 600; font-size: 0.95em; margin-bottom: 12px; line-height: 1.5; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.9em; line-height: 1.5; }
+    .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--green-mid); }
+    .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
+    .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
+    .quiz-feedback { display: none; margin-top: 8px; padding: 10px 14px; border-radius: var(--radius); font-size: 0.88em; line-height: 1.6; }
+    .quiz-feedback--ok { background: var(--green-pale); border-left: 4px solid var(--green-mid); color: var(--green-dark); }
+    .quiz-feedback--no { background: #FFF5F5; border-left: 4px solid #DC2626; color: #7F1D1D; }
+    .model-answers { margin: 32px 0; border: 1.5px solid var(--green-light); border-radius: var(--radius-lg); overflow: hidden; }
+    .model-answers__header { background: var(--green-dark); color: white; padding: 16px 24px; }
+    .model-answers__header h4 { color: white; margin: 0; font-size: 0.95em; }
+    .model-answer-item { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .model-answer-item:last-child { border-bottom: none; }
+    .model-answer-item__label { font-size: 0.78em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green-mid); margin-bottom: 8px; }
+    .model-answer-item p { font-size: 0.9em; line-height: 1.75; color: var(--text); margin: 0; }
+
     .vote-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
     .vote-card:hover { border-color: var(--green-mid); background: var(--green-pale); }
     .vote-card.selected-yes { border-color: #DC2626; background: #FFF5F5; }
@@ -308,7 +329,53 @@
         </div>
 
         <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)">Got it &mdash; take me to Apply &rarr;</button>
+          <button class="btn btn--primary" onclick="revealConceptQuiz()">Check your understanding &rarr;</button>
+        </div>
+
+        <!-- Knowledge Check Quiz -->
+        <div id="concept-quiz" class="concept-quiz" style="display:none;">
+          <h4>Knowledge Check &mdash; Answer all three to continue</h4>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">1. A domestic worker receives R800 for one cleaning job and is declined SASSA's SRD grant because the automated system flags it as "Alternative Income." Which AI failure mode from Module 2 does this represent?</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="gq0" value="0"> Hallucination — the AI generated false information about the applicant.</label>
+              <label class="quiz-opt"><input type="radio" name="gq0" value="1"> Outdated learning — the model hasn't been updated with current income data.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="gq0" value="2"> Missing context — the model cannot distinguish a once-off informal payment from regular employment income.</label>
+              <label class="quiz-opt"><input type="radio" name="gq0" value="3"> Feedback loop — the model's past decisions are reinforcing future incorrect decisions.</label>
+            </div>
+            <div id="gqf-0" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">2. Under POPIA Section 71, a SASSA beneficiary wrongly declined by the automated system has the right to:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="gq1" value="0"> Have the decision reviewed and the logic explained, with an opportunity to make representations before the decision is finalised.</label>
+              <label class="quiz-opt"><input type="radio" name="gq1" value="1"> Demand that SASSA replace the automated system with manual case reviews.</label>
+              <label class="quiz-opt"><input type="radio" name="gq1" value="2"> Sue the SASSA director personally for the automated error.</label>
+              <label class="quiz-opt"><input type="radio" name="gq1" value="3"> Nothing — POPIA Section 71 only applies if the person was told an automated system made the decision.</label>
+            </div>
+            <div id="gqf-1" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">3. MomConnect's AI advisory system works more ethically than SASSA's automated declination system because:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="gq2" value="0"> MomConnect uses more advanced AI technology with fewer errors.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="gq2" value="1"> MomConnect routes urgent cases to human health workers — the AI extends reach but does not make the consequential decision. SASSA's system is the final decision-maker with no human override.</label>
+              <label class="quiz-opt"><input type="radio" name="gq2" value="2"> Government health systems are regulated more strictly than welfare systems.</label>
+              <label class="quiz-opt"><input type="radio" name="gq2" value="3"> MomConnect only handles information requests, not decisions with financial consequences.</label>
+            </div>
+            <div id="gqf-2" class="quiz-feedback"></div>
+          </div>
+
+          <div id="quiz-err" class="advance-err" style="display:none;"></div>
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px; flex-wrap:wrap;">
+            <div id="quiz-submit-wrap">
+              <button class="btn btn--primary" onclick="submitConceptQuiz()">Submit answers &rarr;</button>
+            </div>
+            <button id="quiz-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
+          </div>
         </div>
         <div id="err-2" class="advance-err" style="display:none;"></div>
       </div>
@@ -377,10 +444,39 @@
           </div>
         </div>
 
-        <div style="text-align:right; margin-top:24px;">
+        <div id="m7g-apply-submit" style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 &mdash; Government &rarr;</button>
         </div>
         <div id="err-3" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- MODEL ANSWERS -->
+    <div id="model-answers-m7g" style="display:none;">
+      <div class="model-answers">
+        <div class="model-answers__header">
+          <h4>Model Answers &mdash; SASSA Field Officer Scenario</h4>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">1. TASK &mdash; Is database cross-referencing the right AI task? Where does scope go wrong?</div>
+          <p>Automated database cross-referencing for eligibility screening is a legitimate AI task — it's faster and more consistent than manual cross-referencing at SASSA's scale. The scope problem is not the task itself but how the output is used: the system was designed to screen for potential ineligibility, but it operates as a final decision-maker. A flag should trigger human review, not an automated decline. The AI is doing the right job; the job has been given too much authority. The scope error is the difference between screening and deciding — and that line was crossed without accountability.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">2. DATA &mdash; What data does the system use? What's missing?</div>
+          <p>The system cross-references SARS, UIF, NSFAS, Home Affairs, and bank records. What it does not have: context about whether income is once-off or recurring, knowledge of informal work patterns, awareness of what a specific bank deposit actually represents. The R628 threshold treats all bank income identically — a single cleaning job equals a month's salary to this system. The missing data is context: the kind of context that a human case worker in the room can assess in minutes, but a database cross-reference cannot. Missing context at this volume produces systematic errors at scale, affecting the most vulnerable applicants most often.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">3. TOOL &mdash; Is fully automated decline appropriate at this stakes level?</div>
+          <p>At this stakes level — a person's ability to buy food — the tool should be advisory, not determinative. The design that works is: automated screening flags potential ineligibility → a human reviews before a decline is issued. MomConnect demonstrates the alternative: when AI triage leads to a human call-back for urgent health cases, false negatives are caught. When AI triage directly declines without review in SASSA's system, false negatives mean people without food money for a month, with an appeal pathway that requires digital access they don't have. The consequence of the error shapes how much autonomy the AI should be allowed to exercise.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">4. TRUST &mdash; What would you need to verify this specific decline?</div>
+          <p>As a field officer, to verify this decline I would need: which data source triggered the flag (SARS? UIF? bank record?), the specific amount and transaction type that was flagged, and how the system classified the income type. I currently have access to none of this — I see only the outcome. The system is a black box from my operational position. I cannot assess whether the decline is correct or erroneous with the information available to me. This is itself a governance problem: the system makes decisions I cannot audit, affecting people I am responsible to serve.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">5. HUMAN &mdash; Who is accountable? What can you do from where you sit?</div>
+          <p>Named accountability chain: the system architect who designed decline-without-review, the SASSA official who signed off on that design, and the Director-General under PFMA for public funds and citizens' rights. As a field officer with no override authority, my professional obligations include: documenting this case in writing, escalating to my supervisor, directing the beneficiary to the appeal process and noting that she lacks digital access, and flagging the digital access barrier as a systemic issue through official channels. I cannot fix the system. I can document the failure in a way that creates a paper trail — because accountability requires evidence, and evidence starts with the person in the room who saw what happened.</p>
+        </div>
       </div>
     </div>
 
@@ -426,26 +522,87 @@ function revealGovCase() {
   setTimeout(() => document.getElementById('gov-reveal').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
+function revealConceptQuiz() {
+  var quiz = document.getElementById('concept-quiz');
+  quiz.style.display = 'block';
+  setTimeout(() => quiz.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+var GOV_QUIZ_ANSWERS = [2, 0, 1];
+var GOV_QUIZ_EXP = [
+  { ok: 'The system cannot distinguish a once-off R800 payment from regular employment income. That\'s missing context — the data exists (the bank deposit) but the model lacks the surrounding information needed to interpret what it means.',
+    no: 'The AI didn\'t make up information (hallucination) or use old data (outdated learning). It correctly identified a bank deposit and applied the threshold — but the threshold is too blunt to handle contextual income variation. That\'s missing context, not a different failure type.' },
+  { ok: 'POPIA Section 71 requires that when automated processing produces a significant decision, the data subject must have the opportunity to make representations and understand the logic. The problem identified in the SASSA case is that applicants aren\'t even told the decision was automated — making the right impossible to invoke.',
+    no: 'Section 71 creates a right to explanation and representation — it doesn\'t give the applicant veto power over the system or require SASSA to switch to manual processing. The gap in SASSA\'s case is that applicants don\'t know they were declined by automation, so they can\'t invoke the right.' },
+  { ok: 'MomConnect\'s design principle is that AI extends human reach without replacing human judgment on consequential decisions. A false positive in MomConnect means a human call-back. A false positive in SASSA means no food money for a month. The design of the human override reflects the cost of the error.',
+    no: 'The difference isn\'t technology sophistication or regulatory tier. It\'s a design choice about what happens when the AI is wrong. MomConnect routes uncertainty to a human. SASSA\'s system finalises the decision and sends an SMS. That\'s an accountability design difference, not a technology one.' }
+];
+
+function submitConceptQuiz() {
+  var allAnswered = true;
+  var allCorrect = true;
+  for (var i = 0; i < GOV_QUIZ_ANSWERS.length; i++) {
+    var sel = document.querySelector('input[name="gq' + i + '"]:checked');
+    var fb = document.getElementById('gqf-' + i);
+    if (!sel) { allAnswered = false; continue; }
+    var optIdx = parseInt(sel.value, 10);
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    fb.style.display = 'block';
+    if (optIdx === GOV_QUIZ_ANSWERS[i]) {
+      label.classList.add('quiz-opt--ok');
+      fb.className = 'quiz-feedback quiz-feedback--ok';
+      fb.innerHTML = '<strong>Correct.</strong> ' + GOV_QUIZ_EXP[i].ok;
+      document.querySelectorAll('input[name="gq' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      label.classList.add('quiz-opt--no');
+      fb.className = 'quiz-feedback quiz-feedback--no';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + GOV_QUIZ_EXP[i].no;
+      allCorrect = false;
+    }
+  }
+  var errEl = document.getElementById('quiz-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Answer all three questions before submitting.'; return; }
+  errEl.style.display = 'none';
+  if (allCorrect) {
+    document.getElementById('quiz-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-advance').style.display = 'inline-block';
+    document.getElementById('quiz-advance').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+}
+
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
-  if (fromPhase === 0) { errEl.style.display='none'; revealGovCase(); }
+  if (fromPhase === 0) {
+    errEl.style.display='none';
+    revealGovCase();
+    saveProgress('module-7-government', 0);
+  }
   if (fromPhase === 1) {
     const t1 = document.getElementById('ref-1').value.trim();
     const t2 = document.getElementById('ref-2').value.trim();
     if (t1.length < 8 || t2.length < 8) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes.'; return; }
     errEl.style.display='none';
+    saveProgress('module-7-government', 1);
   }
-  if (fromPhase === 2) { errEl.style.display='none'; }
+  if (fromPhase === 2) {
+    errEl.style.display='none';
+    saveProgress('module-7-government', 2);
+  }
   if (fromPhase === 3) {
     const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
     if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
+    errEl.style.display='none';
+    saveProgress('module-7-government', 3);
     document.getElementById('phase-3').classList.add('is-done');
     document.getElementById('prog-3').classList.remove('is-active');
     document.getElementById('prog-3').classList.add('is-done');
-    const complete = document.getElementById('module-complete');
-    complete.style.display = 'block';
-    setTimeout(() => complete.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    document.getElementById('m7g-apply-submit').style.display = 'none';
+    var answers = document.getElementById('model-answers-m7g');
+    answers.style.display = 'block';
+    setTimeout(() => answers.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
     return;
   }
 
@@ -469,7 +626,34 @@ function advancePhase(fromPhase) {
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>
-<script>requireAuth('module-7-government.html')</script>
+<script>
+(function() {
+  getSession().then(async function(session) {
+    await updateNavForAuth();
+    if (!session) { window.location.href = 'login.html?next=module-7-government.html'; return; }
+    var m0 = await getModuleProgress('module-0');
+    if (m0.length < 4) { window.location.href = 'module-0.html'; return; }
+    var done = await getModuleProgress('module-7-government');
+    if (done.length >= 4) {
+      [0,1,2,3].forEach(function(i) {
+        var p = document.getElementById('phase-' + i); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + i); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      document.getElementById('model-answers-m7g').style.display = 'block';
+      document.getElementById('module-complete').style.display = 'block';
+    } else if (done.length > 0) {
+      done.forEach(function(idx) {
+        var p = document.getElementById('phase-' + idx); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + idx); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      var cur = done.length;
+      var curP = document.getElementById('phase-' + cur); if (curP) curP.classList.remove('is-locked');
+      var curS = document.getElementById('prog-' + cur); if (curS) curS.classList.add('is-active');
+      setTimeout(function() { if (curP) curP.scrollIntoView({ behavior:'smooth', block:'start' }); }, 200);
+    }
+  }).catch(function() { window.location.href = 'login.html?next=module-7-government.html'; });
+})();
+</script>
 
 </body>
 </html>
