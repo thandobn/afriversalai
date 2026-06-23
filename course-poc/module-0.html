@@ -169,8 +169,9 @@
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">55 minutes &middot; 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; No technical background required</span>
-      <span style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Phases 1 &amp; 2 free &mdash; register to unlock all phases</span>
+      <span id="m0-free-note" style="font-size:0.85em; color:var(--gold); font-weight:600;" data-i18n="m0_free_note">Phases 1 &amp; 2 free &mdash; register to unlock all phases</span>
     </div>
+    <span id="m0-complete-badge" style="display:none; margin-top:16px; font-size:0.8em; font-weight:700; background:rgba(255,255,255,0.15); color:white; padding:5px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.3);">&#10003; Module complete</span>
   </div>
 </div>
 
@@ -870,6 +871,8 @@
           </div>
           <div style="padding:28px;">
 
+            <p style="font-size:0.85em; color:var(--muted); margin-bottom:24px; padding:10px 14px; background:var(--bg-pale,#F9FAFB); border-radius:var(--radius); border-left:3px solid var(--gold);">You need to answer all 5 questions correctly to move on. You can retry as many times as you like.</p>
+
             <div class="quiz-q" style="margin-bottom:28px;">
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q1">1. What best describes how AI works?</p>
               <div class="quiz-opts">
@@ -1189,6 +1192,8 @@ function showScreen(phaseNum, screenId) {
   phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
   var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
   if (target) target.classList.add('is-active');
+  var header = phase.querySelector('.phase__header');
+  if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1292,6 +1297,8 @@ function advancePhase(fromPhase) {
     document.getElementById('phase-3').classList.remove('is-active');
     var complete = document.getElementById('module-complete');
     complete.style.display = 'block';
+    var badge = document.getElementById('m0-complete-badge');
+    if (badge) badge.style.display = 'inline-block';
     setTimeout(function() { complete.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
     return;
   }
@@ -1447,13 +1454,21 @@ function submitQuizP3() {
     // Hide "Register" CTA on module-complete for logged-in users
     var regBtn = document.getElementById('complete-register-btn')
     if (regBtn) regBtn.style.display = 'none'
+    // Hide guest-only free/register messaging
+    var freeNote = document.getElementById('m0-free-note')
+    if (freeNote) freeNote.style.display = 'none'
+    var eyebrow = document.querySelector('[data-i18n="m0_eyebrow"]')
+    if (eyebrow) { eyebrow.removeAttribute('data-i18n'); eyebrow.textContent = 'Module 0 · Foundation'; }
     // Restore any previously completed phases
     const done = await getModuleProgress('module-0')
     if (done.length >= 4) {
       // All phases complete — show module-complete screen directly
       updateTracker(4);
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('is-active'));
       const complete = document.getElementById('module-complete')
       if (complete) complete.style.display = 'block'
+      var badge = document.getElementById('m0-complete-badge')
+      if (badge) badge.style.display = 'inline-block'
     } else if (done.length > 0) {
       // In-progress — mark completed phases as done, show next phase
       done.forEach(phase => {
