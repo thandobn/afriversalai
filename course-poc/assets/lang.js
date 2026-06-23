@@ -10,6 +10,12 @@
   var STORAGE_KEY = 'afriversal_lang';
   var DEFAULT_LANG = 'en';
 
+  /* Languages offered to learners. Pilot ships EN + AF only — French and isiZulu
+     are hidden until a native speaker has reviewed them (current machine drafts
+     are incomplete: isiZulu is ~46% untranslated). Re-add 'fr' / 'zu' here once
+     reviewed and the switcher buttons reappear site-wide automatically. */
+  var ACTIVE_LANGS = ['en', 'af'];
+
   /* Maps nav link hrefs to translation keys */
   var NAV_LINK_KEYS = {
     'index.html':      'nav_home',
@@ -22,7 +28,10 @@
   };
 
   function getLang() {
-    try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; } catch (e) { return DEFAULT_LANG; }
+    var l;
+    try { l = localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; } catch (e) { l = DEFAULT_LANG; }
+    /* Ignore a stored language that's no longer offered */
+    return ACTIVE_LANGS.indexOf(l) !== -1 ? l : DEFAULT_LANG;
   }
 
   function applyLang(code) {
@@ -65,6 +74,7 @@
   }
 
   function setLang(code) {
+    if (ACTIVE_LANGS.indexOf(code) === -1) code = DEFAULT_LANG;
     try { localStorage.setItem(STORAGE_KEY, code); } catch (e) {}
     applyLang(code);
     /* Update picker button states */
@@ -81,6 +91,8 @@
     var lang = getLang();
     applyLang(lang);
     document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+      /* Hide buttons for languages not in this pilot */
+      btn.style.display = ACTIVE_LANGS.indexOf(btn.dataset.langBtn) === -1 ? 'none' : '';
       btn.classList.toggle('is-active', btn.dataset.langBtn === lang);
     });
   });

@@ -339,15 +339,16 @@
         <a href="module-2.html" class="continue-link" id="link-module-2" style="display:none;">Start module →</a>
         <span id="lock-msg-module-2" style="font-size:0.82em; color:var(--muted);">Complete Module 1 to unlock</span>
       </div>
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--coming-soon">Coming soon</span>
+      <div class="module-card is-locked" id="card-module-3">
+        <span class="module-card__badge badge--locked" id="badge-module-3">Locked</span>
         <h3>Module 3 — Bias and Discrimination</h3>
         <p>SA Predictive Policing. Discrimination without discriminatory intent.</p>
-        <div class="phase-dots">
+        <div class="phase-dots" id="dots-module-3">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-3.html" class="continue-link" id="link-module-3" style="display:none;">Start module →</a>
+        <span id="lock-msg-module-3" style="font-size:0.82em; color:var(--muted);">Complete Module 2 to unlock</span>
       </div>
       <div class="module-card is-locked">
         <span class="module-card__badge badge--coming-soon">Coming soon</span>
@@ -548,6 +549,35 @@ async function initDashboard() {
     }
   }
   // If Module 1 not complete: card stays is-locked, lock message stays, link stays hidden
+
+  // Module 3 — unlocks when Module 2 is complete (all 4 phases)
+  const m3Card   = document.getElementById('card-module-3')
+  const m3Badge  = document.getElementById('badge-module-3')
+  const m3Link   = document.getElementById('link-module-3')
+  const m3Lock   = document.getElementById('lock-msg-module-3')
+  const m3Phases = progress.filter(r => r.module_id === 'module-3').map(r => r.phase)
+
+  if (m2Phases.length === 4) {
+    m3Card.classList.remove('is-locked')
+    m3Lock.style.display = 'none'
+    m3Link.style.display = 'inline'
+    renderDots('module-3', progress)
+    if (m3Phases.length === 4) {
+      m3Card.classList.add('is-complete')
+      m3Badge.textContent = 'Complete'
+      m3Badge.className = 'module-card__badge badge--complete'
+      m3Link.textContent = 'Review module →'
+    } else if (m3Phases.length > 0) {
+      m3Badge.textContent = 'In progress'
+      m3Badge.className = 'module-card__badge badge--progress'
+      m3Link.textContent = 'Continue →'
+    } else {
+      m3Badge.textContent = 'Start here'
+      m3Badge.className = 'module-card__badge badge--free'
+      m3Link.textContent = 'Start module →'
+    }
+  }
+  // If Module 2 not complete: card stays is-locked, lock message stays, link stays hidden
 }
 
 function renderDots(moduleId, progress) {

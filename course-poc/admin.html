@@ -130,7 +130,7 @@
 <div id="adm-console" class="adm-wrap" style="display:none;">
 
   <div class="adm-stats">
-    <div class="adm-stat"><div class="adm-stat__num" id="st-total">0</div><div class="adm-stat__label">Registered students</div><div class="adm-stat__sub" id="st-cohort">Q3 2026 cohort</div></div>
+    <div class="adm-stat"><div class="adm-stat__num" id="st-total">0</div><div class="adm-stat__label">Seats filled</div><div class="adm-stat__sub" id="st-cohort">Q3 2026 · 30-seat pilot</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-active">0</div><div class="adm-stat__label">Active this week</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-avg">0%</div><div class="adm-stat__label">Avg. course completion</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-pay">R0</div><div class="adm-stat__label">Payments collected</div><div class="adm-stat__sub" id="st-pay-sub">mock data</div></div>
@@ -213,6 +213,7 @@ function saveThreads(t) { localStorage.setItem(MSG_KEY, JSON.stringify(t)); }
 const MODULES = ['Fundamentals','What AI Actually Is','How AI Learns & Fails','Bias & Discrimination','Verification & Judgment','Accountability & Governance','When AI Works'];
 const FORUMS = ['Future Forum','ThinkLab','Governance Forum','Strategy Lab'];
 const PRICE = 14995;
+const SEAT_CAP = 30; // first pilot cohort is limited to 30 seats
 
 const STUDENTS = [
   { id:'thandiwe',  name:'Thandiwe Mokoena',    email:'t.mokoena@nedbank.co.za',     org:'Nedbank',                sector:'Finance',    joined:'2026-07-18', pay:{status:'paid',    method:'EFT',   date:'2026-07-18'}, last:'Today',       progress:[4,4,4,4,2,0,0], live:1 },
@@ -265,7 +266,9 @@ function renderStats() {
   const active = STUDENTS.filter(s => s.last === 'Today' || s.last === 'Yesterday').length;
   const avg = Math.round(STUDENTS.reduce((a, s) => a + pct(s.progress), 0) / total);
   const collected = STUDENTS.filter(s => s.pay.status === 'paid').length * PRICE;
-  document.getElementById('st-total').textContent = total;
+  document.getElementById('st-total').textContent = total + ' / ' + SEAT_CAP;
+  document.getElementById('st-cohort').textContent =
+    (total >= SEAT_CAP ? 'Cohort full' : (SEAT_CAP - total) + ' seats left') + ' · Q3 2026 pilot';
   document.getElementById('st-active').textContent = active;
   document.getElementById('st-avg').textContent = avg + '%';
   document.getElementById('st-pay').textContent = 'R' + collected.toLocaleString('en-ZA');

@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 3: Bias &amp; Discrimination &mdash; AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .module-hero { background: var(--green-dark); color: white; padding: 64px 52px 48px; }
+    .module-hero .eyebrow { color: var(--gold); }
+    .module-hero h1 { font-size: 2.2em; font-weight: 800; margin: 12px 0 16px; line-height: 1.2; color: white; }
+    .module-hero .lead { color: rgba(255,255,255,0.75); max-width: 680px; }
+    @media (max-width: 768px) { .module-hero { padding: 48px 24px 36px; } }
+
+    /* Phase layout */
+    .phase { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px; }
+    .phase__header { display: flex; align-items: center; gap: 16px; padding: 20px 28px; background: var(--green-pale); border-bottom: 1px solid var(--border); }
+    .phase__num { width: 40px; height: 40px; background: var(--green-dark); color: white; border-radius: 50%; display: flex; align-items:center; justify-content:center; font-weight: 800; font-size: 0.95em; flex-shrink: 0; }
+    .phase__title { font-weight: 700; font-size: 1.05em; }
+    .phase__subtitle { font-size: 0.82em; color: var(--muted); margin-top: 2px; }
+    .phase__body { padding: 32px 28px; background: var(--white); }
+    .phase { display: none; }
+    .phase.is-active { display: block; }
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+    .phase-nav { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; margin-top: 32px; border-top: 1px solid var(--border); gap: 12px; }
+    .phase.is-done .phase__header { background: var(--green-light); }
+    .progress-step.is-done { cursor: pointer; }
+
+    /* Concept blocks */
+    .concept-block { border-left: 4px solid var(--green-mid); background: var(--green-pale); padding: 20px 24px; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; margin: 20px 0; }
+    .concept-block h4 { font-size: 0.88em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green-dark); margin-bottom: 8px; }
+    .concept-block p { font-size: 0.92em; color: var(--text); margin: 0; }
+    .misconception-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .myth-box { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+    .myth-box--myth { background: #FFF5F5; border-color: #FCA5A5; }
+    .myth-box--truth { background: var(--green-pale); border-color: var(--green-light); }
+    .myth-box__label { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .myth-box--myth .myth-box__label { color: #DC2626; }
+    .myth-box--truth .myth-box__label { color: var(--green-dark); }
+    .myth-box p { font-size: 0.88em; margin: 0; line-height: 1.65; }
+    @media (max-width: 600px) { .misconception-row { grid-template-columns: 1fr; } }
+
+    .callout { background: var(--gold-light); border-left: 4px solid var(--gold); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 20px 0; font-size: 0.9em; }
+
+    /* Failure-mode cards */
+    .fail-card { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 16px; }
+    .fail-card__head { background: #7F1D1D; color: white; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+    .fail-card__num { font-weight: 800; background: rgba(255,255,255,0.2); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fail-card__body { padding: 18px 22px; }
+    .fail-card__body p { font-size: 0.92em; margin: 0 0 10px; }
+    .fail-card__body p:last-child { margin-bottom: 0; }
+    .fail-card__eg { background: var(--bg); border-left: 3px solid var(--border); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.88em; color: var(--muted); }
+
+    /* Diagnose (Encounter) cards */
+    .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; align-items: start; }
+    .activity-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; background: var(--bg); cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
+    .activity-card:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .activity-card.selected-bias { border-color: #DC2626; background: #FFF5F5; }
+    .activity-card.selected-not { border-color: var(--gold); background: var(--gold-light); }
+    .activity-card__icon { font-size: 1.8em; margin-bottom: 10px; }
+    .activity-card__name { font-weight: 700; font-size: 0.92em; margin-bottom: 4px; }
+    .activity-card__hint { font-size: 0.8em; color: var(--muted); }
+    .activity-card.revealed.is-bias { border-color: #DC2626 !important; background: #FFF5F5 !important; }
+    .activity-card.revealed.not-bias { border-color: var(--gold) !important; background: var(--gold-light) !important; }
+    .reveal-badge { display: none; font-size: 0.72em; font-weight: 700; margin-top: 8px; padding: 3px 10px; border-radius: 12px; }
+    .activity-card.revealed .reveal-badge { display: inline-block; }
+    .is-bias .reveal-badge { background: #FEE2E2; color: #7F1D1D; }
+    .not-bias .reveal-badge { background: var(--gold-light); color: var(--gold-dark); }
+    .reveal-explanation { display: none; font-size: 0.78em; line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1); }
+    .activity-card.revealed .reveal-explanation { display: block; }
+    .is-bias .reveal-explanation { color: #7a1f1f; }
+    .not-bias .reveal-explanation { color: #7a5800; }
+
+    /* Worksheet table */
+    .worksheet { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .worksheet th { text-align: left; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.5px; color: var(--green-dark); padding: 8px 10px; border-bottom: 2px solid var(--green-light); }
+    .worksheet td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .worksheet td:first-child { font-weight: 600; font-size: 0.88em; width: 42%; }
+    .worksheet input { width: 100%; border: none; border-bottom: 1.5px solid var(--border); font-family: inherit; font-size: 0.9em; padding: 4px 2px; outline: none; background: transparent; }
+    .worksheet input:focus { border-bottom-color: var(--green-mid); }
+
+    /* Preview end / complete */
+    .preview-end { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
+    .preview-end h2 { color: white; margin-bottom: 12px; }
+    .preview-end p { color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .preview-end-phases { display: flex; gap: 12px; justify-content: center; margin-bottom: 28px; flex-wrap: wrap; }
+    .preview-phase { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius); padding: 10px 18px; font-size: 0.82em; font-weight: 600; color: rgba(255,255,255,0.8); }
+
+    .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
+
+    /* Learning objectives */
+    .m0-objectives { margin-top: 20px; padding: 16px 20px; background: rgba(255,255,255,0.06); border-left: 3px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; }
+    .m0-objectives strong { font-size: 0.85em; color: rgba(255,255,255,0.9); display: block; margin-bottom: 8px; }
+    .m0-objectives ol { padding-left: 18px; margin: 0; }
+    .m0-objectives li { font-size: 0.83em; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 5px; }
+
+    /* Knowledge check quiz */
+    .quiz-opts { margin-top: 12px; }
+    .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.92em; line-height: 1.5; }
+    .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--green-mid); }
+    .quiz-feedback { display: none; margin-top: 10px; padding: 10px 14px; border-radius: var(--radius); font-size: 0.88em; line-height: 1.6; }
+    .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
+    .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
+
+    /* AI Tutor verdict banner — deliberately prominent */
+    .tutor-verdict { display: flex; gap: 16px; align-items: flex-start; padding: 20px 24px; border-left: 6px solid var(--green-mid); }
+    .tutor-verdict__avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.45em; flex-shrink: 0; background: var(--green-mid); }
+    .tutor-verdict__body { flex: 1; }
+    .tutor-verdict__tag { font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.6px; opacity: 0.85; }
+    .tutor-verdict__headline { font-weight: 800; font-size: 1.18em; margin: 2px 0 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .tutor-verdict__score { font-size: 0.62em; font-weight: 800; padding: 3px 12px; border-radius: 20px; color: #fff; }
+    .tutor-verdict__msg { font-size: 0.9em; line-height: 1.6; }
+    .tutor-verdict--pass { background: var(--green-pale); border-left-color: var(--green-mid); color: var(--green-dark); }
+    .tutor-verdict--pass .tutor-verdict__avatar { background: var(--green-mid); }
+    .tutor-verdict--pass .tutor-verdict__score { background: var(--green-mid); }
+    .tutor-verdict--retry { background: #FFF5F5; border-left-color: #DC2626; color: #7F1D1D; }
+    .tutor-verdict--retry .tutor-verdict__avatar { background: #DC2626; }
+    .tutor-verdict--retry .tutor-verdict__score { background: #DC2626; }
+
+    /* AI Tutor per-question note — clearly separated from the question */
+    .tutor-note { display: block; margin-top: 14px; border-radius: var(--radius); border-left: 4px solid var(--green-mid); padding: 12px 16px; }
+    .tutor-note__label { display: inline-flex; align-items: center; gap: 7px; font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .tutor-note__text { font-size: 0.88em; line-height: 1.6; }
+    .tutor-note--ok { background: var(--green-pale); border-left-color: var(--green-mid); }
+    .tutor-note--ok .tutor-note__label { color: var(--green-mid); }
+    .tutor-note--ok .tutor-note__text { color: var(--green-dark); }
+    .tutor-note--no { background: #FFF5F5; border-left-color: #DC2626; }
+    .tutor-note--no .tutor-note__label { color: #DC2626; }
+    .tutor-note--no .tutor-note__text { color: #7F1D1D; }
+
+    /* Navigation improvements */
+    .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
+    .lesson-tracker { display:flex; align-items:center; gap:6px; margin-bottom:28px; padding:12px 16px; background:var(--green-pale); border-radius:var(--radius-lg); }
+    .lesson-dot { width:9px; height:9px; border-radius:50%; background:rgba(27,67,50,.15); transition:all .25s; flex-shrink:0; }
+    .lesson-dot.visited { background:var(--green-light); }
+    .lesson-dot.current { width:24px; border-radius:12px; background:var(--green-dark); }
+    .lesson-tracker-label { font-size:0.78em; color:var(--green-dark); font-weight:700; margin-left:8px; white-space:nowrap; }
+    .phase-back-top { display:inline-flex; align-items:center; gap:6px; font-size:0.84em; font-weight:600; color:var(--muted); cursor:pointer; padding:0 0 20px; border:none; background:none; font-family:inherit; }
+    .phase-back-top:hover { color:var(--green-dark); }
+    @media (max-width:600px) { .lesson-tracker-label { display:none; } }
+
+    /* Access gate (lock screen) */
+    .access-gate { max-width: 620px; margin: 60px auto; background: var(--green-dark); color: white; border-radius: var(--radius-lg); padding: 48px 40px; text-align: center; }
+    .access-gate__lock { font-size: 2.6em; margin-bottom: 16px; }
+    .access-gate h2 { color: white; font-size: 1.5em; margin-bottom: 12px; }
+    .access-gate p { color: rgba(255,255,255,0.75); max-width: 460px; margin: 0 auto 24px; line-height: 1.7; font-size: 0.95em; }
+    .access-gate__steps { display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin: 0 auto 28px; text-align: left; }
+    .access-gate__step { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius); padding: 12px 16px; font-size: 0.88em; color: rgba(255,255,255,0.85); }
+    .access-gate__step .tick { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em; font-weight: 800; flex-shrink: 0; }
+    .access-gate__step.done .tick { background: var(--gold); color: var(--green-dark); }
+    .access-gate__step.todo .tick { background: rgba(255,255,255,0.15); color: white; }
+    #gate-checking { text-align: center; padding: 80px 20px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MODULE HERO -->
+<div class="module-hero">
+  <div style="max-width:1440px; margin:0 auto;">
+    <span class="eyebrow eyebrow--light">Module 3 &middot; Core Course &middot; Fairness &amp; Human Accountability</span>
+    <h1>Bias &amp; Discrimination</h1>
+    <p class="lead">Discrimination can happen without discriminatory intent. In South Africa, AI trained on historical data carries the weight of apartheid and structural inequality forward &mdash; often invisibly. This module shows you how bias enters, how South African law sees it, and how to audit any tool for it.</p>
+    <div class="m0-objectives"><strong>By the end of this module, you will be able to:</strong><ol>
+      <li>Define algorithmic bias in plain language for a non-technical audience</li>
+      <li>Tell disparate treatment from disparate impact &mdash; and spot proxy discrimination</li>
+      <li>Analyse an AI recommendation for disparate impact on a protected group</li>
+      <li>Apply an equity lens to AI deployment decisions in your sector</li>
+      <li>Name who is accountable under South African law when AI discriminates</li>
+    </ol></div>
+    <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">90 minutes &middot; 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">SA Case: Predictive Policing &amp; Spatial Profiling</span>
+      <span style="font-size:0.85em; color:var(--gold); font-weight:600;">Funda Five theme: Fairness &amp; Human Accountability</span>
+    </div>
+  </div>
+</div>
+
+<!-- GATE: checking access -->
+<div id="gate-checking">Checking your access&hellip;</div>
+
+<!-- GATE: locked -->
+<div id="module-locked" class="access-gate" style="display:none;">
+  <div class="access-gate__lock">🔒</div>
+  <h2 id="gate-title">Complete Module 2 to unlock Module 3</h2>
+  <p id="gate-msg">Module 3 builds directly on Module 2. Finish all four phases of Module 2 first &mdash; then this module unlocks automatically.</p>
+  <div class="access-gate__steps">
+    <div class="access-gate__step done" id="gate-step-0"><span class="tick">✓</span> <span>Module 1 &mdash; What AI Actually Is</span></div>
+    <div class="access-gate__step todo" id="gate-step-1"><span class="tick">2</span> <span>Module 2 &mdash; How AI Learns &amp; Fails</span></div>
+    <div class="access-gate__step todo" id="gate-step-2"><span class="tick">3</span> <span>Module 3 &mdash; Bias &amp; Discrimination</span></div>
+  </div>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a id="gate-cta" href="module-2.html" class="btn btn--gold btn--lg">Go to Module 2 &rarr;</a>
+    <a href="dashboard.html" class="btn" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.3); padding:14px 24px; font-size:0.92em; font-weight:600; border-radius:var(--radius); text-decoration:none;">My Dashboard</a>
+  </div>
+</div>
+
+<!-- MODULE CONTENT (revealed once unlocked) -->
+<div id="module-content" style="display:none;">
+
+<!-- PROGRESS TRACKER -->
+<div class="progress-sticky-wrap">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 3 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+      <div class="progress-step is-active" id="prog-0">1 · Concept</div>
+      <div class="progress-step" id="prog-1">2 · Encounter</div>
+      <div class="progress-step" id="prog-2">3 · Reflect</div>
+      <div class="progress-step" id="prog-3">4 · Apply</div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-pale">
+  <div class="container">
+
+    <!-- PHASE 1: CONCEPT -->
+    <div class="phase is-active" id="phase-0">
+      <div class="phase__header">
+        <div class="phase__num">1</div>
+        <div>
+          <div class="phase__title">Concept &mdash; Bias, disparate impact &amp; SA law</div>
+          <div class="phase__subtitle">The mental model before the case study &middot; ~25 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-0-content">
+
+        <!-- Lesson progress tracker -->
+        <div class="lesson-tracker" id="lesson-progress-bar">
+          <div class="lesson-dot current" id="ldot-1"></div>
+          <div class="lesson-dot" id="ldot-2"></div>
+          <div class="lesson-dot" id="ldot-3"></div>
+          <div class="lesson-dot" id="ldot-4"></div>
+          <div class="lesson-dot" id="ldot-5"></div>
+          <div class="lesson-dot" id="ldot-6"></div>
+          <div class="lesson-dot" id="ldot-7"></div>
+          <span class="lesson-tracker-label" id="lesson-label">Lesson 1 of 7 &mdash; What algorithmic bias really is</span>
+        </div>
+
+        <!-- Framing -->
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:24px 28px; margin-bottom:40px;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:14px;">The big idea</p>
+          <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7; margin-top:0;">Algorithmic bias is rarely a glitch, and rarely malice. It is what happens when a system learns from an unequal past and then applies those patterns at scale &mdash; fast, cheaply, and wearing a mask of objectivity.</p>
+          <p style="margin-bottom:0; font-size:0.92em; line-height:1.7;">In South Africa, &ldquo;the past&rdquo; carries the weight of apartheid spatial planning and structural inequality. This phase gives you the vocabulary &mdash; <strong>disparate impact</strong> and <strong>proxy discrimination</strong> &mdash; and the South African law that governs both.</p>
+        </div>
+
+        <!-- Lesson 1 -->
+        <div id="m0l-1" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 1</span>
+            <h3 style="margin:0; font-size:1.15em;">What algorithmic bias really is</h3>
+          </div>
+          <p>Forget the word &ldquo;bias&rdquo; for a second. The thing we actually care about is <strong>systematically worse outcomes for a particular group</strong> &mdash; produced by an AI system, because of the data it learned from or how it was built.</p>
+          <div class="concept-block">
+            <h4>Plain-language definition</h4>
+            <p style="margin:0;">Algorithmic bias is when an AI system gives consistently different &mdash; and unfair &mdash; results to people based on race, gender, age, disability, language, or where they live, <strong>even when no one intended it to</strong>.</p>
+          </div>
+          <p style="margin-top:16px;">Two things follow from that definition, and both matter:</p>
+          <ul style="padding-left:20px; line-height:1.9; font-size:0.93em;">
+            <li><strong>It is about groups and patterns</strong>, not a single wrong answer. One mistake is an error; a pattern of mistakes that lands on the same group is bias.</li>
+            <li><strong>Intent is not required.</strong> A system can discriminate while everyone who built it had good intentions. That is the part most people get wrong.</li>
+          </ul>
+        </div>
+
+        <!-- Lesson 2 -->
+        <div id="m0l-2" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 2</span>
+            <h3 style="margin:0; font-size:1.15em;">Disparate treatment vs disparate impact</h3>
+          </div>
+          <p>The law &mdash; and good judgement &mdash; recognises two very different ways a decision can be unfair. Telling them apart is the single most useful skill in this module.</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0;">
+            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--bg);">
+              <p style="font-size:0.72em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Disparate treatment</p>
+              <p style="margin:0 0 8px; font-weight:700; color:var(--green-dark);">Treating someone differently <em>because of</em> a protected attribute.</p>
+              <p style="margin:0; font-size:0.88em; color:var(--muted);">Overt and usually obvious &mdash; e.g. &ldquo;reject applicants from group X.&rdquo; Rare in AI, because no one codes it openly.</p>
+            </div>
+            <div style="border:1.5px solid #FCA5A5; border-radius:var(--radius-lg); padding:18px 20px; background:#FFF5F5;">
+              <p style="font-size:0.72em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Disparate impact</p>
+              <p style="margin:0 0 8px; font-weight:700; color:#7F1D1D;">A neutral-looking rule that lands harder on a protected group.</p>
+              <p style="margin:0; font-size:0.88em; color:#7F1D1D;">Invisible and common &mdash; the rule never mentions the group, but the <em>outcomes</em> fall unequally. <strong>This is the AI problem.</strong></p>
+            </div>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
+            <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Example</p>
+            <p style="margin:0; font-size:0.92em;">A lender&rsquo;s AI never asks an applicant&rsquo;s race. But it rejects applicants from certain townships far more often. No disparate <em>treatment</em> &mdash; clear disparate <em>impact</em>. The harm is identical; only the mechanism is hidden.</p>
+          </div>
+        </div>
+
+        <!-- Lesson 3 -->
+        <div id="m0l-3" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 3</span>
+            <h3 style="margin:0; font-size:1.15em;">Proxy discrimination &mdash; the postal-code problem</h3>
+          </div>
+          <p>&ldquo;Just remove race and gender from the data and the AI can&rsquo;t discriminate.&rdquo; It sounds right. It is wrong &mdash; because of <strong>proxies</strong>.</p>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">!</span><strong>A proxy is an innocent-looking feature that stands in for a protected one</strong></div>
+            <div class="fail-card__body">
+              <p class="fail-card__eg">Postal code &rarr; race &nbsp;&middot;&nbsp; First language &rarr; ethnicity &nbsp;&middot;&nbsp; School attended &rarr; class &nbsp;&middot;&nbsp; Name &rarr; gender / ethnicity &nbsp;&middot;&nbsp; Phone &amp; device &rarr; income</p>
+              <p style="margin-top:12px;">In South Africa, <strong>location is the most powerful proxy of all.</strong> Apartheid engineered where people live by race &mdash; so a model that uses suburb or postal code can discriminate by race almost perfectly, without ever seeing the word &ldquo;race.&rdquo;</p>
+            </div>
+          </div>
+          <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
+            <strong>Takeaway:</strong> Deleting the protected field does not make a model fair. The bias hides in the proxies that remain.
+          </div>
+        </div>
+
+        <!-- Lesson 4 -->
+        <div id="m0l-4" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 4</span>
+            <h3 style="margin:0; font-size:1.15em;">Where bias enters the pipeline</h3>
+          </div>
+          <p>Bias is not one thing in one place. It can enter at several points &mdash; you met some of these as &ldquo;failure modes&rdquo; in Module 2. Here they are through an equity lens:</p>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">1</span><strong>Historical bias</strong></div>
+            <div class="fail-card__body"><p style="margin:0;">The past was unequal, so data drawn from it is unequal. The model learns &ldquo;this is normal.&rdquo;</p></div>
+          </div>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">2</span><strong>Sample / representation bias</strong></div>
+            <div class="fail-card__body"><p style="margin:0;">Some groups are under-represented in the data (few rural, informal, or women-owned records), so the model&rsquo;s patterns for them are thin and unreliable.</p></div>
+          </div>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">3</span><strong>Label bias</strong></div>
+            <div class="fail-card__body"><p style="margin:0;">Someone had to decide what counted as a &ldquo;good hire&rdquo; or &ldquo;high performer.&rdquo; If those past human judgements were biased, the AI inherits that definition.</p></div>
+          </div>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">4</span><strong>Proxy features &amp; feedback loops</strong></div>
+            <div class="fail-card__body"><p style="margin:0;">Proxies (Lesson 3) smuggle protected attributes back in; feedback loops (Module 2) make a biased prediction come true and then cite itself as proof.</p></div>
+          </div>
+        </div>
+
+        <!-- Lesson 5 -->
+        <div id="m0l-5" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 5</span>
+            <h3 style="margin:0; font-size:1.15em;">The South African legal lens</h3>
+          </div>
+          <p>This is where South Africa is different from a generic &ldquo;AI ethics&rdquo; course. Unfair discrimination &mdash; <em>including the indirect, no-intent kind</em> &mdash; is already unlawful here. AI does not get an exemption.</p>
+          <div class="concept-block">
+            <h4>The instruments that already apply to AI decisions</h4>
+            <ul style="margin:8px 0 0; padding-left:20px; line-height:1.9; font-size:0.92em;">
+              <li><strong>Constitution, s9 (Equality):</strong> prohibits unfair discrimination, <strong>direct or indirect</strong>, on listed grounds (race, gender, age, disability, language, and more).</li>
+              <li><strong>PEPUDA / Equality Act (Act 4 of 2000):</strong> outlaws unfair discrimination including <strong>indirect</strong> discrimination &mdash; a neutral rule with a discriminatory effect. Intent is <em>not</em> required to be liable.</li>
+              <li><strong>Employment Equity Act:</strong> governs fair hiring, promotion and assessment &mdash; so AI CV-screening and scoring tools fall squarely under it.</li>
+              <li><strong>POPIA, s71:</strong> gives people the right not to be subject to a decision based <strong>solely on automated processing</strong> that significantly affects them &mdash; and the right to ask for human intervention.</li>
+              <li><strong>National Credit Act:</strong> governs fairness and transparency in credit decisions, including automated scoring.</li>
+            </ul>
+          </div>
+          <div style="background:#FFF5F5; border:1px solid #FCA5A5; border-radius:var(--radius-lg); padding:16px 20px; margin-top:16px;">
+            <p style="margin:0; font-size:0.93em; color:#7F1D1D;"><strong>The line that matters:</strong> in South African law, &ldquo;we didn&rsquo;t mean to&rdquo; is not a defence. <strong>Indirect discrimination is unlawful even with no intent.</strong></p>
+          </div>
+        </div>
+
+        <!-- Lesson 6 -->
+        <div id="m0l-6" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 6</span>
+            <h3 style="margin:0; font-size:1.15em;">The &ldquo;objective machine&rdquo; trap</h3>
+          </div>
+          <p>Why is AI bias often <em>more</em> dangerous than human bias? Because of how much we trust a number that came from a computer.</p>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">⚠</span><strong>Automation bias</strong></div>
+            <div class="fail-card__body">
+              <p style="margin:0 0 12px;">People defer to a machine&rsquo;s output more than to a colleague&rsquo;s opinion &mdash; even when the machine is wrong. A biased recommendation gets a free pass because &ldquo;the system said so.&rdquo;</p>
+              <p class="fail-card__eg">Human bias is one person, sometimes. AI bias is <strong>scaled, consistent, instant &mdash; and wears a mask of neutrality.</strong></p>
+            </div>
+          </div>
+          <p style="margin-top:14px; font-size:0.93em;">&ldquo;It&rsquo;s just maths, it can&rsquo;t be racist&rdquo; is the trap. The maths is real; the <em>data and the definitions</em> behind it carry human history.</p>
+        </div>
+
+        <!-- Lesson 7 -->
+        <div id="m0l-7" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 7</span>
+            <h3 style="margin:0; font-size:1.15em;">Detecting it: the disparate-impact test</h3>
+          </div>
+          <p>You cannot fix what you cannot see. The practical way to check any tool is to <strong>compare outcomes across groups</strong> &mdash; the test you&rsquo;ll run in Phase 4.</p>
+          <div class="concept-block">
+            <h4>Four questions that surface bias</h4>
+            <ol style="margin:8px 0 0; padding-left:20px; line-height:1.9; font-size:0.92em;">
+              <li><strong>Outcomes by group:</strong> are approval / flag / score rates very different across race, gender, or area?</li>
+              <li><strong>Proxies:</strong> does the model use location, school, language, name, or device?</li>
+              <li><strong>Who&rsquo;s missing:</strong> which groups are thin or absent in the training data?</li>
+              <li><strong>Explainability:</strong> can you explain a single decision to the person it affected?</li>
+            </ol>
+          </div>
+          <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
+            <strong>Rule of thumb:</strong> if you can&rsquo;t measure outcomes by group, you can&rsquo;t claim the system is fair &mdash; you&rsquo;re only assuming it.
+          </div>
+        </div>
+
+        <!-- Closing principle -->
+        <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:40px 36px; margin-bottom:40px; text-align:center;">
+          <span style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85); font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:20px; display:inline-block; margin-bottom:20px;">The key principle</span>
+          <h3 style="color:var(--gold); font-size:1.5em; margin:0 0 16px; line-height:1.3;">Fairness is not the default.<br>It is a design decision &mdash; and a legal duty.</h3>
+          <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto; line-height:1.8; font-size:0.95em;">AI inherits the inequality in its data and hands it back wearing the mask of objectivity. Detecting and correcting that is a <strong style="color:white;">human responsibility</strong> &mdash; and in South Africa, a legal one.</p>
+        </div>
+
+        <div class="phase-nav" style="justify-content:flex-end;">
+          <button class="btn btn--primary" onclick="showScreen(0,'quiz')">Take the demonstration check &rarr;</button>
+        </div>
+        </div><!-- /ps-0-content -->
+
+        <div class="phase-screen" id="ps-0-quiz">
+        <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
+          <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">8 questions &middot; you must get <strong style="color:white;">all 8</strong> right to continue</span>
+          </div>
+
+          <!-- AI Tutor verdict banner -->
+          <div id="tutor-verdict" style="display:none; padding:18px 24px; border-bottom:1px solid var(--border);"></div>
+
+          <div style="padding:28px;">
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">1. In plain language, what is algorithmic bias?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q0" value="0"> <span>A software bug that crashes the system for some users</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q0" value="1"> <span>When an AI produces systematically worse outcomes for a group, because of its data or design</span></label>
+                <label class="quiz-opt"><input type="radio" name="q0" value="2"> <span>A single wrong answer the AI gives now and then</span></label>
+                <label class="quiz-opt"><input type="radio" name="q0" value="3"> <span>Deliberate prejudice that a developer secretly coded in</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-0"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">2. An AI loan tool never uses race, yet rejects applicants from certain townships far more often. This is best described as:</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q1" value="0"> <span>Disparate treatment &mdash; it treats people differently by race directly</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q1" value="1"> <span>Disparate impact &mdash; a neutral rule that lands harder on a protected group</span></label>
+                <label class="quiz-opt"><input type="radio" name="q1" value="2"> <span>Not discrimination at all, since race was never used</span></label>
+                <label class="quiz-opt"><input type="radio" name="q1" value="3"> <span>A random error with no pattern</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-1"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">3. A team removes the &ldquo;race&rdquo; field from their data and says the model is now fair. Why might it still discriminate?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q2" value="0"> <span>It can&rsquo;t &mdash; removing the field guarantees fairness</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q2" value="1"> <span>Proxies like postal code, school or language still stand in for race</span></label>
+                <label class="quiz-opt"><input type="radio" name="q2" value="2"> <span>The AI memorised the race field before it was deleted</span></label>
+                <label class="quiz-opt"><input type="radio" name="q2" value="3"> <span>Only if someone re-adds the field later</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-2"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">4. In the South African context, why is <em>location</em> such a powerful proxy?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q3" value="0"> <span>Postal codes are randomly assigned, so they add useful noise</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q3" value="1"> <span>Apartheid engineered where people live by race, so area closely tracks race</span></label>
+                <label class="quiz-opt"><input type="radio" name="q3" value="2"> <span>Location data is always inaccurate, so the model ignores it</span></label>
+                <label class="quiz-opt"><input type="radio" name="q3" value="3"> <span>It only matters for delivery and logistics, never credit or hiring</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-3"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">5. Under South African law (the Constitution and PEPUDA), unfair discrimination&hellip;</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q4" value="0"> <span>Only counts if someone intended to discriminate</span></label>
+                <label class="quiz-opt"><input type="radio" name="q4" value="1"> <span>Does not apply to software, only to people</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q4" value="2"> <span>Includes indirect discrimination &mdash; a neutral rule with a discriminatory effect, even with no intent</span></label>
+                <label class="quiz-opt"><input type="radio" name="q4" value="3"> <span>Is only about race, not gender, age or disability</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-4"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">6. POPIA section 71 gives a person affected by a significant, fully automated decision the right to:</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q5" value="0"> <span>A free copy of the software&rsquo;s source code</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q5" value="1"> <span>Not be subject to a decision based solely on automated processing &mdash; and to ask for human intervention</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="2"> <span>Have the decision deleted from the internet</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="3"> <span>Nothing &mdash; automated decisions are unregulated in SA</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-5"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. Why is AI bias often <em>more</em> dangerous than an individual&rsquo;s bias?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q6" value="0"> <span>Computers are incapable of being accurate</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="1"> <span>It only affects people online</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q6" value="2"> <span>It is scaled, consistent and instant &mdash; and people defer to it because &ldquo;the system said so&rdquo; (automation bias)</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="3"> <span>It is easier to notice than human bias</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-6"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">8. What is the most practical first step to check whether a tool has a disparate impact?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q7" value="0"> <span>Ask the vendor whether the model is fair and trust the answer</span></label>
+                <label class="quiz-opt"><input type="radio" name="q7" value="1"> <span>Confirm the &ldquo;race&rdquo; and &ldquo;gender&rdquo; fields were deleted</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q7" value="2"> <span>Compare outcome rates across groups &mdash; if they differ sharply, investigate</span></label>
+                <label class="quiz-opt"><input type="radio" name="q7" value="3"> <span>Assume it&rsquo;s fair because a computer produced it</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-7"></div>
+            </div>
+
+            <div id="quiz-submit-wrap">
+              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
+              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(0,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--primary" id="quiz-advance" style="display:none" onclick="advancePhase(0)">Continue to Encounter &rarr;</button>
+        </div>
+        </div><!-- /ps-0-quiz -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-0 -->
+
+  </div>
+  <div class="container">
+
+    <!-- PHASE 2: ENCOUNTER -->
+    <div class="phase" id="phase-1">
+      <div class="phase__header">
+        <div class="phase__num">2</div>
+        <div>
+          <div class="phase__title">Encounter &mdash; Predictive policing: who gets flagged?</div>
+          <div class="phase__subtitle">A South African profiling scenario &middot; ~20 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-1-content">
+        <button type="button" class="phase-back-top" onclick="goBack(0)">&larr; Back to Concept</button>
+
+        <!-- Case study -->
+        <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:28px;">
+          <div style="background:var(--navy); color:white; padding:16px 24px;">
+            <span style="font-size:0.72em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold);">Scenario &middot; Public Sector</span>
+            <div style="font-size:1.1em; font-weight:700; margin-top:4px;">A &ldquo;data-driven&rdquo; predictive policing tool</div>
+          </div>
+          <div style="padding:24px 28px;">
+            <p style="margin-top:0;">A metro police department buys an AI system to decide <strong>where to send patrols</strong>. The vendor&rsquo;s pitch:</p>
+            <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:16px 22px; border-radius:0 var(--radius) var(--radius) 0; margin:16px 0; font-style:italic; font-size:1.05em;">&ldquo;Objective, data-driven policing. The algorithm sends officers where crime will happen &mdash; no human bias.&rdquo;</div>
+            <p>The model learns from the department&rsquo;s records: <strong>past arrests &amp; reported crime</strong> &middot; location / suburb &middot; time of day &middot; prior call-outs. It never uses race.</p>
+
+            <div style="background:#FFF5F5; border:1px solid #FCA5A5; border-radius:var(--radius-lg); padding:18px 22px; margin:20px 0;">
+              <p style="font-size:0.78em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 10px;">Three months later</p>
+              <ul style="margin:0; padding-left:18px; font-size:0.92em; line-height:1.9; color:#7F1D1D;">
+                <li>Patrols are concentrated in a handful of low-income, historically Black townships</li>
+                <li>More officers there &rarr; more stops &rarr; more arrests &mdash; which the model reads as &ldquo;more crime&rdquo;</li>
+                <li>Wealthier suburbs are barely patrolled, so little is recorded there</li>
+                <li>Residents say they are being watched because of where they live, not what they did</li>
+              </ul>
+            </div>
+
+            <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:22px 26px; margin-top:20px;">
+              <p style="font-size:0.72em; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin:0 0 10px;">In the oversight meeting</p>
+              <p style="margin:0; font-size:1.05em; line-height:1.6; color:white; font-style:italic;">&ldquo;We removed race from the model. How can it possibly be profiling by race?&rdquo;</p>
+              <p style="margin:10px 0 0; font-size:0.85em; color:rgba(255,255,255,0.6);">&mdash; The project lead</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diagnose interaction -->
+        <h3 style="margin-bottom:6px;">Diagnose it: where does the bias come from?</h3>
+        <p style="font-size:0.88em; color:var(--muted);">Click each factor once to mark it a <strong style="color:#DC2626;">likely bias source</strong> &middot; click again to mark <strong style="color:var(--gold-dark);">not the cause</strong> &middot; a third click clears it. Then reveal the answers.</p>
+
+        <div class="activity-grid" id="diagnoseGrid">
+          <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
+            <div class="activity-card__icon">📈</div>
+            <div class="activity-card__name">Past arrest &amp; crime records</div>
+            <div class="activity-card__hint">What the model learns &ldquo;crime&rdquo; looks like</div>
+            <span class="reveal-badge">Bias source ✓</span>
+            <div class="reveal-explanation">Arrest data records where police <em>went and looked</em>, not where crime actually is. Decades of over-policing some areas become the model&rsquo;s definition of &ldquo;high crime.&rdquo; Historical bias, baked in.</div>
+          </div>
+          <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
+            <div class="activity-card__icon">📍</div>
+            <div class="activity-card__name">Location / suburb</div>
+            <div class="activity-card__hint">Where the incident or person is</div>
+            <span class="reveal-badge">Bias source ✓</span>
+            <div class="reveal-explanation">In South Africa, suburb is a near-perfect proxy for race because of apartheid spatial planning. The model profiles by race without ever using the word.</div>
+          </div>
+          <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
+            <div class="activity-card__icon">🔁</div>
+            <div class="activity-card__name">&ldquo;More patrols → more arrests&rdquo;</div>
+            <div class="activity-card__hint">How the system updates itself</div>
+            <span class="reveal-badge">Bias source ✓</span>
+            <div class="reveal-explanation">A feedback loop. Sending patrols to an area produces more recorded arrests there, which the model treats as proof it was right &mdash; so it sends even more. The prediction causes the data.</div>
+          </div>
+          <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
+            <div class="activity-card__icon">🏘️</div>
+            <div class="activity-card__name">Wealthy suburbs barely recorded</div>
+            <div class="activity-card__hint">Thin data for some areas</div>
+            <span class="reveal-badge">Bias source ✓</span>
+            <div class="reveal-explanation">Missing data. Crime that is never reported or policed in well-off areas is invisible to the model, so those areas look &ldquo;safe&rdquo; by default &mdash; widening the gap.</div>
+          </div>
+          <div class="activity-card" data-answer="not" onclick="sortCard(this)">
+            <div class="activity-card__icon">🤖</div>
+            <div class="activity-card__name">The AI &ldquo;decided&rdquo; to target a race</div>
+            <div class="activity-card__hint">A deliberate choice by the system</div>
+            <span class="reveal-badge">Not the cause ✗</span>
+            <div class="reveal-explanation">AI has no intent. It didn&rsquo;t choose to profile anyone &mdash; it learned a pattern from biased records and proxies. The discrimination is real, but inherited, not decided.</div>
+          </div>
+          <div class="activity-card" data-answer="not" onclick="sortCard(this)">
+            <div class="activity-card__icon">🗑️</div>
+            <div class="activity-card__name">Race was removed, so it&rsquo;s fair</div>
+            <div class="activity-card__hint">The project lead&rsquo;s assumption</div>
+            <span class="reveal-badge">Not the cause ✗</span>
+            <div class="reveal-explanation">This is the trap, not the fix. Removing race changes nothing while location and arrest history act as proxies for it. The outcome is still disparate impact.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button class="btn btn--outline btn--sm" onclick="revealAnswers()">Reveal answers</button>
+        </div>
+        <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Click on at least a few factors before revealing.</div>
+
+        <!-- Principles after reveal -->
+        <div id="encounter-principles" style="display:none; margin-top:32px;">
+          <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+            <div style="flex:1; height:1px; background:var(--border);"></div>
+            <span style="font-size:0.78em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1.2px; white-space:nowrap;">What this case teaches</span>
+            <div style="flex:1; height:1px; background:var(--border);"></div>
+          </div>
+          <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:28px 32px;">
+            <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">&ldquo;We removed race&rdquo; misses the point</p>
+            <p style="font-size:1.05em; font-weight:700; color:white; margin-bottom:12px; line-height:1.5;">Three mechanisms from Phase 1 are running at once.</p>
+            <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;"><strong style="color:white;">Proxy discrimination</strong> (suburb stands in for race), <strong style="color:white;">a feedback loop</strong> (patrols manufacture the arrests that justify more patrols), and <strong style="color:white;">missing data</strong> (unrecorded crime in wealthy areas). The result is textbook <strong style="color:white;">disparate impact</strong> &mdash; profiling by race with the race field deleted.</p>
+            <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;">Under the Constitution and PEPUDA this is <strong style="color:var(--gold);">indirect discrimination</strong> &mdash; unlawful regardless of intent. Accountability sits with the <strong style="color:var(--gold);">department and officials who deployed it</strong>, not the algorithm. &ldquo;The system flagged it&rdquo; is not a defence.</p>
+          </div>
+          <div style="margin-top:24px; text-align:right;">
+            <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(1)">Continue to Reflect &rarr;</button>
+          </div>
+        </div>
+        <div class="phase-nav" style="justify-content:flex-start;">
+          <button type="button" class="btn btn--outline" onclick="goBack(0)">&larr; Concept</button>
+        </div>
+        </div><!-- /ps-1-content -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-1 -->
+
+    <!-- PHASE 3: REFLECT -->
+    <div class="phase" id="phase-2">
+      <div class="phase__header">
+        <div class="phase__num">3</div>
+        <div>
+          <div class="phase__title">Reflect &mdash; What assumptions are built in?</div>
+          <div class="phase__subtitle">Surfacing the values hidden in a model &middot; ~20 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-2-reflect">
+        <button type="button" class="phase-back-top" onclick="goBack(1)">&larr; Back to Encounter</button>
+        <p>Every model carries hidden assumptions &mdash; decisions about what to measure, what counts as &ldquo;success,&rdquo; and whose history to learn from. The policing tool assumed <em>&ldquo;where we arrested before = where crime is.&rdquo;</em> That one assumption did the damage. Now turn the lens on your own world.</p>
+
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
+          <p style="font-weight:700; margin-bottom:14px;">Assumptions hide in ordinary choices&hellip;</p>
+          <ul style="margin:0; padding-left:18px; font-size:0.9em; line-height:1.9; color:var(--text);">
+            <li><strong>Hiring:</strong> &ldquo;good candidates look like the people we hired before&rdquo; &mdash; which schools, which names, which areas?</li>
+            <li><strong>Credit &amp; insurance:</strong> &ldquo;this area is high-risk&rdquo; &mdash; risk of what, measured how, inherited from when?</li>
+            <li><strong>Performance:</strong> &ldquo;a high performer is someone like our current top performers&rdquo; &mdash; defined by whom?</li>
+          </ul>
+          <p style="margin:14px 0 0; font-size:0.9em; color:var(--muted);">Each is a value judgement dressed as a data field.</p>
+        </div>
+
+        <div style="margin: 20px 0;">
+          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;">1. The policing model assumed &ldquo;past arrests = future crime.&rdquo; What is wrong with that assumption in the South African context?</label>
+          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Arrests reflect where police looked, shaped by apartheid-era over-policing — not where crime actually is..."></textarea>
+        </div>
+
+        <div style="margin: 20px 0;">
+          <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">2. In your sector, which group could be harmed by a neutral-looking rule (a disparate impact) &mdash; and through which decision?</label>
+          <textarea id="reflect-2" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Rural or informal-economy applicants screened out by a &lsquo;thin credit file = high risk&rsquo; rule..."></textarea>
+        </div>
+
+        <div style="margin: 20px 0;">
+          <label for="reflect-3" style="display:block; font-weight:600; margin-bottom:8px;">3. Name one proxy in your industry&rsquo;s data that could stand in for race, gender, or class &mdash; and explain how.</label>
+          <textarea id="reflect-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Postal code → race; first language → ethnicity; device type → income..."></textarea>
+        </div>
+
+        <div class="callout">
+          <strong>One question to sit with:</strong> If you removed every protected attribute from your data tomorrow, would your model actually be fair &mdash; or just harder to interrogate?
+        </div>
+
+        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in all three boxes before continuing.</div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goBack(1)">&larr; Encounter</button>
+          <button type="button" class="btn btn--primary" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
+        </div>
+        </div><!-- /ps-2-reflect -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-2 -->
+
+    <!-- PHASE 4: APPLY -->
+    <div class="phase" id="phase-3">
+      <div class="phase__header">
+        <div class="phase__num">4</div>
+        <div>
+          <div class="phase__title">Apply &mdash; Equity audit of a tool in your sector</div>
+          <div class="phase__subtitle">Produce your AI Equity Audit &middot; ~25 min</div>
+        </div>
+      </div>
+      <div class="phase__body">
+        <div class="phase-screen is-active" id="ps-3-content">
+        <button type="button" class="phase-back-top" onclick="goBack(2)">&larr; Back to Reflect</button>
+        <p>Pick <strong>one AI system used (or being considered) in your sector</strong> &mdash; CV screening, credit or insurance scoring, fraud flags, a chatbot, tenant or customer scoring, predictive scheduling. Run the disparate-impact test on it.</p>
+
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
+          <p style="font-weight:700; margin-bottom:6px;">AI Equity Audit worksheet</p>
+          <p style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">Fill in what you can &mdash; the gaps you can't fill are findings in themselves.</p>
+          <table class="worksheet">
+            <thead><tr><th>Question</th><th>Your answer</th></tr></thead>
+            <tbody>
+              <tr><td>Which AI tool are you auditing?</td><td><input type="text" id="ws-0" placeholder="e.g. CV-screening tool"></td></tr>
+              <tr><td>What decision does it drive?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
+              <tr><td>Which protected groups could be affected?</td><td><input type="text" id="ws-2" placeholder="e.g. by race, gender, age, disability"></td></tr>
+              <tr><td>What proxies are in its data?</td><td><input type="text" id="ws-3" placeholder="e.g. postal code, school, name, language"></td></tr>
+              <tr><td>Disparate-impact check: do outcomes differ by group?</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area — measured? unknown?"></td></tr>
+              <tr><td>Who is harmed if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. qualified rural applicants filtered out"></td></tr>
+              <tr><td>What legal exposure applies?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / EEA / POPIA s71"></td></tr>
+              <tr><td>What human oversight exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / none yet"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background:var(--white); border:1.5px solid var(--gold); border-radius:var(--radius-lg); padding:22px 26px; margin:20px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Apply the equity lens</p>
+          <div style="margin-bottom:14px;">
+            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">1. Where could this tool produce a disparate impact &mdash; and through which proxy?</label>
+            <textarea id="apply-1" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name the group, the neutral-looking rule, and the proxy that carries the bias..."></textarea>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">2. How would you detect it &mdash; what would you measure, by which groups?</label>
+            <textarea id="apply-2" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. compare approval/flag rates across race and gender; flag a gap above X%..."></textarea>
+          </div>
+          <div>
+            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">3. Who is accountable under SA law if it discriminates &mdash; and what is your one recommended control?</label>
+            <textarea id="apply-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name a real person or role &mdash; not 'the system' &mdash; and one fix (e.g. group fairness check, human review, drop a proxy)..."></textarea>
+          </div>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 3 &rarr;</button>
+        </div>
+        <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete the Funda Five questions before finishing the module.</div>
+        <div class="phase-nav" style="justify-content:flex-start;">
+          <button type="button" class="btn btn--outline" onclick="goBack(2)">&larr; Reflect</button>
+        </div>
+        </div><!-- /ps-3-content -->
+      </div><!-- /phase__body -->
+    </div><!-- /phase-3 -->
+
+    <!-- MODULE COMPLETE -->
+    <div id="module-complete" style="display:none;" class="preview-end">
+      <h2>Module 3 complete.</h2>
+      <p>You can now define algorithmic bias in plain language, tell disparate treatment from disparate impact, spot proxy discrimination, name the South African law that applies &mdash; and run an equity audit on a real tool in your sector.</p>
+      <p style="color:rgba(255,255,255,0.55); font-size:0.85em; margin-bottom:24px;">Your equity-audit worksheet and answers have been recorded and will be reviewed as part of Cohort 1 assessment.</p>
+      <div class="preview-end-phases">
+        <span class="preview-phase">✅ What algorithmic bias is</span>
+        <span class="preview-phase">✅ Disparate impact &amp; proxies</span>
+        <span class="preview-phase">✅ The SA legal lens</span>
+        <span class="preview-phase">✅ Audited a tool for equity</span>
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="dashboard.html" class="btn btn--gold btn--lg">Back to my dashboard &rarr;</a>
+        <a href="course-outline.html" class="btn btn--white btn--lg">See what's next</a>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</section>
+
+</div><!-- /module-content -->
+
+<footer>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+</footer>
+
+<script>
+// --- Lesson progress tracker ---
+(function() {
+  var lessons = [
+    { id: 'm0l-1', label: 'Lesson 1 of 7 — What algorithmic bias really is' },
+    { id: 'm0l-2', label: 'Lesson 2 of 7 — Disparate treatment vs disparate impact' },
+    { id: 'm0l-3', label: 'Lesson 3 of 7 — Proxy discrimination' },
+    { id: 'm0l-4', label: 'Lesson 4 of 7 — Where bias enters the pipeline' },
+    { id: 'm0l-5', label: 'Lesson 5 of 7 — The South African legal lens' },
+    { id: 'm0l-6', label: 'Lesson 6 of 7 — The "objective machine" trap' },
+    { id: 'm0l-7', label: 'Lesson 7 of 7 — Detecting it: the disparate-impact test' },
+  ];
+  var current = 0;
+  function setLesson(n) {
+    if (n === current) return;
+    current = n;
+    lessons.forEach(function(_, i) {
+      var dot = document.getElementById('ldot-' + (i + 1));
+      if (!dot) return;
+      dot.className = 'lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
+    });
+    var lbl = document.getElementById('lesson-label');
+    if (lbl) lbl.textContent = lessons[n].label;
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!window.IntersectionObserver) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var idx = lessons.findIndex(function(l) { return l.id === entry.target.id; });
+        if (idx >= 0) setLesson(idx);
+      });
+    }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
+    lessons.forEach(function(l) {
+      var el = document.getElementById(l.id);
+      if (el) obs.observe(el);
+    });
+  });
+})();
+
+// --- Slideshow navigation ---
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function(s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  saveM3Pos(n, null);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  saveM3Pos(phaseNum, screenId);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack(toPhase) { showPhase(toPhase); }
+
+// Remember exactly where the learner is so they resume mid-session.
+function saveM3Pos(phase, screen) {
+  if (!window._m3Uid) return;
+  try { localStorage.setItem('afv_' + window._m3Uid + '_m3_pos', JSON.stringify({ phase: phase, screen: screen })); } catch (e) {}
+}
+
+function syncProgressAria() {
+  var bar = document.getElementById('progressBar');
+  if (bar) bar.setAttribute('aria-valuenow', bar.querySelectorAll('.is-done').length);
+}
+
+function updateTracker(activePhaseNum) {
+  [0, 1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.classList.remove('is-active');
+    if (i < activePhaseNum) { if (!step.classList.contains('is-done')) step.classList.add('is-done'); }
+    else if (i === activePhaseNum) { step.classList.add('is-active'); }
+  });
+  syncProgressAria();
+}
+
+// --- Encounter diagnose cards ---
+function sortCard(card) {
+  if (card.classList.contains('selected-not')) {
+    card.classList.remove('selected-not');
+  } else if (card.classList.contains('selected-bias')) {
+    card.classList.remove('selected-bias');
+    card.classList.add('selected-not');
+  } else {
+    card.classList.add('selected-bias');
+  }
+}
+
+function revealAnswers() {
+  var hadSelections = document.querySelectorAll('.activity-card.selected-bias, .activity-card.selected-not').length > 0;
+  document.querySelectorAll('.activity-card').forEach(function(card) {
+    card.classList.remove('selected-bias', 'selected-not');
+    card.classList.add('revealed');
+    if (card.dataset.answer === 'bias') card.classList.add('is-bias');
+    else card.classList.add('not-bias');
+  });
+  var principles = document.getElementById('encounter-principles');
+  if (principles) {
+    principles.style.display = 'block';
+    setTimeout(function() { principles.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
+  }
+}
+
+// --- Concept knowledge check: AI Tutor demonstration (must score 8/8) ---
+var QUIZ_CONCEPT_EXP = [
+  { ok: 'Exactly — bias is patterned, group-level harm from the data or design, not a one-off bug or (usually) deliberate prejudice.',
+    no: 'Algorithmic bias = systematically worse outcomes for a group, caused by the data or design. It is a pattern, not a single error — and intent is not required.' },
+  { ok: 'Right — the rule looks neutral but the outcomes fall unequally. That is disparate impact.',
+    no: 'This is disparate impact: a neutral-looking rule that lands harder on a protected group. No race field is needed for it to be discrimination.' },
+  { ok: 'Correct — proxies (postal code, school, language, name) still carry the protected attribute.',
+    no: 'Deleting the race field does not remove the bias. Proxies like postal code, school or language stand in for it.' },
+  { ok: 'Yes — apartheid spatial planning means area closely tracks race, so location discriminates by race without naming it.',
+    no: 'In South Africa, apartheid engineered where people live by race — so location is an extremely strong proxy for race.' },
+  { ok: 'Correct — the Constitution and PEPUDA prohibit indirect discrimination, with no intent required.',
+    no: 'SA law (Constitution s9, PEPUDA) covers indirect discrimination — a neutral rule with a discriminatory effect — even with no intent, across many grounds.' },
+  { ok: 'Right — POPIA s71 gives the right not to be subject to a solely-automated significant decision, and to request human intervention.',
+    no: 'POPIA s71 lets a person refuse a decision based solely on automated processing that significantly affects them, and ask for human intervention.' },
+  { ok: 'Exactly — it is scaled, consistent and instant, and automation bias makes people defer to it.',
+    no: 'AI bias is more dangerous because it is scaled, consistent and fast — and people trust it more than a human (automation bias).' },
+  { ok: 'Correct — compare outcome rates across groups; sharp differences signal disparate impact to investigate.',
+    no: 'The practical first step is to compare outcome rates across groups. If they differ sharply, you have potential disparate impact to investigate.' },
+];
+var QUIZ_CONCEPT_N = 8;
+
+// Shared AI-Tutor verdict banner markup
+function tutorVerdictHTML(pass, correct, total, msg) {
+  var head = pass ? 'Demonstrated!' : 'Not yet';
+  return '<div class="tutor-verdict__avatar">🎓</div>'
+    + '<div class="tutor-verdict__body">'
+    + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
+    + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
+    + '<div class="tutor-verdict__msg">' + msg + '</div>'
+    + '</div>';
+}
+
+function submitQuizConcept() {
+  var allAnswered = true;
+  var wrongCount = 0;
+  for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
+    var sel = document.querySelector('input[name="q' + i + '"]:checked');
+    var fb = document.getElementById('qf-' + i);
+    if (!sel) { allAnswered = false; continue; }
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    var isOk = label.dataset.correct === 'true';
+    fb.style.display = 'block';
+    if (isOk) {
+      fb.className = 'quiz-feedback tutor-note tutor-note--ok';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
+      label.classList.add('quiz-opt--ok');
+      document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      wrongCount++;
+      fb.className = 'quiz-feedback tutor-note tutor-note--no';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
+      label.classList.add('quiz-opt--no');
+    }
+  }
+  var errEl = document.getElementById('quiz-err');
+  if (!allAnswered) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Answer all ' + QUIZ_CONCEPT_N + ' questions before submitting to the AI Tutor.';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  var correct = QUIZ_CONCEPT_N - wrongCount;
+  var verdict = document.getElementById('tutor-verdict');
+  verdict.style.display = 'flex';
+
+  if (wrongCount === 0) {
+    verdict.className = 'tutor-verdict tutor-verdict--pass';
+    verdict.innerHTML = tutorVerdictHTML(true, correct, QUIZ_CONCEPT_N, 'A clean sweep. You can explain how AI learns and name every failure mode. You’ve <strong>demonstrated</strong> this, not just completed it. Continue.');
+    document.getElementById('quiz-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-advance').style.display = 'inline-block';
+  } else {
+    verdict.className = 'tutor-verdict tutor-verdict--retry';
+    verdict.innerHTML = tutorVerdictHTML(false, correct, QUIZ_CONCEPT_N, 'A demonstration means <strong>every</strong> answer right. I’ve marked the ' + wrongCount + ' to fix in red below — read each AI Tutor note, then retake the full test.');
+    document.getElementById('quiz-retake').style.display = 'inline-block';
+    var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
+    if (btn) btn.style.display = 'none';
+  }
+  verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Full retake — clears everything and lets the learner start the test over
+function retakeQuizConcept() {
+  for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
+    document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) {
+      r.checked = false; r.disabled = false;
+      var l = r.closest('label'); if (l) l.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    });
+    var fb = document.getElementById('qf-' + i);
+    if (fb) { fb.style.display = 'none'; fb.className = 'quiz-feedback'; fb.innerHTML = ''; }
+  }
+  document.getElementById('tutor-verdict').style.display = 'none';
+  document.getElementById('quiz-retake').style.display = 'none';
+  document.getElementById('quiz-err').style.display = 'none';
+  var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
+  if (btn) btn.style.display = 'inline-block';
+  var first = document.querySelector('#ps-0-quiz .quiz-q');
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// --- Phase advance ---
+function advancePhase(fromPhase) {
+  var errEl = document.getElementById('err-' + fromPhase);
+
+  if (fromPhase === 0) {
+    saveProgress('module-3', 0);
+    showPhase(1);
+    return;
+  }
+
+  if (fromPhase === 1) {
+    revealAnswers();
+    saveProgress('module-3', 1);
+    var prog1 = document.getElementById('prog-1');
+    if (prog1) { prog1.classList.remove('is-active'); prog1.classList.add('is-done'); }
+    updateTracker(2);
+    showPhase(2);
+    return;
+  }
+
+  if (fromPhase === 2) {
+    var r1 = document.getElementById('reflect-1').value.trim();
+    var r2 = document.getElementById('reflect-2').value.trim();
+    var r3 = document.getElementById('reflect-3').value.trim();
+    if (r1.length < 8 || r2.length < 8 || r3.length < 8) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Please write a few words in all three boxes before continuing.';
+      return;
+    }
+    errEl.style.display = 'none';
+    saveProgress('module-3', 2);
+    showPhase(3);
+    return;
+  }
+
+  if (fromPhase === 3) {
+    var a1 = document.getElementById('apply-1').value.trim();
+    var a2 = document.getElementById('apply-2').value.trim();
+    var a3 = document.getElementById('apply-3').value.trim();
+    if (a1.length < 5 || a2.length < 5 || a3.length < 10) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Please complete the Funda Five questions before finishing the module.';
+      return;
+    }
+    errEl.style.display = 'none';
+    saveProgress('module-3', 3);
+    [0,1,2,3].forEach(function(i) {
+      var step = document.getElementById('prog-' + i);
+      if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+    });
+    syncProgressAria();
+    document.getElementById('phase-3').classList.remove('is-active');
+    var complete = document.getElementById('module-complete');
+    complete.style.display = 'block';
+    setTimeout(function() { complete.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    return;
+  }
+}
+
+// Quiz option shuffle
+function shuffleQuizOptions() {
+  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function(label) { opts.appendChild(label); });
+  });
+}
+document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
+
+// Click a completed/active progress step to jump
+document.addEventListener('DOMContentLoaded', function() {
+  [0, 1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function() {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
+        showPhase(i);
+      }
+    });
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+  // === ACCESS GATE: must be signed in AND have completed Module 1 ===
+  (function () {
+    var checking = document.getElementById('gate-checking');
+    var locked   = document.getElementById('module-locked');
+    var content  = document.getElementById('module-content');
+
+    function showLocked(title, msg, ctaHref, ctaText, m0done, m1done) {
+      checking.style.display = 'none';
+      content.style.display = 'none';
+      locked.style.display = 'block';
+      document.getElementById('gate-title').textContent = title;
+      document.getElementById('gate-msg').textContent = msg;
+      var cta = document.getElementById('gate-cta');
+      cta.href = ctaHref; cta.textContent = ctaText;
+      // update step ticks
+      var s0 = document.getElementById('gate-step-0');
+      var s1 = document.getElementById('gate-step-1');
+      s0.className = 'access-gate__step ' + (m0done ? 'done' : 'todo');
+      s0.querySelector('.tick').textContent = m0done ? '✓' : '0';
+      s1.className = 'access-gate__step ' + (m1done ? 'done' : 'todo');
+      s1.querySelector('.tick').textContent = m1done ? '✓' : '1';
+    }
+
+    function unlock() {
+      checking.style.display = 'none';
+      locked.style.display = 'none';
+      content.style.display = 'block';
+    }
+
+    getSession().then(async function (session) {
+      await updateNavForAuth();
+
+      if (!session) {
+        showLocked(
+          'Sign in to access Module 3',
+          'Module 3 is part of the core course. Sign in to your account, then complete Module 2 to unlock it.',
+          'login.html?next=module-3.html', 'Sign in →', false, false
+        );
+        return;
+      }
+
+      var m1 = await getModuleProgress('module-1');
+      var m2 = await getModuleProgress('module-2');
+      var m1done = m1.length >= 4;
+      var m2done = m2.length >= 4;
+
+      if (!m2done) {
+        showLocked(
+          'Complete Module 2 to unlock Module 3',
+          'Module 3 builds directly on Module 2. Finish all four phases of Module 2 first — then this module unlocks automatically.',
+          'module-2.html', 'Go to Module 2 →', m1done, false
+        );
+        return;
+      }
+
+      // Unlocked — reveal content and resume exactly where the learner left off
+      unlock();
+      window._m3Uid = session.user.id;
+      var done = await getModuleProgress('module-3');
+      var savedPos = null;
+      try { savedPos = JSON.parse(localStorage.getItem('afv_' + session.user.id + '_m3_pos') || 'null'); } catch (e) {}
+      if (done.length >= 4) {
+        updateTracker(4);
+        var complete = document.getElementById('module-complete');
+        if (complete) complete.style.display = 'block';
+      } else {
+        done.forEach(function (phase) {
+          var step = document.getElementById('prog-' + phase);
+          if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+        });
+        var targetPhase = done.length;
+        var targetScreen = (savedPos && savedPos.phase === targetPhase) ? savedPos.screen : null;
+        if (targetPhase > 0 || targetScreen) {
+          showPhase(targetPhase);
+          if (targetScreen) showScreen(targetPhase, targetScreen);
+        }
+      }
+
+      // Persist text answers locally (keyed by user)
+      var uid = session.user.id;
+      var fields = ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3',
+                    'ws-0','ws-1','ws-2','ws-3','ws-4','ws-5','ws-6','ws-7'];
+      fields.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var key = 'afv_' + uid + '_m3_' + id;
+        var saved = localStorage.getItem(key);
+        if (saved) el.value = saved;
+        el.addEventListener('input', function () { localStorage.setItem(key, el.value); });
+      });
+    }).catch(function () {
+      // On any error, fail safe to the locked screen
+      showLocked(
+        'Sign in to access Module 3',
+        'We could not verify your access. Please sign in and try again.',
+        'login.html?next=module-3.html', 'Sign in →', false, false
+      );
+    });
+  })();
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+
+</body>
+</html>
