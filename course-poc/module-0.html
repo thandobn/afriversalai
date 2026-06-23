@@ -132,6 +132,7 @@
         <a href="course-outline.html">Curriculum</a>
         <ul class="nav__dropdown-menu">
           <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
           <li><a href="outline-foundation.html">Why &amp; Who</a></li>
           <li><a href="outline-funda-five.html">The Funda Five</a></li>
           <li><a href="outline-core-modules.html">Core Modules</a></li>
@@ -447,9 +448,13 @@
         <!-- KNOWLEDGE CHECK: PHASE 1 -->
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Knowledge Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">3 questions &middot; answer all before moving on</span>
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">7 questions &middot; you must get <strong style="color:white;">all 7</strong> right to continue</span>
           </div>
+
+          <!-- AI Tutor verdict -->
+          <div id="p1-tutor-verdict" style="display:none; padding:18px 24px; border-bottom:1px solid var(--border);"></div>
+
           <div style="padding:28px;">
 
             <div class="quiz-q" style="margin-bottom:28px;">
@@ -485,9 +490,54 @@
               <div class="quiz-feedback" id="p1qf-2"></div>
             </div>
 
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">4. Which everyday tool is NOT AI?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p1_q3" value="0"> <span>A spam filter that learns which emails are junk</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q3" value="1"> <span>An Excel =SUM formula that adds a column</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q3" value="2"> <span>Face ID unlocking your phone</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q3" value="3"> <span>Autocorrect predicting your next word</span></label>
+              </div>
+              <div class="quiz-feedback" id="p1qf-3"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">5. What is the single most reliable question to decide whether something is AI?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p1_q4" value="0"> <span>Does it run on a powerful computer or in the cloud?</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q4" value="1"> <span>Does it have a chat interface or talk like a person?</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q4" value="2"> <span>Did a human write every rule &mdash; or did the system learn the rules from data?</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q4" value="3"> <span>Is it made by a big technology company?</span></label>
+              </div>
+              <div class="quiz-feedback" id="p1qf-4"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">6. Why can a generative AI confidently cite a research source that does not exist?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p1_q5" value="0"> <span>It made a typing error in the reference</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q5" value="1"> <span>It predicts what a citation usually looks like &mdash; not whether the source is real</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q5" value="2"> <span>Someone deleted the source from the internet</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q5" value="3"> <span>It is deliberately lying to you</span></label>
+              </div>
+              <div class="quiz-feedback" id="p1qf-5"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. Your HR system shortlists CVs before a human sees them. Which type of AI is this most likely to be?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p1_q6" value="0"> <span>Generative AI &mdash; it writes new content</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q6" value="1"> <span>Predictive / Decision AI &mdash; it scores and classifies the applications</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q6" value="2"> <span>Computer Vision &mdash; it reads images and video</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q6" value="3"> <span>It cannot be AI &mdash; hiring is always done by people</span></label>
+              </div>
+              <div class="quiz-feedback" id="p1qf-6"></div>
+            </div>
+
             <div id="quiz-p1-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizP1()">Check my answers &rarr;</button>
-              <div id="quiz-p1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 3 questions before checking.</div>
+              <button class="btn btn--primary" type="button" onclick="submitQuizP1()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--outline" type="button" id="quiz-p1-retake" style="display:none; margin-left:10px;" onclick="retakeQuizP1()">↻ Retake the test</button>
+              <div id="quiz-p1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 7 questions before submitting.</div>
             </div>
             <div id="quiz-p1-result" style="display:none; margin-top:20px;"></div>
           </div>
@@ -866,12 +916,16 @@
         <!-- KNOWLEDGE CHECK: PHASE 3 -->
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;" data-i18n="quiz_badge">Knowledge Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">5 questions &middot; check your understanding</span>
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;" data-i18n="quiz_badge">Demonstration Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">10 questions &middot; you must get <strong style="color:white;">all 10</strong> right to continue</span>
           </div>
+
+          <!-- AI Tutor verdict -->
+          <div id="p3-tutor-verdict" style="display:none; padding:18px 24px; border-bottom:1px solid var(--border);"></div>
+
           <div style="padding:28px;">
 
-            <p style="font-size:0.85em; color:var(--muted); margin-bottom:24px; padding:10px 14px; background:var(--bg-pale,#F9FAFB); border-radius:var(--radius); border-left:3px solid var(--gold);">You need to answer all 5 questions correctly to move on. You can retry as many times as you like.</p>
+            <p style="font-size:0.85em; color:var(--muted); margin-bottom:24px; padding:10px 14px; background:var(--bg-pale,#F9FAFB); border-radius:var(--radius); border-left:3px solid var(--gold);">This is a demonstration, not a tick-box. You must answer <strong>all 10</strong> correctly to move on — the AI Tutor will mark your answers, explain anything you miss, and ask you to retake until you've shown true understanding.</p>
 
             <div class="quiz-q" style="margin-bottom:28px;">
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q1">1. What best describes how AI works?</p>
@@ -928,9 +982,65 @@
               <div class="quiz-feedback" id="p3qf-4"></div>
             </div>
 
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">6. Which of these is a clear sign that a tool is AI rather than ordinary software?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q5" value="0"> <span>It runs in the cloud</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q5" value="1"> <span>It learned its behaviour from examples and improves without being reprogrammed</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q5" value="2"> <span>It always gives the same output for the same input</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q5" value="3"> <span>A human wrote an explicit rule for every case</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-5"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. Which task is a large language model (e.g. ChatGPT) LEAST reliable at?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q6" value="0"> <span>Drafting and summarising text</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q6" value="1"> <span>Rephrasing something in simpler language</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q6" value="2"> <span>Confirming whether a specific statistic or source is factually true</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q6" value="3"> <span>Brainstorming ideas for a document</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-6"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">8. Why does facial recognition often perform worse for darker skin tones?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q7" value="0"> <span>The cameras are physically incapable of seeing darker skin</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q7" value="1"> <span>It was trained on data that under-represented darker-skinned faces</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q7" value="2"> <span>The AI chose to be less accurate for some groups</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q7" value="3"> <span>Darker skin tones are mathematically impossible to model</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-7"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">9. An AI assistant can browse, draft and send emails on your behalf without you approving each step. Which type is this?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q8" value="0"> <span>Computer Vision</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q8" value="1"> <span>Predictive / Decision AI</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q8" value="2"> <span>Agentic AI &mdash; it takes sequences of actions toward a goal</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q8" value="3"> <span>None &mdash; AI can't take actions</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-8"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">10. What does it mean that AI is a "prediction engine, not a truth engine"?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p3_q9" value="0"> <span>AI can predict the future accurately</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q9" value="1"> <span>AI always tells the truth because it uses data</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p3_q9" value="2"> <span>AI produces the most likely-looking output from patterns &mdash; which may or may not be true</span></label>
+                <label class="quiz-opt"><input type="radio" name="p3_q9" value="3"> <span>AI verifies every statement against a database of facts</span></label>
+              </div>
+              <div class="quiz-feedback" id="p3qf-9"></div>
+            </div>
+
             <div id="quiz-p3-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizP3()" data-i18n="quiz_btn_check">Check my answers &rarr;</button>
-              <div id="quiz-p3-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;" data-i18n="quiz_err">Please answer all 5 questions before checking.</div>
+              <button class="btn btn--primary" type="button" onclick="submitQuizP3()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--outline" type="button" id="quiz-p3-retake" style="display:none; margin-left:10px;" onclick="retakeQuizP3()">↻ Retake the test</button>
+              <div id="quiz-p3-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 10 questions before submitting.</div>
             </div>
             <div id="quiz-p3-result" style="display:none; margin-top:20px;"></div>
           </div>
@@ -1332,20 +1442,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // === Phase 1 Knowledge Check (3 questions — core concepts) ===
 
+var P1_EXP = [
+  { ok: 'AI is pattern recognition at massive scale \u2014 not fact retrieval or rule-following.',
+    no: 'AI learns patterns from data \u2014 it doesn\u2019t retrieve from a database, follow pre-programmed rules, or think like a human.' },
+  { ok: 'AI confidence is not a reliability signal. Always verify.',
+    no: 'Verification is the right move \u2014 AI confidence tells you nothing about accuracy. It can sound certain and still be wrong.' },
+  { ok: 'Pattern recognition is the common thread across all types of AI.',
+    no: 'They all use pattern recognition to make predictions \u2014 the same underlying approach, built by different companies for different purposes.' },
+  { ok: 'A fixed formula follows an exact rule you gave it \u2014 no learning, no prediction. That\u2019s automation, not AI.',
+    no: 'The =SUM formula is not AI. It follows an exact rule with no learning or prediction. The other three learn patterns from data.' },
+  { ok: 'Exactly \u2014 \u201cdid a human write the rules, or did the system learn them from data?\u201d cuts through every case.',
+    no: 'The reliable test is: did a human write every rule, or did the system learn the rules from data? Cloud, chat interfaces and big brands tell you nothing.' },
+  { ok: 'Right \u2014 it predicts what a citation looks like, with no check on whether the source is real.',
+    no: 'It\u2019s not a typo or a lie \u2014 the AI predicts what a citation usually looks like. It has no mechanism to check the source exists.' },
+  { ok: 'Correct \u2014 shortlisting scores and ranks applications, so it\u2019s Predictive / Decision AI.',
+    no: 'Shortlisting scores and classifies applications \u2014 that\u2019s Predictive / Decision AI, not generative or vision. And yes, AI is widely used in hiring.' },
+];
+var P1_N = 7;
+
 function submitQuizP1() {
   var allAnswered = true;
   var wrongCount = 0;
-  var explanations = [
-    { ok: 'Right \u2014 AI is pattern recognition at massive scale, not fact retrieval or rule-following.',
-      no: 'Not quite. AI learns patterns from data \u2014 it doesn\u2019t retrieve from a database, follow pre-programmed rules, or think like a human.' },
-    { ok: 'Right \u2014 AI confidence is not a reliability signal. Always verify.',
-      no: 'Verification is the right move. AI confidence tells you nothing about accuracy \u2014 it can sound certain and still be wrong.' },
-    { ok: 'Correct \u2014 pattern recognition is the common thread across all types of AI.',
-      no: 'They all use pattern recognition to make predictions \u2014 the same underlying approach even though they\'re built by different companies for different purposes.' },
-  ];
-  [0, 1, 2].forEach(function(i) {
+  for (var i = 0; i < P1_N; i++) {
     var sel = document.querySelector('input[name="p1_q' + i + '"]:checked');
-    if (!sel) { allAnswered = false; return; }
+    if (!sel) { allAnswered = false; continue; }
     var isOk = sel.closest('label').dataset.correct === 'true';
     var fb = document.getElementById('p1qf-' + i);
     fb.style.display = 'block';
@@ -1353,31 +1473,57 @@ function submitQuizP1() {
       fb.style.background = 'var(--green-pale)';
       fb.style.border = '1px solid var(--green-light)';
       fb.style.color = 'var(--green-dark)';
-      fb.innerHTML = '<strong>Correct.</strong> ' + explanations[i].ok;
+      fb.innerHTML = '<strong>\u2713 Correct.</strong> ' + P1_EXP[i].ok;
       document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrongCount++;
       fb.style.background = '#FFF5F5';
       fb.style.border = '1px solid #FCA5A5';
       fb.style.color = '#7F1D1D';
-      fb.innerHTML = '<strong>Not quite.</strong> ' + explanations[i].no;
-      document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.checked = false; });
+      fb.innerHTML = '<strong>\u2717 Review this.</strong> ' + P1_EXP[i].no;
     }
-  });
+  }
   var errEl = document.getElementById('quiz-p1-err');
   if (!allAnswered) {
     errEl.style.display = 'block';
-    errEl.textContent = 'Please answer all 3 questions before checking.';
+    errEl.textContent = 'Answer all ' + P1_N + ' questions before submitting to the AI Tutor.';
     return;
   }
+  errEl.style.display = 'none';
+  var correct = P1_N - wrongCount;
+  var verdict = document.getElementById('p1-tutor-verdict');
+  verdict.style.display = 'block';
   if (wrongCount === 0) {
-    errEl.style.display = 'none';
+    verdict.style.background = 'var(--green-pale)';
+    verdict.style.borderBottom = '1px solid var(--green-light)';
+    verdict.innerHTML = '<div style="font-weight:800; color:var(--green-dark); font-size:0.95em; margin-bottom:4px;">\ud83c\udf93 AI Tutor: Demonstrated \u2014 ' + correct + '/' + P1_N + '.</div><div style="font-size:0.86em; color:var(--green-dark);">You\u2019ve shown you understand what AI is and how to spot it. Continue.</div>';
     document.getElementById('quiz-p1-submit-wrap').style.display = 'none';
     document.getElementById('quiz-p1-advance').style.display = 'inline-block';
+    verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } else {
-    errEl.style.display = 'block';
-    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look \u2014 check the hints above and try again.';
+    verdict.style.background = '#FFF5F5';
+    verdict.style.borderBottom = '1px solid #FCA5A5';
+    verdict.innerHTML = '<div style="font-weight:800; color:#7F1D1D; font-size:0.95em; margin-bottom:4px;">\ud83d\udd34 AI Tutor: Not yet \u2014 ' + correct + '/' + P1_N + ' correct.</div><div style="font-size:0.86em; color:#7F1D1D;">A demonstration means <strong>every</strong> answer right. I\u2019ve flagged the ' + wrongCount + ' to review in red \u2014 read the guidance, then retake the full test.</div>';
+    document.getElementById('quiz-p1-retake').style.display = 'inline-block';
+    var btn = document.querySelector('#quiz-p1-submit-wrap .btn--primary');
+    if (btn) btn.style.display = 'none';
+    verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+}
+
+function retakeQuizP1() {
+  for (var i = 0; i < P1_N; i++) {
+    document.querySelectorAll('input[name="p1_q' + i + '"]').forEach(function(r) { r.checked = false; r.disabled = false; });
+    var fb = document.getElementById('p1qf-' + i);
+    if (fb) { fb.style.display = 'none'; fb.innerHTML = ''; }
+  }
+  document.getElementById('p1-tutor-verdict').style.display = 'none';
+  document.getElementById('quiz-p1-retake').style.display = 'none';
+  document.getElementById('quiz-p1-err').style.display = 'none';
+  var btn = document.querySelector('#quiz-p1-submit-wrap .btn--primary');
+  if (btn) btn.style.display = 'inline-block';
+  var first = document.querySelector('#ps-0-quiz .quiz-q');
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // === Phase 3 Knowledge Check (5 questions — deeper material from Let's Go Deeper) ===

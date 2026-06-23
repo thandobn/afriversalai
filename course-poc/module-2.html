@@ -149,6 +149,7 @@
         <a href="course-outline.html">Curriculum</a>
         <ul class="nav__dropdown-menu">
           <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
           <li><a href="outline-foundation.html">Why &amp; Who</a></li>
           <li><a href="outline-funda-five.html">The Funda Five</a></li>
           <li><a href="outline-core-modules.html">Core Modules</a></li>
@@ -400,16 +401,20 @@
         </div>
 
         <div class="phase-nav" style="justify-content:flex-end;">
-          <button class="btn btn--primary" onclick="showScreen(0,'quiz')">Take the knowledge check &rarr;</button>
+          <button class="btn btn--primary" onclick="showScreen(0,'quiz')">Take the demonstration check &rarr;</button>
         </div>
         </div><!-- /ps-0-content -->
 
         <div class="phase-screen" id="ps-0-quiz">
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Knowledge Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">3 questions &middot; answer all before moving on</span>
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">8 questions &middot; you must get <strong style="color:white;">all 8</strong> right to continue</span>
           </div>
+
+          <!-- AI Tutor verdict banner -->
+          <div id="tutor-verdict" style="display:none; padding:18px 24px; border-bottom:1px solid var(--border);"></div>
+
           <div style="padding:28px;">
 
             <div class="quiz-q" style="margin-bottom:28px;">
@@ -445,9 +450,65 @@
               <div class="quiz-feedback" id="qf-2"></div>
             </div>
 
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">4. A student-success model uses attendance and grades but has no data on home circumstances or internet access. Which failure mode is this?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q3" value="0"> <span>Hallucination</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q3" value="1"> <span>Missing data &mdash; the prediction is built on an incomplete picture</span></label>
+                <label class="quiz-opt"><input type="radio" name="q3" value="2"> <span>A feedback loop</span></label>
+                <label class="quiz-opt"><input type="radio" name="q3" value="3"> <span>Outdated learning</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-3"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">5. An AI labels an area "high risk," investors pull out, the economy drops, and the AI sees this as proof it was right. This is:</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q4" value="0"> <span>Correlation vs causation</span></label>
+                <label class="quiz-opt"><input type="radio" name="q4" value="1"> <span>Biased training data</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q4" value="2"> <span>A feedback loop &mdash; the prediction helped cause the outcome it predicted</span></label>
+                <label class="quiz-opt"><input type="radio" name="q4" value="3"> <span>Missing data</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-4"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">6. An AI notices people carrying umbrellas are often near accidents and flags umbrellas as a risk factor. What has it confused?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q5" value="0"> <span>Correlation with causation &mdash; rain causes both; umbrellas don't cause accidents</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="1"> <span>Nothing &mdash; the AI found a valid safety rule</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="2"> <span>Missing data about weather</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="3"> <span>A hallucinated statistic</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-5"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. A fraud model trained before COVID performs poorly on 2025 spending patterns. The failure mode is:</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q6" value="0"> <span>Biased data</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="1"> <span>A feedback loop</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q6" value="2"> <span>Outdated learning &mdash; the world changed and yesterday's patterns no longer hold</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="3"> <span>Hallucination</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-6"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">8. The fintech's AI rejected rural and women-owned businesses more often. Who is accountable?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q7" value="0"> <span>The AI system &mdash; it made the decisions</span></label>
+                <label class="quiz-opt"><input type="radio" name="q7" value="1"> <span>No one &mdash; "nobody programmed discrimination"</span></label>
+                <label class="quiz-opt"><input type="radio" name="q7" value="2"> <span>Only the developers who built the model</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q7" value="3"> <span>The people and organisation that deployed and used it</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-7"></div>
+            </div>
+
             <div id="quiz-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Check my answers &rarr;</button>
-              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 3 questions before checking.</div>
+              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
+              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
             </div>
           </div>
         </div>
@@ -828,21 +889,33 @@ function revealAnswers() {
   }
 }
 
-// --- Concept knowledge check ---
+// --- Concept knowledge check: AI Tutor demonstration (must score 8/8) ---
+var QUIZ_CONCEPT_EXP = [
+  { ok: 'AI predicts from learned patterns — it does not recall facts, reason, or follow hand-written rules.',
+    no: 'AI predicts an output from patterns in historical data. It is not retrieving verified facts or reasoning like a person.' },
+  { ok: 'The bias was learned from historical data, not chosen by the AI or coded by a developer.',
+    no: 'The cause is biased historical data — the AI learned from a past where managers were mostly men. Nobody had to program discrimination.' },
+  { ok: 'Confidence is not accuracy — verify sources and figures independently.',
+    no: 'Verify it. Generative AI can invent confident, specific, well-formatted sources and statistics that do not exist.' },
+  { ok: 'Missing data — the model judges on an incomplete picture, so it scores some students unfairly.',
+    no: 'This is missing data. The model can only judge what it can see; the gaps (home circumstances, internet access) become blind spots.' },
+  { ok: 'A feedback loop — the prediction helped cause the outcome, then was treated as proof it was right.',
+    no: 'This is a feedback loop: the AI\'s prediction shaped the real world, which then looked like evidence the AI was correct.' },
+  { ok: 'Correlation is not causation — rain causes both the umbrellas and the accidents.',
+    no: 'The AI confused correlation with causation. Rain causes both; umbrellas don\'t cause accidents. Only a human investigates why.' },
+  { ok: 'Outdated learning — the world changed and yesterday\'s patterns no longer hold.',
+    no: 'This is outdated learning. A model trained before a major shift keeps predicting as if nothing changed.' },
+  { ok: 'Accountability rests with the people and organisation that deployed it — never the algorithm.',
+    no: '"Nobody programmed discrimination" is not a defence. Accountability rests with the people and organisation that deployed and used the AI.' },
+];
+var QUIZ_CONCEPT_N = 8;
+
 function submitQuizConcept() {
   var allAnswered = true;
   var wrongCount = 0;
-  var exp = [
-    { ok: 'Right — AI predicts from learned patterns. It does not recall facts, reason, or follow hand-written rules.',
-      no: 'Not quite. AI predicts an output from patterns in historical data — it is not retrieving verified facts or reasoning like a person.' },
-    { ok: 'Correct — the bias was learned from historical data, not chosen by the AI or coded by a developer.',
-      no: 'The cause is biased historical data. The AI learned from a past where managers were mostly men — nobody had to program discrimination.' },
-    { ok: 'Correct — confidence is not accuracy. Verify sources and figures independently.',
-      no: 'Verify it. Generative AI can invent confident, specific, well-formatted sources and statistics that do not exist.' },
-  ];
-  [0, 1, 2].forEach(function(i) {
+  for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
     var sel = document.querySelector('input[name="q' + i + '"]:checked');
-    if (!sel) { allAnswered = false; return; }
+    if (!sel) { allAnswered = false; continue; }
     var isOk = sel.closest('label').dataset.correct === 'true';
     var fb = document.getElementById('qf-' + i);
     fb.style.display = 'block';
@@ -850,31 +923,62 @@ function submitQuizConcept() {
       fb.style.background = 'var(--green-pale)';
       fb.style.border = '1px solid var(--green-light)';
       fb.style.color = 'var(--green-dark)';
-      fb.innerHTML = '<strong>Correct.</strong> ' + exp[i].ok;
+      fb.innerHTML = '<strong>✓ Correct.</strong> ' + QUIZ_CONCEPT_EXP[i].ok;
       document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrongCount++;
       fb.style.background = '#FFF5F5';
       fb.style.border = '1px solid #FCA5A5';
       fb.style.color = '#7F1D1D';
-      fb.innerHTML = '<strong>Not quite.</strong> ' + exp[i].no;
-      document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.checked = false; });
+      fb.innerHTML = '<strong>✗ Review this.</strong> ' + QUIZ_CONCEPT_EXP[i].no;
     }
-  });
+  }
   var errEl = document.getElementById('quiz-err');
   if (!allAnswered) {
     errEl.style.display = 'block';
-    errEl.textContent = 'Please answer all 3 questions before checking.';
+    errEl.textContent = 'Answer all ' + QUIZ_CONCEPT_N + ' questions before submitting to the AI Tutor.';
     return;
   }
+  errEl.style.display = 'none';
+
+  var correct = QUIZ_CONCEPT_N - wrongCount;
+  var verdict = document.getElementById('tutor-verdict');
+  verdict.style.display = 'block';
+
   if (wrongCount === 0) {
-    errEl.style.display = 'none';
+    verdict.style.background = 'var(--green-pale)';
+    verdict.style.borderBottom = '1px solid var(--green-light)';
+    verdict.innerHTML = '<div style="font-weight:800; color:var(--green-dark); font-size:0.95em; margin-bottom:4px;">🎓 AI Tutor: Demonstrated &mdash; ' + correct + '/' + QUIZ_CONCEPT_N + '.</div>' +
+      '<div style="font-size:0.86em; color:var(--green-dark);">A clean sweep. You can explain how AI learns and name every failure mode. You\'ve <strong>demonstrated</strong> this, not just completed it. Continue.</div>';
     document.getElementById('quiz-submit-wrap').style.display = 'none';
     document.getElementById('quiz-advance').style.display = 'inline-block';
+    verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } else {
-    errEl.style.display = 'block';
-    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look — check the hints above and try again.';
+    verdict.style.background = '#FFF5F5';
+    verdict.style.borderBottom = '1px solid #FCA5A5';
+    verdict.innerHTML = '<div style="font-weight:800; color:#7F1D1D; font-size:0.95em; margin-bottom:4px;">🔴 AI Tutor: Not yet &mdash; ' + correct + '/' + QUIZ_CONCEPT_N + ' correct.</div>' +
+      '<div style="font-size:0.86em; color:#7F1D1D;">A demonstration means <strong>every</strong> answer right. I\'ve marked the ' + wrongCount + ' you missed in red with guidance &mdash; read it, then retake the full test.</div>';
+    document.getElementById('quiz-retake').style.display = 'inline-block';
+    var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
+    if (btn) btn.style.display = 'none';
+    verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+}
+
+// Full retake — clears everything and lets the learner start the test over
+function retakeQuizConcept() {
+  for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
+    document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.checked = false; r.disabled = false; });
+    var fb = document.getElementById('qf-' + i);
+    if (fb) { fb.style.display = 'none'; fb.innerHTML = ''; }
+  }
+  document.getElementById('tutor-verdict').style.display = 'none';
+  document.getElementById('quiz-retake').style.display = 'none';
+  document.getElementById('quiz-err').style.display = 'none';
+  var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
+  if (btn) btn.style.display = 'inline-block';
+  var first = document.querySelector('#ps-0-quiz .quiz-q');
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // --- Phase advance ---
