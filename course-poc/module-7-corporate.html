@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 7: AI in Corporate & Business &mdash; AfriversalAI</title>
+  <title>Module 7: AI in Corporate &amp; Business &mdash; AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -15,15 +15,61 @@
     .module-hero .lead { color: rgba(255,255,255,0.75); max-width: 680px; }
     @media (max-width: 768px) { .module-hero { padding: 48px 24px 36px; } }
 
-    .phase { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px; }
+    /* One-at-a-time phases */
+    .phase { display: none; border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 24px; }
+    .phase.is-active { display: block; }
     .phase__header { display: flex; align-items: center; gap: 16px; padding: 20px 28px; background: var(--green-pale); border-bottom: 1px solid var(--border); }
     .phase__num { width: 40px; height: 40px; background: var(--green-dark); color: white; border-radius: 50%; display: flex; align-items:center; justify-content:center; font-weight: 800; font-size: 0.95em; flex-shrink: 0; }
     .phase__title { font-weight: 700; font-size: 1.05em; }
     .phase__subtitle { font-size: 0.82em; color: var(--muted); margin-top: 2px; }
     .phase__body { padding: 32px 28px; background: var(--white); }
-    .phase.is-locked { opacity: 0.45; pointer-events: none; }
     .phase.is-done .phase__header { background: var(--green-light); }
 
+    /* Phase-screen system */
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+
+    /* Progress bar */
+    .module-progress { display: flex; gap: 8px; padding: 16px 28px; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .prog-step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
+    .prog-step.is-active { background: var(--gold); }
+    .prog-step.is-done { background: var(--green-mid); }
+
+    /* Lesson dot tracker */
+    .lesson-tracker { display: flex; gap: 8px; align-items: center; margin-bottom: 24px; }
+    .lesson-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.2s; }
+    .lesson-dot.visited { background: var(--green-light); }
+    .lesson-dot.current { background: var(--green-mid); }
+    .lesson-tracker-label { font-size: 0.8em; color: var(--muted); font-weight: 500; margin-left: 4px; }
+
+    /* Quiz */
+    .quiz-opts { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 20px; }
+    .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+    .quiz-opt:hover { border-color: var(--green-mid); }
+    .quiz-opt input[type=radio] { margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+    .quiz-opt label { cursor: pointer; font-size: 0.9em; line-height: 1.5; }
+    .quiz-opt.correct { border-color: var(--green-mid); background: var(--green-pale); }
+    .quiz-opt.wrong { border-color: #DC2626; background: #FFF5F5; }
+    .quiz-feedback { font-size: 0.85em; margin-top: 6px; padding: 8px 12px; border-radius: var(--radius); display: none; }
+    .quiz-feedback.correct { background: var(--green-pale); color: var(--green-dark); display: block; }
+    .quiz-feedback.wrong { background: #FFF5F5; color: #7F1D1D; display: block; }
+    .quiz-q { margin-bottom: 28px; }
+    .quiz-q > p { font-weight: 600; font-size: 0.92em; margin-bottom: 8px; }
+
+    /* Phase nav */
+    .phase-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); }
+
+    /* Access gate */
+    .access-gate { max-width: 580px; margin: 64px auto; text-align: center; padding: 48px 32px; border: 1.5px solid var(--border); border-radius: var(--radius-lg); background: var(--white); }
+    .access-gate__lock { font-size: 2.5em; margin-bottom: 16px; }
+    .access-gate h2 { color: var(--green-dark); margin-bottom: 12px; }
+    .access-gate > p { color: var(--muted); font-size: 0.92em; margin-bottom: 28px; }
+    .access-gate__steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; text-align: left; }
+    .access-gate__step { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); font-size: 0.9em; }
+    .access-gate__step .tick { width: 28px; height: 28px; border-radius: 50%; background: var(--border); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; flex-shrink: 0; }
+    .access-gate__step.done .tick { background: var(--green-mid); }
+
+    /* Content-specific */
     .risk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
     .risk-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; background: var(--bg); cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
     .risk-card:hover { border-color: var(--green-mid); }
@@ -61,20 +107,20 @@
     .funda-step textarea { width: 100%; min-height: 64px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.88em; resize: vertical; margin-top: 8px; background: var(--bg); }
     .funda-step textarea:focus { outline: none; border-color: var(--green-mid); background: var(--white); }
 
-    .module-progress { display: flex; gap: 8px; padding: 16px 28px; background: var(--bg); border-bottom: 1px solid var(--border); }
-    .prog-step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
-    .prog-step.is-active { background: var(--gold); }
-    .prog-step.is-done { background: var(--green-mid); }
+    .module-complete-block { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
+    .module-complete-block h2 { color: white; margin-bottom: 12px; }
+    .module-complete-block p { color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
 
-    .preview-end { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
-    .preview-end h2 { color: white; margin-bottom: 12px; }
-    .preview-end p { color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .advance-err { font-size: 0.85em; margin-top: 8px; }
+    .advance-err.err { color: #DC2626; }
+    .advance-err.info { color: var(--green-dark); }
 
-    .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
-
-    .reg-gate { background: var(--green-pale); border: 2px solid var(--green-mid); border-radius: var(--radius-lg); padding: 32px 28px; text-align: center; margin-bottom: 24px; }
-    .reg-gate h3 { color: var(--green-dark); margin-bottom: 8px; }
-    .reg-gate p { font-size: 0.9em; color: var(--muted); margin-bottom: 20px; }
+    .model-answers { display: none; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin: 24px 0; }
+    .model-answers h3 { font-size: 1em; color: var(--green-dark); margin-bottom: 20px; }
+    .model-answer-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .model-answer-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .model-answer-item__label { font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 8px; }
+    .model-answer-item p { font-size: 0.88em; color: var(--text); line-height: 1.7; }
   </style>
 </head>
 <body>
@@ -136,382 +182,720 @@
   </div>
 </div>
 
-<div class="module-progress" id="progressBar">
-  <div class="prog-step is-active" id="prog-0"></div>
-  <div class="prog-step" id="prog-1"></div>
-  <div class="prog-step" id="prog-2"></div>
-  <div class="prog-step" id="prog-3"></div>
+<!-- ACCESS GATE -->
+<div id="gate-checking" style="text-align:center; padding:80px 20px;">
+  <p style="color:var(--muted);">Checking your access&hellip;</p>
 </div>
 
-<section class="bg-pale">
-  <div class="container">
+<div id="module-locked" class="access-gate" style="display:none;">
+  <div class="access-gate__lock">&#128274;</div>
+  <h2>Complete Module 0 to unlock this sector track</h2>
+  <p>The sector modules build on the AI literacy foundation from Module 0. Complete it first to unlock this track.</p>
+  <div class="access-gate__steps">
+    <div class="access-gate__step" id="gate-step-0">
+      <span class="tick" id="gate-tick-0">0</span>
+      <span>Module 0 &mdash; AI Fundamentals</span>
+    </div>
+    <div class="access-gate__step" id="gate-step-corp">
+      <span class="tick">7</span>
+      <span>Module 7 &mdash; Corporate &amp; Business</span>
+    </div>
+  </div>
+  <a id="gate-cta" href="module-0.html" class="btn btn--gold btn--lg">Go to Module 0 &rarr;</a>
+</div>
 
-    <!-- PHASE 1: ENCOUNTER -->
-    <div class="phase" id="phase-0">
-      <div class="phase__header">
-        <div class="phase__num">1</div>
-        <div>
-          <div class="phase__title">Encounter &mdash; Before You Read the Story</div>
-          <div class="phase__subtitle">Rate these AI uses in corporate SA &mdash; before you see what went wrong &middot; ~15 min</div>
+<!-- MODULE CONTENT (hidden until gate passes) -->
+<div id="module-content" style="display:none;">
+
+  <div class="module-progress">
+    <div class="prog-step is-active" id="prog-0"></div>
+    <div class="prog-step" id="prog-1"></div>
+    <div class="prog-step" id="prog-2"></div>
+    <div class="prog-step" id="prog-3"></div>
+  </div>
+
+  <section class="bg-pale">
+    <div class="container">
+
+      <!-- PHASE 0: ENCOUNTER -->
+      <div class="phase is-active" id="phase-0">
+        <div class="phase__header">
+          <div class="phase__num">1</div>
+          <div>
+            <div class="phase__title">Encounter &mdash; Before You Read the Story</div>
+            <div class="phase__subtitle">Rate these AI uses in corporate SA &mdash; before you see what went wrong &middot; ~15 min</div>
+          </div>
+        </div>
+        <div class="phase__body">
+          <p>Below are 8 ways South African corporate and business teams are using AI right now. Before reading anything &mdash; rate each as <strong style="color:#DC2626;">High Risk</strong>, <strong style="color:var(--gold-dark);">Medium Risk</strong>, or <strong style="color:var(--green-dark);">Low Risk</strong>. Click once for High, again for Medium, again for Low, again to clear.</p>
+          <p style="font-size:0.88em; color:var(--muted);">No right answers yet &mdash; just your gut. You'll check your instincts when you reveal.</p>
+
+          <div class="risk-grid" id="riskGrid">
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#128202;</div>
+              <div class="risk-card__name">Using ChatGPT to draft a board report with market statistics</div>
+              <div class="risk-card__desc">Copy statistics from AI output into a deck presented to executives</div>
+              <span class="risk-label">HIGH RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#128231;</div>
+              <div class="risk-card__name">Using Copilot to summarise a long email thread</div>
+              <div class="risk-card__desc">AI condenses 40 emails into a 3-bullet summary before a meeting</div>
+              <span class="risk-label">MEDIUM RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#128203;</div>
+              <div class="risk-card__name">Using AI to shortlist CVs for a senior hire</div>
+              <div class="risk-card__desc">AI filters 300 applications down to 20 without human review at the filter stage</div>
+              <span class="risk-label">HIGH RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#128274;</div>
+              <div class="risk-card__name">Pasting a client's personal details into a free AI tool to draft a proposal</div>
+              <div class="risk-card__desc">Using ChatGPT free tier with real client name, contact details, and financial information</div>
+              <span class="risk-label">HIGH RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#129302;</div>
+              <div class="risk-card__name">Deploying a customer-facing chatbot without testing edge cases</div>
+              <div class="risk-card__desc">AI chatbot handles product queries &mdash; never tested on old T&amp;C versions or unusual situations</div>
+              <span class="risk-label">HIGH RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#128196;</div>
+              <div class="risk-card__name">Using AI to generate a first draft of a policy document</div>
+              <div class="risk-card__desc">AI writes a retrenchment policy draft, lawyer reviews it before finalising</div>
+              <span class="risk-label">LOW RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#9888;&#65039;</div>
+              <div class="risk-card__name">Using an unapproved AI tool because the approved one is slow</div>
+              <div class="risk-card__desc">Employee uses DeepSeek instead of the company's licensed tool &mdash; faster, free</div>
+              <span class="risk-label">HIGH RISK</span>
+            </div>
+            <div class="risk-card" onclick="cycleRisk(this)">
+              <div class="risk-card__icon">&#128221;</div>
+              <div class="risk-card__name">Using AI to prepare meeting notes and action items</div>
+              <div class="risk-card__desc">Teams transcription + Copilot produces a summary that gets emailed to all attendees</div>
+              <span class="risk-label">MEDIUM RISK</span>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+            <button class="btn btn--outline btn--sm" onclick="revealRisks()">Check my answers</button>
+            <button class="btn btn--primary btn--sm" id="phase-0-advance" onclick="advancePhase(0)">Done &mdash; continue to Reflect &rarr;</button>
+          </div>
+          <div id="err-0" class="advance-err" style="display:none;"></div>
+
+          <div id="case-reveal" style="display:none; margin-top:32px;">
+            <hr style="border:none; border-top:2px solid var(--border); margin-bottom:28px;">
+            <span class="eyebrow">The Real Case &mdash; April 2026</span>
+            <h3 style="margin-bottom:12px;">South Africa's national AI policy had to be withdrawn because it cited sources that didn't exist.</h3>
+
+            <div class="artifact" style="margin-bottom:24px;">
+              <div class="artifact__bar">
+                <span class="artifact__dot"></span>
+                News24 &middot; 26 April 2026 &middot; Verified reporting
+              </div>
+              <div class="artifact__scroll">
+                <p><strong>"SA government withdraws national AI policy after hallucinated academic citations discovered"</strong></p>
+                <p style="margin-top:12px;">The Department of Communications and Digital Technologies (DCDT) published South Africa's Draft National AI Policy on 10 April 2026. News24 subsequently found that at least 6 of the policy's 67 academic citations were fabricated &mdash; articles attributed to real journals and real authors who had never written on the topics cited.</p>
+                <p style="margin-top:12px;">The department admitted that drafters had used a generative AI tool and published without verifying a single reference. Minister Malatsi told Parliament the department only discovered the fabrications after the media reported them. The policy was withdrawn on 26 April 2026. Two officials were suspended. The entire consultation process had to restart.</p>
+                <p style="margin-top:12px; font-size:0.88em; color:var(--muted);">Sources: The Register &middot; The Next Web &middot; CNBC Africa &middot; Times Live</p>
+              </div>
+            </div>
+
+            <div class="callout">
+              <strong>Why this matters for your organisation:</strong> The professionals who drafted that policy knew how to use AI tools. They didn't know when to verify them. That gap exists in every organisation that uses GenAI to produce documents, reports, or client-facing content &mdash; including yours.
+            </div>
+          </div>
         </div>
       </div>
-      <div class="phase__body">
-        <p>Below are 8 ways South African corporate and business teams are using AI right now. Before reading anything &mdash; rate each as <strong style="color:#DC2626;">High Risk</strong>, <strong style="color:var(--gold-dark);">Medium Risk</strong>, or <strong style="color:var(--green-dark);">Low Risk</strong>. Click once for High, again for Medium, again for Low, again to clear.</p>
-        <p style="font-size:0.88em; color:var(--muted);">No right answers yet &mdash; just your gut. You'll check your instincts at the end of the phase.</p>
 
-        <div class="risk-grid" id="riskGrid">
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">📊</div>
-            <div class="risk-card__name">Using ChatGPT to draft a board report with market statistics</div>
-            <div class="risk-card__desc">Copy statistics from AI output into a deck presented to executives</div>
-            <span class="risk-label">HIGH RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">📧</div>
-            <div class="risk-card__name">Using Copilot to summarise a long email thread</div>
-            <div class="risk-card__desc">AI condenses 40 emails into a 3-bullet summary before a meeting</div>
-            <span class="risk-label">MEDIUM RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">📋</div>
-            <div class="risk-card__name">Using AI to shortlist CVs for a senior hire</div>
-            <div class="risk-card__desc">AI filters 300 applications down to 20 without human review at the filter stage</div>
-            <span class="risk-label">HIGH RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">🔒</div>
-            <div class="risk-card__name">Pasting a client's personal details into a free AI tool to draft a proposal</div>
-            <div class="risk-card__desc">Using ChatGPT free tier with real client name, contact details, and financial information</div>
-            <span class="risk-label">HIGH RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">🤖</div>
-            <div class="risk-card__name">Deploying a customer-facing chatbot without testing edge cases</div>
-            <div class="risk-card__desc">AI chatbot handles product queries &mdash; never tested on old T&C versions or unusual situations</div>
-            <span class="risk-label">HIGH RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">📄</div>
-            <div class="risk-card__name">Using AI to generate a first draft of a policy document</div>
-            <div class="risk-card__desc">AI writes a retrenchment policy draft, lawyer reviews it before finalising</div>
-            <span class="risk-label">LOW RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">⚠️</div>
-            <div class="risk-card__name">Using an unapproved AI tool because the approved one is slow</div>
-            <div class="risk-card__desc">Employee uses DeepSeek instead of the company's licensed tool &mdash; faster, free</div>
-            <span class="risk-label">HIGH RISK</span>
-          </div>
-          <div class="risk-card" onclick="cycleRisk(this)">
-            <div class="risk-card__icon">📝</div>
-            <div class="risk-card__name">Using AI to prepare meeting notes and action items</div>
-            <div class="risk-card__desc">Teams transcription + Copilot produces a summary that gets emailed to all attendees</div>
-            <span class="risk-label">MEDIUM RISK</span>
+      <!-- PHASE 1: REFLECT -->
+      <div class="phase" id="phase-1">
+        <div class="phase__header">
+          <div class="phase__num">2</div>
+          <div>
+            <div class="phase__title">Reflect &mdash; Where could this happen in your org?</div>
+            <div class="phase__subtitle">Honest self-assessment &mdash; no right answers &middot; ~10 min</div>
           </div>
         </div>
+        <div class="phase__body">
+          <p>The DCDT case wasn't a technology failure. It was a judgment failure &mdash; professionals who trusted AI output without owning it. Before we go further, let's be honest about your own context.</p>
 
-        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-          <button class="btn btn--outline btn--sm" onclick="revealRisks()">Reveal actual risk levels</button>
-          <button class="btn btn--primary btn--sm" onclick="advancePhase(0)">Done &mdash; read the case &rarr;</button>
-        </div>
-        <div id="err-0" class="advance-err" style="display:none;"></div>
-
-        <!-- Case reveal -->
-        <div id="case-reveal" style="display:none; margin-top:32px;">
-          <hr style="border:none; border-top:2px solid var(--border); margin-bottom:28px;">
-          <span class="eyebrow">The Real Case &mdash; April 2026</span>
-          <h3 style="margin-bottom:12px;">South Africa's national AI policy had to be withdrawn because it cited sources that didn't exist.</h3>
-
-          <div class="artifact" style="margin-bottom:24px;">
-            <div class="artifact__bar">
-              <span class="artifact__dot"></span>
-              News24 &middot; 26 April 2026 &middot; Verified reporting
-            </div>
-            <div class="artifact__scroll">
-              <p><strong>"SA government withdraws national AI policy after hallucinated academic citations discovered"</strong></p>
-              <p style="margin-top:12px;">The Department of Communications and Digital Technologies (DCDT) published South Africa's Draft National AI Policy on 10 April 2026. News24 subsequently found that at least 6 of the policy's 67 academic citations were fabricated &mdash; articles attributed to real journals and real authors who had never written on the topics cited.</p>
-              <p style="margin-top:12px;">The department admitted that drafters had used a generative AI tool and published without verifying a single reference. Minister Malatsi told Parliament the department only discovered the fabrications after the media reported them. The policy was withdrawn on 26 April 2026. Two officials were suspended. The entire consultation process had to restart.</p>
-              <p style="margin-top:12px; font-size:0.88em; color:var(--muted);">Sources: The Register &middot; The Next Web &middot; CNBC Africa &middot; Times Live</p>
-            </div>
+          <div style="margin: 20px 0;">
+            <label for="ref-1" style="display:block; font-weight:600; margin-bottom:8px;">Think of a recent time you or a colleague used AI to produce something that went to a client, manager, or external audience. Was every AI-generated fact verified before it was shared?</label>
+            <textarea id="ref-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. We used Copilot to summarise a competitive analysis &mdash; I realised later I hadn't checked the market size figures it pulled in..."></textarea>
           </div>
+
+          <div style="margin: 20px 0;">
+            <label for="ref-2" style="display:block; font-weight:600; margin-bottom:8px;">In your organisation, who currently owns the decision of when AI output is "good enough to share"? Is there a policy, a person, or is it left to individuals?</label>
+            <textarea id="ref-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. There's no official policy &mdash; each person decides for themselves. Management assumes if it came from Copilot it must be right..."></textarea>
+          </div>
+
+          <div style="text-align:right; margin-top:24px;">
+            <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &mdash; show me the concept &rarr;</button>
+          </div>
+          <div id="err-1" class="advance-err err" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- PHASE 2: CONCEPT (phase-screen system) -->
+      <div class="phase" id="phase-2">
+        <div class="phase__header" id="phase-2-header">
+          <div class="phase__num">3</div>
+          <div>
+            <div class="phase__title">Concept &mdash; Why corporate AI fails, and what stops it</div>
+            <div class="phase__subtitle">The framework behind the failure &middot; ~20 min</div>
+          </div>
+        </div>
+        <div class="phase__body">
+
+          <!-- SCREEN: reading content -->
+          <div class="phase-screen is-active" id="ps-2-content">
+
+            <div class="lesson-tracker">
+              <div class="lesson-dot current" id="ldot-1"></div>
+              <div class="lesson-dot" id="ldot-2"></div>
+              <div class="lesson-dot" id="ldot-3"></div>
+              <div class="lesson-dot" id="ldot-4"></div>
+              <span class="lesson-tracker-label" id="m7corp-lesson-label">Section 1 of 4 &mdash; The pattern behind the DCDT case</span>
+            </div>
+
+            <h3 id="m7corp-l1" style="margin-bottom:12px;">The pattern behind the DCDT case</h3>
+            <p>Generative AI produces confident-sounding output regardless of accuracy. The DCDT case is not unusual &mdash; it's the default risk when professionals treat AI as a <em>retrieval tool</em> (like a search engine) rather than a <em>generation tool</em> (which predicts plausible text).</p>
+
+            <div class="concept-block">
+              <h4>The core distinction</h4>
+              <p>A search engine finds existing pages. A generative AI model predicts what text would logically follow your prompt, based on patterns in its training data. It does not look things up &mdash; it constructs an answer. That answer will sound identical whether it is accurate or fabricated.</p>
+            </div>
+
+            <p>74% of SA corporate employees now use Microsoft Copilot. 67% use ChatGPT. 32% use AI tools not approved by their IT department. The professional risk isn't in using these tools &mdash; it's in not understanding what they can and cannot do.</p>
+
+            <h3 id="m7corp-l2" style="margin: 28px 0 12px;">The 3 AI tools you're most likely using &mdash; and their real risk profile</h3>
+
+            <div class="tool-row">
+              <div class="tool-card">
+                <div class="tool-card__name">Microsoft Copilot</div>
+                <div class="tool-card__use">Emails, meeting summaries, report drafts, presentations</div>
+                <span class="tool-card__risk tool-card__risk--low">Data stays in your org (M365)</span>
+                <p style="font-size:0.82em; margin-top:10px; color:var(--muted);">Safer for data &mdash; but still generates, not retrieves. Meeting summaries can misattribute statements. Verify before sending minutes.</p>
+              </div>
+              <div class="tool-card">
+                <div class="tool-card__name">ChatGPT (free tier)</div>
+                <div class="tool-card__use">Research, drafts, proposals, policy documents</div>
+                <span class="tool-card__risk tool-card__risk--high">Data used for training &middot; POPIA risk</span>
+                <p style="font-size:0.82em; margin-top:10px; color:var(--muted);">Pasting client names, financial details, or employee data into the free tier is a POPIA breach. Use ChatGPT Enterprise only for work data.</p>
+              </div>
+              <div class="tool-card">
+                <div class="tool-card__name">DeepSeek (shadow AI)</div>
+                <div class="tool-card__use">Used when approved tools feel slow or expensive</div>
+                <span class="tool-card__risk tool-card__risk--high">Data breach history &middot; unapproved</span>
+                <p style="font-size:0.82em; margin-top:10px; color:var(--muted);">DeepSeek's database was breached in early 2025, exposing chat histories. Any work data entered is beyond your organisation's control.</p>
+              </div>
+            </div>
+
+            <h3 id="m7corp-l3" style="margin: 28px 0 12px;">Four SA regulations that affect corporate AI use</h3>
+
+            <div style="margin-bottom:16px;">
+              <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
+                <p style="font-weight:700; margin-bottom:4px;">POPIA &mdash; Protection of Personal Information Act</p>
+                <p style="font-size:0.88em; color:var(--muted);">Personal data cannot be processed outside SA without adequate protection agreements. Free AI tools process data offshore. Pasting employee or client PII into an unapproved tool is a reportable breach. The Information Regulator began active enforcement in February 2026.</p>
+              </div>
+              <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
+                <p style="font-weight:700; margin-bottom:4px;">Consumer Protection Act (Section 41)</p>
+                <p style="font-size:0.88em; color:var(--muted);">Prohibits false, misleading, or deceptive marketing. AI-generated product descriptions, pricing claims, or chatbot responses that contain hallucinated information are the company's liability &mdash; not the AI tool's. "The AI wrote it" is not a defence.</p>
+              </div>
+              <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
+                <p style="font-weight:700; margin-bottom:4px;">Employment Equity Act (amended 2022)</p>
+                <p style="font-size:0.88em; color:var(--muted);">If AI-assisted shortlisting or performance tools produce outcomes that disproportionately disadvantage designated groups, that is unfair discrimination &mdash; regardless of intent. The employer is responsible for the tool's outcomes. The EEA's 2025 sectoral targets raise the stakes: discriminatory AI in hiring now directly affects your B-BBEE scorecard.</p>
+              </div>
+              <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
+                <p style="font-weight:700; margin-bottom:4px;">B-BBEE Codes</p>
+                <p style="font-size:0.88em; color:var(--muted);">AI procurement tools optimising purely on cost or speed may systematically deprioritise qualifying B-BBEE suppliers. The 2024 B-BBEE Codes update increased weighting for black-owned SMME procurement. An AI recommendation engine unaware of these requirements will harm your scorecard.</p>
+              </div>
+            </div>
+
+            <h3 id="m7corp-l4" style="margin: 28px 0 12px;">Where AI in corporate SA actually works: Nedbank's Enbi</h3>
+
+            <div class="callout" style="background:var(--green-pale); border-color:var(--green-mid);">
+              <strong>Enbi &mdash; what right looks like:</strong> Nedbank's AI chatbot handled over 10 million customer requests and reduced live-agent chat by 50% &mdash; because it was designed within a narrow, well-defined scope. When it doesn't know, it escalates to a human with full context. It recognises SA vernacular ("Send-iMali"). It was trained for what it was asked to do &mdash; not used for everything. Contrast that with the DCDT case: AI used outside its reliable scope, with nobody checking the output.
+            </div>
+
+            <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
+              <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); margin-bottom:12px;">Further reading</p>
+              <ul style="font-size:0.88em; margin:0; padding-left:20px; line-height:2;">
+                <li><a href="https://www.inforegulator.org.za" target="_blank" rel="noopener">Information Regulator SA &mdash; POPIA enforcement guidance</a></li>
+                <li><a href="https://businesstech.co.za" target="_blank" rel="noopener">BusinessTech: DeepSeek data breach &mdash; what SA businesses need to know</a></li>
+                <li><a href="https://www.nedbank.co.za" target="_blank" rel="noopener">Nedbank case study: Enbi AI customer service deployment</a></li>
+              </ul>
+            </div>
+
+            <div style="text-align:right; margin-top:28px;">
+              <button class="btn btn--primary" onclick="showScreen(2, 'quiz')">Take the knowledge check &rarr;</button>
+            </div>
+          </div><!-- /ps-2-content -->
+
+          <!-- SCREEN: quiz -->
+          <div class="phase-screen" id="ps-2-quiz">
+            <p style="font-size:0.92em; color:var(--muted); margin-bottom:28px;">Answer all four questions correctly to continue. Wrong answers are cleared so you can retry.</p>
+
+            <div class="quiz-q" id="m7cq-block-0">
+              <p>A South African professional pastes a client's name, address, and financial summary into the free tier of ChatGPT to draft a proposal. Which law makes this the most serious problem?</p>
+              <div class="quiz-opts">
+                <div class="quiz-opt"><input type="radio" name="m7corp_q0" value="0" id="m7cq0_0"><label for="m7cq0_0">B-BBEE Codes &mdash; because procurement data is involved</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q0" value="1" id="m7cq0_1"><label for="m7cq0_1">POPIA &mdash; personal data cannot be processed offshore without adequate protection agreements</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q0" value="2" id="m7cq0_2"><label for="m7cq0_2">Consumer Protection Act &mdash; because the client did not consent to the proposal being drafted by AI</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q0" value="3" id="m7cq0_3"><label for="m7cq0_3">Employment Equity Act &mdash; because the AI tool may produce a biased output</label></div>
+              </div>
+              <div class="quiz-feedback" id="m7cqf-0"></div>
+            </div>
+
+            <div class="quiz-q" id="m7cq-block-1">
+              <p>Your company's licensed AI tool is slow, so a colleague switches to a free, unapproved app. What is the primary risk beyond breaking tool policy?</p>
+              <div class="quiz-opts">
+                <div class="quiz-opt"><input type="radio" name="m7corp_q1" value="0" id="m7cq1_0"><label for="m7cq1_0">The AI output will be lower quality than the approved tool</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q1" value="1" id="m7cq1_1"><label for="m7cq1_1">Data entered may be used to train external models or exposed in a breach</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q1" value="2" id="m7cq1_2"><label for="m7cq1_2">The output will have a different writing style than the organisation's standard</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q1" value="3" id="m7cq1_3"><label for="m7cq1_3">The company's IT department will be automatically alerted</label></div>
+              </div>
+              <div class="quiz-feedback" id="m7cqf-1"></div>
+            </div>
+
+            <div class="quiz-q" id="m7cq-block-2">
+              <p>Why did the DCDT's AI-generated policy document contain fabricated academic citations?</p>
+              <div class="quiz-opts">
+                <div class="quiz-opt"><input type="radio" name="m7corp_q2" value="0" id="m7cq2_0"><label for="m7cq2_0">The AI tool was connected to outdated academic databases</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q2" value="1" id="m7cq2_1"><label for="m7cq2_1">The officials who drafted it intentionally inserted false references</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q2" value="2" id="m7cq2_2"><label for="m7cq2_2">Generative AI predicts plausible-sounding text rather than retrieving verified facts</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q2" value="3" id="m7cq2_3"><label for="m7cq2_3">The citations were real but misquoted by the document formatter</label></div>
+              </div>
+              <div class="quiz-feedback" id="m7cqf-2"></div>
+            </div>
+
+            <div class="quiz-q" id="m7cq-block-3">
+              <p>What made Nedbank's Enbi AI chatbot succeed where many corporate AI deployments fail?</p>
+              <div class="quiz-opts">
+                <div class="quiz-opt"><input type="radio" name="m7corp_q3" value="0" id="m7cq3_0"><label for="m7cq3_0">It used a more powerful AI model than other chatbots</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q3" value="1" id="m7cq3_1"><label for="m7cq3_1">It was designed within a narrow scope with human escalation when it could not help</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q3" value="2" id="m7cq3_2"><label for="m7cq3_2">It was trained directly on Nedbank's complete customer database</label></div>
+                <div class="quiz-opt"><input type="radio" name="m7corp_q3" value="3" id="m7cq3_3"><label for="m7cq3_3">Each response was manually reviewed by staff before it was sent</label></div>
+              </div>
+              <div class="quiz-feedback" id="m7cqf-3"></div>
+            </div>
+
+            <div id="m7corp-quiz-err" class="advance-err err" style="display:none;"></div>
+
+            <div class="phase-nav">
+              <button class="btn btn--outline" onclick="showScreen(2, 'content')">&#8592; Back to reading</button>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <button id="quiz-m7corp-submit" class="btn btn--primary" onclick="submitQuizM7Corp()">Submit answers</button>
+                <button id="quiz-m7corp-advance" class="btn btn--gold btn--lg" style="display:none;" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
+              </div>
+            </div>
+          </div><!-- /ps-2-quiz -->
+
+        </div><!-- /phase__body -->
+      </div><!-- /phase-2 -->
+
+      <!-- PHASE 3: APPLY -->
+      <div class="phase" id="phase-3">
+        <div class="phase__header">
+          <div class="phase__num">4</div>
+          <div>
+            <div class="phase__title">Apply &mdash; The board presentation scenario</div>
+            <div class="phase__subtitle">Run the Funda Five on a real situation &middot; ~15 min</div>
+          </div>
+        </div>
+        <div class="phase__body">
+          <p>A business analyst at a mid-size SA company uses Copilot to prepare a market analysis for a board presentation. The AI includes three statistics with apparent source attributions. The analyst doesn't verify them. The board approves a R2.3 million budget based on the presentation. One statistic &mdash; the market size figure &mdash; is fabricated.</p>
 
           <div class="callout">
-            <strong>Why this matters for your organisation:</strong> The professionals who drafted that policy knew how to use AI tools. They didn't know when to verify them. That gap exists in every organisation that uses GenAI to produce documents, reports, or client-facing content &mdash; including yours.
+            <strong>Your task:</strong> Use the Funda Five to work through what went wrong and what should have happened differently. Answer each lens in the context of this scenario.
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- PHASE 2: REFLECT -->
-    <div class="phase is-locked" id="phase-1">
-      <div class="phase__header">
-        <div class="phase__num">2</div>
-        <div>
-          <div class="phase__title">Reflect &mdash; Where could this happen in your org?</div>
-          <div class="phase__subtitle">Honest self-assessment &mdash; no right answers &middot; ~10 min</div>
-        </div>
-      </div>
-      <div class="phase__body">
-        <p>The DCDT case wasn't a technology failure. It was a judgment failure &mdash; professionals who trusted AI output without owning it. Before we go further, let's be honest about your own context.</p>
-
-        <div style="margin: 20px 0;">
-          <label for="ref-1" style="display:block; font-weight:600; margin-bottom:8px;">Think of a recent time you or a colleague used AI to produce something that went to a client, manager, or external audience. Was every AI-generated fact verified before it was shared?</label>
-          <textarea id="ref-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. We used Copilot to summarise a competitive analysis &mdash; I realised later I hadn't checked the market size figures it pulled in..."></textarea>
-        </div>
-
-        <div style="margin: 20px 0;">
-          <label for="ref-2" style="display:block; font-weight:600; margin-bottom:8px;">In your organisation, who currently owns the decision of when AI output is "good enough to share"? Is there a policy, a person, or is it left to individuals?</label>
-          <textarea id="ref-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. There's no official policy &mdash; each person decides for themselves. Management assumes if it came from Copilot it must be right..."></textarea>
-        </div>
-
-        <div style="text-align:right; margin-top:24px;">
-          <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &mdash; show me the concept &rarr;</button>
-        </div>
-        <div id="err-1" class="advance-err" style="display:none;"></div>
-      </div>
-    </div>
-
-    <!-- PHASE 3: CONCEPT -->
-    <div class="phase is-locked" id="phase-2">
-      <div class="phase__header">
-        <div class="phase__num">3</div>
-        <div>
-          <div class="phase__title">Concept &mdash; Why corporate AI fails, and what stops it</div>
-          <div class="phase__subtitle">The framework behind the failure &middot; ~20 min</div>
-        </div>
-      </div>
-      <div class="phase__body">
-
-        <h3 style="margin-bottom:12px;">The pattern behind the DCDT case</h3>
-        <p>Generative AI produces confident-sounding output regardless of accuracy. The DCDT case is not unusual &mdash; it's the default risk when professionals treat AI as a <em>retrieval tool</em> (like a search engine) rather than a <em>generation tool</em> (which predicts plausible text).</p>
-
-        <div class="concept-block">
-          <h4>The core distinction</h4>
-          <p>A search engine finds existing pages. A generative AI model predicts what text would logically follow your prompt, based on patterns in its training data. It does not look things up &mdash; it constructs an answer. That answer will sound identical whether it is accurate or fabricated.</p>
-        </div>
-
-        <p>74% of SA corporate employees now use Microsoft Copilot. 67% use ChatGPT. 32% use AI tools not approved by their IT department. The professional risk isn't in using these tools &mdash; it's in not understanding what they can and cannot do.</p>
-
-        <h3 style="margin: 28px 0 12px;">The 3 AI tools you're most likely using &mdash; and their real risk profile</h3>
-
-        <div class="tool-row">
-          <div class="tool-card">
-            <div class="tool-card__name">Microsoft Copilot</div>
-            <div class="tool-card__use">Emails, meeting summaries, report drafts, presentations</div>
-            <span class="tool-card__risk tool-card__risk--low">Data stays in your org (M365)</span>
-            <p style="font-size:0.82em; margin-top:10px; color:var(--muted);">Safer for data &mdash; but still generates, not retrieves. Meeting summaries can misattribute statements. Verify before sending minutes.</p>
-          </div>
-          <div class="tool-card">
-            <div class="tool-card__name">ChatGPT (free tier)</div>
-            <div class="tool-card__use">Research, drafts, proposals, policy documents</div>
-            <span class="tool-card__risk tool-card__risk--high">Data used for training &middot; POPIA risk</span>
-            <p style="font-size:0.82em; margin-top:10px; color:var(--muted);">Pasting client names, financial details, or employee data into the free tier is a POPIA breach. Use ChatGPT Enterprise only for work data.</p>
-          </div>
-          <div class="tool-card">
-            <div class="tool-card__name">DeepSeek (shadow AI)</div>
-            <div class="tool-card__use">Used when approved tools feel slow or expensive</div>
-            <span class="tool-card__risk tool-card__risk--high">Data breach history &middot; unapproved</span>
-            <p style="font-size:0.82em; margin-top:10px; color:var(--muted);">DeepSeek's database was breached in early 2025, exposing chat histories. Any work data entered is beyond your organisation's control.</p>
-          </div>
-        </div>
-
-        <h3 style="margin: 28px 0 12px;">Four SA regulations that affect corporate AI use</h3>
-
-        <div style="margin-bottom:16px;">
-          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
-            <p style="font-weight:700; margin-bottom:4px;">POPIA &mdash; Protection of Personal Information Act</p>
-            <p style="font-size:0.88em; color:var(--muted);">Personal data cannot be processed outside SA without adequate protection agreements. Free AI tools process data offshore. Pasting employee or client PII into an unapproved tool is a reportable breach. The Information Regulator began active enforcement in February 2026.</p>
-          </div>
-          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
-            <p style="font-weight:700; margin-bottom:4px;">Consumer Protection Act (Section 41)</p>
-            <p style="font-size:0.88em; color:var(--muted);">Prohibits false, misleading, or deceptive marketing. AI-generated product descriptions, pricing claims, or chatbot responses that contain hallucinated information are the company's liability &mdash; not the AI tool's. "The AI wrote it" is not a defence.</p>
-          </div>
-          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
-            <p style="font-weight:700; margin-bottom:4px;">Employment Equity Act (amended 2022)</p>
-            <p style="font-size:0.88em; color:var(--muted);">If AI-assisted shortlisting or performance tools produce outcomes that disproportionately disadvantage designated groups, that is unfair discrimination &mdash; regardless of intent. The employer is responsible for the tool's outcomes. The EEA's 2025 sectoral targets raise the stakes: discriminatory AI in hiring now directly affects your B-BBEE scorecard.</p>
-          </div>
-          <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
-            <p style="font-weight:700; margin-bottom:4px;">B-BBEE Codes</p>
-            <p style="font-size:0.88em; color:var(--muted);">AI procurement tools optimising purely on cost or speed may systematically deprioritise qualifying B-BBEE suppliers. The 2024 B-BBEE Codes update increased weighting for black-owned SMME procurement. An AI recommendation engine unaware of these requirements will harm your scorecard.</p>
-          </div>
-        </div>
-
-        <h3 style="margin: 28px 0 12px;">Where AI in corporate SA actually works: Nedbank's Enbi</h3>
-
-        <div class="callout" style="background:var(--green-pale); border-color:var(--green-mid);">
-          <strong>Enbi &mdash; what right looks like:</strong> Nedbank's AI chatbot handled over 10 million customer requests and reduced live-agent chat by 50% &mdash; because it was designed within a narrow, well-defined scope. When it doesn't know, it escalates to a human with full context. It recognises SA vernacular ("Send-iMali"). It was trained for what it was asked to do &mdash; not used for everything. Contrast that with the DCDT case: AI used outside its reliable scope, with nobody checking the output.
-        </div>
-
-        <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)">Got it &mdash; take me to Apply &rarr;</button>
-        </div>
-        <div id="err-2" class="advance-err" style="display:none;"></div>
-      </div>
-    </div>
-
-    <!-- PHASE 4: APPLY -->
-    <div class="phase is-locked" id="phase-3">
-      <div class="phase__header">
-        <div class="phase__num">4</div>
-        <div>
-          <div class="phase__title">Apply &mdash; The board presentation scenario</div>
-          <div class="phase__subtitle">Run the Funda Five on a real situation &middot; ~15 min</div>
-        </div>
-      </div>
-      <div class="phase__body">
-        <p>A business analyst at a mid-size SA company uses Copilot to prepare a market analysis for a board presentation. The AI includes three statistics with apparent source attributions. The analyst doesn't verify them. The board approves a R2.3 million budget based on the presentation. One statistic &mdash; the market size figure &mdash; is fabricated.</p>
-
-        <div class="callout">
-          <strong>Your task:</strong> Use the Funda Five to work through what went wrong and what should have happened differently. Answer each lens in the context of this scenario.
-        </div>
-
-        <div class="funda-apply">
-          <div class="funda-step">
-            <div class="funda-step__num">1</div>
-            <div style="flex:1;">
-              <div class="funda-step__label">TASK &mdash; Was this the right job for AI?</div>
-              <div class="funda-step__q">What was the AI being asked to do here? Is generating market statistics within GenAI's reliable scope? What should the analyst have used AI for &mdash; and where should they have stopped?</div>
-              <textarea id="app-1" placeholder="e.g. AI is reliable for structuring and drafting &mdash; it's not reliable for verifying market data. The analyst should have used AI to format and write, then sourced statistics from a verified report..."></textarea>
+          <div class="funda-apply">
+            <div class="funda-step">
+              <div class="funda-step__num">1</div>
+              <div style="flex:1;">
+                <div class="funda-step__label">TASK &mdash; Was this the right job for AI?</div>
+                <div class="funda-step__q">What was the AI being asked to do here? Is generating market statistics within GenAI's reliable scope? What should the analyst have used AI for &mdash; and where should they have stopped?</div>
+                <textarea id="app-1" placeholder="e.g. AI is reliable for structuring and drafting &mdash; it's not reliable for verifying market data. The analyst should have used AI to format and write, then sourced statistics from a verified report..."></textarea>
+              </div>
+            </div>
+            <div class="funda-step">
+              <div class="funda-step__num">2</div>
+              <div style="flex:1;">
+                <div class="funda-step__label">DATA &mdash; Was any of this sensitive?</div>
+                <div class="funda-step__q">The analyst used Copilot (enterprise version). Does that change the risk? What would have changed if they'd used the free ChatGPT tier to draft the same presentation?</div>
+                <textarea id="app-2" placeholder="e.g. Copilot keeps data within M365, so the data risk is lower. But if they'd used the free ChatGPT tier with client names and internal financial projections, that would be a POPIA breach..."></textarea>
+              </div>
+            </div>
+            <div class="funda-step">
+              <div class="funda-step__num">3</div>
+              <div style="flex:1;">
+                <div class="funda-step__label">TOOL &mdash; Was Copilot the right choice for this specific task?</div>
+                <div class="funda-step__q">Copilot is appropriate for many things &mdash; is market statistics retrieval one of them? What would a better tool choice look like for this specific task?</div>
+                <textarea id="app-3" placeholder="e.g. Copilot is good for summarising existing documents and drafting text, but it should not be the primary source for statistics. A verified market report or industry database (e.g. Statista, Stats SA) should have been the source..."></textarea>
+              </div>
+            </div>
+            <div class="funda-step">
+              <div class="funda-step__num">4</div>
+              <div style="flex:1;">
+                <div class="funda-step__label">TRUST &mdash; How would you have detected the error?</div>
+                <div class="funda-step__q">The fabricated statistic had a plausible-looking citation. What verification step would have caught it? How long would it actually take?</div>
+                <textarea id="app-4" placeholder="e.g. Clicking the cited source or searching for the original article. If the source doesn't exist or the number isn't there, that's the catch. It takes under 5 minutes per statistic..."></textarea>
+              </div>
+            </div>
+            <div class="funda-step">
+              <div class="funda-step__num">5</div>
+              <div style="flex:1;">
+                <div class="funda-step__label">HUMAN &mdash; Who is accountable when the board acts on a fabricated number?</div>
+                <div class="funda-step__q">The AI wrote it. The analyst used it. Management approved the budget. Who bears professional accountability here &mdash; and under which law?</div>
+                <textarea id="app-5" placeholder="e.g. The analyst is accountable &mdash; they submitted a document they did not verify. 'The AI wrote it' is not a defence under the Consumer Protection Act or professional codes. Management also bears responsibility for not having a verification policy in place..."></textarea>
+              </div>
             </div>
           </div>
-          <div class="funda-step">
-            <div class="funda-step__num">2</div>
-            <div style="flex:1;">
-              <div class="funda-step__label">DATA &mdash; Was any of this sensitive?</div>
-              <div class="funda-step__q">The analyst used Copilot (enterprise version). Does that change the risk? What would have changed if they'd used the free ChatGPT tier to draft the same presentation?</div>
-              <textarea id="app-2" placeholder="e.g. Copilot keeps data within M365, so the data risk is lower. But if they'd used the free ChatGPT tier with client names and internal financial projections, that would be a POPIA breach..."></textarea>
-            </div>
+
+          <div style="text-align:right; margin-top:24px;">
+            <button class="btn btn--primary btn--lg" id="m7corp-apply-submit" onclick="completeModuleM7Corp()">Complete Module 7 &mdash; Corporate &rarr;</button>
           </div>
-          <div class="funda-step">
-            <div class="funda-step__num">3</div>
-            <div style="flex:1;">
-              <div class="funda-step__label">TOOL &mdash; Was Copilot the right choice for this specific task?</div>
-              <div class="funda-step__q">Copilot is appropriate for many things &mdash; is market statistics retrieval one of them? What would a better tool choice look like for this specific task?</div>
-              <textarea id="app-3" placeholder="e.g. Copilot is good for summarising existing documents and drafting text, but it should not be the primary source for statistics. A verified market report or industry database (e.g. Statista, Stats SA) should have been the source..."></textarea>
+          <div id="err-3" class="advance-err err" style="display:none;"></div>
+
+          <div class="model-answers" id="model-answers-m7corp">
+            <h3>Model answers &mdash; how a strong response looks</h3>
+            <div class="model-answer-item">
+              <div class="model-answer-item__label">TASK &mdash; Was this the right job for AI?</div>
+              <p>AI is reliable for structuring, formatting, and drafting connected prose &mdash; not for generating verified statistics. The analyst should have used Copilot to structure the narrative and write transitions, then sourced every market figure from a verified source (Stats SA, Statista, industry reports). AI drafted the skeleton; human judgment sourced the bones.</p>
             </div>
-          </div>
-          <div class="funda-step">
-            <div class="funda-step__num">4</div>
-            <div style="flex:1;">
-              <div class="funda-step__label">TRUST &mdash; How would you have detected the error?</div>
-              <div class="funda-step__q">The fabricated statistic had a plausible-looking citation. What verification step would have caught it? How long would it actually take?</div>
-              <textarea id="app-4" placeholder="e.g. Clicking the cited source or searching for the original article. If the source doesn't exist or the number isn't there, that's the catch. It takes under 5 minutes per statistic..."></textarea>
+            <div class="model-answer-item">
+              <div class="model-answer-item__label">DATA &mdash; Was any of this sensitive?</div>
+              <p>Copilot (enterprise) kept data within the organisation's M365 environment, so data processing risk was relatively low here. However, if the analyst had used the free ChatGPT tier with client names and internal financial projections, that would constitute a reportable POPIA breach &mdash; personal and financial data processed offshore without adequate protection agreements.</p>
             </div>
-          </div>
-          <div class="funda-step">
-            <div class="funda-step__num">5</div>
-            <div style="flex:1;">
-              <div class="funda-step__label">HUMAN &mdash; Who is accountable when the board acts on a fabricated number?</div>
-              <div class="funda-step__q">The AI wrote it. The analyst used it. Management approved the budget. Who bears professional accountability here &mdash; and under which law?</div>
-              <textarea id="app-5" placeholder="e.g. The analyst is accountable &mdash; they submitted a document they did not verify. 'The AI wrote it' is not a defence under the Consumer Protection Act or professional codes. Management also bears responsibility for not having a verification policy in place..."></textarea>
+            <div class="model-answer-item">
+              <div class="model-answer-item__label">TOOL &mdash; Was Copilot the right choice for this specific task?</div>
+              <p>Copilot is appropriate for drafting, summarising, and structuring. It is not a verified data source. For market statistics, the right tool is a verified database (Stats SA, Statista, PwC Africa reports). The mistake was treating a generation tool as a retrieval tool &mdash; Copilot completed "the market is worth..." by predicting a plausible number, not by retrieving a verified one.</p>
+            </div>
+            <div class="model-answer-item">
+              <div class="model-answer-item__label">TRUST &mdash; How would you have detected the error?</div>
+              <p>Searching for the cited source directly (DOI link, journal name + article title) would have revealed that it either doesn't exist or doesn't contain the stated figure. This takes under 5 minutes per statistic. For board-level financial decisions, any AI-generated figure should be independently verified before it enters a slide &mdash; one search per number is a reasonable standard.</p>
+            </div>
+            <div class="model-answer-item">
+              <div class="model-answer-item__label">HUMAN &mdash; Who is accountable when the board acts on a fabricated number?</div>
+              <p>The analyst is the primary professional responsible &mdash; they submitted a document containing unverified data. "The AI generated it" is not a defence under the Consumer Protection Act (Section 41), professional codes of conduct, or common law. Management also bears accountability for approving a R2.3 million decision without a verification requirement. The organisation needs a policy: any AI-generated statistic used in a decision document must be independently verified and sourced.</p>
             </div>
           </div>
         </div>
+      </div><!-- /phase-3 -->
 
-        <div style="text-align:right; margin-top:24px;">
-          <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 &mdash; Corporate &rarr;</button>
+      <!-- MODULE COMPLETE -->
+      <div id="module-complete" class="module-complete-block">
+        <h2>Module 7 &mdash; Corporate complete.</h2>
+        <p>You can now name the specific AI risks in your workplace, apply the Funda Five to a real corporate scenario, and explain accountability when AI output causes a professional failure.</p>
+        <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Register for the full course to complete the capstone assessment and earn your AfriversalAI certificate.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="register.html" class="btn btn--gold btn--lg">Register for the full course &rarr;</a>
+          <a href="index.html#sectors" class="btn btn--white btn--lg">See other sector modules</a>
         </div>
-        <div id="err-3" class="advance-err" style="display:none;"></div>
       </div>
-    </div>
 
-    <!-- MODULE COMPLETE -->
-    <div id="module-complete" style="display:none;" class="preview-end">
-      <h2>Module 7 &mdash; Corporate complete.</h2>
-      <p>You can now name the specific AI risks in your workplace, apply the Funda Five to a real corporate scenario, and explain accountability when AI output causes a professional failure.</p>
-      <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Register for the full course to complete the capstone assessment and earn your AfriversalAI certificate.</p>
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-        <a href="register.html" class="btn btn--gold btn--lg">Register for the full course &rarr;</a>
-        <a href="index.html#sectors" class="btn btn--white btn--lg">See other sector modules</a>
-      </div>
-    </div>
+    </div><!-- /container -->
+  </section>
 
-  </div>
-</section>
+</div><!-- /module-content -->
 
 <footer>
   <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
   <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
 <script>
-const RISKS = ['risk-high', 'risk-med', 'risk-low'];
+/* === QUIZ DATA === */
+var M7CORP_ANSWERS = [1, 1, 2, 1];
+var M7CORP_FEEDBACK_CORRECT = [
+  'Correct. POPIA governs the processing of personal information. Free-tier tools process data on overseas servers. Pasting a client\'s personal and financial details constitutes a reportable breach &mdash; the Information Regulator began active enforcement in February 2026.',
+  'Correct. Data entered into unapproved tools sits outside your organisation\'s data governance. DeepSeek &mdash; a common "shadow AI" alternative &mdash; suffered a major breach in early 2025. Any work data entered is beyond your organisation\'s control, and may be used for model training.',
+  'Correct. Generative AI does not retrieve verified facts &mdash; it predicts text that would plausibly follow your prompt. The DCDT drafters gave the AI a task it cannot reliably perform: sourcing and verifying academic literature. The AI completed the task-shaped hole with confident-sounding fabrications.',
+  'Correct. Enbi succeeded because its designers understood what the system should and should not do. A narrow scope, a clear escalation path, and training on the actual domain (Nedbank products and SA vernacular) are what separated it from generic deployments.'
+];
+var M7CORP_FEEDBACK_WRONG = [
+  'Not quite. While B-BBEE implications exist for some AI procurement decisions, the most direct legal risk here is POPIA. Personal information (name, address, financial details) cannot be processed offshore without adequate protection &mdash; the free ChatGPT tier does not provide this.',
+  'Not quite. The primary risk is data exposure &mdash; entered data may train external models or be exposed in breaches. The quality difference between tools is real but secondary to the data governance risk.',
+  'Not quite. The fabrications were not caused by outdated databases, deliberate intent, or formatting errors. Generative AI constructs text by predicting what would plausibly follow &mdash; it does not distinguish between retrieving a fact and generating a plausible-sounding one.',
+  'Not quite. Enbi\'s success was not about model power, training data volume, or manual review. Most corporate AI failures happen when tools are deployed outside their reliable range. Enbi stayed inside that range by design.'
+];
+
+/* === RISK GRID === */
+var _RISKS = ['risk-high', 'risk-med', 'risk-low'];
 function cycleRisk(card) {
-  const cur = RISKS.find(r => card.classList.contains(r));
-  if (cur) { card.classList.remove(cur); const next = RISKS[(RISKS.indexOf(cur) + 1) % RISKS.length]; card.classList.add(next); }
-  else { card.classList.add('risk-high'); }
-  const lbl = card.querySelector('.risk-label');
+  var cur = _RISKS.find(function(r) { return card.classList.contains(r); });
+  if (cur) {
+    card.classList.remove(cur);
+    var next = _RISKS[(_RISKS.indexOf(cur) + 1) % _RISKS.length];
+    card.classList.add(next);
+  } else {
+    card.classList.add('risk-high');
+  }
+  var lbl = card.querySelector('.risk-label');
   if (card.classList.contains('risk-high')) lbl.textContent = 'HIGH RISK';
-  else if (card.classList.contains('risk-med'))  lbl.textContent = 'MEDIUM RISK';
-  else if (card.classList.contains('risk-low'))  lbl.textContent = 'LOW RISK';
+  else if (card.classList.contains('risk-med')) lbl.textContent = 'MEDIUM RISK';
+  else lbl.textContent = 'LOW RISK';
 }
 
-// Actual risk answers: indices 0,2,3,4,6 = high; 1,7 = med; 5 = low
-const ANSWERS = ['risk-high','risk-med','risk-high','risk-high','risk-high','risk-low','risk-high','risk-med'];
+var ANSWERS = ['risk-high','risk-med','risk-high','risk-high','risk-high','risk-low','risk-high','risk-med'];
+var _m7corpCaseRevealed = false;
 
 function revealRisks() {
-  document.querySelectorAll('.risk-card').forEach((card, i) => {
-    RISKS.forEach(r => card.classList.remove(r));
+  _m7corpCaseRevealed = true;
+  document.querySelectorAll('.risk-card').forEach(function(card, i) {
+    _RISKS.forEach(function(r) { card.classList.remove(r); });
     card.classList.add(ANSWERS[i]);
-    const lbl = card.querySelector('.risk-label');
+    var lbl = card.querySelector('.risk-label');
     if (ANSWERS[i] === 'risk-high') lbl.textContent = 'HIGH RISK';
     else if (ANSWERS[i] === 'risk-med') lbl.textContent = 'MEDIUM RISK';
     else lbl.textContent = 'LOW RISK';
   });
   document.getElementById('case-reveal').style.display = 'block';
-  setTimeout(() => document.getElementById('case-reveal').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+  setTimeout(function() {
+    document.getElementById('case-reveal').scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 100);
 }
 
+/* === PROGRESS TRACKER === */
+function updateTracker(n) {
+  [0, 1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.classList.remove('is-active');
+    if (i < n) { if (!step.classList.contains('is-done')) step.classList.add('is-done'); }
+    else if (i === n) step.classList.add('is-active');
+  });
+}
+
+/* === PHASE SYSTEM === */
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  var header = phase.querySelector('.phase__header');
+  if (header) header.style.display = '';
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function(s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  var header = phase.querySelector('.phase__header');
+  if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* === ADVANCE PHASE === */
 function advancePhase(fromPhase) {
-  const errEl = document.getElementById('err-' + fromPhase);
+  var errEl = document.getElementById('err-' + fromPhase);
+  if (errEl) { errEl.style.display = 'none'; errEl.className = 'advance-err err'; }
 
   if (fromPhase === 0) {
-    const rated = document.querySelectorAll('.risk-card.risk-high, .risk-card.risk-med, .risk-card.risk-low').length;
-    if (rated < 4) { errEl.style.display='block'; errEl.textContent='Rate at least a few scenarios before moving on.'; return; }
-    errEl.style.display='none';
-    revealRisks();
+    var rated = document.querySelectorAll('.risk-card.risk-high, .risk-card.risk-med, .risk-card.risk-low').length;
+    if (rated < 4) {
+      if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Rate at least a few scenarios before moving on.'; }
+      return;
+    }
+    if (!_m7corpCaseRevealed) {
+      revealRisks();
+      if (errEl) {
+        errEl.style.display = 'block';
+        errEl.className = 'advance-err info';
+        errEl.textContent = 'Case revealed below — read it, then click Continue again.';
+      }
+      return;
+    }
   }
+
   if (fromPhase === 1) {
-    const t1 = document.getElementById('ref-1').value.trim();
-    const t2 = document.getElementById('ref-2').value.trim();
-    if (t1.length < 8 || t2.length < 8) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes.'; return; }
-    errEl.style.display='none';
-  }
-  if (fromPhase === 2) { errEl.style.display='none'; }
-  if (fromPhase === 3) {
-    const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
-    if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
-    document.getElementById('phase-3').classList.add('is-done');
-    document.getElementById('prog-3').classList.remove('is-active');
-    document.getElementById('prog-3').classList.add('is-done');
-    const complete = document.getElementById('module-complete');
-    complete.style.display = 'block';
-    setTimeout(() => complete.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
-    return;
+    var t1 = document.getElementById('ref-1').value.trim();
+    var t2 = document.getElementById('ref-2').value.trim();
+    if (t1.length < 8 || t2.length < 8) {
+      if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Please write a few words in both boxes.'; }
+      return;
+    }
   }
 
-  const current = document.getElementById('phase-' + fromPhase);
-  const next    = document.getElementById('phase-' + (fromPhase + 1));
-  const pCur    = document.getElementById('prog-' + fromPhase);
-  const pNxt    = document.getElementById('prog-' + (fromPhase + 1));
+  if (window._m7corpUserLoggedIn) saveProgress('module-7-corporate', fromPhase);
+  showPhase(fromPhase + 1);
+}
 
-  current.classList.add('is-done');
-  if (pCur) { pCur.classList.remove('is-active'); pCur.classList.add('is-done'); }
-  if (next) {
-    next.classList.remove('is-locked');
-    if (pNxt) pNxt.classList.add('is-active');
-    setTimeout(() => next.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+/* === KNOWLEDGE CHECK === */
+function submitQuizM7Corp() {
+  var correct = 0;
+  var errEl = document.getElementById('m7corp-quiz-err');
+
+  for (var i = 0; i < 4; i++) {
+    var sel = document.querySelector('input[name="m7corp_q' + i + '"]:checked');
+    var fb  = document.getElementById('m7cqf-' + i);
+    var block = document.getElementById('m7cq-block-' + i);
+    var opts = block ? block.querySelectorAll('.quiz-opt') : [];
+    opts.forEach(function(o) { o.classList.remove('correct', 'wrong'); });
+
+    if (!sel) {
+      if (fb) { fb.className = 'quiz-feedback wrong'; fb.textContent = 'Please select an answer.'; }
+      continue;
+    }
+
+    var val = parseInt(sel.value);
+    var selectedOpt = sel.closest('.quiz-opt');
+
+    if (val === M7CORP_ANSWERS[i]) {
+      if (fb) { fb.className = 'quiz-feedback correct'; fb.textContent = M7CORP_FEEDBACK_CORRECT[i]; }
+      if (selectedOpt) selectedOpt.classList.add('correct');
+      correct++;
+    } else {
+      if (fb) { fb.className = 'quiz-feedback wrong'; fb.textContent = M7CORP_FEEDBACK_WRONG[i]; }
+      if (selectedOpt) selectedOpt.classList.add('wrong');
+      sel.checked = false;
+    }
+  }
+
+  if (correct === 4) {
+    errEl.style.display = 'none';
+    document.getElementById('quiz-m7corp-advance').style.display = 'inline-flex';
+    document.getElementById('quiz-m7corp-submit').style.display = 'none';
+  } else {
+    errEl.style.display = 'block';
+    var remaining = 4 - correct;
+    errEl.textContent = remaining + ' answer' + (remaining !== 1 ? 's' : '') + ' need' + (remaining === 1 ? 's' : '') + ' to be corrected. Check the feedback and retry.';
   }
 }
+
+/* === COMPLETE MODULE === */
+function completeModuleM7Corp() {
+  var errEl = document.getElementById('err-3');
+  var vals = [1,2,3,4,5].map(function(n) { return document.getElementById('app-' + n).value.trim(); });
+  if (vals.some(function(v) { return v.length < 10; })) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please answer all five Funda Five lenses.';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  if (window._m7corpUserLoggedIn) saveProgress('module-7-corporate', 3);
+
+  var prog3 = document.getElementById('prog-3');
+  if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+  var phase3 = document.getElementById('phase-3');
+  if (phase3) phase3.classList.add('is-done');
+
+  document.getElementById('model-answers-m7corp').style.display = 'block';
+  document.getElementById('m7corp-apply-submit').style.display = 'none';
+
+  var complete = document.getElementById('module-complete');
+  complete.style.display = 'block';
+  setTimeout(function() { complete.scrollIntoView({ behavior:'smooth', block:'start' }); }, 300);
+}
+
+/* === LESSON DOT TRACKER === */
+(function () {
+  var lessons = [
+    { id: 'm7corp-l1', label: 'Section 1 of 4 — The pattern behind the DCDT case' },
+    { id: 'm7corp-l2', label: 'Section 2 of 4 — The 3 AI tools and their risk profiles' },
+    { id: 'm7corp-l3', label: 'Section 3 of 4 — Four SA regulations' },
+    { id: 'm7corp-l4', label: 'Section 4 of 4 — Where AI works: Nedbank Enbi' }
+  ];
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var idx = lessons.findIndex(function(l) { return l.id === entry.target.id; });
+      if (idx < 0) return;
+      var label = document.getElementById('m7corp-lesson-label');
+      if (label) label.textContent = lessons[idx].label;
+      lessons.forEach(function(_, i) {
+        var dot = document.getElementById('ldot-' + (i + 1));
+        if (!dot) return;
+        dot.classList.remove('current', 'visited');
+        if (i < idx) dot.classList.add('visited');
+        else if (i === idx) dot.classList.add('current');
+      });
+    });
+  }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
+  lessons.forEach(function(l) {
+    var el = document.getElementById(l.id);
+    if (el) observer.observe(el);
+  });
+})();
 </script>
+
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>
-<script>requireAuth('module-7-corporate.html')</script>
+
+<script>
+(async () => {
+  const session = await requireAuth('module-7-corporate.html');
+  if (!session) return;
+  window._m7corpUserLoggedIn = true;
+  await updateNavForAuth();
+
+  const gateChecking = document.getElementById('gate-checking');
+  const gateLocked   = document.getElementById('module-locked');
+  const content      = document.getElementById('module-content');
+
+  const m0 = await getModuleProgress('module-0');
+  const m0done = m0.length >= 4;
+
+  if (!m0done) {
+    gateChecking.style.display = 'none';
+    content.style.display      = 'none';
+    gateLocked.style.display   = 'block';
+    return;
+  }
+
+  const s0 = document.getElementById('gate-step-0');
+  if (s0) { s0.classList.add('done'); s0.querySelector('.tick').textContent = '✓'; }
+
+  gateChecking.style.display = 'none';
+  gateLocked.style.display   = 'none';
+  content.style.display      = 'block';
+
+  const progress = await getAllProgress();
+  const phases = progress
+    .filter(function(r) { return r.module_id === 'module-7-corporate'; })
+    .map(function(r) { return Number(r.phase); });
+
+  if (phases.length === 0) return;
+
+  phases.forEach(function(p) {
+    var step = document.getElementById('prog-' + p);
+    if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+  });
+
+  const maxPhase = Math.max(...phases);
+  if (maxPhase < 3) {
+    showPhase(maxPhase + 1);
+  } else {
+    showPhase(3);
+    var prog3 = document.getElementById('prog-3');
+    if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+    var phase3 = document.getElementById('phase-3');
+    if (phase3) phase3.classList.add('is-done');
+    document.getElementById('model-answers-m7corp').style.display = 'block';
+    document.getElementById('m7corp-apply-submit').style.display = 'none';
+    document.getElementById('module-complete').style.display = 'block';
+  }
+})();
+</script>
 
 </body>
 </html>

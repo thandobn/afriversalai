@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,13 +8,56 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    /* One-phase-at-a-time display — matches module-0 architecture */
+    .phase { display: none; }
+    .phase.is-active { display: block; }
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+
+    /* Sticky progress bar */
+    .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
+
+    /* Lesson dot tracker */
+    .lesson-tracker { display:flex; align-items:center; gap:6px; margin-bottom:28px; padding:12px 16px; background:var(--green-pale); border-radius:var(--radius-lg); }
+    .lesson-dot { width:9px; height:9px; border-radius:50%; background:rgba(27,67,50,.15); transition:all .25s; flex-shrink:0; }
+    .lesson-dot.visited { background:var(--green-light); }
+    .lesson-dot.current { width:24px; border-radius:12px; background:var(--green-dark); }
+    .lesson-tracker-label { font-size:0.78em; color:var(--green-dark); font-weight:700; margin-left:8px; white-space:nowrap; }
+    @media (max-width:600px) { .lesson-tracker-label { display:none; } }
+
+    /* Back / forward nav row within a phase-screen */
+    .phase-nav { display:flex; justify-content:space-between; align-items:center; padding-top:24px; margin-top:32px; border-top:1px solid var(--border); gap:12px; }
+
+    /* Knowledge-check quiz */
+    .quiz-opts { margin-top:12px; }
+    .quiz-opt { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:8px; cursor:pointer; transition:border-color .15s,background .15s; font-size:0.92em; line-height:1.5; }
+    .quiz-opt:hover { border-color:var(--green-mid); background:var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top:3px; flex-shrink:0; accent-color:var(--green-mid); }
+    .quiz-feedback { display:none; margin-top:10px; padding:10px 14px; border-radius:var(--radius); font-size:0.88em; line-height:1.6; }
+
+    /* Phase header — override style.css locked state (not used in slideshow mode) */
+    .phase.is-done .phase__header { background: var(--green-pale); }
+
+    /* Access gate (matches module-2 pattern) */
+    .access-gate { max-width:620px; margin:60px auto; background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:48px 40px; text-align:center; }
+    .access-gate__lock { font-size:2.6em; margin-bottom:16px; }
+    .access-gate h2 { color:white; font-size:1.5em; margin-bottom:12px; }
+    .access-gate p { color:rgba(255,255,255,0.75); max-width:460px; margin:0 auto 24px; line-height:1.7; font-size:0.95em; }
+    .access-gate__steps { display:flex; flex-direction:column; gap:10px; max-width:380px; margin:0 auto 28px; text-align:left; }
+    .access-gate__step { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius); padding:12px 16px; font-size:0.88em; color:rgba(255,255,255,0.85); }
+    .access-gate__step .tick { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85em; font-weight:800; flex-shrink:0; }
+    .access-gate__step.done .tick { background:var(--gold); color:var(--green-dark); }
+    .access-gate__step.todo .tick { background:rgba(255,255,255,0.15); color:white; }
+    #gate-checking { text-align:center; padding:80px 20px; color:var(--muted); }
+  </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav class="nav">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="friversalAi" class="nav__logo-img"></a>
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li class="nav__dropdown">
@@ -40,7 +83,8 @@
         </ul>
       </li>
       <li><a href="module-0.html">Preview Course</a></li>
-      <li><a href="pricing.html">Pricing</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
     </ul>
     <div class="lang-switcher" role="group" aria-label="Language">
       <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
@@ -62,41 +106,64 @@
     <div class="breadcrumb">
       <a href="course.html">Core Course</a> / Module 1
     </div>
-    <span class="tag tag--gold" style="margin-bottom:12px; display:inline-block;">Core Course &middot; Module 1</span>
     <h1>What AI Actually Is</h1>
     <p class="lead lead--light">Before you can judge AI output, you need to understand what AI actually does &mdash; and what it can't do. This module starts with a real South African case: a government document that looked authoritative but wasn't.</p>
     <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
       <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
       <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
-        <li>Explain what AI hallucination is and why it occurs in language models</li>
+        <li>Explain what AI <a href="glossary.html#hallucination" style="color:var(--gold);">hallucination</a> is and why it occurs in language models</li>
         <li>Identify the signals that distinguish fabricated citations from real ones</li>
         <li>Apply the Funda Five framework to evaluate AI-generated policy documents</li>
         <li>Recognise where accountability sits when AI output causes institutional harm</li>
       </ul>
     </div>
+    <div style="display:flex; gap:24px; margin-top:16px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">~80 min &middot; 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; Builds on Module 0</span>
+    </div>
   </div>
 </div>
 
-<!-- PROGRESS BAR -->
-<div class="container" style="margin-top:36px;">
-  <div class="progress-track" id="progressTrack">
-    <div class="progress-step is-active" id="prog-1">1 · Encounter</div>
-    <div class="progress-step" id="prog-2">2 · Reflect</div>
-    <div class="progress-step" id="prog-3">3 · Concept</div>
-    <div class="progress-step" id="prog-4">4 · Apply</div>
+<div id="gate-checking" class="container">Checking your access&hellip;</div>
+
+<div id="module-locked" class="access-gate container" style="display:none;">
+  <div class="access-gate__lock">🔒</div>
+  <h2>Complete Module 0 to unlock Module 1</h2>
+  <p>Module 1 builds directly on the foundation you built in Module 0. Finish all four phases of Module 0 first &mdash; it takes about 55 minutes.</p>
+  <div class="access-gate__steps">
+    <div class="access-gate__step todo" id="gate-step-0"><span class="tick">0</span> <span>Module 0 &mdash; AI Fundamentals</span></div>
+    <div class="access-gate__step todo" id="gate-step-1"><span class="tick">1</span> <span>Module 1 &mdash; What AI Actually Is</span></div>
   </div>
+  <a id="gate-cta" href="module-0.html" class="btn btn--gold btn--lg">Go to Module 0 &rarr;</a>
+</div>
+
+<div id="module-content" style="display:none;">
+
+<!-- STICKY PROGRESS TRACKER -->
+<div class="progress-sticky-wrap">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 1 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+      <div class="progress-step is-active" id="prog-0">1 &middot; Encounter</div>
+      <div class="progress-step" id="prog-1">2 &middot; Reflect</div>
+      <div class="progress-step" id="prog-2">3 &middot; Concept</div>
+      <div class="progress-step" id="prog-3">4 &middot; Apply</div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-pale">
+<div class="container" style="margin-top:36px; padding-bottom:60px;">
 
   <!-- ============================================================
-       PHASE 1 &mdash; ENCOUNTER
+       PHASE 0 — ENCOUNTER
        ============================================================ -->
-  <div class="phase" id="phase-1">
+  <div class="phase is-active" id="phase-0">
     <div class="phase__header">
       <div class="phase__num">1</div>
       <div>
         <div class="phase__label">Encounter</div>
-        <div style="font-size:0.8em;color:var(--muted);">Engage with the material before any explanation.</div>
+        <div style="font-size:0.8em;color:var(--muted);">Engage with the material before any explanation &middot; ~20 min</div>
       </div>
-      <div class="phase__sublabel">~20 min</div>
     </div>
     <div class="phase__body">
       <div class="phase__task">
@@ -135,23 +202,40 @@
       </div>
 
       <div style="text-align:right; margin-top:24px;">
-        <button class="btn btn--primary" onclick="advance(1)">I've read it &rarr;</button>
+        <button class="btn btn--primary" onclick="advancePhase(0)">I've read it &rarr;</button>
       </div>
     </div>
   </div>
 
+  <!-- PREVIEW END — shown to guests after Encounter -->
+  <div id="preview-end" style="display:none; margin-bottom:32px;">
+    <div class="preview-end-block">
+      <div style="font-size:1.8em; margin-bottom:12px;">🔒</div>
+      <h3 style="margin-bottom:8px;">You've experienced the Encounter phase.</h3>
+      <p style="font-size:0.93em; color:var(--muted); max-width:520px; margin:0 auto 8px;">This is how every AfriversalAI module begins &mdash; a real artifact, no context, just your instincts.</p>
+      <p style="font-size:0.93em; color:var(--muted); max-width:520px; margin:0 auto 20px;">The full module takes you through three more phases with a cohort and facilitator:</p>
+      <div class="preview-end-phases">
+        <div class="preview-end-phase">✍️ Reflect &mdash; surface what you were sensing</div>
+        <div class="preview-end-phase">💡 Concept &mdash; the real DCDT story explained</div>
+        <div class="preview-end-phase">🎯 Apply &mdash; use the Funda Five yourself</div>
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="register.html" class="btn btn--primary btn--lg">Register &rarr;</a>
+        <a href="course.html" class="btn btn--outline btn--lg">See the full course</a>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
-       PHASE 2 &mdash; REFLECT
+       PHASE 1 — REFLECT
        ============================================================ -->
-  <div class="phase is-locked" id="phase-2">
+  <div class="phase" id="phase-1">
     <div class="phase__header">
       <div class="phase__num">2</div>
       <div>
         <div class="phase__label">Reflect</div>
-        <div style="font-size:0.8em;color:var(--muted);">Surface what you were sensing &mdash; before you're told what to think.</div>
+        <div style="font-size:0.8em;color:var(--muted);">Surface what you were sensing &mdash; before you're told what to think &middot; ~20 min</div>
       </div>
-      <div class="phase__sublabel">~20 min</div>
     </div>
     <div class="phase__body">
       <div class="phase__task">
@@ -171,68 +255,218 @@
         <textarea class="reflect-q__field" id="ref-3" placeholder="Yes, when I... / Not that I can recall, but..."></textarea>
       </div>
 
-      <div style="text-align:right; margin-top:24px;">
-        <button class="btn btn--primary" onclick="advance(2)">Done reflecting &mdash; show me the concept &rarr;</button>
+      <div class="phase-nav">
+        <button type="button" class="btn btn--outline" onclick="showPhase(0)">&larr; Encounter</button>
+        <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &mdash; show me the concept &rarr;</button>
       </div>
     </div>
   </div>
 
   <!-- ============================================================
-       PHASE 3 &mdash; CONCEPT
+       PHASE 2 — CONCEPT
        ============================================================ -->
-  <div class="phase is-locked" id="phase-3">
+  <div class="phase" id="phase-2">
     <div class="phase__header">
       <div class="phase__num">3</div>
       <div>
         <div class="phase__label">Concept</div>
-        <div style="font-size:0.8em;color:var(--muted);">What you were sensing &mdash; named and explained.</div>
+        <div style="font-size:0.8em;color:var(--muted);">What you were sensing &mdash; named and explained &middot; ~30 min</div>
       </div>
-      <div class="phase__sublabel">~30 min</div>
     </div>
     <div class="phase__body">
 
-      <div class="callout">
-        <strong>What you were reading was a simulation of AI hallucination &mdash; in a real-world policy context.</strong>
-        The document above was written to look like the kind of AI-generated policy section that caused South Africa's real AI policy crisis in April 2026. None of the three sources cited in it exist.
-      </div>
+      <!-- CONTENT SCREEN -->
+      <div class="phase-screen is-active" id="ps-2-content">
 
-      <h3 style="margin-top:28px; margin-bottom:12px;">What actually happened in April 2026</h3>
-      <p style="font-size:0.93em; margin-bottom:16px;">South Africa's Department of Communications and Digital Technologies (DCDT) published an 86-page draft national AI policy. Shortly after publication, journalists discovered that the document contained fabricated academic citations &mdash; the kind that generative AI creates when it "hallucinates" sources that sound plausible but don't exist.</p>
-      <p style="font-size:0.93em; margin-bottom:16px;">The Minister confirmed that AI was used in drafting without proper human verification. The document was withdrawn 16 days after publication. South Africa's AI policy process had to restart.</p>
-      <p style="font-size:0.93em; margin-bottom:28px;">The people responsible were not bad at their jobs. They were skilled policy professionals who knew how to use AI tools. What they didn't know was when and how to question the output.</p>
+        <!-- Lesson progress tracker — 3 sections -->
+        <div class="lesson-tracker" id="m1-lesson-tracker">
+          <div class="lesson-dot current" id="ldot-1"></div>
+          <div class="lesson-dot" id="ldot-2"></div>
+          <div class="lesson-dot" id="ldot-3"></div>
+          <span class="lesson-tracker-label" id="m1-lesson-label">Section 1 of 3 &mdash; What happened &amp; why</span>
+        </div>
 
-      <div class="concept-block">
-        <h4>What is AI hallucination?</h4>
-        <p>Generative AI doesn't "know" facts the way you look something up. It predicts what words should come next based on patterns in its training data. When asked to cite sources, it generates text that <em>sounds like</em> a citation &mdash; author, journal, page numbers and all &mdash; whether or not the source exists. It does this confidently, with no signal that anything is wrong. The output looks exactly the same whether the source is real or invented.</p>
-      </div>
+        <!-- Bridging sentence from Module 0 -->
+        <div class="callout" style="margin-bottom:28px;">
+          In Module 0 you learned that AI <strong>predicts</strong> rather than knows &mdash; it generates plausible-sounding text whether or not that text is accurate. What you read in the Encounter phase is a direct consequence of that. Let's name it.
+        </div>
 
-      <div class="concept-block">
-        <h4>Why this matters for professionals (not just policy writers)</h4>
-        <p>Every time you ask an AI to summarise research, write a report, or support a recommendation with evidence &mdash; this risk exists. AI doesn't flag uncertainty in citations the way it does in regular text. The only person who can catch it is the human who reviews the output. That human is you.</p>
-      </div>
+        <!-- Section 1: What is hallucination + real case -->
+        <div id="m1l-1" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Section 1</span>
+            <h3 style="margin:0; font-size:1.15em;">What happened &mdash; and why</h3>
+          </div>
 
-      <div class="concept-block">
-        <h4>The signals in that document you could have caught</h4>
-        <p>Look back at the excerpt. Three signals a trained reader would catch: (1) "South African Institute of Digital Futures Research" and "Pan-African Technology Readiness Council" are not real institutions &mdash; a quick search returns nothing. (2) The statistics are suspiciously precise and uniformly dramatic: 67.3%, 71%, 340%. Real research produces messier numbers. (3) All three citations point to sources that are almost impossible to independently verify. Real policy documents cite accessible public sources.</p>
-      </div>
+          <div class="callout">
+            <strong>What you were reading was a simulation of <a href="glossary.html#hallucination" style="color:var(--green-dark); font-weight:700;">AI hallucination</a> &mdash; in a real-world policy context.</strong>
+            The document above was written to look like the kind of AI-generated policy section that caused South Africa's real AI policy crisis in April 2026. None of the three sources cited in it exist.
+          </div>
 
-      <div style="text-align:right; margin-top:28px;">
-        <button class="btn btn--primary" onclick="advance(3)">I understand &mdash; take me to Apply &rarr;</button>
-      </div>
-    </div>
-  </div>
+          <h4 style="margin-top:24px; margin-bottom:10px;">What actually happened in April 2026</h4>
+          <p style="font-size:0.93em; margin-bottom:16px;">South Africa's Department of Communications and Digital Technologies (DCDT) published an 86-page draft national AI policy. Shortly after publication, journalists discovered that the document contained fabricated academic citations &mdash; the kind that generative AI creates when it "hallucinates" sources that sound plausible but don't exist.</p>
+          <p style="font-size:0.93em; margin-bottom:16px;">The Minister confirmed that AI was used in drafting without proper human verification. The document was withdrawn 16 days after publication. South Africa's AI policy process had to restart.</p>
+          <p style="font-size:0.93em; margin-bottom:0;">The people responsible were not bad at their jobs. They were skilled policy professionals who knew how to use AI tools. What they didn't know was when and how to question the output.</p>
+        </div>
+
+        <!-- Section 2: Why hallucination happens -->
+        <div id="m1l-2" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Section 2</span>
+            <h3 style="margin:0; font-size:1.15em;">Why this happens &mdash; and why it matters for you</h3>
+          </div>
+
+          <div class="concept-block">
+            <h4>What is AI hallucination?</h4>
+            <p>A <a href="glossary.html#llm" style="color:var(--green-dark); font-weight:600;">large language model (LLM)</a> like ChatGPT or Copilot doesn't "know" facts the way you look something up. It predicts what words should come next based on patterns in its training data. When asked to cite sources, it generates text that <em>sounds like</em> a citation &mdash; author, journal, page numbers and all &mdash; whether or not the source exists. It does this confidently, with no signal that anything is wrong. The output looks exactly the same whether the source is real or invented.</p>
+          </div>
+
+          <div class="concept-block" style="margin-top:16px;">
+            <h4>Why this matters for professionals (not just policy writers)</h4>
+            <p>Every time you ask an AI to summarise research, write a report, or support a recommendation with evidence &mdash; this risk exists. AI doesn't flag uncertainty in citations the way it sometimes does in regular text. The only person who can catch it is the human who reviews the output. That human is you.</p>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-top:16px;">
+            <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Your sector context</p>
+            <p style="margin:0; font-size:0.92em;">Whether you're in finance, healthcare, HR, or government &mdash; if AI helps produce a document that others act on, you are part of the accountability chain. "I used AI" is not a defence if the output harms someone.</p>
+          </div>
+        </div>
+
+        <!-- Section 3: The signals -->
+        <div id="m1l-3" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Section 3</span>
+            <h3 style="margin:0; font-size:1.15em;">The signals you could have caught</h3>
+          </div>
+
+          <div class="concept-block">
+            <h4>What a trained reader looks for</h4>
+            <p>Look back at the excerpt. Three signals a trained reader would catch:</p>
+          </div>
+
+          <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
+              <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Signal 1 &mdash; Institutional names that don't exist</div>
+              <p style="margin:0; font-size:0.92em;">"South African Institute of Digital Futures Research" and "Pan-African Technology Readiness Council" are not real institutions &mdash; a quick search returns nothing. Real policy documents cite organisations with established public presences and accessible websites.</p>
+            </div>
+            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
+              <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Signal 2 &mdash; Suspiciously precise, dramatic statistics</div>
+              <p style="margin:0; font-size:0.92em;">67.3%. 71%. 340%. Real research produces messier numbers &mdash; "approximately 65%", "between 60 and 75%", "up to 340%". When every figure is exact and dramatic, it often means AI predicted what a statistic <em>should sound like</em>, rather than reporting a real finding.</p>
+            </div>
+            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
+              <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Signal 3 &mdash; Sources that can't be independently verified</div>
+              <p style="margin:0; font-size:0.92em;">All three citations point to sources that are almost impossible to confirm. Real policy documents cite accessible public sources &mdash; government reports you can download, journals with DOIs, NGO publications with public links. If you can't find it in 5 minutes of searching, treat it as unverified.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- External resources -->
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:24px 28px; margin-bottom:32px;">
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--muted); margin-bottom:16px;">Go deeper &mdash; further reading</p>
+          <ul style="margin:0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
+            <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
+              <strong>DCDT AI Policy Withdrawal (2026)</strong> &mdash; Mail &amp; Guardian and Daily Maverick covered the story as it broke. Search "DCDT AI policy hallucination 2026" for the original reporting.
+            </li>
+            <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
+              <strong>Why AI chatbots hallucinate</strong> &mdash; MIT Technology Review has covered this well. Search "MIT Technology Review AI hallucination explained" for a non-technical breakdown.
+            </li>
+            <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
+              <strong>SA DCDT AI Policy Framework</strong> &mdash; The official public page is at <em>dcdt.gov.za</em>. Any revised draft after the withdrawal will be published there.
+            </li>
+          </ul>
+        </div>
+
+        <div style="text-align:right;">
+          <button type="button" class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-content -->
+
+      <!-- QUIZ SCREEN -->
+      <div class="phase-screen" id="ps-2-quiz">
+
+        <div style="margin-top:8px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
+          <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Knowledge Check</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">4 questions &middot; check your understanding</span>
+          </div>
+          <div style="padding:28px;">
+
+            <p style="font-size:0.85em; color:var(--muted); margin-bottom:24px; padding:10px 14px; background:var(--bg-pale,#F9FAFB); border-radius:var(--radius); border-left:3px solid var(--gold);">You need to answer all 4 questions correctly to move on. You can retry as many times as you like.</p>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">1. Which of these is most likely a hallucination signal in an AI-generated document?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="m1_q0" value="0"> A suspiciously precise statistic like 67.3% or a 340% increase</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q0" value="1"> A bibliographic reference formatted in APA style</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q0" value="2"> A recommendation to seek further expert input</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q0" value="3"> Use of formal, passive-voice language throughout</label>
+              </div>
+              <div class="quiz-feedback" id="m1qf-0"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">2. Why does a generative AI produce fabricated citations?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="m1_q1" value="0"> It retrieves information from a verified academic database</label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="m1_q1" value="1"> It predicts plausible-sounding text whether or not the sources exist</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q1" value="2"> It copies citations directly from similar documents it was trained on</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q1" value="3"> It intentionally invents content to fill gaps when information is missing</label>
+              </div>
+              <div class="quiz-feedback" id="m1qf-1"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">3. When an organisation publishes an AI-generated policy document with fabricated sources, who bears responsibility?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="m1_q2" value="0"> The AI model that generated the content</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q2" value="1"> The providers of the AI's original training data</label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="m1_q2" value="2"> The organisation that approved it for publication without verification</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q2" value="3"> The AI platform that hosted the tool</label>
+              </div>
+              <div class="quiz-feedback" id="m1qf-2"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">4. What is the most reliable way to verify a citation in an AI-generated document?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="m1_q3" value="0"> Ask the AI to confirm it is accurate</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q3" value="1"> Check whether the writing style looks professional and authoritative</label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="m1_q3" value="2"> Search for the source independently and confirm it exists</label>
+                <label class="quiz-opt"><input type="radio" name="m1_q3" value="3"> Count the number of references listed &mdash; more references means more reliable</label>
+              </div>
+              <div class="quiz-feedback" id="m1qf-3"></div>
+            </div>
+
+            <div id="quiz-m1-submit-wrap">
+              <button class="btn btn--primary" type="button" onclick="submitQuizM1()">Check my answers &rarr;</button>
+              <div id="quiz-m1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;"></div>
+            </div>
+            <div id="quiz-m1-result" style="display:none; margin-top:20px;"></div>
+
+          </div>
+        </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--primary" id="quiz-m1-advance" style="display:none" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-quiz -->
+
+    </div><!-- /phase__body -->
+  </div><!-- /phase-2 -->
 
   <!-- ============================================================
-       PHASE 4 &mdash; APPLY
+       PHASE 3 — APPLY
        ============================================================ -->
-  <div class="phase is-locked" id="phase-4">
+  <div class="phase" id="phase-3">
     <div class="phase__header">
       <div class="phase__num">4</div>
       <div>
         <div class="phase__label">Apply</div>
-        <div style="font-size:0.8em;color:var(--muted);">Use the Funda Five on a new scenario from your sector.</div>
+        <div style="font-size:0.8em;color:var(--muted);">Use the Funda Five on the DCDT scenario &middot; ~30 min</div>
       </div>
-      <div class="phase__sublabel">~30 min</div>
     </div>
     <div class="phase__body">
       <div class="phase__task">
@@ -304,82 +538,238 @@
 
       <!-- COMPLETION — revealed on submit -->
       <div id="m1-completion-block" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:32px;">
-        <div style="font-size:1.8em; margin-bottom:12px;">&#127891;</div>
+        <div style="font-size:1.8em; margin-bottom:12px;">🎓</div>
         <h3 style="margin-bottom:8px;">You've completed Module 1.</h3>
-        <p style="font-size:0.9em; color:var(--muted); max-width:480px; margin:0 auto 24px;">You can now spot AI hallucination in the wild and apply the Funda Five to a real case. <strong>Module 2 &mdash; How AI Learns &amp; Fails &mdash; is now unlocked.</strong></p>
+        <p style="font-size:0.9em; color:var(--muted); max-width:480px; margin:0 auto 24px;">In a real cohort, your facilitator would debrief the Funda Five responses with the group and connect your answers to other sectors. The real learning is in hearing how colleagues in different roles approached the same case differently.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a href="module-2.html" class="btn btn--primary btn--lg">Start Module 2 &rarr;</a>
-          <a href="dashboard.html" class="btn btn--outline">Back to my dashboard</a>
+          <a href="dashboard.html" class="btn btn--primary">Back to Dashboard &rarr;</a>
+          <a href="funda-five.html" class="btn btn--outline">Explore the Funda Five</a>
         </div>
       </div>
 
-    </div>
-  </div>
+      <div class="phase-nav" style="justify-content:flex-start;">
+        <button type="button" class="btn btn--outline" onclick="showPhase(2)">&larr; Concept</button>
+      </div>
 
-  <div style="height:60px;"></div>
-</div>
+    </div><!-- /phase__body -->
+  </div><!-- /phase-3 -->
+
+</div><!-- /container -->
+</section>
+
+</div><!-- /module-content -->
 
 <!-- FOOTER -->
 <footer>
   <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
   <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
-  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a>  &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
 </footer>
 
-<script>
-function advance(fromPhase) {
-  const current   = document.getElementById('phase-' + fromPhase);
-  const textareas = current.querySelectorAll('textarea');
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
 
-  const prevErr = current.querySelector('.advance-err');
+<script>
+// ── Lesson dot tracker for Concept phase (3 sections) ─────────────────────
+(function () {
+  var lessons = [
+    { id: 'm1l-1', label: 'Section 1 of 3 — What happened & why' },
+    { id: 'm1l-2', label: 'Section 2 of 3 — Why hallucination happens' },
+    { id: 'm1l-3', label: 'Section 3 of 3 — The signals to catch' },
+  ];
+  var current = 0;
+  function setSection(n) {
+    if (n === current) return;
+    current = n;
+    lessons.forEach(function (_, i) {
+      var dot = document.getElementById('ldot-' + (i + 1));
+      if (!dot) return;
+      dot.className = 'lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
+    });
+    var lbl = document.getElementById('m1-lesson-label');
+    if (lbl) lbl.textContent = lessons[n].label;
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.IntersectionObserver) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var idx = lessons.findIndex(function (l) { return l.id === entry.target.id; });
+        if (idx >= 0) setSection(idx);
+      });
+    }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
+    lessons.forEach(function (l) {
+      var el = document.getElementById(l.id);
+      if (el) obs.observe(el);
+    });
+  });
+})();
+
+// ── Progress tracker ───────────────────────────────────────────────────────
+function updateTracker(activePhaseNum) {
+  [0, 1, 2, 3].forEach(function (i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.classList.remove('is-active');
+    if (i < activePhaseNum) {
+      if (!step.classList.contains('is-done')) step.classList.add('is-done');
+    } else if (i === activePhaseNum) {
+      step.classList.add('is-active');
+    }
+  });
+}
+
+// ── Phase display ──────────────────────────────────────────────────────────
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function (p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  // Always restore header visibility when entering a phase fresh
+  var header = phase.querySelector('.phase__header');
+  if (header) header.style.display = '';
+  // Reset to first screen if the phase has sub-screens
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function (s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function (s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  // Hide phase header when on quiz screen
+  var header = phase.querySelector('.phase__header');
+  if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Phase advance ──────────────────────────────────────────────────────────
+function advancePhase(fromPhase) {
+  var current  = document.getElementById('phase-' + fromPhase);
+  var textareas = current ? current.querySelectorAll('textarea') : [];
+
+  // Clear previous error
+  var prevErr = current ? current.querySelector('.advance-err') : null;
   if (prevErr) prevErr.remove();
 
-  // Validate: phases with textareas need at least a few characters
+  // Require at least a few words in each visible textarea
   if (textareas.length > 0) {
-    const total = [...textareas].reduce((sum, ta) => sum + ta.value.trim().length, 0);
+    var total = Array.from(textareas).reduce(function (sum, ta) { return sum + ta.value.trim().length; }, 0);
     if (total < 5) {
-      const err = document.createElement('p');
+      var err = document.createElement('p');
       err.className = 'advance-err';
       err.setAttribute('role', 'alert');
       err.setAttribute('aria-live', 'polite');
       err.textContent = 'Please write at least a few words before moving on.';
-      const btnRow = current.querySelector('button[onclick]').closest('div');
-      btnRow.parentNode.insertBefore(err, btnRow);
+      var btnRow = current.querySelector('button[onclick]');
+      if (btnRow) btnRow.parentNode.insertBefore(err, btnRow);
       return;
     }
   }
 
-  const progCur = document.getElementById('prog-' + fromPhase);
-  current.classList.add('is-done');
+  var progCur = document.getElementById('prog-' + fromPhase);
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
 
-  // Page is gated (requireAuth + Module 0 gate) — user is always logged in here.
-  // Record progress (phase index is fromPhase - 1). Phase 4 is handled by completeModule1().
-  saveProgress('module-1', fromPhase - 1);
+  // Phase 0: guests see enrollment CTA; enrolled users continue
+  if (fromPhase === 0 && !window._m1UserLoggedIn) {
+    var previewEnd = document.getElementById('preview-end');
+    previewEnd.style.display = 'block';
+    setTimeout(function () { previewEnd.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    return;
+  }
 
-  // Unlock next phase
-  const next    = document.getElementById('phase-' + (fromPhase + 1));
-  const progNxt = document.getElementById('prog-' + (fromPhase + 1));
-  if (next) {
-    next.classList.remove('is-locked');
-    if (progNxt) progNxt.classList.add('is-active');
-    setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  // Save progress (phase index is 0-based, matches HTML phase IDs)
+  if (window._m1UserLoggedIn) saveProgress('module-1', fromPhase);
+
+  showPhase(fromPhase + 1);
+}
+
+// ── Knowledge check ────────────────────────────────────────────────────────
+function submitQuizM1() {
+  var allAnswered = true;
+  var wrongCount  = 0;
+  var explanations = [
+    { ok: 'Correct — suspiciously precise statistics (67.3%, 340%) are a key signal. Real research produces messier numbers.',
+      no: 'Think about what stood out in the DCDT document. The statistics were unusually exact and uniformly dramatic — that\'s a hallucination signal.' },
+    { ok: 'Right — generative AI predicts plausible-sounding text based on patterns. It generates realistic-looking citations whether or not the source exists.',
+      no: 'Generative AI doesn\'t retrieve from a database. It predicts what text should come next — including citations that sound real but may not be.' },
+    { ok: 'Correct — accountability rests with the humans and organisations that approve and publish AI-generated content without verification.',
+      no: 'The AI model has no legal standing. Under South African law and internationally, the organisation that deploys and approves AI output bears responsibility.' },
+    { ok: 'Right — independent search is the only reliable method. Asking the AI to confirm its own output is circular.',
+      no: 'Asking the AI to verify itself is circular — it will sound confident whether it\'s right or wrong. Always verify independently by searching for the source.' },
+  ];
+  [0, 1, 2, 3].forEach(function (i) {
+    var sel = document.querySelector('input[name="m1_q' + i + '"]:checked');
+    if (!sel) { allAnswered = false; return; }
+    var isOk = sel.closest('label').dataset.correct === 'true';
+    var fb   = document.getElementById('m1qf-' + i);
+    fb.style.display = 'block';
+    if (isOk) {
+      fb.style.background = 'var(--green-pale)';
+      fb.style.border     = '1px solid var(--green-light)';
+      fb.style.color      = 'var(--green-dark)';
+      fb.innerHTML = '<strong>Correct.</strong> ' + explanations[i].ok;
+      document.querySelectorAll('input[name="m1_q' + i + '"]').forEach(function (r) { r.disabled = true; });
+    } else {
+      wrongCount++;
+      fb.style.background = '#FFF5F5';
+      fb.style.border     = '1px solid #FCA5A5';
+      fb.style.color      = '#7F1D1D';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + explanations[i].no;
+      document.querySelectorAll('input[name="m1_q' + i + '"]').forEach(function (r) { r.checked = false; });
+    }
+  });
+  var errEl = document.getElementById('quiz-m1-err');
+  if (!allAnswered) {
+    errEl.style.display = 'block';
+    errEl.textContent   = 'Please answer all 4 questions before checking.';
+    return;
+  }
+  errEl.style.display = 'none';
+  if (wrongCount === 0) {
+    document.getElementById('quiz-m1-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-m1-advance').style.display     = 'inline-block';
+  } else {
+    errEl.style.display = 'block';
+    errEl.textContent   = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look — check the hints above and try again.';
   }
 }
 
-function completeModule1() {
-  const phase4    = document.getElementById('phase-4');
-  const textareas = phase4.querySelectorAll('textarea');
-  const total     = [...textareas].reduce((sum, ta) => sum + ta.value.trim().length, 0);
+// Shuffle quiz options on load (prevents position bias)
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.quiz-opts').forEach(function (opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j   = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function (label) { opts.appendChild(label); });
+  });
+});
 
-  let err = phase4.querySelector('.advance-err');
+// ── Apply submit ───────────────────────────────────────────────────────────
+function completeModule1() {
+  var phase3    = document.getElementById('phase-3');
+  var textareas = phase3.querySelectorAll('textarea');
+  var total     = Array.from(textareas).reduce(function (sum, ta) { return sum + ta.value.trim().length; }, 0);
+
+  var err = phase3.querySelector('.advance-err');
   if (total < 20) {
     if (!err) {
       err = document.createElement('p');
       err.className = 'advance-err';
       err.setAttribute('role', 'alert');
       err.setAttribute('aria-live', 'polite');
-      const btn = document.getElementById('m1-submit-btn');
+      var btn = document.getElementById('m1-submit-btn');
       btn.parentNode.insertBefore(err, btn);
     }
     err.textContent = 'Please complete your Funda Five responses before submitting.';
@@ -389,67 +779,95 @@ function completeModule1() {
 
   if (window._m1UserLoggedIn) saveProgress('module-1', 3);
 
-  document.getElementById('m1-submit-btn').style.display = 'none';
+  document.getElementById('m1-submit-btn').style.display   = 'none';
   document.getElementById('m1-apply-feedback').style.display = 'block';
   document.getElementById('m1-completion-block').style.display = 'block';
 
-  const prog4 = document.getElementById('prog-4');
-  if (prog4) { prog4.classList.remove('is-active'); prog4.classList.add('is-done'); }
-  phase4.classList.add('is-done');
+  var prog3 = document.getElementById('prog-3');
+  if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
 
-  setTimeout(() => document.getElementById('m1-apply-feedback').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  setTimeout(function () {
+    document.getElementById('m1-apply-feedback').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
+
+// ── Clickable progress steps ───────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
+  [0, 1, 2, 3].forEach(function (i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function () {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
+        showPhase(i);
+      }
+    });
+  });
+});
 </script>
-<script src="assets/translations.js"></script>
-<script src="assets/lang.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
-<script src="assets/supabase-config.js"></script>
-<script src="assets/auth.js"></script>
-<script src="assets/nav.js"></script>
+
 <script>
+// ── Auth + Module 0 gate + progress restore ───────────────────────────────
 (async () => {
   const session = await requireAuth('module-1.html')
   if (!session) return
   window._m1UserLoggedIn = true
   await updateNavForAuth()
 
-  // === GATE: must have completed Module 0 first ===
+  const gateChecking = document.getElementById('gate-checking')
+  const gateLocked   = document.getElementById('module-locked')
+  const content      = document.getElementById('module-content')
+
+  // Check Module 0 completion (4 phases saved = complete)
   const m0 = await getModuleProgress('module-0')
-  if (m0.length < 4) {
-    alert('Complete Module 0 first — it unlocks Module 1.')
-    window.location.href = 'module-0.html'
+  const m0done = m0.length >= 4
+
+  if (!m0done) {
+    gateChecking.style.display = 'none'
+    content.style.display      = 'none'
+    gateLocked.style.display   = 'block'
+    const s0 = document.getElementById('gate-step-0')
+    if (s0) {
+      s0.className = 'access-gate__step todo'
+      s0.querySelector('.tick').textContent = '0'
+    }
     return
   }
 
+  // Module 0 done — reveal content
+  gateChecking.style.display = 'none'
+  gateLocked.style.display   = 'none'
+  content.style.display      = 'block'
+
   // Restore Module 1 progress
   const progress = await getAllProgress()
-  const phases = progress
+  const phases   = progress
     .filter(r => r.module_id === 'module-1')
     .map(r => Number(r.phase))
 
-  if (phases.length === 0) return
+  if (phases.length === 0) return   // fresh start — phase-0 already shown
 
+  // Mark all completed phases as done in the tracker
   for (const p of phases) {
-    const phaseEl = document.getElementById('phase-' + (p + 1))
-    const progEl  = document.getElementById('prog-' + (p + 1))
-    if (phaseEl) { phaseEl.classList.remove('is-locked'); phaseEl.classList.add('is-done'); }
-    if (progEl)  { progEl.classList.remove('is-active'); progEl.classList.add('is-done'); }
+    const step = document.getElementById('prog-' + p)
+    if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
   }
 
   const maxPhase = Math.max(...phases)
+
   if (maxPhase < 3) {
-    const nextEl   = document.getElementById('phase-' + (maxPhase + 2))
-    const nextProg = document.getElementById('prog-' + (maxPhase + 2))
-    if (nextEl)   nextEl.classList.remove('is-locked')
-    if (nextProg) nextProg.classList.add('is-active')
+    // Show the next unlocked phase
+    showPhase(maxPhase + 1)
   } else {
-    // All 4 phases complete — restore completion state
+    // All phases complete — show Apply with completion state restored
+    showPhase(3)
     const submitBtn = document.getElementById('m1-submit-btn')
     const feedback  = document.getElementById('m1-apply-feedback')
     const complete  = document.getElementById('m1-completion-block')
-    if (submitBtn) submitBtn.style.display = 'none'
-    if (feedback)  feedback.style.display = 'block'
-    if (complete)  complete.style.display = 'block'
+    if (submitBtn) submitBtn.style.display   = 'none'
+    if (feedback)  feedback.style.display    = 'block'
+    if (complete)  complete.style.display    = 'block'
+    const prog3 = document.getElementById('prog-3')
+    if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
   }
 })()
 </script>
