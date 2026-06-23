@@ -121,6 +121,53 @@
     .daily__encourage { font-size: 0.92em; color: var(--green-dark); font-weight: 600; line-height: 1.55; margin-bottom: 16px; }
     .daily__cta { margin-top: auto; }
     @media (max-width: 760px) { .daily { grid-template-columns: 1fr; } .daily__side { border-left: none; border-top: 1px solid var(--border); } }
+
+    /* ===== Certification Journey roadmap (mirrors the Q3 2026 timetable) ===== */
+    .cj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+    .cj-head__dates { font-size: 0.8em; color: var(--muted); font-weight: 600; }
+    .cj { border: 1.5px solid var(--border); border-radius: var(--radius-lg); background: white; overflow: hidden; margin-top: 16px; box-shadow: var(--shadow-md); }
+    .cj-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; padding: 15px 22px; border-bottom: 1px solid var(--border); }
+    .cj-row:last-child { border-bottom: none; }
+    .cj-row--video { background: #f6f8fb; }
+    .cj-row--grad { background: var(--gold-light); }
+    .cj-icon { font-size: 1.9em; line-height: 1; width: 44px; text-align: center; flex-shrink: 0; }
+    .cj-row.is-locked .cj-icon, .cj-row.is-upcoming .cj-icon { filter: grayscale(1); opacity: 0.5; }
+    .cj-wk { font-size: 0.68em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); }
+    .cj-row--video .cj-wk { color: var(--navy, #1A3A5C); }
+    .cj-title { font-weight: 700; font-size: 0.92em; color: var(--text); margin-top: 1px; }
+    .cj-sub { font-size: 0.8em; color: var(--muted); margin-top: 1px; }
+    .cj-status { font-size: 0.72em; font-weight: 700; padding: 4px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .cj-status--done { background: var(--green-light); color: var(--green-dark); }
+    .cj-status--progress { background: #DBEAFE; color: #1D4ED8; }
+    .cj-status--live { background: #1A3A5C; color: #fff; }
+    .cj-status--upcoming { background: var(--bg, #F3F4F6); color: var(--muted); }
+    .cj-status--attended { background: var(--gold-light); color: var(--gold-dark); }
+    @media (max-width: 600px) { .cj-row { grid-template-columns: auto 1fr; } .cj-status { grid-column: 2; justify-self: start; } }
+
+    /* Compact journey rail */
+    .jcompact { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 22px; box-shadow: var(--shadow-md); }
+    .jrail { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .jnode { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.05em; background: #F3F4F6; border: 2px solid var(--border); flex-shrink: 0; }
+    .jnode.is-done { background: var(--gold-light); border-color: var(--gold); }
+    .jnode.is-done.is-video { background: #e9eff6; border-color: var(--navy, #1A3A5C); }
+    .jnode.is-done.is-grad { border-color: var(--gold-dark); }
+    .jnode.is-current { background: white; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(45,106,79,0.22); }
+    .jnode.is-upcoming { opacity: 0.5; }
+    .jrail__sep { color: var(--border); font-weight: 800; }
+    .jcompact__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .jcompact__status { font-size: 0.86em; color: var(--green-dark); font-weight: 600; }
+    .jcompact__toggle { background: none; border: none; color: var(--green-mid); font-weight: 700; font-size: 0.82em; cursor: pointer; font-family: inherit; padding: 4px 0; }
+
+    /* ===== Ask your facilitator ===== */
+    .ask { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 24px 26px; margin-top: 16px; box-shadow: var(--shadow-md); }
+    .ask__thread { max-height: 240px; overflow-y: auto; margin-bottom: 14px; }
+    .ask__empty { color: var(--muted); font-size: 0.88em; padding: 8px 0 14px; }
+    .ask__bubble { max-width: 80%; padding: 9px 13px; border-radius: 14px; font-size: 0.88em; line-height: 1.5; margin-bottom: 10px; }
+    .ask__bubble .meta { font-size: 0.68em; opacity: 0.7; margin-top: 4px; }
+    .ask__bubble--student { background: var(--green-dark); color: #fff; margin-left: auto; border-bottom-right-radius: 4px; }
+    .ask__bubble--facilitator { background: var(--green-pale); border: 1px solid var(--green-light); border-bottom-left-radius: 4px; }
+    .ask__row { display: flex; gap: 10px; }
+    .ask__row textarea { flex: 1; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 11px 13px; font-family: inherit; font-size: 0.9em; resize: vertical; min-height: 46px; }
   </style>
 </head>
 <body>
@@ -131,6 +178,7 @@
     <ul class="nav__links">
       <li><a href="index.html">Home</a></li>
       <li><a href="dashboard.html" class="active">My Dashboard</a></li>
+      <li id="nav-instructor" style="display:none;"><a href="admin.html">👩‍🏫 Instructor</a></li>
       <li><a href="glossary.html">Glossary</a></li>
             <li class="nav__dropdown">
         <a href="course-outline.html">Curriculum</a>
@@ -227,6 +275,21 @@
         <div class="daily__cta">
           <a href="module-0.html" class="btn btn--primary" id="daily-continue" style="width:100%; justify-content:center; display:flex;">Continue learning &rarr;</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASK YOUR FACILITATOR -->
+<section class="bg-pale">
+  <div class="container">
+    <div class="section-label" style="margin-top:0;">Ask your facilitator</div>
+    <div class="ask">
+      <p style="font-size:0.88em; color:var(--muted); margin:0 0 14px;">Stuck on a concept or a workplace question? Message your AfriversalAI facilitator &mdash; they&rsquo;ll reply here.</p>
+      <div class="ask__thread" id="ask-thread"></div>
+      <div class="ask__row">
+        <textarea id="ask-input" placeholder="Type your question…"></textarea>
+        <button class="btn btn--primary" onclick="askQuestion()">Send</button>
       </div>
     </div>
   </div>
@@ -331,6 +394,20 @@
       <a href="resources.html" class="btn btn--outline" style="flex-shrink:0;">Explore resources &rarr;</a>
     </div>
 
+    <!-- CERTIFICATION JOURNEY (compact — mirrors the Q3 2026 timetable) -->
+    <div class="cj-head">
+      <div class="section-label" style="margin-top:40px;">Your Q3 2026 Certification Journey</div>
+      <div class="cj-head__dates">3 Aug – 1 Oct 2026 · <a href="course-timetable.html" style="color:var(--green-mid); font-weight:700;">Full timetable →</a></div>
+    </div>
+    <div class="jcompact">
+      <div class="jrail" id="jrail"><!-- compact rail rendered by JS --></div>
+      <div class="jcompact__foot">
+        <span class="jcompact__status" id="jnext">—</span>
+        <button type="button" class="jcompact__toggle" id="jtoggle" onclick="toggleJourney()" aria-expanded="false">Show week-by-week ▾</button>
+      </div>
+      <div class="cj" id="cj-roadmap" style="display:none; margin-top:14px;"><!-- detailed rows rendered by JS --></div>
+    </div>
+
   </div>
 </section>
 
@@ -383,6 +460,20 @@ async function initDashboard() {
 
   // Gamification: level, XP, streak, trophies
   renderGamification(progress, session)
+
+  // Certification journey roadmap (mirrors the Q3 2026 timetable)
+  renderJourney(progress)
+
+  // Facilitator messaging (POC — shares the localStorage bus with the instructor console)
+  STUDENT_KEY = ((session.user && session.user.email) || 'me').toLowerCase()
+  renderAskThread()
+
+  // Reveal the Instructor Console link for allowlisted facilitators
+  const ADMIN_EMAILS = ['gorentaride@gmail.com','ask@afriversal.ai','thando@afriversal.ai','facilitator@afriversal.ai']
+  if (ADMIN_EMAILS.includes(STUDENT_KEY)) {
+    const li = document.getElementById('nav-instructor')
+    if (li) li.style.display = ''
+  }
 
   // Module 0 progress dots
   renderDots('module-0', progress)
@@ -516,17 +607,26 @@ function renderGamification(progress, session) {
   document.getElementById('stat-modules').textContent = new Set(progress.map(r => r.module_id)).size
   document.getElementById('stat-streak').innerHTML = '<span id="stat-streak-flame">' + (streak === 0 ? '🔥' : '🔥') + '</span> ' + streak
 
-  // ---- Trophy case ----
+  // ---- Trophy case — mirrors the certification journey (modules, live forums, graduation) ----
+  const allCore = CORE_MODULES.every(m => count(m) >= 4)
+  const ff   = eventStatus('2026-08-03') === 'past'  // Future Forum attended
+  const tl   = eventStatus('2026-08-13') === 'past'  // ThinkLab attended
+  const gf   = eventStatus('2026-08-27') === 'past'  // Governance Forum attended
+  const sl   = eventStatus('2026-09-10') === 'past'  // Strategy Lab attended
+  const grad = eventStatus('2026-10-01') === 'past'  // Ceremony passed
   const trophies = [
     { icon: '🌱', name: 'First Step',            earned: phasesDone >= 1 },
     { icon: '🎓', name: 'Foundation Graduate',   earned: m0 >= 4 },
-    { icon: '🧭', name: 'Funda Five Apprentice', earned: anyApply },
+    { icon: '🌍', name: 'Future Forum',          earned: ff },
     { icon: '🔍', name: 'Hallucination Hunter',  earned: m1 >= 4 },
+    { icon: '🧠', name: 'ThinkLab Thinker',      earned: tl },
     { icon: '⚖️', name: 'Bias Detective',        earned: m2 >= 4 },
+    { icon: '🏛️', name: 'Governance Forum',      earned: gf },
     { icon: '🔥', name: 'On Fire',               earned: streak >= 3 },
-    { icon: '⭐', name: 'Halfway Hero',          earned: phasesDone >= 8 },
-    { icon: '🌍', name: 'Sector Specialist',     earned: sectorDone },
-    { icon: '🏆', name: 'AI Champion',           earned: m0 >= 4 && m1 >= 4 && m2 >= 4 },
+    { icon: '🚀', name: 'Strategy Lab',          earned: sl },
+    { icon: '🧭', name: 'Funda Five Adept',      earned: anyApply },
+    { icon: '📋', name: 'Project Submitted',     earned: allCore },
+    { icon: '🏅', name: 'Certified Practitioner', earned: allCore && grad },
   ]
   const earnedCount = trophies.filter(t => t.earned).length
   document.getElementById('tc-count').innerHTML = earnedCount + '<span>/' + trophies.length + '</span>'
@@ -632,6 +732,151 @@ function renderSectorModule(sector, progress) {
     </div>
   `
 }
+
+// ===== Certification Journey roadmap (mirrors course-timetable.html) =====
+const JOURNEY = [
+  { wk: 'Week 1', type: 'video',   icon: '📹', title: 'AfriversalAI Future Forum™',     sub: 'Cohort Launch &amp; Future of Work · Mon 3 Aug', date: '2026-08-03' },
+  { wk: 'Week 1', type: 'module',  icon: '💻', title: 'Modules 0 &amp; 1',              sub: 'Fundamentals · What AI Actually Is', mods: ['module-0','module-1'] },
+  { wk: 'Week 2', type: 'video',   icon: '📹', title: 'AfriversalAI ThinkLab™',         sub: 'Can AI Be Trusted? · Thu 13 Aug', date: '2026-08-13' },
+  { wk: 'Week 2', type: 'module',  icon: '💻', title: 'Modules 2 &amp; 3',              sub: 'How AI Learns &amp; Fails · Bias &amp; Discrimination', mods: ['module-2','module-3'] },
+  { wk: 'Week 3', type: 'module',  icon: '💻', title: 'Modules 4 &amp; 5',              sub: 'Verification &amp; Judgment · Accountability', mods: ['module-4','module-5'] },
+  { wk: 'Week 4', type: 'video',   icon: '📹', title: 'AfriversalAI Governance Forum™',  sub: 'Who Is Responsible? · Thu 27 Aug', date: '2026-08-27' },
+  { wk: 'Week 4', type: 'module',  icon: '💻', title: 'Module 6 + Workplace Assignment', sub: 'When AI Works — and When It Doesn’t', mods: ['module-6'] },
+  { wk: 'Week 5', type: 'project', icon: '🧩', title: 'Workplace Application Project',   sub: 'Apply the Funda Five to a real use case', date: '2026-08-31' },
+  { wk: 'Week 6', type: 'video',   icon: '📹', title: 'AfriversalAI Strategy Lab™',      sub: 'From AI User to AI Leader · Thu 10 Sep', date: '2026-09-10' },
+  { wk: 'Week 6', type: 'project', icon: '📊', title: 'Project Development',             sub: 'Risk · Governance · Opportunity · Oversight', date: '2026-09-07' },
+  { wk: 'Week 7', type: 'project', icon: '✏️', title: 'Final Project Refinement',        sub: 'Faculty feedback &amp; peer review', date: '2026-09-14' },
+  { wk: 'Week 8', type: 'project', icon: '📋', title: 'Final Submission',               sub: '4-part portfolio + Certification Review', date: '2026-09-21' },
+  { wk: 'Graduation', type: 'grad', icon: '🎓', title: 'Certification Ceremony™',        sub: 'Certified AI Professional Practitioner™ · Thu 1 Oct', date: '2026-10-01' },
+]
+
+function eventStatus(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00')
+  const today = new Date(); today.setHours(0, 0, 0, 0)
+  if (today.getTime() === d.getTime()) return 'live'
+  return today.getTime() > d.getTime() ? 'past' : 'upcoming'
+}
+
+function journeyState(progress) {
+  const cnt = (m) => progress.filter(r => r.module_id === m).length
+  return JOURNEY.map(p => {
+    let cls = 'cj-status--upcoming', txt = 'Upcoming', kind = 'upcoming'
+    if (p.type === 'module') {
+      const allDone = p.mods.every(m => cnt(m) >= 4)
+      const anyStarted = p.mods.some(m => cnt(m) > 0)
+      if (allDone) { cls = 'cj-status--done'; txt = 'Complete'; kind = 'done' }
+      else if (anyStarted) { cls = 'cj-status--progress'; txt = 'In progress'; kind = 'current' }
+    } else {
+      const st = eventStatus(p.date)
+      if (p.type === 'video') {
+        if (st === 'live') { cls = 'cj-status--live'; txt = '● Live today'; kind = 'current' }
+        else if (st === 'past') { cls = 'cj-status--attended'; txt = 'Attended'; kind = 'done' }
+      } else if (p.type === 'grad') {
+        if (st === 'live') { cls = 'cj-status--live'; txt = '● Today!'; kind = 'current' }
+        else if (st === 'past') { cls = 'cj-status--attended'; txt = '🎓 Graduated'; kind = 'done' }
+      } else { // project
+        if (st === 'past') { cls = 'cj-status--done'; txt = 'Complete'; kind = 'done' }
+        else if (st === 'live') { cls = 'cj-status--progress'; txt = 'This week'; kind = 'current' }
+      }
+    }
+    return { p, cls, txt, kind }
+  })
+}
+
+function renderJourney(progress) {
+  const state = journeyState(progress)
+
+  // ---- Compact rail ----
+  const rail = document.getElementById('jrail')
+  const firstOpen = state.findIndex(s => s.kind !== 'done')
+  if (rail) {
+    rail.innerHTML = state.map((s, i) => {
+      const isCurrent = (i === firstOpen)
+      const cls = 'jnode'
+        + (s.kind === 'done' ? ' is-done' : '')
+        + (isCurrent ? ' is-current' : (s.kind === 'upcoming' ? ' is-upcoming' : ''))
+        + (s.p.type === 'video' ? ' is-video' : '')
+        + (s.p.type === 'grad' ? ' is-grad' : '')
+      const title = `${s.p.wk} · ${stripTags(s.p.title)} — ${stripTags(s.txt)}`
+      const sep = i < state.length - 1 ? '<span class="jrail__sep">›</span>' : ''
+      return `<div class="${cls}" title="${title}">${s.p.icon}</div>${sep}`
+    }).join('')
+  }
+  const nextEl = document.getElementById('jnext')
+  if (nextEl) {
+    if (firstOpen === -1) nextEl.innerHTML = '🎓 Programme complete — congratulations!'
+    else {
+      const n = state[firstOpen]
+      nextEl.innerHTML = `<strong>Up next:</strong> ${stripTags(n.p.title)} <span style="color:var(--muted); font-weight:500;">· ${stripTags(n.p.sub)}</span>`
+    }
+  }
+
+  // ---- Detailed rows (collapsible) ----
+  const el = document.getElementById('cj-roadmap')
+  if (el) {
+    el.innerHTML = state.map(s => {
+      const p = s.p
+      const rowCls = 'cj-row'
+        + (p.type === 'video' ? ' cj-row--video' : '')
+        + (p.type === 'grad' ? ' cj-row--grad' : '')
+        + (s.kind === 'upcoming' ? ' is-upcoming' : '')
+      return `<div class="${rowCls}">
+        <div class="cj-icon">${p.icon}</div>
+        <div>
+          <div class="cj-wk">${p.wk}</div>
+          <div class="cj-title">${p.title}</div>
+          <div class="cj-sub">${p.sub}</div>
+        </div>
+        <span class="cj-status ${s.cls}">${s.txt}</span>
+      </div>`
+    }).join('')
+  }
+}
+
+function stripTags(s) { return String(s).replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/"/g, '') }
+
+function toggleJourney() {
+  const el = document.getElementById('cj-roadmap')
+  const btn = document.getElementById('jtoggle')
+  if (!el || !btn) return
+  const open = el.style.display === 'none'
+  el.style.display = open ? 'block' : 'none'
+  btn.setAttribute('aria-expanded', String(open))
+  btn.textContent = open ? 'Hide week-by-week ▴' : 'Show week-by-week ▾'
+}
+
+// ===== Ask your facilitator (POC messaging — same localStorage bus as admin.html) =====
+const MSG_KEY = 'afv_admin_threads'
+let STUDENT_KEY = 'me'
+function loadThreads() { try { return JSON.parse(localStorage.getItem(MSG_KEY) || '{}') } catch (e) { return {} } }
+function saveThreads(t) { localStorage.setItem(MSG_KEY, JSON.stringify(t)) }
+
+function renderAskThread() {
+  const el = document.getElementById('ask-thread')
+  if (!el) return
+  const msgs = (loadThreads()[STUDENT_KEY] || []).slice().sort((a, b) => a.ts - b.ts)
+  if (!msgs.length) { el.innerHTML = '<div class="ask__empty">No messages yet — ask your first question below.</div>'; return }
+  el.innerHTML = msgs.map(m => {
+    const who = m.from === 'facilitator' ? 'Facilitator' : 'You'
+    const when = new Date(m.ts).toLocaleString('en-ZA', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+    return `<div class="ask__bubble ask__bubble--${m.from}">${escapeHtml(m.text)}<div class="meta">${who} · ${when}</div></div>`
+  }).join('')
+  el.scrollTop = el.scrollHeight
+}
+
+function askQuestion() {
+  const ta = document.getElementById('ask-input')
+  const text = ta.value.trim()
+  if (!text) return
+  const t = loadThreads()
+  if (!t[STUDENT_KEY]) t[STUDENT_KEY] = []
+  t[STUDENT_KEY].push({ from: 'student', text: text, ts: Date.now() })
+  saveThreads(t)
+  ta.value = ''
+  renderAskThread()
+}
+
+function escapeHtml(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])) }
 
 initDashboard()
 </script>
