@@ -127,15 +127,16 @@
 
     <div class="section-label">Core Course — Modules 1–6</div>
     <div class="module-grid">
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+      <div class="module-card is-locked" id="card-module-1">
+        <span class="module-card__badge badge--locked" id="badge-module-1">Locked</span>
         <h3>Module 1 — What AI Actually Is</h3>
         <p>SA Government AI Policy Scandal &middot; April 2026. What hallucination looks like in the wild.</p>
-        <div class="phase-dots">
+        <div class="phase-dots" id="dots-module-1">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-1.html" class="continue-link" id="link-module-1" style="display:none;">Start module →</a>
+        <span id="lock-msg-module-1" style="font-size:0.82em; color:var(--muted);">Complete Module 0 to unlock</span>
       </div>
       <div class="module-card is-locked">
         <span class="module-card__badge badge--locked">Coming soon</span>
@@ -265,6 +266,35 @@ async function initDashboard() {
     document.querySelector('#card-module-0 .module-card__badge').className = 'module-card__badge badge--progress'
     m0Link.textContent = 'Continue →'
   }
+
+  // Module 1 — unlocks when Module 0 is complete (all 4 phases)
+  const m1Card   = document.getElementById('card-module-1')
+  const m1Badge  = document.getElementById('badge-module-1')
+  const m1Link   = document.getElementById('link-module-1')
+  const m1Lock   = document.getElementById('lock-msg-module-1')
+  const m1Phases = progress.filter(r => r.module_id === 'module-1').map(r => r.phase)
+
+  if (m0Phases.length === 4) {
+    m1Card.classList.remove('is-locked')
+    m1Lock.style.display = 'none'
+    m1Link.style.display = 'inline'
+    renderDots('module-1', progress)
+    if (m1Phases.length === 4) {
+      m1Card.classList.add('is-complete')
+      m1Badge.textContent = 'Complete'
+      m1Badge.className = 'module-card__badge badge--complete'
+      m1Link.textContent = 'Review module →'
+    } else if (m1Phases.length > 0) {
+      m1Badge.textContent = 'In progress'
+      m1Badge.className = 'module-card__badge badge--progress'
+      m1Link.textContent = 'Continue →'
+    } else {
+      m1Badge.textContent = 'Start here'
+      m1Badge.className = 'module-card__badge badge--free'
+      m1Link.textContent = 'Start module →'
+    }
+  }
+  // If Module 0 not complete: card stays is-locked, lock message stays, link stays hidden
 }
 
 function renderDots(moduleId, progress) {
