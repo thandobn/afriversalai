@@ -43,6 +43,35 @@
     .stat-bar__label { font-size: 0.78em; color: rgba(255,255,255,0.6); margin-top: 2px; }
 
     .section-label { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 16px; margin-top: 40px; }
+
+    /* ---- Gamification: Learning Journey ---- */
+    .journey { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-top: -28px; position: relative; z-index: 2; box-shadow: var(--shadow-md); }
+    .journey__top { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .level-badge { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--green-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; box-shadow: 0 6px 18px rgba(201,162,39,0.45); }
+    .level-badge small { font-size: 0.5em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+    .level-badge span { font-size: 1.5em; line-height: 1; }
+    .journey__info { flex: 1; min-width: 220px; }
+    .journey__info h2 { font-size: 1.05em; font-weight: 800; margin: 0 0 2px; color: var(--text); }
+    .journey__xp-label { font-size: 0.8em; color: var(--muted); display: flex; justify-content: space-between; }
+    .xp-track { height: 12px; background: var(--green-pale); border-radius: 8px; overflow: hidden; margin-top: 6px; }
+    .xp-fill { height: 100%; background: linear-gradient(90deg, var(--green-mid), var(--gold)); border-radius: 8px; width: 0; transition: width 0.9s cubic-bezier(.2,.8,.2,1); }
+    .journey__streak { text-align: center; flex-shrink: 0; }
+    .journey__streak .flame { font-size: 1.8em; line-height: 1; }
+    .journey__streak .n { font-size: 1.3em; font-weight: 800; color: var(--green-dark); }
+    .journey__streak .lbl { font-size: 0.68em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .encourage { background: var(--green-pale); border-left: 4px solid var(--green-mid); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 18px; margin-top: 20px; font-size: 0.9em; color: var(--green-dark); font-weight: 600; }
+
+    .trophy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 14px; margin-top: 18px; }
+    .trophy { text-align: center; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 16px 10px; background: var(--bg); transition: transform 0.15s, box-shadow 0.15s; }
+    .trophy.earned { border-color: var(--gold); background: var(--gold-light); }
+    .trophy.earned:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(201,162,39,0.25); }
+    .trophy__icon { font-size: 2em; line-height: 1; margin-bottom: 8px; filter: grayscale(1); opacity: 0.35; }
+    .trophy.earned .trophy__icon { filter: none; opacity: 1; }
+    .trophy__name { font-size: 0.74em; font-weight: 800; color: var(--muted); line-height: 1.3; }
+    .trophy.earned .trophy__name { color: var(--green-dark); }
+    .trophy__hint { font-size: 0.66em; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+    @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
+    .trophy.earned .trophy__icon { animation: pop 0.5s ease both; }
   </style>
 </head>
 <body>
@@ -101,9 +130,38 @@
         <div class="stat-bar__num" id="stat-modules">0</div>
         <div class="stat-bar__label">Modules started</div>
       </div>
+      <div class="stat-bar__item">
+        <div class="stat-bar__num" id="stat-trophies">0</div>
+        <div class="stat-bar__label">Trophies earned</div>
+      </div>
     </div>
   </div>
 </div>
+
+<section class="bg-pale">
+  <div class="container">
+    <!-- GAMIFIED LEARNING JOURNEY -->
+    <div class="journey">
+      <div class="journey__top">
+        <div class="level-badge"><small>Level</small><span id="jr-level">1</span></div>
+        <div class="journey__info">
+          <h2 id="jr-title">Getting started</h2>
+          <div class="journey__xp-label"><span id="jr-xp-text">0 / 100 XP</span><span id="jr-next">Next: Level 2</span></div>
+          <div class="xp-track"><div class="xp-fill" id="jr-xp-fill"></div></div>
+        </div>
+        <div class="journey__streak">
+          <div class="flame" id="jr-flame">🔥</div>
+          <div class="n" id="jr-streak">0</div>
+          <div class="lbl">day streak</div>
+        </div>
+      </div>
+      <div class="encourage" id="jr-encourage">Welcome! Complete your first phase to start earning XP and trophies. 🚀</div>
+
+      <div class="section-label" style="margin-top:28px; margin-bottom:0;">Your Trophies</div>
+      <div class="trophy-grid" id="trophy-grid"></div>
+    </div>
+  </div>
+</section>
 
 <section class="bg-pale">
   <div class="container">
@@ -138,15 +196,16 @@
         <a href="module-1.html" class="continue-link" id="link-module-1" style="display:none;">Start module →</a>
         <span id="lock-msg-module-1" style="font-size:0.82em; color:var(--muted);">Complete Module 0 to unlock</span>
       </div>
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+      <div class="module-card is-locked" id="card-module-2">
+        <span class="module-card__badge badge--locked" id="badge-module-2">Locked</span>
         <h3>Module 2 — How AI Learns and Fails</h3>
         <p>African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.</p>
-        <div class="phase-dots">
+        <div class="phase-dots" id="dots-module-2">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-2.html" class="continue-link" id="link-module-2" style="display:none;">Start module →</a>
+        <span id="lock-msg-module-2" style="font-size:0.82em; color:var(--muted);">Complete Module 1 to unlock</span>
       </div>
       <div class="module-card is-locked">
         <span class="module-card__badge badge--locked">Coming soon</span>
@@ -251,6 +310,9 @@ async function initDashboard() {
   const modulesStarted = new Set(progress.map(r => r.module_id)).size
   document.getElementById('stat-modules').textContent = modulesStarted
 
+  // Gamification: level, XP, streak, trophies
+  renderGamification(progress, session)
+
   // Module 0 progress dots
   renderDots('module-0', progress)
   const m0Phases = progress.filter(r => r.module_id === 'module-0').map(r => r.phase)
@@ -295,6 +357,35 @@ async function initDashboard() {
     }
   }
   // If Module 0 not complete: card stays is-locked, lock message stays, link stays hidden
+
+  // Module 2 — unlocks when Module 1 is complete (all 4 phases)
+  const m2Card   = document.getElementById('card-module-2')
+  const m2Badge  = document.getElementById('badge-module-2')
+  const m2Link   = document.getElementById('link-module-2')
+  const m2Lock   = document.getElementById('lock-msg-module-2')
+  const m2Phases = progress.filter(r => r.module_id === 'module-2').map(r => r.phase)
+
+  if (m1Phases.length === 4) {
+    m2Card.classList.remove('is-locked')
+    m2Lock.style.display = 'none'
+    m2Link.style.display = 'inline'
+    renderDots('module-2', progress)
+    if (m2Phases.length === 4) {
+      m2Card.classList.add('is-complete')
+      m2Badge.textContent = 'Complete'
+      m2Badge.className = 'module-card__badge badge--complete'
+      m2Link.textContent = 'Review module →'
+    } else if (m2Phases.length > 0) {
+      m2Badge.textContent = 'In progress'
+      m2Badge.className = 'module-card__badge badge--progress'
+      m2Link.textContent = 'Continue →'
+    } else {
+      m2Badge.textContent = 'Start here'
+      m2Badge.className = 'module-card__badge badge--free'
+      m2Link.textContent = 'Start module →'
+    }
+  }
+  // If Module 1 not complete: card stays is-locked, lock message stays, link stays hidden
 }
 
 function renderDots(moduleId, progress) {
@@ -304,6 +395,84 @@ function renderDots(moduleId, progress) {
   container.querySelectorAll('.phase-dot').forEach((dot, i) => {
     if (done.includes(i)) dot.classList.add('done')
   })
+}
+
+// ===== Gamification =====
+function renderGamification(progress, session) {
+  const phasesDone = progress.length
+  const xp = phasesDone * 25
+  const level = Math.floor(xp / 100) + 1
+  const xpInLevel = xp % 100
+  const titles = ['Getting started', 'AI Explorer', 'Pattern Spotter', 'Judgment Builder', 'Funda Five Adept', 'AI Literacy Champion']
+
+  document.getElementById('jr-level').textContent = level
+  document.getElementById('jr-title').textContent = titles[Math.min(level - 1, titles.length - 1)]
+  document.getElementById('jr-xp-text').textContent = xpInLevel + ' / 100 XP'
+  document.getElementById('jr-next').textContent = 'Next: Level ' + (level + 1)
+  setTimeout(() => { document.getElementById('jr-xp-fill').style.width = xpInLevel + '%' }, 150)
+
+  const count = (m) => progress.filter(r => r.module_id === m).length
+  const m0 = count('module-0'), m1 = count('module-1'), m2 = count('module-2')
+  const sectorIds = ['module-7-corporate', 'module-7-government', 'module-7-finance', 'module-7-healthcare', 'module-7-education']
+  const sectorDone = sectorIds.some(m => count(m) >= 4)
+  const anyApply = progress.some(r => r.phase === 3)
+
+  const streak = computeStreak(session)
+  document.getElementById('jr-streak').textContent = streak
+  if (streak === 0) document.getElementById('jr-flame').style.filter = 'grayscale(1)'
+
+  const trophies = [
+    { icon: '🌱', name: 'First Step',            hint: 'Complete your first phase', earned: phasesDone >= 1 },
+    { icon: '🎓', name: 'Foundation Graduate',   hint: 'Finish Module 0',           earned: m0 >= 4 },
+    { icon: '🧭', name: 'Funda Five Apprentice', hint: 'Complete any Apply phase',  earned: anyApply },
+    { icon: '🔍', name: 'Hallucination Hunter',  hint: 'Finish Module 1',           earned: m1 >= 4 },
+    { icon: '⚖️', name: 'Bias Detective',        hint: 'Finish Module 2',           earned: m2 >= 4 },
+    { icon: '🔥', name: 'On Fire',               hint: 'Reach a 3-day streak',      earned: streak >= 3 },
+    { icon: '⭐', name: 'Halfway Hero',          hint: 'Complete 8 phases',         earned: phasesDone >= 8 },
+    { icon: '🌍', name: 'Sector Specialist',     hint: 'Finish your sector module', earned: sectorDone },
+    { icon: '🏆', name: 'AI Literacy Champion',  hint: 'Complete Modules 0–2',      earned: m0 >= 4 && m1 >= 4 && m2 >= 4 },
+  ]
+
+  const earnedCount = trophies.filter(t => t.earned).length
+  document.getElementById('stat-trophies').textContent = earnedCount
+  document.getElementById('trophy-grid').innerHTML = trophies.map(t =>
+    `<div class="trophy${t.earned ? ' earned' : ''}" title="${t.hint}">
+      <div class="trophy__icon">${t.icon}</div>
+      <div class="trophy__name">${t.name}</div>
+      <div class="trophy__hint">${t.earned ? 'Earned ✓' : t.hint}</div>
+    </div>`
+  ).join('')
+
+  document.getElementById('jr-encourage').textContent = encourageMsg(phasesDone, m0, m1, m2)
+}
+
+function computeStreak(session) {
+  try {
+    const uid = (session && session.user) ? session.user.id : 'anon'
+    const key = 'afv_streak_' + uid
+    const today = new Date(); today.setHours(0, 0, 0, 0)
+    const oneDay = 86400000
+    let data = JSON.parse(localStorage.getItem(key) || 'null')
+    if (!data) {
+      data = { last: today.getTime(), streak: 1 }
+    } else {
+      const diff = Math.round((today.getTime() - data.last) / oneDay)
+      if (diff === 1) { data.streak += 1; data.last = today.getTime() }
+      else if (diff > 1) { data.streak = 1; data.last = today.getTime() }
+      // diff === 0 (same day) or diff < 0 (clock change): leave unchanged
+    }
+    localStorage.setItem(key, JSON.stringify(data))
+    return data.streak
+  } catch (e) { return 1 }
+}
+
+function encourageMsg(phases, m0, m1, m2) {
+  if (phases === 0) return 'Welcome! Complete your first phase to start earning XP and trophies. 🚀'
+  if (m0 >= 4 && m1 >= 4 && m2 >= 4) return "Incredible — foundation plus the first two core modules done. You're an AI Literacy Champion! 🏆"
+  if (m1 >= 4) return "Module 2 is unlocked — learn how AI learns and fails. You're on a roll! ⚡"
+  if (m0 >= 4) return "Foundation complete! Module 1 is open — see AI hallucination in the wild. 🔍"
+  if (phases >= 2) return 'Nice momentum — ' + phases + ' phases done. Every phase earns XP! 💪'
+  return 'Great start! Finish Module 0 to earn your first big trophy. 🌱'
 }
 
 function renderSectorModule(sector, progress) {
