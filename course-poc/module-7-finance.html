@@ -61,6 +61,27 @@
 
     .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
 
+    .concept-quiz { margin-top: 32px; padding-top: 28px; border-top: 2px solid var(--border); }
+    .concept-quiz h4 { margin-bottom: 20px; }
+    .quiz-q { margin-bottom: 24px; }
+    .quiz-q__text { font-weight: 600; font-size: 0.95em; margin-bottom: 12px; line-height: 1.5; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.9em; line-height: 1.5; }
+    .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--green-mid); }
+    .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
+    .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
+    .quiz-feedback { display: none; margin-top: 8px; padding: 10px 14px; border-radius: var(--radius); font-size: 0.88em; line-height: 1.6; }
+    .quiz-feedback--ok { background: var(--green-pale); border-left: 4px solid var(--green-mid); color: var(--green-dark); }
+    .quiz-feedback--no { background: #FFF5F5; border-left: 4px solid #DC2626; color: #7F1D1D; }
+    .model-answers { margin: 32px 0; border: 1.5px solid var(--green-light); border-radius: var(--radius-lg); overflow: hidden; }
+    .model-answers__header { background: var(--green-dark); color: white; padding: 16px 24px; }
+    .model-answers__header h4 { color: white; margin: 0; font-size: 0.95em; }
+    .model-answer-item { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .model-answer-item:last-child { border-bottom: none; }
+    .model-answer-item__label { font-size: 0.78em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green-mid); margin-bottom: 8px; }
+    .model-answer-item p { font-size: 0.9em; line-height: 1.75; color: var(--text); margin: 0; }
+
     .reflection-q { margin-bottom: 20px; }
     .reflection-q label { display:block; font-weight: 600; margin-bottom: 8px; }
     .reflection-q textarea { width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical; }
@@ -289,7 +310,53 @@
         </div>
 
         <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)">Got it &mdash; take me to Apply &rarr;</button>
+          <button class="btn btn--primary" onclick="revealConceptQuiz()">Check your understanding &rarr;</button>
+        </div>
+
+        <!-- Knowledge Check Quiz -->
+        <div id="concept-quiz" class="concept-quiz" style="display:none;">
+          <h4>Knowledge Check &mdash; Answer all three to continue</h4>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">1. A credit AI trained primarily on formal-economy, payslip-earning borrowers will systematically produce what kind of error for the majority of South African adults?</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="fq0" value="0"> Approve people who can't repay, because it overestimates creditworthiness.</label>
+              <label class="quiz-opt"><input type="radio" name="fq0" value="1"> Flag all rural applicants as fraud risks, regardless of creditworthiness.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="fq0" value="2"> Decline people who could repay — because they are invisible to the model, not because they are high risk.</label>
+              <label class="quiz-opt"><input type="radio" name="fq0" value="3"> Perform identically for all demographics once the model is correctly calibrated.</label>
+            </div>
+            <div id="fqf-0" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">2. Under POPIA Section 71, when a credit application is declined solely by an AI model, the applicant has the right to:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="fq1" value="0"> Have the decision explained in plain language and make representations before it is finalised.</label>
+              <label class="quiz-opt"><input type="radio" name="fq1" value="1"> Have the AI system replaced with human decision-making for their application.</label>
+              <label class="quiz-opt"><input type="radio" name="fq1" value="2"> Sue the AI developer for discrimination under the Equality Act.</label>
+              <label class="quiz-opt"><input type="radio" name="fq1" value="3"> Nothing — POPIA Section 71 only applies to government decisions, not private banks.</label>
+            </div>
+            <div id="fqf-1" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">3. When Lula incorporated SA-specific regional business payment cycles into their credit model, approval rates for informal retailers increased by 30% while default rates decreased. This happened because:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="fq2" value="0"> Lula used more advanced machine learning algorithms than its competitors.</label>
+              <label class="quiz-opt"><input type="radio" name="fq2" value="1"> The interest rate was set high enough to absorb the extra risk.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="fq2" value="2"> The model was trained on SA-specific signals that reflected how informal retailers actually manage money — data that was previously absent.</label>
+              <label class="quiz-opt"><input type="radio" name="fq2" value="3"> Lula had lower NCA compliance requirements than traditional banks.</label>
+            </div>
+            <div id="fqf-2" class="quiz-feedback"></div>
+          </div>
+
+          <div id="quiz-err" class="advance-err" style="display:none;"></div>
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px; flex-wrap:wrap;">
+            <div id="quiz-submit-wrap">
+              <button class="btn btn--primary" onclick="submitConceptQuiz()">Submit answers &rarr;</button>
+            </div>
+            <button id="quiz-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
+          </div>
         </div>
         <div id="err-2" class="advance-err" style="display:none;"></div>
       </div>
@@ -359,10 +426,39 @@
           </div>
         </div>
 
-        <div style="text-align:right; margin-top:24px;">
+        <div id="m7f-apply-submit" style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 &mdash; Finance &rarr;</button>
         </div>
         <div id="err-3" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- MODEL ANSWERS -->
+    <div id="model-answers-m7f" style="display:none;">
+      <div class="model-answers">
+        <div class="model-answers__header">
+          <h4>Model Answers &mdash; Fraud Analyst Queue Scenario (FNB)</h4>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">1. TASK &mdash; What is the fraud AI doing? Why isn't a pattern change the same as fraud?</div>
+          <p>This is predictive AI — it classifies transaction patterns against a learned baseline and flags deviations. It is optimised to detect anomalies, not to determine their cause. A pattern change and fraud are different problems: pattern changes have many explanations (contextual shifts, life events, new vendors). The model can only identify deviation; it cannot assess whether that deviation has a legitimate cause. The analyst is the mechanism for distinguishing between the two. A detection model that flags is doing its job. A detection model that decides is doing the wrong job.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">2. DATA &mdash; What data does the model have? What's missing?</div>
+          <p>The model has: transaction amount, merchant category code, timing, frequency, and historical account behaviour. It does not have: knowledge that a local Pick n Pay closed 60 days ago, that these are pensioners in a specific neighbourhood, or that spaza spending increased across multiple accounts in the same area — a population-level signal that would flag contextual shift rather than individual fraud. The missing data is not about the transaction itself — it's about the context that changed the transaction pattern. Context is the gap between anomaly and fraud. That gap is the analyst's professional responsibility to close.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">3. TOOL &mdash; Should the fraud model have final authority on these 8 flags?</div>
+          <p>The fraud detection model is the right tool for initial flagging — it is doing exactly what it was designed to do. Where it fails is as a final decision-maker on contextual cases. For low-value flags with plausible alternative explanations, a tiered review process — flag → human review → action — is the appropriate design. The model should inform; the analyst should decide. A system where the analyst's only function is to action the model's flags, with no pathway to exercise independent judgment, has removed the human from the loop. Under POPIA Section 71 and the NCA, the bank must be able to explain decisions with significant effects — and "the model said so" is not an explanation.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">4. TRUST &mdash; What does 92% accuracy mean for these 47 flags?</div>
+          <p>92% accuracy across millions of transactions means roughly 3.7 of these 47 flags are expected false positives — but we don't know which 3.7. These 8 spaza flags share a plausible contextual explanation (Pick n Pay closure, pensioner spending shift). Acting on all 8 as confirmed fraud means potentially blocking elderly customers from their legitimate funds. A 92% accuracy figure is an average; it is not a guarantee about any specific case. The analyst's professional role is precisely to identify where the model is likely wrong, especially for unusual flag patterns that have alternative explanations. Statistics justify the tool; they don't replace the judgment call.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">5. HUMAN &mdash; Who is accountable if these customers are wrongly flagged?</div>
+          <p>The model flagging them is not the decision. The analyst actioning the flag is the decision. Under POPIA Section 71, the bank has an obligation to ensure decisions with significant effects on individuals have human oversight built in. If the analyst actions all 47 flags without reviewing the plausibility of each, they are abdicating the professional role they are employed to perform. The accountability chain: the analyst (who actioned) → the supervisor (who approved the workflow) → the bank's information officer and executives (who designed a system without meaningful human review at the individual-case level). "I was following the model" is not a professional defence; it is a description of the professional failure.</p>
+        </div>
       </div>
     </div>
 
@@ -392,6 +488,55 @@ function revealFinCase() {
   setTimeout(() => document.getElementById('fin-reveal').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
+function revealConceptQuiz() {
+  var quiz = document.getElementById('concept-quiz');
+  quiz.style.display = 'block';
+  setTimeout(() => quiz.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+var FIN_QUIZ_ANSWERS = [2, 0, 2];
+var FIN_QUIZ_EXP = [
+  { ok: 'The model learned creditworthiness from formal-economy data — payslips, credit bureau records, bank history. The majority of South African adults who operate informally are invisible to the model, not because they can\'t repay but because the data to assess them doesn\'t exist in formal systems.',
+    no: 'The systematic error is not overestimation or fraud-flagging — it\'s exclusion. People the model can\'t see are declined, not because of evidence they\'re high risk, but because there\'s no evidence either way. That\'s not a calibration problem; it\'s a data design problem.' },
+  { ok: 'POPIA Section 71 requires that when a decision has legal or significant personal consequences, the data subject must have the opportunity to make representations. Under the NCA, a plain-language reason for refusal is also required — not just a reason code.',
+    no: 'Section 71 doesn\'t abolish AI credit scoring — it requires human oversight and explainability. The right is to understand the decision and challenge it, not to force manual processing or sue the AI developer directly.' },
+  { ok: 'The model was trained on data that included how informal SA retailers actually manage money — regional payment cycles, seasonal patterns, mobile transaction behaviour. Better training data produced better predictions, not just more approvals.',
+    no: 'The algorithm didn\'t change and the interest rate alone doesn\'t explain fewer defaults. The key variable was training data: SA-specific signals that reflected informal economy behaviour that standard credit bureau data completely misses.' }
+];
+
+function submitConceptQuiz() {
+  var allAnswered = true;
+  var allCorrect = true;
+  for (var i = 0; i < FIN_QUIZ_ANSWERS.length; i++) {
+    var sel = document.querySelector('input[name="fq' + i + '"]:checked');
+    var fb = document.getElementById('fqf-' + i);
+    if (!sel) { allAnswered = false; continue; }
+    var optIdx = parseInt(sel.value, 10);
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    fb.style.display = 'block';
+    if (optIdx === FIN_QUIZ_ANSWERS[i]) {
+      label.classList.add('quiz-opt--ok');
+      fb.className = 'quiz-feedback quiz-feedback--ok';
+      fb.innerHTML = '<strong>Correct.</strong> ' + FIN_QUIZ_EXP[i].ok;
+      document.querySelectorAll('input[name="fq' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      label.classList.add('quiz-opt--no');
+      fb.className = 'quiz-feedback quiz-feedback--no';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + FIN_QUIZ_EXP[i].no;
+      allCorrect = false;
+    }
+  }
+  var errEl = document.getElementById('quiz-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Answer all three questions before submitting.'; return; }
+  errEl.style.display = 'none';
+  if (allCorrect) {
+    document.getElementById('quiz-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-advance').style.display = 'inline-block';
+    document.getElementById('quiz-advance').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+}
+
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
@@ -401,23 +546,32 @@ function advancePhase(fromPhase) {
     if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please answer both questions before continuing.'; return; }
     errEl.style.display='none';
     revealFinCase();
+    saveProgress('module-7-finance', 0);
   }
   if (fromPhase === 1) {
     const t1 = document.getElementById('ref-1').value.trim();
     const t2 = document.getElementById('ref-2').value.trim();
     if (t1.length < 8 || t2.length < 8) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes.'; return; }
     errEl.style.display='none';
+    saveProgress('module-7-finance', 1);
   }
-  if (fromPhase === 2) { errEl.style.display='none'; }
+  if (fromPhase === 2) {
+    errEl.style.display='none';
+    saveProgress('module-7-finance', 2);
+  }
   if (fromPhase === 3) {
     const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
     if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
+    errEl.style.display='none';
+    saveProgress('module-7-finance', 3);
     document.getElementById('phase-3').classList.add('is-done');
     document.getElementById('prog-3').classList.remove('is-active');
     document.getElementById('prog-3').classList.add('is-done');
-    const complete = document.getElementById('module-complete');
-    complete.style.display = 'block';
-    setTimeout(() => complete.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    document.getElementById('m7f-apply-submit').style.display = 'none';
+    var answers = document.getElementById('model-answers-m7f');
+    answers.style.display = 'block';
+    setTimeout(() => answers.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
     return;
   }
 
@@ -441,7 +595,34 @@ function advancePhase(fromPhase) {
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>
-<script>requireAuth('module-7-finance.html')</script>
+<script>
+(function() {
+  getSession().then(async function(session) {
+    await updateNavForAuth();
+    if (!session) { window.location.href = 'login.html?next=module-7-finance.html'; return; }
+    var m0 = await getModuleProgress('module-0');
+    if (m0.length < 4) { window.location.href = 'module-0.html'; return; }
+    var done = await getModuleProgress('module-7-finance');
+    if (done.length >= 4) {
+      [0,1,2,3].forEach(function(i) {
+        var p = document.getElementById('phase-' + i); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + i); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      document.getElementById('model-answers-m7f').style.display = 'block';
+      document.getElementById('module-complete').style.display = 'block';
+    } else if (done.length > 0) {
+      done.forEach(function(idx) {
+        var p = document.getElementById('phase-' + idx); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + idx); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      var cur = done.length;
+      var curP = document.getElementById('phase-' + cur); if (curP) curP.classList.remove('is-locked');
+      var curS = document.getElementById('prog-' + cur); if (curS) curS.classList.add('is-active');
+      setTimeout(function() { if (curP) curP.scrollIntoView({ behavior:'smooth', block:'start' }); }, 200);
+    }
+  }).catch(function() { window.location.href = 'login.html?next=module-7-finance.html'; });
+})();
+</script>
 
 </body>
 </html>

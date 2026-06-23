@@ -53,6 +53,29 @@
 
     .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
 
+    /* Knowledge check quiz */
+    .concept-quiz { margin-top: 32px; padding-top: 28px; border-top: 2px solid var(--border); }
+    .concept-quiz h4 { margin-bottom: 20px; }
+    .quiz-q { margin-bottom: 24px; }
+    .quiz-q__text { font-weight: 600; font-size: 0.95em; margin-bottom: 12px; line-height: 1.5; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, background 0.15s; font-size: 0.9em; line-height: 1.5; }
+    .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--green-mid); }
+    .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
+    .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
+    .quiz-feedback { display: none; margin-top: 8px; padding: 10px 14px; border-radius: var(--radius); font-size: 0.88em; line-height: 1.6; }
+    .quiz-feedback--ok { background: var(--green-pale); border-left: 4px solid var(--green-mid); color: var(--green-dark); }
+    .quiz-feedback--no { background: #FFF5F5; border-left: 4px solid #DC2626; color: #7F1D1D; }
+    /* Model answers */
+    .model-answers { margin: 32px 0; border: 1.5px solid var(--green-light); border-radius: var(--radius-lg); overflow: hidden; }
+    .model-answers__header { background: var(--green-dark); color: white; padding: 16px 24px; }
+    .model-answers__header h4 { color: white; margin: 0; font-size: 0.95em; }
+    .model-answer-item { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .model-answer-item:last-child { border-bottom: none; }
+    .model-answer-item__label { font-size: 0.78em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green-mid); margin-bottom: 8px; }
+    .model-answer-item p { font-size: 0.9em; line-height: 1.75; color: var(--text); margin: 0; }
+
     .reflection-q { margin-bottom: 20px; }
     .reflection-q label { display:block; font-weight: 600; margin-bottom: 8px; }
     .reflection-q textarea { width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical; }
@@ -288,7 +311,53 @@
         </div>
 
         <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn--primary" onclick="advancePhase(2)">Got it &mdash; take me to Apply &rarr;</button>
+          <button class="btn btn--primary" onclick="revealConceptQuiz()">Check your understanding &rarr;</button>
+        </div>
+
+        <!-- Knowledge Check Quiz -->
+        <div id="concept-quiz" class="concept-quiz" style="display:none;">
+          <h4>Knowledge Check &mdash; Answer all three to continue</h4>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">1. A Turnitin AI Score flags a student whose home language is isiZulu. The most likely cause, based on what you've just read, is:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="cq0" value="0"> The student actually used AI to write the essay.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="cq0" value="1"> Detection tools flag formal, structured writing patterns — which also describes second-language academic writing.</label>
+              <label class="quiz-opt"><input type="radio" name="cq0" value="2"> The student's essay was too well-structured for their year level.</label>
+              <label class="quiz-opt"><input type="radio" name="cq0" value="3"> Turnitin is not accurate for texts written in African languages.</label>
+            </div>
+            <div id="cqf-0" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">2. Before a school enrolls Grade 8 learners in a UK edtech platform that collects their learning data, POPIA requires:</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="cq1" value="0"> Only inform the Department of Basic Education.</label>
+              <label class="quiz-opt"><input type="radio" name="cq1" value="1"> Have the SGB formally endorse the platform.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="cq1" value="2"> Obtain parental consent, as learners are under 18 and their data is personal information under POPIA.</label>
+              <label class="quiz-opt"><input type="radio" name="cq1" value="3"> Nothing — learner data held by an educational institution is exempt from POPIA.</label>
+            </div>
+            <div id="cqf-1" class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-q">
+            <div class="quiz-q__text">3. What made Siyavula succeed at scale in SA classrooms where imported EdTech platforms fail?</div>
+            <div class="quiz-opts">
+              <label class="quiz-opt"><input type="radio" name="cq2" value="0"> It was cheaper than international alternatives and government-subsidised.</label>
+              <label class="quiz-opt" data-correct="true"><input type="radio" name="cq2" value="1"> It was designed for SA constraints first: zero-rated access, print layer for device-free schools, CAPS-aligned before any export market.</label>
+              <label class="quiz-opt"><input type="radio" name="cq2" value="2"> It used more advanced AI algorithms than international competitors.</label>
+              <label class="quiz-opt"><input type="radio" name="cq2" value="3"> It received DBE endorsement before launching, guaranteeing adoption.</label>
+            </div>
+            <div id="cqf-2" class="quiz-feedback"></div>
+          </div>
+
+          <div id="quiz-err" class="advance-err" style="display:none;"></div>
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px; flex-wrap:wrap;">
+            <div id="quiz-submit-wrap">
+              <button class="btn btn--primary" onclick="submitConceptQuiz()">Submit answers &rarr;</button>
+            </div>
+            <button id="quiz-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
+          </div>
         </div>
         <div id="err-2" class="advance-err" style="display:none;"></div>
       </div>
@@ -358,10 +427,39 @@
           </div>
         </div>
 
-        <div style="text-align:right; margin-top:24px;">
+        <div id="m7e-apply-submit" style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 7 &mdash; Education &rarr;</button>
         </div>
         <div id="err-3" class="advance-err" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- MODEL ANSWERS -->
+    <div id="model-answers-m7e" style="display:none;">
+      <div class="model-answers">
+        <div class="model-answers__header">
+          <h4>Model Answers &mdash; UK EdTech Platform Pitch Scenario</h4>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">1. TASK &mdash; Is AI tutoring the right job? Was this built for SA learners?</div>
+          <p>AI-personalised tutoring is a legitimate application when built for the context. The issue here is context-fit: evidence from UK and Kenya schools doesn't validate performance for SA learners. CAPS alignment, support for multilingual learners writing in their second or third language, and offline-capable design are the questions that determine whether this is the right tool for this school. "Adapts to each student's level" says nothing about whether it adapts to a student whose home language is isiZulu, who has no device of their own, or who studies for three hours on a mobile hotspot before the school's power cuts out.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">2. DATA &mdash; What learner data is collected? Under which law? Who owns it?</div>
+          <p>The platform collects learning behaviour, performance, device usage, and content engagement from minors. POPIA applies in full: learners are under 18, requiring explicit parental consent for data processing. Cross-border transfer to Netherlands servers requires that the company provides POPIA-equivalent protection &mdash; the data processing agreement must specify this. Ownership of learner data should be explicit in the contract. The SGB has governance authority over this decision and must be formally involved &mdash; the principal cannot sign unilaterally. The question of who owns the data after the subscription ends is not hypothetical: it determines whether your learners' profiles stay with the company.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">3. TOOL &mdash; Is this platform built for this school's infrastructure reality?</div>
+          <p>The critical constraints are: 40% of learners share a device (individual accounts won't work reliably), and 4&ndash;8 hours of daily load shedding (online-only tools fail the worst-resourced learners every day). The pitch didn't mention either. This isn't a technology problem &mdash; it's a design problem. A platform that doesn't function offline in a country with structured power cuts was not designed for South Africa. Siyavula's zero-rated, print-backed, offline-capable design is the contrast. The question "does it work without internet?" should be asked before any SA school demo, not after signing a contract.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">4. TRUST &mdash; How would you detect if the AI teaches something wrong?</div>
+          <p>Without SA-specific curriculum validation, systematic content errors are invisible until they affect exam results. A 30-day trial is too short to surface errors in topics underrepresented in English-language training data. A monitoring plan requires: teacher spot-checks against CAPS learning outcomes, a mechanism to report content errors, and a response SLA from a SA-accessible contact. A UK company with no SA office and no curriculum team creates a response gap that could affect learners for an entire term before correction. If no one at the company knows what Grade 10 Life Sciences looks like under CAPS, the AI can produce plausible-sounding wrong content indefinitely.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">5. HUMAN &mdash; Who is accountable if a learner is taught incorrectly and it affects their matric results?</div>
+          <p>Under the SA Schools Act, the SGB shares governance accountability for this decision &mdash; it cannot be made unilaterally by the principal. The contract almost certainly limits the company's liability to platform availability, not content accuracy. That means accountability for wrong AI content lands on the school. Before signing: have the contract reviewed by a legal advisor, involve the SGB formally, and obtain parental consent forms for data processing. Under POPIA, data breaches involving minors carry personal liability for the school's information officer. The 30-day free trial should not end in a contract signing &mdash; it should end in a report to the SGB.</p>
+        </div>
       </div>
     </div>
 
@@ -391,6 +489,55 @@ function revealEduCase() {
   setTimeout(() => document.getElementById('edu-reveal').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
+function revealConceptQuiz() {
+  var quiz = document.getElementById('concept-quiz');
+  quiz.style.display = 'block';
+  setTimeout(() => quiz.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+var EDU_QUIZ_ANSWERS = [1, 2, 1];
+var EDU_QUIZ_EXP = [
+  { ok: 'Detection tools identify stylistic patterns (formal structure, certain syntax) that are also typical of second-language academic writing. In SA, over 60% of university students write academic work in a language other than their home language — they are the mainstream population disproportionately affected.',
+    no: 'The issue is not language proficiency — it is that AI detection patterns and second-language writing patterns overlap. SA\'s multilingual student population is disproportionately affected because the tools were trained on native English writing.' },
+  { ok: 'POPIA requires explicit parental consent before processing the personal information of people under 18. A school cannot substitute institutional sign-up or terms of service acceptance for individual parental consent.',
+    no: 'Informing the DBE and involving the SGB are good governance steps but they are not substitutes for POPIA-compliant parental consent. The threshold for processing minors\' data is explicit, informed, individual consent from the parent or guardian.' },
+  { ok: 'Siyavula designed for SA constraints before building for any other market: zero-rated mobile access so learners pay no data costs, a print layer for schools without devices, and CAPS alignment from day one. The technology serves the real constraint.',
+    no: 'Government endorsement and pricing followed the design success — they didn\'t cause it. The key distinction is that Siyavula was designed for South African constraints as the starting point, not as an afterthought.' }
+];
+
+function submitConceptQuiz() {
+  var allAnswered = true;
+  var allCorrect = true;
+  for (var i = 0; i < EDU_QUIZ_ANSWERS.length; i++) {
+    var sel = document.querySelector('input[name="cq' + i + '"]:checked');
+    var fb = document.getElementById('cqf-' + i);
+    if (!sel) { allAnswered = false; continue; }
+    var optIdx = parseInt(sel.value, 10);
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    fb.style.display = 'block';
+    if (optIdx === EDU_QUIZ_ANSWERS[i]) {
+      label.classList.add('quiz-opt--ok');
+      fb.className = 'quiz-feedback quiz-feedback--ok';
+      fb.innerHTML = '<strong>Correct.</strong> ' + EDU_QUIZ_EXP[i].ok;
+      document.querySelectorAll('input[name="cq' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      label.classList.add('quiz-opt--no');
+      fb.className = 'quiz-feedback quiz-feedback--no';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + EDU_QUIZ_EXP[i].no;
+      allCorrect = false;
+    }
+  }
+  var errEl = document.getElementById('quiz-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Answer all three questions before submitting.'; return; }
+  errEl.style.display = 'none';
+  if (allCorrect) {
+    document.getElementById('quiz-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-advance').style.display = 'inline-block';
+    document.getElementById('quiz-advance').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+}
+
 function advancePhase(fromPhase) {
   const errEl = document.getElementById('err-' + fromPhase);
 
@@ -400,23 +547,32 @@ function advancePhase(fromPhase) {
     if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please answer both questions before continuing.'; return; }
     errEl.style.display='none';
     revealEduCase();
+    saveProgress('module-7-education', 0);
   }
   if (fromPhase === 1) {
     const t1 = document.getElementById('ref-1').value.trim();
     const t2 = document.getElementById('ref-2').value.trim();
     if (t1.length < 8 || t2.length < 8) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes.'; return; }
     errEl.style.display='none';
+    saveProgress('module-7-education', 1);
   }
-  if (fromPhase === 2) { errEl.style.display='none'; }
+  if (fromPhase === 2) {
+    errEl.style.display='none';
+    saveProgress('module-7-education', 2);
+  }
   if (fromPhase === 3) {
     const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
     if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
+    errEl.style.display='none';
+    saveProgress('module-7-education', 3);
     document.getElementById('phase-3').classList.add('is-done');
     document.getElementById('prog-3').classList.remove('is-active');
     document.getElementById('prog-3').classList.add('is-done');
-    const complete = document.getElementById('module-complete');
-    complete.style.display = 'block';
-    setTimeout(() => complete.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    document.getElementById('m7e-apply-submit').style.display = 'none';
+    var answers = document.getElementById('model-answers-m7e');
+    answers.style.display = 'block';
+    setTimeout(() => answers.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
     return;
   }
 
@@ -440,7 +596,34 @@ function advancePhase(fromPhase) {
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>
-<script>requireAuth('module-7-education.html')</script>
+<script>
+(function() {
+  getSession().then(async function(session) {
+    await updateNavForAuth();
+    if (!session) { window.location.href = 'login.html?next=module-7-education.html'; return; }
+    var m0 = await getModuleProgress('module-0');
+    if (m0.length < 4) { window.location.href = 'module-0.html'; return; }
+    var done = await getModuleProgress('module-7-education');
+    if (done.length >= 4) {
+      [0,1,2,3].forEach(function(i) {
+        var p = document.getElementById('phase-' + i); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + i); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      document.getElementById('model-answers-m7e').style.display = 'block';
+      document.getElementById('module-complete').style.display = 'block';
+    } else if (done.length > 0) {
+      done.forEach(function(idx) {
+        var p = document.getElementById('phase-' + idx); if (p) { p.classList.remove('is-locked'); p.classList.add('is-done'); }
+        var s = document.getElementById('prog-' + idx); if (s) { s.classList.remove('is-active'); s.classList.add('is-done'); }
+      });
+      var cur = done.length;
+      var curP = document.getElementById('phase-' + cur); if (curP) curP.classList.remove('is-locked');
+      var curS = document.getElementById('prog-' + cur); if (curS) curS.classList.add('is-active');
+      setTimeout(function() { if (curP) curP.scrollIntoView({ behavior:'smooth', block:'start' }); }, 200);
+    }
+  }).catch(function() { window.location.href = 'login.html?next=module-7-education.html'; });
+})();
+</script>
 
 </body>
 </html>

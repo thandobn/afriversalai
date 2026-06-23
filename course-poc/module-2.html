@@ -92,6 +92,15 @@
 
     .advance-err { color: #DC2626; font-size: 0.85em; margin-top: 8px; }
 
+    /* Model answers reveal */
+    .model-answers { margin: 32px 0; border: 1.5px solid var(--green-light); border-radius: var(--radius-lg); overflow: hidden; }
+    .model-answers__header { background: var(--green-dark); color: white; padding: 16px 24px; }
+    .model-answers__header h4 { color: white; margin: 0; font-size: 0.95em; letter-spacing: 0.2px; }
+    .model-answer-item { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--white); }
+    .model-answer-item:last-child { border-bottom: none; }
+    .model-answer-item__label { font-size: 0.78em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green-mid); margin-bottom: 8px; }
+    .model-answer-item p { font-size: 0.9em; line-height: 1.75; color: var(--text); margin: 0; }
+
     /* Learning objectives */
     .m0-objectives { margin-top: 20px; padding: 16px 20px; background: rgba(255,255,255,0.06); border-left: 3px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; }
     .m0-objectives strong { font-size: 0.85em; color: rgba(255,255,255,0.9); display: block; margin-bottom: 8px; }
@@ -771,7 +780,7 @@
           </div>
         </div>
 
-        <div style="text-align:right; margin-top:24px;">
+        <div id="m2-apply-submit" style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 2 &rarr;</button>
         </div>
         <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete the Funda Five questions before finishing the module.</div>
@@ -781,6 +790,27 @@
         </div><!-- /ps-3-content -->
       </div><!-- /phase__body -->
     </div><!-- /phase-3 -->
+
+    <!-- MODEL ANSWERS — revealed on Apply submit -->
+    <div id="model-answers-m2" style="display:none;">
+      <div class="model-answers">
+        <div class="model-answers__header">
+          <h4>Model Answers &mdash; African Fintech Credit Scoring Case</h4>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">1. What data was used &mdash; and who is missing from it?</div>
+          <p>The fintech platform trained on formal employment records, payslips, banking transaction history, and existing credit bureau data. All of these sources skew toward formally-employed, urban, bank-registered borrowers. Missing from the training set: informal traders who earn real income but hold cash, rural applicants with no bank footprint, women-owned micro-businesses, and seasonal workers whose income is real but irregular. The result is a model that learned what creditworthiness looks like within the formal economy &mdash; and is blind to everyone outside it. The gaps in the data are not neutral. They reproduce apartheid-era patterns of who was and wasn't included in formal financial systems.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">2. Who benefits, and who could be harmed?</div>
+          <p>Formally-employed urban applicants with credit bureau history benefit: they get faster decisions with less friction. The people most harmed are precisely the groups the platform claimed to be helping &mdash; informal economy workers, rural applicants, and women-owned businesses. These applicants fail the model not because they are bad credit risks but because they are invisible to it. The platform's claim to "remove human bias" created a dangerous false assurance: the AI didn't remove bias, it automated it and made it harder to challenge because it looked like objective data.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">3. What oversight exists &mdash; and who is accountable?</div>
+          <p>No meaningful oversight is visible in this case. The "AI removes bias" framing actively discouraged oversight &mdash; if the algorithm is neutral, why audit it? Accountability rests with the company executives and data scientists who designed the system, chose the training data, and deployed it without representative bias testing. Under POPIA they are responsible for ensuring automated decisions don't produce discriminatory outcomes. Under the National Credit Act they must be able to explain credit refusals in plain language. "The algorithm decided" is not a legal defence &mdash; it is an admission that a human-made system, with no human accountability built in, is making consequential decisions about people's lives.</p>
+        </div>
+      </div>
+    </div>
 
     <!-- MODULE COMPLETE -->
     <div id="module-complete" style="display:none;" class="preview-end">
@@ -1077,10 +1107,14 @@ function advancePhase(fromPhase) {
       if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
     });
     syncProgressAria();
-    document.getElementById('phase-3').classList.remove('is-active');
-    var complete = document.getElementById('module-complete');
-    complete.style.display = 'block';
-    setTimeout(function() { complete.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    document.getElementById('m2-apply-submit').style.display = 'none';
+    var answers = document.getElementById('model-answers-m2');
+    answers.style.display = 'block';
+    setTimeout(function() { answers.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    setTimeout(function() {
+      var complete = document.getElementById('module-complete');
+      complete.style.display = 'block';
+    }, 600);
     return;
   }
 }
