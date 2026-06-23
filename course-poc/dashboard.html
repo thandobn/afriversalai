@@ -25,6 +25,7 @@
     .badge--locked { background: var(--border); color: var(--muted); }
     .badge--progress { background: #DBEAFE; color: #1D4ED8; }
     .badge--complete { background: var(--green-light); color: var(--green-dark); }
+    .badge--coming-soon { background: #EEF2FF; color: #6366F1; font-style: italic; }
 
     .module-card h3 { font-size: 1em; font-weight: 700; margin-bottom: 6px; }
     .module-card p { font-size: 0.82em; color: var(--muted); margin-bottom: 16px; line-height: 1.55; }
@@ -94,11 +95,11 @@
 
     <div class="stat-bar" style="margin-top:28px;">
       <div class="stat-bar__item">
-        <div class="stat-bar__num" id="stat-phases">0</div>
+        <div class="stat-bar__num" id="stat-phases">—</div>
         <div class="stat-bar__label">Phases complete</div>
       </div>
       <div class="stat-bar__item">
-        <div class="stat-bar__num" id="stat-modules">0</div>
+        <div class="stat-bar__num" id="stat-modules">—</div>
         <div class="stat-bar__label">Modules started</div>
       </div>
     </div>
@@ -136,10 +137,10 @@
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
         <a href="module-1.html" class="continue-link" id="link-module-1" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-1" style="font-size:0.82em; color:var(--muted);">Complete Module 0 to unlock</span>
+        <span id="lock-msg-module-1" style="font-size:0.82em; color:var(--muted);">Complete all 4 phases of Module 0 to unlock</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--coming-soon">Coming soon</span>
         <h3>Module 2 — How AI Learns and Fails</h3>
         <p>African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.</p>
         <div class="phase-dots">
@@ -149,7 +150,7 @@
         <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--coming-soon">Coming soon</span>
         <h3>Module 3 — Bias and Discrimination</h3>
         <p>SA Predictive Policing. Discrimination without discriminatory intent.</p>
         <div class="phase-dots">
@@ -159,7 +160,7 @@
         <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--coming-soon">Coming soon</span>
         <h3>Module 4 — Verification and Judgment</h3>
         <p>SA 2024 Election Deepfakes. How to know when AI output is good enough to act on.</p>
         <div class="phase-dots">
@@ -169,7 +170,7 @@
         <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--coming-soon">Coming soon</span>
         <h3>Module 5 — Accountability and Governance</h3>
         <p>AI Recruitment + Employment Equity Act. "The algorithm decided" is not a defence.</p>
         <div class="phase-dots">
@@ -179,7 +180,7 @@
         <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
       </div>
       <div class="module-card is-locked">
-        <span class="module-card__badge badge--locked">Coming soon</span>
+        <span class="module-card__badge badge--coming-soon">Coming soon</span>
         <h3>Module 6 — When AI Works and When It Doesn't</h3>
         <p>Dr Math vs Clinical AI Decision Support. The full Funda Five synthesis.</p>
         <div class="phase-dots">
@@ -215,6 +216,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
 <script>
 const SECTOR_MODULES = {
   corporate:   { id: 'module-7-corporate',   href: 'module-7-corporate.html',   title: 'Module 7 — Corporate & Business',   desc: 'DCDT AI hallucination scandal. AI risk management for business professionals.' },
@@ -302,7 +305,7 @@ function renderDots(moduleId, progress) {
   if (!container) return
   const done = progress.filter(r => r.module_id === moduleId).map(r => r.phase)
   container.querySelectorAll('.phase-dot').forEach((dot, i) => {
-    if (done.includes(i)) dot.classList.add('done')
+    if (done.map(Number).includes(i)) dot.classList.add('done')
   })
 }
 
@@ -316,8 +319,9 @@ function renderSectorModule(sector, progress) {
   const badgeClass = isComplete ? 'badge--complete' : inProgress ? 'badge--progress' : 'badge--free'
   const badgeText = isComplete ? 'Complete' : inProgress ? 'In progress' : 'Your sector'
   const linkText = isComplete ? 'Review module →' : inProgress ? 'Continue →' : 'Start module →'
+  const doneNums = done.map(Number)
   const dots = [0,1,2,3].map(i =>
-    `<div class="phase-dot${done.includes(i) ? ' done' : ''}"></div>`
+    `<div class="phase-dot${doneNums.includes(i) ? ' done' : ''}"></div>`
   ).join('')
 
   document.getElementById('sector-grid').innerHTML = `
@@ -333,8 +337,6 @@ function renderSectorModule(sector, progress) {
 
 initDashboard()
 </script>
-<script src="assets/translations.js"></script>
-<script src="assets/lang.js"></script>
 <script src="assets/nav.js"></script>
 </body>
 </html>

@@ -62,9 +62,17 @@
     <div class="breadcrumb">
       <a href="course.html">Core Course</a> / Module 1
     </div>
-    <span class="tag tag--gold" style="margin-bottom:12px; display:inline-block;">Free Preview</span>
     <h1>What AI Actually Is</h1>
     <p class="lead lead--light">Before you can judge AI output, you need to understand what AI actually does &mdash; and what it can't do. This module starts with a real South African case: a government document that looked authoritative but wasn't.</p>
+    <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
+      <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
+      <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
+        <li>Explain what AI hallucination is and why it occurs in language models</li>
+        <li>Identify the signals that distinguish fabricated citations from real ones</li>
+        <li>Apply the Funda Five framework to evaluate AI-generated policy documents</li>
+        <li>Recognise where accountability sits when AI output causes institutional harm</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -293,13 +301,31 @@
         </div>
       </div>
 
-      <!-- COMPLETION -->
-      <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:32px;">
-        <div style="font-size:1.8em; margin-bottom:12px;">?</div>
+      <div style="text-align:right; margin-top:24px;">
+        <button type="button" class="btn btn--primary" id="m1-submit-btn" onclick="completeModule1()">Submit my Funda Five responses &rarr;</button>
+      </div>
+
+      <!-- Model answer feedback — revealed on submit -->
+      <div id="m1-apply-feedback" style="display:none; margin-top:28px;">
+        <div class="callout">
+          <strong>Strong answer examples &mdash; compare yours:</strong>
+          <div style="margin-top:12px; font-size:0.9em; line-height:1.7;">
+            <p><strong>1 &mdash; TASK:</strong> "AI was being used to research and draft supporting evidence for a policy position. This is a high-risk use case because policy documents require verifiable citations &mdash; AI cannot reliably produce these."</p>
+            <p><strong>2 &mdash; DATA:</strong> "The data involved publicly available academic and government reports. The risk isn't sensitivity &mdash; it's that AI fabricated sources that look like real publications."</p>
+            <p><strong>3 &mdash; TOOL:</strong> "A large language model. These are excellent at producing fluent, authoritative-sounding text. They are unreliable at factual citation &mdash; they generate plausible-sounding references whether or not the source exists."</p>
+            <p><strong>4 &mdash; TRUST:</strong> "Search each citation independently. Check whether the journal, institution, and author exist. If any can't be found in 5 minutes, treat the whole document as unverified."</p>
+            <p><strong>5 &mdash; HUMAN:</strong> "The policy professional who approved the document for publication is accountable. What should have existed: a mandatory verification step before any AI-assisted document goes to publication."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLETION — revealed on submit -->
+      <div id="m1-completion-block" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:32px;">
+        <div style="font-size:1.8em; margin-bottom:12px;">&#127891;</div>
         <h3 style="margin-bottom:8px;">You've completed Module 1.</h3>
         <p style="font-size:0.9em; color:var(--muted); max-width:480px; margin:0 auto 24px;">In a real cohort, your facilitator would debrief the Funda Five responses with the group and connect your answers to other sectors. The real learning is in hearing how colleagues in different roles approached the same case differently.</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a href="course.html" class="btn btn--primary">See the full 6-module course &rarr;</a>
+          <a href="dashboard.html" class="btn btn--primary">Back to Dashboard &rarr;</a>
           <a href="funda-five.html" class="btn btn--outline">Explore the Funda Five</a>
         </div>
       </div>
@@ -322,11 +348,9 @@ function advance(fromPhase) {
   const current   = document.getElementById('phase-' + fromPhase);
   const textareas = current.querySelectorAll('textarea');
 
-  // Remove any previous error
   const prevErr = current.querySelector('.advance-err');
   if (prevErr) prevErr.remove();
 
-  // Validate: phases with textareas need at least 5 chars total (20 in production)
   if (textareas.length > 0) {
     const total = [...textareas].reduce((sum, ta) => sum + ta.value.trim().length, 0);
     if (total < 5) {
@@ -345,15 +369,17 @@ function advance(fromPhase) {
   current.classList.add('is-done');
   if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
 
-  // Phase 1 in preview mode: show enrollment CTA instead of unlocking Phase 2
-  if (fromPhase === 1) {
+  // Phase 1: guests see enrollment CTA; enrolled users continue
+  if (fromPhase === 1 && !window._m1UserLoggedIn) {
     const previewEnd = document.getElementById('preview-end');
     previewEnd.style.display = 'block';
     setTimeout(() => previewEnd.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     return;
   }
 
-  // Full course: unlock next phase normally
+  // Save progress for enrolled users (phase index is fromPhase - 1)
+  if (window._m1UserLoggedIn) saveProgress('module-1', fromPhase - 1);
+
   const next    = document.getElementById('phase-' + (fromPhase + 1));
   const progNxt = document.getElementById('prog-' + (fromPhase + 1));
 
@@ -363,6 +389,39 @@ function advance(fromPhase) {
     setTimeout(() => next.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 }
+
+function completeModule1() {
+  const phase4    = document.getElementById('phase-4');
+  const textareas = phase4.querySelectorAll('textarea');
+  const total     = [...textareas].reduce((sum, ta) => sum + ta.value.trim().length, 0);
+
+  let err = phase4.querySelector('.advance-err');
+  if (total < 20) {
+    if (!err) {
+      err = document.createElement('p');
+      err.className = 'advance-err';
+      err.setAttribute('role', 'alert');
+      err.setAttribute('aria-live', 'polite');
+      const btn = document.getElementById('m1-submit-btn');
+      btn.parentNode.insertBefore(err, btn);
+    }
+    err.textContent = 'Please complete your Funda Five responses before submitting.';
+    return;
+  }
+  if (err) err.remove();
+
+  if (window._m1UserLoggedIn) saveProgress('module-1', 3);
+
+  document.getElementById('m1-submit-btn').style.display = 'none';
+  document.getElementById('m1-apply-feedback').style.display = 'block';
+  document.getElementById('m1-completion-block').style.display = 'block';
+
+  const prog4 = document.getElementById('prog-4');
+  if (prog4) { prog4.classList.remove('is-active'); prog4.classList.add('is-done'); }
+  phase4.classList.add('is-done');
+
+  setTimeout(() => document.getElementById('m1-apply-feedback').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
@@ -370,7 +429,44 @@ function advance(fromPhase) {
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/nav.js"></script>
-<script>requireAuth('module-1.html')</script>
+<script>
+(async () => {
+  const session = await requireAuth('module-1.html')
+  if (!session) return
+  window._m1UserLoggedIn = true
+  await updateNavForAuth()
+
+  const progress = await getAllProgress()
+  const phases = progress
+    .filter(r => r.module_id === 'module-1')
+    .map(r => Number(r.phase))
+
+  if (phases.length === 0) return
+
+  for (const p of phases) {
+    const phaseEl = document.getElementById('phase-' + (p + 1))
+    const progEl  = document.getElementById('prog-' + (p + 1))
+    if (phaseEl) { phaseEl.classList.remove('is-locked'); phaseEl.classList.add('is-done'); }
+    if (progEl)  { progEl.classList.remove('is-active'); progEl.classList.add('is-done'); }
+  }
+
+  const maxPhase = Math.max(...phases)
+  if (maxPhase < 3) {
+    const nextEl   = document.getElementById('phase-' + (maxPhase + 2))
+    const nextProg = document.getElementById('prog-' + (maxPhase + 2))
+    if (nextEl)   nextEl.classList.remove('is-locked')
+    if (nextProg) nextProg.classList.add('is-active')
+  } else {
+    // All 4 phases complete — restore completion state
+    const submitBtn = document.getElementById('m1-submit-btn')
+    const feedback  = document.getElementById('m1-apply-feedback')
+    const complete  = document.getElementById('m1-completion-block')
+    if (submitBtn) submitBtn.style.display = 'none'
+    if (feedback)  feedback.style.display = 'block'
+    if (complete)  complete.style.display = 'block'
+  }
+})()
+</script>
 
 </body>
 </html>

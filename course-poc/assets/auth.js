@@ -29,7 +29,7 @@ async function afSignUp(email, password, profile) {
   if (data.user) {
     const { error: pe } = await _supabase
       .from('profiles')
-      .insert({ id: data.user.id, ...profile })
+      .upsert({ id: data.user.id, ...profile }, { onConflict: 'id' })
     if (pe) throw pe
   }
   return data
