@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AfriversalAI — Translation Strings
  * Languages: en (default) · af (Afrikaans) · fr (French) · zu (isiZulu)
  *
@@ -936,7 +936,7 @@ window.TRANSLATIONS = {
     /* Nav */
     nav_home:         'Accueil',
     nav_course:       'Le Cours',
-    nav_fundamentals: ‘Aperçu du cours’,
+    nav_fundamentals: 'Aperçu du cours',
     nav_funda_five:   'Les Cinq Funda',
     nav_certificate:  'Certificat',
     nav_pricing:      'Tarifs',
@@ -949,9 +949,9 @@ window.TRANSLATIONS = {
 
     /* Hero */
     hero_eyebrow:       'Littératie IA · Afrique du Sud',
-    hero_h1_1_html:     ‘Le seul cours sud-africain de littératie IA<br>construit sur le jugement — pas seulement les outils.’,
-    hero_h1_2_html:     ‘1,4 million formés aux outils IA.<br>Zéro formé au jugement sur l’IA.’,
-    hero_h1_3_html:     ‘Quand la politique IA de l’Afrique du Sud a échoué,<br>ce n’était pas technique — c’était du jugement.’,
+    hero_h1_1_html:     'Le seul cours sud-africain de littératie IA<br>construit sur le jugement — pas seulement les outils.',
+    hero_h1_2_html:     '1,4 million formés aux outils IA.<br>Zéro formé au jugement sur l’IA.',
+    hero_h1_3_html:     'Quand la politique IA de l’Afrique du Sud a échoué,<br>ce n’était pas technique — c’était du jugement.',
     hero_lead:          'AfriversalAI enseigne aux professionnels sud-africains à raisonner avec l’IA — et pas seulement à l’utiliser. Jugement critique, études de cas réelles en Afrique du Sud, un certificat qui a du sens.',
     hero_cta_primary:   'Commencer le Module 0 — gratuit →',
     hero_cta_secondary: 'Voir le cours complet',
@@ -1038,12 +1038,12 @@ window.TRANSLATIONS = {
     sector_edu_desc:   'Éducateurs et administrateurs dans l’enseignement supérieur et les écoles gérant l’utilisation de l’IA par les étudiants',
 
     /* Sectors */
-    sector_callout_eyebrow: ‘Apprentissage Sectoriel’,
-    sector_callout_h2:      ‘Quelle que soit votre profession, votre secteur fait partie du cours.’,
-    sector_callout_p:       ‘Chaque module développe un jugement applicable partout — mais AfriversalAI ne s’arrête pas aux principes généraux. Des études de cas sectorielles traversent tout le cours, et le Module 7 est entièrement construit autour des risques, outils et décisions IA qui définissent votre métier.’,
-    sector_callout_btn:     ‘Trouvez votre parcours sectoriel ↓’,
-    sector_eyebrow:      ‘Trouver Votre Secteur’,
-    sector_h2_html:      ‘Chaque module s’applique à tous les secteurs.<br>Mais certaines études de cas touchent plus durement à votre réalité.’,
+    sector_callout_eyebrow: 'Apprentissage Sectoriel',
+    sector_callout_h2:      'Quelle que soit votre profession, votre secteur fait partie du cours.',
+    sector_callout_p:       'Chaque module développe un jugement applicable partout — mais AfriversalAI ne s’arrête pas aux principes généraux. Des études de cas sectorielles traversent tout le cours, et le Module 7 est entièrement construit autour des risques, outils et décisions IA qui définissent votre métier.',
+    sector_callout_btn:     'Trouvez votre parcours sectoriel ↓',
+    sector_eyebrow:      'Trouver Votre Secteur',
+    sector_h2_html:      'Chaque module s’applique à tous les secteurs.<br>Mais certaines études de cas touchent plus durement à votre réalité.',
     sector_lead:         'Cliquez sur votre secteur pour voir quels modules et études de cas sont les plus pertinents pour votre rôle.',
     sector_toggle_open:  'Voir votre parcours →',
     sector_toggle_close: 'Fermer ↑',
@@ -1260,7 +1260,7 @@ window.TRANSLATIONS = {
     /* course.html */
     course_hero_eyebrow:  'Cours Principal',
     course_hero_h1_html:  'Jugement sur l’IA pour<br>les Professionnels Sud-Africains',
-    course_hero_lead:     ‘Un module de base gratuit, puis sept modules principaux — chacun construit autour d’une vraie étude de cas sud-africaine. Un cadre que vous utiliserez pour le reste de votre carrière.’,
+    course_hero_lead:     'Un module de base gratuit, puis sept modules principaux — chacun construit autour d’une vraie étude de cas sud-africaine. Un cadre que vous utiliserez pour le reste de votre carrière.',
     course_map_eyebrow:   'Plan du Cours',
     course_map_h2:        'Ce que vous apprendrez — et ce que vous en ferez',
     course_how_eyebrow:   'Comment ça Fonctionne',
@@ -1291,14 +1291,14 @@ window.TRANSLATIONS = {
     f5_walk_h2:       'Les Cinq Funda sur le cas DCDT',
     f5_walk_lead:     'Voici comment les Cinq Funda auraient identifié le problème — avant la publication de la politique.',
     f5_cta_h2:        'Voyez les Cinq Funda en action.',
-    f5_cta_lead:      ‘Commencez par le Module 0 — gratuit, sans inscription. Voyez ensuite les Cinq Funda appliqués dans sept modules construits autour de cas réels d’IA en Afrique du Sud.’,
-    f5_cta_btn1:      ‘Commencer le Module 0 — gratuit →’,
-    f5_cta_btn2:      ‘Voir le cours complet’,
+    f5_cta_lead:      'Commencez par le Module 0 — gratuit, sans inscription. Voyez ensuite les Cinq Funda appliqués dans sept modules construits autour de cas réels d’IA en Afrique du Sud.',
+    f5_cta_btn1:      'Commencer le Module 0 — gratuit →',
+    f5_cta_btn2:      'Voir le cours complet',
 
     /* pricing.html */
     pricing_eyebrow:     'Tarification',
     pricing_h1:          'Investissez dans le jugement.',
-    pricing_lead:        ‘Tarif Membre Fondateur : R14 995 par apprenant pour la Cohorte 1. Aucun paiement requis pour s\’inscrire — nous confirmerons votre place et enverrons les dates de cohorte dès qu\’elles seront fixées.’,
+    pricing_lead:        'Tarif Membre Fondateur : R14 995 par apprenant pour la Cohorte 1. Aucun paiement requis pour s\’inscrire — nous confirmerons votre place et enverrons les dates de cohorte dès qu\’elles seront fixées.',
     pricing_ind_tier:    'Individuel',
     pricing_ind_name:    'Inscription Individuelle',
     pricing_ind_desc:    'Pour les professionnels s’inscrivant par eux-mêmes ou avec le soutien de leur employeur.',

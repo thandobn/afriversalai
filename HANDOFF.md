@@ -463,3 +463,43 @@ A fresh session should know these terms:
 - course-poc/module-0.html (container bug fix; one-phase-at-a-time UX; text progress tracker)
 - course-poc/assets/style.css (module-hero padding; module-grid column count)
 - course-poc/assets/resources/ (new images: channel-statquest.jpg, channel-deeplearning-ai.jpg, podcast-data-skeptic.jpg, podcast-cognitive-revolution.jpg, book-you-look-like.jpg, book-ai-guide-thinking.jpg, book-how-ai-thinks.jpg, book-ai-needs-you.jpg; re-cropped: channel-3b1b.jpg, channel-fireship.jpg)
+
+---
+
+## Session: 2026-06-22 (slideshow phase model completion)
+
+**What was worked on:**
+- module-0.html: completed full slideshow phase model (continued from previous session's context compaction)
+- CSS: `.phase { display:none }` / `.phase.is-active { display:block }` — only one phase visible at a time
+- CSS: `.phase-screen { display:none }` / `.phase-screen.is-active { display:block }` — sub-screen navigation within phases
+- HTML: all 4 phases wrapped in `phase-screen` divs with IDs (`ps-0-content`, `ps-0-quiz`, `ps-1-content`, `ps-2-reflect`, `ps-2-deep`, `ps-2-quiz`, `ps-3-content`)
+- HTML: `phase-nav` bars added to every screen with back/continue buttons
+- JS: `showPhase(n)`, `showScreen(phaseNum, screenId)`, `goBack(toPhase)`, `showTeaserGate()`, `updateTracker(n)`, `goDeeper()` functions implemented
+- JS: `advancePhase()` updated to use `showPhase()` instead of DOM class manipulation
+- JS: `submitQuizP1()` — requires all 3/3 correct (was 2/3). Wrong answers: show hint, clear that question's radio for retry, correct answers stay locked green. On all correct: hide submit button, show `quiz-p1-advance`.
+- JS: `submitQuizP3()` — requires all 5/5 correct (was 3/5). Same selective retry pattern.
+- JS: `resetQuizP1()` and `resetQuizP3()` removed — no longer needed (wrong questions self-clear in place)
+- JS: Progress tracker click handlers added — `is-done` or `is-active` steps call `showPhase(i)` on click (back-navigation through completed phases)
+- JS: Old accordion toggle handler (`phase__header` click → `is-expanded` toggle) removed — replaced by tracker click handlers
+- JS: Restore progress logic updated — `showPhase(done.length)` replaces `scrollIntoView`; stale `is-locked` unlocking calls removed
+- MISTAKES.md: created with 5 session lessons from prior session
+- HANDOFF.md: prior session entry appended
+
+**Decisions made:**
+- All knowledge checks require 100% correct to advance — no partial credit threshold. Rationale: if the goal is literacy, guessing through doesn't serve the learner.
+- Selective retry (wrong questions only clear) rather than full reset — correct answers stay locked so learners build on what they got right rather than redoing the whole quiz
+- Tracker step click enables jump-back to any completed or current phase — both bottom back-button AND tracker click are available
+- This slideshow framework is the canonical pattern for all future modules (module-1 and beyond)
+
+**Open items / next steps:**
+- Test the full module-0 flow end-to-end in browser (guest + logged-in) before touching module-1
+- Apply same slideshow framework to module-1 (pending browser verification of module-0)
+- Delete `book-ai-needs-you.avif` from `assets/resources/` — old file still on disk, src already updated to .jpg
+- POPIA/privacy policy fix (standing since Session 4)
+- aria-labels on lang switcher buttons sitewide (21 instances — standing)
+- Apply phase model answer / reflection guidance after module complete (standing)
+
+**Files changed:**
+- course-poc/module-0.html (slideshow model — CSS, HTML structure, all JS navigation + quiz logic)
+- MISTAKES.md (created)
+- HANDOFF.md (this entry)
