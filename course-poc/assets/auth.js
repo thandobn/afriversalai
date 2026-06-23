@@ -119,4 +119,7 @@ async function updateNavForAuth() {
     registerLink.classList.remove('btn--primary')
     registerLink.classList.add('btn--gold')
   }
+  // Hide the "Log in" nav link once signed in (Register already becomes "My Dashboard")
+  const loginItem = document.querySelector('.nav__login')
+  if (loginItem) loginItem.style.display = session ? 'none' : ''
 }
