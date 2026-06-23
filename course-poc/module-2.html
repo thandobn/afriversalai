@@ -104,6 +104,34 @@
     .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-pale); }
     .quiz-opt input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--green-mid); }
     .quiz-feedback { display: none; margin-top: 10px; padding: 10px 14px; border-radius: var(--radius); font-size: 0.88em; line-height: 1.6; }
+    .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
+    .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
+
+    /* AI Tutor verdict banner — deliberately prominent */
+    .tutor-verdict { display: flex; gap: 16px; align-items: flex-start; padding: 20px 24px; border-left: 6px solid var(--green-mid); }
+    .tutor-verdict__avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.45em; flex-shrink: 0; background: var(--green-mid); }
+    .tutor-verdict__body { flex: 1; }
+    .tutor-verdict__tag { font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.6px; opacity: 0.85; }
+    .tutor-verdict__headline { font-weight: 800; font-size: 1.18em; margin: 2px 0 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .tutor-verdict__score { font-size: 0.62em; font-weight: 800; padding: 3px 12px; border-radius: 20px; color: #fff; }
+    .tutor-verdict__msg { font-size: 0.9em; line-height: 1.6; }
+    .tutor-verdict--pass { background: var(--green-pale); border-left-color: var(--green-mid); color: var(--green-dark); }
+    .tutor-verdict--pass .tutor-verdict__avatar { background: var(--green-mid); }
+    .tutor-verdict--pass .tutor-verdict__score { background: var(--green-mid); }
+    .tutor-verdict--retry { background: #FFF5F5; border-left-color: #DC2626; color: #7F1D1D; }
+    .tutor-verdict--retry .tutor-verdict__avatar { background: #DC2626; }
+    .tutor-verdict--retry .tutor-verdict__score { background: #DC2626; }
+
+    /* AI Tutor per-question note — clearly separated from the question */
+    .tutor-note { display: block; margin-top: 14px; border-radius: var(--radius); border-left: 4px solid var(--green-mid); padding: 12px 16px; }
+    .tutor-note__label { display: inline-flex; align-items: center; gap: 7px; font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .tutor-note__text { font-size: 0.88em; line-height: 1.6; }
+    .tutor-note--ok { background: var(--green-pale); border-left-color: var(--green-mid); }
+    .tutor-note--ok .tutor-note__label { color: var(--green-mid); }
+    .tutor-note--ok .tutor-note__text { color: var(--green-dark); }
+    .tutor-note--no { background: #FFF5F5; border-left-color: #DC2626; }
+    .tutor-note--no .tutor-note__label { color: #DC2626; }
+    .tutor-note--no .tutor-note__text { color: #7F1D1D; }
 
     /* Navigation improvements */
     .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
@@ -832,6 +860,7 @@ function showPhase(n) {
   screens.forEach(function(s) { s.classList.remove('is-active'); });
   if (screens.length > 0) screens[0].classList.add('is-active');
   updateTracker(n);
+  saveM2Pos(n, null);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -841,10 +870,17 @@ function showScreen(phaseNum, screenId) {
   phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
   var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
   if (target) target.classList.add('is-active');
+  saveM2Pos(phaseNum, screenId);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goBack(toPhase) { showPhase(toPhase); }
+
+// Remember exactly where the learner is so they resume mid-session.
+function saveM2Pos(phase, screen) {
+  if (!window._m2Uid) return;
+  try { localStorage.setItem('afv_' + window._m2Uid + '_m2_pos', JSON.stringify({ phase: phase, screen: screen })); } catch (e) {}
+}
 
 function syncProgressAria() {
   var bar = document.getElementById('progressBar');
@@ -910,27 +946,38 @@ var QUIZ_CONCEPT_EXP = [
 ];
 var QUIZ_CONCEPT_N = 8;
 
+// Shared AI-Tutor verdict banner markup
+function tutorVerdictHTML(pass, correct, total, msg) {
+  var head = pass ? 'Demonstrated!' : 'Not yet';
+  return '<div class="tutor-verdict__avatar">🎓</div>'
+    + '<div class="tutor-verdict__body">'
+    + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
+    + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
+    + '<div class="tutor-verdict__msg">' + msg + '</div>'
+    + '</div>';
+}
+
 function submitQuizConcept() {
   var allAnswered = true;
   var wrongCount = 0;
   for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
     var sel = document.querySelector('input[name="q' + i + '"]:checked');
-    if (!sel) { allAnswered = false; continue; }
-    var isOk = sel.closest('label').dataset.correct === 'true';
     var fb = document.getElementById('qf-' + i);
+    if (!sel) { allAnswered = false; continue; }
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    var isOk = label.dataset.correct === 'true';
     fb.style.display = 'block';
     if (isOk) {
-      fb.style.background = 'var(--green-pale)';
-      fb.style.border = '1px solid var(--green-light)';
-      fb.style.color = 'var(--green-dark)';
-      fb.innerHTML = '<strong>✓ Correct.</strong> ' + QUIZ_CONCEPT_EXP[i].ok;
+      fb.className = 'quiz-feedback tutor-note tutor-note--ok';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
+      label.classList.add('quiz-opt--ok');
       document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrongCount++;
-      fb.style.background = '#FFF5F5';
-      fb.style.border = '1px solid #FCA5A5';
-      fb.style.color = '#7F1D1D';
-      fb.innerHTML = '<strong>✗ Review this.</strong> ' + QUIZ_CONCEPT_EXP[i].no;
+      fb.className = 'quiz-feedback tutor-note tutor-note--no';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
+      label.classList.add('quiz-opt--no');
     }
   }
   var errEl = document.getElementById('quiz-err');
@@ -943,34 +990,32 @@ function submitQuizConcept() {
 
   var correct = QUIZ_CONCEPT_N - wrongCount;
   var verdict = document.getElementById('tutor-verdict');
-  verdict.style.display = 'block';
+  verdict.style.display = 'flex';
 
   if (wrongCount === 0) {
-    verdict.style.background = 'var(--green-pale)';
-    verdict.style.borderBottom = '1px solid var(--green-light)';
-    verdict.innerHTML = '<div style="font-weight:800; color:var(--green-dark); font-size:0.95em; margin-bottom:4px;">🎓 AI Tutor: Demonstrated &mdash; ' + correct + '/' + QUIZ_CONCEPT_N + '.</div>' +
-      '<div style="font-size:0.86em; color:var(--green-dark);">A clean sweep. You can explain how AI learns and name every failure mode. You\'ve <strong>demonstrated</strong> this, not just completed it. Continue.</div>';
+    verdict.className = 'tutor-verdict tutor-verdict--pass';
+    verdict.innerHTML = tutorVerdictHTML(true, correct, QUIZ_CONCEPT_N, 'A clean sweep. You can explain how AI learns and name every failure mode. You’ve <strong>demonstrated</strong> this, not just completed it. Continue.');
     document.getElementById('quiz-submit-wrap').style.display = 'none';
     document.getElementById('quiz-advance').style.display = 'inline-block';
-    verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } else {
-    verdict.style.background = '#FFF5F5';
-    verdict.style.borderBottom = '1px solid #FCA5A5';
-    verdict.innerHTML = '<div style="font-weight:800; color:#7F1D1D; font-size:0.95em; margin-bottom:4px;">🔴 AI Tutor: Not yet &mdash; ' + correct + '/' + QUIZ_CONCEPT_N + ' correct.</div>' +
-      '<div style="font-size:0.86em; color:#7F1D1D;">A demonstration means <strong>every</strong> answer right. I\'ve marked the ' + wrongCount + ' you missed in red with guidance &mdash; read it, then retake the full test.</div>';
+    verdict.className = 'tutor-verdict tutor-verdict--retry';
+    verdict.innerHTML = tutorVerdictHTML(false, correct, QUIZ_CONCEPT_N, 'A demonstration means <strong>every</strong> answer right. I’ve marked the ' + wrongCount + ' to fix in red below — read each AI Tutor note, then retake the full test.');
     document.getElementById('quiz-retake').style.display = 'inline-block';
     var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
     if (btn) btn.style.display = 'none';
-    verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+  verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Full retake — clears everything and lets the learner start the test over
 function retakeQuizConcept() {
   for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
-    document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.checked = false; r.disabled = false; });
+    document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) {
+      r.checked = false; r.disabled = false;
+      var l = r.closest('label'); if (l) l.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    });
     var fb = document.getElementById('qf-' + i);
-    if (fb) { fb.style.display = 'none'; fb.innerHTML = ''; }
+    if (fb) { fb.style.display = 'none'; fb.className = 'quiz-feedback'; fb.innerHTML = ''; }
   }
   document.getElementById('tutor-verdict').style.display = 'none';
   document.getElementById('quiz-retake').style.display = 'none';
@@ -1125,19 +1170,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Unlocked — reveal content and restore Module 2 progress
+      // Unlocked — reveal content and resume exactly where the learner left off
       unlock();
+      window._m2Uid = session.user.id;
       var done = await getModuleProgress('module-2');
+      var savedPos = null;
+      try { savedPos = JSON.parse(localStorage.getItem('afv_' + session.user.id + '_m2_pos') || 'null'); } catch (e) {}
       if (done.length >= 4) {
         updateTracker(4);
         var complete = document.getElementById('module-complete');
         if (complete) complete.style.display = 'block';
-      } else if (done.length > 0) {
+      } else {
         done.forEach(function (phase) {
           var step = document.getElementById('prog-' + phase);
           if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
         });
-        showPhase(done.length);
+        var targetPhase = done.length;
+        var targetScreen = (savedPos && savedPos.phase === targetPhase) ? savedPos.screen : null;
+        if (targetPhase > 0 || targetScreen) {
+          showPhase(targetPhase);
+          if (targetScreen) showScreen(targetPhase, targetScreen);
+        }
       }
 
       // Persist text answers locally (keyed by user)
