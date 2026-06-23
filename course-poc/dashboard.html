@@ -73,6 +73,54 @@
     .trophy__hint { font-size: 0.66em; color: var(--muted); margin-top: 4px; line-height: 1.35; }
     @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
     .trophy.earned .trophy__icon { animation: pop 0.5s ease both; }
+
+    /* ===== Redesigned hero ===== */
+    .dash-hero { padding: 48px 0 56px; }
+    .dash-hero__grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 44px; align-items: center; }
+    @media (max-width: 920px) { .dash-hero__grid { grid-template-columns: 1fr; gap: 32px; } }
+
+    .level-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(233,196,106,0.18); border: 1px solid rgba(233,196,106,0.45); color: var(--gold); font-size: 0.8em; font-weight: 700; padding: 5px 14px; border-radius: 30px; margin: 18px 0 6px; }
+    .level-chip b { color: white; }
+
+    /* Big "how far you've come" progress */
+    .bigprog__pct { font-size: 3.6em; font-weight: 800; color: white; line-height: 1; }
+    .bigprog__pct span { font-size: 0.32em; font-weight: 600; color: rgba(255,255,255,0.6); margin-left: 6px; }
+    .bigprog__label { font-size: 0.9em; color: rgba(255,255,255,0.72); margin-top: 6px; font-weight: 500; }
+    .bigprog__bar { height: 16px; background: rgba(255,255,255,0.14); border-radius: 10px; overflow: hidden; margin-top: 16px; }
+    .bigprog__fill { height: 100%; background: linear-gradient(90deg, var(--gold), #f3dd98); border-radius: 10px; width: 0; transition: width 1.1s cubic-bezier(.2,.8,.2,1); box-shadow: 0 0 16px rgba(233,196,106,0.5); }
+    .bigprog__ms { display: flex; gap: 6px; margin-top: 12px; }
+    .ms-dot { flex: 1; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.14); transition: background 0.3s; }
+    .ms-dot.done { background: var(--gold); }
+    .ms-dot.current { background: rgba(255,255,255,0.7); }
+
+    .hero-stats { display: flex; gap: 30px; margin-top: 26px; }
+
+    /* Trophy case (green hero, right) */
+    .trophycase { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius-lg); padding: 22px 24px; }
+    .trophycase__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+    .trophycase__label { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); }
+    .trophycase__count { font-size: 1.7em; font-weight: 800; color: var(--gold); line-height: 1; }
+    .trophycase__count span { font-size: 0.42em; color: rgba(255,255,255,0.5); font-weight: 600; }
+    .tc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .tc-item { text-align: center; border-radius: var(--radius); padding: 13px 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); transition: transform 0.15s; }
+    .tc-item.earned { background: linear-gradient(135deg, rgba(233,196,106,0.26), rgba(233,196,106,0.07)); border-color: var(--gold); box-shadow: 0 6px 20px rgba(201,162,39,0.28); }
+    .tc-item.earned:hover { transform: translateY(-3px); }
+    .tc-item__icon { font-size: 1.8em; line-height: 1; filter: grayscale(1); opacity: 0.32; }
+    .tc-item.earned .tc-item__icon { filter: none; opacity: 1; animation: pop 0.5s ease both; }
+    .tc-item__name { font-size: 0.62em; font-weight: 700; color: rgba(255,255,255,0.4); margin-top: 5px; line-height: 1.25; }
+    .tc-item.earned .tc-item__name { color: white; }
+
+    /* Daily card */
+    .daily { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); margin-top: -32px; position: relative; z-index: 2; box-shadow: var(--shadow-md); display: grid; grid-template-columns: 1.4fr 1fr; overflow: hidden; }
+    .daily__fact { padding: 26px 30px; }
+    .daily__side { padding: 26px 30px; background: var(--green-pale); border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+    .daily__tag { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+    .daily__fact .daily__tag { color: var(--gold-dark); }
+    .daily__side .daily__tag { color: var(--green-dark); }
+    .daily__fact-text { font-size: 1.04em; font-weight: 600; line-height: 1.55; color: var(--text); }
+    .daily__encourage { font-size: 0.92em; color: var(--green-dark); font-weight: 600; line-height: 1.55; margin-bottom: 16px; }
+    .daily__cta { margin-top: auto; }
+    @media (max-width: 760px) { .daily { grid-template-columns: 1fr; } .daily__side { border-left: none; border-top: 1px solid var(--border); } }
   </style>
 </head>
 <body>
@@ -117,49 +165,68 @@
 
 <div class="dash-hero">
   <div class="container">
-    <p style="color:rgba(255,255,255,0.55); font-size:0.82em; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">Your Course Portal</p>
-    <h1 id="dash-greeting">Welcome back</h1>
-    <p id="dash-org"></p>
-    <span id="dash-sector" class="sector-tag" style="display:none;"></span>
+    <div class="dash-hero__grid">
 
-    <div class="stat-bar" style="margin-top:28px;">
-      <div class="stat-bar__item">
-        <div class="stat-bar__num" id="stat-phases">—</div>
-        <div class="stat-bar__label">Phases complete</div>
+      <!-- LEFT: identity + how far you've come -->
+      <div>
+        <p style="color:rgba(255,255,255,0.55); font-size:0.82em; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">Your Course Portal</p>
+        <h1 id="dash-greeting">Welcome back</h1>
+        <p id="dash-org"></p>
+        <span id="dash-sector" class="sector-tag" style="display:none;"></span>
+
+        <div class="level-chip">⭐ Level <b id="jr-level">1</b> &middot; <span id="jr-title">Getting started</span></div>
+
+        <div class="bigprog">
+          <div class="bigprog__pct" id="bp-pct">0%<span>complete</span></div>
+          <div class="bigprog__label" id="bp-label">Your certification journey starts here.</div>
+          <div class="bigprog__bar"><div class="bigprog__fill" id="bp-fill"></div></div>
+          <div class="bigprog__ms" id="bp-milestones"></div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-bar__item">
+            <div class="stat-bar__num" id="stat-phases">—</div>
+            <div class="stat-bar__label">Phases complete</div>
+          </div>
+          <div class="stat-bar__item">
+            <div class="stat-bar__num" id="stat-modules">—</div>
+            <div class="stat-bar__label">Modules started</div>
+          </div>
+          <div class="stat-bar__item">
+            <div class="stat-bar__num" id="stat-streak"><span id="stat-streak-flame">🔥</span> 0</div>
+            <div class="stat-bar__label">Day streak</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-bar__item">
-        <div class="stat-bar__num" id="stat-modules">—</div>
-        <div class="stat-bar__label">Modules started</div>
+
+      <!-- RIGHT: trophy case -->
+      <div class="trophycase">
+        <div class="trophycase__head">
+          <span class="trophycase__label">🏆 Trophy Case</span>
+          <span class="trophycase__count" id="tc-count">0<span id="tc-total">/9</span></span>
+        </div>
+        <div class="tc-grid" id="tc-grid"></div>
       </div>
-      <div class="stat-bar__item">
-        <div class="stat-bar__num" id="stat-trophies">0</div>
-        <div class="stat-bar__label">Trophies earned</div>
-      </div>
+
     </div>
   </div>
 </div>
 
+<!-- DAILY CARD -->
 <section class="bg-pale">
   <div class="container">
-    <!-- GAMIFIED LEARNING JOURNEY -->
-    <div class="journey">
-      <div class="journey__top">
-        <div class="level-badge"><small>Level</small><span id="jr-level">1</span></div>
-        <div class="journey__info">
-          <h2 id="jr-title">Getting started</h2>
-          <div class="journey__xp-label"><span id="jr-xp-text">0 / 100 XP</span><span id="jr-next">Next: Level 2</span></div>
-          <div class="xp-track"><div class="xp-fill" id="jr-xp-fill"></div></div>
-        </div>
-        <div class="journey__streak">
-          <div class="flame" id="jr-flame">🔥</div>
-          <div class="n" id="jr-streak">0</div>
-          <div class="lbl">day streak</div>
+    <div class="daily">
+      <div class="daily__fact">
+        <div class="daily__tag">💡 AI Fact of the Day</div>
+        <div class="daily__fact-text" id="daily-fact">Loading today's fact&hellip;</div>
+      </div>
+      <div class="daily__side">
+        <div class="daily__tag">🎯 Today's Focus</div>
+        <div class="daily__encourage" id="daily-encourage">Welcome! Let's keep building your AI judgment.</div>
+        <div class="daily__cta">
+          <a href="module-0.html" class="btn btn--primary" id="daily-continue" style="width:100%; justify-content:center; display:flex;">Continue learning &rarr;</a>
         </div>
       </div>
-      <div class="encourage" id="jr-encourage">Welcome! Complete your first phase to start earning XP and trophies. 🚀</div>
-
-      <div class="section-label" style="margin-top:28px; margin-bottom:0;">Your Trophies</div>
-      <div class="trophy-grid" id="trophy-grid"></div>
     </div>
   </div>
 </section>
@@ -401,18 +468,18 @@ function renderDots(moduleId, progress) {
 }
 
 // ===== Gamification =====
+// Core certification path = Modules 0–6 (7 modules × 4 phases = 28 phases)
+const CORE_MODULES = ['module-0','module-1','module-2','module-3','module-4','module-5','module-6']
+const TOTAL_CORE_PHASES = CORE_MODULES.length * 4
+
 function renderGamification(progress, session) {
   const phasesDone = progress.length
   const xp = phasesDone * 25
   const level = Math.floor(xp / 100) + 1
-  const xpInLevel = xp % 100
   const titles = ['Getting started', 'AI Explorer', 'Pattern Spotter', 'Judgment Builder', 'Funda Five Adept', 'AI Literacy Champion']
 
   document.getElementById('jr-level').textContent = level
   document.getElementById('jr-title').textContent = titles[Math.min(level - 1, titles.length - 1)]
-  document.getElementById('jr-xp-text').textContent = xpInLevel + ' / 100 XP'
-  document.getElementById('jr-next').textContent = 'Next: Level ' + (level + 1)
-  setTimeout(() => { document.getElementById('jr-xp-fill').style.width = xpInLevel + '%' }, 150)
 
   const count = (m) => progress.filter(r => r.module_id === m).length
   const m0 = count('module-0'), m1 = count('module-1'), m2 = count('module-2')
@@ -420,33 +487,93 @@ function renderGamification(progress, session) {
   const sectorDone = sectorIds.some(m => count(m) >= 4)
   const anyApply = progress.some(r => r.phase === 3)
 
+  // ---- "How far you've come": % of the core certification ----
+  const corePhasesDone = CORE_MODULES.reduce((sum, m) => sum + Math.min(count(m), 4), 0)
+  const pct = Math.round((corePhasesDone / TOTAL_CORE_PHASES) * 100)
+  const modulesComplete = CORE_MODULES.filter(m => count(m) >= 4).length
+
+  document.getElementById('bp-pct').innerHTML = pct + '%<span>complete</span>'
+  document.getElementById('bp-label').textContent =
+    modulesComplete === 7 ? 'Certification complete — you did it! 🏆'
+    : modulesComplete === 0 ? (phasesDone > 0 ? 'You\'ve started Module 0 — keep going!' : 'Your certification journey starts here.')
+    : modulesComplete + ' of 7 core modules complete · ' + corePhasesDone + ' of ' + TOTAL_CORE_PHASES + ' phases'
+  setTimeout(() => { document.getElementById('bp-fill').style.width = pct + '%' }, 200)
+
+  // Milestone dots (one per core module)
+  document.getElementById('bp-milestones').innerHTML = CORE_MODULES.map((m, i) => {
+    const c = count(m)
+    const prevDone = i === 0 || count(CORE_MODULES[i - 1]) >= 4
+    let cls = ''
+    if (c >= 4) cls = ' done'
+    else if (c > 0 || prevDone) cls = ' current'
+    return `<div class="ms-dot${cls}" title="Module ${i}"></div>`
+  }).join('')
+
+  // ---- Stats + streak ----
   const streak = computeStreak(session)
-  document.getElementById('jr-streak').textContent = streak
-  if (streak === 0) document.getElementById('jr-flame').style.filter = 'grayscale(1)'
+  document.getElementById('stat-phases').textContent = phasesDone
+  document.getElementById('stat-modules').textContent = new Set(progress.map(r => r.module_id)).size
+  document.getElementById('stat-streak').innerHTML = '<span id="stat-streak-flame">' + (streak === 0 ? '🔥' : '🔥') + '</span> ' + streak
 
+  // ---- Trophy case ----
   const trophies = [
-    { icon: '🌱', name: 'First Step',            hint: 'Complete your first phase', earned: phasesDone >= 1 },
-    { icon: '🎓', name: 'Foundation Graduate',   hint: 'Finish Module 0',           earned: m0 >= 4 },
-    { icon: '🧭', name: 'Funda Five Apprentice', hint: 'Complete any Apply phase',  earned: anyApply },
-    { icon: '🔍', name: 'Hallucination Hunter',  hint: 'Finish Module 1',           earned: m1 >= 4 },
-    { icon: '⚖️', name: 'Bias Detective',        hint: 'Finish Module 2',           earned: m2 >= 4 },
-    { icon: '🔥', name: 'On Fire',               hint: 'Reach a 3-day streak',      earned: streak >= 3 },
-    { icon: '⭐', name: 'Halfway Hero',          hint: 'Complete 8 phases',         earned: phasesDone >= 8 },
-    { icon: '🌍', name: 'Sector Specialist',     hint: 'Finish your sector module', earned: sectorDone },
-    { icon: '🏆', name: 'AI Literacy Champion',  hint: 'Complete Modules 0–2',      earned: m0 >= 4 && m1 >= 4 && m2 >= 4 },
+    { icon: '🌱', name: 'First Step',            earned: phasesDone >= 1 },
+    { icon: '🎓', name: 'Foundation Graduate',   earned: m0 >= 4 },
+    { icon: '🧭', name: 'Funda Five Apprentice', earned: anyApply },
+    { icon: '🔍', name: 'Hallucination Hunter',  earned: m1 >= 4 },
+    { icon: '⚖️', name: 'Bias Detective',        earned: m2 >= 4 },
+    { icon: '🔥', name: 'On Fire',               earned: streak >= 3 },
+    { icon: '⭐', name: 'Halfway Hero',          earned: phasesDone >= 8 },
+    { icon: '🌍', name: 'Sector Specialist',     earned: sectorDone },
+    { icon: '🏆', name: 'AI Champion',           earned: m0 >= 4 && m1 >= 4 && m2 >= 4 },
   ]
-
   const earnedCount = trophies.filter(t => t.earned).length
-  document.getElementById('stat-trophies').textContent = earnedCount
-  document.getElementById('trophy-grid').innerHTML = trophies.map(t =>
-    `<div class="trophy${t.earned ? ' earned' : ''}" title="${t.hint}">
-      <div class="trophy__icon">${t.icon}</div>
-      <div class="trophy__name">${t.name}</div>
-      <div class="trophy__hint">${t.earned ? 'Earned ✓' : t.hint}</div>
+  document.getElementById('tc-count').innerHTML = earnedCount + '<span>/' + trophies.length + '</span>'
+  document.getElementById('tc-grid').innerHTML = trophies.map(t =>
+    `<div class="tc-item${t.earned ? ' earned' : ''}">
+      <div class="tc-item__icon">${t.icon}</div>
+      <div class="tc-item__name">${t.name}</div>
     </div>`
   ).join('')
 
-  document.getElementById('jr-encourage').textContent = encourageMsg(phasesDone, m0, m1, m2)
+  // ---- Daily fact + encouragement + continue CTA ----
+  document.getElementById('daily-fact').textContent = aiFactOfTheDay()
+  document.getElementById('daily-encourage').textContent = encourageMsg(phasesDone, m0, m1, m2, streak)
+  setContinueCTA(m0, m1, m2)
+}
+
+// Points the "Continue learning" button at the next actionable module
+function setContinueCTA(m0, m1, m2) {
+  const cta = document.getElementById('daily-continue')
+  if (!cta) return
+  if (m0 < 4)      { cta.href = 'module-0.html'; cta.textContent = (m0 > 0 ? 'Continue Module 0 →' : 'Start Module 0 →') }
+  else if (m1 < 4) { cta.href = 'module-1.html'; cta.textContent = (m1 > 0 ? 'Continue Module 1 →' : 'Start Module 1 →') }
+  else if (m2 < 4) { cta.href = 'module-2.html'; cta.textContent = (m2 > 0 ? 'Continue Module 2 →' : 'Start Module 2 →') }
+  else             { cta.href = 'course-outline.html'; cta.textContent = 'See what\'s next →' }
+}
+
+// Daily AI fact — rotates by day-of-year so it changes each day, same for everyone
+const AI_FACTS = [
+  'AI doesn\'t "know" facts — it predicts the most likely next words from patterns in its training data. That\'s why it can sound confident and still be wrong.',
+  '"Hallucination" is the term for when AI invents plausible-sounding but false information — fake citations, statistics, or laws. Always verify before you act.',
+  'AI bias usually isn\'t programmed — it\'s learned. If historical data reflects past discrimination, the model quietly repeats it.',
+  'Under South African law, accountability for an AI decision rests with the people and organisations that deploy it — never "the algorithm."',
+  'Spotify, Netflix, Gmail spam filters and Face ID are all AI — the same core mechanism (learn patterns, make predictions) applied to different problems.',
+  'AI confidence is not accuracy. A wrong answer delivered confidently is more dangerous than one that sounds unsure.',
+  'Correlation is not causation. AI finds patterns; only a human can investigate whether one thing actually causes another.',
+  'Models learn from yesterday. After a big change — new laws, COVID, a new market — old patterns can stop working without warning.',
+  'Missing data creates blind spots. An AI can only judge what it can see, so under-represented groups are often scored unfairly.',
+  'The most valuable AI skill isn\'t prompting — it\'s judgment: knowing when to trust AI, when to question it, and who is accountable.',
+  'Generative AI (ChatGPT, Claude, Gemini) creates content; Predictive AI scores and classifies; Computer Vision reads images; Agentic AI takes multi-step actions.',
+  'A feedback loop is when an AI\'s prediction helps cause the outcome it predicted — then treats that as proof it was "right."',
+  'The Funda Five — Task, Data, Tool, Trust, Human — is a five-step check you can run on any AI output before you rely on it.',
+  'AI can be brilliant at one task and helpless at another. Assuming "smart at one thing = smart at everything" is where most workplace AI mistakes start.',
+]
+function aiFactOfTheDay() {
+  const now = new Date()
+  const start = new Date(now.getFullYear(), 0, 0)
+  const dayOfYear = Math.floor((now - start) / 86400000)
+  return AI_FACTS[dayOfYear % AI_FACTS.length]
 }
 
 function computeStreak(session) {
@@ -469,13 +596,14 @@ function computeStreak(session) {
   } catch (e) { return 1 }
 }
 
-function encourageMsg(phases, m0, m1, m2) {
-  if (phases === 0) return 'Welcome! Complete your first phase to start earning XP and trophies. 🚀'
-  if (m0 >= 4 && m1 >= 4 && m2 >= 4) return "Incredible — foundation plus the first two core modules done. You're an AI Literacy Champion! 🏆"
+function encourageMsg(phases, m0, m1, m2, streak) {
+  if (phases === 0) return 'Welcome! Complete your first phase to start earning XP and your first trophy. 🚀'
+  if (m0 >= 4 && m1 >= 4 && m2 >= 4) return "Incredible — foundation plus the first two core modules done. You're an AI Champion! 🏆"
+  if (streak >= 3) return streak + '-day streak! 🔥 Consistency is how judgment is built. Keep it going today.'
   if (m1 >= 4) return "Module 2 is unlocked — learn how AI learns and fails. You're on a roll! ⚡"
   if (m0 >= 4) return "Foundation complete! Module 1 is open — see AI hallucination in the wild. 🔍"
-  if (phases >= 2) return 'Nice momentum — ' + phases + ' phases done. Every phase earns XP! 💪'
-  return 'Great start! Finish Module 0 to earn your first big trophy. 🌱'
+  if (phases >= 2) return 'Nice momentum — ' + phases + ' phases done. One more today keeps your streak alive! 💪'
+  return 'Great start! Finish Module 0 to earn your Foundation Graduate trophy. 🌱'
 }
 
 function renderSectorModule(sector, progress) {
