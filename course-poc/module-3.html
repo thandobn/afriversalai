@@ -155,6 +155,14 @@
     .access-gate__step.done .tick { background: var(--gold); color: var(--green-dark); }
     .access-gate__step.todo .tick { background: rgba(255,255,255,0.15); color: white; }
     #gate-checking { text-align: center; padding: 80px 20px; color: var(--muted); }
+    .model-answers { margin:32px 0; border:1.5px solid var(--green-light); border-radius:var(--radius-lg); overflow:hidden; }
+    .model-answers__header { background:var(--green-dark); color:white; padding:16px 24px; }
+    .model-answers__header h4 { color:white; margin:0; font-size:0.95em; }
+    .model-answer-item { padding:20px 24px; border-bottom:1px solid var(--border); background:var(--white); }
+    .model-answer-item:last-child { border-bottom:none; }
+    .model-answer-item__label { font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:8px; }
+    .model-answer-item p { font-size:0.9em; line-height:1.75; color:var(--text); margin:0 0 10px; }
+    .model-answer-item p:last-child { margin-bottom:0; }
   </style>
 </head>
 <body>
@@ -214,7 +222,7 @@
     <div class="m0-objectives"><strong>By the end of this module, you will be able to:</strong><ol>
       <li>Define algorithmic bias in plain language for a non-technical audience</li>
       <li>Tell disparate treatment from indirect discrimination (what US law calls &ldquo;disparate impact&rdquo;) &mdash; and spot proxy discrimination</li>
-      <li>Identify indirect discrimination on a listed ground in an AI recommendation and name the PEPUDA/POPIA provision that applies</li>
+      <li>Identify indirect discrimination on a listed ground in an AI recommendation, and explain when PEPUDA and POPIA s71 apply</li>
       <li>Apply an equity lens to AI deployment decisions in your sector</li>
       <li>Name who is accountable under South African law when AI discriminates</li>
     </ol></div>
@@ -427,7 +435,7 @@
         <div id="m0l-7" style="margin-bottom:36px;">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
             <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 7</span>
-            <h3 style="margin:0; font-size:1.15em;">Detecting it: the disparate-impact test</h3>
+            <h3 style="margin:0; font-size:1.15em;">Detecting it: the indirect discrimination test</h3>
           </div>
           <p>You cannot fix what you cannot see. The practical way to check any tool is to <strong>compare outcomes across groups</strong> &mdash; the test you&rsquo;ll run in Phase 4.</p>
           <div class="concept-block">
@@ -700,7 +708,7 @@
           <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:28px 32px;">
             <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">&ldquo;We removed race&rdquo; misses the point</p>
             <p style="font-size:1.05em; font-weight:700; color:white; margin-bottom:12px; line-height:1.5;">Three mechanisms from Phase 1 are running at once.</p>
-            <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;"><strong style="color:white;">Proxy discrimination</strong> (suburb stands in for race), <strong style="color:white;">a feedback loop</strong> (patrols manufacture the arrests that justify more patrols), and <strong style="color:white;">missing data</strong> (unrecorded crime in wealthy areas). The result is textbook <strong style="color:white;">disparate impact</strong> &mdash; profiling by race with the race field deleted.</p>
+            <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;"><strong style="color:white;">Proxy discrimination</strong> (suburb stands in for race), <strong style="color:white;">a feedback loop</strong> (patrols manufacture the arrests that justify more patrols), and <strong style="color:white;">missing data</strong> (unrecorded crime in wealthy areas). The result is textbook <strong style="color:white;">indirect discrimination</strong> under PEPUDA &mdash; what US doctrine calls &ldquo;disparate impact&rdquo; &mdash; profiling by race with the race field deleted.</p>
             <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;">Under the Constitution and PEPUDA this is <strong style="color:var(--gold);">indirect discrimination</strong> &mdash; unlawful regardless of intent. Accountability sits with the <strong style="color:var(--gold);">department and officials who deployed it</strong>, not the algorithm. &ldquo;The system flagged it&rdquo; is not a defence.</p>
           </div>
           <div style="margin-top:24px; text-align:right;">
@@ -792,7 +800,7 @@
               <tr><td>What proxies are in its data?</td><td><input type="text" id="ws-3" placeholder="e.g. postal code, school, name, language"></td></tr>
               <tr><td>Disparate-impact check: do outcomes differ by group?</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area — measured? unknown?"></td></tr>
               <tr><td>Who is harmed if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. qualified rural applicants filtered out"></td></tr>
-              <tr><td>What legal exposure applies?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / EEA / POPIA s71"></td></tr>
+              <tr><td>What legal exposure applies?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / POPIA s71 (non-employment) — or EEA s6 / POPIA s71 if your tool is used in employment decisions"></td></tr>
               <tr><td>What human oversight exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / none yet"></td></tr>
             </tbody>
           </table>
@@ -817,13 +825,45 @@
         <div style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 3 &rarr;</button>
         </div>
-        <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete the Funda Five questions before finishing the module.</div>
+        <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete the Equity Audit questions before finishing the module.</div>
         <div class="phase-nav" style="justify-content:flex-start;">
           <button type="button" class="btn btn--outline" onclick="goBack(2)">&larr; Reflect</button>
         </div>
         </div><!-- /ps-3-content -->
       </div><!-- /phase__body -->
     </div><!-- /phase-3 -->
+
+    <!-- MODEL ANSWERS -->
+    <div id="model-answers-m3" style="display:none;">
+      <div class="model-answers">
+        <div class="model-answers__header">
+          <h4>Worked Equity Audit &mdash; Metro Police Predictive Patrol Deployment (Encounter scenario)</h4>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">Worksheet completed</div>
+          <p><strong>Tool audited:</strong> Metro police AI patrol routing system &mdash; an algorithmic tool that assigns patrol density by area based on historical crime and arrest data.</p>
+          <p><strong>Decision it drives:</strong> Where to send police patrols; which areas receive heightened enforcement presence.</p>
+          <p><strong>Listed grounds potentially affected:</strong> Race (via location proxy); socioeconomic status (via area classification).</p>
+          <p><strong>Proxies in the data:</strong> Historical arrest and call-out records (biased by decades of over-policing in specific areas); suburb/location (apartheid spatial planning makes location a near-perfect race proxy in SA); prior police contact (reflects policing intensity, not underlying crime rates).</p>
+          <p><strong>Disparate-impact check:</strong> Patrols concentrated in historically Black townships; comparable historically white suburbs receive minimal deployment. Outcome data confirms the disparity &mdash; but the data itself is biased by the deployment pattern. More patrols produce more recorded arrests, which the model reads as evidence of more crime, reinforcing the loop. Meaningful measurement requires comparing AI deployment data against <em>independent</em> crime data (victimisation surveys, not police records).</p>
+          <p><strong>Who is harmed if wrong:</strong> Residents of over-policed areas &mdash; subject to disproportionate stops, searches, and arrest risk without evidence of higher actual crime rates relative to under-policed areas.</p>
+          <p><strong>Legal exposure:</strong> PEPUDA &mdash; indirect discrimination on the ground of race through location proxy (non-employment context). POPIA s71 &mdash; where the system produces individual risk scores, data subjects have the right not to be subject to decisions based solely on automated processing.</p>
+          <p><strong>Human oversight:</strong> Patrol commanders receive deployment recommendations and can override them. In practice, automation bias means the AI allocation is rarely contested. Oversight is present in form; absent in substance.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">1 &mdash; Where could this tool produce indirect discrimination, and through which proxy?</div>
+          <p>Township and historically Black residential area residents are the affected group. The neutral-looking rule is: &ldquo;deploy patrols where recorded crime density is highest.&rdquo; The proxy is historical arrest density &mdash; which in SA reflects where police <em>looked</em>, shaped by decades of over-policing specific areas. This creates the feedback loop from the Encounter: more patrols &rarr; more recorded arrests &rarr; model reads as higher crime &rarr; more patrols. The discrimination is not in the algorithm. It is in what the algorithm was trained to optimise.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">2 &mdash; How would you detect it?</div>
+          <p>Compare patrol hours per capita across two suburb groups: historically designated Black residential areas and historically designated white residential areas of comparable population size. A statistically significant disparity (&gt;2:1 patrol density ratio is a useful starting threshold) constitutes prima facie indirect discrimination evidence under PEPUDA. A second check: compare recorded crime rates (police data) against independent victimisation survey data by area &mdash; if these diverge sharply, the recorded data is reflecting policing intensity rather than actual crime rates, confirming the bias mechanism.</p>
+        </div>
+        <div class="model-answer-item">
+          <div class="model-answer-item__label">3 &mdash; Who is accountable under SA law, and what is your one recommended control?</div>
+          <p>The departmental official who procured and approved the system bears primary accountability under PEPUDA &mdash; not the algorithm, and not individual officers following deployment recommendations. &ldquo;The system recommended it&rdquo; is not a defence for a public authority deploying AI that produces racially discriminatory outcomes on a listed ground. One control: institute a quarterly equity review comparing patrol deployment density with independent crime data and suburb demographic profiles, with a mandatory audit trigger if deployment ratios between comparable areas exceed a defined threshold. The current absence of any outcome monitoring is itself an accountability gap.</p>
+        </div>
+      </div>
+    </div>
 
     <!-- MODULE COMPLETE -->
     <div id="module-complete" style="display:none;" class="preview-end">
@@ -1110,7 +1150,7 @@ function advancePhase(fromPhase) {
     var a3 = document.getElementById('apply-3').value.trim();
     if (a1.length < 5 || a2.length < 5 || a3.length < 10) {
       errEl.style.display = 'block';
-      errEl.textContent = 'Please complete the Funda Five questions before finishing the module.';
+      errEl.textContent = 'Please complete the Equity Audit questions before finishing the module.';
       return;
     }
     errEl.style.display = 'none';
@@ -1121,9 +1161,14 @@ function advancePhase(fromPhase) {
     });
     syncProgressAria();
     document.getElementById('phase-3').classList.remove('is-active');
+    var answers = document.getElementById('model-answers-m3');
+    if (answers) {
+      answers.style.display = 'block';
+      setTimeout(function() { answers.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    }
     var complete = document.getElementById('module-complete');
     complete.style.display = 'block';
-    setTimeout(function() { complete.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+    setTimeout(function() { complete.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 700);
     return;
   }
 }
@@ -1221,6 +1266,8 @@ document.addEventListener('DOMContentLoaded', function() {
       try { savedPos = JSON.parse(localStorage.getItem('afv_' + session.user.id + '_m3_pos') || 'null'); } catch (e) {}
       if (done.length >= 4) {
         updateTracker(4);
+        var answers = document.getElementById('model-answers-m3');
+        if (answers) answers.style.display = 'block';
         var complete = document.getElementById('module-complete');
         if (complete) complete.style.display = 'block';
       } else {
