@@ -350,35 +350,38 @@
         <a href="module-3.html" class="continue-link" id="link-module-3" style="display:none;">Start module →</a>
         <span id="lock-msg-module-3" style="font-size:0.82em; color:var(--muted);">Complete Module 2 to unlock</span>
       </div>
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--coming-soon">Coming soon</span>
+      <div class="module-card is-locked" id="card-module-4">
+        <span class="module-card__badge badge--locked" id="badge-module-4">Locked</span>
         <h3>Module 4 — Verification and Judgment</h3>
         <p>SA 2024 Election Deepfakes. How to know when AI output is good enough to act on.</p>
-        <div class="phase-dots">
+        <div class="phase-dots" id="dots-module-4">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-4.html" class="continue-link" id="link-module-4" style="display:none;">Start module →</a>
+        <span id="lock-msg-module-4" style="font-size:0.82em; color:var(--muted);">Complete Module 3 to unlock</span>
       </div>
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--coming-soon">Coming soon</span>
+      <div class="module-card is-locked" id="card-module-5">
+        <span class="module-card__badge badge--locked" id="badge-module-5">Locked</span>
         <h3>Module 5 — Accountability and Governance</h3>
-        <p>AI Recruitment + Employment Equity Act. "The algorithm decided" is not a defence.</p>
-        <div class="phase-dots">
+        <p>AI Recruitment + Employment Equity Act. &ldquo;The algorithm decided&rdquo; is not a defence.</p>
+        <div class="phase-dots" id="dots-module-5">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-5.html" class="continue-link" id="link-module-5" style="display:none;">Start module →</a>
+        <span id="lock-msg-module-5" style="font-size:0.82em; color:var(--muted);">Complete Module 4 to unlock</span>
       </div>
-      <div class="module-card is-locked">
-        <span class="module-card__badge badge--coming-soon">Coming soon</span>
-        <h3>Module 6 — When AI Works and When It Doesn't</h3>
+      <div class="module-card is-locked" id="card-module-6">
+        <span class="module-card__badge badge--locked" id="badge-module-6">Locked</span>
+        <h3>Module 6 — When AI Works and When It Doesn&rsquo;t</h3>
         <p>Dr Math vs Clinical AI Decision Support. The full Funda Five synthesis.</p>
-        <div class="phase-dots">
+        <div class="phase-dots" id="dots-module-6">
           <div class="phase-dot"></div><div class="phase-dot"></div>
           <div class="phase-dot"></div><div class="phase-dot"></div>
         </div>
-        <span style="font-size:0.82em; color:var(--muted);">Unlocks with Cohort 1</span>
+        <a href="module-6.html" class="continue-link" id="link-module-6" style="display:none;">Start module →</a>
+        <span id="lock-msg-module-6" style="font-size:0.82em; color:var(--muted);">Complete Module 5 to unlock</span>
       </div>
     </div>
 
@@ -578,6 +581,90 @@ async function initDashboard() {
     }
   }
   // If Module 2 not complete: card stays is-locked, lock message stays, link stays hidden
+
+  // Module 4 — unlocks when Module 3 is complete (all 4 phases)
+  const m4Card   = document.getElementById('card-module-4')
+  const m4Badge  = document.getElementById('badge-module-4')
+  const m4Link   = document.getElementById('link-module-4')
+  const m4Lock   = document.getElementById('lock-msg-module-4')
+  const m4Phases = progress.filter(r => r.module_id === 'module-4').map(r => r.phase)
+
+  if (m3Phases.length === 4) {
+    m4Card.classList.remove('is-locked')
+    m4Lock.style.display = 'none'
+    m4Link.style.display = 'inline'
+    renderDots('module-4', progress)
+    if (m4Phases.length === 4) {
+      m4Card.classList.add('is-complete')
+      m4Badge.textContent = 'Complete'
+      m4Badge.className = 'module-card__badge badge--complete'
+      m4Link.textContent = 'Review module →'
+    } else if (m4Phases.length > 0) {
+      m4Badge.textContent = 'In progress'
+      m4Badge.className = 'module-card__badge badge--progress'
+      m4Link.textContent = 'Continue →'
+    } else {
+      m4Badge.textContent = 'Start here'
+      m4Badge.className = 'module-card__badge badge--free'
+      m4Link.textContent = 'Start module →'
+    }
+  }
+
+  // Module 5 — unlocks when Module 4 is complete (all 4 phases)
+  const m5Card   = document.getElementById('card-module-5')
+  const m5Badge  = document.getElementById('badge-module-5')
+  const m5Link   = document.getElementById('link-module-5')
+  const m5Lock   = document.getElementById('lock-msg-module-5')
+  const m5Phases = progress.filter(r => r.module_id === 'module-5').map(r => r.phase)
+
+  if (m4Phases.length === 4) {
+    m5Card.classList.remove('is-locked')
+    m5Lock.style.display = 'none'
+    m5Link.style.display = 'inline'
+    renderDots('module-5', progress)
+    if (m5Phases.length === 4) {
+      m5Card.classList.add('is-complete')
+      m5Badge.textContent = 'Complete'
+      m5Badge.className = 'module-card__badge badge--complete'
+      m5Link.textContent = 'Review module →'
+    } else if (m5Phases.length > 0) {
+      m5Badge.textContent = 'In progress'
+      m5Badge.className = 'module-card__badge badge--progress'
+      m5Link.textContent = 'Continue →'
+    } else {
+      m5Badge.textContent = 'Start here'
+      m5Badge.className = 'module-card__badge badge--free'
+      m5Link.textContent = 'Start module →'
+    }
+  }
+
+  // Module 6 — unlocks when Module 5 is complete (all 4 phases)
+  const m6Card   = document.getElementById('card-module-6')
+  const m6Badge  = document.getElementById('badge-module-6')
+  const m6Link   = document.getElementById('link-module-6')
+  const m6Lock   = document.getElementById('lock-msg-module-6')
+  const m6Phases = progress.filter(r => r.module_id === 'module-6').map(r => r.phase)
+
+  if (m5Phases.length === 4) {
+    m6Card.classList.remove('is-locked')
+    m6Lock.style.display = 'none'
+    m6Link.style.display = 'inline'
+    renderDots('module-6', progress)
+    if (m6Phases.length === 4) {
+      m6Card.classList.add('is-complete')
+      m6Badge.textContent = 'Complete'
+      m6Badge.className = 'module-card__badge badge--complete'
+      m6Link.textContent = 'Review module →'
+    } else if (m6Phases.length > 0) {
+      m6Badge.textContent = 'In progress'
+      m6Badge.className = 'module-card__badge badge--progress'
+      m6Link.textContent = 'Continue →'
+    } else {
+      m6Badge.textContent = 'Start here'
+      m6Badge.className = 'module-card__badge badge--free'
+      m6Link.textContent = 'Start module →'
+    }
+  }
 }
 
 function renderDots(moduleId, progress) {
