@@ -335,6 +335,8 @@
             <textarea id="ref-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. There's no official policy &mdash; each person decides for themselves. Management assumes if it came from Copilot it must be right..."></textarea>
           </div>
 
+          <p style="font-size:0.88em; color:var(--muted); margin-top:16px;">If your answer described output that wasn't checked, a decision owned by no-one, or material shared without verification &mdash; you've identified the same gap that produced the DCDT case. Scale that to a government policy document and you have the incident.</p>
+
           <div style="text-align:right; margin-top:24px;">
             <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &mdash; show me the concept &rarr;</button>
           </div>
@@ -402,7 +404,7 @@
             <div style="margin-bottom:16px;">
               <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
                 <p style="font-weight:700; margin-bottom:4px;">POPIA &mdash; Protection of Personal Information Act</p>
-                <p style="font-size:0.88em; color:var(--muted);">Personal data cannot be processed outside SA without adequate protection agreements. Free AI tools process data offshore. Pasting employee or client PII into an unapproved tool is a reportable breach. The Information Regulator began active enforcement in February 2026.</p>
+                <p style="font-size:0.88em; color:var(--muted);">Personal data cannot be processed outside SA without adequate protection agreements. Free AI tools process data offshore. Pasting employee or client PII into an unapproved tool is a reportable breach. The Information Regulator has moved from compliance guidance to active enforcement &mdash; issuing enforcement notices and administrative penalties for POPIA breaches, including offshore data transfer violations.</p>
               </div>
               <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin-bottom:12px;">
                 <p style="font-weight:700; margin-bottom:4px;">Consumer Protection Act (Section 41)</p>
@@ -421,7 +423,7 @@
             <h3 id="m7corp-l4" style="margin: 28px 0 12px;">Where AI in corporate SA actually works: Nedbank's Enbi</h3>
 
             <div class="callout" style="background:var(--green-pale); border-color:var(--green-mid);">
-              <strong>Enbi &mdash; what right looks like:</strong> Nedbank's AI chatbot handled over 10 million customer requests and reduced live-agent chat by 50% &mdash; because it was designed within a narrow, well-defined scope. When it doesn't know, it escalates to a human with full context. It recognises SA vernacular ("Send-iMali"). It was trained for what it was asked to do &mdash; not used for everything. Contrast that with the DCDT case: AI used outside its reliable scope, with nobody checking the output.
+              <strong>Enbi &mdash; what right looks like:</strong> Nedbank's AI chatbot handled over 10 million customer requests and reduced live-agent chat by 50%. Three factors separated it from deployments that fail: (1) <strong>narrow scope defined upfront</strong> &mdash; Nedbank products and services only, nothing else; (2) <strong>human escalation with full context</strong> &mdash; when Enbi can't help, a live agent receives the complete conversation history; (3) <strong>domain-specific training</strong> &mdash; SA vernacular ("Send-iMali"), Nedbank-specific financial context, not a generic model dropped into a new environment. Remove any one of those three and the outcome changes. Contrast that with the DCDT case: AI used outside its reliable scope, with nobody checking the output.
             </div>
 
             <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
@@ -616,7 +618,7 @@
 /* === QUIZ DATA === */
 var M7CORP_ANSWERS = [1, 1, 2, 1];
 var M7CORP_FEEDBACK_CORRECT = [
-  'Correct. POPIA governs the processing of personal information. Free-tier tools process data on overseas servers. Pasting a client\'s personal and financial details constitutes a reportable breach &mdash; the Information Regulator began active enforcement in February 2026.',
+  'Correct. POPIA governs the processing of personal information. Free-tier tools process data on overseas servers. Pasting a client\'s personal and financial details constitutes a reportable breach &mdash; the Information Regulator has moved from compliance guidance to active enforcement, issuing penalties and enforcement notices for POPIA breaches including offshore data transfer violations.',
   'Correct. Data entered into unapproved tools sits outside your organisation\'s data governance. DeepSeek &mdash; a common "shadow AI" alternative &mdash; suffered a major breach in early 2025. Any work data entered is beyond your organisation\'s control, and may be used for model training.',
   'Correct. Generative AI does not retrieve verified facts &mdash; it predicts text that would plausibly follow your prompt. The DCDT drafters gave the AI a task it cannot reliably perform: sourcing and verifying academic literature. The AI completed the task-shaped hole with confident-sounding fabrications.',
   'Correct. Enbi succeeded because its designers understood what the system should and should not do. A narrow scope, a clear escalation path, and training on the actual domain (Nedbank products and SA vernacular) are what separated it from generic deployments.'
