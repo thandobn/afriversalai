@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 5: AI in Recruitment &mdash; AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .phase { display: none; }
+    .phase.is-active { display: block; }
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+
+    .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
+    .phase-nav { display:flex; justify-content:space-between; align-items:center; padding-top:24px; margin-top:32px; border-top:1px solid var(--border); gap:12px; }
+
+    .quiz-opts { margin-top:12px; }
+    .quiz-opt { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:8px; cursor:pointer; transition:border-color .15s,background .15s; font-size:0.92em; line-height:1.5; }
+    .quiz-opt:hover { border-color:var(--green-mid); background:var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top:3px; flex-shrink:0; accent-color:var(--green-mid); }
+    .quiz-feedback { display:none; margin-top:10px; padding:10px 14px; border-radius:var(--radius); font-size:0.88em; line-height:1.6; }
+
+    .phase.is-done .phase__header { background: var(--green-pale); }
+
+    .access-gate { max-width:620px; margin:60px auto; background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:48px 40px; text-align:center; }
+    .access-gate h2 { color:white; font-size:1.5em; margin-bottom:12px; }
+    .access-gate p { color:rgba(255,255,255,0.75); max-width:460px; margin:0 auto 24px; line-height:1.7; font-size:0.95em; }
+    .access-gate__steps { display:flex; flex-direction:column; gap:10px; max-width:380px; margin:0 auto 28px; text-align:left; }
+    .access-gate__step { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius); padding:12px 16px; font-size:0.88em; color:rgba(255,255,255,0.85); }
+    .access-gate__step .tick { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85em; font-weight:800; flex-shrink:0; background:rgba(255,255,255,0.15); color:white; }
+    #gate-checking { text-align:center; padding:80px 20px; color:var(--muted); }
+
+    .rejection-email { background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin:20px 0; max-width:600px; }
+    .rejection-email__header { background:var(--bg); border-bottom:1px solid var(--border); padding:16px 20px; }
+    .rejection-email__field { font-size:0.82em; color:var(--muted); margin-bottom:4px; }
+    .rejection-email__field strong { color:var(--text); }
+    .rejection-email__body { padding:20px 24px; }
+    .rejection-email__body p { font-size:0.9em; line-height:1.75; margin-bottom:14px; }
+    .rejection-email__body p:last-child { margin-bottom:0; }
+    .rejection-email__highlight { background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); border-radius:var(--radius); padding:10px 14px; font-size:0.88em; line-height:1.65; color:#92400E; margin-top:14px; }
+
+    .concept-section { border-left:4px solid var(--green-mid); background:var(--green-pale); padding:20px 24px; border-radius:0 var(--radius-lg) var(--radius-lg) 0; margin:24px 0; }
+    .concept-section h4 { font-size:0.85em; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--green-dark); margin-bottom:10px; }
+
+    .law-card { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:12px 0; background:var(--white); }
+    .law-card__name { font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-mid); margin-bottom:4px; }
+    .law-card__full { font-weight:700; font-size:0.95em; margin-bottom:6px; }
+    .law-card__desc { font-size:0.88em; color:var(--muted); line-height:1.65; }
+
+    .callout { background:var(--gold-light); border-left:4px solid var(--gold); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:20px 0; font-size:0.9em; line-height:1.7; }
+
+    .chain-row { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--border); }
+    .chain-row:last-child { border-bottom:none; }
+    .chain-node { width:38px; height:38px; border-radius:50%; background:var(--green-dark); color:white; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0; }
+    .chain-arrow { width:38px; text-align:center; flex-shrink:0; color:var(--muted); font-size:1.2em; }
+    .chain-content { flex:1; }
+    .chain-content__role { font-weight:700; font-size:0.92em; margin-bottom:4px; }
+    .chain-content__desc { font-size:0.85em; color:var(--muted); line-height:1.6; }
+
+    .channel-card { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; margin:10px 0; background:var(--white); }
+    .channel-card__name { font-weight:700; font-size:0.92em; margin-bottom:4px; color:var(--green-dark); }
+    .channel-card__full { font-size:0.78em; color:var(--muted); margin-bottom:6px; }
+    .channel-card__desc { font-size:0.85em; color:var(--text); line-height:1.6; }
+
+    .model-answers { margin:32px 0; border:1.5px solid var(--green-light); border-radius:var(--radius-lg); overflow:hidden; }
+    .model-answers__header { background:var(--green-dark); color:white; padding:16px 24px; }
+    .model-answers__header h4 { color:white; margin:0; font-size:0.95em; }
+    .model-answer-item { padding:20px 24px; border-bottom:1px solid var(--border); background:var(--white); }
+    .model-answer-item:last-child { border-bottom:none; }
+    .model-answer-item__label { font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:8px; }
+    .model-answer-item p { font-size:0.9em; line-height:1.75; color:var(--text); margin:0; }
+
+    .advance-err { color:#DC2626; font-size:0.85em; margin-top:8px; }
+    .preview-end { background:var(--green-dark); color:white; padding:48px 32px; text-align:center; border-radius:var(--radius-lg); margin:32px 0; }
+    .preview-end h2 { color:white; margin-bottom:12px; }
+    .preview-end p { color:rgba(255,255,255,0.75); margin-bottom:28px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.7; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="module-hero">
+  <div class="module-hero__inner">
+    <div class="breadcrumb"><a href="course.html">Core Course</a> / Module 5</div>
+    <h1>AI in Recruitment</h1>
+    <p class="lead lead--light">AI applicant tracking systems are screening South African job seekers before any human sees their CV. The SA Board for People Practices formally documented this in 2023. This module maps the accountability chain when AI recruitment produces unfair outcomes &mdash; and shows you which law applies, where to complain, and who bears responsibility.</p>
+    <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
+      <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
+      <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
+        <li>Map the accountability chain in an AI-assisted recruitment process from data collection to hiring decision</li>
+        <li>Identify which EEA provisions apply when AI recruitment tools produce indirect unfair discrimination in employment</li>
+        <li>Name at least two formal channels through which an affected candidate can raise an AI recruitment complaint</li>
+      </ul>
+    </div>
+    <div style="display:flex; gap:24px; margin-top:16px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">~70 min &middot; 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; Builds on Module 3 (indirect discrimination)</span>
+    </div>
+  </div>
+</div>
+
+<div id="gate-checking" class="container">Checking your access&hellip;</div>
+
+<div id="module-locked" class="access-gate container" style="display:none;">
+  <h2>Complete the prior modules to unlock Module 5</h2>
+  <p>Module 5 builds on indirect discrimination from Module 3. Complete Modules 0 through 4 first.</p>
+  <div class="access-gate__steps">
+    <div class="access-gate__step"><span class="tick">0</span><span>Module 0 &mdash; AI Fundamentals</span></div>
+    <div class="access-gate__step"><span class="tick">3</span><span>Module 3 &mdash; When AI Discriminates</span></div>
+    <div class="access-gate__step"><span class="tick">5</span><span>Module 5 &mdash; AI in Recruitment</span></div>
+  </div>
+  <a href="module-4.html" class="btn btn--gold btn--lg">Go to Module 4 &rarr;</a>
+</div>
+
+<div id="module-content" style="display:none;">
+
+<div class="progress-sticky-wrap">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 5 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+      <div class="progress-step is-active" id="prog-0">1 &middot; Encounter</div>
+      <div class="progress-step" id="prog-1">2 &middot; Reflect</div>
+      <div class="progress-step" id="prog-2">3 &middot; Concept</div>
+      <div class="progress-step" id="prog-3">4 &middot; Apply</div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-pale">
+<div class="container" style="margin-top:36px; padding-bottom:60px;">
+
+  <!-- ============================================================
+       PHASE 0 — ENCOUNTER
+       ============================================================ -->
+  <div class="phase is-active" id="phase-0">
+    <div class="phase__header">
+      <div class="phase__num">1</div>
+      <div>
+        <div class="phase__label">Encounter</div>
+        <div style="font-size:0.8em;color:var(--muted);">An automated rejection. React before we explain anything &middot; ~15 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase__task">
+        Lerato Dube applied for a Senior Financial Analyst role at a Johannesburg financial services firm. She has 7 years of experience, a BCom from the University of Limpopo, and a CFA Level II. This is the email she received 4 hours after submitting her application. <strong>What do you notice? What questions does this raise?</strong>
+      </div>
+
+      <div class="rejection-email">
+        <div class="rejection-email__header">
+          <div class="rejection-email__field"><strong>From:</strong> noreply@talentplatform.co.za</div>
+          <div class="rejection-email__field"><strong>To:</strong> lerato.dube@gmail.com</div>
+          <div class="rejection-email__field"><strong>Subject:</strong> Your application &mdash; Senior Financial Analyst (REF: FA-2026-047)</div>
+          <div class="rejection-email__field"><strong>Date:</strong> Tuesday, 10 March 2026, 09:14</div>
+        </div>
+        <div class="rejection-email__body">
+          <p>Dear Lerato,</p>
+          <p>Thank you for applying for the Senior Financial Analyst position at Meridian Financial Services.</p>
+          <p>After careful consideration, our system has reviewed your application against the requirements for this role. Based on this assessment, we are unable to progress your application at this time.</p>
+          <p>We receive a high volume of applications and our system allows us to match candidates efficiently against the criteria most predictive of success in our organisation. We appreciate the time you took to apply and encourage you to monitor our careers page for future opportunities.</p>
+          <p>Kind regards,<br>Meridian Talent Acquisition</p>
+          <div class="rejection-email__highlight">Note the language: &ldquo;<strong>our system has reviewed your application</strong>&rdquo; and &ldquo;<strong>criteria most predictive of success in our organisation</strong>.&rdquo; No human reviewed Lerato&rsquo;s CV before this rejection was sent.</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(27,67,50,0.06); border-left:4px solid var(--green-mid); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:20px 0; font-size:0.88em; line-height:1.6;">
+        <strong>Context:</strong> The South African Board for People Practices (SABPP) formally documented the use of AI applicant tracking systems in SA financial services and professional services firms in a 2023 guidance paper. SABPP raised concerns about indirect unfair discrimination and the absence of human review in early-stage screening. This scenario is representative of documented practice.
+      </div>
+
+      <div style="margin-bottom:8px; font-weight:600; font-size:0.95em;">What do you notice about this email? What questions does Lerato&rsquo;s situation raise for you?</div>
+      <textarea id="enc-reaction" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I notice... / The phrase &lsquo;our system has reviewed&rsquo; suggests... / If I were Lerato, I would want to know... / What concerns me is..."></textarea>
+
+      <div style="text-align:right; margin-top:20px;">
+        <button class="btn btn--primary" onclick="advancePhase(0)">I&rsquo;ve reacted &rarr;</button>
+      </div>
+      <p id="err-0" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 1 — REFLECT
+       ============================================================ -->
+  <div class="phase" id="phase-1">
+    <div class="phase__header">
+      <div class="phase__num">2</div>
+      <div>
+        <div class="phase__label">Reflect</div>
+        <div style="font-size:0.8em;color:var(--muted);">Think before the concept is introduced &middot; ~15 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase__task">
+        Two questions to surface your existing thinking on accountability and fairness in hiring.
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">1. Lerato has a BCom from the University of Limpopo. The AI system was trained on historical hiring success data from Meridian &mdash; a firm that has historically hired graduates from Wits, UCT, and Stellenbosch. What might the model have &ldquo;learned&rdquo; about University of Limpopo graduates, and why might that be a problem?</div>
+        <textarea id="ref-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="The model might have learned that... This could be a problem because..."></textarea>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">2. Who is responsible when an AI recruitment tool produces unfair outcomes? The vendor who built the tool? The HR team who deployed it? The hiring manager who never saw Lerato&rsquo;s CV? The company&rsquo;s board?</div>
+        <textarea id="ref-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I think responsibility falls on... because... I think the board / hiring manager / vendor is / isn&rsquo;t responsible because..."></textarea>
+      </div>
+
+      <div class="phase-nav">
+        <button type="button" class="btn btn--outline" onclick="showPhase(0)">&larr; Encounter</button>
+        <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &rarr;</button>
+      </div>
+      <p id="err-1" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 2 — CONCEPT
+       ============================================================ -->
+  <div class="phase" id="phase-2">
+    <div class="phase__header">
+      <div class="phase__num">3</div>
+      <div>
+        <div class="phase__label">Concept</div>
+        <div style="font-size:0.8em;color:var(--muted);">The accountability chain, the law, and the formal channels &middot; ~20 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <!-- ── SCREEN 1: Concept reading ──────────────────────────────────── -->
+      <div class="phase-screen is-active" id="ps-2-content">
+
+        <div class="concept-section">
+          <h4>How AI applicant tracking systems work in SA</h4>
+          <p>An Applicant Tracking System (ATS) is a software platform that receives, stores, and processes job applications. Modern ATS platforms include AI scoring: they rank candidates against each other and against a model of a &ldquo;successful hire&rdquo; derived from the company&rsquo;s historical data. In many SA deployments documented by SABPP, the system filters candidates before any human reads a single CV.</p>
+          <p style="margin-top:12px;">The model&rsquo;s definition of &ldquo;success&rdquo; is learned from historical hiring data. If the company&rsquo;s past hires skewed toward graduates of historically white universities (as they did in most formal SA employers before aggressive EEA compliance), the model learns that this pattern predicts success &mdash; and scores candidates from historically Black universities lower. The algorithm is doing exactly what it was designed to do. The discrimination is in what it was trained on.</p>
+        </div>
+
+        <div class="concept-section">
+          <h4>The accountability chain &mdash; who is in it</h4>
+          <p>When AI produces an unfair recruitment outcome, accountability is distributed across a chain. Each link has a distinct responsibility:</p>
+        </div>
+
+        <div style="margin:20px 0;">
+          <div class="chain-row">
+            <div class="chain-node">1</div>
+            <div class="chain-content">
+              <div class="chain-content__role">ATS Vendor &mdash; the builder</div>
+              <div class="chain-content__desc">Responsible for the model architecture, training methodology, and auditing for bias before deployment. If the vendor knowingly deploys a system with foreseeable discriminatory impact without disclosing this, they bear significant liability. Vendors sometimes claim their system is &ldquo;neutral&rdquo; &mdash; but a model trained on historical SA hiring data is structurally biased toward historical hiring patterns.</div>
+            </div>
+          </div>
+          <div class="chain-row">
+            <div class="chain-node">2</div>
+            <div class="chain-content">
+              <div class="chain-content__role">HR Director &mdash; the deployer</div>
+              <div class="chain-content__desc">Responsible for procurement decisions, configuration of the system, and monitoring outcomes. Under EEA, employers are required to actively implement employment equity. Deploying an AI screening tool without auditing it for EEA compliance is not a neutral act &mdash; it is an abdication of the employer&rsquo;s affirmative equity obligations.</div>
+            </div>
+          </div>
+          <div class="chain-row">
+            <div class="chain-node">3</div>
+            <div class="chain-content">
+              <div class="chain-content__role">Hiring Manager &mdash; the decision-maker</div>
+              <div class="chain-content__desc">Receives a shortlist from the ATS and interviews from it. If the hiring manager never knows the demographics of who was screened out, they cannot identify the problem. But they are still a node in the chain: if they raise no questions about the shortlist&rsquo;s diversity, they bear some accountability for the outcome.</div>
+            </div>
+          </div>
+          <div class="chain-row">
+            <div class="chain-node">4</div>
+            <div class="chain-content">
+              <div class="chain-content__role">Board / CEO &mdash; the principal</div>
+              <div class="chain-content__desc">The company is the juristic person ultimately accountable for EEA compliance. The Employment Equity Plan submitted to the Department of Employment and Labour is a board-level commitment. Systemic AI discrimination that undermines the EEA plan is a compliance failure that flows to the top of the organisation.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="concept-section">
+          <h4>The legal framework &mdash; EEA in the employment context</h4>
+          <p>This is where EEA applies &mdash; employment decisions specifically. Do not confuse with Module 3 (PEPUDA for non-employment AI discrimination). The statutes are different because the contexts are different:</p>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">EEA Section 6</div>
+          <div class="law-card__full">Employment Equity Act 55 of 1998 &mdash; Section 6: Prohibition of Unfair Discrimination</div>
+          <div class="law-card__desc">Prohibits unfair discrimination in employment decisions on any listed ground &mdash; including race, gender, disability, and &ldquo;arbitrary grounds.&rdquo; Critically, Section 6 covers <strong>indirect unfair discrimination</strong>: a criterion that appears neutral but produces discriminatory outcomes on a listed ground. University attended, as a proxy for race in SA, is indirect discrimination under Section 6. The employer bears the burden of proving the discrimination was fair or not discrimination.</div>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">EEA Sections 19&ndash;27</div>
+          <div class="law-card__full">Employment Equity Plan &mdash; Affirmative Obligations</div>
+          <div class="law-card__desc">Designated employers (50+ employees, or certain thresholds) must submit an Employment Equity Plan to the Department of Employment and Labour. The plan commits the company to measurable equity targets. An AI system that systematically screens out candidates from designated groups undermines the EEA plan and creates a direct compliance failure that can trigger fines and public reporting.</div>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">POPIA Section 71</div>
+          <div class="law-card__full">Protection of Personal Information Act &mdash; Section 71 (Automated Decision Right)</div>
+          <div class="law-card__desc">Also applies in recruitment: the ATS is processing personal information (CV data) to make or significantly influence a consequential employment decision. Lerato has the right to request human review of the decision before it is finalised. She also has the right to know what information was used and to make representations. &ldquo;Our system reviewed your application&rdquo; is not sufficient disclosure of automated processing under POPIA.</div>
+        </div>
+
+        <div class="callout">
+          <strong>Why EEA here and PEPUDA in Module 3:</strong> EEA applies to employment decisions specifically. PEPUDA applies to all public and private conduct. When AI discriminates in a policing or bail context, PEPUDA is the hook. When AI discriminates in a recruitment or employment context, EEA Section 6 is the primary hook &mdash; with POPIA Section 71 for the automated decision right. Both apply in recruitment; PEPUDA may also apply but EEA is the lex specialis (the more specific statute) for employment.
+        </div>
+
+        <div class="concept-section">
+          <h4>Formal channels for raising AI recruitment complaints</h4>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-card__name">CCMA</div>
+          <div class="channel-card__full">Commission for Conciliation, Mediation and Arbitration</div>
+          <div class="channel-card__desc">The primary forum for unfair labour practices and unfair discrimination in employment. Candidates who believe they were unfairly discriminated against in a recruitment process can refer to the CCMA. The CCMA can order reinstatement, compensation, or require the employer to revise its processes. Fast and accessible &mdash; no legal representation required.</div>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-card__name">South African Human Rights Commission (SAHRC)</div>
+          <div class="channel-card__full">Constitutional body investigating human rights violations</div>
+          <div class="channel-card__desc">Can investigate systemic discrimination patterns &mdash; including AI recruitment systems that produce widespread discriminatory outcomes across multiple candidates. The SAHRC is particularly relevant when the discrimination is systemic (affecting a class of candidates) rather than a single incident. They can investigate and make binding recommendations.</div>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-card__name">Labour Court</div>
+          <div class="channel-card__full">Specialist court for employment disputes</div>
+          <div class="channel-card__desc">For complex discrimination cases, including interdicts against employer conduct and declaratory relief. More formal than the CCMA; legal representation typical. Can award substantial damages in serious indirect discrimination cases and can order mandatory equity audits of AI systems.</div>
+        </div>
+
+        <div class="channel-card">
+          <div class="channel-card__name">Information Regulator (POPIA)</div>
+          <div class="channel-card__full">South Africa&rsquo;s data protection authority</div>
+          <div class="channel-card__desc">If Lerato is denied information about how her personal data was processed (what the system used, how it scored her), she can complain to the Information Regulator under POPIA. The Regulator can compel disclosure and investigate whether the employer complied with Section 71&rsquo;s automated decision requirements.</div>
+        </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:24px 0;">
+          <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); margin-bottom:10px;">Further reading</p>
+          <ul style="font-size:0.88em; line-height:1.8; margin:0; padding-left:18px; color:var(--text);">
+            <li>SABPP &mdash; <em>Guidance on Artificial Intelligence in People Practices</em> (2023, SA Board for People Practices)</li>
+            <li>EEA Section 6 full text &mdash; SAFLII (saflii.org)</li>
+            <li>CCMA Guide to Unfair Discrimination &mdash; ccma.org.za</li>
+          </ul>
+        </div>
+
+        <div class="phase-nav" style="justify-content:flex-end;">
+          <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-content -->
+
+      <!-- ── SCREEN 2: Quiz ─────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-2-quiz">
+
+        <h3 style="margin-bottom:4px;">Knowledge Check</h3>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Three questions. All must be correct before you advance to Apply.</p>
+
+        <!-- Q1 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. An AI ATS is trained on Meridian Financial Services&rsquo; 10 years of hiring decisions. Historically, Meridian hired predominantly from Wits, UCT, and Stellenbosch. The model scores graduates from University of Limpopo lower. What type of discrimination does this constitute under SA law?</div>
+          <div class="quiz-opts" id="m5_q0_opts">
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q0" value="0"> Direct unfair discrimination &mdash; the AI is explicitly using race as a criterion</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q0" value="1"> Indirect unfair discrimination under EEA Section 6 &mdash; university attended is a facially neutral criterion that produces discriminatory outcomes along a listed ground (race), because university attended in SA correlates with race due to apartheid-era education policy</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q0" value="2"> No discrimination &mdash; the AI is matching historical success patterns which is a legitimate business interest</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q0" value="3"> PEPUDA violation &mdash; PEPUDA is the correct law for employment discrimination, not EEA</label>
+          </div>
+          <div class="quiz-feedback" id="m5qf-0"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. Lerato received a rejection from &ldquo;our system&rdquo; with no indication of what criteria were used. Which SA law gives her the right to request human review of this automated employment decision before it is finalised?</div>
+          <div class="quiz-opts" id="m5_q1_opts">
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="0"> EEA Section 6 &mdash; prohibition on indirect unfair discrimination</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q1" value="1"> POPIA Section 71 &mdash; the right not to be subject to a consequential decision based solely on automated processing of personal information, including the right to make representations</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="2"> EEA Section 27 &mdash; the employer&rsquo;s equity plan reporting requirements</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="3"> There is no SA law that requires human review of AI recruitment screening</label>
+          </div>
+          <div class="quiz-feedback" id="m5qf-1"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. An HR Director discovers their AI ATS has been producing racially skewed screening outcomes for 18 months. Aside from suspending the tool, which formal channels can affected candidates use to raise a complaint?</div>
+          <div class="quiz-opts" id="m5_q2_opts">
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q2" value="0"> The CCMA (unfair discrimination complaints), Labour Court, and/or the South African Human Rights Commission &mdash; all three have jurisdiction over employment discrimination of this type</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="1"> Only the Labour Court &mdash; the CCMA does not handle discrimination complaints</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="2"> Only the Information Regulator &mdash; this is a POPIA data processing issue, not an employment law issue</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="3"> Only the company&rsquo;s internal grievance procedure &mdash; external channels open only after internal remedies are exhausted</label>
+          </div>
+          <div class="quiz-feedback" id="m5qf-2"></div>
+        </div>
+
+        <div id="quiz-m5-submit-wrap">
+          <button class="btn btn--primary" onclick="submitQuizM5()">Check my answers &rarr;</button>
+        </div>
+        <p id="quiz-m5-err" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+        <button id="quiz-m5-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+        </div>
+
+      </div><!-- /ps-2-quiz -->
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 3 — APPLY
+       ============================================================ -->
+  <div class="phase" id="phase-3">
+    <div class="phase__header">
+      <div class="phase__num">4</div>
+      <div>
+        <div class="phase__label">Apply</div>
+        <div style="font-size:0.8em;color:var(--muted);">Funda Five on Meridian&rsquo;s AI recruitment system &middot; ~20 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase-screen is-active" id="ps-3-apply">
+
+        <div class="phase__task">
+          <strong>Your role:</strong> You are the new HR Director at Meridian Financial Services. Your first week. You learn that the company has been using an AI ATS for 18 months. No human reviews CVs before the shortlist is generated. A candidate (Lerato Dube) has formally complained to the CCMA that she was unfairly screened out. Internal data shows that candidates from historically Black universities are advancing at half the rate of candidates from historically white universities. Apply the Funda Five &mdash; your task is to understand this situation fully, map the accountability, and determine what Meridian needs to do.
+        </div>
+
+        <div class="funda-apply">
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">1</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">TASK &mdash; What is the AI being used for? Is this the right use, and is it being used correctly?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What decision is the ATS making or influencing? What does &ldquo;no human reviews CVs before shortlist&rdquo; mean for accountability? What would the correct use of AI in this recruitment process look like?</div>
+              <textarea id="app-1" rows="4" placeholder="The ATS is being used to... The absence of human review means... The correct use would look like..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">2</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">DATA &mdash; What data is the ATS using? What proxies might be encoding race?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What CV data does an ATS typically use? Which of those fields are proxies for race in the SA context? Which law applies to this data processing?</div>
+              <textarea id="app-2" rows="4" placeholder="The ATS likely uses... In SA, the proxies for race in CV data include... The relevant law is..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">3</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">TOOL &mdash; What type of AI is this? Why is training on historical hiring data in SA structurally biased?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What kind of model underlies an ATS scoring system? What was it trained on? Why does training on Meridian&rsquo;s historical hires create structural bias in the SA context?</div>
+              <textarea id="app-3" rows="4" placeholder="The ATS is a ranking/classification model that... It was trained on... In SA, this creates structural bias because..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">4</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">TRUST &mdash; How do you audit this system? What data do you need?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What does a meaningful equity audit of an AI recruitment system look like? What specific data do you need from the vendor? What do the 18 months of outcome data tell you?</div>
+              <textarea id="app-4" rows="4" placeholder="A meaningful audit would require... From the vendor, I need... The 18 months of data tell me..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step" style="border-bottom:none;">
+            <div class="funda-apply-step__num">5</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">HUMAN &mdash; Map the accountability chain and state what Meridian must do now</div>
+              <div style="font-size:0.85em; color:var(--muted);">Who bears accountability at each link in the chain? What does each party need to do? What are Meridian&rsquo;s immediate obligations under EEA and POPIA? What do you tell Lerato?</div>
+              <textarea id="app-5" rows="5" placeholder="The ATS vendor is accountable for... The previous HR Director is accountable for... Meridian must immediately... Lerato&rsquo;s formal channels are..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div id="m5-apply-submit" style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary btn--lg" onclick="completeModule5()">Submit Funda Five &rarr;</button>
+        </div>
+        <p id="err-3" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+      </div><!-- /ps-3-apply -->
+
+    </div>
+  </div>
+
+  <!-- MODEL ANSWERS -->
+  <div id="model-answers-m5" style="display:none;">
+    <div class="model-answers">
+      <div class="model-answers__header">
+        <h4>Model Answers &mdash; Meridian ATS Discrimination Complaint (AI Recruitment)</h4>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">1. TASK &mdash; What is the ATS being used for? Is this correct?</div>
+        <p>The ATS is being used to make the first-stage screening decision in recruitment &mdash; determining which candidates a human ever sees. This is consequential: Lerato&rsquo;s CV was rejected before a single human read it. The absence of human review before shortlisting is the core problem: it removes the human oversight required to catch algorithmic bias and fulfil EEA affirmative equity obligations. Correct use of AI in recruitment: AI may assist in ranking and sorting, but a human reviewer must see the full applicant pool (or a meaningful stratified sample) before the shortlist is finalised; the system must be audited for equity outcomes; and candidates must be informed that automated processing is used and given a right to contest under POPIA Section 71.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">2. DATA &mdash; What proxies might encode race?</div>
+        <p>A typical ATS uses: name, university attended, location/address, employment history (companies worked at, tenure), years of experience, professional certifications, skills keywords. In SA, several of these are proxies for race: university attended (historically Black universities vs historically white universities &mdash; a direct legacy of apartheid education policy); location/address (apartheid geography means many Black professionals still list addresses in townships or historically Black areas); name (SA names can signal race, ethnicity, and language group, all of which correlate with race). All of this is personal information under POPIA. The automated use of it to make consequential employment decisions triggers Section 71 rights. Processing special categories of information (which can be inferred from these proxies) requires explicit consent or specific legal grounds under POPIA.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">3. TOOL &mdash; Why is training on historical SA hiring data structurally biased?</div>
+        <p>The ATS uses a ranking or classification model trained on Meridian&rsquo;s historical hiring and success data. The model learns: what does a successful Meridian hire look like? The answer in historical data: predominantly graduates of Wits, UCT, and Stellenbosch, with particular employment histories, names, and address areas. This is not a bug. The model is correctly learning from the data. The problem is that the data encodes 30+ years of apartheid-constrained recruitment &mdash; Black professionals were excluded from formal sector employment and from historically white universities until the 1990s. The model can&rsquo;t know this. It just sees the patterns: these attributes correlate with &ldquo;success.&rdquo; This is the same structural mechanism as Module 3&rsquo;s Riskio case &mdash; accurate data encoding historical discrimination, replicated at scale by a model.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">4. TRUST &mdash; How do you audit this system?</div>
+        <p>A meaningful equity audit requires: (1) Raw score data for all applications over 18 months, with demographic breakdowns &mdash; you need to compare AI advance rates by race, gender, and disability across the full applicant pool; (2) Feature weights from the vendor &mdash; what factors does the model score highest? Are university attended, location, or name-proxied features weighted heavily? (3) A comparison of AI advance rates vs final hire demographics &mdash; if the ATS is screening out candidates from historically Black universities at double the rate of candidates from historically white universities, that is EEA Section 6 evidence; (4) Vendor documentation: has the system been independently audited for equity? If the vendor refuses to provide feature weights or audit documentation, the system is not auditable and must not be used for employment decisions in SA. The 18-month outcome data is itself strong prima facie evidence: a statistically significant difference in advance rates across racial groups shifts the burden to the employer to prove the discrimination is not unfair.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">5. HUMAN &mdash; Accountability chain and immediate obligations</div>
+        <p>ATS vendor: accountable for deploying a system with foreseeable discriminatory impact in the SA context without adequate disclosure or equity auditing. Previous HR Director (and the company): accountable for procuring and deploying the system without EEA equity impact assessment, and for 18 months of unchecked operation. Hiring managers: accountable for not questioning the demographic homogeneity of successive shortlists. Board/CEO: accountable for EEA plan compliance failures &mdash; this is a notifiable compliance event. Meridian must immediately: (1) Suspend AI-only screening pending audit; (2) Commission an independent equity audit of 18 months of ATS outcomes; (3) Notify the Department of Employment and Labour of the compliance review; (4) Respond to Lerato&rsquo;s CCMA referral: disclose what data was used in her application, provide the POPIA Section 71 information she is entitled to, and consider whether to settle; (5) Notify other candidates who were screened out via ATS-only in the same period. What to tell Lerato: she has the right to the specific information used in her automated scoring (POPIA Section 71), and her CCMA referral will be engaged transparently.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE COMPLETE -->
+  <div id="module-complete" style="display:none;" class="preview-end">
+    <h2>Module 5 complete &mdash; AI in Recruitment</h2>
+    <p>You can now map the full accountability chain in an AI recruitment failure, identify EEA Section 6 indirect discrimination in employment contexts, and name the formal channels available to candidates &mdash; CCMA, Labour Court, SAHRC, Information Regulator. Module 6 brings all of this together.</p>
+    <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Module 6 is the capstone: you&rsquo;ll draw on every case from M1&ndash;M5 to write your own professional AI judgment statement &mdash; your documented position on AI in your work.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="module-6.html" class="btn btn--gold btn--lg">Continue to Module 6 &rarr;</a>
+      <a href="dashboard.html" class="btn btn--white btn--lg">Back to Dashboard</a>
+    </div>
+  </div>
+
+</div>
+</section>
+</div><!-- /module-content -->
+
+<footer>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+</footer>
+
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+
+<script>
+function updateTracker(n) {
+  [0,1,2,3].forEach(function(i) {
+    var s = document.getElementById('prog-' + i);
+    if (!s) return;
+    s.classList.remove('is-active');
+    if (i < n) { if (!s.classList.contains('is-done')) s.classList.add('is-done'); }
+    else if (i === n) s.classList.add('is-active');
+  });
+}
+
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function(s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function advancePhase(fromPhase) {
+  var errEl = document.getElementById('err-' + fromPhase);
+
+  if (fromPhase === 0) {
+    var t = document.getElementById('enc-reaction').value.trim();
+    if (t.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words before moving on.'; return; }
+    errEl.style.display = 'none';
+    if (window._m5UserLoggedIn) saveProgress('module-5', 0);
+  }
+  if (fromPhase === 1) {
+    var t1 = document.getElementById('ref-1').value.trim();
+    var t2 = document.getElementById('ref-2').value.trim();
+    if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes before moving on.'; return; }
+    errEl.style.display = 'none';
+    if (window._m5UserLoggedIn) saveProgress('module-5', 1);
+  }
+  if (fromPhase === 2) {
+    errEl.style.display = 'none';
+    if (window._m5UserLoggedIn) saveProgress('module-5', 2);
+  }
+
+  var progCur = document.getElementById('prog-' + fromPhase);
+  if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
+  showPhase(fromPhase + 1);
+}
+
+function submitQuizM5() {
+  var allAnswered = true;
+  var wrongCount = 0;
+  var explanations = [
+    { ok: 'Correct. University attended is a facially neutral criterion that in SA correlates with race due to apartheid-era education policy: historically Black universities served Black students while historically white universities served white students. When an AI scores graduates from these institutions differently, it produces racially discriminatory outcomes through a neutral-looking criterion. This is indirect unfair discrimination under EEA Section 6. The employer cannot defend it simply by saying &ldquo;university quality differs&rdquo; &mdash; the burden is on the employer to prove the criterion is not discriminatory or that the discrimination is fair.',
+      no: 'Direct discrimination requires the AI to use race explicitly as an input &mdash; it doesn\'t here. &ldquo;Historical success patterns&rdquo; is the most common employer defence, but the EEA specifically prohibits indirect discrimination: neutral criteria that produce discriminatory outcomes. The employer bears the burden to prove the criterion is not discriminatory. PEPUDA applies to non-employment contexts; EEA is the lex specialis for employment decisions. The correct answer is indirect unfair discrimination under EEA Section 6.' },
+    { ok: 'Correct. POPIA Section 71 gives every data subject the right not to be subject to a consequential decision based solely on automated processing, and the right to make representations before the decision is finalised. This applies directly to Lerato\'s situation: an ATS made an employment decision about her with no human review. POPIA Section 71 creates a legal obligation for Meridian to either: provide human review before the decision, or clearly disclose that automated processing was used and give her a right to contest.',
+      no: 'EEA Section 6 is the right tool for challenging the discrimination itself &mdash; but not the automated decision right. EEA Section 27 is about employer equity plan reporting requirements, not candidate rights. The statement that no SA law requires human review is wrong: POPIA Section 71 creates exactly this requirement for consequential automated decisions. Both POPIA Section 71 (automated decision right) and EEA Section 6 (discrimination) are relevant here &mdash; POPIA 71 is the specific right to request human review.' },
+    { ok: 'Correct. The CCMA has jurisdiction over unfair labour practices and unfair discrimination claims, including recruitment discrimination &mdash; it does handle EEA Section 6 complaints. The South African Human Rights Commission can investigate systemic discrimination affecting a class of candidates. The Labour Court handles more complex cases and can award significant damages and order mandatory audits. Additionally, the Information Regulator is available for POPIA-specific complaints (denial of access to processing information). Candidates do not need to exhaust internal remedies before accessing the CCMA or SAHRC.',
+      no: 'The CCMA does handle unfair discrimination complaints &mdash; including EEA Section 6 employment discrimination. The Information Regulator is relevant for POPIA issues specifically, but the employment discrimination itself falls under the CCMA and Labour Court. There is no requirement to exhaust internal remedies before accessing the CCMA or SAHRC for discrimination complaints. Multiple channels are available simultaneously.' }
+  ];
+
+  [0,1,2].forEach(function(i) {
+    var sel = document.querySelector('input[name="m5_q' + i + '"]:checked');
+    var fb = document.getElementById('m5qf-' + i);
+    if (!sel) { allAnswered = false; return; }
+    var isOk = sel.closest('label').dataset.correct === 'true';
+    fb.style.display = 'block';
+    if (isOk) {
+      fb.style.background = 'var(--green-pale)';
+      fb.style.border = '1px solid var(--green-light)';
+      fb.style.color = 'var(--green-dark)';
+      fb.innerHTML = '<strong>Correct.</strong> ' + explanations[i].ok;
+      document.querySelectorAll('input[name="m5_q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      wrongCount++;
+      fb.style.background = '#FFF5F5';
+      fb.style.border = '1px solid #FCA5A5';
+      fb.style.color = '#7F1D1D';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + explanations[i].no;
+      document.querySelectorAll('input[name="m5_q' + i + '"]').forEach(function(r) { r.checked = false; });
+    }
+  });
+
+  var errEl = document.getElementById('quiz-m5-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 3 questions before checking.'; return; }
+  errEl.style.display = 'none';
+  if (wrongCount === 0) {
+    document.getElementById('quiz-m5-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-m5-advance').style.display = 'inline-block';
+  } else {
+    errEl.style.display = 'block';
+    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look &mdash; check the hints above and try again.';
+  }
+}
+
+function completeModule5() {
+  var vals = [1,2,3,4,5].map(function(n) { return document.getElementById('app-' + n).value.trim(); });
+  var errEl = document.getElementById('err-3');
+  if (vals.some(function(v) { return v.length < 20; })) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please complete all five Funda Five responses before submitting.';
+    return;
+  }
+  errEl.style.display = 'none';
+  if (window._m5UserLoggedIn) saveProgress('module-5', 3);
+
+  var prog3 = document.getElementById('prog-3');
+  if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+
+  document.getElementById('m5-apply-submit').style.display = 'none';
+  var answers = document.getElementById('model-answers-m5');
+  answers.style.display = 'block';
+  setTimeout(function() { answers.scrollIntoView({ behavior:'smooth', block:'start' }); }, 100);
+  setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function(label) { opts.appendChild(label); });
+  });
+
+  [0,1,2,3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function() {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) showPhase(i);
+    });
+  });
+});
+</script>
+
+<script>
+(async () => {
+  const session = await requireAuth('module-5.html');
+  if (!session) return;
+  window._m5UserLoggedIn = true;
+  await updateNavForAuth();
+
+  const gateChecking = document.getElementById('gate-checking');
+  const gateLocked   = document.getElementById('module-locked');
+  const content      = document.getElementById('module-content');
+
+  const m4 = await getModuleProgress('module-4');
+  if (m4.length < 4) {
+    gateChecking.style.display = 'none';
+    content.style.display = 'none';
+    gateLocked.style.display = 'block';
+    return;
+  }
+
+  gateChecking.style.display = 'none';
+  gateLocked.style.display   = 'none';
+  content.style.display      = 'block';
+
+  const phases = await getModuleProgress('module-5');
+  if (phases.length === 0) return;
+
+  phases.forEach(function(p) {
+    var step = document.getElementById('prog-' + p);
+    if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+  });
+
+  const maxPhase = Math.max.apply(null, phases);
+  if (maxPhase < 3) {
+    showPhase(maxPhase + 1);
+  } else {
+    showPhase(3);
+    showScreen(3, 'apply');
+    document.getElementById('m5-apply-submit').style.display = 'none';
+    document.getElementById('model-answers-m5').style.display = 'block';
+    document.getElementById('module-complete').style.display  = 'block';
+    var prog3 = document.getElementById('prog-3');
+    if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+  }
+})();
+</script>
+
+</body>
+</html>

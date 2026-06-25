@@ -213,8 +213,8 @@
     <p class="lead">Discrimination can happen without discriminatory intent. In South Africa, AI trained on historical data carries the weight of apartheid and structural inequality forward &mdash; often invisibly. This module shows you how bias enters, how South African law sees it, and how to audit any tool for it.</p>
     <div class="m0-objectives"><strong>By the end of this module, you will be able to:</strong><ol>
       <li>Define algorithmic bias in plain language for a non-technical audience</li>
-      <li>Tell disparate treatment from disparate impact &mdash; and spot proxy discrimination</li>
-      <li>Analyse an AI recommendation for disparate impact on a protected group</li>
+      <li>Tell disparate treatment from indirect discrimination (what US law calls &ldquo;disparate impact&rdquo;) &mdash; and spot proxy discrimination</li>
+      <li>Identify indirect discrimination on a listed ground in an AI recommendation and name the PEPUDA/POPIA provision that applies</li>
       <li>Apply an equity lens to AI deployment decisions in your sector</li>
       <li>Name who is accountable under South African law when AI discriminates</li>
     </ol></div>
@@ -334,6 +334,9 @@
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
             <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Example</p>
             <p style="margin:0; font-size:0.92em;">A lender&rsquo;s AI never asks an applicant&rsquo;s race. But it rejects applicants from certain townships far more often. No disparate <em>treatment</em> &mdash; clear disparate <em>impact</em>. The harm is identical; only the mechanism is hidden.</p>
+          </div>
+          <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
+            <strong>SA law note:</strong> What US legal doctrine calls &ldquo;disparate impact,&rdquo; South African law calls <strong>indirect discrimination</strong> &mdash; prohibited under PEPUDA (Act 4 of 2000) and the Constitution (s9) on <strong>listed grounds</strong> (race, gender, disability, age, language, and more). The test is the same: a neutral rule that produces unequal outcomes. But in SA, liability attaches regardless of intent.
           </div>
         </div>
 
@@ -480,7 +483,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">2. An AI loan tool never uses race, yet rejects applicants from certain townships far more often. This is best described as:</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="q1" value="0"> <span>Disparate treatment &mdash; it treats people differently by race directly</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="q1" value="1"> <span>Disparate impact &mdash; a neutral rule that lands harder on a protected group</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q1" value="1"> <span>Indirect discrimination (SA law) &mdash; a neutral rule that produces unequal outcomes on a listed ground, regardless of intent</span></label>
                 <label class="quiz-opt"><input type="radio" name="q1" value="2"> <span>Not discrimination at all, since race was never used</span></label>
                 <label class="quiz-opt"><input type="radio" name="q1" value="3"> <span>A random error with no pattern</span></label>
               </div>
@@ -613,6 +616,26 @@
           </div>
         </div>
 
+        <!-- SA in focus: Vumacam vs risk-scoring contrast -->
+        <div style="border:1.5px solid var(--gold); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:28px;">
+          <div style="background:var(--gold-light); padding:14px 22px; border-bottom:1px solid var(--gold);">
+            <span style="font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold-dark);">SA in Focus &middot; Two real patterns, one city</span>
+          </div>
+          <div style="padding:20px 24px; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
+              <p style="font-size:0.7em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Place-based AI</p>
+              <p style="font-weight:700; color:var(--green-dark); margin:0 0 6px;">Camera network surveillance</p>
+              <p style="font-size:0.88em; color:var(--muted); margin:0; line-height:1.6;">Mass CCTV networks concentrated in Sandton and Rosebank, with far lower coverage in Soweto and other townships. The AI monitors <em>places</em> &mdash; but apartheid spatial planning means the places it watches most closely are defined by race.</p>
+            </div>
+            <div style="background:#FFF5F5; border:1px solid #FCA5A5; border-radius:var(--radius); padding:16px;">
+              <p style="font-size:0.7em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Person-based AI</p>
+              <p style="font-weight:700; color:#7F1D1D; margin:0 0 6px;">Automated risk-scoring</p>
+              <p style="font-size:0.88em; color:#7F1D1D; margin:0; line-height:1.6;">Systems that assign individual risk scores using residential area, employment type, and prior police contact &mdash; even contacts that led to no charges. The score follows the <em>person</em>, and the same apartheid geography is now encoded in their file.</p>
+            </div>
+          </div>
+          <div style="padding:0 24px 18px; font-size:0.88em; color:var(--muted); line-height:1.6;">Both patterns constitute <strong>indirect discrimination</strong> under PEPUDA: a neutral-looking criterion (place / employment type) that produces unequal outcomes by race because of South Africa&rsquo;s spatial legacy. Both trigger the right to human review under <strong>POPIA s71</strong>.</div>
+        </div>
+
         <!-- Diagnose interaction -->
         <h3 style="margin-bottom:6px;">Diagnose it: where does the bias come from?</h3>
         <p style="font-size:0.88em; color:var(--muted);">Click each factor once to mark it a <strong style="color:#DC2626;">likely bias source</strong> &middot; click again to mark <strong style="color:var(--gold-dark);">not the cause</strong> &middot; a third click clears it. Then reveal the answers.</p>
@@ -721,7 +744,7 @@
         </div>
 
         <div style="margin: 20px 0;">
-          <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">2. In your sector, which group could be harmed by a neutral-looking rule (a disparate impact) &mdash; and through which decision?</label>
+          <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">2. In your sector, which listed group could be harmed by a neutral-looking rule (indirect discrimination under PEPUDA) &mdash; and through which decision?</label>
           <textarea id="reflect-2" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Rural or informal-economy applicants screened out by a &lsquo;thin credit file = high risk&rsquo; rule..."></textarea>
         </div>
 
@@ -765,7 +788,7 @@
             <tbody>
               <tr><td>Which AI tool are you auditing?</td><td><input type="text" id="ws-0" placeholder="e.g. CV-screening tool"></td></tr>
               <tr><td>What decision does it drive?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
-              <tr><td>Which protected groups could be affected?</td><td><input type="text" id="ws-2" placeholder="e.g. by race, gender, age, disability"></td></tr>
+              <tr><td>Which listed grounds under PEPUDA/Constitution could be affected?</td><td><input type="text" id="ws-2" placeholder="e.g. race, gender, age, disability, language"></td></tr>
               <tr><td>What proxies are in its data?</td><td><input type="text" id="ws-3" placeholder="e.g. postal code, school, name, language"></td></tr>
               <tr><td>Disparate-impact check: do outcomes differ by group?</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area — measured? unknown?"></td></tr>
               <tr><td>Who is harmed if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. qualified rural applicants filtered out"></td></tr>
@@ -949,8 +972,8 @@ function revealAnswers() {
 var QUIZ_CONCEPT_EXP = [
   { ok: 'Exactly — bias is patterned, group-level harm from the data or design, not a one-off bug or (usually) deliberate prejudice.',
     no: 'Algorithmic bias = systematically worse outcomes for a group, caused by the data or design. It is a pattern, not a single error — and intent is not required.' },
-  { ok: 'Right — the rule looks neutral but the outcomes fall unequally. That is disparate impact.',
-    no: 'This is disparate impact: a neutral-looking rule that lands harder on a protected group. No race field is needed for it to be discrimination.' },
+  { ok: 'Correct &mdash; SA law calls this indirect discrimination under PEPUDA: a neutral rule that produces unequal outcomes on a listed ground (race, gender, disability, etc.), with no intent required.',
+    no: 'This is indirect discrimination under SA law (PEPUDA / Constitution s9) &mdash; a neutral-looking rule that produces unequal outcomes on a listed ground. No race field is needed for it to be unlawful.' },
   { ok: 'Correct — proxies (postal code, school, language, name) still carry the protected attribute.',
     no: 'Deleting the race field does not remove the bias. Proxies like postal code, school or language stand in for it.' },
   { ok: 'Yes — apartheid spatial planning means area closely tracks race, so location discriminates by race without naming it.',

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 6: Responsible AI &mdash; AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .phase { display: none; }
+    .phase.is-active { display: block; }
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+
+    .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
+    .phase-nav { display:flex; justify-content:space-between; align-items:center; padding-top:24px; margin-top:32px; border-top:1px solid var(--border); gap:12px; }
+
+    .quiz-opts { margin-top:12px; }
+    .quiz-opt { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:8px; cursor:pointer; transition:border-color .15s,background .15s; font-size:0.92em; line-height:1.5; }
+    .quiz-opt:hover { border-color:var(--green-mid); background:var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top:3px; flex-shrink:0; accent-color:var(--green-mid); }
+    .quiz-feedback { display:none; margin-top:10px; padding:10px 14px; border-radius:var(--radius); font-size:0.88em; line-height:1.6; }
+
+    .phase.is-done .phase__header { background: var(--green-pale); }
+
+    .access-gate { max-width:620px; margin:60px auto; background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:48px 40px; text-align:center; }
+    .access-gate h2 { color:white; font-size:1.5em; margin-bottom:12px; }
+    .access-gate p { color:rgba(255,255,255,0.75); max-width:460px; margin:0 auto 24px; line-height:1.7; font-size:0.95em; }
+    .access-gate__steps { display:flex; flex-direction:column; gap:10px; max-width:380px; margin:0 auto 28px; text-align:left; }
+    .access-gate__step { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius); padding:12px 16px; font-size:0.88em; color:rgba(255,255,255,0.85); }
+    .access-gate__step .tick { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85em; font-weight:800; flex-shrink:0; background:rgba(255,255,255,0.15); color:white; }
+    #gate-checking { text-align:center; padding:80px 20px; color:var(--muted); }
+
+    .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:24px 0; }
+    @media (max-width:700px) { .compare-grid { grid-template-columns:1fr; } }
+
+    .compare-card { border-radius:var(--radius-lg); padding:24px; }
+    .compare-card--a { background:var(--green-pale); border:1.5px solid var(--green-light); }
+    .compare-card--b { background:#0F172A; color:white; }
+    .compare-card__label { font-size:0.72em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
+    .compare-card--a .compare-card__label { color:var(--green-dark); }
+    .compare-card--b .compare-card__label { color:rgba(255,255,255,0.4); }
+    .compare-card__title { font-weight:800; font-size:1.05em; margin-bottom:12px; }
+    .compare-card--b .compare-card__title { color:white; }
+    .compare-card__body { font-size:0.88em; line-height:1.75; }
+    .compare-card--b .compare-card__body { color:rgba(255,255,255,0.7); }
+    .compare-card__detail { font-size:0.8em; margin-top:12px; padding-top:10px; border-top:1px solid rgba(0,0,0,0.1); }
+    .compare-card--b .compare-card__detail { border-top-color:rgba(255,255,255,0.1); color:rgba(255,255,255,0.4); }
+
+    .cad4tb-output { background:#1A1A2E; color:white; border-radius:var(--radius-lg); padding:20px 24px; margin-top:16px; }
+    .cad4tb-output__label { font-size:0.7em; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px; }
+    .cad4tb-output__finding { font-size:1em; font-weight:700; color:#F87171; margin-bottom:8px; }
+    .cad4tb-output__detail { font-size:0.82em; color:rgba(255,255,255,0.6); line-height:1.7; }
+    .cad4tb-output__footer { font-size:0.72em; color:rgba(255,255,255,0.3); margin-top:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px; }
+
+    .concept-section { border-left:4px solid var(--green-mid); background:var(--green-pale); padding:20px 24px; border-radius:0 var(--radius-lg) var(--radius-lg) 0; margin:24px 0; }
+    .concept-section h4 { font-size:0.85em; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--green-dark); margin-bottom:10px; }
+
+    .callout { background:var(--gold-light); border-left:4px solid var(--gold); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:20px 0; font-size:0.9em; line-height:1.7; }
+
+    .worked-example { border:2px solid var(--green-mid); border-radius:var(--radius-lg); overflow:hidden; margin:24px 0; }
+    .worked-example__header { background:var(--green-dark); color:white; padding:14px 22px; }
+    .worked-example__header-label { font-size:0.72em; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:4px; }
+    .worked-example__header h4 { color:white; margin:0; font-size:0.95em; }
+    .worked-example__body { padding:22px 26px; background:var(--white); }
+    .worked-example__body p { font-size:0.9em; line-height:1.75; margin-bottom:12px; }
+    .worked-example__body p:last-child { margin-bottom:0; }
+    .worked-example__section { margin-bottom:16px; }
+    .worked-example__section-label { font-size:0.75em; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:6px; }
+
+    .synthesis-step { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:16px; background:var(--white); }
+    .synthesis-step__num { display:inline-flex; width:32px; height:32px; border-radius:50%; background:var(--green-dark); color:white; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0; margin-bottom:10px; }
+    .synthesis-step__name { font-weight:700; font-size:0.95em; margin-bottom:6px; }
+    .synthesis-step__hint { font-size:0.85em; color:var(--muted); line-height:1.6; margin-bottom:12px; }
+
+    .statement-block { background:var(--green-pale); border:1.5px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:16px; }
+    .statement-block__label { font-size:0.75em; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-dark); margin-bottom:8px; }
+
+    .model-answers { margin:32px 0; border:1.5px solid var(--green-light); border-radius:var(--radius-lg); overflow:hidden; }
+    .model-answers__header { background:var(--green-dark); color:white; padding:16px 24px; }
+    .model-answers__header h4 { color:white; margin:0; font-size:0.95em; }
+    .model-answer-item { padding:20px 24px; border-bottom:1px solid var(--border); background:var(--white); }
+    .model-answer-item:last-child { border-bottom:none; }
+    .model-answer-item__label { font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:8px; }
+    .model-answer-item p { font-size:0.9em; line-height:1.75; color:var(--text); margin:0 0 10px; }
+    .model-answer-item p:last-child { margin-bottom:0; }
+
+    .advance-err { color:#DC2626; font-size:0.85em; margin-top:8px; }
+    .preview-end { background:var(--green-dark); color:white; padding:48px 32px; text-align:center; border-radius:var(--radius-lg); margin:32px 0; }
+    .preview-end h2 { color:white; margin-bottom:12px; }
+    .preview-end p { color:rgba(255,255,255,0.75); margin-bottom:28px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.7; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="module-hero">
+  <div class="module-hero__inner">
+    <div class="breadcrumb"><a href="course.html">Core Course</a> / Module 6 &mdash; Capstone</div>
+    <h1>Responsible AI</h1>
+    <p class="lead lead--light">This is the capstone module. You don&rsquo;t apply the Funda Five to another case. You synthesize what you&rsquo;ve learned across five cases and write your own documented professional position on AI &mdash; something that could serve as accountability evidence in a professional review.</p>
+    <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
+      <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
+      <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
+        <li>Synthesize your Funda Five applications from Modules 1&ndash;5 into a generalized professional AI judgment standard</li>
+        <li>Articulate a documented professional stance on AI use that could serve as accountability evidence in a professional review, disciplinary inquiry, or audit</li>
+      </ul>
+    </div>
+    <div style="display:flex; gap:24px; margin-top:16px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">~80 min &middot; 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">Capstone &middot; Requires Modules 1&ndash;5</span>
+    </div>
+  </div>
+</div>
+
+<div id="gate-checking" class="container">Checking your access&hellip;</div>
+
+<div id="module-locked" class="access-gate container" style="display:none;">
+  <h2>Complete Modules 1&ndash;5 to unlock the Capstone</h2>
+  <p>Module 6 synthesizes everything from the prior modules. You need to have completed them first to have the cases to draw on.</p>
+  <div class="access-gate__steps">
+    <div class="access-gate__step"><span class="tick">0</span><span>Module 0 &mdash; AI Fundamentals</span></div>
+    <div class="access-gate__step"><span class="tick">5</span><span>Module 5 &mdash; AI in Recruitment</span></div>
+    <div class="access-gate__step"><span class="tick">6</span><span>Module 6 &mdash; Responsible AI (Capstone)</span></div>
+  </div>
+  <a href="module-5.html" class="btn btn--gold btn--lg">Go to Module 5 &rarr;</a>
+</div>
+
+<div id="module-content" style="display:none;">
+
+<div class="progress-sticky-wrap">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 6 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+      <div class="progress-step is-active" id="prog-0">1 &middot; Encounter</div>
+      <div class="progress-step" id="prog-1">2 &middot; Reflect</div>
+      <div class="progress-step" id="prog-2">3 &middot; Concept</div>
+      <div class="progress-step" id="prog-3">4 &middot; Synthesise</div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-pale">
+<div class="container" style="margin-top:36px; padding-bottom:60px;">
+
+  <!-- ============================================================
+       PHASE 0 — ENCOUNTER
+       ============================================================ -->
+  <div class="phase is-active" id="phase-0">
+    <div class="phase__header">
+      <div class="phase__num">1</div>
+      <div>
+        <div class="phase__label">Encounter</div>
+        <div style="font-size:0.8em;color:var(--muted);">Two systems. Same outcome. Different design. React before we explain &middot; ~15 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase__task">
+        Look at these two systems side by side. Both involve AI and humans working together. Both produce a result that a human reviews before action is taken. <strong>But they got to &ldquo;human reviews before action&rdquo; in completely different ways.</strong> What do you notice about the difference?
+      </div>
+
+      <div class="compare-grid">
+
+        <div class="compare-card compare-card--a">
+          <div class="compare-card__label">System A &mdash; Dr Math</div>
+          <div class="compare-card__title">Human tutor via MXit (CSIR/UP, 2007&ndash;2015)</div>
+          <div class="compare-card__body">
+            <p>A maths tutoring service for SA school learners, delivered via MXit &mdash; the text-based messaging app that had 8 million SA users before smartphones arrived. Every learner query was answered by a human tutor: largely university student volunteers coordinated by CSIR and the University of Pretoria.</p>
+            <p style="margin-top:10px;">The AI component was limited to routing and matching. <strong>The human was the answer.</strong> Human-in-the-loop was the design intent, not a regulation or a safety constraint. Dr Math put a person in the loop because that was the service it was offering.</p>
+          </div>
+          <div class="compare-card__detail">Won multiple education innovation awards. Served over 60,000 learners at peak. Discontinued ~2015 as MXit declined.</div>
+        </div>
+
+        <div class="compare-card compare-card--b">
+          <div class="compare-card__label">System B &mdash; CAD4TB (Delft Imaging)</div>
+          <div class="compare-card__title">AI-assisted chest X-ray reading for TB screening</div>
+          <div class="compare-card__body">
+            <div class="cad4tb-output">
+              <div class="cad4tb-output__label">CAD4TB Report &mdash; Chest X-ray Analysis</div>
+              <div class="cad4tb-output__finding">ABNORMALITY DETECTED &mdash; Confidence: 0.84</div>
+              <div class="cad4tb-output__detail">
+                Findings consistent with: pulmonary TB pattern<br>
+                Priority score: HIGH &mdash; recommend clinical review<br>
+                AI model version: CAD4TB v7 &mdash; trained on European + limited SA dataset
+              </div>
+              <div class="cad4tb-output__footer">This output is a decision-support tool. Diagnosis requires clinician review. CAD4TB does not diagnose.</div>
+            </div>
+            <p style="margin-top:14px; font-size:0.85em;">Dutch company. European-dominated training data. Deployed in SA public health clinics &mdash; where radiology expertise is scarce. <strong>A clinician must review every AI flag before any clinical action is taken.</strong></p>
+          </div>
+          <div class="compare-card__detail" style="color:rgba(255,255,255,0.3);">Used in SA TB screening programs in under-resourced settings where there are not enough trained radiologists.</div>
+        </div>
+
+      </div>
+
+      <div style="margin-bottom:8px; font-weight:600; font-size:0.95em;">Both systems have a human reviewing before action. What&rsquo;s different about <em>why</em> the human is there? What does this difference imply?</div>
+      <textarea id="enc-reaction" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="In Dr Math, the human is there because... In CAD4TB, the human is there because... The difference implies..."></textarea>
+
+      <div style="text-align:right; margin-top:20px;">
+        <button class="btn btn--primary" onclick="advancePhase(0)">I&rsquo;ve reacted &rarr;</button>
+      </div>
+      <p id="err-0" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 1 — REFLECT
+       ============================================================ -->
+  <div class="phase" id="phase-1">
+    <div class="phase__header">
+      <div class="phase__num">2</div>
+      <div>
+        <div class="phase__label">Reflect</div>
+        <div style="font-size:0.8em;color:var(--muted);">Looking back across five cases before we synthesise &middot; ~15 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase__task">
+        These two reflection questions ask you to look back across everything you&rsquo;ve done in this course &mdash; not just this module.
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">1. Across the five cases you&rsquo;ve examined (DCDT policy scandal, fintech credit scoring, Vumacam/Riskio policing, 2024 election deepfake, Meridian recruitment ATS), what single pattern appears in <em>every</em> case where AI caused harm?</div>
+        <textarea id="ref-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Looking across all five cases, the common pattern is... In each case..."></textarea>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">2. The DATA step of the Funda Five has appeared in every module. Across all five cases, what has it most reliably revealed?</div>
+        <textarea id="ref-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Every time I applied the DATA step, it revealed... The pattern I&rsquo;ve seen is..."></textarea>
+      </div>
+
+      <div class="phase-nav">
+        <button type="button" class="btn btn--outline" onclick="showPhase(0)">&larr; Encounter</button>
+        <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &rarr;</button>
+      </div>
+      <p id="err-1" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 2 — CONCEPT
+       ============================================================ -->
+  <div class="phase" id="phase-2">
+    <div class="phase__header">
+      <div class="phase__num">3</div>
+      <div>
+        <div class="phase__label">Concept</div>
+        <div style="font-size:0.8em;color:var(--muted);">Human-in-loop by design vs by constraint &mdash; and a worked example &middot; ~20 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <!-- ── SCREEN 1: Concept reading ──────────────────────────────────── -->
+      <div class="phase-screen is-active" id="ps-2-content">
+
+        <div class="concept-section">
+          <h4>Human-in-loop by design vs by constraint &mdash; why the distinction matters</h4>
+          <p>Both Dr Math and CAD4TB have a human reviewing before action. But the reasons are different, and the difference has real implications for what happens when the human review is removed or compromised.</p>
+          <p style="margin-top:12px;"><strong>Dr Math: human-in-loop by design intent.</strong> The human tutor was the product. Dr Math didn&rsquo;t route queries to a human because a regulation required it &mdash; it routed them because human tutoring was the point. If you remove the human, you have no service. This is the most robust form of human oversight: the human is structurally load-bearing.</p>
+          <p style="margin-top:12px;"><strong>CAD4TB: human-in-loop by constraint.</strong> The clinician reviews the AI flag because: (1) SA law does not allow AI to diagnose; (2) the CAD4TB system&rsquo;s terms of use require clinician review; (3) HPCSA (Health Professions Council of SA) holds the clinician, not the software, accountable for the diagnosis. If you remove the human review &mdash; if a harassed clinician starts rubber-stamping AI outputs without genuine review &mdash; the system appears to have oversight while actually losing it. The human is there by legal constraint, not structural necessity. This is a weaker form.</p>
+          <p style="margin-top:12px;">Neither is bad. Both are legitimate designs. But when you evaluate any AI system, you should ask: <strong>Is the human in the loop because they&rsquo;re structurally necessary, or because a rule says they have to be?</strong> The answer tells you how robust the oversight actually is.</p>
+        </div>
+
+        <div class="concept-section">
+          <h4>CAD4TB in the SA context &mdash; the training data question</h4>
+          <p>CAD4TB is built by Delft Imaging, a Dutch company. Its model was trained predominantly on European chest X-ray datasets. This is relevant in SA for two reasons:</p>
+          <ol style="padding-left:20px; line-height:1.9; font-size:0.93em; margin-top:10px;">
+            <li><strong>TB presentation variation:</strong> TB patterns on chest X-rays can look different in populations with high HIV co-infection rates (common in SA) than in lower-HIV European populations. A model trained on European data may have lower sensitivity for SA-specific presentations.</li>
+            <li><strong>Resource deployment context:</strong> CAD4TB is deployed in SA because radiology capacity is scarce in under-resourced public health clinics. The very settings where it&rsquo;s used most are those with the least clinician capacity to critically review AI flags. The oversight is formally present but practically thin.</li>
+          </ol>
+          <p style="margin-top:14px;">This is not a reason to refuse to use CAD4TB &mdash; it performs better than no TB screening in low-resource settings, and the alternative is no radiological assessment at all. But a responsible clinician using it knows these limits and applies judgment accordingly.</p>
+        </div>
+
+        <div class="concept-section">
+          <h4>What is a <a href="glossary.html#responsible-ai" style="color:var(--green-mid);">Responsible AI</a> stance, and what is a Professional AI Judgment Statement?</h4>
+          <p><strong><a href="glossary.html#responsible-ai" style="color:var(--green-mid);">Responsible AI</a></strong> is a broad term for the set of principles and practices that govern how AI is developed and deployed in ways that are safe, fair, accountable, transparent, and respectful of human rights. In the AfriversalAI course, Responsible AI is not a compliance checkbox &mdash; it is the ongoing professional judgment you exercise every time AI is involved in a consequential decision in your work.</p>
+          <p style="margin-top:12px;">A <strong><a href="glossary.html#professional-ai-judgment-statement" style="color:var(--green-mid);">Professional AI Judgment Statement</a></strong> is a documented professional declaration of how a named professional evaluates AI-assisted decisions and what accountability they retain. It is not a policy; it is a personal professional commitment. It could serve as evidence in a disciplinary inquiry, a professional review, or an audit: evidence that you thought about the AI you used, applied a framework, and retained human judgment.</p>
+        </div>
+
+        <!-- WORKED EXAMPLE -->
+        <p style="font-size:0.9em; font-weight:700; margin-top:28px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; color:var(--green-dark);">Worked Example</p>
+
+        <div class="worked-example">
+          <div class="worked-example__header">
+            <div class="worked-example__header-label">Professional AI Judgment Statement &mdash; Worked Example</div>
+            <h4>Sister Thembeka Dlamini, Professional Nurse &mdash; Limpopo District Hospital</h4>
+          </div>
+          <div class="worked-example__body">
+
+            <div class="worked-example__section">
+              <div class="worked-example__section-label">Context</div>
+              <p>Our facility uses CAD4TB (Delft Imaging v7) for AI-assisted chest X-ray reading. Radiologist review is not available on-site. All clinical decisions remain mine as the responsible clinician. I document this judgment statement as my professional position on how I evaluate CAD4TB outputs.</p>
+            </div>
+
+            <div class="worked-example__section">
+              <div class="worked-example__section-label">What I verify before acting on a CAD4TB flag (TRUST step)</div>
+              <p>When CAD4TB flags an X-ray as abnormal, I do not act on the AI output alone. I: (1) review the X-ray image myself against the clinical presentation; (2) take a full symptom history with attention to cough duration, weight loss, night sweats, and HIV status; (3) cross-reference the AI confidence score against my own clinical assessment &mdash; if these disagree significantly, I note the disagreement and do not default to the AI; (4) consider whether this patient&rsquo;s clinical context (HIV co-infection, prior TB treatment, nutritional status) may affect X-ray presentation in ways that a European-trained model might miss.</p>
+            </div>
+
+            <div class="worked-example__section">
+              <div class="worked-example__section-label">What I know about the tool&rsquo;s limits (TOOL step)</div>
+              <p>CAD4TB was trained predominantly on European datasets. HIV co-infection, which affects TB radiological presentation, is prevalent in our patient population. I treat CAD4TB&rsquo;s outputs as a triage priority signal, not a diagnostic conclusion. A HIGH confidence flag increases my index of suspicion; it does not confirm TB. A low-confidence or negative output does not exclude TB in a high-risk presentation.</p>
+            </div>
+
+            <div class="worked-example__section">
+              <div class="worked-example__section-label">What I retain (HUMAN step)</div>
+              <p>I retain full clinical accountability for every decision made using CAD4TB. Under HPCSA guidelines, my registration as a professional nurse is the accountability unit &mdash; not the software. &ldquo;CAD4TB flagged it&rdquo; is not a clinical finding; &ldquo;Sister Dlamini assessed the patient and found findings consistent with TB&rdquo; is a clinical finding. The AI supports my capacity. It does not replace my professional judgment or my legal accountability.</p>
+            </div>
+
+            <div class="worked-example__section" style="margin-bottom:0;">
+              <div class="worked-example__section-label">When I escalate</div>
+              <p>I escalate to the district Medical Officer when: a CAD4TB flag contradicts my clinical assessment and I cannot resolve the disagreement through additional history or repeat X-ray; when I suspect the AI output may be affected by image quality issues (poor positioning, motion artifact); or when a patient has a complex comorbidity profile I believe is outside the model&rsquo;s training distribution. I document every escalation.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>What makes this a Professional AI Judgment Statement:</strong> It names the tool, names its limits, specifies the verification steps, explicitly retains human accountability, and states escalation criteria. If Sister Dlamini ever faced a HPCSA inquiry about a CAD4TB-related clinical decision, this document is accountability evidence &mdash; proof that she applied professional judgment, not just deferred to the AI.
+        </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:24px 0;">
+          <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); margin-bottom:10px;">Further reading</p>
+          <ul style="font-size:0.88em; line-height:1.8; margin:0; padding-left:18px; color:var(--text);">
+            <li>HPCSA &mdash; <em>Guidelines on the Use of Telemedicine and AI in Health Practice</em></li>
+            <li>Delft Imaging &mdash; CAD4TB Clinical Validation Studies (delft-imaging.com)</li>
+            <li>Right2Know &mdash; <em>AI in SA Public Services: Accountability Gaps</em> (2024)</li>
+          </ul>
+        </div>
+
+        <div class="phase-nav" style="justify-content:flex-end;">
+          <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-content -->
+
+      <!-- ── SCREEN 2: Quiz ─────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-2-quiz">
+
+        <h3 style="margin-bottom:4px;">Knowledge Check</h3>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Three questions. All must be correct before you advance to Synthesise.</p>
+
+        <!-- Q1 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. Dr Math put human tutors in the loop because the human was the service. CAD4TB puts clinicians in the loop because regulations and HPCSA accountability rules require it. What does this difference mean for the robustness of human oversight in each system?</div>
+          <div class="quiz-opts" id="m6_q0_opts">
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q0" value="0"> Dr Math&rsquo;s oversight is more structurally robust &mdash; removing the human destroys the service. CAD4TB&rsquo;s oversight is weaker: a clinician who rubber-stamps AI flags without genuine review appears compliant but provides no real oversight. The human can be present in form but absent in substance.</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="1"> CAD4TB&rsquo;s oversight is more robust because it is legally mandated; Dr Math&rsquo;s was optional and therefore weaker</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="2"> There is no meaningful difference &mdash; &ldquo;human in the loop&rdquo; means the same thing in both systems</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="3"> Neither system has genuine human oversight because AI is making the primary decision in both</label>
+          </div>
+          <div class="quiz-feedback" id="m6qf-0"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. CAD4TB was trained on European chest X-ray datasets and is deployed in SA clinics with high HIV co-infection rates. Sister Dlamini notes that HIV co-infection affects TB&rsquo;s radiological presentation. What does this mean for how she should use CAD4TB?</div>
+          <div class="quiz-opts" id="m6_q1_opts">
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="0"> She should stop using CAD4TB until a SA-specific training dataset is produced</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q1" value="1"> She should use CAD4TB as a triage priority signal, not a diagnostic conclusion &mdash; treating it with increased skepticism in high HIV-prevalence presentations and applying clinical judgment that goes beyond the AI output, rather than deferring to it</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="2"> She should trust high-confidence CAD4TB flags fully and apply extra skepticism only to low-confidence flags</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="3"> The training data concern is irrelevant &mdash; AI models generalise across populations once trained to sufficient accuracy</label>
+          </div>
+          <div class="quiz-feedback" id="m6qf-1"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. A Professional AI Judgment Statement is a documented professional declaration of how a named professional evaluates AI-assisted decisions and what accountability they retain. What is its primary purpose in a professional accountability context?</div>
+          <div class="quiz-opts" id="m6_q2_opts">
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="0"> It transfers liability from the professional to the AI vendor if the AI output causes harm</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q2" value="1"> It serves as accountability evidence &mdash; proof that the professional applied a framework, retained human judgment, and made a deliberate professional decision rather than passively deferring to the AI output. This matters in disciplinary inquiries, professional reviews, and audits.</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="2"> It is a compliance form required by SA law when using AI in professional practice</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="3"> It is a technical document for IT departments describing how an AI system works</label>
+          </div>
+          <div class="quiz-feedback" id="m6qf-2"></div>
+        </div>
+
+        <div id="quiz-m6-submit-wrap">
+          <button class="btn btn--primary" onclick="submitQuizM6()">Check my answers &rarr;</button>
+        </div>
+        <p id="quiz-m6-err" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+        <button id="quiz-m6-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Synthesise &rarr;</button>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+        </div>
+
+      </div><!-- /ps-2-quiz -->
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 3 — SYNTHESISE (Apply)
+       ============================================================ -->
+  <div class="phase" id="phase-3">
+    <div class="phase__header">
+      <div class="phase__num">4</div>
+      <div>
+        <div class="phase__label">Synthesise</div>
+        <div style="font-size:0.8em;color:var(--muted);">Your Professional AI Judgment Statement &middot; ~25 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase-screen is-active" id="ps-3-apply">
+
+        <div class="phase__task">
+          This is not another Funda Five application. You are not evaluating someone else&rsquo;s case. You are synthesising your own professional position from five cases you have examined &mdash; and writing it down in a form that could serve as accountability evidence. This is what it means to practice Responsible AI.
+        </div>
+
+        <!-- PART 1: SYNTHESIS -->
+        <h3 style="font-size:1.05em; font-weight:800; margin-top:0; margin-bottom:20px; color:var(--green-dark);">Part 1 &mdash; Synthesis (looking back)</h3>
+
+        <div class="synthesis-step">
+          <div class="synthesis-step__num">1</div>
+          <div class="synthesis-step__name">The pattern across five cases</div>
+          <div class="synthesis-step__hint">DCDT (M1), fintech credit (M2), Vumacam/Riskio (M3), election deepfake (M4), Meridian ATS (M5). What single pattern appears in every case where AI caused harm? State it precisely &mdash; not &ldquo;AI did bad things,&rdquo; but a specific structural pattern you observed repeatedly.</div>
+          <textarea id="app-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Across all five cases, the structural pattern I observed is..."></textarea>
+        </div>
+
+        <div class="synthesis-step">
+          <div class="synthesis-step__num">2</div>
+          <div class="synthesis-step__name">What the DATA step consistently revealed</div>
+          <div class="synthesis-step__hint">You applied the DATA step five times. What has it most reliably exposed across all five cases? If you could give one sentence of DATA-step guidance to a colleague starting this course, what would it be?</div>
+          <textarea id="app-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Across all five cases, the DATA step revealed... The single sentence of guidance I would give is..."></textarea>
+        </div>
+
+        <div class="synthesis-step">
+          <div class="synthesis-step__num">3</div>
+          <div class="synthesis-step__name">Your generalised standard for HUMAN accountability</div>
+          <div class="synthesis-step__hint">In each module, the HUMAN step assigned accountability. What generalised principle about human accountability in AI-assisted decisions have you extracted from these five cases? When should a human always be in the loop? When is the loop not enough?</div>
+          <textarea id="app-3" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="My generalised principle for human accountability is... The loop is not enough when..."></textarea>
+        </div>
+
+        <!-- PART 2: STATEMENT -->
+        <h3 style="font-size:1.05em; font-weight:800; margin-top:32px; margin-bottom:20px; color:var(--green-dark);">Part 2 &mdash; Your Professional AI Judgment Statement</h3>
+
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:20px; line-height:1.6;">Write your statement as if it would be read by a professional body, an auditor, or a manager reviewing how you use AI in your work. It should be specific enough to be credible and brief enough to be kept. Use Sister Dlamini&rsquo;s statement as a format reference.</p>
+
+        <div class="statement-block">
+          <div class="statement-block__label">4. Your Professional AI Judgment Statement</div>
+          <textarea id="app-4" rows="7" style="width:100%; padding:12px; border:1.5px solid var(--green-light); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical; background:var(--white);" placeholder="I, [your name/role], evaluate AI-assisted decisions using the following standard:&#10;&#10;When AI is used in my work for [specific type of decision], I verify by...&#10;I know this tool's limits: it...&#10;I retain accountability for... because...&#10;I escalate when..."></textarea>
+        </div>
+
+        <div class="synthesis-step" style="margin-bottom:0; border:1.5px solid var(--border);">
+          <div class="synthesis-step__num">5</div>
+          <div class="synthesis-step__name">Apply your statement to a specific situation</div>
+          <div class="synthesis-step__hint">Describe a specific situation in your own work or professional context where AI is being used (or could reasonably be used). Now apply your own judgment statement to it: what does your statement require you to do in that specific situation?</div>
+          <textarea id="app-5" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="In my work, AI is used for [specific situation]... My judgment statement requires me to... This means in practice that I..."></textarea>
+        </div>
+
+        <div id="m6-apply-submit" style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary btn--lg" onclick="completeModule6()">Submit &rarr;</button>
+        </div>
+        <p id="err-3" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+      </div><!-- /ps-3-apply -->
+
+    </div>
+  </div>
+
+  <!-- MODEL ANSWERS -->
+  <div id="model-answers-m6" style="display:none;">
+    <div class="model-answers">
+      <div class="model-answers__header">
+        <h4>Model Answers &mdash; Synthesis &amp; Professional AI Judgment Statement</h4>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">1. The pattern across five cases</div>
+        <p>The structural pattern that appears in every case where AI caused harm: <strong>the AI was deployed in a consequential decision context without adequate human oversight of the AI&rsquo;s outputs &mdash; often because the human oversight was nominal, bypassed by time pressure, or absent by design.</strong> In each case: the DCDT hallucinated a policy and no human caught it before it spread; the fintech AI scored using proxy discrimination and no human reviewed the outcomes; Riskio scored Siyanda with no human contesting the factors; the election deepfake circulated without source verification; the Meridian ATS screened Lerato without any human seeing her CV. The pattern is not &ldquo;AI was wrong.&rdquo; It is: <em>the accountability gap between what the AI decided and what a human verified was never closed.</em></p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">2. What the DATA step consistently revealed</div>
+        <p>The DATA step consistently revealed that the data being processed was not neutral &mdash; it was carrying history: apartheid geography, historical policing intensity, apartheid-era hiring patterns, manipulated political content. In every case, the AI was not processing objective facts; it was processing the recorded outputs of systems that were themselves biased or manipulated. The DATA step also consistently revealed that the data subjects had rights they weren&rsquo;t being told about: POPIA Section 71 rights, PEPUDA rights, EEA rights. The one-sentence guidance: <em>&ldquo;Always ask: what history is encoded in this data, and whose interests shaped how it was collected?&rdquo;</em></p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">3. Generalised principle for HUMAN accountability</div>
+        <p>The principle that emerges across all five cases: <strong>A human must be in the loop not just in form, but in substance &mdash; meaning they have the information, the time, and the authority to genuinely contest the AI&rsquo;s output before the consequential decision is finalised.</strong> A human who rubber-stamps AI outputs under time pressure, without access to the factors used, is present in form and absent in substance. Human oversight is not enough when: the human lacks the information to contest the AI (the algorithm is opaque); the human faces structural incentives to defer to the AI (time pressure, liability shield, convenience); or the AI is structurally load-bearing (the human can&rsquo;t reverse its outputs). In those situations, the loop must be redesigned, not assumed.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">4. Professional AI Judgment Statement (example)</div>
+        <p>I, [name], [role at organisation], evaluate AI-assisted decisions using the following standard:</p>
+        <p>When AI is used in my work for [type of decision], I verify by: (1) checking that the output is consistent with my own professional knowledge of the situation; (2) asking what data was used and whether any of it may carry historical bias in the SA context; (3) confirming that I can see and contest the inputs, not just the output; (4) applying the TRUST step &mdash; seeking at least one independent source of corroboration before I act on an AI-assisted recommendation.</p>
+        <p>I know this tool&rsquo;s limits: it [specific limitations relevant to my role and tool]. I retain full accountability for every decision I make using AI-assisted tools. &ldquo;The system recommended it&rdquo; is not a defence for a professional decision I made; &ldquo;I evaluated the system&rsquo;s recommendation and exercised professional judgment&rdquo; is. I escalate when the AI output conflicts with my professional assessment, when I cannot see the basis for the output, or when the stakes of error are irreversible.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">5. Apply to a specific situation</div>
+        <p>This answer will be specific to each learner&rsquo;s professional context. The key test: does your answer (a) name a specific AI tool or type of AI tool used in your actual work; (b) describe what your statement requires you to do in that specific context &mdash; not in general terms, but concretely; and (c) identify at least one limit of the AI tool that your professional judgment must compensate for? If you find yourself unable to name a specific AI tool in your current role, it is legitimate to say: &ldquo;AI is not currently deployed in my specific work, but I anticipate it will be used for [X] within [Y months]. My statement prepares me to evaluate that deployment when it arrives.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE + COURSE COMPLETE -->
+  <div id="module-complete" style="display:none;" class="preview-end">
+    <h2>Course Complete &mdash; You have your Funda Five.</h2>
+    <p>You have now examined five SA AI cases, applied the Funda Five framework across all of them, and written your own Professional AI Judgment Statement. That statement &mdash; what you just wrote &mdash; is the output of this course. Keep it. Update it as AI in your work evolves. It is your documented professional position, and it is accountability evidence.</p>
+    <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">If you&rsquo;re in a sector track (Education, Finance, Government, Healthcare, Corporate), continue there. Your Funda Five will go deeper in your specific context.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="course.html" class="btn btn--gold btn--lg">Choose a Sector Track &rarr;</a>
+      <a href="dashboard.html" class="btn btn--white btn--lg">Back to Dashboard</a>
+    </div>
+  </div>
+
+</div>
+</section>
+</div><!-- /module-content -->
+
+<footer>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+</footer>
+
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+
+<script>
+function updateTracker(n) {
+  [0,1,2,3].forEach(function(i) {
+    var s = document.getElementById('prog-' + i);
+    if (!s) return;
+    s.classList.remove('is-active');
+    if (i < n) { if (!s.classList.contains('is-done')) s.classList.add('is-done'); }
+    else if (i === n) s.classList.add('is-active');
+  });
+}
+
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function(s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function advancePhase(fromPhase) {
+  var errEl = document.getElementById('err-' + fromPhase);
+
+  if (fromPhase === 0) {
+    var t = document.getElementById('enc-reaction').value.trim();
+    if (t.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words before moving on.'; return; }
+    errEl.style.display = 'none';
+    if (window._m6UserLoggedIn) saveProgress('module-6', 0);
+  }
+  if (fromPhase === 1) {
+    var t1 = document.getElementById('ref-1').value.trim();
+    var t2 = document.getElementById('ref-2').value.trim();
+    if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes before moving on.'; return; }
+    errEl.style.display = 'none';
+    if (window._m6UserLoggedIn) saveProgress('module-6', 1);
+  }
+  if (fromPhase === 2) {
+    errEl.style.display = 'none';
+    if (window._m6UserLoggedIn) saveProgress('module-6', 2);
+  }
+
+  var progCur = document.getElementById('prog-' + fromPhase);
+  if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
+  showPhase(fromPhase + 1);
+}
+
+function submitQuizM6() {
+  var allAnswered = true;
+  var wrongCount = 0;
+  var explanations = [
+    { ok: 'Correct. Dr Math\'s oversight is load-bearing &mdash; remove the human tutor and there is no service. CAD4TB\'s oversight is legally mandated but structurally optional from the system\'s perspective: the AI generates an output regardless of whether the clinician reviews it carefully or rubber-stamps it. A clinician present in form but absent in substance (reviewing under extreme time pressure, without genuine clinical engagement) means the oversight has been hollowed out while appearing intact. This is why "human in the loop" as a phrase is insufficient &mdash; you need to ask whether the human has the information, time, and authority to actually exercise judgment.',
+      no: 'Legal mandate doesn\'t make oversight more robust if it can be fulfilled nominally without substance. The key distinction is structural: removing the human from Dr Math destroys the service; removing genuine human judgment from CAD4TB leaves the system formally compliant but substantively unchecked. "Human in the loop" is not binary &mdash; it exists on a spectrum from structurally necessary to nominally present.' },
+    { ok: 'Correct. CAD4TB is a useful clinical tool in low-resource settings &mdash; better than no radiological assessment. But using it responsibly means knowing its training data limits and compensating with clinical judgment. A model trained on lower-HIV-prevalence populations may have different sensitivity for HIV-TB co-infection presentations. The responsible approach: use it as a triage signal, apply elevated scrutiny in high-risk presentations, and document when your clinical judgment diverges from the AI flag.',
+      no: 'Stopping use isn\'t the answer &mdash; the alternative is no radiological assessment at all. Trusting high-confidence flags fully ignores the training data mismatch. And AI models do not generalise automatically across populations with different disease presentations &mdash; transfer from European to high-HIV SA populations requires specific validation, not assumption. The correct stance: use the tool as a signal, compensate with clinical judgment that goes beyond the AI output, and document divergences.' },
+    { ok: 'Correct. A Professional AI Judgment Statement is not a liability transfer document (it doesn\'t shift accountability away from you), not a statutory compliance form (no SA law requires it in this exact form), and not a technical IT document. Its function is accountability evidence: if you ever face a professional review, audit, or inquiry about an AI-assisted decision you made, the statement shows that you applied a framework, retained judgment, and made a deliberate professional decision rather than passively deferring to the AI output.',
+      no: 'A Professional AI Judgment Statement does not transfer liability to the AI vendor &mdash; it does the opposite, it explicitly retains your own accountability. No SA law currently requires it in this specific form. It is not a technical IT document. Its function is to serve as accountability evidence: proof of deliberate professional judgment, not passive AI deference.' }
+  ];
+
+  [0,1,2].forEach(function(i) {
+    var sel = document.querySelector('input[name="m6_q' + i + '"]:checked');
+    var fb = document.getElementById('m6qf-' + i);
+    if (!sel) { allAnswered = false; return; }
+    var isOk = sel.closest('label').dataset.correct === 'true';
+    fb.style.display = 'block';
+    if (isOk) {
+      fb.style.background = 'var(--green-pale)';
+      fb.style.border = '1px solid var(--green-light)';
+      fb.style.color = 'var(--green-dark)';
+      fb.innerHTML = '<strong>Correct.</strong> ' + explanations[i].ok;
+      document.querySelectorAll('input[name="m6_q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      wrongCount++;
+      fb.style.background = '#FFF5F5';
+      fb.style.border = '1px solid #FCA5A5';
+      fb.style.color = '#7F1D1D';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + explanations[i].no;
+      document.querySelectorAll('input[name="m6_q' + i + '"]').forEach(function(r) { r.checked = false; });
+    }
+  });
+
+  var errEl = document.getElementById('quiz-m6-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 3 questions before checking.'; return; }
+  errEl.style.display = 'none';
+  if (wrongCount === 0) {
+    document.getElementById('quiz-m6-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-m6-advance').style.display = 'inline-block';
+  } else {
+    errEl.style.display = 'block';
+    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look &mdash; check the hints above and try again.';
+  }
+}
+
+function completeModule6() {
+  var vals = [1,2,3,4,5].map(function(n) { return document.getElementById('app-' + n).value.trim(); });
+  var errEl = document.getElementById('err-3');
+  if (vals.some(function(v) { return v.length < 20; })) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please complete all five sections before submitting. Your judgment statement in particular should be substantive.';
+    return;
+  }
+  errEl.style.display = 'none';
+  if (window._m6UserLoggedIn) saveProgress('module-6', 3);
+
+  var prog3 = document.getElementById('prog-3');
+  if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+
+  document.getElementById('m6-apply-submit').style.display = 'none';
+  var answers = document.getElementById('model-answers-m6');
+  answers.style.display = 'block';
+  setTimeout(function() { answers.scrollIntoView({ behavior:'smooth', block:'start' }); }, 100);
+  setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function(label) { opts.appendChild(label); });
+  });
+
+  [0,1,2,3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function() {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) showPhase(i);
+    });
+  });
+});
+</script>
+
+<script>
+(async () => {
+  const session = await requireAuth('module-6.html');
+  if (!session) return;
+  window._m6UserLoggedIn = true;
+  await updateNavForAuth();
+
+  const gateChecking = document.getElementById('gate-checking');
+  const gateLocked   = document.getElementById('module-locked');
+  const content      = document.getElementById('module-content');
+
+  const m5 = await getModuleProgress('module-5');
+  if (m5.length < 4) {
+    gateChecking.style.display = 'none';
+    content.style.display = 'none';
+    gateLocked.style.display = 'block';
+    return;
+  }
+
+  gateChecking.style.display = 'none';
+  gateLocked.style.display   = 'none';
+  content.style.display      = 'block';
+
+  const phases = await getModuleProgress('module-6');
+  if (phases.length === 0) return;
+
+  phases.forEach(function(p) {
+    var step = document.getElementById('prog-' + p);
+    if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+  });
+
+  const maxPhase = Math.max.apply(null, phases);
+  if (maxPhase < 3) {
+    showPhase(maxPhase + 1);
+  } else {
+    showPhase(3);
+    showScreen(3, 'apply');
+    document.getElementById('m6-apply-submit').style.display = 'none';
+    document.getElementById('model-answers-m6').style.display = 'block';
+    document.getElementById('module-complete').style.display  = 'block';
+    var prog3 = document.getElementById('prog-3');
+    if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 4: Deepfakes &amp; Synthetic Media &mdash; AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .phase { display: none; }
+    .phase.is-active { display: block; }
+    .phase-screen { display: none; }
+    .phase-screen.is-active { display: block; }
+
+    .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
+    .phase-nav { display:flex; justify-content:space-between; align-items:center; padding-top:24px; margin-top:32px; border-top:1px solid var(--border); gap:12px; }
+
+    .quiz-opts { margin-top:12px; }
+    .quiz-opt { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius); margin-bottom:8px; cursor:pointer; transition:border-color .15s,background .15s; font-size:0.92em; line-height:1.5; }
+    .quiz-opt:hover { border-color:var(--green-mid); background:var(--green-pale); }
+    .quiz-opt input[type="radio"] { margin-top:3px; flex-shrink:0; accent-color:var(--green-mid); }
+    .quiz-feedback { display:none; margin-top:10px; padding:10px 14px; border-radius:var(--radius); font-size:0.88em; line-height:1.6; }
+
+    .phase.is-done .phase__header { background: var(--green-pale); }
+
+    .access-gate { max-width:620px; margin:60px auto; background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:48px 40px; text-align:center; }
+    .access-gate h2 { color:white; font-size:1.5em; margin-bottom:12px; }
+    .access-gate p { color:rgba(255,255,255,0.75); max-width:460px; margin:0 auto 24px; line-height:1.7; font-size:0.95em; }
+    .access-gate__steps { display:flex; flex-direction:column; gap:10px; max-width:380px; margin:0 auto 28px; text-align:left; }
+    .access-gate__step { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius); padding:12px 16px; font-size:0.88em; color:rgba(255,255,255,0.85); }
+    .access-gate__step .tick { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85em; font-weight:800; flex-shrink:0; background:rgba(255,255,255,0.15); color:white; }
+    #gate-checking { text-align:center; padding:80px 20px; color:var(--muted); }
+
+    .audio-clip-card { background:#0F172A; border-radius:var(--radius-lg); padding:28px 32px; margin:20px 0; }
+    .audio-clip-card__label { font-size:0.7em; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px; }
+    .audio-clip-card__attr { font-size:0.82em; color:rgba(255,255,255,0.5); margin-bottom:18px; line-height:1.7; }
+    .audio-clip-card__transcript { font-size:1.05em; font-style:italic; color:white; line-height:1.75; border-left:3px solid #F59E0B; padding-left:18px; margin-bottom:18px; }
+    .audio-clip-card__meta { display:flex; gap:16px; flex-wrap:wrap; }
+    .audio-clip-card__tag { font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:4px 10px; border-radius:12px; }
+    .tag-source { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5); }
+    .tag-warning { background:rgba(245,158,11,0.2); color:#F59E0B; }
+    .tag-flagged { background:rgba(239,68,68,0.2); color:#F87171; }
+
+    .concept-section { border-left:4px solid var(--green-mid); background:var(--green-pale); padding:20px 24px; border-radius:0 var(--radius-lg) var(--radius-lg) 0; margin:24px 0; }
+    .concept-section h4 { font-size:0.85em; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--green-dark); margin-bottom:10px; }
+
+    .law-card { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:12px 0; background:var(--white); }
+    .law-card__name { font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-mid); margin-bottom:4px; }
+    .law-card__full { font-weight:700; font-size:0.95em; margin-bottom:6px; }
+    .law-card__desc { font-size:0.88em; color:var(--muted); line-height:1.65; }
+
+    .callout { background:var(--gold-light); border-left:4px solid var(--gold); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:20px 0; font-size:0.9em; line-height:1.7; }
+    .callout-danger { background:#FFF5F5; border-left:4px solid #DC2626; padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:20px 0; font-size:0.9em; line-height:1.7; color:#7F1D1D; }
+
+    .heuristic-card { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; margin:10px 0; display:flex; gap:14px; align-items:flex-start; }
+    .heuristic-card__year { font-size:0.78em; font-weight:800; color:var(--muted); background:var(--bg); padding:3px 8px; border-radius:var(--radius); flex-shrink:0; margin-top:2px; }
+    .heuristic-card__body { flex:1; }
+    .heuristic-card__name { font-weight:700; font-size:0.92em; margin-bottom:4px; }
+    .heuristic-card__desc { font-size:0.85em; color:var(--muted); line-height:1.6; }
+    .heuristic-card--obsolete { opacity:0.6; }
+    .heuristic-card--current { border-color:var(--green-light); }
+
+    .model-answers { margin:32px 0; border:1.5px solid var(--green-light); border-radius:var(--radius-lg); overflow:hidden; }
+    .model-answers__header { background:var(--green-dark); color:white; padding:16px 24px; }
+    .model-answers__header h4 { color:white; margin:0; font-size:0.95em; }
+    .model-answer-item { padding:20px 24px; border-bottom:1px solid var(--border); background:var(--white); }
+    .model-answer-item:last-child { border-bottom:none; }
+    .model-answer-item__label { font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-mid); margin-bottom:8px; }
+    .model-answer-item p { font-size:0.9em; line-height:1.75; color:var(--text); margin:0; }
+
+    .advance-err { color:#DC2626; font-size:0.85em; margin-top:8px; }
+    .preview-end { background:var(--green-dark); color:white; padding:48px 32px; text-align:center; border-radius:var(--radius-lg); margin:32px 0; }
+    .preview-end h2 { color:white; margin-bottom:12px; }
+    .preview-end p { color:rgba(255,255,255,0.75); margin-bottom:28px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.7; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="module-hero">
+  <div class="module-hero__inner">
+    <div class="breadcrumb"><a href="course.html">Core Course</a> / Module 4</div>
+    <h1>Deepfakes &amp; Synthetic Media</h1>
+    <p class="lead lead--light">In May 2024, South Africans went to the polls while audio clips attributed to political leaders circulated on WhatsApp &mdash; clips the IEC formally flagged as AI-manipulated. This module teaches you to verify synthetic media under time pressure, understand why detection tools are temporally bounded, and know your SA legal exposure when you share.</p>
+    <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
+      <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
+      <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
+        <li>Explain why deepfake detection heuristics are temporally bounded and should not be treated as permanent facts</li>
+        <li>Name the SA legal consequences of creating or sharing election deepfakes (Electoral Act 73, Cybercrimes Act 19 Section 26, Films and Publications Amendment Act 11 of 2019)</li>
+        <li>Apply the Funda Five TRUST lens to evaluate a piece of potentially synthetic media under time pressure</li>
+      </ul>
+    </div>
+    <div style="display:flex; gap:24px; margin-top:16px; flex-wrap:wrap;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">~70 min &middot; 4 phases</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; Builds on Module 1 (TRUST step)</span>
+    </div>
+  </div>
+</div>
+
+<div id="gate-checking" class="container">Checking your access&hellip;</div>
+
+<div id="module-locked" class="access-gate container" style="display:none;">
+  <h2>Complete the prior modules to unlock Module 4</h2>
+  <p>Module 4 builds on the TRUST step from Module 1. Complete Modules 0 through 3 first.</p>
+  <div class="access-gate__steps">
+    <div class="access-gate__step"><span class="tick">0</span><span>Module 0 &mdash; AI Fundamentals</span></div>
+    <div class="access-gate__step"><span class="tick">3</span><span>Module 3 &mdash; When AI Discriminates</span></div>
+    <div class="access-gate__step"><span class="tick">4</span><span>Module 4 &mdash; Deepfakes &amp; Synthetic Media</span></div>
+  </div>
+  <a href="module-3.html" class="btn btn--gold btn--lg">Go to Module 3 &rarr;</a>
+</div>
+
+<div id="module-content" style="display:none;">
+
+<div class="progress-sticky-wrap">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 4 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+      <div class="progress-step is-active" id="prog-0">1 &middot; Encounter</div>
+      <div class="progress-step" id="prog-1">2 &middot; Reflect</div>
+      <div class="progress-step" id="prog-2">3 &middot; Concept</div>
+      <div class="progress-step" id="prog-3">4 &middot; Apply</div>
+    </div>
+  </div>
+</div>
+
+<section class="bg-pale">
+<div class="container" style="margin-top:36px; padding-bottom:60px;">
+
+  <!-- ============================================================
+       PHASE 0 — ENCOUNTER
+       ============================================================ -->
+  <div class="phase is-active" id="phase-0">
+    <div class="phase__header">
+      <div class="phase__num">1</div>
+      <div>
+        <div class="phase__label">Encounter</div>
+        <div style="font-size:0.8em;color:var(--muted);">A clip circulating on WhatsApp. React before we explain anything &middot; ~15 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase__task">
+        It is 7:30 AM on 28 May 2024 &mdash; Election Day in South Africa. You receive this in a WhatsApp group. React to it: <strong>What do you do? What do you check? What concerns you?</strong>
+      </div>
+
+      <div class="audio-clip-card">
+        <div class="audio-clip-card__label">Audio transcript &mdash; WhatsApp forward, received 07:28</div>
+        <div class="audio-clip-card__attr">
+          Attributed to: <strong style="color:white;">Julius Malema, EFF President</strong><br>
+          Claimed context: Private campaign briefing, 23 April 2024, Johannesburg
+        </div>
+        <div class="audio-clip-card__transcript">
+          &ldquo;Our campaign has been honest with the people. If we win this election &mdash; and we will win &mdash; we will immediately cancel all existing government tenders and redistribute contracts to our preferred partners. No ANC loyalist will receive a single rand. This is not a campaign promise. This is a commitment I am making to you personally.&rdquo;
+        </div>
+        <div class="audio-clip-card__meta">
+          <span class="audio-clip-card__tag tag-source">Forwarded 847 times</span>
+          <span class="audio-clip-card__tag tag-warning">Source: Unknown</span>
+          <span class="audio-clip-card__tag tag-flagged">IEC: Under review</span>
+        </div>
+      </div>
+
+      <div style="background:rgba(245,158,11,0.12); border-left:4px solid #F59E0B; border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:20px 0; font-size:0.88em; line-height:1.6; color:#92400E;">
+        <strong>Context note:</strong> The IEC (Electoral Commission of South Africa) publicly documented multiple cases of AI-manipulated audio clips attributed to party leaders during the 2024 general election campaign. AI voice cloning tools available to the public in 2024 could replicate a specific person&rsquo;s voice with under 3 minutes of source audio. This clip is fictional, but the scenario it represents is documented.
+      </div>
+
+      <div style="margin-bottom:8px; font-weight:600; font-size:0.95em;">What do you do? What would you check before acting or sharing?</div>
+      <textarea id="enc-reaction" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="My first instinct is... / I would check... / What concerns me most is... / I would or wouldn&rsquo;t forward this because..."></textarea>
+
+      <div style="text-align:right; margin-top:20px;">
+        <button class="btn btn--primary" onclick="advancePhase(0)">I&rsquo;ve reacted &rarr;</button>
+      </div>
+      <p id="err-0" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 1 — REFLECT
+       ============================================================ -->
+  <div class="phase" id="phase-1">
+    <div class="phase__header">
+      <div class="phase__num">2</div>
+      <div>
+        <div class="phase__label">Reflect</div>
+        <div style="font-size:0.8em;color:var(--muted);">Think before the concept is introduced &middot; ~15 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase__task">
+        Two questions about what you already know and believe &mdash; before we give you the framework.
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">1. Someone tells you: &ldquo;You can always tell a deepfake by looking at the eyes &mdash; they glitch and don&rsquo;t blink naturally.&rdquo; How confident should you be in this advice? Why might it fail you?</div>
+        <textarea id="ref-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I would be confident / not confident because... This advice might fail because..."></textarea>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">2. If you forward a WhatsApp audio clip that turns out to be an AI fabrication &mdash; before an election &mdash; are you responsible for any harm it causes? What do you think your exposure is?</div>
+        <textarea id="ref-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I think I would / wouldn&rsquo;t be responsible because... My legal exposure would / wouldn&rsquo;t include..."></textarea>
+      </div>
+
+      <div class="phase-nav">
+        <button type="button" class="btn btn--outline" onclick="showPhase(0)">&larr; Encounter</button>
+        <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &rarr;</button>
+      </div>
+      <p id="err-1" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 2 — CONCEPT
+       ============================================================ -->
+  <div class="phase" id="phase-2">
+    <div class="phase__header">
+      <div class="phase__num">3</div>
+      <div>
+        <div class="phase__label">Concept</div>
+        <div style="font-size:0.8em;color:var(--muted);">Synthetic media, detection limits, and SA law &middot; ~20 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <!-- ── SCREEN 1: Concept reading ──────────────────────────────────── -->
+      <div class="phase-screen is-active" id="ps-2-content">
+
+        <div class="concept-section">
+          <h4>What are deepfakes and synthetic media?</h4>
+          <p>A <strong><a href="glossary.html#deepfake" style="color:var(--green-mid);">deepfake</a></strong> is AI-generated or AI-manipulated media &mdash; video, audio, or image &mdash; designed to make a real person appear to say or do something they did not say or do. The term covers a spectrum: from crude face-swaps to sophisticated voice clones indistinguishable from the original speaker by human ear.</p>
+          <p style="margin-top:12px;"><strong><a href="glossary.html#synthetic-media" style="color:var(--green-mid);">Synthetic media</a></strong> is the broader category: any media generated entirely or substantially by AI, whether or not it depicts a real person. A fabricated news article written by an LLM is synthetic media. An AI-generated image of a protest that didn&rsquo;t happen is synthetic media. A voice clone of a CEO announcing a merger is synthetic media.</p>
+          <p style="margin-top:12px;">In the 2024 SA election, the primary threat was <strong>audio deepfakes</strong>: voice clones of party leaders, circulated on WhatsApp, timed to reach voters on or before Election Day. The IEC documented formal complaints and publicly flagged multiple clips as suspected AI-manipulated content.</p>
+        </div>
+
+        <div class="concept-section">
+          <h4>Why detection heuristics are temporally bounded</h4>
+          <p>Every deepfake detection heuristic you hear &mdash; &ldquo;look for eye glitches,&rdquo; &ldquo;unnatural blinking,&rdquo; &ldquo;audio artifacts at breath groups&rdquo; &mdash; describes a current limitation of current tools. It does not describe a permanent feature of synthetic media.</p>
+        </div>
+
+        <p>Here&rsquo;s what this looks like across generations of deepfake technology:</p>
+
+        <div class="heuristic-card heuristic-card--obsolete">
+          <span class="heuristic-card__year">~2019</span>
+          <div class="heuristic-card__body">
+            <div class="heuristic-card__name">Eye glitch &amp; unnatural blinking</div>
+            <div class="heuristic-card__desc">Early face-swap models struggled to replicate natural blink rates. Detecting this reliably distinguished fakes from real video. <strong>Status 2026: obsolete</strong> &mdash; modern models replicate blink patterns accurately.</div>
+          </div>
+        </div>
+
+        <div class="heuristic-card heuristic-card--obsolete">
+          <span class="heuristic-card__year">~2021</span>
+          <div class="heuristic-card__body">
+            <div class="heuristic-card__name">Facial boundary artifacts</div>
+            <div class="heuristic-card__desc">Face-swap models left a &ldquo;halo&rdquo; or blur at the edge of the superimposed face, especially under motion. Clear in side-by-side comparison. <strong>Status 2026: significantly reduced</strong> &mdash; newer models smooth boundaries in real time.</div>
+          </div>
+        </div>
+
+        <div class="heuristic-card heuristic-card--obsolete">
+          <span class="heuristic-card__year">~2022&ndash;23</span>
+          <div class="heuristic-card__body">
+            <div class="heuristic-card__name">Audio breath-group artifacts</div>
+            <div class="heuristic-card__desc">Voice cloning models produced small dropouts or pitch inconsistencies at the end of breath groups. Human listeners trained on examples could detect these. <strong>Status 2026: mostly corrected</strong> &mdash; current models handle breath transitions more naturally.</div>
+          </div>
+        </div>
+
+        <div class="heuristic-card heuristic-card--current">
+          <span class="heuristic-card__year">2024&ndash;26</span>
+          <div class="heuristic-card__body">
+            <div class="heuristic-card__name">Prosody and emotional contour mismatches</div>
+            <div class="heuristic-card__desc">Current models sometimes fail to replicate speaker-specific emotional patterns in high-stakes speech (e.g., live debate intensity vs. scripted reading). <strong>Status 2026: under active improvement</strong> &mdash; treat as a current signal, not a permanent fact.</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>The key principle:</strong> Detection heuristics are descriptions of what current tools can&rsquo;t yet do. Every new generation of synthesis tools targets the tells of the previous generation. If you treat a detection heuristic as a permanent fact, you will be wrong in 12&ndash;18 months. The right stance is: <em>&ldquo;this is a current signal, useful now, that I should treat as expiring.&rdquo;</em>
+        </div>
+
+        <div class="concept-section">
+          <h4>The SA legal consequences of election deepfakes</h4>
+          <p>Three SA statutes create overlapping liability for election deepfakes. These are not hypothetical &mdash; the IEC formally invoked them during the 2024 election:</p>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">Electoral Act 73 of 1998</div>
+          <div class="law-card__full">Section 89 &mdash; Prohibition on False Information to Influence Voters</div>
+          <div class="law-card__desc">Creates criminal liability for any person who publishes or disseminates false information knowing it may influence voting behaviour. An audio deepfake of a political leader making a false policy commitment, circulated before an election, falls squarely under this provision. Penalty: up to 5 years imprisonment and/or a fine. Applies to creators <em>and</em> distributors who knew or reasonably ought to have known the information was false.</div>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">Cybercrimes Act 19 of 2020</div>
+          <div class="law-card__full">Section 26 &mdash; Harmful Data Messages</div>
+          <div class="law-card__desc">Creates an offence for sharing a data message that: (a) incites violence or damage to property, (b) threatens a person, or (c) is designed to cause public harm. AI-generated election misinformation designed to damage a candidate&rsquo;s reputation and influence voter behaviour falls within &ldquo;designed to cause public harm.&rdquo; Crucially, <strong>sharing is itself an offence under Section 26</strong> &mdash; not only creating. Forwarding on WhatsApp, even as a forward, creates exposure.</div>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">Films and Publications Amendment Act 11 of 2019</div>
+          <div class="law-card__full">Harmful Content Classification</div>
+          <div class="law-card__desc">Requires online distributors to classify and handle harmful content. AI-generated content designed to defame, harass, or incite hatred falls under classified harmful content. The Act extended content regulation to online platforms and online distributors &mdash; meaning individuals who disseminate harmful synthetic media via social platforms can be treated as distributors under this Act.</div>
+        </div>
+
+        <div class="callout-danger">
+          <strong>Key takeaway on legal exposure:</strong> In SA, you are not protected by &ldquo;I just forwarded it.&rdquo; Under the Cybercrimes Act Section 26, sharing a harmful data message is itself an offence. The burden on the sharer is: did you know, or should you reasonably have known, that the content was false or harmful? If an IEC advisory flagged it as suspected AI content and you forwarded it anyway, your exposure is real.
+        </div>
+
+        <div class="concept-section">
+          <h4>The verification approach that holds across time</h4>
+          <p>Since detection heuristics expire, the approach that holds across generations of synthetic media is <strong>source verification</strong>, not artifact detection:</p>
+          <ol style="padding-left:20px; line-height:1.9; font-size:0.93em; margin-top:12px;">
+            <li><strong>Source:</strong> Who sent this, from where? WhatsApp attribution is trivially forgeable.</li>
+            <li><strong>Corroboration:</strong> Has any credible independent source verified this event or statement?</li>
+            <li><strong>Subject response:</strong> Has the attributed person or their campaign issued a denial or confirmation?</li>
+            <li><strong>Institutional signal:</strong> Has the IEC, a major news organisation, or a fact-checking body reviewed it?</li>
+            <li><strong>Consequence analysis:</strong> What happens if you share and it&rsquo;s wrong? The higher the stakes, the higher the verification bar.</li>
+          </ol>
+        </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:24px 0;">
+          <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); margin-bottom:10px;">Further reading</p>
+          <ul style="font-size:0.88em; line-height:1.8; margin:0; padding-left:18px; color:var(--text);">
+            <li>Electoral Commission of SA (IEC) &mdash; 2024 Election Integrity Report, Section on AI Misinformation</li>
+            <li>Cybercrimes Act 19 of 2020 &mdash; full text at SAFLII (saflii.org)</li>
+            <li>Africa Check &mdash; SA deepfake election content tracking (elections2024.africacheck.org)</li>
+          </ul>
+        </div>
+
+        <div class="phase-nav" style="justify-content:flex-end;">
+          <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-content -->
+
+      <!-- ── SCREEN 2: Quiz ─────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-2-quiz">
+
+        <h3 style="margin-bottom:4px;">Knowledge Check</h3>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Three questions. All must be correct before you advance to Apply. Wrong answers include an explanation.</p>
+
+        <!-- Q1 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. In 2022, a trusted source told you: &ldquo;Deepfakes always have unnatural eye movement and blinking &mdash; that&rsquo;s how you catch them.&rdquo; It is now 2026. What is the fundamental problem with still relying on this heuristic?</div>
+          <div class="quiz-opts" id="m4_q0_opts">
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m4_q0" value="0"> Detection heuristics are temporally bounded &mdash; they describe what current tools can&rsquo;t do yet. Every new generation of synthesis models targets the tells of the previous generation. This heuristic described 2022 technology; by 2024&ndash;26, models replicate blink patterns accurately.</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q0" value="1"> The heuristic is wrong &mdash; deepfakes never actually showed eye movement problems, even in 2022</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q0" value="2"> Eye movement detection remains reliable &mdash; the same heuristics that worked in 2022 still work in 2026</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q0" value="3"> The problem is that people aren&rsquo;t trained to look for eye movements &mdash; the heuristic itself is still valid</label>
+          </div>
+          <div class="quiz-feedback" id="m4qf-0"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. During the 2024 SA election, an AI-generated audio clip falsely attributed to a party leader circulated widely on WhatsApp. Which combination of SA laws creates legal liability for the <em>creator</em> of this deepfake?</div>
+          <div class="quiz-opts" id="m4_q1_opts">
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m4_q1" value="0"> Electoral Act 73 of 1998 (false information to influence voters) + Cybercrimes Act 19 of 2020 Section 26 (harmful data message) + Films and Publications Amendment Act 11 of 2019 (harmful content distribution) &mdash; all three potentially apply</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q1" value="1"> PEPUDA (indirect discrimination) and POPIA Section 71 (automated decision rights)</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q1" value="2"> Only the Electoral Act applies &mdash; the Cybercrimes Act and Films Act don&rsquo;t cover audio manipulation</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q1" value="3"> There is currently no SA law that creates criminal liability for creating election deepfakes</label>
+          </div>
+          <div class="quiz-feedback" id="m4qf-1"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. You receive a voice note in a staff WhatsApp group claiming to be a recording of your CEO announcing the company will be acquired. The voice sounds slightly off and the message came from an unusual number. Applying the Funda Five TRUST step, what is your <em>first</em> action?</div>
+          <div class="quiz-opts" id="m4_q2_opts">
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m4_q2" value="0"> Verify through a known, independent channel &mdash; call the CEO&rsquo;s office directly or check official company communications. Don&rsquo;t act or share until you have independent confirmation from a trusted source.</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q2" value="1"> Run the audio through an AI deepfake detection tool to get an objective analysis result</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q2" value="2"> Assume it&rsquo;s a deepfake and delete it immediately without acting</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m4_q2" value="3"> Forward it to IT security and wait for their verdict before doing anything else</label>
+          </div>
+          <div class="quiz-feedback" id="m4qf-2"></div>
+        </div>
+
+        <div id="quiz-m4-submit-wrap">
+          <button class="btn btn--primary" onclick="submitQuizM4()">Check my answers &rarr;</button>
+        </div>
+        <p id="quiz-m4-err" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+        <button id="quiz-m4-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+        </div>
+
+      </div><!-- /ps-2-quiz -->
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PHASE 3 — APPLY
+       ============================================================ -->
+  <div class="phase" id="phase-3">
+    <div class="phase__header">
+      <div class="phase__num">4</div>
+      <div>
+        <div class="phase__label">Apply</div>
+        <div style="font-size:0.8em;color:var(--muted);">Funda Five on the WhatsApp acquisition rumour &middot; ~20 min</div>
+      </div>
+    </div>
+    <div class="phase__body">
+
+      <div class="phase-screen is-active" id="ps-3-apply">
+
+        <div class="phase__task">
+          <strong>Your role:</strong> It is 7:45 AM. You are the Communications Director of a listed South African company. A voice note is circulating in the company staff WhatsApp group claiming to be your CEO announcing the company will be acquired by a foreign entity. Details sound plausible. Several colleagues have already forwarded it externally. The voice sounds slightly unnatural. Markets open in 45 minutes. Apply the Funda Five &mdash; with particular depth on TRUST.
+        </div>
+
+        <div class="funda-apply">
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">1</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">TASK &mdash; What is this audio being used to do? Is it being used correctly?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What is the function of this voice note? What decision or action is it designed to prompt? What makes this a high-stakes use of synthetic media?</div>
+              <textarea id="app-1" rows="4" placeholder="This audio is being used to... The decision it prompts is... This is high-stakes because..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">2</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">DATA &mdash; What information does this audio contain? What is verifiable vs unverifiable?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What specific claims does the audio make? Which of those claims can be independently verified before the market opens? What personal data or sensitive business information is embedded?</div>
+              <textarea id="app-2" rows="4" placeholder="The audio claims... What I can verify in 45 minutes is... What I cannot verify is..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">3</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">TOOL &mdash; What type of AI likely created this? What does &ldquo;slightly unnatural&rdquo; actually tell you?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What AI tool would produce a voice clone? What are the current failure modes of voice cloning (without treating them as permanent facts)? Does &ldquo;sounds slightly off&rdquo; prove it&rsquo;s a deepfake &mdash; or could it be a real recording in poor conditions?</div>
+              <textarea id="app-3" rows="4" placeholder="This was likely created with... The current failure modes of voice cloning are... &lsquo;Slightly unnatural&rsquo; tells me... but doesn&rsquo;t prove..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step">
+            <div class="funda-apply-step__num">4</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">TRUST &mdash; How do you verify this before markets open? Step by step.</div>
+              <div style="font-size:0.85em; color:var(--muted);">Give your specific verification steps in priority order. What sources do you check? What thresholds do you need to meet before you can confidently say &ldquo;act&rdquo; or &ldquo;don&rsquo;t act&rdquo;? What do you do about colleagues who&rsquo;ve already forwarded externally?</div>
+              <textarea id="app-4" rows="5" placeholder="Step 1: Immediately contact... Step 2: Check... Step 3: Before acting, I need... Regarding the external forwards, I..."></textarea>
+            </div>
+          </div>
+          <div class="funda-apply-step" style="border-bottom:none;">
+            <div class="funda-apply-step__num">5</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">HUMAN &mdash; Who is accountable if this turns out to be a deepfake? What about the people who already forwarded it?</div>
+              <div style="font-size:0.85em; color:var(--muted);">Name the accountability chain: the creator, the first distributor, the colleagues who forwarded externally, your company. What are their specific exposures under SA law? What does your company need to do immediately from a governance perspective?</div>
+              <textarea id="app-5" rows="4" placeholder="The creator is liable under... Colleagues who forwarded may be exposed under Cybercrimes Act Section 26 because... The company needs to..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div id="m4-apply-submit" style="text-align:right; margin-top:24px;">
+          <button class="btn btn--primary btn--lg" onclick="completeModule4()">Submit Funda Five &rarr;</button>
+        </div>
+        <p id="err-3" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+      </div><!-- /ps-3-apply -->
+
+    </div>
+  </div>
+
+  <!-- MODEL ANSWERS -->
+  <div id="model-answers-m4" style="display:none;">
+    <div class="model-answers">
+      <div class="model-answers__header">
+        <h4>Model Answers &mdash; Acquisition Rumour Voice Note (Corporate Deepfake Scenario)</h4>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">1. TASK &mdash; What is this audio being used to do?</div>
+        <p>This audio is being used to fabricate a material corporate announcement and attribute it to a named, credible individual (the CEO). Its designed effect is to prompt action: internal panic, external forwarding, and potentially market-moving behaviour before the company can respond. This is synthetic media deployed as a manipulation tool &mdash; not informational content. The stakes are high for three compounding reasons: (1) it involves a listed company, meaning premature market movement based on false information creates securities law exposure; (2) it is being circulated before the company can mount a verified response; (3) colleagues have already forwarded externally, meaning the window for containment is short. No legitimate use of synthetic media involves fabricating an executive announcement.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">2. DATA &mdash; What is verifiable vs unverifiable?</div>
+        <p>The audio claims: (a) a specific acquisition is imminent, (b) the CEO made this announcement, (c) the announcement was made in a specific context. What you can verify in 45 minutes: whether the CEO is reachable by direct call; whether any JSE regulatory announcement has been filed (listed companies must file material announcements via SENS); whether company counsel has been notified of such a transaction. What you cannot verify from the audio alone: the authenticity of the voice, whether the recording context is as described. The audio also embeds sensitive personal information (CEO&rsquo;s voice, company strategy) and potentially price-sensitive information &mdash; both categories that carry regulatory obligations under POPIA and JSE Listing Requirements respectively.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">3. TOOL &mdash; What AI created this? What does &ldquo;slightly unnatural&rdquo; tell you?</div>
+        <p>This was likely created with a voice cloning tool &mdash; a TTS or voice synthesis model fine-tuned on samples of the CEO&rsquo;s speech (publicly available from interviews, presentations, earnings calls). Current voice cloning tools can produce output with 3&ndash;10 minutes of source audio. The &ldquo;slightly unnatural&rdquo; quality may reflect: current prosody limitations (emotional contour doesn&rsquo;t match the scripted content&rsquo;s urgency), audio compression artifacts from WhatsApp&rsquo;s codec, or a genuine recording in suboptimal conditions. Critically: &ldquo;slightly off&rdquo; does not prove it&rsquo;s a deepfake. Equally, &ldquo;sounds pretty natural&rdquo; would not prove it&rsquo;s real. Detection heuristics are temporally bounded. The right stance: note the signal, don&rsquo;t over-rely on it, and proceed to source verification regardless of your audio judgment.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">4. TRUST &mdash; Verification steps in priority order</div>
+        <p>Step 1 (0&ndash;3 min): Call the CEO directly on their known number. If unreachable, call their PA, CFO, or Legal Director. This is source verification at the primary level. Step 2 (3&ndash;10 min): Check SENS (JSE Stock Exchange News Service) for any filed announcements. A real acquisition announcement for a listed company requires mandatory regulatory filing &mdash; no SENS filing means either the acquisition is not happening or is not yet public. Step 3 (10&ndash;20 min): Notify Legal and Company Secretary to issue an internal communication clarifying the voice note&rsquo;s status while verification is underway. Step 4 (parallel): Request that colleagues who forwarded externally hold any further dissemination pending verification. Regarding external forwards: you cannot undo them, but you can contact the recipients and explain that the information is unverified and under investigation. Your threshold for action should be: confirmation from two independent, senior, trusted individuals with direct knowledge, or a negative SENS filing. &ldquo;Sounds plausible&rdquo; is not a threshold.</p>
+      </div>
+      <div class="model-answer-item">
+        <div class="model-answer-item__label">5. HUMAN &mdash; Accountability and SA legal exposure</div>
+        <p>The creator of the audio deepfake is liable under: Cybercrimes Act Section 26 (creating a harmful data message designed to cause harm), and potentially the Financial Markets Act 19 of 2012 (if the intent was to manipulate a listed company&rsquo;s share price &mdash; market manipulation). Colleagues who forwarded the audio externally are exposed under Cybercrimes Act Section 26 &mdash; sharing a harmful data message is an offence. Their defence depends on whether they knew or ought reasonably to have known it was false or harmful. &ldquo;I just forwarded it&rdquo; is not a full legal defence. The company needs to: (1) immediately issue a SENS announcement clarifying the audio is unverified and under investigation; (2) notify company counsel; (3) consider whether the JSE Listings Requirements require formal disclosure of the incident; (4) document all steps taken, when, and by whom &mdash; this documentation is accountability evidence if regulatory scrutiny follows.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE COMPLETE -->
+  <div id="module-complete" style="display:none;" class="preview-end">
+    <h2>Module 4 complete &mdash; Deepfakes &amp; Synthetic Media</h2>
+    <p>You can now explain why detection heuristics expire, name the three SA statutes that create liability for election and corporate deepfakes, and apply the Funda Five TRUST lens to evaluate synthetic media under time pressure. These are perishable skills &mdash; revisit them as tools change.</p>
+    <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Module 5 next: when AI screens your job application &mdash; and why accountability in AI recruitment is harder than it looks.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="module-5.html" class="btn btn--gold btn--lg">Continue to Module 5 &rarr;</a>
+      <a href="dashboard.html" class="btn btn--white btn--lg">Back to Dashboard</a>
+    </div>
+  </div>
+
+</div>
+</section>
+</div><!-- /module-content -->
+
+<footer>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms &amp; Conditions</a></span>
+</footer>
+
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/nav.js"></script>
+
+<script>
+function updateTracker(n) {
+  [0,1,2,3].forEach(function(i) {
+    var s = document.getElementById('prog-' + i);
+    if (!s) return;
+    s.classList.remove('is-active');
+    if (i < n) { if (!s.classList.contains('is-done')) s.classList.add('is-done'); }
+    else if (i === n) s.classList.add('is-active');
+  });
+}
+
+function showPhase(n) {
+  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
+  var phase = document.getElementById('phase-' + n);
+  if (!phase) return;
+  phase.classList.add('is-active');
+  var screens = phase.querySelectorAll('.phase-screen');
+  screens.forEach(function(s) { s.classList.remove('is-active'); });
+  if (screens.length > 0) screens[0].classList.add('is-active');
+  updateTracker(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(phaseNum, screenId) {
+  var phase = document.getElementById('phase-' + phaseNum);
+  if (!phase) return;
+  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
+  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
+  if (target) target.classList.add('is-active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function advancePhase(fromPhase) {
+  var errEl = document.getElementById('err-' + fromPhase);
+
+  if (fromPhase === 0) {
+    var t = document.getElementById('enc-reaction').value.trim();
+    if (t.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words before moving on.'; return; }
+    errEl.style.display = 'none';
+    if (window._m4UserLoggedIn) saveProgress('module-4', 0);
+  }
+  if (fromPhase === 1) {
+    var t1 = document.getElementById('ref-1').value.trim();
+    var t2 = document.getElementById('ref-2').value.trim();
+    if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes before moving on.'; return; }
+    errEl.style.display = 'none';
+    if (window._m4UserLoggedIn) saveProgress('module-4', 1);
+  }
+  if (fromPhase === 2) {
+    errEl.style.display = 'none';
+    if (window._m4UserLoggedIn) saveProgress('module-4', 2);
+  }
+
+  var progCur = document.getElementById('prog-' + fromPhase);
+  if (progCur) { progCur.classList.remove('is-active'); progCur.classList.add('is-done'); }
+  showPhase(fromPhase + 1);
+}
+
+function submitQuizM4() {
+  var allAnswered = true;
+  var wrongCount = 0;
+  var explanations = [
+    { ok: 'Correct. Every generation of deepfake technology targets the tells of the previous generation. The eye-glitch heuristic was real in 2019 &mdash; and then model developers fixed it. The same pattern applies to every artifact you can name today. The correct way to hold a detection heuristic is: &ldquo;this describes current tool limitations, not permanent features of synthetic media.&rdquo;',
+      no: 'The eye-glitch heuristic was real and useful in 2019 &mdash; early face-swap models did struggle with blinking. The problem isn\'t that the original heuristic was false; the problem is treating it as permanent. Detection heuristics expire as synthesis tools improve. By 2026, modern models replicate blink patterns accurately. The core principle: heuristics describe current limitations, not permanent facts.' },
+    { ok: 'Correct. All three statutes create overlapping liability. Electoral Act Section 89 covers false information intended to influence voters. Cybercrimes Act Section 26 covers harmful data messages &mdash; including sharing them, not just creating them. The Films and Publications Amendment Act 11 of 2019 covers harmful content distribution online. These are the three SA statutes the IEC formally invoked during the 2024 election.',
+      no: 'PEPUDA and POPIA Section 71 cover discrimination and automated decision rights &mdash; they don\'t apply here. The claim that only the Electoral Act applies is wrong: the Cybercrimes Act and Films and Publications Act both extend liability to synthetic election misinformation. SA law does currently create criminal liability for election deepfakes. There is no gap.' },
+    { ok: 'Correct. Source verification is the verification approach that holds across all generations of deepfake technology, precisely because it doesn\'t depend on detecting audio artifacts (which expire as tools improve). An independent, known channel gives you a verified source regardless of how sophisticated the synthesis is. AI deepfake detection tools are useful signals, but they are imperfect and temporally bounded &mdash; they cannot replace independent source verification.',
+      no: 'AI deepfake detection tools are useful signals, but: (1) they are imperfect &mdash; false negative rates are significant; (2) they are temporally bounded &mdash; tools improve and new models often fool older detectors; (3) getting a detection result takes time you may not have. Deleting it or waiting for IT both delay or skip the most important step: verifying through a known, trusted, independent channel. Source verification first &mdash; always.' }
+  ];
+
+  [0,1,2].forEach(function(i) {
+    var sel = document.querySelector('input[name="m4_q' + i + '"]:checked');
+    var fb = document.getElementById('m4qf-' + i);
+    if (!sel) { allAnswered = false; return; }
+    var isOk = sel.closest('label').dataset.correct === 'true';
+    fb.style.display = 'block';
+    if (isOk) {
+      fb.style.background = 'var(--green-pale)';
+      fb.style.border = '1px solid var(--green-light)';
+      fb.style.color = 'var(--green-dark)';
+      fb.innerHTML = '<strong>Correct.</strong> ' + explanations[i].ok;
+      document.querySelectorAll('input[name="m4_q' + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      wrongCount++;
+      fb.style.background = '#FFF5F5';
+      fb.style.border = '1px solid #FCA5A5';
+      fb.style.color = '#7F1D1D';
+      fb.innerHTML = '<strong>Not quite.</strong> ' + explanations[i].no;
+      document.querySelectorAll('input[name="m4_q' + i + '"]').forEach(function(r) { r.checked = false; });
+    }
+  });
+
+  var errEl = document.getElementById('quiz-m4-err');
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 3 questions before checking.'; return; }
+  errEl.style.display = 'none';
+  if (wrongCount === 0) {
+    document.getElementById('quiz-m4-submit-wrap').style.display = 'none';
+    document.getElementById('quiz-m4-advance').style.display = 'inline-block';
+  } else {
+    errEl.style.display = 'block';
+    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look &mdash; check the hints above and try again.';
+  }
+}
+
+function completeModule4() {
+  var vals = [1,2,3,4,5].map(function(n) { return document.getElementById('app-' + n).value.trim(); });
+  var errEl = document.getElementById('err-3');
+  if (vals.some(function(v) { return v.length < 20; })) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Please complete all five Funda Five responses before submitting.';
+    return;
+  }
+  errEl.style.display = 'none';
+  if (window._m4UserLoggedIn) saveProgress('module-4', 3);
+
+  var prog3 = document.getElementById('prog-3');
+  if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+
+  document.getElementById('m4-apply-submit').style.display = 'none';
+  var answers = document.getElementById('model-answers-m4');
+  answers.style.display = 'block';
+  setTimeout(function() { answers.scrollIntoView({ behavior:'smooth', block:'start' }); }, 100);
+  setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function(label) { opts.appendChild(label); });
+  });
+
+  [0,1,2,3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function() {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) showPhase(i);
+    });
+  });
+});
+</script>
+
+<script>
+(async () => {
+  const session = await requireAuth('module-4.html');
+  if (!session) return;
+  window._m4UserLoggedIn = true;
+  await updateNavForAuth();
+
+  const gateChecking = document.getElementById('gate-checking');
+  const gateLocked   = document.getElementById('module-locked');
+  const content      = document.getElementById('module-content');
+
+  const m3 = await getModuleProgress('module-3');
+  if (m3.length < 4) {
+    gateChecking.style.display = 'none';
+    content.style.display = 'none';
+    gateLocked.style.display = 'block';
+    return;
+  }
+
+  gateChecking.style.display = 'none';
+  gateLocked.style.display   = 'none';
+  content.style.display      = 'block';
+
+  const phases = await getModuleProgress('module-4');
+  if (phases.length === 0) return;
+
+  phases.forEach(function(p) {
+    var step = document.getElementById('prog-' + p);
+    if (step) { step.classList.remove('is-active'); step.classList.add('is-done'); }
+  });
+
+  const maxPhase = Math.max.apply(null, phases);
+  if (maxPhase < 3) {
+    showPhase(maxPhase + 1);
+  } else {
+    showPhase(3);
+    showScreen(3, 'apply');
+    document.getElementById('m4-apply-submit').style.display = 'none';
+    document.getElementById('model-answers-m4').style.display = 'block';
+    document.getElementById('module-complete').style.display  = 'block';
+    var prog3 = document.getElementById('prog-3');
+    if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
+  }
+})();
+</script>
+
+</body>
+</html>
