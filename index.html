@@ -2,11 +2,218 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/course-poc/">
-  <link rel="canonical" href="/course-poc/">
-  <title>AfriversalAI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>AfriversalAI — Coming Soon</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #1B4332;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    .logo {
+      width: 160px;
+      max-width: 60vw;
+      margin-bottom: 32px;
+    }
+
+    .eyebrow {
+      font-size: 0.78em;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #D4A017;
+      margin-bottom: 36px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 0;
+    }
+    .cd-unit { text-align: center; }
+    .cd-num {
+      font-size: clamp(2.4em, 8vw, 4em);
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+    }
+    .cd-label {
+      font-size: 0.65em;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 6px;
+    }
+
+    /* Lock button */
+    .access-trigger {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      opacity: 0.35;
+      transition: opacity 0.2s;
+      padding: 8px;
+    }
+    .access-trigger:hover { opacity: 0.75; }
+
+    /* Password form */
+    .access-form {
+      position: fixed;
+      bottom: 72px;
+      right: 24px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      width: 220px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .access-form.open { display: flex; }
+    .access-form input {
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.9em;
+      color: #1B4332;
+      outline: none;
+    }
+    .access-form input:focus { border-color: #1B4332; }
+    .access-form button {
+      background: #1B4332;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 9px;
+      font-size: 0.85em;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+    .access-err {
+      font-size: 0.78em;
+      color: #c0392b;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <script>window.location.replace('/course-poc/');</script>
+
+<img
+  src="course-poc/assets/logo-white.png"
+  alt="AfriversalAI"
+  class="logo"
+  onerror="this.src='course-poc/assets/logo.png'"
+/>
+
+<p class="eyebrow">Coming Soon</p>
+
+<div class="countdown" id="countdown">
+  <div class="cd-unit">
+    <div class="cd-num" id="cd-days">--</div>
+    <div class="cd-label">Days</div>
+  </div>
+  <div class="cd-unit">
+    <div class="cd-num" id="cd-hours">--</div>
+    <div class="cd-label">Hours</div>
+  </div>
+  <div class="cd-unit">
+    <div class="cd-num" id="cd-mins">--</div>
+    <div class="cd-label">Mins</div>
+  </div>
+  <div class="cd-unit">
+    <div class="cd-num" id="cd-secs">--</div>
+    <div class="cd-label">Secs</div>
+  </div>
+</div>
+
+<div class="access-form" id="access-form">
+  <input
+    type="password"
+    id="access-pw"
+    placeholder="Team password"
+    onkeydown="if(event.key==='Enter')checkPw()"
+    autocomplete="current-password"
+  />
+  <button onclick="checkPw()">Enter</button>
+  <span class="access-err" id="access-err">Incorrect password</span>
+</div>
+<button class="access-trigger" onclick="toggleAccess()" title="Team access" aria-label="Team access">&#x1F512;</button>
+
+<script>
+// Auto-bypass for team members who've already authenticated
+(function () {
+  if (localStorage.getItem('afv_access') === 'granted') {
+    window.location.replace('/course-poc/');
+  }
+})();
+
+// Countdown to 1 August 2026 (SA timezone, UTC+2)
+(function () {
+  var target = new Date('2026-08-01T00:00:00+02:00');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<p style="font-size:1.2em;font-weight:700;color:#D4A017;letter-spacing:2px;">We\'re live.</p>';
+      return;
+    }
+    document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 864e5));
+    document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 864e5) / 36e5));
+    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 36e5) / 6e4));
+    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 6e4) / 1e3));
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+function toggleAccess() {
+  var form = document.getElementById('access-form');
+  form.classList.toggle('open');
+  if (form.classList.contains('open')) {
+    setTimeout(function () { document.getElementById('access-pw').focus(); }, 50);
+  }
+}
+
+async function checkPw() {
+  var val = document.getElementById('access-pw').value;
+  var err = document.getElementById('access-err');
+  err.style.display = 'none';
+
+  // Hash the input with SHA-256, compare to stored digest — plaintext never in source
+  var enc = new TextEncoder();
+  var buf = await crypto.subtle.digest('SHA-256', enc.encode(val));
+  var hex = Array.from(new Uint8Array(buf)).map(function(b) {
+    return b.toString(16).padStart(2, '0');
+  }).join('');
+
+  if (hex === '830bffe6376df51378861cfc0666c5fc6c2188d8b7bd84ff6f0c1d2f92c56c86') {
+    localStorage.setItem('afv_access', 'granted');
+    window.location.replace('/course-poc/');
+  } else {
+    err.style.display = 'block';
+    document.getElementById('access-pw').value = '';
+    document.getElementById('access-pw').focus();
+  }
+}
+</script>
+
 </body>
 </html>

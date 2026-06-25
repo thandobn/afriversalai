@@ -16,3 +16,12 @@ desktop.ini
 
 # Logs
 *.log
+
+# Playwright (local testing only — not part of the deployable site)
+node_modules/
+playwright-report/
+test-results/
+package.json
+package-lock.json
+playwright.config.js
+tests/
