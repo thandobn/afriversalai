@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>AfriversalAI — Coming Soon</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -151,10 +154,10 @@
     onkeydown="if(event.key==='Enter')checkPw()"
     autocomplete="current-password"
   />
-  <button onclick="checkPw()">Enter</button>
+  <button type="button" onclick="checkPw()">Enter</button>
   <span class="access-err" id="access-err">Incorrect password</span>
 </div>
-<button class="access-trigger" onclick="toggleAccess()" title="Team access" aria-label="Team access">&#x1F512;</button>
+<button type="button" class="access-trigger" onclick="toggleAccess()" title="Team access" aria-label="Team access">&#x1F512;</button>
 
 <script>
 // Auto-bypass for team members who've already authenticated
