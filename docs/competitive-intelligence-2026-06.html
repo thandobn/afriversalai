@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AfriversalAI — Competitive Intelligence Report · June 2026</title>
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Tokens ── */
+  :root {
+    --green-dark:  #1a3a2a;
+    --green-mid:   #2d6a4f;
+    --gold:        #c9a84c;
+    --gold-light:  #fdf6e3;
+    --red:         #c0392b;
+    --amber:       #e67e22;
+    --blue:        #2471a3;
+    --text:        #1a1a1a;
+    --muted:       #555;
+    --border:      #ddd;
+    --bg:          #f9f9f7;
+    --white:       #ffffff;
+  }
+
+  /* ── Base ── */
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    padding: 0;
+  }
+
+  /* ── Page wrapper ── */
+  .page { max-width: 860px; margin: 0 auto; background: var(--white); }
+
+  /* ── Cover ── */
+  .cover {
+    background: var(--green-dark);
+    color: white;
+    padding: 60px 56px 48px;
+  }
+  .cover__label {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .cover__logo {
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .cover__logo span { color: var(--gold); }
+  .cover__tagline {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 48px;
+  }
+  .cover__title {
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .cover__subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+  }
+  .cover__meta {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    gap: 32px;
+  }
+  .cover__meta strong { color: rgba(255,255,255,0.8); }
+
+  /* ── Body content ── */
+  .body { padding: 48px 56px; }
+
+  /* ── Section headers ── */
+  .section-label {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 8px;
+    margin-top: 48px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  h2 {
+    font-size: 22px;
+    font-weight: normal;
+    color: var(--green-dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gold);
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--green-dark);
+    margin: 24px 0 8px;
+  }
+
+  /* ── Executive summary ── */
+  .exec-summary {
+    background: var(--gold-light);
+    border-left: 4px solid var(--gold);
+    padding: 24px 28px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 32px;
+  }
+  .exec-summary ol { padding-left: 20px; }
+  .exec-summary li { margin-bottom: 10px; font-size: 14px; }
+  .exec-summary li:last-child { margin-bottom: 0; }
+
+  /* ── MzansiLM box ── */
+  .mzansi-box {
+    background: #eaf4fb;
+    border: 1px solid #aed6f1;
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+  .mzansi-box h3 { margin-top: 0; color: var(--blue); }
+  .mzansi-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  .mzansi-table th { background: var(--blue); color: white; padding: 8px 12px; text-align: left; font-family: Arial, sans-serif; font-size: 11px; }
+  .mzansi-table td { padding: 8px 12px; border-bottom: 1px solid #d6eaf8; vertical-align: top; }
+  .mzansi-table tr:last-child td { border-bottom: none; }
+
+  .use-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+  .use-case {
+    background: white;
+    border: 1px solid #aed6f1;
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .use-case__label {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .use-case__label.high { color: var(--green-mid); }
+  .use-case__label.med  { color: var(--amber); }
+  .use-case__label.low  { color: var(--muted); }
+  .use-case p { font-size: 12px; line-height: 1.5; }
+
+  /* ── Competitor cards ── */
+  .competitor-grid { display: grid; gap: 16px; }
+  .comp-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .comp-card__header {
+    background: var(--green-dark);
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .comp-card__name {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .comp-card__url {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+  }
+  .threat-badge {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .threat-high   { background: #fadbd8; color: var(--red); }
+  .threat-medium { background: #fdebd0; color: var(--amber); }
+  .threat-low    { background: #d5f5e3; color: var(--green-mid); }
+  .comp-card__body { padding: 16px 20px; }
+  .comp-card__body p { font-size: 13px; margin-bottom: 10px; }
+  .comp-card__meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .meta-item { font-family: Arial, sans-serif; font-size: 11px; color: var(--muted); }
+  .meta-item strong { color: var(--text); }
+
+  /* ── Differentiation matrix ── */
+  .diff-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 16px 0; }
+  .diff-table th {
+    background: var(--green-dark);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .diff-table th.us { background: var(--gold); color: var(--green-dark); }
+  .diff-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .diff-table tr:nth-child(even) td { background: #fafafa; }
+  .diff-table td:first-child { font-weight: bold; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
+  .diff-table td.us-col { background: #fffbe6; font-weight: bold; }
+  .check { color: var(--green-mid); font-weight: bold; }
+  .cross { color: #aaa; }
+  .partial { color: var(--amber); }
+
+  /* ── Strategic implications ── */
+  .implication {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .implication:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .implication__num {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .implication__content h3 { margin-top: 0; margin-bottom: 6px; font-size: 15px; }
+  .implication__content p { font-size: 13px; color: var(--muted); }
+
+  /* ── Sources ── */
+  .sources { font-size: 12px; }
+  .sources li { margin-bottom: 4px; }
+  .sources a { color: var(--green-mid); }
+
+  /* ── Footer ── */
+  .footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.45);
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    padding: 20px 56px;
+    text-align: center;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: white; }
+    .page { max-width: 100%; }
+    .cover { padding: 40px 40px 32px; }
+    .body { padding: 32px 40px; }
+    .comp-card { break-inside: avoid; }
+    .implication { break-inside: avoid; }
+    h2 { break-after: avoid; }
+    a { color: inherit; text-decoration: none; }
+    .footer { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover__label">Confidential · Internal Use Only</div>
+    <div class="cover__logo">friversalA<span>i</span></div>
+    <div class="cover__tagline">African Professionals · Global Impact</div>
+    <div class="cover__title">Competitive Intelligence &amp;<br>Technology Landscape Report</div>
+    <div class="cover__subtitle">AI Literacy Education · South Africa &amp; Africa · June 2026</div>
+    <div class="cover__meta">
+      <div><strong>Prepared for</strong><br>Thurston &amp; Ntando Davis</div>
+      <div><strong>Prepared by</strong><br>Thandolwenkoski Nkala</div>
+      <div><strong>Date</strong><br>June 2026</div>
+      <div><strong>Classification</strong><br>Internal — Do Not Distribute</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="section-label">Section 1</div>
+    <h2>Executive Summary</h2>
+    <div class="exec-summary">
+      <ol>
+        <li><strong>We have real competitors — 8 identified.</strong> The AI literacy training market in South Africa is active. The most comparable competitor is the African Academy of AI (AAAI), which uses near-identical language ("premier AI capacity builder in Africa") and already has institutional partnerships with GIBS, Henley Business School, and UCT. We are not the only player, but the market is large enough for specialised positions.</li>
+        <li><strong>SETA accreditation is our single biggest differentiator — if we achieve it first.</strong> College Africa Group holds MICT SETA accreditation for IT courses; no confirmed competitor holds SETA accreditation specifically for AI literacy. First-mover on SETA-accredited AI literacy unlocks Skills Development Levy (SDL) cost recovery for corporate buyers — changing the purchase math dramatically for L&amp;D managers.</li>
+        <li><strong>Our price point is strategically correct.</strong> Henley charges R14,999 for 3 days. UCT charges R9,000 for 3 days. Our founding cohort at R14,995 for 8 weeks of structured learning with a human-assessed capstone is better value — but we must frame it against institutional programs, not against free Microsoft content.</li>
+        <li><strong>The government vertical is wide open.</strong> No competitor is explicitly pitching "department-wide AI literacy for public servants, aligned with South Africa's 2024 National AI Policy." This framing — combined with PSETA accreditation as a future goal — is a high-value, low-competition market position.</li>
+        <li><strong>A South African AI research model (MzansiLM) exists and we should reference it.</strong> UCT released an open-source LLM covering all 11 official SA languages in early 2026. Citing it in our curriculum costs nothing and substantiates our "African-centered AI" claim with a real, citable example. It may also help us build a translation pipeline for future multilingual content.</li>
+      </ol>
+    </div>
+
+    <!-- MZANSILM -->
+    <div class="section-label">Section 2</div>
+    <h2>MzansiLM — South Africa's Own AI Model</h2>
+    <div class="mzansi-box">
+      <h3>What It Is</h3>
+      <p style="font-size:13px;margin-bottom:16px;">MzansiLM is a foundational language model released in early 2026 by researchers at the University of Cape Town — covering all 11 official South African written languages. It is the first publicly available AI model trained from scratch specifically on South African language data. Think of it as raw material from a local foundry: not a finished product, but something we can shape for specific purposes.</p>
+
+      <table class="mzansi-table">
+        <thead><tr><th>Attribute</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Built by</strong></td><td>University of Cape Town — Dept of Computer Science</td></tr>
+          <tr><td><strong>Size</strong></td><td>125 million parameters (research scale — not GPT-4)</td></tr>
+          <tr><td><strong>Languages</strong></td><td>All 11 official SA written languages</td></tr>
+          <tr><td><strong>License</strong></td><td>CC BY 4.0 — open source, commercial use permitted with attribution</td></tr>
+          <tr><td><strong>Availability</strong></td><td>Free download on HuggingFace (anrilombard/mzansilm-125m)</td></tr>
+          <tr><td><strong>Limitation</strong></td><td>Too small for general conversation; best for narrow, structured tasks (translation, classification)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="color:#2471a3;">How AfriversalAI Can Use It</h3>
+      <div class="use-cases">
+        <div class="use-case">
+          <div class="use-case__label high">High Feasibility</div>
+          <p><strong>Translation pipeline.</strong> Fine-tune for SA language translation of course materials. Draft isiZulu/Sesotho content for human review — makes multilingual expansion faster and cheaper.</p>
+        </div>
+        <div class="use-case">
+          <div class="use-case__label med">Medium Feasibility</div>
+          <p><strong>Quiz generation.</strong> Generate assessment questions in SA languages after fine-tuning on educational content. Outputs require human QA before use.</p>
+        </div>
+        <div class="use-case">
+          <div class="use-case__label low">Phase 2 (Later)</div>
+          <p><strong>Curriculum reference.</strong> Cite MzansiLM in Module 5 or 6 as a real example of African AI research. Costs nothing and substantiates our "African-centered" positioning.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPETITOR PROFILES -->
+    <div class="section-label">Section 3</div>
+    <h2>Competitor Profiles</h2>
+
+    <div class="competitor-grid">
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">African Academy of AI (AAAI)</div>
+            <div class="comp-card__url">aaai.africa</div>
+          </div>
+          <span class="threat-badge threat-high">Watch Closely</span>
+        </div>
+        <div class="comp-card__body">
+          <p>The most strategically similar competitor. AAAI positions itself as "The Premier AI Strategy, Education, and Capacity Builder in Africa" — language nearly identical to our own. They deliver B2B programs to banks, insurers, regulators, and corporates across Africa, with institutional partnerships at GIBS, Henley Business School, UCT, and the African Association of Business Schools. Their strength is enterprise credibility at the C-suite level. Their gap: they are executive-focused and do not offer a workforce-wide, LMS-backed cohort program for frontline professionals.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> C-suite, HR, enterprise</div>
+            <div class="meta-item"><strong>Pricing:</strong> Quote-based (enterprise)</div>
+            <div class="meta-item"><strong>SETA:</strong> None confirmed</div>
+            <div class="meta-item"><strong>Platform:</strong> No LMS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">Henley Business School Africa</div>
+            <div class="comp-card__url">henleysa.ac.za</div>
+          </div>
+          <span class="threat-badge threat-medium">Monitor</span>
+        </div>
+        <div class="comp-card__body">
+          <p>Offers "Strategies for Advanced AI Leadership in Africa" — a 3-day face-to-face workshop in Johannesburg at R14,999 per seat (~$820 USD), targeting senior executives. Curriculum covers AI leadership, ethics, governance, and responsible AI with explicit "African context" framing. Delivered in partnership with AAAI, so these two are effectively the same training pipeline at the premium executive end. Non-credit-bearing, no SETA accreditation. The institutional brand carries weight with certain buyers but does not serve the workforce-wide L&amp;D manager.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> Senior executives</div>
+            <div class="meta-item"><strong>Pricing:</strong> R14,999 / 3 days</div>
+            <div class="meta-item"><strong>SETA:</strong> None</div>
+            <div class="meta-item"><strong>Format:</strong> Face-to-face workshop</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">UCT Graduate School of Business</div>
+            <div class="comp-card__url">gsb.uct.ac.za</div>
+          </div>
+          <span class="threat-badge threat-medium">Monitor</span>
+        </div>
+        <div class="comp-card__body">
+          <p>Offers "AI Leadership in Action" — a 3-day executive masterclass at R9,000 per seat (~$490 USD), running July 2026. Covers AI fundamentals, ethics, governance, and implementation with "African socio-economic relevance." Targets senior executives and policy-makers. CHE-accredited through UCT's internal quality framework (not SETA). The UCT name carries strong credibility with public sector and academic buyers but does not reach the broad professional workforce.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> Executives, policy-makers</div>
+            <div class="meta-item"><strong>Pricing:</strong> R9,000 / 3 days</div>
+            <div class="meta-item"><strong>SETA:</strong> None (CHE only)</div>
+            <div class="meta-item"><strong>Format:</strong> Executive masterclass</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">College Africa Group (CAG)</div>
+            <div class="comp-card__url">collegeafricagroup.com</div>
+          </div>
+          <span class="threat-badge threat-high">Watch Closely</span>
+        </div>
+        <div class="comp-card__body">
+          <p>A long-established South African corporate training provider with confirmed MICT SETA accreditation (for IT/Microsoft courses). Their AI training product is ChatGPT/Copilot-focused — practical and productivity-oriented — delivered onsite or virtually across major SA cities. They already hold the corporate L&amp;D relationships that AfriversalAI is trying to build. Their AI offering is a bolt-on to their existing catalog, not a purpose-built program, and it does not focus on judgment or critical evaluation. If they achieve SETA accreditation for AI literacy specifically, their distribution advantage becomes significant.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> L&amp;D managers (B2B)</div>
+            <div class="meta-item"><strong>Pricing:</strong> Quote-based</div>
+            <div class="meta-item"><strong>SETA:</strong> MICT SETA ✓ (IT; AI unconfirmed)</div>
+            <div class="meta-item"><strong>Format:</strong> Workshop (on/virtual)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">AI Compass — Global Business School</div>
+            <div class="comp-card__url">globalbusiness.co.za</div>
+          </div>
+          <span class="threat-badge threat-medium">Monitor</span>
+        </div>
+        <div class="comp-card__body">
+          <p>A 6-month corporate program (July 2026–January 2027) at R32,500 per participant, covering AI tools, governance, POPIA compliance, and SA regulatory frameworks. Includes monthly workshops and application labs. Won the WesBank Silver Award 2025. This is the closest competitor to AfriversalAI's cohort format — sustained engagement, B2B, structured. Their gap: no human-assessed capstone, no LMS platform, and at R32,500 they are significantly more expensive for a similar outcome.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> L&amp;D, HR managers (B2B)</div>
+            <div class="meta-item"><strong>Pricing:</strong> R32,500 / 6 months</div>
+            <div class="meta-item"><strong>SETA:</strong> None</div>
+            <div class="meta-item"><strong>Format:</strong> Monthly cohort</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">Mzansi AI</div>
+            <div class="comp-card__url">aimzansi.com</div>
+          </div>
+          <span class="threat-badge threat-low">Low Overlap</span>
+        </div>
+        <div class="comp-card__body">
+          <p>A B2C and schools-facing AI literacy organisation targeting primarily primary school pupils (ages 6–13), high school students, and working professionals through holiday bootcamps and weekend workshops. Their "Corporate AI Upskilling" offer is listed but without specifics. No SETA accreditation, no pricing disclosed, no multilingual support. Their positioning is school-first and youth-first — not the L&amp;D manager inbox. Low direct overlap with AfriversalAI's B2B cohort market, but they occupy the same brand territory ("Mzansi AI" vs "AfriversalAI").</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> Schools, B2C, youth</div>
+            <div class="meta-item"><strong>Pricing:</strong> Not disclosed</div>
+            <div class="meta-item"><strong>SETA:</strong> None</div>
+            <div class="meta-item"><strong>Format:</strong> Bootcamps, workshops</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">School of IT</div>
+            <div class="comp-card__url">schoolofit.co.za</div>
+          </div>
+          <span class="threat-badge threat-low">Low Overlap</span>
+        </div>
+        <div class="comp-card__body">
+          <p>Individual professional training at R12,900–R36,900 per person for AI literacy courses. Self-paced, 1-on-1 scheduling, 10–40 hours of content. Targets individual working professionals in marketing, HR, and finance. B2C pricing model — they sell to individuals, not L&amp;D budget lines. No SETA accreditation. Per-learner price is in a similar range to AfriversalAI but the purchase decision, delivery model, and buyer are entirely different.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> Individual professionals (B2C)</div>
+            <div class="meta-item"><strong>Pricing:</strong> R12,900–R36,900 / person</div>
+            <div class="meta-item"><strong>SETA:</strong> None</div>
+            <div class="meta-item"><strong>Format:</strong> Self-paced individual</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-card__header">
+          <div>
+            <div class="comp-card__name">NobleProg South Africa</div>
+            <div class="comp-card__url">nobleprog.co.za</div>
+          </div>
+          <span class="threat-badge threat-low">Low Overlap</span>
+        </div>
+        <div class="comp-card__body">
+          <p>A global training franchise with a South African node offering a wide AI catalog (ChatGPT, Copilot, AI agents, generative AI) — instructor-led, online or onsite. No African context differentiation and no proprietary curriculum. Competes on volume, global brand recognition, and instructor availability rather than a specialised position. Unlikely to attract buyers specifically looking for African-context AI literacy.</p>
+          <div class="comp-card__meta">
+            <div class="meta-item"><strong>Target:</strong> Generic corporate</div>
+            <div class="meta-item"><strong>Pricing:</strong> Not disclosed</div>
+            <div class="meta-item"><strong>SETA:</strong> None</div>
+            <div class="meta-item"><strong>Format:</strong> Instructor-led (global catalog)</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /competitor-grid -->
+
+    <!-- DIFFERENTIATION MATRIX -->
+    <div class="section-label">Section 4</div>
+    <h2>Differentiation Matrix</h2>
+
+    <table class="diff-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th class="us">AfriversalAI</th>
+          <th>AAAI</th>
+          <th>Henley / UCT</th>
+          <th>CAG</th>
+          <th>AI Compass</th>
+          <th>Mzansi AI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Primary buyer</td>
+          <td class="us-col">L&amp;D Manager (B2B cohort)</td>
+          <td>C-Suite / HR (B2B)</td>
+          <td>C-Suite (exec ed)</td>
+          <td>L&amp;D Manager (B2B)</td>
+          <td>L&amp;D / HR (B2B)</td>
+          <td>Parents / schools (B2C)</td>
+        </tr>
+        <tr>
+          <td>Judgment focus</td>
+          <td class="us-col"><span class="check">✓ Core</span></td>
+          <td><span class="partial">Partial</span></td>
+          <td><span class="partial">1 of 6 modules</span></td>
+          <td><span class="cross">✗ Tools only</span></td>
+          <td><span class="cross">✗ Tools + compliance</span></td>
+          <td><span class="cross">✗ Tools only</span></td>
+        </tr>
+        <tr>
+          <td>Workforce-wide (not just executives)</td>
+          <td class="us-col"><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Purpose-built LMS platform</td>
+          <td class="us-col"><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Human-assessed capstone</td>
+          <td class="us-col"><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Real SA case studies built in</td>
+          <td class="us-col"><span class="check">✓</span></td>
+          <td><span class="partial">Partial</span></td>
+          <td><span class="partial">Partial</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">SA regulation only</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Government vertical targeting</td>
+          <td class="us-col"><span class="check">✓ (stated)</span></td>
+          <td><span class="partial">Mentioned</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>SETA accreditation</td>
+          <td class="us-col"><span class="partial">In progress (MICT SETA)</span></td>
+          <td><span class="cross">None</span></td>
+          <td><span class="cross">None</span></td>
+          <td><span class="partial">MICT SETA (not AI-specific)</span></td>
+          <td><span class="cross">None</span></td>
+          <td><span class="cross">None</span></td>
+        </tr>
+        <tr>
+          <td>Multilingual (indigenous SA languages)</td>
+          <td class="us-col"><span class="partial">In development</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Founding cohort pricing (per learner)</td>
+          <td class="us-col">R14,995 / 8 weeks</td>
+          <td>Quote (enterprise)</td>
+          <td>R9,000–R14,999 / 3 days</td>
+          <td>Quote</td>
+          <td>R32,500 / 6 months</td>
+          <td>Not disclosed</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- STRATEGIC IMPLICATIONS -->
+    <div class="section-label">Section 5</div>
+    <h2>Strategic Implications</h2>
+
+    <div class="implication">
+      <div class="implication__num">1</div>
+      <div class="implication__content">
+        <h3>SETA accreditation is the single most important action item</h3>
+        <p>No competitor in this landscape holds confirmed SETA accreditation for an AI literacy program. College Africa Group has MICT SETA accreditation for IT courses generally, but not for AI literacy specifically. If AfriversalAI achieves SETA accreditation first, L&amp;D managers can recover 40–60% of training costs through the Skills Development Levy — which changes a R14,995 investment into an effective R7,500–9,000 investment per learner. This is a procurement argument no competitor can currently make. It should be the team's top operational priority.</p>
+      </div>
+    </div>
+
+    <div class="implication">
+      <div class="implication__num">2</div>
+      <div class="implication__content">
+        <h3>AAAI is our benchmark competitor — differentiate on depth, not positioning</h3>
+        <p>AAAI is the most credible competitor and uses nearly identical positioning language. We cannot out-credential them in the short term (they have GIBS, Henley, and UCT partnerships). Our differentiation must be specific: AfriversalAI goes deeper into judgment skills for a broader workforce audience, at a lower per-seat cost, with a purpose-built LMS and a human-assessed certificate. The pitch to an L&amp;D manager is: "AAAI trains your board — we train your team." That argument only holds if the SETA path is real and the assessor capacity is in place.</p>
+      </div>
+    </div>
+
+    <div class="implication">
+      <div class="implication__num">3</div>
+      <div class="implication__content">
+        <h3>The government vertical is wide open — and fundable</h3>
+        <p>No competitor is explicitly pitching department-wide AI literacy for public servants as a primary market. South Africa's National AI Policy (2024) creates real institutional pressure on government departments to upskill staff on responsible AI. A cohort positioned as "AI judgment training aligned with the 2024 National AI Policy" — potentially eligible for PSETA (Public Service SETA) funding — is a high-value, low-competition framing. This should be explored as a distinct sales motion alongside the corporate B2B track.</p>
+      </div>
+    </div>
+
+    <div class="implication">
+      <div class="implication__num">4</div>
+      <div class="implication__content">
+        <h3>Pricing narrative should anchor against Henley and UCT, not free content</h3>
+        <p>Henley charges R14,999 for 3 days with no assessed certificate. UCT charges R9,000 for 3 days. AfriversalAI at R14,995 for 8 weeks of structured learning, live forums, and a human-assessed capstone is meaningfully better value per hour of instruction and per unit of demonstrated competency. All pricing conversations should anchor against institutional alternatives — not against Microsoft's free AI tools training, which serves a different purpose and a different buyer.</p>
+      </div>
+    </div>
+
+    <div class="implication">
+      <div class="implication__num">5</div>
+      <div class="implication__content">
+        <h3>Multilingual delivery is a real differentiator — but only once it is real</h3>
+        <p>Every competitor in this landscape delivers in English only. AfriversalAI's ambition to offer content in Afrikaans, French, and isiZulu is genuinely differentiated — particularly for government clients who serve Zulu-speaking and Afrikaans-speaking communities. However, this claim should only appear in marketing once translations have been reviewed by native speakers. In the interim, referencing MzansiLM (UCT's 11-language SA model) in the curriculum is a cost-free way to substantiate our commitment to African language inclusion without overpromising delivery.</p>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="section-label">Section 6</div>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://www.news.uct.ac.za/article/-2026-05-04-uct-researchers-develop-ai-model-for-11-south-african-languages">UCT News: MzansiLM announcement</a></li>
+      <li><a href="https://arxiv.org/html/2603.20732v1">arXiv: MzansiText and MzansiLM research paper</a></li>
+      <li><a href="https://www.itweb.co.za/article/uct-researchers-develop-multilingual-ai-language-model/Gb3BwMWa6Vjv2k6V">ITWeb: UCT develops multilingual AI model</a></li>
+      <li><a href="https://aimzansi.com">Mzansi AI (aimzansi.com)</a></li>
+      <li><a href="https://www.aaai.africa">African Academy of AI (aaai.africa)</a></li>
+      <li><a href="https://www.henleysa.ac.za/hbs-strategies-for-advanced-ai-leadership-in-africa">Henley SA: AI Leadership Africa programme</a></li>
+      <li><a href="https://www.gsb.uct.ac.za/executive-education/ai-leadership-in-africa/">UCT GSB: AI Leadership in Action masterclass</a></li>
+      <li><a href="https://collegeafricagroup.com/corporate-ai-training-south-africa/">College Africa Group: Corporate AI Training</a></li>
+      <li><a href="https://www.schoolofit.co.za/ai-literacy-courses-south-africa/">School of IT: AI Literacy Courses SA</a></li>
+      <li><a href="https://www.globalbusiness.co.za/ai-compass-capacitation-programme">GBS: AI Compass Programme</a></li>
+      <li><a href="https://www.nobleprog.co.za/artificial-intelligence-ai-training">NobleProg SA: AI Training</a></li>
+      <li><a href="https://news.microsoft.com/source/emea/2026/01/microsoft-and-sabc-plus-set-to-unlock-ai-and-digital-skills-for-millions-of-south-africans/">Microsoft AI Skills Initiative South Africa</a></li>
+    </ol>
+
+  </div><!-- /body -->
+
+  <div class="footer">
+    AfriversalAI · Confidential · Internal Use Only · June 2026 · Prepared by Thandolwenkoski Nkala
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
