@@ -41,3 +41,27 @@
 **Lesson:** GoDaddy forwarding destination for `.co.za` was initially typed as `afriversalai.ai` (wrong) instead of `afriversal.ai` (correct)
 **Why it happened:** The domain name `afriversal` and the TLD `.ai` look similar to `afriversalai` in a small text field — easy to type the brand name instead of just the domain. The GoDaddy table truncates URLs so it wasn't visible until hovering for the tooltip.
 **What to do instead:** After saving any domain forward in GoDaddy, always hover over the truncated destination URL to read the full tooltip before moving on. Verify the exact string, not just that it looks roughly right.
+
+---
+
+**Lesson:** Recommended Amazon WorkMail ($4/month) as an email hosting option without verifying it was still available — it's discontinued for new signups.
+**Why it happened:** Assumed a major AWS service was still active without checking current availability. The user navigated to the console and got blocked.
+**What to do instead:** Before recommending any external service (especially cloud/SaaS), flag uncertainty about current availability explicitly. "I believe X is available but let me confirm" beats sending the user to a dead console.
+
+---
+
+**Lesson:** Sent user to scroll through the Google Account Security UI to find App Passwords — it's hidden from the UI on many accounts even with 2FA on.
+**Why it happened:** Assumed the standard navigation path (Security page → scroll down) would surface the option.
+**What to do instead:** Go directly to `myaccount.google.com/apppasswords` — skip the Security page navigation entirely. This is the reliable path regardless of account UI variant.
+
+---
+
+**Lesson:** Gmail App Password authentication failed on first attempt because the password was pasted with spaces (Google displays as `xxxx xxxx xxxx xxxx`).
+**Why it happened:** Didn't proactively warn that SMTP requires the password without spaces before the user hit the error.
+**What to do instead:** Before the user clicks "Add Account" on any SMTP dialog with an App Password, explicitly say: "Make sure there are no spaces — Google shows it in groups of 4 but SMTP needs it as one continuous string."
+
+---
+
+**Lesson:** Didn't know DNS for `afriversal.ai` was on Namecheap — had to be corrected by the user mid-session ("its a namecheap i thought you knew that").
+**Why it happened:** Infrastructure details weren't in project memory; I assumed Route 53 without checking.
+**What to do instead:** Infrastructure ownership (who holds DNS for each domain) belongs in project memory from the moment it's established. Read `project_afriversalai.md` at session start and never assume AWS/Route 53 without confirming the registrar first.

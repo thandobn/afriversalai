@@ -3,7 +3,7 @@
 // Loaded by admin-login.html, admin.html, and dashboard.html.
 window.ADMIN_EMAILS = [
   'ask@afriversal.ai',
-  'thando@afriversal.ai',
+  'afriversalai@gmail.com',
   'facilitator@afriversal.ai',
 ];
 window.isAdminEmail = function (email) {

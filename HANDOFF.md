@@ -562,3 +562,33 @@ A fresh session should know these terms:
 - `CNAME` (root) — updated to `afriversal.ai`
 - `BACKLOG.md` — added Tech section with T1
 - `HANDOFF.md` (this entry)
+
+---
+
+## Session: 2026-06-26 — Contact nav + diff matrix + admin bypass + email
+
+**What was worked on:**
+- Added Contact nav link to all 36 HTML pages (public pages: after Pricing; logged-in pages: after Settings)
+- Added competitive differentiation matrix to pricing.html — framed as "Finding the right programme" with named competitors but neutral language; `overflow-x: auto` for mobile; disclaimer "as of June 2026" at bottom
+- Implemented admin bypass across all 11 module files using 3 distinct patterns (Pattern A: direct DOM, Pattern B: existing `unlock()`, Pattern C: inline condition); admins.js loaded in all module files
+- Set up ask@afriversal.ai email: Namecheap email forwarding (receive-only, → afriversalai@gmail.com) + Gmail "Send as" alias (smtp.gmail.com:587 + App Password) — fully live and verified
+- Updated project memory with Namecheap infrastructure details (DNS, hosting, email)
+
+**Decisions made:**
+- Differentiation matrix names competitors but does not frame as attack — "don't look like we're coming for them" is the tone rule
+- Admin emails `ask@afriversal.ai`, `thando@afriversal.ai`, `facilitator@afriversal.ai` already in admins.js and skip all module gates
+- Gmail "Send as" using App Password (not OAuth) — SMTP not available via Namecheap's free forwarding; App Password requires 2FA enabled on the Gmail account
+- Amazon WorkMail new signups blocked (discontinued) — Gmail alias approach is correct free-tier alternative
+
+**Open items / next steps:**
+- BACKLOG T1: knowledge check answer persistence (localStorage) — standing
+- www.afriversal.ai → Amplify (course); consider redirecting to coming soon — low priority
+- Module engine extraction (dedicated sprint) — standing
+- One-phase-at-a-time UX for module-1 (pending mom approval of module-0 pattern) — standing
+- Claims audit + site rewrites (plan exists: competitive intelligence plan file) — next major sprint
+
+**Files changed:**
+- All 36 course-poc HTML files (Contact nav link)
+- course-poc/pricing.html (differentiation matrix section + CSS)
+- course-poc/module-0.html, module-1.html, module-2.html, module-3.html, module-4.html, module-5.html, module-6.html, module-7-corporate.html, module-7-education.html, module-7-finance.html, module-7-government.html, module-7-healthcare.html (admin bypass + admins.js script tag)
+- `C:\Users\techhub\.claude\projects\C--Users-techhub\memory\project_afriversalai.md` (infrastructure + email updated)
