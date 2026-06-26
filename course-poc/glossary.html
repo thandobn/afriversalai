@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -13,6 +13,14 @@
     .gloss-hero h1 { font-size: 2em; font-weight: 800; color: white; margin: 12px 0 10px; }
     .gloss-hero p { color: rgba(255,255,255,0.72); max-width: 640px; }
     @media (max-width: 768px) { .gloss-hero { padding: 44px 24px 36px; } }
+
+    /* Search bar */
+    .gloss-search-wrap { position: relative; display: inline-block; width: 100%; max-width: 480px; margin-top: 24px; }
+    .gloss-search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); pointer-events: none; }
+    #gloss-search { width: 100%; box-sizing: border-box; padding: 11px 16px 11px 42px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.12); color: white; font-size: 0.95em; font-family: inherit; outline: none; }
+    #gloss-search::placeholder { color: rgba(255,255,255,0.5); }
+    #gloss-search:focus { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.2); }
+    .gloss-no-results { display: none; text-align: center; padding: 64px 0 40px; color: var(--muted); font-size: 0.95em; }
 
     /* A-Z jump nav */
     .az-nav { background: white; border-bottom: 1.5px solid var(--border); padding: 14px 0; position: sticky; top: 0; z-index: 50; }
@@ -35,6 +43,7 @@
     .tag--general   { background: var(--green-light); color: var(--green-dark); }
     .tag--generative { background: var(--gold-light); color: var(--gold-dark); }
     .tag--predictive { background: #DBEAFE; color: #1E40AF; }
+    .tag--course { background: #F3E8FF; color: #6B21A8; }
     .gloss-term p { font-size: 0.92em; color: var(--text); line-height: 1.75; margin: 0; }
     .gloss-term__example { font-size: 0.85em; color: var(--muted); margin-top: 8px; font-style: italic; }
 
@@ -102,6 +111,10 @@
     <span style="font-size:0.82em; padding:3px 12px; border-radius:12px; background:var(--gold-light); color:var(--gold-dark); font-weight:700;">Generative AI</span>
     <span style="font-size:0.82em; padding:3px 12px; border-radius:12px; background:#DBEAFE; color:#1E40AF; font-weight:700;">Predictive AI</span>
   </div>
+  <div class="gloss-search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" id="gloss-search" placeholder="Search terms&hellip;" autocomplete="off" spellcheck="false" aria-label="Search glossary terms" />
+  </div>
 </div>
 
 <!-- A-Z NAV -->
@@ -112,7 +125,7 @@
     <a href="#C" class="has-terms">C</a>
     <a href="#D" class="has-terms">D</a>
     <a class="no-terms">E</a>
-    <a class="no-terms">F</a>
+    <a href="#F" class="has-terms">F</a>
     <a href="#G" class="has-terms">G</a>
     <a href="#H" class="has-terms">H</a>
     <a class="no-terms">I</a>
@@ -121,11 +134,11 @@
     <a href="#L" class="has-terms">L</a>
     <a href="#M" class="has-terms">M</a>
     <a href="#N" class="has-terms">N</a>
-    <a class="no-terms">O</a>
+    <a href="#O" class="has-terms">O</a>
     <a href="#P" class="has-terms">P</a>
     <a class="no-terms">Q</a>
     <a href="#R" class="has-terms">R</a>
-    <a class="no-terms">S</a>
+    <a href="#S" class="has-terms">S</a>
     <a href="#T" class="has-terms">T</a>
     <a class="no-terms">U</a>
     <a class="no-terms">V</a>
@@ -139,8 +152,19 @@
 <section class="bg-pale">
 <div class="gloss-body">
 
+  <p class="gloss-no-results">No terms match your search. Try a different word.</p>
+
   <!-- A -->
   <div class="gloss-letter" id="A">A</div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Agency (AI Agency)</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>The capacity of an AI system to take actions independently in pursuit of a goal &mdash; not just respond to a single prompt, but plan, decide, and act across a sequence of steps without human approval at each one. An AI system with high agency can browse the web, send emails, run code, and chain multiple actions together on your behalf. As AI systems gain more agency, questions of oversight and control become increasingly urgent.</p>
+    <p class="gloss-term__example">Example: An AI agent given the task "book me a flight to Cape Town next Thursday under R5,000" that independently searches flight sites, compares options, and completes the booking &mdash; without prompting you at each step.</p>
+  </div>
 
   <div class="gloss-term">
     <div class="gloss-term__header">
@@ -153,10 +177,47 @@
 
   <div class="gloss-term">
     <div class="gloss-term__header">
+      <span class="gloss-term__name">AI Ethics</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>The study and practice of ensuring AI systems are developed and used in ways that are fair, transparent, accountable, and aligned with human values. AI ethics is not just academic philosophy &mdash; it is increasingly a professional and regulatory discipline. It asks: who benefits from this AI, who might be harmed by it, who is responsible when it goes wrong, and whether the people it affects can understand or contest its decisions.</p>
+    <p class="gloss-term__example">Key questions AI ethics asks: Is the system's decision-making explainable? Does it produce fair outcomes across different groups? Who bears accountability when it causes harm? Can affected people challenge the outcome?</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
       <span class="gloss-term__name">Algorithm</span>
       <span class="gloss-tag tag--general">Foundational</span>
     </div>
     <p>A step-by-step set of instructions a computer follows to solve a problem or complete a task. In AI, algorithms are the mathematical processes used to learn from data and produce outputs. Not all algorithms are AI &mdash; a recipe is an algorithm; so is the logic that sorts your inbox by date.</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Ambient Technology</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>Technology &mdash; including AI &mdash; embedded invisibly into the physical environment, rather than accessed through a screen or an explicit interface. Ambient AI uses sensors, microphones, cameras, and connectivity built into rooms, buildings, vehicles, or wearables to monitor and respond to what is happening around you, often without you needing to initiate an interaction.</p>
+    <p class="gloss-term__example">Examples: Smart home systems that adjust lighting and temperature based on who enters a room. Retail stores that track shopper movement without a traditional checkout. Hospital rooms that detect patient falls via ceiling cameras.</p>
+    <p class="gloss-term__example">Privacy note: Because ambient technology is passive and often invisible, consent and transparency are significant ethical concerns &mdash; people may not be aware they are being monitored or that AI is acting on what it detects.</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Anthropic</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>An American AI safety company founded in 2021 that created Claude, one of the leading large language models. Anthropic was founded by Dario Amodei, Daniela Amodei, and other former members of OpenAI, with a stated focus on AI safety research and interpretability &mdash; understanding how and why AI systems produce the outputs they do. Its name comes from "anthropic," meaning relating to human existence.</p>
+    <p class="gloss-term__example">Relevance: Claude is one of the AI tools referenced across the AfriversalAI curriculum. Anthropic publishes research on AI safety and responsible deployment practices.</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Augmentation (AI Augmentation)</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>The use of AI to enhance human capabilities rather than replace them. Unlike full automation, augmentation keeps a human in the decision loop &mdash; the AI provides suggestions, analysis, or information, while the human applies judgment and takes action. Augmentation is often contrasted with automation to describe a model where AI makes workers more capable, not redundant.</p>
+    <p class="gloss-term__example">Example: A doctor using AI to analyse X-rays receives highlighted areas of concern &mdash; but still makes the diagnosis. A lawyer using AI to surface relevant case law still drafts the argument. The AI augments; the human decides.</p>
   </div>
 
   <div class="gloss-term">
@@ -178,6 +239,15 @@
     </div>
     <p>When an AI system produces results that systematically favour or disadvantage certain groups of people. AI bias is almost always caused by patterns in training data that reflect historical inequalities &mdash; the AI learns to repeat them, often without anyone intending it to discriminate.</p>
     <p class="gloss-term__example">Example: A credit-scoring AI trained on historical South African lending data may learn that certain postal codes predict loan default &mdash; because apartheid-era exclusion from formal credit markets produced those patterns in the data.</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Big Data</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>Extremely large and complex datasets that traditional computing tools cannot process efficiently. Big data is often described by the "three Vs": <em>Volume</em> (enormous amounts), <em>Velocity</em> (generated at high speed), and <em>Variety</em> (structured numbers alongside unstructured text, images, and audio). Most modern AI depends on big data for training &mdash; the scale of available training data is one of the primary reasons current AI capabilities were not possible a decade ago.</p>
+    <p class="gloss-term__example">Examples: Every transaction across a major bank's network in one day, all GPS pings from ride-hailing apps across a city, or all social media posts globally in a single hour.</p>
   </div>
 
   <!-- C -->
@@ -221,6 +291,19 @@
     <p>A type of machine learning that uses neural networks with many layers ("deep" layers) to identify complex patterns in large datasets. Most modern AI &mdash; including image recognition, speech recognition, and large language models &mdash; is built on deep learning. The "depth" refers to the number of processing layers, not complexity of understanding.</p>
   </div>
 
+  <!-- F -->
+  <div class="gloss-letter" id="F">F</div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Funda Five</span>
+      <span class="gloss-tag tag--course">AfriversalAI</span>
+    </div>
+    <p>AfriversalAI's five-question judgment framework for evaluating any AI situation in a professional context. Introduced in Module 1 and applied throughout the course, the Funda Five gives every learner a consistent, repeatable decision process that requires no technical background. The name draws on the isiZulu and Sesotho word <em>funda</em>, meaning "to learn."</p>
+    <p>The five questions are: <strong>1. Task</strong> &mdash; Is this the right kind of job for AI? <strong>2. Data</strong> &mdash; Is any of this sensitive or POPIA-protected? <strong>3. Tool</strong> &mdash; Is this AI type right for the task and approved by my organisation? <strong>4. Trust</strong> &mdash; How would I detect an error in this output? <strong>5. Human</strong> &mdash; Who checks this, and who is accountable if it goes wrong?</p>
+    <p class="gloss-term__example">See also: <a href="funda-five.html">The Funda Five</a> page for the full interactive framework. Related terms: Responsible AI, AI Ethics.</p>
+  </div>
+
   <!-- G -->
   <div class="gloss-letter" id="G">G</div>
 
@@ -231,6 +314,15 @@
     </div>
     <p>AI that creates new content &mdash; text, images, audio, code, or video &mdash; by predicting what should come next based on patterns learned from training data. It does not retrieve from a database of facts; it generates outputs that are statistically consistent with what it has seen. This is why it can be fluent and wrong at the same time.</p>
     <p class="gloss-term__example">Examples: ChatGPT, Claude, Gemini, Microsoft Copilot, Midjourney (images), ElevenLabs (audio).</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">GPU (Graphics Processing Unit)</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>A type of computer chip originally designed for rendering graphics, now fundamental to AI training and inference. GPUs can perform thousands of mathematical operations simultaneously in parallel, making them far faster than standard CPUs for the matrix calculations at the core of neural network training. Access to sufficient GPU power is a major bottleneck in AI development &mdash; which is why cloud AI costs are high and why GPU supply chains have become geopolitically significant.</p>
+    <p class="gloss-term__example">Scale reference: Training a large language model can require thousands of GPUs running continuously for weeks. Consumer GPUs can run smaller AI models locally &mdash; which is part of why the gap between what large companies and individuals can build is so wide.</p>
   </div>
 
   <!-- H -->
@@ -255,6 +347,15 @@
     </div>
     <p>A type of AI trained on vast quantities of text to understand and generate human language. "Large" refers to the scale of both training data and the model's internal parameters &mdash; modern LLMs are trained on a significant portion of publicly available text on the internet. LLMs are the technology behind ChatGPT, Claude, Gemini, and similar tools.</p>
     <p class="gloss-term__example">What they can do well: Drafting, summarising, translating, brainstorming, explaining concepts.<br>What they cannot do: Retrieve verified facts, know what has happened after their training cutoff, or reliably self-correct.</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Lossy</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>A property of compression where some information is permanently discarded to reduce file size or complexity, with the result that the decompressed version is an approximation of the original &mdash; not an exact copy. In AI, the concept applies to how models compress knowledge from training data. An LLM doesn't memorise every source it was trained on; it compresses patterns across billions of documents. What specific facts get "lost" in that compression is unpredictable, which is one structural reason models hallucinate.</p>
+    <p class="gloss-term__example">Everyday examples: A JPEG photo saved at low quality loses fine detail that cannot be recovered when you zoom in. An MP3 discards audio frequencies the human ear is least sensitive to. Both are lossy &mdash; the file is smaller, but some of the original is gone permanently.</p>
   </div>
 
   <!-- M -->
@@ -285,6 +386,18 @@
       <span class="gloss-tag tag--general">Foundational</span>
     </div>
     <p>A computing architecture loosely inspired by the structure of the human brain, made up of layers of interconnected nodes ("neurons") that process and pass information. Neural networks are the foundation of most modern AI. The analogy to the brain is loose &mdash; neurons in AI are mathematical functions, not biological cells, and the network has no understanding of what it is processing.</p>
+  </div>
+
+  <!-- O -->
+  <div class="gloss-letter" id="O">O</div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">OpenAI</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>An American AI research company founded in 2015 that created ChatGPT, GPT-4, and the image model DALL-E. OpenAI began as a nonprofit with the stated goal of safely developing artificial general intelligence (AGI), then adopted a "capped-profit" structure in 2019 to attract investment. It is the company most responsible for bringing generative AI into mainstream workplaces globally, primarily through the November 2022 launch of ChatGPT &mdash; which reached 100 million users in two months, faster than any consumer product in history at the time.</p>
+    <p class="gloss-term__example">Relevance: ChatGPT is the most widely recognised generative AI tool in South African workplaces. Many third-party AI applications across sectors are built on OpenAI's GPT models via its API. See also: Anthropic.</p>
   </div>
 
   <!-- P -->
@@ -339,10 +452,32 @@
 
   <div class="gloss-term">
     <div class="gloss-term__header">
+      <span class="gloss-term__name">Reinforcement Learning</span>
+      <span class="gloss-tag tag--general">Foundational</span>
+    </div>
+    <p>A type of machine learning where an AI system learns by trial and error &mdash; taking actions, receiving feedback (rewards or penalties), and gradually adjusting its behaviour to maximise positive outcomes. Rather than learning from a labelled dataset, the system learns from the consequences of its own decisions. A variant called RLHF (Reinforcement Learning from Human Feedback) was key to making tools like ChatGPT feel conversational rather than mechanical &mdash; human reviewers rated outputs, and the model learned from those ratings.</p>
+    <p class="gloss-term__example">Examples: DeepMind's AlphaGo, which learned to play the board game Go by playing millions of games against itself. Robotics systems trained to walk or grasp objects through simulated trial and error. Recommendation systems that optimise for which content keeps you watching.</p>
+  </div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
       <span class="gloss-term__name">Responsible AI</span>
       <span class="gloss-tag tag--general">Foundational</span>
     </div>
     <p>The practice of designing, deploying, and using AI in ways that are ethical, fair, transparent, and accountable. Responsible AI asks not just "does this work?" but "who does this harm?", "can we explain how it decides?", and "who is accountable when it goes wrong?" It is both a professional practice and, increasingly, a regulatory requirement.</p>
+  </div>
+
+  <!-- S -->
+  <div class="gloss-letter" id="S">S</div>
+
+  <div class="gloss-term">
+    <div class="gloss-term__header">
+      <span class="gloss-term__name">Spatial Intelligence</span>
+      <span class="gloss-tag tag--predictive">Predictive AI</span>
+    </div>
+    <p>The ability of an AI system to understand, interpret, and reason about physical space &mdash; including the position, shape, depth, and movement of objects in a three-dimensional environment. Spatial intelligence enables robots to navigate rooms, self-driving cars to understand roads, augmented reality tools to anchor digital content accurately onto physical surfaces, and manufacturing AI to inspect components in three dimensions.</p>
+    <p class="gloss-term__example">Examples: The room-mapping in AR/VR headsets. LiDAR processing in self-driving cars. Robotic arms in warehouses that assess object size and orientation before picking. Medical imaging tools that reconstruct 3D models from CT scan slices.</p>
+    <p class="gloss-term__example">Key distinction: Spatial intelligence is a separate capability from language understanding or pattern recognition. Most large language models have no spatial awareness &mdash; they process text, not three-dimensional space.</p>
   </div>
 
   <!-- T -->
@@ -388,5 +523,39 @@
 <script src="assets/lang.js"></script>
 <script src="assets/nav.js"></script>
 <script>requireAuth('glossary.html');</script>
+<script>
+  (function () {
+    var input = document.getElementById('gloss-search');
+    var noResults = document.querySelector('.gloss-no-results');
+
+    input.addEventListener('input', function () {
+      var q = this.value.toLowerCase().trim();
+      var terms = document.querySelectorAll('.gloss-term');
+      var letters = document.querySelectorAll('.gloss-letter');
+      var anyVisible = false;
+
+      terms.forEach(function (t) {
+        var match = !q || t.textContent.toLowerCase().indexOf(q) !== -1;
+        t.style.display = match ? '' : 'none';
+        if (match) anyVisible = true;
+      });
+
+      letters.forEach(function (letter) {
+        var sib = letter.nextElementSibling;
+        var visible = false;
+        while (sib && !sib.classList.contains('gloss-letter')) {
+          if (sib.classList.contains('gloss-term') && sib.style.display !== 'none') {
+            visible = true;
+            break;
+          }
+          sib = sib.nextElementSibling;
+        }
+        letter.style.display = visible ? '' : 'none';
+      });
+
+      noResults.style.display = (!q || anyVisible) ? 'none' : 'block';
+    });
+  })();
+</script>
 </body>
 </html>
