@@ -71,3 +71,11 @@
 **Lesson:** Admin bypass returned early before progress restore ran, leaving phase tracker steps unclickable (no `is-done` class set).
 **Why it happened:** The bypass correctly showed module content but exited before the loop that marks tracker steps as done — meaning admins couldn't click phases 2-4 even though the content was visible.
 **What to do instead:** Any admin early-return that reveals module content must also mark all tracker steps as `is-done` so phase navigation works. Always test admin navigation end-to-end (open module → click each phase step) not just that the gate bypasses.
+
+---
+
+## 2026-06-26 (session 2)
+
+**Lesson:** PowerShell's `Get-Content`/`Set-Content` without explicit encoding corrupted every emoji and multi-byte character in 12 HTML files.
+**Why it happened:** Used `Get-Content -Raw` and `Set-Content` with the default encoding, which in PowerShell 5.1 on Windows is the system code page (Windows-1252). UTF-8 emoji bytes were misread and then written back as garbage characters (e.g. `🏢` → `ðŸ¢`). The error was silent — "Done. 12 files updated" — with no warning.
+**What to do instead:** For any bulk text operation on files containing non-ASCII characters, always use `[System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)` and `[System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)`. Or use Python. Never use `Get-Content`/`Set-Content` on HTML/JS files without `-Encoding utf8` — and even then, PS5.1's `-Encoding utf8` writes a BOM, which can also cause issues. The safe default is always the .NET IO class with explicit encoding.
