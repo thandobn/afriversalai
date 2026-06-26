@@ -69,53 +69,41 @@
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
 <script>
-  // POC demo facilitator account — works without a Supabase account (front-end console, mock data).
-  // Remove this block once real facilitator accounts exist in Supabase.
-  var DEMO_ADMIN = { email: 'facilitator@afriversal.ai', pass: 'Afriversal2026' };
-
-  // If already signed in (real or demo), go straight to the console.
-  if (sessionStorage.getItem('afv_demo_admin') === '1') { window.location.href = 'admin.html'; }
   getSession().then(function (session) {
     if (session && session.user && window.isAdminEmail(session.user.email)) {
-      window.location.href = 'admin.html';
+      window.location.href = ‘admin.html’;
     }
   });
 
   async function doLogin(e) {
     e.preventDefault();
-    var errEl = document.getElementById('login-err');
-    var btn = document.getElementById('submit-btn');
-    var email = document.getElementById('email').value.trim();
-    var password = document.getElementById('password').value;
-    errEl.style.display = 'none';
-    btn.disabled = true; btn.textContent = 'Signing in…';
+    var errEl = document.getElementById(‘login-err’);
+    var btn = document.getElementById(‘submit-btn’);
+    var email = document.getElementById(‘email’).value.trim();
+    var password = document.getElementById(‘password’).value;
+    errEl.style.display = ‘none’;
+    btn.disabled = true; btn.textContent = ‘Signing in…’;
 
-    // POC demo credential — bypasses Supabase for the front-end console.
-    if (email.toLowerCase() === DEMO_ADMIN.email && password === DEMO_ADMIN.pass) {
-      sessionStorage.setItem('afv_demo_admin', '1');
-      window.location.href = 'admin.html';
+    var authedData;
+    try {
+      authedData = await afSignIn(email, password);
+    } catch (err) {
+      errEl.textContent = err.message || ‘Sign in failed. Check your email and password.’;
+      errEl.style.display = ‘block’;
+      btn.disabled = false; btn.textContent = ‘Sign in to the console →’;
       return false;
     }
 
-    var res = await afSignIn(email, password);
-    if (res.error) {
-      errEl.textContent = res.error.message || 'Sign in failed. Check your email and password.';
-      errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Sign in to the console →';
-      return false;
-    }
-
-    var authedEmail = (res.data && res.data.user && res.data.user.email) || email;
+    var authedEmail = (authedData && authedData.user && authedData.user.email) || email;
     if (!window.isAdminEmail(authedEmail)) {
-      // Valid account, but not a facilitator — sign back out and explain.
       try { await _supabase.auth.signOut(); } catch (_) {}
-      errEl.innerHTML = 'That account doesn’t have facilitator access. If you’re a learner, use the <a href="login.html" style="color:#7F1D1D;font-weight:700;">learner sign-in</a>. To request access, contact <a href="mailto:ask@afriversal.ai" style="color:#7F1D1D;font-weight:700;">ask@afriversal.ai</a>.';
-      errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Sign in to the console →';
+      errEl.innerHTML = ‘That account doesn’t have facilitator access. If you’re a learner, use the <a href="login.html" style="color:#7F1D1D;font-weight:700;">learner sign-in</a>. To request access, contact <a href="mailto:ask@afriversal.ai" style="color:#7F1D1D;font-weight:700;">ask@afriversal.ai</a>.’;
+      errEl.style.display = ‘block’;
+      btn.disabled = false; btn.textContent = ‘Sign in to the console →’;
       return false;
     }
 
-    window.location.href = 'admin.html';
+    window.location.href = ‘admin.html’;
     return false;
   }
 </script>

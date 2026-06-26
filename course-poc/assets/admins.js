@@ -2,7 +2,6 @@
 // Add a facilitator's account email here to grant Instructor Console access.
 // Loaded by admin-login.html, admin.html, and dashboard.html.
 window.ADMIN_EMAILS = [
-  'gorentaride@gmail.com',
   'ask@afriversal.ai',
   'thando@afriversal.ai',
   'facilitator@afriversal.ai',

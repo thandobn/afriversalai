@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <style>
-    .dash-hero { background: var(--green-dark); color: white; padding: 52px 0 44px; }
+    .dash-hero { background: var(--green-dark); color: white; }
     .dash-hero h1 { font-size: 1.9em; font-weight: 800; color: white; margin-bottom: 6px; }
     .dash-hero p { color: rgba(255,255,255,0.7); font-size: 0.95em; }
     .dash-hero .sector-tag { display: inline-block; background: var(--gold); color: var(--green-dark); font-size: 0.75em; font-weight: 700; padding: 3px 12px; border-radius: 12px; margin-top: 12px; }
@@ -281,7 +281,7 @@
 </section>
 
 <!-- ASK YOUR FACILITATOR -->
-<section class="bg-pale">
+<section class="bg-pale" style="padding-top: 0;">
   <div class="container">
     <div class="section-label" style="margin-top:0;">Ask your facilitator</div>
     <div class="ask">
@@ -425,6 +425,7 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
+<script src="assets/messaging.js"></script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
 <script>
@@ -479,9 +480,16 @@ async function initDashboard() {
     if (li) li.style.display = ''
   }
 
-  // Module 0 progress dots
+  // Pre-index progress by module for O(n) lookup instead of O(n×m) repeated filters
+  const byModule = {}
+  progress.forEach(r => {
+    if (!byModule[r.module_id]) byModule[r.module_id] = []
+    byModule[r.module_id].push(r.phase)
+  })
+
+  // Module 0 — always unlocked (free)
   renderDots('module-0', progress)
-  const m0Phases = progress.filter(r => r.module_id === 'module-0').map(r => r.phase)
+  const m0Phases = byModule['module-0'] || []
   const m0Link = document.getElementById('link-module-0')
   const m0Card = document.getElementById('card-module-0')
   if (m0Phases.length === 4) {
@@ -495,175 +503,36 @@ async function initDashboard() {
     m0Link.textContent = 'Continue →'
   }
 
-  // Module 1 — unlocks when Module 0 is complete (all 4 phases)
-  const m1Card   = document.getElementById('card-module-1')
-  const m1Badge  = document.getElementById('badge-module-1')
-  const m1Link   = document.getElementById('link-module-1')
-  const m1Lock   = document.getElementById('lock-msg-module-1')
-  const m1Phases = progress.filter(r => r.module_id === 'module-1').map(r => r.phase)
-
-  if (m0Phases.length === 4) {
-    m1Card.classList.remove('is-locked')
-    m1Lock.style.display = 'none'
-    m1Link.style.display = 'inline'
-    renderDots('module-1', progress)
-    if (m1Phases.length === 4) {
-      m1Card.classList.add('is-complete')
-      m1Badge.textContent = 'Complete'
-      m1Badge.className = 'module-card__badge badge--complete'
-      m1Link.textContent = 'Review module →'
-    } else if (m1Phases.length > 0) {
-      m1Badge.textContent = 'In progress'
-      m1Badge.className = 'module-card__badge badge--progress'
-      m1Link.textContent = 'Continue →'
-    } else {
-      m1Badge.textContent = 'Start here'
-      m1Badge.className = 'module-card__badge badge--free'
-      m1Link.textContent = 'Start module →'
+  // Modules 1–6: each unlocks when the previous module is complete (all 4 phases)
+  let prevPhases = m0Phases
+  for (let n = 1; n <= 6; n++) {
+    const id     = 'module-' + n
+    const phases = byModule[id] || []
+    const card   = document.getElementById('card-' + id)
+    const badge  = document.getElementById('badge-' + id)
+    const link   = document.getElementById('link-' + id)
+    const lock   = document.getElementById('lock-msg-' + id)
+    if (prevPhases.length === 4) {
+      card.classList.remove('is-locked')
+      lock.style.display = 'none'
+      link.style.display = 'inline'
+      renderDots(id, progress)
+      if (phases.length === 4) {
+        card.classList.add('is-complete')
+        badge.textContent = 'Complete'
+        badge.className = 'module-card__badge badge--complete'
+        link.textContent = 'Review module →'
+      } else if (phases.length > 0) {
+        badge.textContent = 'In progress'
+        badge.className = 'module-card__badge badge--progress'
+        link.textContent = 'Continue →'
+      } else {
+        badge.textContent = 'Start here'
+        badge.className = 'module-card__badge badge--free'
+        link.textContent = 'Start module →'
+      }
     }
-  }
-  // If Module 0 not complete: card stays is-locked, lock message stays, link stays hidden
-
-  // Module 2 — unlocks when Module 1 is complete (all 4 phases)
-  const m2Card   = document.getElementById('card-module-2')
-  const m2Badge  = document.getElementById('badge-module-2')
-  const m2Link   = document.getElementById('link-module-2')
-  const m2Lock   = document.getElementById('lock-msg-module-2')
-  const m2Phases = progress.filter(r => r.module_id === 'module-2').map(r => r.phase)
-
-  if (m1Phases.length === 4) {
-    m2Card.classList.remove('is-locked')
-    m2Lock.style.display = 'none'
-    m2Link.style.display = 'inline'
-    renderDots('module-2', progress)
-    if (m2Phases.length === 4) {
-      m2Card.classList.add('is-complete')
-      m2Badge.textContent = 'Complete'
-      m2Badge.className = 'module-card__badge badge--complete'
-      m2Link.textContent = 'Review module →'
-    } else if (m2Phases.length > 0) {
-      m2Badge.textContent = 'In progress'
-      m2Badge.className = 'module-card__badge badge--progress'
-      m2Link.textContent = 'Continue →'
-    } else {
-      m2Badge.textContent = 'Start here'
-      m2Badge.className = 'module-card__badge badge--free'
-      m2Link.textContent = 'Start module →'
-    }
-  }
-  // If Module 1 not complete: card stays is-locked, lock message stays, link stays hidden
-
-  // Module 3 — unlocks when Module 2 is complete (all 4 phases)
-  const m3Card   = document.getElementById('card-module-3')
-  const m3Badge  = document.getElementById('badge-module-3')
-  const m3Link   = document.getElementById('link-module-3')
-  const m3Lock   = document.getElementById('lock-msg-module-3')
-  const m3Phases = progress.filter(r => r.module_id === 'module-3').map(r => r.phase)
-
-  if (m2Phases.length === 4) {
-    m3Card.classList.remove('is-locked')
-    m3Lock.style.display = 'none'
-    m3Link.style.display = 'inline'
-    renderDots('module-3', progress)
-    if (m3Phases.length === 4) {
-      m3Card.classList.add('is-complete')
-      m3Badge.textContent = 'Complete'
-      m3Badge.className = 'module-card__badge badge--complete'
-      m3Link.textContent = 'Review module →'
-    } else if (m3Phases.length > 0) {
-      m3Badge.textContent = 'In progress'
-      m3Badge.className = 'module-card__badge badge--progress'
-      m3Link.textContent = 'Continue →'
-    } else {
-      m3Badge.textContent = 'Start here'
-      m3Badge.className = 'module-card__badge badge--free'
-      m3Link.textContent = 'Start module →'
-    }
-  }
-  // If Module 2 not complete: card stays is-locked, lock message stays, link stays hidden
-
-  // Module 4 — unlocks when Module 3 is complete (all 4 phases)
-  const m4Card   = document.getElementById('card-module-4')
-  const m4Badge  = document.getElementById('badge-module-4')
-  const m4Link   = document.getElementById('link-module-4')
-  const m4Lock   = document.getElementById('lock-msg-module-4')
-  const m4Phases = progress.filter(r => r.module_id === 'module-4').map(r => r.phase)
-
-  if (m3Phases.length === 4) {
-    m4Card.classList.remove('is-locked')
-    m4Lock.style.display = 'none'
-    m4Link.style.display = 'inline'
-    renderDots('module-4', progress)
-    if (m4Phases.length === 4) {
-      m4Card.classList.add('is-complete')
-      m4Badge.textContent = 'Complete'
-      m4Badge.className = 'module-card__badge badge--complete'
-      m4Link.textContent = 'Review module →'
-    } else if (m4Phases.length > 0) {
-      m4Badge.textContent = 'In progress'
-      m4Badge.className = 'module-card__badge badge--progress'
-      m4Link.textContent = 'Continue →'
-    } else {
-      m4Badge.textContent = 'Start here'
-      m4Badge.className = 'module-card__badge badge--free'
-      m4Link.textContent = 'Start module →'
-    }
-  }
-
-  // Module 5 — unlocks when Module 4 is complete (all 4 phases)
-  const m5Card   = document.getElementById('card-module-5')
-  const m5Badge  = document.getElementById('badge-module-5')
-  const m5Link   = document.getElementById('link-module-5')
-  const m5Lock   = document.getElementById('lock-msg-module-5')
-  const m5Phases = progress.filter(r => r.module_id === 'module-5').map(r => r.phase)
-
-  if (m4Phases.length === 4) {
-    m5Card.classList.remove('is-locked')
-    m5Lock.style.display = 'none'
-    m5Link.style.display = 'inline'
-    renderDots('module-5', progress)
-    if (m5Phases.length === 4) {
-      m5Card.classList.add('is-complete')
-      m5Badge.textContent = 'Complete'
-      m5Badge.className = 'module-card__badge badge--complete'
-      m5Link.textContent = 'Review module →'
-    } else if (m5Phases.length > 0) {
-      m5Badge.textContent = 'In progress'
-      m5Badge.className = 'module-card__badge badge--progress'
-      m5Link.textContent = 'Continue →'
-    } else {
-      m5Badge.textContent = 'Start here'
-      m5Badge.className = 'module-card__badge badge--free'
-      m5Link.textContent = 'Start module →'
-    }
-  }
-
-  // Module 6 — unlocks when Module 5 is complete (all 4 phases)
-  const m6Card   = document.getElementById('card-module-6')
-  const m6Badge  = document.getElementById('badge-module-6')
-  const m6Link   = document.getElementById('link-module-6')
-  const m6Lock   = document.getElementById('lock-msg-module-6')
-  const m6Phases = progress.filter(r => r.module_id === 'module-6').map(r => r.phase)
-
-  if (m5Phases.length === 4) {
-    m6Card.classList.remove('is-locked')
-    m6Lock.style.display = 'none'
-    m6Link.style.display = 'inline'
-    renderDots('module-6', progress)
-    if (m6Phases.length === 4) {
-      m6Card.classList.add('is-complete')
-      m6Badge.textContent = 'Complete'
-      m6Badge.className = 'module-card__badge badge--complete'
-      m6Link.textContent = 'Review module →'
-    } else if (m6Phases.length > 0) {
-      m6Badge.textContent = 'In progress'
-      m6Badge.className = 'module-card__badge badge--progress'
-      m6Link.textContent = 'Continue →'
-    } else {
-      m6Badge.textContent = 'Start here'
-      m6Badge.className = 'module-card__badge badge--free'
-      m6Link.textContent = 'Start module →'
-    }
+    prevPhases = phases
   }
 }
 
@@ -757,17 +626,22 @@ function renderGamification(progress, session) {
   // ---- Daily fact + encouragement + continue CTA ----
   document.getElementById('daily-fact').textContent = aiFactOfTheDay()
   document.getElementById('daily-encourage').textContent = encourageMsg(phasesDone, m0, m1, m2, streak)
-  setContinueCTA(m0, m1, m2)
+  setContinueCTA([m0, m1, m2, count('module-3'), count('module-4'), count('module-5'), count('module-6')])
 }
 
-// Points the "Continue learning" button at the next actionable module
-function setContinueCTA(m0, m1, m2) {
+// Points the "Continue learning" button at the next actionable module (covers M0–M6)
+function setContinueCTA(counts) {
   const cta = document.getElementById('daily-continue')
   if (!cta) return
-  if (m0 < 4)      { cta.href = 'module-0.html'; cta.textContent = (m0 > 0 ? 'Continue Module 0 →' : 'Start Module 0 →') }
-  else if (m1 < 4) { cta.href = 'module-1.html'; cta.textContent = (m1 > 0 ? 'Continue Module 1 →' : 'Start Module 1 →') }
-  else if (m2 < 4) { cta.href = 'module-2.html'; cta.textContent = (m2 > 0 ? 'Continue Module 2 →' : 'Start Module 2 →') }
-  else             { cta.href = 'course-outline.html'; cta.textContent = 'See what\'s next →' }
+  for (let i = 0; i < counts.length; i++) {
+    if (counts[i] < 4) {
+      cta.href = 'module-' + i + '.html'
+      cta.textContent = counts[i] > 0 ? 'Continue Module ' + i + ' →' : 'Start Module ' + i + ' →'
+      return
+    }
+  }
+  cta.href = 'course-outline.html'
+  cta.textContent = 'See what\'s next →'
 }
 
 // Daily AI fact — rotates by day-of-year so it changes each day, same for everyone
@@ -963,10 +837,7 @@ function toggleJourney() {
 }
 
 // ===== Ask your facilitator (POC messaging — same localStorage bus as admin.html) =====
-const MSG_KEY = 'afv_admin_threads'
 let STUDENT_KEY = 'me'
-function loadThreads() { try { return JSON.parse(localStorage.getItem(MSG_KEY) || '{}') } catch (e) { return {} } }
-function saveThreads(t) { localStorage.setItem(MSG_KEY, JSON.stringify(t)) }
 
 function renderAskThread() {
   const el = document.getElementById('ask-thread')
@@ -993,7 +864,6 @@ function askQuestion() {
   renderAskThread()
 }
 
-function escapeHtml(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])) }
 
 initDashboard()
 </script>

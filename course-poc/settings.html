@@ -197,8 +197,7 @@ async function savePassword(e) {
   btn.disabled = true
   btn.textContent = 'Updating…'
   try {
-    const { error } = await _supabase.auth.updateUser({ password: newPw })
-    if (error) throw error
+    await updatePassword(newPw)
     status.textContent = 'Password updated.'
     status.className = 'save-status success'
     document.getElementById('s-pw-new').value = ''

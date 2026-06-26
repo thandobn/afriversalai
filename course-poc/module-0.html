@@ -1224,8 +1224,16 @@
 
 function copyLesson4Prompt(btn) {
   var text = 'What were the three main findings of the 2023 Human Sciences Research Council report on AI use in South African workplaces?';
+  if (!navigator.clipboard) {
+    btn.textContent = 'Not supported';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+    return;
+  }
   navigator.clipboard.writeText(text).then(function() {
     btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  }).catch(function() {
+    btn.textContent = 'Copy failed';
     setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
   });
 }
@@ -1710,7 +1718,7 @@ function retakeQuizP3() {
       if (saved) el.value = saved
       el.addEventListener('input', () => localStorage.setItem(key, el.value))
     })
-  })
+  }).catch(err => console.error('[AfriversalAI] module-0 session init error:', err))
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>

@@ -17,7 +17,7 @@ async function getProfile() {
   if (!session) return null
   const { data } = await _supabase
     .from('profiles')
-    .select('*')
+    .select('id, full_name, email, organisation, sector, org_code, organisation_id')
     .eq('id', session.user.id)
     .single()
   return data
@@ -96,6 +96,11 @@ async function updateProfile(updates) {
     .from('profiles')
     .update(updates)
     .eq('id', session.user.id)
+  if (error) throw error
+}
+
+async function updatePassword(newPassword) {
+  const { error } = await _supabase.auth.updateUser({ password: newPassword })
   if (error) throw error
 }
 

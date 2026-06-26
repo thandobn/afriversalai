@@ -201,12 +201,8 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
+<script src="assets/messaging.js"></script>
 <script>
-
-// ===== Shared message store (localStorage — same bus the student dashboard reads) =====
-const MSG_KEY = 'afv_admin_threads';
-function loadThreads() { try { return JSON.parse(localStorage.getItem(MSG_KEY) || '{}'); } catch (e) { return {}; } }
-function saveThreads(t) { localStorage.setItem(MSG_KEY, JSON.stringify(t)); }
 
 // ===== Mock cohort (sample data — POC only) =====
 // progress: phases completed per module (index 0..6), 0–4 each. live: forums attended (0..4).
@@ -283,7 +279,7 @@ function renderTable() {
     const u = unread(s.id);
     const payCls = 'pay--' + s.pay.status;
     const payTxt = s.pay.status.charAt(0).toUpperCase() + s.pay.status.slice(1);
-    return `<tr onclick="openStudent('${s.id}')">
+    return `<tr data-student-id="${escapeHtml(String(s.id))}" style="cursor:pointer">
       <td><div class="adm-name">${s.name}${s.real ? ' <span class="msg-dot" style="background:var(--gold-dark);">live</span>' : ''}${u ? `<span class="msg-dot">${u} ✉</span>` : ''}</div><div class="adm-sub">${s.email}</div></td>
       <td>${s.org}</td>
       <td>${s.sector}</td>
@@ -358,8 +354,12 @@ function sendReply() {
 }
 
 function closeModal() { document.getElementById('adm-modal').classList.remove('is-open'); CURRENT = null; }
-function escapeHtml(s) { return s.replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('click', function(e) {
+  const row = e.target.closest('tr[data-student-id]');
+  if (row) openStudent(row.dataset.studentId);
+});
 
 function admSignOut() {
   try { sessionStorage.removeItem('afv_demo_admin'); } catch (e) {}
