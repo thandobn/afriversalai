@@ -158,7 +158,9 @@ section.bg-white { background: var(--white); }
 .nav__dropdown-menu a.active { background: var(--green-pale) !important; color: var(--green-dark) !important; }
 
 /* ---- Language switcher ---- */
-.lang-switcher { display: flex; gap: 3px; align-items: center; margin-right: 8px; flex-shrink: 0; }
+/* Hidden by default — JS adds .is-visible only when ACTIVE_LANGS has multiple entries */
+.lang-switcher { display: none; gap: 3px; align-items: center; margin-right: 8px; flex-shrink: 0; }
+.lang-switcher.is-visible { display: flex; }
 .lang-switcher button {
   background: none;
   border: 1px solid var(--border);

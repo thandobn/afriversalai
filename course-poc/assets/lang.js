@@ -93,10 +93,10 @@
       btn.style.display = ACTIVE_LANGS.indexOf(btn.dataset.langBtn) === -1 ? 'none' : '';
       btn.classList.toggle('is-active', btn.dataset.langBtn === lang);
     });
-    /* Hide the entire switcher when only one language is active */
-    if (ACTIVE_LANGS.length <= 1) {
+    /* Show the switcher only when multiple languages are active — CSS hides it by default */
+    if (ACTIVE_LANGS.length > 1) {
       document.querySelectorAll('.lang-switcher').forEach(function (el) {
-        el.style.display = 'none';
+        el.classList.add('is-visible');
       });
     }
   });
