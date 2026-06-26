@@ -5,6 +5,8 @@ window.ADMIN_EMAILS = [
   'ask@afriversal.ai',
   'afriversalai@gmail.com',
   'facilitator@afriversal.ai',
+  'thandobnkala@gmail.com',
+  'ntandodavis@gmail.com',
 ];
 window.isAdminEmail = function (email) {
   return !!email && window.ADMIN_EMAILS
