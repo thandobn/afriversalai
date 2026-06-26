@@ -667,16 +667,16 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
   border: 1px solid var(--border);
 }
 .feature__icon {
-  width: 48px; height: 48px;
+  width: 72px; height: 72px;
   background: var(--green-pale);
-  border-radius: 12px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4em;
   margin-bottom: 16px;
 }
-.feature__icon img { width: 30px; height: 30px; display: block; }
+.feature__icon img { width: 52px; height: 52px; display: block; }
 .feature h3 { margin-bottom: 8px; }
 .feature p  { font-size: 0.9em; color: var(--muted); }
 
