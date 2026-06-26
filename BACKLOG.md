@@ -46,6 +46,14 @@ Last updated: June 2026
 
 ---
 
+## Tech — Code improvements
+
+| # | Item | Owner | Effort | Notes |
+|---|------|-------|--------|-------|
+| T1 | **Knowledge check answer persistence** — answers entered in module knowledge checks are held in JS memory only; navigating away (e.g. to dashboard mid-phase) clears them. Phase completion itself saves correctly to Supabase. Fix: save answers to localStorage on each selection so returning mid-phase restores state. Low risk, self-contained change per module file. | Thando/Dev | 1–2 hrs per module | UX friction only — does not affect data integrity or progress tracking |
+
+---
+
 ## Minor — Do before going fully public
 
 | # | Item | Owner | Effort | Blocks |
