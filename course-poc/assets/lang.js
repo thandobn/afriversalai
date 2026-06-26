@@ -10,11 +10,10 @@
   var STORAGE_KEY = 'afriversal_lang';
   var DEFAULT_LANG = 'en';
 
-  /* Languages offered to learners. Pilot ships EN + AF only — French and isiZulu
-     are hidden until a native speaker has reviewed them (current machine drafts
-     are incomplete: isiZulu is ~46% untranslated). Re-add 'fr' / 'zu' here once
-     reviewed and the switcher buttons reappear site-wide automatically. */
-  var ACTIVE_LANGS = ['en', 'af'];
+  /* Language switcher is hidden until translations are reviewed by a native speaker.
+     To re-enable: add language codes here (e.g. ['en', 'af', 'fr', 'zu']) and the
+     switcher reappears site-wide automatically. */
+  var ACTIVE_LANGS = ['en'];
 
   /* Maps nav link hrefs to translation keys */
   var NAV_LINK_KEYS = {
@@ -91,9 +90,14 @@
     var lang = getLang();
     applyLang(lang);
     document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
-      /* Hide buttons for languages not in this pilot */
       btn.style.display = ACTIVE_LANGS.indexOf(btn.dataset.langBtn) === -1 ? 'none' : '';
       btn.classList.toggle('is-active', btn.dataset.langBtn === lang);
     });
+    /* Hide the entire switcher when only one language is active */
+    if (ACTIVE_LANGS.length <= 1) {
+      document.querySelectorAll('.lang-switcher').forEach(function (el) {
+        el.style.display = 'none';
+      });
+    }
   });
 })();
