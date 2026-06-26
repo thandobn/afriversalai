@@ -1192,7 +1192,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      if (window.isAdminEmail && window.isAdminEmail(session.user.email)) { unlock(); return; }
+      if (window.isAdminEmail && window.isAdminEmail(session.user.email)) {
+        unlock();
+        [1, 2, 3].forEach(function(i) {
+          var step = document.getElementById('prog-' + i);
+          if (step) step.classList.add('is-done');
+        });
+        return;
+      }
 
       var m0 = await getModuleProgress('module-0');
       var m1 = await getModuleProgress('module-1');

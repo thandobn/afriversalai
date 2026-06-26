@@ -736,6 +736,10 @@ document.addEventListener('DOMContentLoaded', function() {
     gateChecking.style.display = 'none';
     gateLocked.style.display   = 'none';
     content.style.display      = 'block';
+    ;[1, 2, 3].forEach(function(i) {
+      var step = document.getElementById('prog-' + i);
+      if (step) step.classList.add('is-done');
+    });
     return;
   }
 

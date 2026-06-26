@@ -481,6 +481,8 @@ async function initDashboard() {
     if (li) li.style.display = ''
   }
 
+  const isAdmin = window.isAdminEmail && window.isAdminEmail(session.user.email)
+
   // Pre-index progress by module for O(n) lookup instead of O(n×m) repeated filters
   const byModule = {}
   progress.forEach(r => {
@@ -513,7 +515,7 @@ async function initDashboard() {
     const badge  = document.getElementById('badge-' + id)
     const link   = document.getElementById('link-' + id)
     const lock   = document.getElementById('lock-msg-' + id)
-    if (prevPhases.length === 4) {
+    if (prevPhases.length === 4 || isAdmin) {
       card.classList.remove('is-locked')
       lock.style.display = 'none'
       link.style.display = 'inline'
