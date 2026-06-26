@@ -512,6 +512,12 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
   color: var(--green-dark);
   font-weight: 600;
 }
+.module-card__meta {
+  font-size: 0.78em;
+  color: var(--muted);
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
 .module-card--preview { border-color: var(--green-mid); border-width: 2px; }
 .module-card--preview .module-card__num { color: var(--green-dark); }
 

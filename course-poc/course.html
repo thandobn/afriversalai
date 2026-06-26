@@ -210,6 +210,7 @@
           <li>Identify the key failure modes of language models</li>
           <li>Spot hallucination signals in a real document</li>
         </ul>
+        <div class="module-card__meta">~80 min &middot; 4 phases &middot; All sectors &middot; Builds on Module 0</div>
         <div class="module-card__case">&#128240; SA Government AI Policy Scandal &middot; 2026</div>
       </div>
 
@@ -223,6 +224,7 @@
           <li>Explain why training data reproduces systemic bias</li>
           <li>Identify proxy discrimination in an AI output</li>
         </ul>
+        <div class="module-card__meta">~100 min &middot; 4 phases &middot; All sectors &middot; Builds on Module 1</div>
         <div class="module-card__case">&#128179; African Fintech Credit Scoring Bias &middot; 2025</div>
       </div>
 
@@ -236,6 +238,7 @@
           <li>Analyse an AI recommendation for disparate impact</li>
           <li>Apply an equity lens to AI deployment decisions</li>
         </ul>
+        <div class="module-card__meta">~90 min &middot; 4 phases &middot; All sectors &middot; Builds on Module 2</div>
         <div class="module-card__case">&#128268; SA Predictive Policing</div>
       </div>
 
@@ -249,6 +252,7 @@
           <li>Identify deepfake and synthetic content signals</li>
           <li>Build a personal verification checklist for your role</li>
         </ul>
+        <div class="module-card__meta">~70 min &middot; 4 phases &middot; All sectors &middot; Builds on Module 3</div>
         <div class="module-card__case">&#127917; SA 2024 Election Deepfakes</div>
       </div>
 
@@ -262,6 +266,7 @@
           <li>Identify SA Employment Equity Act exposure from AI recruitment tools</li>
           <li>Raise a substantive AI concern through the right channels</li>
         </ul>
+        <div class="module-card__meta">~70 min &middot; 4 phases &middot; All sectors &middot; Builds on Module 4</div>
         <div class="module-card__case">&#9878;&#65039; AI Recruitment + Employment Equity Act Liability &middot; 2025</div>
       </div>
 
@@ -275,6 +280,7 @@
           <li>Write a professional AI judgment statement</li>
           <li>Brief a team or manager on responsible AI use</li>
         </ul>
+        <div class="module-card__meta">~80 min &middot; 4 phases &middot; All sectors &middot; Capstone</div>
         <div class="module-card__case">&#9989; Dr Math (CSIR) vs. Clinical AI Decision Support</div>
       </div>
 
@@ -433,8 +439,8 @@
     const card = document.getElementById(id);
     const isOpen = card.classList.contains('is-open');
     const t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
-    const openText = t.sector_toggle_open || 'See your path â†’';
-    const closeText = t.sector_toggle_close || 'Close â†’';
+    const openText = t.sector_toggle_open || 'See your path →';
+    const closeText = t.sector_toggle_close || 'Close →';
     document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
     document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = openText);
     if (!isOpen) {
@@ -447,7 +453,7 @@
     if (!e.target.closest('.sector-card')) {
       const t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
       document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
-      document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = t.sector_toggle_open || 'See your path â†’');
+      document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = t.sector_toggle_open || 'See your path →');
     }
   });
 </script>
@@ -548,4 +554,3 @@
 <script src="assets/nav.js"></script>
 </body>
 </html>
-

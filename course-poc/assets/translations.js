@@ -83,7 +83,7 @@ window.TRANSLATIONS = {
     /* ── Course preview ── */
     course_eyebrow:   'The Course',
     course_h2_html:   'Start from zero. Build real judgment.<br>6 case studies. One framework that works.',
-    course_lead:      'Module 0 builds the shared foundation — The Confidence Problem, what it isn\'t, where you already encounter it. Then 6 core modules each apply the Funda Five to a real SA case study.',
+    course_lead:      'Module 0 builds the shared foundation — what AI actually is, what it isn\'t, where you already encounter it. Then 6 core modules each apply the Funda Five to a real SA case study.',
     course_btn:       'See full course details →',
 
     /* Module cards (index.html course preview) */
@@ -200,7 +200,7 @@ window.TRANSLATIONS = {
     /* ── Teaser gate ── */
     teaser_eyebrow:       'You\'ve seen what AI is. Now learn what to do with it.',
     teaser_h2:            'Three more phases unlock with the full course.',
-    teaser_p:             'This was the Encounter phase — your instinct before any explanation. The full Module 0 takes you through Reflect, Concept, and Apply: The Confidence Problem, the three types you\'ll meet at work, and how to spot them in your own role.',
+    teaser_p:             'This was the Encounter phase — your instinct before any explanation. The full Module 0 takes you through Reflect, Concept, and Apply: what AI actually is, the three types you\'ll meet at work, and how to spot them in your own role.',
     teaser_p2_label:      'Phase 2 — Reflect',
     teaser_p2_body:       'What surprised you? Where is AI showing up in your job right now?',
     teaser_p3_label:      'Phase 3 — Concept',
@@ -233,7 +233,7 @@ window.TRANSLATIONS = {
     reflect_no_placeholder:  'e.g. I work in local government — I could see AI being used to process permit applications or flag irregular payments before a human reviews them...',
 
     /* ── Phase 2: Concept ── */
-    p2_title:        'Concept — The Confidence Problem',
+    p2_title:        'Concept — What AI actually is',
     p2_sub:          'The real explanation, without the hype · ~15 min',
 
     /* ── Knowledge check quiz ── */
@@ -1639,4 +1639,3 @@ window.TRANSLATIONS = {
   },
 
 };
-
