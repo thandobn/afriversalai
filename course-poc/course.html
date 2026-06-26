@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -202,7 +202,7 @@
 
       <div class="module-card">
         <div class="module-card__num">Module 1</div>
-        <h3>What AI Actually Is</h3>
+        <h3>The Confidence Problem</h3>
         <p style="font-size:0.9em; color:var(--muted); margin-bottom:12px;">What makes AI different from other software? What can generative AI not do &mdash; regardless of how confident it sounds? Why does it hallucinate sources and fabricate statistics?</p>
         <p style="font-size:0.88em; font-weight:600; color:var(--text);">You&rsquo;ll be able to:</p>
         <ul style="font-size:0.88em; color:var(--muted); padding-left:18px; margin-bottom:16px;">
@@ -433,8 +433,8 @@
     const card = document.getElementById(id);
     const isOpen = card.classList.contains('is-open');
     const t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
-    const openText = t.sector_toggle_open || 'See your path →';
-    const closeText = t.sector_toggle_close || 'Close →';
+    const openText = t.sector_toggle_open || 'See your path â†’';
+    const closeText = t.sector_toggle_close || 'Close â†’';
     document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
     document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = openText);
     if (!isOpen) {
@@ -447,7 +447,7 @@
     if (!e.target.closest('.sector-card')) {
       const t = (window.TRANSLATIONS && window.getCurrentLang) ? window.TRANSLATIONS[window.getCurrentLang()] : {};
       document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('is-open'));
-      document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = t.sector_toggle_open || 'See your path →');
+      document.querySelectorAll('.sector-toggle').forEach(b => b.textContent = t.sector_toggle_open || 'See your path â†’');
     }
   });
 </script>
@@ -548,3 +548,4 @@
 <script src="assets/nav.js"></script>
 </body>
 </html>
+

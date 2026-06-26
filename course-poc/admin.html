@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Instructor Console — AfriversalAI</title>
+  <title>Instructor Console â€” AfriversalAI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
@@ -130,7 +130,7 @@
 <div id="adm-console" class="adm-wrap" style="display:none;">
 
   <div class="adm-stats">
-    <div class="adm-stat"><div class="adm-stat__num" id="st-total">0</div><div class="adm-stat__label">Seats filled</div><div class="adm-stat__sub" id="st-cohort">Q3 2026 · 30-seat pilot</div></div>
+    <div class="adm-stat"><div class="adm-stat__num" id="st-total">0</div><div class="adm-stat__label">Seats filled</div><div class="adm-stat__sub" id="st-cohort">Q3 2026 Â· 30-seat pilot</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-active">0</div><div class="adm-stat__label">Active this week</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-avg">0%</div><div class="adm-stat__label">Avg. course completion</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-pay">R0</div><div class="adm-stat__label">Payments collected</div><div class="adm-stat__sub" id="st-pay-sub">mock data</div></div>
@@ -140,7 +140,7 @@
     <h2>All registered students</h2>
     <div style="display:flex; align-items:center; gap:10px;">
       <span class="adm-mock-note">Sample data</span>
-      <input type="text" class="adm-search" id="adm-search" placeholder="Search name, org, sector…" oninput="renderTable()" />
+      <input type="text" class="adm-search" id="adm-search" placeholder="Search name, org, sectorâ€¦" oninput="renderTable()" />
     </div>
   </div>
 
@@ -166,8 +166,8 @@
   <div class="adm-card">
     <div class="adm-card__head">
       <div>
-        <div class="adm-card__name" id="m-name">—</div>
-        <div class="adm-card__meta" id="m-meta">—</div>
+        <div class="adm-card__name" id="m-name">â€”</div>
+        <div class="adm-card__meta" id="m-meta">â€”</div>
       </div>
       <button class="adm-card__close" onclick="closeModal()" aria-label="Close">&times;</button>
     </div>
@@ -176,7 +176,7 @@
       <div class="adm-sec-label">Payment (mock)</div>
       <div class="pay-box" id="m-pay"></div>
 
-      <div class="adm-sec-label">Course scorecard — Modules 0–6</div>
+      <div class="adm-sec-label">Course scorecard â€” Modules 0â€“6</div>
       <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
         <div class="prog-track" style="flex:1;"><div class="prog-fill" id="m-progfill" style="width:0;"></div></div>
         <span class="prog-pct" id="m-progpct">0%</span>
@@ -189,7 +189,7 @@
       <div class="adm-sec-label">Messages</div>
       <div class="thread" id="m-thread"></div>
       <div class="reply">
-        <textarea id="m-reply" placeholder="Reply to this learner as their facilitator…"></textarea>
+        <textarea id="m-reply" placeholder="Reply to this learner as their facilitatorâ€¦"></textarea>
         <button class="btn btn--primary" onclick="sendReply()">Send</button>
       </div>
 
@@ -204,9 +204,9 @@
 <script src="assets/messaging.js"></script>
 <script>
 
-// ===== Mock cohort (sample data — POC only) =====
-// progress: phases completed per module (index 0..6), 0–4 each. live: forums attended (0..4).
-const MODULES = ['Fundamentals','What AI Actually Is','How AI Learns & Fails','Bias & Discrimination','Verification & Judgment','Accountability & Governance','When AI Works'];
+// ===== Mock cohort (sample data â€” POC only) =====
+// progress: phases completed per module (index 0..6), 0â€“4 each. live: forums attended (0..4).
+const MODULES = ['Fundamentals','The Confidence Problem','How AI Learns & Fails','Bias & Discrimination','Verification & Judgment','Accountability & Governance','When AI Works'];
 const FORUMS = ['Future Forum','ThinkLab','Governance Forum','Strategy Lab'];
 const PRICE = 14995;
 const SEAT_CAP = 30; // first pilot cohort is limited to 30 seats
@@ -217,8 +217,8 @@ const STUDENTS = [
   { id:'sipho',     name:'Sipho Dlamini',       email:'sdlamini@health.gov.za',      org:'Dept. of Health',        sector:'Government', joined:'2026-07-20', pay:{status:'paid',    method:'Invoice',date:'2026-07-21'}, last:'3 days ago',  progress:[4,4,2,0,0,0,0], live:1 },
   { id:'aisha',     name:'Aisha Patel',         email:'apatel@discovery.co.za',      org:'Discovery Health',       sector:'Healthcare', joined:'2026-07-22', pay:{status:'paid',    method:'Card',  date:'2026-07-22'}, last:'Today',       progress:[4,1,0,0,0,0,0], live:0 },
   { id:'fatima',    name:'Fatima Adams',        email:'fadams@uwc.ac.za',            org:'Univ. of Western Cape',  sector:'Education',  joined:'2026-07-19', pay:{status:'paid',    method:'EFT',   date:'2026-07-19'}, last:'5 days ago',  progress:[4,4,0,0,0,0,0], live:1 },
-  { id:'johan',     name:'Johan van der Merwe', email:'jvdm@standardbank.co.za',     org:'Standard Bank',          sector:'Finance',    joined:'2026-07-25', pay:{status:'pending', method:'Invoice',date:'—'},          last:'Never',       progress:[0,0,0,0,0,0,0], live:0 },
-  { id:'david',     name:'David Chen',          email:'david.chen@gmail.com',        org:'Independent',            sector:'Corporate',  joined:'2026-07-09', pay:{status:'overdue', method:'—',     date:'—'},          last:'2 weeks ago', progress:[4,0,0,0,0,0,0], live:0 },
+  { id:'johan',     name:'Johan van der Merwe', email:'jvdm@standardbank.co.za',     org:'Standard Bank',          sector:'Finance',    joined:'2026-07-25', pay:{status:'pending', method:'Invoice',date:'â€”'},          last:'Never',       progress:[0,0,0,0,0,0,0], live:0 },
+  { id:'david',     name:'David Chen',          email:'david.chen@gmail.com',        org:'Independent',            sector:'Corporate',  joined:'2026-07-09', pay:{status:'overdue', method:'â€”',     date:'â€”'},          last:'2 weeks ago', progress:[4,0,0,0,0,0,0], live:0 },
 ];
 
 // Seed sample message threads once.
@@ -227,10 +227,10 @@ const STUDENTS = [
   let changed = false;
   const seedMsgs = {
     thandiwe: [
-      { from:'student', text:'Hi — for the Funda Five, does "Data" cover client info under POPIA even if it\'s anonymised?', ts: Date.parse('2026-08-15T09:12:00') },
+      { from:'student', text:'Hi â€” for the Funda Five, does "Data" cover client info under POPIA even if it\'s anonymised?', ts: Date.parse('2026-08-15T09:12:00') },
     ],
     sipho: [
-      { from:'student', text:'I missed the ThinkLab session — will a recording be shared?', ts: Date.parse('2026-08-14T16:40:00') },
+      { from:'student', text:'I missed the ThinkLab session â€” will a recording be shared?', ts: Date.parse('2026-08-14T16:40:00') },
     ],
     johan: [
       { from:'student', text:'My invoice hasn\'t come through yet, can you check?', ts: Date.parse('2026-07-26T11:05:00') },
@@ -247,8 +247,8 @@ function allStudents() {
   const t = loadThreads();
   const mockIds = STUDENTS.map(s => s.id);
   const extras = Object.keys(t).filter(k => !mockIds.includes(k)).map(k => ({
-    id: k, name: k, email: k, org: '—', sector: '—', joined: '—',
-    pay: { status: 'pending', method: '—', date: '—' }, last: 'Recently',
+    id: k, name: k, email: k, org: 'â€”', sector: 'â€”', joined: 'â€”',
+    pay: { status: 'pending', method: 'â€”', date: 'â€”' }, last: 'Recently',
     progress: [0,0,0,0,0,0,0], live: 0, real: true,
   }));
   return STUDENTS.concat(extras);
@@ -264,7 +264,7 @@ function renderStats() {
   const collected = STUDENTS.filter(s => s.pay.status === 'paid').length * PRICE;
   document.getElementById('st-total').textContent = total + ' / ' + SEAT_CAP;
   document.getElementById('st-cohort').textContent =
-    (total >= SEAT_CAP ? 'Cohort full' : (SEAT_CAP - total) + ' seats left') + ' · Q3 2026 pilot';
+    (total >= SEAT_CAP ? 'Cohort full' : (SEAT_CAP - total) + ' seats left') + ' Â· Q3 2026 pilot';
   document.getElementById('st-active').textContent = active;
   document.getElementById('st-avg').textContent = avg + '%';
   document.getElementById('st-pay').textContent = 'R' + collected.toLocaleString('en-ZA');
@@ -280,7 +280,7 @@ function renderTable() {
     const payCls = 'pay--' + s.pay.status;
     const payTxt = s.pay.status.charAt(0).toUpperCase() + s.pay.status.slice(1);
     return `<tr data-student-id="${escapeHtml(String(s.id))}" style="cursor:pointer">
-      <td><div class="adm-name">${s.name}${s.real ? ' <span class="msg-dot" style="background:var(--gold-dark);">live</span>' : ''}${u ? `<span class="msg-dot">${u} ✉</span>` : ''}</div><div class="adm-sub">${s.email}</div></td>
+      <td><div class="adm-name">${s.name}${s.real ? ' <span class="msg-dot" style="background:var(--gold-dark);">live</span>' : ''}${u ? `<span class="msg-dot">${u} âœ‰</span>` : ''}</div><div class="adm-sub">${s.email}</div></td>
       <td>${s.org}</td>
       <td>${s.sector}</td>
       <td><div class="prog-wrap"><div class="prog-track"><div class="prog-fill" style="width:${p}%"></div></div><span class="prog-pct">${p}%</span></div></td>
@@ -312,13 +312,13 @@ function openStudent(id) {
   document.getElementById('m-score').innerHTML = MODULES.map((name, i) => {
     const done = s.progress[i];
     const dots = [0,1,2,3].map(j => `<span class="score-dot${j < done ? ' done' : ''}"></span>`).join('');
-    return `<div class="score-row${done >= 4 ? ' done' : ''}"><span class="score-row__name">M${i} · ${name}</span><span class="score-dots">${dots}</span></div>`;
+    return `<div class="score-row${done >= 4 ? ' done' : ''}"><span class="score-row__name">M${i} Â· ${name}</span><span class="score-dots">${dots}</span></div>`;
   }).join('');
 
   // Live sessions
   document.getElementById('m-live').innerHTML = FORUMS.map((f, i) =>
-    `<span class="live-chip${i < s.live ? ' att' : ''}">📹 ${f}${i < s.live ? ' ✓' : ''}</span>`
-  ).join('') + `<span class="live-chip${s.progress.every(x=>x>=4) ? ' att' : ''}">🎓 Graduation</span>`;
+    `<span class="live-chip${i < s.live ? ' att' : ''}">ðŸ“¹ ${f}${i < s.live ? ' âœ“' : ''}</span>`
+  ).join('') + `<span class="live-chip${s.progress.every(x=>x>=4) ? ' att' : ''}">ðŸŽ“ Graduation</span>`;
 
   renderThread();
   document.getElementById('m-reply').value = '';
@@ -334,7 +334,7 @@ function renderThread() {
   el.innerHTML = msgs.map(m => {
     const who = m.from === 'facilitator' ? 'You (facilitator)' : CURRENT.name.split(' ')[0];
     const when = new Date(m.ts).toLocaleString('en-ZA', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-    return `<div class="bubble bubble--${m.from}">${escapeHtml(m.text)}<div class="bubble__meta">${who} · ${when}</div></div>`;
+    return `<div class="bubble bubble--${m.from}">${escapeHtml(m.text)}<div class="bubble__meta">${who} Â· ${when}</div></div>`;
   }).join('');
   el.scrollTop = el.scrollHeight;
 }
@@ -375,7 +375,7 @@ async function initAdmin() {
     renderTable();
     return;
   }
-  // Not signed in → send to the dedicated facilitator login (not the learner one)
+  // Not signed in â†’ send to the dedicated facilitator login (not the learner one)
   const session = await getSession();
   if (!session) { window.location.href = 'admin-login.html'; return; }
   const email = ((session.user && session.user.email) || '').toLowerCase();
@@ -393,3 +393,4 @@ initAdmin();
 </script>
 </body>
 </html>
+

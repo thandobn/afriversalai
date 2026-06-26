@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -107,7 +107,7 @@
     .quiz-opt--ok { border-color: var(--green-mid) !important; background: var(--green-pale); }
     .quiz-opt--no { border-color: #DC2626 !important; background: #FFF5F5; }
 
-    /* AI Tutor verdict banner — deliberately prominent */
+    /* AI Tutor verdict banner â€” deliberately prominent */
     .tutor-verdict { display: flex; gap: 16px; align-items: flex-start; padding: 20px 24px; border-left: 6px solid var(--green-mid); }
     .tutor-verdict__avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.45em; flex-shrink: 0; background: var(--green-mid); }
     .tutor-verdict__body { flex: 1; }
@@ -122,7 +122,7 @@
     .tutor-verdict--retry .tutor-verdict__avatar { background: #DC2626; }
     .tutor-verdict--retry .tutor-verdict__score { background: #DC2626; }
 
-    /* AI Tutor per-question note — clearly separated from the question */
+    /* AI Tutor per-question note â€” clearly separated from the question */
     .tutor-note { display: block; margin-top: 14px; border-radius: var(--radius); border-left: 4px solid var(--green-mid); padding: 12px 16px; }
     .tutor-note__label { display: inline-flex; align-items: center; gap: 7px; font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
     .tutor-note__text { font-size: 0.88em; line-height: 1.6; }
@@ -240,11 +240,11 @@
 
 <!-- GATE: locked -->
 <div id="module-locked" class="access-gate" style="display:none;">
-  <div class="access-gate__lock">🔒</div>
+  <div class="access-gate__lock">ðŸ”’</div>
   <h2 id="gate-title">Complete Module 2 to unlock Module 3</h2>
   <p id="gate-msg">Module 3 builds directly on Module 2. Finish all four phases of Module 2 first &mdash; then this module unlocks automatically.</p>
   <div class="access-gate__steps">
-    <div class="access-gate__step done" id="gate-step-0"><span class="tick">✓</span> <span>Module 1 &mdash; What AI Actually Is</span></div>
+    <div class="access-gate__step done" id="gate-step-0"><span class="tick">âœ“</span> <span>Module 1 &mdash; The Confidence Problem</span></div>
     <div class="access-gate__step todo" id="gate-step-1"><span class="tick">2</span> <span>Module 2 &mdash; How AI Learns &amp; Fails</span></div>
     <div class="access-gate__step todo" id="gate-step-2"><span class="tick">3</span> <span>Module 3 &mdash; Bias &amp; Discrimination</span></div>
   </div>
@@ -261,10 +261,10 @@
 <div class="progress-sticky-wrap">
   <div class="container" style="padding-top:0; padding-bottom:0;">
     <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 3 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
-      <div class="progress-step is-active" id="prog-0">1 · Concept</div>
-      <div class="progress-step" id="prog-1">2 · Encounter</div>
-      <div class="progress-step" id="prog-2">3 · Reflect</div>
-      <div class="progress-step" id="prog-3">4 · Apply</div>
+      <div class="progress-step is-active" id="prog-0">1 Â· Concept</div>
+      <div class="progress-step" id="prog-1">2 Â· Encounter</div>
+      <div class="progress-step" id="prog-2">3 Â· Reflect</div>
+      <div class="progress-step" id="prog-3">4 Â· Apply</div>
     </div>
   </div>
 </div>
@@ -423,7 +423,7 @@
           </div>
           <p>Why is AI bias often <em>more</em> dangerous than human bias? Because of how much we trust a number that came from a computer.</p>
           <div class="fail-card">
-            <div class="fail-card__head"><span class="fail-card__num">⚠</span><strong>Automation bias</strong></div>
+            <div class="fail-card__head"><span class="fail-card__num">âš </span><strong>Automation bias</strong></div>
             <div class="fail-card__body">
               <p style="margin:0 0 12px;">People defer to a machine&rsquo;s output more than to a colleague&rsquo;s opinion &mdash; even when the machine is wrong. A biased recommendation gets a free pass because &ldquo;the system said so.&rdquo;</p>
               <p class="fail-card__eg">Human bias is one person, sometimes. AI bias is <strong>scaled, consistent, instant &mdash; and wears a mask of neutrality.</strong></p>
@@ -567,7 +567,7 @@
 
             <div id="quiz-submit-wrap">
               <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit to the AI Tutor &rarr;</button>
-              <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
+              <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">â†» Retake the test</button>
               <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
             </div>
           </div>
@@ -651,45 +651,45 @@
 
         <div class="activity-grid" id="diagnoseGrid">
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">📈</div>
+            <div class="activity-card__icon">ðŸ“ˆ</div>
             <div class="activity-card__name">Past arrest &amp; crime records</div>
             <div class="activity-card__hint">What the model learns &ldquo;crime&rdquo; looks like</div>
-            <span class="reveal-badge">Bias source ✓</span>
+            <span class="reveal-badge">Bias source âœ“</span>
             <div class="reveal-explanation">Arrest data records where police <em>went and looked</em>, not where crime actually is. Decades of over-policing some areas become the model&rsquo;s definition of &ldquo;high crime.&rdquo; Historical bias, baked in.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">📍</div>
+            <div class="activity-card__icon">ðŸ“</div>
             <div class="activity-card__name">Location / suburb</div>
             <div class="activity-card__hint">Where the incident or person is</div>
-            <span class="reveal-badge">Bias source ✓</span>
+            <span class="reveal-badge">Bias source âœ“</span>
             <div class="reveal-explanation">In South Africa, suburb is a near-perfect proxy for race because of apartheid spatial planning. The model profiles by race without ever using the word.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">🔁</div>
-            <div class="activity-card__name">&ldquo;More patrols → more arrests&rdquo;</div>
+            <div class="activity-card__icon">ðŸ”</div>
+            <div class="activity-card__name">&ldquo;More patrols â†’ more arrests&rdquo;</div>
             <div class="activity-card__hint">How the system updates itself</div>
-            <span class="reveal-badge">Bias source ✓</span>
+            <span class="reveal-badge">Bias source âœ“</span>
             <div class="reveal-explanation">A feedback loop. Sending patrols to an area produces more recorded arrests there, which the model treats as proof it was right &mdash; so it sends even more. The prediction causes the data.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">🏘️</div>
+            <div class="activity-card__icon">ðŸ˜ï¸</div>
             <div class="activity-card__name">Wealthy suburbs barely recorded</div>
             <div class="activity-card__hint">Thin data for some areas</div>
-            <span class="reveal-badge">Bias source ✓</span>
+            <span class="reveal-badge">Bias source âœ“</span>
             <div class="reveal-explanation">Missing data. Crime that is never reported or policed in well-off areas is invisible to the model, so those areas look &ldquo;safe&rdquo; by default &mdash; widening the gap.</div>
           </div>
           <div class="activity-card" data-answer="not" onclick="sortCard(this)">
-            <div class="activity-card__icon">🤖</div>
+            <div class="activity-card__icon">ðŸ¤–</div>
             <div class="activity-card__name">The AI &ldquo;decided&rdquo; to target a race</div>
             <div class="activity-card__hint">A deliberate choice by the system</div>
-            <span class="reveal-badge">Not the cause ✗</span>
+            <span class="reveal-badge">Not the cause âœ—</span>
             <div class="reveal-explanation">AI has no intent. It didn&rsquo;t choose to profile anyone &mdash; it learned a pattern from biased records and proxies. The discrimination is real, but inherited, not decided.</div>
           </div>
           <div class="activity-card" data-answer="not" onclick="sortCard(this)">
-            <div class="activity-card__icon">🗑️</div>
+            <div class="activity-card__icon">ðŸ—‘ï¸</div>
             <div class="activity-card__name">Race was removed, so it&rsquo;s fair</div>
             <div class="activity-card__hint">The project lead&rsquo;s assumption</div>
-            <span class="reveal-badge">Not the cause ✗</span>
+            <span class="reveal-badge">Not the cause âœ—</span>
             <div class="reveal-explanation">This is the trap, not the fix. Removing race changes nothing while location and arrest history act as proxies for it. The outcome is still disparate impact.</div>
           </div>
         </div>
@@ -749,7 +749,7 @@
 
         <div style="margin: 20px 0;">
           <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;">1. The policing model assumed &ldquo;past arrests = future crime.&rdquo; What is wrong with that assumption in the South African context?</label>
-          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Arrests reflect where police looked, shaped by apartheid-era over-policing — not where crime actually is..."></textarea>
+          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Arrests reflect where police looked, shaped by apartheid-era over-policing â€” not where crime actually is..."></textarea>
         </div>
 
         <div style="margin: 20px 0;">
@@ -759,7 +759,7 @@
 
         <div style="margin: 20px 0;">
           <label for="reflect-3" style="display:block; font-weight:600; margin-bottom:8px;">3. Name one proxy in your industry&rsquo;s data that could stand in for race, gender, or class &mdash; and explain how.</label>
-          <textarea id="reflect-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Postal code → race; first language → ethnicity; device type → income..."></textarea>
+          <textarea id="reflect-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Postal code â†’ race; first language â†’ ethnicity; device type â†’ income..."></textarea>
         </div>
 
         <div class="callout">
@@ -799,9 +799,9 @@
               <tr><td>What decision does it drive?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
               <tr><td>Which listed grounds under PEPUDA/Constitution could be affected?</td><td><input type="text" id="ws-2" placeholder="e.g. race, gender, age, disability, language"></td></tr>
               <tr><td>What proxies are in its data?</td><td><input type="text" id="ws-3" placeholder="e.g. postal code, school, name, language"></td></tr>
-              <tr><td>Disparate-impact check: do outcomes differ by group?</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area — measured? unknown?"></td></tr>
+              <tr><td>Disparate-impact check: do outcomes differ by group?</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area â€” measured? unknown?"></td></tr>
               <tr><td>Who is harmed if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. qualified rural applicants filtered out"></td></tr>
-              <tr><td>What legal exposure applies?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / POPIA s71 (non-employment) — or EEA s6 / POPIA s71 if your tool is used in employment decisions"></td></tr>
+              <tr><td>What legal exposure applies?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / POPIA s71 (non-employment) â€” or EEA s6 / POPIA s71 if your tool is used in employment decisions"></td></tr>
               <tr><td>What human oversight exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / none yet"></td></tr>
             </tbody>
           </table>
@@ -872,10 +872,10 @@
       <p>You can now define algorithmic bias in plain language, tell disparate treatment from disparate impact, spot proxy discrimination, name the South African law that applies &mdash; and run an equity audit on a real tool in your sector.</p>
       <p style="color:rgba(255,255,255,0.55); font-size:0.85em; margin-bottom:24px;">Your equity-audit worksheet and answers have been recorded and will be reviewed as part of Cohort 1 assessment.</p>
       <div class="preview-end-phases">
-        <span class="preview-phase">✅ What algorithmic bias is</span>
-        <span class="preview-phase">✅ Disparate impact &amp; proxies</span>
-        <span class="preview-phase">✅ The SA legal lens</span>
-        <span class="preview-phase">✅ Audited a tool for equity</span>
+        <span class="preview-phase">âœ… What algorithmic bias is</span>
+        <span class="preview-phase">âœ… Disparate impact &amp; proxies</span>
+        <span class="preview-phase">âœ… The SA legal lens</span>
+        <span class="preview-phase">âœ… Audited a tool for equity</span>
       </div>
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
         <a href="dashboard.html" class="btn btn--gold btn--lg">Back to my dashboard &rarr;</a>
@@ -898,13 +898,13 @@
 // --- Lesson progress tracker ---
 (function() {
   var lessons = [
-    { id: 'm0l-1', label: 'Lesson 1 of 7 — What algorithmic bias really is' },
-    { id: 'm0l-2', label: 'Lesson 2 of 7 — Disparate treatment vs disparate impact' },
-    { id: 'm0l-3', label: 'Lesson 3 of 7 — Proxy discrimination' },
-    { id: 'm0l-4', label: 'Lesson 4 of 7 — Where bias enters the pipeline' },
-    { id: 'm0l-5', label: 'Lesson 5 of 7 — The South African legal lens' },
-    { id: 'm0l-6', label: 'Lesson 6 of 7 — The "objective machine" trap' },
-    { id: 'm0l-7', label: 'Lesson 7 of 7 — Detecting it: the disparate-impact test' },
+    { id: 'm0l-1', label: 'Lesson 1 of 7 â€” What algorithmic bias really is' },
+    { id: 'm0l-2', label: 'Lesson 2 of 7 â€” Disparate treatment vs disparate impact' },
+    { id: 'm0l-3', label: 'Lesson 3 of 7 â€” Proxy discrimination' },
+    { id: 'm0l-4', label: 'Lesson 4 of 7 â€” Where bias enters the pipeline' },
+    { id: 'm0l-5', label: 'Lesson 5 of 7 â€” The South African legal lens' },
+    { id: 'm0l-6', label: 'Lesson 6 of 7 â€” The "objective machine" trap' },
+    { id: 'm0l-7', label: 'Lesson 7 of 7 â€” Detecting it: the disparate-impact test' },
   ];
   var current = 0;
   function setLesson(n) {
@@ -1011,21 +1011,21 @@ function revealAnswers() {
 
 // --- Concept knowledge check: AI Tutor demonstration (must score 8/8) ---
 var QUIZ_CONCEPT_EXP = [
-  { ok: 'Exactly — bias is patterned, group-level harm from the data or design, not a one-off bug or (usually) deliberate prejudice.',
-    no: 'Algorithmic bias = systematically worse outcomes for a group, caused by the data or design. It is a pattern, not a single error — and intent is not required.' },
+  { ok: 'Exactly â€” bias is patterned, group-level harm from the data or design, not a one-off bug or (usually) deliberate prejudice.',
+    no: 'Algorithmic bias = systematically worse outcomes for a group, caused by the data or design. It is a pattern, not a single error â€” and intent is not required.' },
   { ok: 'Correct &mdash; SA law calls this indirect discrimination under PEPUDA: a neutral rule that produces unequal outcomes on a listed ground (race, gender, disability, etc.), with no intent required.',
     no: 'This is indirect discrimination under SA law (PEPUDA / Constitution s9) &mdash; a neutral-looking rule that produces unequal outcomes on a listed ground. No race field is needed for it to be unlawful.' },
-  { ok: 'Correct — proxies (postal code, school, language, name) still carry the protected attribute.',
+  { ok: 'Correct â€” proxies (postal code, school, language, name) still carry the protected attribute.',
     no: 'Deleting the race field does not remove the bias. Proxies like postal code, school or language stand in for it.' },
-  { ok: 'Yes — apartheid spatial planning means area closely tracks race, so location discriminates by race without naming it.',
-    no: 'In South Africa, apartheid engineered where people live by race — so location is an extremely strong proxy for race.' },
-  { ok: 'Correct — the Constitution and PEPUDA prohibit indirect discrimination, with no intent required.',
-    no: 'SA law (Constitution s9, PEPUDA) covers indirect discrimination — a neutral rule with a discriminatory effect — even with no intent, across many grounds.' },
-  { ok: 'Right — POPIA s71 gives the right not to be subject to a solely-automated significant decision, and to request human intervention.',
+  { ok: 'Yes â€” apartheid spatial planning means area closely tracks race, so location discriminates by race without naming it.',
+    no: 'In South Africa, apartheid engineered where people live by race â€” so location is an extremely strong proxy for race.' },
+  { ok: 'Correct â€” the Constitution and PEPUDA prohibit indirect discrimination, with no intent required.',
+    no: 'SA law (Constitution s9, PEPUDA) covers indirect discrimination â€” a neutral rule with a discriminatory effect â€” even with no intent, across many grounds.' },
+  { ok: 'Right â€” POPIA s71 gives the right not to be subject to a solely-automated significant decision, and to request human intervention.',
     no: 'POPIA s71 lets a person refuse a decision based solely on automated processing that significantly affects them, and ask for human intervention.' },
-  { ok: 'Exactly — it is scaled, consistent and instant, and automation bias makes people defer to it.',
-    no: 'AI bias is more dangerous because it is scaled, consistent and fast — and people trust it more than a human (automation bias).' },
-  { ok: 'Correct — compare outcome rates across groups; sharp differences signal disparate impact to investigate.',
+  { ok: 'Exactly â€” it is scaled, consistent and instant, and automation bias makes people defer to it.',
+    no: 'AI bias is more dangerous because it is scaled, consistent and fast â€” and people trust it more than a human (automation bias).' },
+  { ok: 'Correct â€” compare outcome rates across groups; sharp differences signal disparate impact to investigate.',
     no: 'The practical first step is to compare outcome rates across groups. If they differ sharply, you have potential disparate impact to investigate.' },
 ];
 var QUIZ_CONCEPT_N = 8;
@@ -1033,7 +1033,7 @@ var QUIZ_CONCEPT_N = 8;
 // Shared AI-Tutor verdict banner markup
 function tutorVerdictHTML(pass, correct, total, msg) {
   var head = pass ? 'Demonstrated!' : 'Not yet';
-  return '<div class="tutor-verdict__avatar">🎓</div>'
+  return '<div class="tutor-verdict__avatar">ðŸŽ“</div>'
     + '<div class="tutor-verdict__body">'
     + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
     + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
@@ -1054,13 +1054,13 @@ function submitQuizConcept() {
     fb.style.display = 'block';
     if (isOk) {
       fb.className = 'quiz-feedback tutor-note tutor-note--ok';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">ðŸŽ“ AI Tutor Â· Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
       label.classList.add('quiz-opt--ok');
       document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrongCount++;
       fb.className = 'quiz-feedback tutor-note tutor-note--no';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">ðŸŽ“ AI Tutor Â· Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
       label.classList.add('quiz-opt--no');
     }
   }
@@ -1078,12 +1078,12 @@ function submitQuizConcept() {
 
   if (wrongCount === 0) {
     verdict.className = 'tutor-verdict tutor-verdict--pass';
-    verdict.innerHTML = tutorVerdictHTML(true, correct, QUIZ_CONCEPT_N, 'A clean sweep. You can explain how AI learns and name every failure mode. You’ve <strong>demonstrated</strong> this, not just completed it. Continue.');
+    verdict.innerHTML = tutorVerdictHTML(true, correct, QUIZ_CONCEPT_N, 'A clean sweep. You can explain how AI learns and name every failure mode. Youâ€™ve <strong>demonstrated</strong> this, not just completed it. Continue.');
     document.getElementById('quiz-submit-wrap').style.display = 'none';
     document.getElementById('quiz-advance').style.display = 'inline-block';
   } else {
     verdict.className = 'tutor-verdict tutor-verdict--retry';
-    verdict.innerHTML = tutorVerdictHTML(false, correct, QUIZ_CONCEPT_N, 'A demonstration means <strong>every</strong> answer right. I’ve marked the ' + wrongCount + ' to fix in red below — read each AI Tutor note, then retake the full test.');
+    verdict.innerHTML = tutorVerdictHTML(false, correct, QUIZ_CONCEPT_N, 'A demonstration means <strong>every</strong> answer right. Iâ€™ve marked the ' + wrongCount + ' to fix in red below â€” read each AI Tutor note, then retake the full test.');
     document.getElementById('quiz-retake').style.display = 'inline-block';
     var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
     if (btn) btn.style.display = 'none';
@@ -1091,7 +1091,7 @@ function submitQuizConcept() {
   verdict.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-// Full retake — clears everything and lets the learner start the test over
+// Full retake â€” clears everything and lets the learner start the test over
 function retakeQuizConcept() {
   for (var i = 0; i < QUIZ_CONCEPT_N; i++) {
     document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) {
@@ -1223,9 +1223,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var s0 = document.getElementById('gate-step-0');
       var s1 = document.getElementById('gate-step-1');
       s0.className = 'access-gate__step ' + (m0done ? 'done' : 'todo');
-      s0.querySelector('.tick').textContent = m0done ? '✓' : '0';
+      s0.querySelector('.tick').textContent = m0done ? 'âœ“' : '0';
       s1.className = 'access-gate__step ' + (m1done ? 'done' : 'todo');
-      s1.querySelector('.tick').textContent = m1done ? '✓' : '1';
+      s1.querySelector('.tick').textContent = m1done ? 'âœ“' : '1';
     }
 
     function unlock() {
@@ -1241,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showLocked(
           'Sign in to access Module 3',
           'Module 3 is part of the core course. Sign in to your account, then complete Module 2 to unlock it.',
-          'login.html?next=module-3.html', 'Sign in →', false, false
+          'login.html?next=module-3.html', 'Sign in â†’', false, false
         );
         return;
       }
@@ -1263,13 +1263,13 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!m2done) {
         showLocked(
           'Complete Module 2 to unlock Module 3',
-          'Module 3 builds directly on Module 2. Finish all four phases of Module 2 first — then this module unlocks automatically.',
-          'module-2.html', 'Go to Module 2 →', m1done, false
+          'Module 3 builds directly on Module 2. Finish all four phases of Module 2 first â€” then this module unlocks automatically.',
+          'module-2.html', 'Go to Module 2 â†’', m1done, false
         );
         return;
       }
 
-      // Unlocked — reveal content and resume exactly where the learner left off
+      // Unlocked â€” reveal content and resume exactly where the learner left off
       unlock();
       window._m3Uid = session.user.id;
       var done = await getModuleProgress('module-3');
@@ -1311,7 +1311,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showLocked(
         'Sign in to access Module 3',
         'We could not verify your access. Please sign in and try again.',
-        'login.html?next=module-3.html', 'Sign in →', false, false
+        'login.html?next=module-3.html', 'Sign in â†’', false, false
       );
     });
   })();
@@ -1322,3 +1322,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
