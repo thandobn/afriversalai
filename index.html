@@ -20,12 +20,14 @@
       background: #1B4332;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: #fff;
+      padding: 40px 24px;
+      text-align: center;
     }
 
     .logo {
-      width: 160px;
-      max-width: 60vw;
-      margin-bottom: 32px;
+      width: 220px;
+      max-width: 70vw;
+      margin-bottom: 28px;
     }
 
     .eyebrow {
@@ -34,7 +36,39 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: #D4A017;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
+    }
+
+    /* Rotating facts */
+    .facts-wrap {
+      position: relative;
+      height: 3.6em;
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 20px;
+    }
+    .fact {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.05em, 3vw, 1.3em);
+      font-weight: 700;
+      line-height: 1.35;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+    .fact.active { opacity: 1; pointer-events: auto; }
+
+    /* Tagline */
+    .tagline {
+      max-width: 480px;
+      font-size: clamp(0.82em, 2.2vw, 0.95em);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px;
     }
 
     /* Countdown */
@@ -87,6 +121,7 @@
       gap: 8px;
       width: 220px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      text-align: left;
     }
     .access-form.open { display: flex; }
     .access-form input {
@@ -126,6 +161,14 @@
 />
 
 <p class="eyebrow">Coming Soon</p>
+
+<div class="facts-wrap" aria-live="polite" aria-atomic="true">
+  <p class="fact active">SA's only AI literacy course built on judgment&nbsp;&mdash; not just tools.</p>
+  <p class="fact">1.4 million trained on AI tools.<br>Zero trained on AI judgment.</p>
+  <p class="fact">When SA's AI policy fell apart,<br>it wasn't tech&nbsp;&mdash; it was judgment.</p>
+</div>
+
+<p class="tagline">AfriversalAI teaches South African professionals how to think with AI&nbsp;&mdash; not just how to use it. Critical judgment, real SA case studies, a certificate that actually means something.</p>
 
 <div class="countdown" id="countdown">
   <div class="cd-unit">
@@ -185,6 +228,17 @@
   }
   tick();
   setInterval(tick, 1000);
+})();
+
+// Rotating facts
+(function () {
+  var facts = document.querySelectorAll('.fact');
+  var idx = 0;
+  setInterval(function () {
+    facts[idx].classList.remove('active');
+    idx = (idx + 1) % facts.length;
+    facts[idx].classList.add('active');
+  }, 5000);
 })();
 
 function toggleAccess() {
