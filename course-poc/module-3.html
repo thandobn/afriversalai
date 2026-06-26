@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -61,7 +61,8 @@
     .activity-card:hover { border-color: var(--green-mid); background: var(--green-pale); }
     .activity-card.selected-bias { border-color: #DC2626; background: #FFF5F5; }
     .activity-card.selected-not { border-color: var(--gold); background: var(--gold-light); }
-    .activity-card__icon { font-size: 1.8em; margin-bottom: 10px; }
+    .activity-card__icon { margin-bottom: 10px; }
+    .activity-card__icon img { width: 44px; height: 44px; display: block; }
     .activity-card__name { font-weight: 700; font-size: 0.92em; margin-bottom: 4px; }
     .activity-card__hint { font-size: 0.8em; color: var(--muted); }
     .activity-card.revealed.is-bias { border-color: #DC2626 !important; background: #FFF5F5 !important; }
@@ -261,9 +262,9 @@
 <div class="progress-sticky-wrap">
   <div class="container" style="padding-top:0; padding-bottom:0;">
     <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 3 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
-      <div class="progress-step is-active" id="prog-0">1 · Concept</div>
-      <div class="progress-step" id="prog-1">2 · Encounter</div>
-      <div class="progress-step" id="prog-2">3 · Reflect</div>
+      <div class="progress-step is-active" id="prog-0">1 · Encounter</div>
+      <div class="progress-step" id="prog-1">2 · Reflect</div>
+      <div class="progress-step" id="prog-2">3 · Concept</div>
       <div class="progress-step" id="prog-3">4 · Apply</div>
     </div>
   </div>
@@ -272,17 +273,18 @@
 <section class="bg-pale">
   <div class="container">
 
-    <!-- PHASE 1: CONCEPT -->
-    <div class="phase is-active" id="phase-0">
+    <!-- PHASE 3: CONCEPT -->
+    <div class="phase" id="phase-2">
       <div class="phase__header">
-        <div class="phase__num">1</div>
+        <div class="phase__num">3</div>
         <div>
           <div class="phase__title">Concept &mdash; Bias, disparate impact &amp; SA law</div>
           <div class="phase__subtitle">The mental model before the case study &middot; ~25 min</div>
         </div>
       </div>
       <div class="phase__body">
-        <div class="phase-screen is-active" id="ps-0-content">
+        <div class="phase-screen is-active" id="ps-2-content">
+        <button type="button" class="phase-back-top" onclick="goBack(1)">&larr; Back to Reflect</button>
 
         <!-- Lesson progress tracker -->
         <div class="lesson-tracker" id="lesson-progress-bar">
@@ -461,11 +463,11 @@
         </div>
 
         <div class="phase-nav" style="justify-content:flex-end;">
-          <button class="btn btn--primary" onclick="showScreen(0,'quiz')">Take the demonstration check &rarr;</button>
+          <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the demonstration check &rarr;</button>
         </div>
         </div><!-- /ps-0-content -->
 
-        <div class="phase-screen" id="ps-0-quiz">
+        <div class="phase-screen" id="ps-2-quiz">
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
             <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
@@ -573,8 +575,8 @@
           </div>
         </div>
         <div class="phase-nav">
-          <button type="button" class="btn btn--outline" onclick="showScreen(0,'content')">&larr; Back to reading</button>
-          <button type="button" class="btn btn--primary" id="quiz-advance" style="display:none" onclick="advancePhase(0)">Continue to Encounter &rarr;</button>
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--primary" id="quiz-advance" style="display:none" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
         </div>
         </div><!-- /ps-0-quiz -->
       </div><!-- /phase__body -->
@@ -583,18 +585,18 @@
   </div>
   <div class="container">
 
-    <!-- PHASE 2: ENCOUNTER -->
-    <div class="phase" id="phase-1">
+    <!-- PHASE 1: ENCOUNTER -->
+    <div class="phase is-active" id="phase-0">
       <div class="phase__header">
-        <div class="phase__num">2</div>
+        <div class="phase__num">1</div>
         <div>
           <div class="phase__title">Encounter &mdash; Predictive policing: who gets flagged?</div>
           <div class="phase__subtitle">A South African profiling scenario &middot; ~20 min</div>
         </div>
       </div>
       <div class="phase__body">
-        <div class="phase-screen is-active" id="ps-1-content">
-        <button type="button" class="phase-back-top" onclick="goBack(0)">&larr; Back to Concept</button>
+        <div class="phase-screen is-active" id="ps-0-content">
+        
 
         <!-- Case study -->
         <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:28px;">
@@ -651,42 +653,42 @@
 
         <div class="activity-grid" id="diagnoseGrid">
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">📈</div>
+            <div class="activity-card__icon"><img src="assets/icons/icon-diag-records.png" alt="Past records" /></div>
             <div class="activity-card__name">Past arrest &amp; crime records</div>
             <div class="activity-card__hint">What the model learns &ldquo;crime&rdquo; looks like</div>
             <span class="reveal-badge">Bias source ✓</span>
             <div class="reveal-explanation">Arrest data records where police <em>went and looked</em>, not where crime actually is. Decades of over-policing some areas become the model&rsquo;s definition of &ldquo;high crime.&rdquo; Historical bias, baked in.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">📍</div>
+            <div class="activity-card__icon"><img src="assets/icons/icon-contact-address.png" alt="Location" /></div>
             <div class="activity-card__name">Location / suburb</div>
             <div class="activity-card__hint">Where the incident or person is</div>
             <span class="reveal-badge">Bias source ✓</span>
             <div class="reveal-explanation">In South Africa, suburb is a near-perfect proxy for race because of apartheid spatial planning. The model profiles by race without ever using the word.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">🔁</div>
+            <div class="activity-card__icon"><img src="assets/icons/icon-diag-patrol-cycle.png" alt="Patrol cycle" /></div>
             <div class="activity-card__name">&ldquo;More patrols → more arrests&rdquo;</div>
             <div class="activity-card__hint">How the system updates itself</div>
             <span class="reveal-badge">Bias source ✓</span>
             <div class="reveal-explanation">A feedback loop. Sending patrols to an area produces more recorded arrests there, which the model treats as proof it was right &mdash; so it sends even more. The prediction causes the data.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
-            <div class="activity-card__icon">🏘️</div>
+            <div class="activity-card__icon"><img src="assets/icons/icon-diag-suburbs.png" alt="Wealthy suburbs" /></div>
             <div class="activity-card__name">Wealthy suburbs barely recorded</div>
             <div class="activity-card__hint">Thin data for some areas</div>
             <span class="reveal-badge">Bias source ✓</span>
             <div class="reveal-explanation">Missing data. Crime that is never reported or policed in well-off areas is invisible to the model, so those areas look &ldquo;safe&rdquo; by default &mdash; widening the gap.</div>
           </div>
           <div class="activity-card" data-answer="not" onclick="sortCard(this)">
-            <div class="activity-card__icon">🤖</div>
+            <div class="activity-card__icon"><img src="assets/icons/icon-diag-ai-target.png" alt="AI targeting" /></div>
             <div class="activity-card__name">The AI &ldquo;decided&rdquo; to target a race</div>
             <div class="activity-card__hint">A deliberate choice by the system</div>
             <span class="reveal-badge">Not the cause ✗</span>
             <div class="reveal-explanation">AI has no intent. It didn&rsquo;t choose to profile anyone &mdash; it learned a pattern from biased records and proxies. The discrimination is real, but inherited, not decided.</div>
           </div>
           <div class="activity-card" data-answer="not" onclick="sortCard(this)">
-            <div class="activity-card__icon">🗑️</div>
+            <div class="activity-card__icon"><img src="assets/icons/icon-diag-race-removed.png" alt="Race removed" /></div>
             <div class="activity-card__name">Race was removed, so it&rsquo;s fair</div>
             <div class="activity-card__hint">The project lead&rsquo;s assumption</div>
             <span class="reveal-badge">Not the cause ✗</span>
@@ -697,7 +699,7 @@
         <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
           <button class="btn btn--outline btn--sm" onclick="revealAnswers()">Reveal answers</button>
         </div>
-        <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Click on at least a few factors before revealing.</div>
+        <div id="err-0" class="advance-err" role="alert" aria-live="polite" style="display:none;">Click on at least a few factors before revealing.</div>
 
         <!-- Principles after reveal -->
         <div id="encounter-principles" style="display:none; margin-top:32px;">
@@ -713,28 +715,28 @@
             <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;">Under the Constitution and PEPUDA this is <strong style="color:var(--gold);">indirect discrimination</strong> &mdash; unlawful regardless of intent. Accountability sits with the <strong style="color:var(--gold);">department and officials who deployed it</strong>, not the algorithm. &ldquo;The system flagged it&rdquo; is not a defence.</p>
           </div>
           <div style="margin-top:24px; text-align:right;">
-            <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(1)">Continue to Reflect &rarr;</button>
+            <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(0)">Continue to Reflect &rarr;</button>
           </div>
         </div>
         <div class="phase-nav" style="justify-content:flex-start;">
-          <button type="button" class="btn btn--outline" onclick="goBack(0)">&larr; Concept</button>
+          
         </div>
         </div><!-- /ps-1-content -->
       </div><!-- /phase__body -->
     </div><!-- /phase-1 -->
 
-    <!-- PHASE 3: REFLECT -->
-    <div class="phase" id="phase-2">
+    <!-- PHASE 2: REFLECT -->
+    <div class="phase" id="phase-1">
       <div class="phase__header">
-        <div class="phase__num">3</div>
+        <div class="phase__num">2</div>
         <div>
           <div class="phase__title">Reflect &mdash; What assumptions are built in?</div>
           <div class="phase__subtitle">Surfacing the values hidden in a model &middot; ~20 min</div>
         </div>
       </div>
       <div class="phase__body">
-        <div class="phase-screen is-active" id="ps-2-reflect">
-        <button type="button" class="phase-back-top" onclick="goBack(1)">&larr; Back to Encounter</button>
+        <div class="phase-screen is-active" id="ps-1-reflect">
+        <button type="button" class="phase-back-top" onclick="goBack(0)">&larr; Back to Encounter</button>
         <p>Every model carries hidden assumptions &mdash; decisions about what to measure, what counts as &ldquo;success,&rdquo; and whose history to learn from. The policing tool assumed <em>&ldquo;where we arrested before = where crime is.&rdquo;</em> That one assumption did the damage. Now turn the lens on your own world.</p>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
@@ -766,10 +768,10 @@
           <strong>One question to sit with:</strong> If you removed every protected attribute from your data tomorrow, would your model actually be fair &mdash; or just harder to interrogate?
         </div>
 
-        <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in all three boxes before continuing.</div>
+        <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in all three boxes before continuing.</div>
         <div class="phase-nav">
-          <button type="button" class="btn btn--outline" onclick="goBack(1)">&larr; Encounter</button>
-          <button type="button" class="btn btn--primary" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
+          <button type="button" class="btn btn--outline" onclick="goBack(0)">&larr; Encounter</button>
+          <button type="button" class="btn btn--primary" onclick="advancePhase(1)">Continue to Concept &rarr;</button>
         </div>
         </div><!-- /ps-2-reflect -->
       </div><!-- /phase__body -->
@@ -786,7 +788,7 @@
       </div>
       <div class="phase__body">
         <div class="phase-screen is-active" id="ps-3-content">
-        <button type="button" class="phase-back-top" onclick="goBack(2)">&larr; Back to Reflect</button>
+        <button type="button" class="phase-back-top" onclick="goBack(2)">&larr; Back to Concept</button>
         <p>Pick <strong>one AI system used (or being considered) in your sector</strong> &mdash; CV screening, credit or insurance scoring, fraud flags, a chatbot, tenant or customer scoring, predictive scheduling. Run the disparate-impact test on it.</p>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
@@ -828,7 +830,7 @@
         </div>
         <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete the Equity Audit questions before finishing the module.</div>
         <div class="phase-nav" style="justify-content:flex-start;">
-          <button type="button" class="btn btn--outline" onclick="goBack(2)">&larr; Reflect</button>
+          <button type="button" class="btn btn--outline" onclick="goBack(2)">&larr; Concept</button>
         </div>
         </div><!-- /ps-3-content -->
       </div><!-- /phase__body -->
@@ -1106,7 +1108,7 @@ function retakeQuizConcept() {
   document.getElementById('quiz-err').style.display = 'none';
   var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
   if (btn) btn.style.display = 'inline-block';
-  var first = document.querySelector('#ps-0-quiz .quiz-q');
+  var first = document.querySelector('#ps-2-quiz .quiz-q');
   if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -1115,22 +1117,16 @@ function advancePhase(fromPhase) {
   var errEl = document.getElementById('err-' + fromPhase);
 
   if (fromPhase === 0) {
+    revealAnswers();
     saveProgress('module-3', 0);
+    var prog0 = document.getElementById('prog-0');
+    if (prog0) { prog0.classList.remove('is-active'); prog0.classList.add('is-done'); }
+    updateTracker(1);
     showPhase(1);
     return;
   }
 
   if (fromPhase === 1) {
-    revealAnswers();
-    saveProgress('module-3', 1);
-    var prog1 = document.getElementById('prog-1');
-    if (prog1) { prog1.classList.remove('is-active'); prog1.classList.add('is-done'); }
-    updateTracker(2);
-    showPhase(2);
-    return;
-  }
-
-  if (fromPhase === 2) {
     var r1 = document.getElementById('reflect-1').value.trim();
     var r2 = document.getElementById('reflect-2').value.trim();
     var r3 = document.getElementById('reflect-3').value.trim();
@@ -1140,6 +1136,12 @@ function advancePhase(fromPhase) {
       return;
     }
     errEl.style.display = 'none';
+    saveProgress('module-3', 1);
+    showPhase(2);
+    return;
+  }
+
+  if (fromPhase === 2) {
     saveProgress('module-3', 2);
     showPhase(3);
     return;
