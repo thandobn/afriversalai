@@ -532,3 +532,33 @@ A fresh session should know these terms:
 - `CNAME` (auto-created by GitHub Pages when domain was set)
 - `course-poc/assets/translations.js` (15 curly quote delimiter lines fixed in fr: block)
 - `HANDOFF.md` (this entry)
+
+---
+
+## Session: 2026-06-25 / 2026-06-26 — Production infrastructure migration
+
+**What was worked on:**
+- Supabase RLS audit: replaced `public` role policies on `profiles` and `progress` tables with `authenticated`-only; dropped UPDATE policy on `progress` (append-only enforced)
+- AWS Amplify deployment: connected GitHub repo (`thandobn/afriversalai`), set monorepo root to `course-poc/`, deployed successfully to Amplify CDN
+- Custom domain setup on Amplify: `app.afriversal.ai` → Amplify (course), root excluded from Amplify
+- Namecheap DNS for `afriversal.ai`: added SSL validation CNAME, ALIAS `@` → `thandobn.github.io` (coming soon), CNAME `app` → CloudFront (`dmmki4c7zcrqx.cloudfront.net`)
+- CNAME file in repo updated from `afriversalai.com` → `afriversal.ai` so GitHub Pages serves coming soon at root domain
+- Supabase URL configuration updated: Site URL → `https://app.afriversal.ai`, Redirect URL → `https://app.afriversal.ai/**`
+- GoDaddy `afriversalai.com`: set domain forwarding → `https://afriversal.ai` (301); added `www` subdomain forward → `https://afriversal.ai` (301); GitHub Pages A records automatically replaced by GoDaddy forwarding IPs
+- GoDaddy `afriversalai.co.za`: updated existing forward from `afriversalai.com` → `https://afriversal.ai` (direct, one-hop)
+
+**Decisions made:**
+- Option B architecture: coming soon on `afriversal.ai` (GitHub Pages), course on `app.afriversal.ai` (Amplify) — public cannot access course until launch
+- JAMstack confirmed as production architecture: static files + Supabase APIs, no server to maintain, infinitely scalable
+- Progress table is append-only (no UPDATE RLS policy) — users cannot un-complete phases
+
+**Open items / next steps:**
+- Test `app.afriversal.ai` end-to-end auth: register new user, login, dashboard, confirm Supabase picks up new URL config ✓ (user confirmed working)
+- `www.afriversal.ai` currently points to Amplify (course) — may want to redirect to coming soon; low priority
+- Module engine extraction (DEFERRED): extract shared module engine functions to `module-engine.js` — flagged as too risky for single session, needs dedicated sprint
+- BACKLOG T1: knowledge check answer persistence (localStorage)
+
+**Files changed:**
+- `CNAME` (root) — updated to `afriversal.ai`
+- `BACKLOG.md` — added Tech section with T1
+- `HANDOFF.md` (this entry)

@@ -33,3 +33,11 @@
 **Lesson:** 3Blue1Brown image `object-position: center bottom` overcorrected — showed only the black bottom of the image
 **Why it happened:** Went too far trying to shift the logo into frame. `bottom` is 100% — way past the content.
 **What to do instead:** For subtle crop adjustments, use percentage values (e.g., `65%`) rather than keyword extremes (`top`, `bottom`, `left`, `right`). Test visually before committing.
+
+---
+
+## 2026-06-26
+
+**Lesson:** GoDaddy forwarding destination for `.co.za` was initially typed as `afriversalai.ai` (wrong) instead of `afriversal.ai` (correct)
+**Why it happened:** The domain name `afriversal` and the TLD `.ai` look similar to `afriversalai` in a small text field — easy to type the brand name instead of just the domain. The GoDaddy table truncates URLs so it wasn't visible until hovering for the tooltip.
+**What to do instead:** After saving any domain forward in GoDaddy, always hover over the truncated destination URL to read the full tooltip before moving on. Verify the exact string, not just that it looks roughly right.
