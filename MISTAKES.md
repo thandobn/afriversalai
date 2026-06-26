@@ -65,3 +65,9 @@
 **Lesson:** Didn't know DNS for `afriversal.ai` was on Namecheap — had to be corrected by the user mid-session ("its a namecheap i thought you knew that").
 **Why it happened:** Infrastructure details weren't in project memory; I assumed Route 53 without checking.
 **What to do instead:** Infrastructure ownership (who holds DNS for each domain) belongs in project memory from the moment it's established. Read `project_afriversalai.md` at session start and never assume AWS/Route 53 without confirming the registrar first.
+
+---
+
+**Lesson:** Admin bypass returned early before progress restore ran, leaving phase tracker steps unclickable (no `is-done` class set).
+**Why it happened:** The bypass correctly showed module content but exited before the loop that marks tracker steps as done — meaning admins couldn't click phases 2-4 even though the content was visible.
+**What to do instead:** Any admin early-return that reveals module content must also mark all tracker steps as `is-done` so phase navigation works. Always test admin navigation end-to-end (open module → click each phase step) not just that the gate bypasses.

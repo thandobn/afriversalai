@@ -592,3 +592,27 @@ A fresh session should know these terms:
 - course-poc/pricing.html (differentiation matrix section + CSS)
 - course-poc/module-0.html, module-1.html, module-2.html, module-3.html, module-4.html, module-5.html, module-6.html, module-7-corporate.html, module-7-education.html, module-7-finance.html, module-7-government.html, module-7-healthcare.html (admin bypass + admins.js script tag)
 - `C:\Users\techhub\.claude\projects\C--Users-techhub\memory\project_afriversalai.md` (infrastructure + email updated)
+
+---
+
+## Session: 2026-06-26 (continuation) — Admin dashboard unlock + phase navigation fix
+
+**What was worked on:**
+- dashboard.html: added `isAdmin` flag; changed module unlock loop condition from `prevPhases.length === 4` to `prevPhases.length === 4 || isAdmin` — all module cards now show unlocked and clickable for admin accounts
+- module-1.html, module-2.html, module-3.html, module-4.html, module-5.html, module-6.html, module-7-corporate.html: admin bypass now marks all tracker steps (1, 2, 3) as `is-done` before returning, so phase navigation is fully clickable for admins who have no prior progress saved
+- dashboard.html: removed 👩‍🏫 emoji from Instructor nav link (inconsistent with rest of nav)
+- admins.js: added thandobnkala@gmail.com and ntandodavis@gmail.com to admin allowlist; removed thando@afriversal.ai
+
+**Decisions made:**
+- Module-7 sector files (education, finance, government, healthcare) use Pattern C — admin skips the redirect gate and continues to normal restore logic, so no tracker fix needed for those
+- Instructor nav link: no emojis in nav — keep it text-only to match all other links
+
+**Open items / next steps:**
+- Claims audit sprint (plan file exists with exact rewrites for index, about, pricing, course-outline)
+- BACKLOG T1: knowledge check answer persistence (localStorage) — standing
+- Module engine extraction — standing
+
+**Files changed:**
+- course-poc/dashboard.html (isAdmin unlock logic + emoji removal)
+- course-poc/module-1.html, module-2.html, module-3.html, module-4.html, module-5.html, module-6.html, module-7-corporate.html (admin tracker step fix)
+- course-poc/assets/admins.js (email list update)
