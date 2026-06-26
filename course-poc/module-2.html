@@ -1149,6 +1149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/admins.js"></script>
 <script>
   // === ACCESS GATE: must be signed in AND have completed Module 1 ===
   (function () {
@@ -1190,6 +1191,8 @@ document.addEventListener('DOMContentLoaded', function() {
         );
         return;
       }
+
+      if (window.isAdminEmail && window.isAdminEmail(session.user.email)) { unlock(); return; }
 
       var m0 = await getModuleProgress('module-0');
       var m1 = await getModuleProgress('module-1');

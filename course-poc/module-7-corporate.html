@@ -853,6 +853,7 @@ function completeModuleM7Corp() {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/admins.js"></script>
 <script src="assets/nav.js"></script>
 
 <script>
@@ -865,6 +866,13 @@ function completeModuleM7Corp() {
   const gateChecking = document.getElementById('gate-checking');
   const gateLocked   = document.getElementById('module-locked');
   const content      = document.getElementById('module-content');
+
+  if (window.isAdminEmail && window.isAdminEmail(session.user.email)) {
+    gateChecking.style.display = 'none';
+    gateLocked.style.display   = 'none';
+    content.style.display      = 'block';
+    return;
+  }
 
   const m0 = await getModuleProgress('module-0');
   const m0done = m0.length >= 4;

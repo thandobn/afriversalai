@@ -606,6 +606,7 @@ function advancePhase(fromPhase) {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/admins.js"></script>
 <script src="assets/nav.js"></script>
 <script>
 (function() {
@@ -613,7 +614,7 @@ function advancePhase(fromPhase) {
     await updateNavForAuth();
     if (!session) { window.location.href = 'login.html?next=module-7-education.html'; return; }
     var m0 = await getModuleProgress('module-0');
-    if (m0.length < 4) { window.location.href = 'module-0.html'; return; }
+    if (m0.length < 4 && !(window.isAdminEmail && window.isAdminEmail(session.user.email))) { window.location.href = 'module-0.html'; return; }
     var done = await getModuleProgress('module-7-education');
     if (done.length >= 4) {
       [0,1,2,3].forEach(function(i) {
