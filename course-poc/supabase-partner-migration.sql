@@ -347,6 +347,27 @@ create trigger trg_assign_member_id
   for each row execute function assign_cohort_member_id();
 
 
+-- 4e. FACILITATORS — staff who help run cohorts. Account creation + role record
+--     live here now; cohort assignment + facilitator dashboard come later.
+create table if not exists facilitators (
+  email      text primary key,
+  full_name  text,
+  created_at timestamptz default now()
+);
+alter table facilitators enable row level security;
+
+drop policy if exists "Facilitators read own row" on facilitators;
+create policy "Facilitators read own row"
+  on facilitators for select to authenticated
+  using (email = auth.email() or exists (select 1 from admins a where a.email = auth.email()));
+
+drop policy if exists "Admins manage facilitators" on facilitators;
+create policy "Admins manage facilitators"
+  on facilitators for all to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()))
+  with check (exists (select 1 from admins a where a.email = auth.email()));
+
+
 -- 5. SEED — admins (console access) + initial / demo partners (idempotent)
 -- Grant Instructor Console / admin access. Add more emails here as needed.
 insert into admins (email) values

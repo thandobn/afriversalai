@@ -83,6 +83,14 @@
         '<p style="font-size:12px;color:#6B7280;">This link expires for security. If it has expired, ask your AfriversalAI contact to resend it, or use “Forgot password” on the sign-in page.</p>';
       return { to: p.email, subject: 'Set your password — AfriversalAI Partner Portal', html: wrap('Set up your partner login', body) };
     },
+    accountInvite: function (p) {
+      var roleLabel = p.roleLabel || 'account';
+      var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
+        '<p>An AfriversalAI ' + roleLabel + ' account has been created for you. Set your password using the secure link below, then sign in.</p>' +
+        btn(p.link || (BASE + '/login.html'), 'Set your password') +
+        '<p style="font-size:12px;color:#6B7280;">If the link has expired, use “Forgot password” on the sign-in page.</p>';
+      return { to: p.email, subject: 'Set your password — AfriversalAI', html: wrap('Welcome to AfriversalAI', body) };
+    },
     cohortCode: function (p) {
       var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
         '<p>The AfriversalAI cohort for <strong>' + (p.org || 'your organisation') + '</strong> is live. Share this access code with your team &mdash; each person enters it when registering to join the cohort.</p>' +
