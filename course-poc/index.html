@@ -41,6 +41,8 @@
     .hero { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; }
     .hero-headlines { min-height: 156px; display: flex; flex-direction: column; justify-content: center; margin-top: 16px; }
     @media (max-width: 768px) { .hero { min-height: 68vh; } .hero-headlines { min-height: 132px; } }
+    /* parallax fixed bg on desktop; scroll on touch devices to avoid jank */
+    @media (max-width: 820px) { .hero { background-attachment: scroll !important; } }
   </style>
 </head>
 <body>
@@ -87,7 +89,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" style="background-image:linear-gradient(rgba(8,16,12,.68), rgba(8,16,12,.82)), url('assets/afro-team-globe.jpg'); background-size:cover; background-position:center;">
+<section class="hero" style="background-image:linear-gradient(rgba(8,16,12,.68), rgba(8,16,12,.82)), url('assets/afro-team-globe.jpg'); background-size:cover; background-position:center; background-attachment:fixed;">
   <span class="eyebrow eyebrow--light" data-i18n="hero_eyebrow">AI Literacy &middot; South Africa</span>
   <div class="hero-headlines" aria-live="polite" aria-atomic="true">
     <h1 class="hero-headline active" data-i18n-html="hero_h1_1_html">SA's AI literacy course<br>built on judgment &mdash; not just tools.</h1>

@@ -236,7 +236,13 @@ create policy "Admins read all progress"
   using (exists (select 1 from admins a where a.email = auth.email()));
 
 
--- 5. SEED — approve the initial / demo partners (idempotent)
+-- 5. SEED — admins (console access) + initial / demo partners (idempotent)
+-- Grant Instructor Console / admin access. Add more emails here as needed.
+insert into admins (email) values
+  ('ntandodavis@gmail.com'),
+  ('gorentaride@gmail.com')
+on conflict do nothing;
+
 insert into partners (email, legal_name, level, status, partner_code) values
   ('partner@afriversal.ai', 'Demo Partner',     'Professional', 'active',     'AAP-2026-00001'),
   ('gorentaride@gmail.com', 'Founding Partner',  'Associate',    'onboarding', 'AAP-2026-00002')
