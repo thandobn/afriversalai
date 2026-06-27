@@ -66,8 +66,10 @@
   window.isApprovedPartner = async function (email) {
     if (!email) return false;
     email = String(email).toLowerCase();
-    // Fast path: avoid a Supabase round-trip on every page load
-    var cached = sessionStorage.getItem('afv_partner_approved');
+    // Cache keyed by email so different accounts in the same browser session
+    // don't inherit each other's approval status.
+    var cacheKey = 'afv_partner_approved_' + email;
+    var cached = sessionStorage.getItem(cacheKey);
     if (cached === '1') return true;
     if (cached === '0') return false;
     var result = false;
@@ -78,8 +80,16 @@
     if (!result) {
       result = !!(window.PARTNER_EMAILS && window.PARTNER_EMAILS.map(function (e) { return e.toLowerCase(); }).indexOf(email) !== -1);
     }
-    sessionStorage.setItem('afv_partner_approved', result ? '1' : '0');
+    sessionStorage.setItem(cacheKey, result ? '1' : '0');
     return result;
+  };
+
+  // Clear the approval cache for a given email on sign-out.
+  window.clearPartnerApprovalCache = function (email) {
+    if (!email) return;
+    try { sessionStorage.removeItem('afv_partner_approved_' + String(email).toLowerCase()); } catch (e) {}
+    // Also clear the old unkeyed entry in case it exists from a previous version.
+    try { sessionStorage.removeItem('afv_partner_approved'); } catch (e) {}
   };
 
   // ---------- load full partner record ----------

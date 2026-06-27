@@ -224,6 +224,9 @@
   <div class="section-label" style="margin-top:28px;">Commission projections by relationship year</div>
   <div id="pp-tiers"></div>
 
+  <div class="section-label" style="margin-top:28px;">Commission statement</div>
+  <div id="pp-statement"></div>
+
   <div class="section-label" style="margin-top:28px;">Registered opportunities</div>
   <div id="pp-opportunities"></div>
 
@@ -285,7 +288,16 @@ var LEVEL_INFO = {
   Strategic:   { rate:'25%', crit:'Invitation / executive-approved; trusted with major enterprise, government or multi-country opportunities.' }
 };
 
-function ppSignOut(){ try{ sessionStorage.removeItem('afv_demo_partner'); sessionStorage.removeItem('afv_pkey'); sessionStorage.removeItem('afv_demo_email'); }catch(e){} afSignOut(); }
+function ppSignOut(){
+  try{
+    var who = sessionStorage.getItem('afv_pkey');
+    if (window.clearPartnerApprovalCache) clearPartnerApprovalCache(who);
+    sessionStorage.removeItem('afv_demo_partner');
+    sessionStorage.removeItem('afv_pkey');
+    sessionStorage.removeItem('afv_demo_email');
+  }catch(e){}
+  afSignOut();
+}
 
 var _currentPartner = null;
 var _oppsByCustomer = {};
@@ -328,6 +340,7 @@ async function renderAll(){
 
   renderCustomers(p);
   renderTierBreakdown(m, p);
+  renderCommissionStatement(m, opps);
   renderOpportunityRegistrations(opps);
   renderCohorts(p);
   renderDocs(p);
@@ -528,6 +541,52 @@ function renderTierBreakdown(m) {
       '<div class="tier-card__comm">≈ '+fmtR(totalComm)+' total projected commission</div>'+
       '<div class="tier-card__count">Estimates based on ACV. Actual commission calculated on Net Collected Revenue after payment clearance.</div>'+
     '</div>';
+}
+
+function renderCommissionStatement(m, opps) {
+  var el = document.getElementById('pp-statement');
+  var won = ['Signed', 'Onboarded'];
+  var customers = (_currentPartner && _currentPartner.customers || []).filter(function(c) {
+    return won.indexOf(c.stage) !== -1;
+  });
+  if (!customers.length) {
+    el.innerHTML = '<p style="font-size:.86em;color:var(--muted);">No earned commission yet — statement appears when customers reach Signed or Onboarded stage.</p>';
+    return;
+  }
+  var oppMap = {};
+  opps.forEach(function(o) { oppMap[(o.customer_name || '').toLowerCase()] = o; });
+  var rows = customers.map(function(c) {
+    var rate = window.commissionRate(_currentPartner.level, c.start_date);
+    var tier = window.commissionTier(c.start_date);
+    var acv = Number(c.acv) || 0;
+    var TIER_CLS = { y1:'tier-badge--y1', y2:'tier-badge--y2', y3:'tier-badge--y3' };
+    var TIER_LBL = { y1:'Y1', y2:'Y2', y3:'Y3+' };
+    var opp = oppMap[(c.name || '').toLowerCase()];
+    var oppCell = (opp && opp.opp_id)
+      ? '<span class="opp-pill opp-pill--accepted" style="font-family:monospace;">'+escapeHtml(opp.opp_id)+'</span>'
+      : '<span style="color:var(--muted);font-size:.85em;">Pending registration</span>';
+    return '<tr>'+
+      '<td><strong>'+escapeHtml(c.name||'')+'</strong><div style="font-size:.8em;color:var(--muted);">'+escapeHtml(c.country||'')+'</div></td>'+
+      '<td>'+oppCell+'</td>'+
+      '<td>'+fmtR(acv)+'</td>'+
+      '<td><span class="tier-badge '+(TIER_CLS[tier]||'')+'">'+TIER_LBL[tier]+'</span> '+Math.round(rate*100)+'%</td>'+
+      '<td><strong>'+fmtR(acv * rate)+'</strong></td>'+
+      '<td>'+escapeHtml(c.stage||'')+'</td>'+
+    '</tr>';
+  }).join('');
+  el.innerHTML =
+    '<div class="stats" style="margin-bottom:16px;">'+
+      stat(fmtR(m.earned), 'Est. earned commission', 'Signed &amp; Onboarded customers')+
+      stat(fmtR(m.projected), 'Total projected', 'Full pipeline')+
+      '<div class="stat" style="background:var(--gold-light);border-color:var(--gold);justify-content:center;">'+
+        '<div class="stat__l" style="color:var(--gold-dark);text-align:center;">Payable on NCR after clearance<br>Handbook clause 8</div>'+
+      '</div>'+
+    '</div>'+
+    '<table class="ctable">'+
+      '<thead><tr><th>Customer</th><th>OPP ID</th><th>ACV</th><th>Commission %</th><th>Est. gross commission</th><th>Stage</th></tr></thead>'+
+      '<tbody>'+rows+'</tbody>'+
+    '</table>'+
+    '<p style="font-size:.78em;color:var(--muted);margin-top:10px;">Estimates based on ACV. Actual commission calculated on Net Collected Revenue (NCR) after payment clearance per Schedule B. Statutory deductions apply.</p>';
 }
 
 function renderOpportunityRegistrations(opps) {
