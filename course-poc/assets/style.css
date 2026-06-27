@@ -1221,3 +1221,8 @@ footer a { color: rgba(255,255,255,0.7); }
 .parallax-band .eyebrow { color: var(--gold); }
 .parallax-band h2 { color: #fff; }
 @media (max-width: 820px) { .parallax-band { background-attachment: scroll; padding: 64px 0; } }
+
+/* Mobile: disable fixed/parallax backgrounds (iOS Safari renders them zoomed/janky) */
+@media (max-width: 820px) {
+  .hero, .statement-band, .parallax-band { background-attachment: scroll !important; }
+}
