@@ -489,9 +489,9 @@ async function initDashboard() {
 
   // Sector module(s): admins see all sectors; learners see only their own sector
   if (isAdmin) {
-    renderAllSectorModules(progress)
+    renderSectorCards(Object.values(SECTOR_MODULES), progress, 'Sector Modules — All Tracks')
   } else if (profile?.sector) {
-    renderSectorModule(profile.sector, progress)
+    renderSectorCards([SECTOR_MODULES[profile.sector]], progress)
   }
 
   // Pre-index progress by module for O(n) lookup instead of O(n×m) repeated filters
@@ -721,44 +721,20 @@ function encourageMsg(phases, m0, m1, m2, streak) {
   return 'Great start! Finish Module 0 to earn your Foundation Graduate trophy. 🌱'
 }
 
-function renderSectorModule(sector, progress) {
-  const mod = SECTOR_MODULES[sector]
-  if (!mod) return
-  document.getElementById('sector-section-label').style.display = 'block'
-  const done = progress.filter(r => r.module_id === mod.id).map(r => r.phase)
-  const isComplete = done.length === 4
-  const inProgress = done.length > 0 && !isComplete
-  const badgeClass = isComplete ? 'badge--complete' : inProgress ? 'badge--progress' : 'badge--free'
-  const badgeText = isComplete ? 'Complete' : inProgress ? 'In progress' : 'Your sector'
-  const linkText = isComplete ? 'Review module →' : inProgress ? 'Continue →' : 'Start module →'
-  const doneNums = done.map(Number)
-  const dots = [0,1,2,3].map(i =>
-    `<div class="phase-dot${doneNums.includes(i) ? ' done' : ''}"></div>`
-  ).join('')
-
-  document.getElementById('sector-grid').innerHTML = `
-    <div class="module-card${isComplete ? ' is-complete' : ''}">
-      <span class="module-card__badge ${badgeClass}">${badgeText}</span>
-      <h3>${mod.title}</h3>
-      <p>${mod.desc}</p>
-      <div class="phase-dots">${dots}</div>
-      <a href="${mod.href}" class="continue-link">${linkText}</a>
-    </div>
-  `
-}
-
-function renderAllSectorModules(progress) {
+function renderSectorCards(mods, progress, sectionLabel) {
   const label = document.getElementById('sector-section-label')
-  label.textContent = 'Sector Modules — All Tracks'
+  if (sectionLabel) label.textContent = sectionLabel
   label.style.display = 'block'
-  document.getElementById('sector-grid').innerHTML = Object.values(SECTOR_MODULES).map(mod => {
+  const defaultBadge = mods.length > 1 ? 'Available' : 'Your sector'
+  document.getElementById('sector-grid').innerHTML = mods.map(mod => {
+    if (!mod) return ''
     const done = progress.filter(r => r.module_id === mod.id).map(r => r.phase)
     const isComplete = done.length === 4
     const inProgress = done.length > 0 && !isComplete
     const badgeClass = isComplete ? 'badge--complete' : inProgress ? 'badge--progress' : 'badge--free'
-    const badgeText  = isComplete ? 'Complete' : inProgress ? 'In progress' : 'Available'
+    const badgeText  = isComplete ? 'Complete' : inProgress ? 'In progress' : defaultBadge
     const linkText   = isComplete ? 'Review module →' : inProgress ? 'Continue →' : 'Start module →'
-    const doneNums = done.map(Number)
+    const doneNums   = done.map(Number)
     const dots = [0,1,2,3].map(i =>
       `<div class="phase-dot${doneNums.includes(i) ? ' done' : ''}"></div>`
     ).join('')

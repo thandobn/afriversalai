@@ -13,7 +13,7 @@ AfriversalAI is a B2B AI literacy training program for South African working pro
 - Grounded in **SA-specific case studies** — including the 2026 government AI policy hallucination scandal, the 37% fintech gender penalty, SA election deepfakes, and Employment Equity Act AI liability
 - Differentiated by a **proprietary decision framework** (the Funda Five) and a competency-based certificate backed by a real performance assessment
 - Priced to become SDL-recoverable once QCTO-accredited — targeting the first SA provider accreditation for AI training at this level
-- Fully **multilingual**: English, Afrikaans, French, Zulu (EN/AF/FR/ZU) via a custom data-i18n system
+- **Multilingual roadmap**: English live; Afrikaans (89% complete), French (97% complete), isiZulu (25% complete) — language switcher hidden pending native-speaker QA
 
 ---
 
@@ -21,12 +21,12 @@ AfriversalAI is a B2B AI literacy training program for South African working pro
 
 **Phase: POC live — seeking first B2B pilots**
 
-- Course POC deployed on GitHub Pages
-- Module 0 (Foundation): complete — 4-phase learning cycle, multilingual, free access
-- Module 1 (AI & Work): complete — auth-gated, sector-specific pathways
+- Course POC deployed via AWS Amplify (GitHub → auto-deploy on push to master)
+- Modules 0–6: all built and auth-gated — Modules 0–3 content-complete, 4–6 structured
 - Module 7 sector variants: built for Healthcare, Finance, Government, Corporate, Education
-- Modules 2–6: placeholders, in development for Cohort 1
-- Registration, auth, and dashboard: live (Supabase + Formspree)
+- Admin console: facilitator login, learner progress view, messaging (localStorage bus)
+- Registration, auth, profile, and dashboard: live (Supabase + RLS)
+- Glossary: full AI term library with tag filters and search
 - First external conversations: beginning July 2026
 
 ---
@@ -35,7 +35,7 @@ AfriversalAI is a B2B AI literacy training program for South African working pro
 
 | Layer | Tech |
 |-------|------|
-| Hosting | GitHub Pages (static) |
+| Hosting | AWS Amplify (auto-deploy from GitHub master) |
 | Auth | Supabase (anon key + RLS) |
 | Forms | Formspree |
 | i18n | Custom `data-i18n` system via `assets/lang.js` + `assets/translations.js` |
@@ -47,42 +47,48 @@ AfriversalAI is a B2B AI literacy training program for South African working pro
 ## Repository Structure
 
 ```
-Funda/
+afriversalai/
 ├── README.md
 ├── VISION.md                          # Mission, model, differentiation
 ├── HANDOFF.md                         # Session-by-session working log
 ├── BACKLOG.md                         # Prioritised feature backlog
-├── course-poc/                        # POC website
+├── course-poc/                        # POC website (Amplify root)
 │   ├── index.html                     # Landing page
-│   ├── course.html                    # Course overview
 │   ├── course-outline.html            # Full curriculum outline
+│   ├── about.html                     # About page
 │   ├── module-0.html                  # Foundation module (free, 4-phase)
-│   ├── module-1.html                  # Module 1: AI & Work (auth-gated)
-│   ├── module-7-corporate.html        # Sector culminating module — Corporate
-│   ├── module-7-education.html        # Sector culminating module — Education
-│   ├── module-7-finance.html          # Sector culminating module — Finance
-│   ├── module-7-government.html       # Sector culminating module — Government
-│   ├── module-7-healthcare.html       # Sector culminating module — Healthcare
-│   ├── funda-five.html                # The Funda Five framework
-│   ├── certificate.html               # Assessment + certificate
-│   ├── pricing.html                   # Pricing (individual + team)
-│   ├── register.html                  # Registration form (Formspree)
-│   ├── login.html                     # Auth login (Supabase)
+│   ├── module-1.html                  # Module 1: AI & Work
+│   ├── module-2.html                  # Module 2: How AI Learns & Fails
+│   ├── module-3.html                  # Module 3: Bias & Discrimination
+│   ├── module-4.html                  # Module 4: Verification & Judgment
+│   ├── module-5.html                  # Module 5: Accountability & Governance
+│   ├── module-6.html                  # Module 6: When AI Works
+│   ├── module-7-corporate.html        # Sector module — Corporate
+│   ├── module-7-education.html        # Sector module — Education
+│   ├── module-7-finance.html          # Sector module — Finance
+│   ├── module-7-government.html       # Sector module — Government
+│   ├── module-7-healthcare.html       # Sector module — Healthcare
+│   ├── admin.html                     # Facilitator console (auth-gated)
+│   ├── admin-login.html               # Facilitator login (separate from learner login)
 │   ├── dashboard.html                 # Learner dashboard (auth-gated)
-│   ├── settings.html                  # Account settings
+│   ├── settings.html                  # Account settings (profile, password)
+│   ├── glossary.html                  # AI glossary with tag filters + search
+│   ├── login.html                     # Learner login (Supabase)
+│   ├── register.html                  # Registration + org code validation
+│   ├── certificate.html               # Assessment + certificate info
+│   ├── pricing.html                   # Pricing (individual + team)
 │   ├── contact.html                   # Contact form
 │   ├── privacy.html                   # Privacy policy
-│   ├── glossary.html                  # AI glossary
-│   ├── supabase-migration.sql         # DB schema and RLS policy definitions
-│   ├── assets/
-│   │   ├── style.css                  # Shared stylesheet
-│   │   ├── lang.js                    # Language switcher (window.setLang)
-│   │   ├── translations.js            # All strings in EN/AF/FR/ZU
-│   │   ├── auth.js                    # Supabase auth helpers
-│   │   ├── nav.js                     # Shared navigation
-│   │   └── supabase-config.js         # Supabase client init
-│   └── research/
-│       └── learning-design-research.md # Learning science principles for module design
+│   ├── supabase-migration.sql         # DB schema, RLS policies, rollback notes
+│   └── assets/
+│       ├── style.css                  # Shared stylesheet
+│       ├── auth.js                    # Supabase auth helpers (getProfile, updateProfile, etc.)
+│       ├── admins.js                  # Admin allowlist (stub — list managed in Supabase)
+│       ├── messaging.js               # Shared localStorage messaging bus (dashboard + admin)
+│       ├── nav.js                     # Shared navigation + mobile hamburger
+│       ├── lang.js                    # Language switcher (hidden until translations QA'd)
+│       ├── translations.js            # All strings in EN/AF/FR/ZU
+│       └── supabase-config.js         # Supabase client init (anon key + URL)
 ├── research/
 │   ├── RESEARCH-TRACKER.md            # Status of all 6 research fields
 │   ├── funda-research-report.html     # Full research summary (shareable)
@@ -90,6 +96,22 @@ Funda/
 │   └── findings/                      # All 6 research field files
 └── curriculum/                        # Course materials (in development)
 ```
+
+## Supabase Setup
+
+Three tables required — run `course-poc/supabase-migration.sql` in the Supabase SQL editor:
+
+| Table | Purpose |
+|-------|---------|
+| `profiles` | One row per learner — name, org, sector, role |
+| `progress` | Append-only phase completions per learner per module |
+| `organisations` | Client orgs with access codes and seat limits |
+
+RLS is enabled on all tables. Admins are managed in the Supabase `admins` table (not in code).
+
+## Adding an Admin
+
+Supabase dashboard → Table Editor → `admins` → Insert row → enter email. No code deploy needed.
 
 ---
 
