@@ -874,3 +874,66 @@ Admin needs full read+update access — grant via Supabase service role or add a
 - Run the 2 SQL migrations in Supabase before testing live (start_date column + partner_opportunities table)
 - T6: Extract module-engine.js (deferred from earlier sessions)
 - Item 5: Commission statement view — formal statement with OPP ID, invoice, NCR, net payment per Schedule B
+
+---
+## Session: 2026-06-27 — Round 2 content remediation (completion)
+
+**What was worked on:**
+- Completed all outstanding Round 2 council review remediations (Tier 1, 2, and 3 — all done)
+- Applied qualified framing to the 37% fintech gender penalty stat: added Dzreke & Dzreke (2025) attribution and synthetic-profile note across `resources.html`, `index.html`, and `outline-foundation.html`
+- Added Q9 (Distributional Shift) to M2 knowledge check quiz — bumped count from 8→9, updated `QUIZ_CONCEPT_N` and feedback array
+- Added T3-A glossary cross-reference links: "indirect discrimination" in M3 → `glossary.html#I`; "Automated Decision" in M5 POPIA s71 law card → `glossary.html#A`
+- Added RD1 to BACKLOG.md — CITATIONS.md tracking log as a future task (source log for all stats, case studies, and external claims)
+
+**Decisions made:**
+- 37% stat: keep with qualification, not remove — paper is real (Dzreke & Dzreke 2025, DOI 10.71350/3062192576), but used synthetic audit profiles and covers SA/Nigeria/Kenya; qualified framing is accurate
+- Landing page stat cards: no inline citations added — too academic for a sales page; a footnote or "sources on request" is enough; citations log (RD1) handles the backend
+- T3-A glossary links: implemented (was marked optional) — very low effort, useful for B2B learners who want definitions mid-module
+
+**Open items / next steps:**
+- Partner portal: `style.css`, `partner-login.html`, `partner-dashboard.html`, `PARTNER_SETUP.md` have uncommitted/untracked changes from the partner portal session — commit those separately when ready
+- Run the 2 SQL migrations in Supabase before testing partner portal live (start_date column + partner_opportunities table)
+- Item 5: Commission statement view (partner portal roadmap)
+- RD1: Create CITATIONS.md when ready — seed with 37% stat, 1.4M Microsoft figure, 5–15% completion rate, Vumacam docs (validation status for each is known)
+- translations.js: m0_lead Kolb sentence only in EN — AF/FR/ZU need professional translation before language switcher goes live
+
+**Files changed:**
+- `course-poc/resources.html` — 37% stat qualified framing
+- `course-poc/index.html` — 37% stat qualified framing
+- `course-poc/outline-foundation.html` — 37% stat qualified framing
+- `course-poc/module-2.html` — Q9 distributional shift quiz question; QUIZ_CONCEPT_N 8→9
+- `course-poc/module-3.html` — glossary link on "indirect discrimination"
+- `course-poc/module-5.html` — glossary link on "Automated Decision" in POPIA s71 card
+- `BACKLOG.md` — added RD1 citations log item
+
+---
+## Session: 2026-06-27 — UI polish + opportunity registration end-to-end fix
+
+**What was worked on:**
+- Added duration/sector taglines to module cards 1–7 on home page (`index.html`) — bold green text below the case study chip, matching Module 0's gold tagline style
+- Pricing page fixes: `white-space:nowrap` on "Explore specialist cohorts" button so arrow stays inline; sector chips (`flex-wrap:nowrap` + compact padding) so all 5 appear on one row
+- Increased feature icons on home page from 52px → 80px for better visibility
+- Diagnosed opportunity registrations not appearing in admin console:
+  - Root cause 1: missing admin RLS policies on `partner_opportunities` — fixed with `admin_read_opps` + `admin_update_opps` policies (user ran in Supabase)
+  - Root cause 2: demo partner (`partner@afriversal.ai`) was in localStorage-only demo mode — submissions never hit Supabase
+  - Fix: created real Supabase Auth user for `partner@afriversal.ai` (Authentication → Users → Create new user)
+  - Fix: updated `partner-login.html` to route main demo partner (`pkey === 'demo'`) through real `afSignIn()` instead of faking the session; secondary clean-slate demo accounts keep the localStorage path
+- Verified end-to-end: partner submits opportunity → appears in admin with Pending status + Accept/Decline actions
+
+**Decisions made:**
+- Demo partner (partner@afriversal.ai) now uses real Supabase auth — this means the pre-seeded localStorage customers (Nedbank, Gauteng etc.) no longer show on login; portal starts clean from Supabase. Accepted tradeoff.
+- Secondary demo accounts (pkey ≠ 'demo') keep localStorage-only flow — they're used to demo a clean empty onboarding experience, no Supabase needed.
+- Module taglines use `module-card__meta` pattern → changed to inline `<p>` with `color:var(--green-dark); font-weight:600` to match Module 0's bold text style (not a pill/bubble).
+
+**Open items / next steps:**
+- `course-poc/PARTNER_SETUP.md` and `course-poc/partner-dashboard.html` are untracked — review and commit when ready
+- `MISTAKES.md` has uncommitted changes from prior session — commit with next docs update
+- Item 5: Commission statement view (formal statement with OPP ID, invoice, NCR, net payment per Schedule B)
+- T6: Extract module-engine.js — deferred multiple sessions
+- translations.js: module taglines added without i18n keys (consistent with existing case chips which also lack i18n) — add keys if AF/FR/ZU launches
+
+**Files changed:**
+- `course-poc/index.html` — module card taglines (modules 1–7)
+- `course-poc/pricing.html` — arrow nowrap on cohorts button; sector chips compact + nowrap
+- `course-poc/assets/style.css` — sector-chips nowrap; feature icons 80px
+- `course-poc/partner-login.html` — main demo partner routes through real Supabase auth

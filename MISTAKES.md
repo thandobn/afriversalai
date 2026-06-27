@@ -111,3 +111,32 @@
 **Lesson:** After `ALTER TABLE ADD COLUMN`, PostgREST cached the old schema causing `getProfile()` to still fail with 42703 for ~60 seconds after the column was added.
 **Why it happened:** Didn't know PostgREST has a schema cache TTL.
 **What to do instead:** After any schema change in Supabase, immediately run `NOTIFY pgrst, 'reload schema';` in the SQL editor to force an instant cache refresh. Don't rely on the TTL expiring.
+
+---
+
+## 2026-06-27
+
+**Lesson:** After context compaction, all file read states are reset — Edit tool fails with "file has not been read yet" on every file, even ones read earlier in the session.
+**Why it happened:** Context compaction starts a fresh context window; the Edit tool's read-state tracking doesn't carry over.
+**What to do instead:** After any context compaction, treat every file as unread. Re-read at the specific offset you need before editing. Trying to batch-edit without re-reading will fail for every file in the batch.
+
+---
+
+**Lesson:** Pre-existing unstaged changes block `git pull --rebase` — the rebase refuses to run and errors with "You have unstaged changes."
+**Why it happened:** `style.css` had uncommitted changes from a previous session (partner portal work) that were never staged. Tried to pull before noticing.
+**What to do instead:** At the start of any push flow, run `git stash` first if `git status` shows unstaged changes you didn't create this session. Then pull --rebase, push, and `git stash pop`. Make it a standard step on this repo.
+
+---
+
+## 2026-06-27
+
+**Lesson:** Used `module-card__case` (a pill/bubble class) for the module taglines instead of plain bold text
+**Why it happened:** User asked for "same look as Module 0" — I matched the class without asking whether they wanted a pill or just bold colored text. Module 0's pill is subtle on its gold background; on white cards it looks like a distinct bubble.
+**What to do instead:** When reusing a CSS class for a new element, check what it actually renders like in the target context. If there's any ambiguity between "styled text" and "pill", confirm before implementing.
+
+---
+
+**Lesson:** Diagnosed opportunity registrations not showing in admin as "missing RLS policies only" — that was one of two root causes, not the only one
+**Why it happened:** Fixed the RLS gap first (correct), but didn't immediately flag that demo-mode submissions go to localStorage and will never appear in Supabase regardless of policies. User had to go through the full cycle before the second root cause surfaced.
+**What to do instead:** When debugging a data-not-showing issue on this project, always check demo mode first: `SELECT * FROM [table]` — if empty, the data never reached Supabase. Suspect localStorage before suspecting policies.
+
