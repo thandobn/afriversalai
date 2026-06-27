@@ -108,6 +108,14 @@ alter table profiles
   add column if not exists role text;
 
 
+-- 6. Sector check constraint
+--    Allows the 5 named sectors plus 'other' for edge cases.
+--    Note: Postgres raises 42710 if constraint already exists — safe to ignore.
+alter table profiles
+  add constraint profiles_sector_check
+  check (sector in ('corporate','government','finance','healthcare','education','other'));
+
+
 -- ==========================================================================
 -- ROLLBACK (run manually if needed — never run automatically)
 -- drop index if exists profiles_organisation_id_idx;
