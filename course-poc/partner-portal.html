@@ -62,7 +62,7 @@
     .ctable select { font-family:inherit; font-size:.92em; padding:4px 8px; border:1px solid var(--border); border-radius:6px; }
     .stage-pill { font-size:.7em; font-weight:700; padding:2px 9px; border-radius:20px; }
     .x { color:#B91C1C; cursor:pointer; font-weight:800; border:none; background:none; font-size:1.05em; }
-    .addrow { display:grid; grid-template-columns:1.6fr 1fr 1fr .9fr 1fr auto; gap:8px; margin-top:12px; }
+    .addrow { display:grid; grid-template-columns:1.4fr 1fr 1fr .85fr .85fr 1fr auto; gap:8px; margin-top:12px; }
     @media(max-width:820px){ .addrow{ grid-template-columns:1fr 1fr; } }
     .addrow input, .addrow select { font-family:inherit; font-size:.85em; padding:8px 10px; border:1.5px solid var(--border); border-radius:var(--radius); }
     .cohort-form { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px; margin-top:12px; }
@@ -96,6 +96,46 @@
     .quick h3 { font-size:1em; color:var(--green-dark); margin:0 0 10px; }
     .quick ul { margin:0; padding-left:18px; font-size:.9em; line-height:1.9; }
     .note { background:var(--gold-light); border:1px solid var(--gold); border-radius:var(--radius); padding:12px 16px; font-size:.8em; color:var(--gold-dark); margin-top:24px; }
+
+    /* tier badge (Y1 / Y2 / Y3+) in commission cell */
+    .tier-badge { font-size:.64em; font-weight:800; padding:2px 7px; border-radius:12px; vertical-align:middle; margin-right:4px; }
+    .tier-badge--y1 { background:#D8F3DC; color:#1B4332; }
+    .tier-badge--y2 { background:#DBEAFE; color:#1D4ED8; }
+    .tier-badge--y3 { background:#EEF2FF; color:#3730A3; }
+
+    /* commission tier breakdown cards */
+    .tier-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:12px; }
+    @media(max-width:640px){ .tier-grid{ grid-template-columns:1fr; } }
+    .tier-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px 18px; }
+    .tier-card__label { font-size:.7em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:8px; }
+    .tier-card__acv { font-size:1.3em; font-weight:800; color:var(--green-dark); }
+    .tier-card__comm { font-size:.85em; color:var(--gold-dark); font-weight:700; margin-top:4px; }
+    .tier-card__count { font-size:.78em; color:var(--muted); margin-top:3px; }
+    .tier-card--total { border-color:var(--green-mid); background:var(--green-pale); }
+
+    /* opportunity registration pills + button */
+    .opp-pill { display:inline-block; font-size:.7em; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; }
+    .opp-pill--pending  { background:#FEF3C7; color:#92400E; }
+    .opp-pill--accepted { background:#D8F3DC; color:#1B4332; }
+    .opp-pill--declined { background:#FEE2E2; color:#991B1B; }
+    .opp-pill--deferred { background:#EEF2FF; color:#3730A3; }
+    .reg-btn { font-size:.76em; font-weight:700; padding:3px 10px; border:1.5px solid var(--border); border-radius:20px; background:#fff; color:var(--green-dark); cursor:pointer; white-space:nowrap; }
+    .reg-btn:hover { border-color:var(--green-mid); background:var(--green-pale); }
+
+    /* opportunity registration modal */
+    .opp-modal__overlay { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:16px; }
+    .opp-modal__card { background:#fff; border-radius:var(--radius-lg); padding:32px 28px; max-width:500px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; }
+    .opp-modal__close { position:absolute; top:12px; right:16px; border:none; background:none; font-size:1.4em; cursor:pointer; color:var(--muted); line-height:1; }
+    .opp-modal__eyebrow { font-size:.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-dark); margin-bottom:6px; }
+    .opp-modal__title { font-size:1.2em; color:var(--green-dark); margin:0 0 4px; }
+    .opp-modal__sub { font-size:.83em; color:var(--muted); margin:0 0 18px; line-height:1.5; }
+    .opp-modal__label { display:block; font-size:.82em; font-weight:700; margin-bottom:6px; }
+    .opp-modal__label span { font-weight:400; color:var(--muted); }
+    .opp-modal__textarea { width:100%; box-sizing:border-box; border:1.5px solid var(--border); border-radius:var(--radius); padding:9px 12px; font-family:inherit; font-size:.9em; resize:vertical; }
+    .opp-modal__err { display:none; background:#FEF2F2; border:1px solid #FECACA; color:#DC2626; border-radius:var(--radius); padding:10px 12px; font-size:.83em; margin-bottom:12px; }
+    .opp-modal__actions { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+    .opp-modal__cancel { padding:8px 18px; border:1.5px solid var(--border); border-radius:var(--radius); background:#fff; cursor:pointer; font-family:inherit; font-size:.9em; }
+    .opp-modal__disclaimer { font-size:.74em; color:var(--muted); margin:14px 0 0; line-height:1.5; }
   </style>
 </head>
 <body>
@@ -139,17 +179,24 @@
 
   <div class="section-label">Customer &amp; opportunity tracking</div>
   <table class="ctable">
-    <thead><tr><th>Customer / opportunity</th><th>Sector</th><th>ACV</th><th>Stage</th><th>Est. commission</th><th></th></tr></thead>
+    <thead><tr><th>Customer / opportunity</th><th>Sector</th><th>ACV</th><th>Stage</th><th>Est. commission</th><th>Registration</th><th></th></tr></thead>
     <tbody id="pp-customers"></tbody>
   </table>
   <div class="addrow">
     <input id="ac-name" placeholder="Customer / opportunity" />
     <input id="ac-sector" placeholder="Sector" />
     <input id="ac-country" placeholder="Country" />
+    <input id="ac-start" type="date" title="Relationship start date (optional)" />
     <input id="ac-acv" type="number" placeholder="ACV (R)" />
     <select id="ac-stage"><option>Registered</option><option>Proposal</option><option>Signed</option><option>Onboarded</option></select>
     <button class="btn btn--primary btn--sm" id="ac-add" onclick="addCustomer()">+ Add</button>
   </div>
+
+  <div class="section-label" style="margin-top:28px;">Commission projections by relationship year</div>
+  <div id="pp-tiers"></div>
+
+  <div class="section-label" style="margin-top:28px;">Registered opportunities</div>
+  <div id="pp-opportunities"></div>
 
   <div class="section-label">Corporate cohorts &amp; enrolment codes</div>
   <p style="font-size:.86em; color:var(--muted); margin:-4px 0 12px;">Onboard a corporate to generate a unique enrolment code. Share it with their staff &mdash; everyone who registers with that code joins this cohort and the revenue rolls up to you.</p>
@@ -183,6 +230,28 @@
   <div class="note"><strong>Confidential.</strong> For authorised AfriversalAI Enterprise Partners only. Tracking and earnings shown are estimates for your planning, not a statement of account.</div>
 </div>
 
+<!-- Opportunity registration modal -->
+<div id="opp-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;" role="dialog" aria-modal="true" aria-labelledby="opp-modal-title">
+  <div class="opp-modal__overlay">
+    <div class="opp-modal__card">
+      <button type="button" class="opp-modal__close" onclick="closeOppModal()">&times;</button>
+      <div class="opp-modal__eyebrow">Opportunity Registration</div>
+      <h2 id="opp-modal-title" class="opp-modal__title"></h2>
+      <p id="opp-modal-sub" class="opp-modal__sub"></p>
+      <div style="margin-bottom:14px;">
+        <label class="opp-modal__label">Notes <span>(optional)</span></label>
+        <textarea id="opp-notes" class="opp-modal__textarea" rows="3" placeholder="Brief context about the opportunity..."></textarea>
+      </div>
+      <div id="opp-modal-err" class="opp-modal__err"></div>
+      <div class="opp-modal__actions">
+        <button type="button" class="opp-modal__cancel" onclick="closeOppModal()">Cancel</button>
+        <button type="button" class="btn btn--primary btn--sm" id="opp-submit-btn" onclick="submitRegistration()">Submit for review &rarr;</button>
+      </div>
+      <p class="opp-modal__disclaimer">AfriversalAI will review and respond with: Accepted, Deferred, or Declined. Accepted opportunities receive a unique OPP ID and are protected per the Partner Handbook.</p>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
@@ -199,8 +268,20 @@ var LEVEL_INFO = {
 
 function ppSignOut(){ try{ sessionStorage.removeItem('afv_demo_partner'); sessionStorage.removeItem('afv_pkey'); }catch(e){} afSignOut(); }
 
+var _currentPartner = null;
+var _oppsByCustomer = {};
+var _custMap = {};
+var _oppModalCid = null;
+
 async function renderAll(){
   var p = await loadPartner();
+  _currentPartner = p;
+
+  var opps = [];
+  try { opps = await loadOpportunities(); } catch(e) {}
+  _oppsByCustomer = {};
+  opps.forEach(function(o){ _oppsByCustomer[(o.customer_name||'').toLowerCase()] = o; });
+
   var m = partnerMetrics(p);
   var st = partnerStatus(p);
 
@@ -214,7 +295,7 @@ async function renderAll(){
     stat(m.total, 'Customers tracked', '') +
     stat(m.wonCount, 'Signed / onboarded', m.wonCount?fmtR(m.earned)+' earned est.':'') +
     stat(fmtR(m.pipelineACV), 'Pipeline value (ACV)', '') +
-    stat(fmtR(m.projected), 'Projected earnings', 'at '+(m.rate*100)+'% commission');
+    stat(fmtR(m.projected), 'Projected earnings', 'blended across all tiers');
 
   // ladder
   document.getElementById('pp-ladder').innerHTML = PARTNER_LEVELS.map(function(L){
@@ -226,13 +307,10 @@ async function renderAll(){
       '<div class="lvl__crit">'+LEVEL_INFO[L].crit+'</div></div>';
   }).join('');
 
-  // customers
   renderCustomers(p);
-
-  // cohorts
+  renderTierBreakdown(m, p);
+  renderOpportunityRegistrations(opps);
   renderCohorts(p);
-
-  // docs
   renderDocs(p);
 }
 
@@ -297,19 +375,37 @@ async function onboardCohort(){
 function stat(n,l,s){ return '<div class="stat"><div class="stat__n">'+n+'</div><div class="stat__l">'+l+'</div>'+(s?'<div class="stat__s">'+s+'</div>':'')+'</div>'; }
 
 function renderCustomers(p){
-  var rate = partnerRate(p.level);
+  _custMap = {};
+  (p.customers||[]).forEach(function(c){ _custMap[c.id] = c; });
+  var TIER_LABELS = {y1:'Y1', y2:'Y2', y3:'Y3+'};
+  var TIER_CLS    = {y1:'tier-badge--y1', y2:'tier-badge--y2', y3:'tier-badge--y3'};
+  var OPP_CLS   = { Accepted:'opp-pill--accepted', Pending:'opp-pill--pending', Declined:'opp-pill--declined', Deferred:'opp-pill--deferred' };
+  var OPP_LABEL = { Accepted:'Accepted ✓', Pending:'Pending', Declined:'Declined', Deferred:'Deferred', 'Existing Customer':'Existing', 'Already Registered':'Registered' };
   var rows = (p.customers||[]).map(function(c){
+    var rate = commissionRate(p.level, c.start_date);
+    var tier = commissionTier(c.start_date);
     var sc = (STAGE_COLORS[c.stage]||'#eee;#333').split(';');
     var est = (Number(c.acv)||0)*rate;
     var opts = ['Registered','Proposal','Signed','Onboarded'].map(function(s){return '<option'+(s===c.stage?' selected':'')+'>'+s+'</option>';}).join('');
-    return '<tr><td><strong>'+escapeHtml(c.name)+'</strong><br><span style="color:var(--muted);font-size:.9em;">'+escapeHtml(c.country||'')+'</span></td>'+
+    var opp = _oppsByCustomer[(c.name||'').toLowerCase()];
+    var regCell;
+    if (!opp) {
+      regCell = '<button type="button" class="reg-btn" onclick="openOppModal(\''+escapeHtml(c.id)+'\')">Register &rarr;</button>';
+    } else if (opp.status === 'Accepted') {
+      regCell = '<span class="opp-pill opp-pill--accepted">Accepted ✓</span>'+(opp.opp_id?'<br><small style="font-family:monospace;color:var(--muted);">'+escapeHtml(opp.opp_id)+'</small>':'');
+    } else {
+      regCell = '<span class="opp-pill '+(OPP_CLS[opp.status]||'opp-pill--pending')+'">'+(OPP_LABEL[opp.status]||opp.status)+'</span>';
+    }
+    return '<tr>'+
+      '<td><strong>'+escapeHtml(c.name)+'</strong><br><span style="color:var(--muted);font-size:.9em;">'+escapeHtml(c.country||'')+'</span></td>'+
       '<td>'+escapeHtml(c.sector||'')+'</td>'+
       '<td>'+fmtR(Number(c.acv)||0)+'</td>'+
       '<td><select onchange="setStage(\''+c.id+'\',this.value)" style="background:'+sc[0]+';color:'+sc[1]+';">'+opts+'</select></td>'+
-      '<td>'+fmtR(est)+'</td>'+
-      '<td><button class="x" title="Remove" onclick="removeCustomer(\''+c.id+'\')">&times;</button></td></tr>';
+      '<td><span class="tier-badge '+TIER_CLS[tier]+'">'+TIER_LABELS[tier]+'</span>'+fmtR(est)+'</td>'+
+      '<td>'+regCell+'</td>'+
+      '<td><button type="button" class="x" title="Remove" onclick="removeCustomer(\''+c.id+'\')">&times;</button></td></tr>';
   }).join('');
-  document.getElementById('pp-customers').innerHTML = rows || '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px;">No opportunities yet — add your first below.</td></tr>';
+  document.getElementById('pp-customers').innerHTML = rows || '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px;">No opportunities yet — add your first below.</td></tr>';
 }
 
 function renderDocs(p){
@@ -353,13 +449,101 @@ async function addCustomer(){
   await addPartnerCustomer({ name:name,
     sector:document.getElementById('ac-sector').value.trim(),
     country:document.getElementById('ac-country').value.trim(),
+    start_date:document.getElementById('ac-start').value || null,
     acv:Number(document.getElementById('ac-acv').value)||0,
     stage:document.getElementById('ac-stage').value });
-  ['ac-name','ac-sector','ac-country','ac-acv'].forEach(function(i){document.getElementById(i).value='';});
+  ['ac-name','ac-sector','ac-country','ac-start','ac-acv'].forEach(function(i){document.getElementById(i).value='';});
   await renderAll();
   if(btn){ btn.disabled=false; }
 }
 function escapeHtml(s){ return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+function renderTierBreakdown(m) {
+  function tierCard(label, rateLabel, data) {
+    if (!data.count) return '<div class="tier-card"><div class="tier-card__label">'+label+'</div><div class="tier-card__count" style="color:var(--muted);">No customers in this tier yet.</div></div>';
+    return '<div class="tier-card">'+
+      '<div class="tier-card__label">'+label+'</div>'+
+      '<div class="tier-card__acv">'+fmtR(data.acv)+'</div>'+
+      '<div class="tier-card__comm">≈ '+fmtR(data.commission)+' commission</div>'+
+      '<div class="tier-card__count">'+data.count+' customer'+(data.count!==1?'s':'')+' · '+rateLabel+'</div>'+
+    '</div>';
+  }
+  var b = m.tierBreakdown;
+  var acqRate = Math.round(m.rate*100);
+  var totalComm = b.y1.commission + b.y2.commission + b.y3.commission;
+  document.getElementById('pp-tiers').innerHTML =
+    '<div class="tier-grid">'+
+      tierCard('Year 1 — Acquisition', acqRate+'%', b.y1)+
+      tierCard('Year 2 — Growth', '10%', b.y2)+
+      tierCard('Year 3+ — Renewal', '5%', b.y3)+
+    '</div>'+
+    '<div class="tier-card tier-card--total" style="margin-top:10px;">'+
+      '<div class="tier-card__label">Total across all tiers</div>'+
+      '<div class="tier-card__acv">'+fmtR(m.pipelineACV)+' pipeline ACV</div>'+
+      '<div class="tier-card__comm">≈ '+fmtR(totalComm)+' total projected commission</div>'+
+      '<div class="tier-card__count">Estimates based on ACV. Actual commission calculated on Net Collected Revenue after payment clearance.</div>'+
+    '</div>';
+}
+
+function renderOpportunityRegistrations(opps) {
+  var el = document.getElementById('pp-opportunities');
+  if (!opps.length) {
+    el.innerHTML = '<p style="font-size:.86em;color:var(--muted);">No opportunities registered yet. Click <strong>Register &rarr;</strong> on a customer row to formally submit with AfriversalAI and establish commission protection.</p>';
+    return;
+  }
+  var STATUS_CLS   = { Accepted:'opp-pill--accepted', Pending:'opp-pill--pending', Declined:'opp-pill--declined', Deferred:'opp-pill--deferred', 'Existing Customer':'opp-pill--declined', 'Already Registered':'opp-pill--deferred' };
+  var STATUS_LABEL = { Accepted:'Accepted ✓', Pending:'Pending review', 'Existing Customer':'Existing customer', 'Already Registered':'Already registered' };
+  var rows = opps.map(function(o){
+    var cls = STATUS_CLS[o.status] || 'opp-pill--pending';
+    var label = STATUS_LABEL[o.status] || o.status;
+    var oppId = o.opp_id ? '<span style="font-family:monospace;font-size:.9em;">'+escapeHtml(o.opp_id)+'</span>' : '<span style="color:var(--muted);">—</span>';
+    return '<tr>'+
+      '<td><strong>'+escapeHtml(o.customer_name||'')+'</strong></td>'+
+      '<td>'+escapeHtml(o.sector||'—')+'</td>'+
+      '<td>'+escapeHtml((o.submitted_at||'').slice(0,10))+'</td>'+
+      '<td><span class="opp-pill '+cls+'">'+label+'</span></td>'+
+      '<td>'+oppId+'</td>'+
+      '<td style="color:var(--muted);font-size:.85em;">'+escapeHtml(o.notes||'')+'</td>'+
+      '</tr>';
+  }).join('');
+  el.innerHTML = '<table class="ctable">'+
+    '<thead><tr><th>Customer</th><th>Sector</th><th>Submitted</th><th>Status</th><th>OPP ID</th><th>Notes</th></tr></thead>'+
+    '<tbody>'+rows+'</tbody></table>';
+}
+
+function openOppModal(cid) {
+  var c = _custMap[cid];
+  if (!c) return;
+  _oppModalCid = cid;
+  document.getElementById('opp-modal-title').textContent = c.name;
+  document.getElementById('opp-modal-sub').textContent = [c.sector, c.country].filter(Boolean).join(' · ');
+  document.getElementById('opp-notes').value = '';
+  document.getElementById('opp-modal-err').style.display = 'none';
+  document.getElementById('opp-modal').style.display = 'block';
+}
+
+function closeOppModal() {
+  document.getElementById('opp-modal').style.display = 'none';
+  _oppModalCid = null;
+}
+
+async function submitRegistration() {
+  var c = _custMap[_oppModalCid];
+  if (!c) return;
+  var btn = document.getElementById('opp-submit-btn');
+  var errEl = document.getElementById('opp-modal-err');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  errEl.style.display = 'none';
+  try {
+    await submitOpportunityRegistration({ customer_id: c.id, customer_name: c.name, sector: c.sector, country: c.country, notes: document.getElementById('opp-notes').value.trim() });
+    closeOppModal();
+    await renderAll();
+  } catch(ex) {
+    errEl.textContent = (ex && ex.message) || 'Could not submit — please try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Submit for review →';
+  }
+}
 
 async function initPortal(){
   // POC demo partner session

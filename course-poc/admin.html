@@ -216,6 +216,17 @@
     </table>
     <p style="font-size:0.78em; color:var(--muted); margin-top:14px;">Approving an application adds the partner to the directory and grants Partner Portal access for that email. The partner then registers / signs in with that same email.</p>
 
+    <div class="adm-bar" style="margin-top:32px;">
+      <h2>Opportunity registrations</h2>
+      <span class="adm-sub" id="pt-opp-count"></span>
+      <span class="adm-tab__badge" id="pt-opp-badge" style="display:none; margin-left:8px;"></span>
+    </div>
+    <p style="font-size:0.82em; color:var(--muted); margin:-8px 0 12px;">Partners submit opportunities here for formal review. Commission entitlement requires Accepted status (Handbook, clause 7).</p>
+    <table class="adm-table">
+      <thead><tr><th>Partner</th><th>Customer</th><th>Sector</th><th>Submitted</th><th>Status / OPP ID</th><th style="text-align:right;">Action</th></tr></thead>
+      <tbody id="pt-opp-rows"></tbody>
+    </table>
+
   </div><!-- /tab-partners -->
 </div>
 
@@ -471,6 +482,13 @@ async function loadPartnersData() {
     document.getElementById('pt-app-rows').innerHTML = '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:20px;">Unavailable until the partner migration is run.</td></tr>';
     document.getElementById('pt-dir-rows').innerHTML = '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:20px;">—</td></tr>';
   }
+  // Opportunities load independently — missing table should not break the partner view
+  try {
+    const oppsRes = await _supabase.from('partner_opportunities').select('*').order('submitted_at', { ascending: false });
+    renderOpportunities(oppsRes.data || []);
+  } catch(e) {
+    renderOpportunities([]);
+  }
 }
 
 function renderApplications(apps) {
@@ -558,6 +576,51 @@ async function setPartnerStatus(email, status) { await _supabase.from('partners'
 async function removePartner(email) {
   if (!confirm('Remove ' + email + ' as a partner?\n\nThis also deletes their tracked customers and signatures and revokes portal access.')) return;
   await _supabase.from('partners').delete().eq('email', email);
+  loadPartnersData();
+}
+
+function renderOpportunities(opps) {
+  const pending = opps.filter(o => o.status === 'Pending');
+  document.getElementById('pt-opp-count').textContent = opps.length ? opps.length + ' total · ' + pending.length + ' pending' : 'No registrations yet';
+  const badge = document.getElementById('pt-opp-badge');
+  if (pending.length) { badge.style.display = 'inline-flex'; badge.textContent = pending.length; } else badge.style.display = 'none';
+  const STATUS_CLS = { Accepted:'pill--approved', Pending:'pill--new', Declined:'pill--declined', Deferred:'pill--reviewing', 'Existing Customer':'pill--declined', 'Already Registered':'pill--reviewing' };
+  const rows = opps.map(o => {
+    const cls = STATUS_CLS[o.status] || 'pill--new';
+    const oppId = o.opp_id ? ' <span style="font-family:ui-monospace,monospace;font-size:.85em;">' + escapeHtml(o.opp_id) + '</span>' : '';
+    let actions;
+    if (o.status === 'Pending') {
+      actions = '<span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;">' +
+        '<input id="opp-id-input-' + escapeHtml(o.id) + '" placeholder="OPP-SA-YYYY-#####" style="font-family:ui-monospace,monospace;padding:4px 8px;border:1.5px solid var(--border);border-radius:6px;width:160px;font-size:.82em;" />' +
+        '<button class="btn btn--xs btn--primary" onclick="acceptOpportunity(\'' + escapeHtml(o.id) + '\')">Accept</button>' +
+        '<button class="btn btn--xs btn--danger" onclick="declineOpportunity(\'' + escapeHtml(o.id) + '\')">Decline</button>' +
+        '</span>';
+    } else {
+      actions = '<span class="adm-sub">' + escapeHtml(o.admin_notes || '—') + '</span>';
+    }
+    return '<tr>' +
+      '<td><span class="adm-sub">' + escapeHtml(o.partner_email || '—') + '</span></td>' +
+      '<td><strong>' + escapeHtml(o.customer_name || '—') + '</strong></td>' +
+      '<td>' + escapeHtml(o.sector || '—') + '</td>' +
+      '<td>' + ptDate(o.submitted_at) + '</td>' +
+      '<td><span class="pill ' + cls + '">' + escapeHtml(o.status || 'Pending') + '</span>' + oppId + '</td>' +
+      '<td style="text-align:right; white-space:nowrap;">' + actions + '</td>' +
+      '</tr>';
+  }).join('');
+  document.getElementById('pt-opp-rows').innerHTML = rows || '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:24px;">No opportunity registrations yet.</td></tr>';
+}
+
+async function acceptOpportunity(id) {
+  const input = document.getElementById('opp-id-input-' + id);
+  const oppId = input ? input.value.trim() : '';
+  if (!oppId) { alert('Enter an Opportunity ID (e.g. OPP-SA-2026-00001) before accepting.'); return; }
+  await _supabase.from('partner_opportunities').update({ status: 'Accepted', opp_id: oppId, updated_at: new Date().toISOString() }).eq('id', id);
+  loadPartnersData();
+}
+
+async function declineOpportunity(id) {
+  if (!confirm('Decline this opportunity registration?')) return;
+  await _supabase.from('partner_opportunities').update({ status: 'Declined', updated_at: new Date().toISOString() }).eq('id', id);
   loadPartnersData();
 }
 

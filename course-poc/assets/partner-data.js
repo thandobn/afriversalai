@@ -10,6 +10,24 @@
   window.partnerRate = function (l) { return RATES[l] || RATES.Associate; };
   window.fmtR = function (n) { return 'R' + Math.round(Number(n) || 0).toLocaleString('en-ZA'); };
 
+  // Returns the applicable commission rate for a customer given their tier.
+  // Year 1 (<12 months) = acquisition rate; Year 2 (12-24 mo) = 10%; Year 3+ = 5%.
+  // Falls back to acquisition rate when start_date is absent (safe for legacy rows).
+  window.commissionRate = function (level, startDate) {
+    if (!startDate) return window.partnerRate(level);
+    var months = (Date.now() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+    if (months < 12) return window.partnerRate(level);
+    if (months < 24) return 0.10;
+    return 0.05;
+  };
+
+  // Returns 'y1', 'y2', or 'y3' bucket for a customer's start_date.
+  window.commissionTier = function (startDate) {
+    if (!startDate) return 'y1';
+    var months = (Date.now() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+    return months < 12 ? 'y1' : (months < 24 ? 'y2' : 'y3');
+  };
+
   function isDemo() { try { return sessionStorage.getItem('afv_demo_partner') === '1'; } catch (e) { return false; } }
   function pkey() { try { return sessionStorage.getItem('afv_pkey') || 'demo'; } catch (e) { return 'demo'; } }
   window.partnerIsDemo = isDemo;
@@ -28,10 +46,10 @@
       email: 'partner@afriversal.ai', level: 'Professional', status: 'active', _seeded: true,
       signed: { nda: { name: 'Demo Partner', date: '2026-06-20', signed_at: '2026-06-20', verifyId: 'AAI-SIG-DEMO01' } },
       customers: [
-        { id: 'c1', name: 'Nedbank — Group L&D', sector: 'Finance', country: 'South Africa', acv: 2400000, stage: 'Onboarded' },
-        { id: 'c2', name: 'Gauteng Dept. of Education', sector: 'Government', country: 'South Africa', acv: 1200000, stage: 'Signed' },
-        { id: 'c3', name: 'Vodacom Business', sector: 'Telecoms', country: 'South Africa', acv: 800000, stage: 'Proposal' },
-        { id: 'c4', name: 'UCT Executive Education', sector: 'Education', country: 'South Africa', acv: 350000, stage: 'Registered' }
+        { id: 'c1', name: 'Nedbank — Group L&D', sector: 'Finance', country: 'South Africa', acv: 2400000, stage: 'Onboarded', start_date: '2024-03-01' },
+        { id: 'c2', name: 'Gauteng Dept. of Education', sector: 'Government', country: 'South Africa', acv: 1200000, stage: 'Signed', start_date: '2025-02-01' },
+        { id: 'c3', name: 'Vodacom Business', sector: 'Telecoms', country: 'South Africa', acv: 800000, stage: 'Proposal', start_date: '2026-04-01' },
+        { id: 'c4', name: 'UCT Executive Education', sector: 'Education', country: 'South Africa', acv: 350000, stage: 'Registered', start_date: '2026-05-01' }
       ]
     };
   }
@@ -80,7 +98,7 @@
       email: email, level: prof.level || 'Associate', status: prof.status || 'onboarding',
       partner_code: prof.partner_code || null, signed: signed,
       customers: (custs || []).map(function (c) {
-        return { id: c.id, name: c.name, sector: c.sector, country: c.country, acv: Number(c.acv) || 0, stage: c.stage };
+        return { id: c.id, name: c.name, sector: c.sector, country: c.country, acv: Number(c.acv) || 0, stage: c.stage, start_date: c.start_date || null };
       })
     };
   };
@@ -89,7 +107,7 @@
   window.addPartnerCustomer = async function (c) {
     if (isDemo()) { var p = lsLoad(); p.customers = p.customers || []; c.id = 'c' + Date.now(); p.customers.push(c); lsSave(p); return; }
     var email = await sbEmail();
-    await _supabase.from('partner_customers').insert({ partner_email: email, name: c.name, sector: c.sector, country: c.country, acv: c.acv, stage: c.stage });
+    await _supabase.from('partner_customers').insert({ partner_email: email, name: c.name, sector: c.sector, country: c.country, acv: c.acv, stage: c.stage, start_date: c.start_date || null });
   };
   window.setPartnerCustomerStage = async function (id, stage) {
     if (isDemo()) { var p = lsLoad(); (p.customers || []).forEach(function (c) { if (c.id === id) c.stage = stage; }); lsSave(p); return; }
@@ -214,16 +232,70 @@
 
   // ---------- derived metrics (operate on a loaded record) ----------
   window.partnerMetrics = function (p) {
-    var rate = window.partnerRate(p.level);
     var won = ['Signed', 'Onboarded'];
-    var pipelineACV = 0, wonACV = 0, wonCount = 0;
+    var pipelineACV = 0, wonACV = 0, wonCount = 0, projected = 0, earned = 0;
+    var tiers = { y1:{count:0,acv:0,commission:0}, y2:{count:0,acv:0,commission:0}, y3:{count:0,acv:0,commission:0} };
     (p.customers || []).forEach(function (c) {
-      pipelineACV += Number(c.acv) || 0;
-      if (won.indexOf(c.stage) !== -1) { wonACV += Number(c.acv) || 0; wonCount++; }
+      var acv = Number(c.acv) || 0;
+      var rate = window.commissionRate(p.level, c.start_date);
+      var tier = window.commissionTier(c.start_date);
+      pipelineACV += acv;
+      projected += acv * rate;
+      if (won.indexOf(c.stage) !== -1) { wonACV += acv; wonCount++; earned += acv * rate; }
+      tiers[tier].count++;
+      tiers[tier].acv += acv;
+      tiers[tier].commission += acv * rate;
     });
-    return { rate: rate, total: (p.customers || []).length, wonCount: wonCount,
-      pipelineACV: pipelineACV, wonACV: wonACV, projected: pipelineACV * rate, earned: wonACV * rate };
+    return { rate: window.partnerRate(p.level), total: (p.customers || []).length,
+      wonCount: wonCount, pipelineACV: pipelineACV, wonACV: wonACV,
+      projected: projected, earned: earned, tierBreakdown: tiers };
   };
+  // ---------- opportunity registrations ----------
+  var OPPS_LS_KEY = 'afv_opps_demo';
+  function oppsLoad() { try { return JSON.parse(localStorage.getItem(OPPS_LS_KEY) || '[]'); } catch(e) { return []; } }
+  function oppsSave(o) { try { localStorage.setItem(OPPS_LS_KEY, JSON.stringify(o)); } catch(e) {} }
+
+  window.loadOpportunities = async function () {
+    if (isDemo()) {
+      var opps = oppsLoad();
+      if (!opps.length) {
+        opps = [
+          { id: 'opp-demo-1', customer_id: 'c1', customer_name: 'Nedbank — Group L&D', sector: 'Finance', country: 'South Africa',
+            notes: '', submitted_at: '2026-03-15T10:00:00Z', status: 'Accepted', opp_id: 'OPP-SA-2026-00001', admin_notes: 'Approved — established relationship confirmed.' },
+          { id: 'opp-demo-2', customer_id: 'c2', customer_name: 'Gauteng Dept. of Education', sector: 'Government', country: 'South Africa',
+            notes: 'Public sector procurement process underway.', submitted_at: '2026-05-20T09:30:00Z', status: 'Pending', opp_id: null, admin_notes: null }
+        ];
+        oppsSave(opps);
+      }
+      return opps;
+    }
+    var email = await sbEmail();
+    if (!email) return [];
+    try {
+      return (await _supabase.from('partner_opportunities').select('*').eq('partner_email', email).order('submitted_at', { ascending: false })).data || [];
+    } catch(e) { return []; }
+  };
+
+  window.submitOpportunityRegistration = async function (data) {
+    if (isDemo()) {
+      var opps = oppsLoad();
+      var entry = { id: 'opp-demo-' + Date.now(), customer_id: data.customer_id || null,
+        customer_name: data.customer_name, sector: data.sector || null, country: data.country || null,
+        notes: data.notes || null, submitted_at: new Date().toISOString(),
+        status: 'Pending', opp_id: null, admin_notes: null };
+      opps.push(entry);
+      oppsSave(opps);
+      return entry;
+    }
+    var email = await sbEmail();
+    var r = await _supabase.from('partner_opportunities').insert({
+      partner_email: email, customer_name: data.customer_name, sector: data.sector || null,
+      country: data.country || null, notes: data.notes || null
+    }).select().maybeSingle();
+    if (r.error) throw r.error;
+    return r.data;
+  };
+
   window.partnerStatus = function (p) {
     var core = ['nda', 'agreement', 'schedule'];
     var done = core.filter(function (k) { return p.signed && p.signed[k]; }).length;

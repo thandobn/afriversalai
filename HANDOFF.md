@@ -817,3 +817,60 @@ Mom covered everything core (portal, login, e-sign, admin approval, DB schema). 
 **Next session (Items 3 & 4):**
 - Opportunity registration flow: add "Register with AfriversalAI" action on customer rows → creates a record in admin console with status tracking
 - Growth commission: add start_date to partner_customers, update partnerMetrics() to apply tiered rates by year
+
+---
+## Session: 2026-06-27 (continued) — Items 3 & 4: Opportunity registration + growth commission tiers
+
+### Supabase migrations — run these in the Supabase SQL Editor before deploying
+
+**Item 4 — add start_date to customer tracking:**
+```sql
+ALTER TABLE partner_customers ADD COLUMN IF NOT EXISTS start_date date;
+```
+
+**Item 3 — create opportunity registrations table:**
+```sql
+CREATE TABLE IF NOT EXISTS partner_opportunities (
+  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  partner_email text NOT NULL,
+  customer_name text NOT NULL,
+  sector        text,
+  country       text,
+  notes         text,
+  submitted_at  timestamptz DEFAULT now(),
+  status        text NOT NULL DEFAULT 'Pending',
+  opp_id        text,
+  admin_notes   text,
+  updated_at    timestamptz DEFAULT now()
+);
+ALTER TABLE partner_opportunities ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "partner_read_own" ON partner_opportunities FOR SELECT USING (partner_email = auth.email());
+CREATE POLICY "partner_insert_own" ON partner_opportunities FOR INSERT WITH CHECK (partner_email = auth.email());
+```
+Admin needs full read+update access — grant via Supabase service role or add admin RLS policy tied to the admins table.
+
+### What was built
+
+**Item 4 — Growth commission tiers:**
+- `commissionRate(level, startDate)` — returns applicable rate: Year 1 (<12 mo) = acquisition rate (20/22/25%), Year 2 (12–24 mo) = 10%, Year 3+ = 5%
+- `commissionTier(startDate)` — returns 'y1' | 'y2' | 'y3'
+- `partnerMetrics()` updated to single-pass calculation using per-customer tiered rates; now returns `tierBreakdown: { y1, y2, y3 }` with count/acv/commission per tier
+- `loadPartner()` and `addPartnerCustomer()` updated to include `start_date`
+- Demo customers seeded with start_dates: Nedbank=2024-03-01 (Y3 5%), Gauteng=2025-02-01 (Y2 10%), Vodacom=2026-04-01 (Y1 22%), UCT=2026-05-01 (Y1 22%)
+- partner-portal.html: added "Relationship start date" field to Add Customer form; tier badge (Y1/Y2/Y3+) on each customer row commission cell; "Commission projections by relationship year" section with 3-column breakdown + total card
+
+**Item 3 — Opportunity registration workflow:**
+- `loadOpportunities()` and `submitOpportunityRegistration(data)` added to partner-data.js (demo + Supabase modes)
+- Demo seeds: Nedbank = Accepted (OPP-SA-2026-00001), Gauteng = Pending
+- partner-portal.html: "Register →" button on each unregistered customer row; modal overlay (HTML + CSS classes, no inline styles) pre-fills customer name/sector/country; "Registered opportunities" table below customer list; row buttons update to status badge after submission
+- admin.html: "Opportunity registrations" subsection in Partners tab; pending badge count; Accept action (with OPP ID input) + Decline; loads independently of partner/application tables so missing table doesn't break the whole view
+
+### Files changed
+- `course-poc/assets/partner-data.js`
+- `course-poc/partner-portal.html`
+- `course-poc/admin.html`
+
+### Open items / next steps
+- Run the 2 SQL migrations in Supabase before testing live (start_date column + partner_opportunities table)
+- T6: Extract module-engine.js (deferred from earlier sessions)
+- Item 5: Commission statement view — formal statement with OPP ID, invoice, NCR, net payment per Schedule B
