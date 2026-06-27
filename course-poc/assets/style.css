@@ -502,11 +502,12 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
 }
 .module-card__thumb {
   width: calc(100% + 56px);
-  height: 128px;
+  height: 68px;
   object-fit: cover;
   object-position: center;
-  margin: -28px -28px 18px;
+  margin: -28px -28px 16px;
   display: block;
+  opacity: 0.92;
 }
 .module-card__num {
   font-size: 0.75em;
