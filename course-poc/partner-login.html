@@ -93,16 +93,17 @@
     btn.disabled = true; btn.textContent = 'Signing in…';
 
     var demo = DEMO_PARTNERS.filter(function (d) { return d.email === email.toLowerCase() && d.pass === password; })[0];
-    if (demo) {
+    if (demo && demo.pkey !== 'demo') {
+      // Secondary clean-slate demo accounts — localStorage only, no Supabase session needed.
       sessionStorage.setItem('afv_demo_partner', '1');
       sessionStorage.setItem('afv_pkey', demo.pkey);
       sessionStorage.setItem('afv_demo_email', demo.email);
-      // Clean demo accounts (anything other than the pre-populated 'demo') always start
-      // fresh — wipe any previously stored/cached data so the dashboard is empty.
-      if (demo.pkey !== 'demo') { try { localStorage.removeItem('afv_partner_' + demo.pkey); } catch (e) {} }
+      try { localStorage.removeItem('afv_partner_' + demo.pkey); } catch (e) {}
       window.location.href = 'partner-portal.html';
       return false;
     }
+    // Main demo partner (partner@afriversal.ai) falls through to real Supabase auth
+    // so that submissions are visible in the admin console.
 
     try {
       await afSignIn(email, password);
