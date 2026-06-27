@@ -17,6 +17,12 @@
 -- ==========================================================================
 
 
+-- 0. ELECTRONIC-SIGNATURE CONSENT — every user records when they agreed that
+--    their electronic signature is legally binding (ECTA 25 of 2002). Augments
+--    the existing profiles table from the main migration.
+alter table profiles add column if not exists esign_consent_at timestamptz;
+
+
 -- 1. PARTNERS — approved partner directory + profile
 --    email is the key (mirrors the `admins` allowlist pattern). A partner is
 --    "approved / has portal access" iff a row exists here for their email.

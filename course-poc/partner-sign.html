@@ -78,7 +78,7 @@
         <div class="sg-field"><label for="sig-title">Capacity / title</label><input type="text" id="sig-title" placeholder="e.g. Director / in personal capacity" /></div>
         <div class="sg-field"><label for="sig-date">Date</label><input type="date" id="sig-date" /></div>
       </div>
-      <label class="agree"><input type="checkbox" id="sig-agree" /> <span id="sg-agree-text">I confirm I have read and agree to this document, and that this electronic signature is legally binding.</span></label>
+      <label class="agree"><input type="checkbox" id="sig-agree" /> <span id="sg-agree-text">I confirm I have read and agree to this document. I agree that signing electronically is legally binding and that my electronic signature has the same legal effect as a handwritten (wet-ink) signature under the Electronic Communications and Transactions Act 25 of 2002. I confirm I am the person named and am authorised to sign.</span></label>
 
       <div class="sg-err" id="sg-err"></div>
       <button type="submit" id="sg-submit" class="btn btn--primary btn--lg" style="width:100%;">Sign &amp; submit &rarr;</button>
@@ -92,11 +92,16 @@
         <table class="cert__tbl">
           <tr><td>Signatory</td><td id="cert-name"></td></tr>
           <tr><td>Capacity</td><td id="cert-title"></td></tr>
+          <tr><td>Date signed</td><td id="cert-date"></td></tr>
           <tr><td>Signed (timestamp)</td><td id="cert-time"></td></tr>
           <tr><td>Verification ID</td><td id="cert-vid"></td></tr>
           <tr><td>Document fingerprint</td><td id="cert-fp"></td></tr>
         </table>
-        <p class="cert__note">This electronic signature is recorded with a secure timestamp, a unique verification ID and a document fingerprint. Electronic signatures are recognised under South Africa&rsquo;s Electronic Communications and Transactions Act 25 of 2002 (ECTA). For advanced / qualified signatures, AfriversalAI uses an accredited e-signature provider.</p>
+        <div class="cert__barcode" style="text-align:center; margin:18px 0 6px;">
+          <svg id="cert-barcode" role="img" aria-label="Official signature barcode"></svg>
+          <div style="font-size:0.72em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--green-dark); margin-top:4px;">✔ Officially signed &amp; recorded</div>
+        </div>
+        <p class="cert__note">This electronic signature is recorded with a date stamp, a secure timestamp, a unique verification ID, a document fingerprint and a scannable verification barcode. The signatory has agreed that their electronic signature is legally binding and equivalent to a handwritten (wet-ink) signature under South Africa&rsquo;s Electronic Communications and Transactions Act 25 of 2002 (ECTA).</p>
         <a href="partner-portal.html" class="btn btn--primary btn--lg" style="width:100%;">Return to Partner Portal &rarr;</a>
       </div>
     </div>
@@ -104,8 +109,10 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/esign.js"></script>
 <script src="assets/partners.js"></script>
 <script src="assets/partner-data.js"></script>
 <script>
@@ -232,9 +239,11 @@
     document.getElementById('cert-doc').textContent=cfg.title;
     document.getElementById('cert-name').textContent=rec.name;
     document.getElementById('cert-title').textContent=rec.title||'—';
+    document.getElementById('cert-date').textContent=new Date(rec.ts).toLocaleDateString('en-ZA',{day:'numeric',month:'long',year:'numeric'});
     document.getElementById('cert-time').textContent=new Date(rec.ts).toLocaleString('en-ZA',{dateStyle:'long',timeStyle:'short'})+' SAST';
     document.getElementById('cert-vid').textContent=rec.verifyId;
     document.getElementById('cert-fp').textContent=rec.fingerprint;
+    if (window.afEsignBarcode) afEsignBarcode('#cert-barcode', rec.verifyId);
     document.getElementById('sg-cert').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
   }
