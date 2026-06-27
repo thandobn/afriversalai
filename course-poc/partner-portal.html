@@ -136,6 +136,25 @@
     .opp-modal__actions { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
     .opp-modal__cancel { padding:8px 18px; border:1.5px solid var(--border); border-radius:var(--radius); background:#fff; cursor:pointer; font-family:inherit; font-size:.9em; }
     .opp-modal__disclaimer { font-size:.74em; color:var(--muted); margin:14px 0 0; line-height:1.5; }
+
+    /* Mobile: turn the customer/opportunity table into stacked cards */
+    @media (max-width: 680px) {
+      .ctable { border:none; background:none; }
+      .ctable thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      .ctable tr { display:block; background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); margin-bottom:12px; padding:6px 4px; }
+      .ctable td { display:flex; justify-content:space-between; align-items:center; gap:14px; text-align:right; padding:9px 14px; border:none; border-bottom:1px solid var(--border); }
+      .ctable tr td:last-child { border-bottom:none; }
+      .ctable td::before { content:attr(data-label); font-weight:700; font-size:.72em; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); text-align:left; flex-shrink:0; }
+      .ctable td:nth-child(1)::before { content:"Customer"; }
+      .ctable td:nth-child(2)::before { content:"Sector"; }
+      .ctable td:nth-child(3)::before { content:"ACV"; }
+      .ctable td:nth-child(4)::before { content:"Stage"; }
+      .ctable td:nth-child(5)::before { content:"Est. commission"; }
+      .ctable td:nth-child(6)::before { content:"Registration"; }
+      .ctable td:nth-child(7)::before { content:""; }
+      .ctable td:nth-child(7) { justify-content:flex-end; }
+      .ctable select { flex:1; max-width:60%; }
+    }
   </style>
 </head>
 <body>

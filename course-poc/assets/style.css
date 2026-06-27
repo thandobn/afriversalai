@@ -1226,3 +1226,7 @@ footer a { color: rgba(255,255,255,0.7); }
 @media (max-width: 820px) {
   .hero, .statement-band, .parallax-band { background-attachment: scroll !important; }
 }
+
+/* Full-bleed poster parallax (e.g. the green "AI for Africa" poster on About) */
+.poster-parallax { background-size: cover; background-position: center; background-attachment: fixed; min-height: 80vh; }
+@media (max-width: 820px) { .poster-parallax { background-attachment: scroll !important; min-height: 52vh; } }

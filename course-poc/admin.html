@@ -120,6 +120,18 @@
     .thread__empty { color: var(--muted); font-size: 0.85em; text-align: center; padding: 20px; }
     .reply { display: flex; gap: 8px; margin-top: 12px; }
     .reply textarea { flex: 1; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-family: inherit; font-size: 0.86em; resize: vertical; min-height: 44px; }
+
+    /* Mobile: stack every admin table row into a readable card */
+    @media (max-width: 680px) {
+      .adm-table { border: none; }
+      .adm-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .adm-table, .adm-table tbody, .adm-table tr, .adm-table td { display: block; width: 100%; }
+      .adm-table tr { border: 1.5px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 12px; background: #fff; padding: 4px 2px; }
+      .adm-table td { border: none; border-bottom: 1px solid var(--border); padding: 10px 14px; }
+      .adm-table tr td:last-child { border-bottom: none; }
+      .adm-table td:first-child { font-weight: 700; background: var(--green-pale); border-radius: 8px; font-size: 0.95em; }
+      .adm-table select.inline { width: 100%; }
+    }
   </style>
 </head>
 <body>
