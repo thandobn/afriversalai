@@ -65,6 +65,14 @@ Last updated: June 2026
 
 ---
 
+## Research & Documentation
+
+| # | Item | Owner | Effort | Notes |
+|---|------|-------|--------|-------|
+| RD1 | **CITATIONS.md — source tracking log** — create a single file that logs every statistic, case study, and external claim used across the course and marketing pages. Each entry: the claim, the source, validation status (confirmed / qualified / unverified), where it appears in the course, and any evidence-tier notes (e.g. synthetic profiles, methodology caveats). Purpose: instant response when a pilot client or L&D buyer asks "where does that number come from?" Known entries to seed it with: 37% gender penalty (Dzreke & Dzreke 2025 — validated, synthetic audit profiles), 1.4M Microsoft SA training figure, 5–15% self-paced completion rate, Vumacam SA deployment docs. | Thando | Half day to seed; ongoing | Credibility with B2B buyers; legal/compliance due diligence |
+
+---
+
 ## Notes
 
 - **SETA disclaimer** is already live on pricing.html and certificate.html — both say "application in preparation, SDL rebate pending accreditation approval." This language is correct and protects you until accreditation is confirmed.
