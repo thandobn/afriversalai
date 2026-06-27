@@ -9,6 +9,19 @@
 //   onScreenChange(phaseNum, screenId, phase)  {function} — called after screen swap, before scroll
 //   afterTrackerUpdate(activePhaseNum)         {function} — called at end of updateTracker
 
+// Scroll so the active lesson content lands just below the sticky nav + progress
+// tracker — not the top of the page (which now sits under the module banner image).
+function _afScrollToContent() {
+  var nav = document.querySelector('.nav')
+  var sticky = document.querySelector('.progress-sticky-wrap')
+  var navH = nav ? nav.offsetHeight : 0
+  var stickyH = sticky ? sticky.offsetHeight : 0
+  var anchor = document.querySelector('.phase.is-active') || sticky
+  if (!anchor) { window.scrollTo({ top: 0, behavior: 'smooth' }); return }
+  var y = anchor.getBoundingClientRect().top + window.pageYOffset - navH - stickyH - 16
+  window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' })
+}
+
 function showPhase(n) {
   var cfg = window.MODULE_CONFIG || {}
   document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active') })
@@ -24,7 +37,7 @@ function showPhase(n) {
   if (screens.length > 0) screens[0].classList.add('is-active')
   updateTracker(n)
   if (cfg.onPhaseEnter) cfg.onPhaseEnter(n)
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  _afScrollToContent()
 }
 
 function showScreen(phaseNum, screenId) {
@@ -36,7 +49,7 @@ function showScreen(phaseNum, screenId) {
   if ((window.MODULE_CONFIG || {}).onScreenChange) {
     window.MODULE_CONFIG.onScreenChange(phaseNum, screenId, phase)
   }
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  _afScrollToContent()
 }
 
 function updateTracker(activePhaseNum) {
