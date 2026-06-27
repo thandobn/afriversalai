@@ -502,7 +502,7 @@ h4 { font-size: 1em;   font-weight: 600; margin-bottom: 6px; }
 }
 .module-card__thumb {
   width: calc(100% + 56px);
-  height: 68px;
+  height: 104px;
   object-fit: cover;
   object-position: center;
   margin: -28px -28px 16px;
