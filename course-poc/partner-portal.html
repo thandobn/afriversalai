@@ -285,7 +285,7 @@ var LEVEL_INFO = {
   Strategic:   { rate:'25%', crit:'Invitation / executive-approved; trusted with major enterprise, government or multi-country opportunities.' }
 };
 
-function ppSignOut(){ try{ sessionStorage.removeItem('afv_demo_partner'); sessionStorage.removeItem('afv_pkey'); }catch(e){} afSignOut(); }
+function ppSignOut(){ try{ sessionStorage.removeItem('afv_demo_partner'); sessionStorage.removeItem('afv_pkey'); sessionStorage.removeItem('afv_demo_email'); }catch(e){} afSignOut(); }
 
 var _currentPartner = null;
 var _oppsByCustomer = {};
@@ -567,8 +567,9 @@ async function submitRegistration() {
 async function initPortal(){
   // POC demo partner session
   if (sessionStorage.getItem('afv_demo_partner')==='1'){
-    sessionStorage.setItem('afv_pkey','demo');
-    document.getElementById('pp-who').textContent='partner@afriversal.ai (demo)';
+    if (!sessionStorage.getItem('afv_pkey')) sessionStorage.setItem('afv_pkey','demo');
+    var demoEmail = sessionStorage.getItem('afv_demo_email') || 'partner@afriversal.ai';
+    document.getElementById('pp-who').textContent=demoEmail+' (demo)';
     document.getElementById('pp-portal').style.display='block';
     document.getElementById('pp-greeting').textContent='Welcome back, Partner';
     await renderAll();

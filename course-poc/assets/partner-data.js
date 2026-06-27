@@ -42,6 +42,12 @@
   function lsLoad() { try { return JSON.parse(localStorage.getItem('afv_partner_' + pkey()) || '{}'); } catch (e) { return {}; } }
   function lsSave(p) { try { localStorage.setItem('afv_partner_' + pkey(), JSON.stringify(p)); } catch (e) {} }
   function demoSeed() {
+    // Clean dummy partner (any demo pkey other than 'demo') — active account, empty dashboard, no data yet.
+    if (pkey() !== 'demo') {
+      var em = 'partner@afriversal.ai';
+      try { em = sessionStorage.getItem('afv_demo_email') || em; } catch (e) {}
+      return { email: em, level: 'Associate', status: 'active', _seeded: true, signed: {}, customers: [] };
+    }
     return {
       email: 'partner@afriversal.ai', level: 'Professional', status: 'active', _seeded: true,
       signed: { nda: { name: 'Demo Partner', date: '2026-06-20', signed_at: '2026-06-20', verifyId: 'AAI-SIG-DEMO01' } },

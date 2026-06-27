@@ -69,9 +69,14 @@
 <script src="assets/partners.js"></script>
 <script src="assets/partner-data.js"></script>
 <script>
-  // POC demo partner — works without a Supabase account so the portal is reachable for review.
+  // POC demo partners — work without a Supabase account so the portal is reachable for review.
   // Remove once real partner accounts exist in Supabase.
-  var DEMO_PARTNER = { email: 'partner@afriversal.ai', pass: 'Partner2026' };
+  //   'demo'  → pre-populated sample dashboard (Nedbank etc.)
+  //   'demo2' → clean account, empty dashboard (no data yet)
+  var DEMO_PARTNERS = [
+    { email: 'partner@afriversal.ai',  pass: 'Partner2026', pkey: 'demo'  },
+    { email: 'partner2@afriversal.ai', pass: 'Partner2026', pkey: 'demo2' }
+  ];
 
   if (sessionStorage.getItem('afv_demo_partner') === '1') { window.location.href = 'partner-portal.html'; }
   getSession().then(async function (s) {
@@ -87,8 +92,11 @@
     errEl.style.display = 'none';
     btn.disabled = true; btn.textContent = 'Signing in…';
 
-    if (email.toLowerCase() === DEMO_PARTNER.email && password === DEMO_PARTNER.pass) {
+    var demo = DEMO_PARTNERS.filter(function (d) { return d.email === email.toLowerCase() && d.pass === password; })[0];
+    if (demo) {
       sessionStorage.setItem('afv_demo_partner', '1');
+      sessionStorage.setItem('afv_pkey', demo.pkey);
+      sessionStorage.setItem('afv_demo_email', demo.email);
       window.location.href = 'partner-portal.html';
       return false;
     }
