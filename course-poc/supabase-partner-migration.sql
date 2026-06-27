@@ -182,6 +182,60 @@ create policy "Admins update applications"
   using (exists (select 1 from admins a where a.email = auth.email()));
 
 
+-- 4b. CORPORATE COHORTS — extend the existing `organisations` table (from the
+--     main migration) into the partner-owned cohort entity. A partner onboards a
+--     corporate, which creates a cohort with an enrolment code; the corporate's
+--     staff register with that code and roll up to the partner for revenue + tracking.
+alter table organisations add column if not exists partner_email  text references partners(email) on delete set null;
+alter table organisations add column if not exists customer_id    uuid references partner_customers(id) on delete set null;
+alter table organisations add column if not exists price_per_seat numeric default 14995;
+alter table organisations add column if not exists sector         text;
+alter table organisations add column if not exists start_date     date;
+alter table organisations add column if not exists status         text default 'active';
+alter table organisations add column if not exists contact_name   text;
+alter table organisations add column if not exists contact_email  text;
+
+create index if not exists organisations_partner_idx on organisations (partner_email);
+
+-- Partners create & manage their own cohorts; admins manage all.
+drop policy if exists "Partners create own organisations" on organisations;
+create policy "Partners create own organisations"
+  on organisations for insert to authenticated
+  with check (partner_email = auth.email()
+              or exists (select 1 from admins a where a.email = auth.email()));
+
+drop policy if exists "Partners update own organisations" on organisations;
+create policy "Partners update own organisations"
+  on organisations for update to authenticated
+  using (partner_email = auth.email()
+         or exists (select 1 from admins a where a.email = auth.email()));
+
+-- Partners may read the profiles & progress of learners enrolled in THEIR cohorts;
+-- admins may read all. (Learners' own-row policies from the main migration remain.)
+drop policy if exists "Partners read own cohort learners" on profiles;
+create policy "Partners read own cohort learners"
+  on profiles for select to authenticated
+  using (exists (select 1 from organisations o
+                 where o.id = profiles.organisation_id and o.partner_email = auth.email()));
+
+drop policy if exists "Admins read all profiles" on profiles;
+create policy "Admins read all profiles"
+  on profiles for select to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
+drop policy if exists "Partners read own cohort progress" on progress;
+create policy "Partners read own cohort progress"
+  on progress for select to authenticated
+  using (exists (select 1 from profiles p
+                 join organisations o on o.id = p.organisation_id
+                 where p.id = progress.user_id and o.partner_email = auth.email()));
+
+drop policy if exists "Admins read all progress" on progress;
+create policy "Admins read all progress"
+  on progress for select to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
+
 -- 5. SEED — approve the initial / demo partners (idempotent)
 insert into partners (email, legal_name, level, status, partner_code) values
   ('partner@afriversal.ai', 'Demo Partner',     'Professional', 'active',     'AAP-2026-00001'),

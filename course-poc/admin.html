@@ -230,7 +230,9 @@
       <button class="adm-card__close" onclick="closePartner()" aria-label="Close">&times;</button>
     </div>
     <div class="adm-card__body">
-      <div class="adm-sec-label">Customer pipeline</div>
+      <div class="adm-sec-label">Corporate cohorts &amp; enrolled learners</div>
+      <div id="pm-cohorts" style="font-size:0.88em;"></div>
+      <div class="adm-sec-label" style="margin-top:18px;">Customer pipeline</div>
       <div id="pm-customers" style="font-size:0.88em;"></div>
       <div class="adm-sec-label" style="margin-top:18px;">Signed documents</div>
       <div id="pm-signatures" style="font-size:0.88em;"></div>
@@ -440,6 +442,7 @@ document.addEventListener('click', function(e) {
 
 // ===================== PARTNERS TAB (live Supabase) =====================
 let PT_APPS = [], PT_PARTS = [], PT_CUSTS = [];
+const PT_RATES = { Associate: 0.20, Professional: 0.22, Strategic: 0.25 };
 function ptMoney(n) { return 'R' + (Math.round(Number(n) || 0)).toLocaleString('en-ZA'); }
 function ptDate(s) { return s ? new Date(s).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'; }
 
@@ -562,9 +565,34 @@ async function viewPartner(email) {
   const p = PT_PARTS.find(x => x.email === email);
   document.getElementById('pm-name').textContent = (p && p.legal_name) || email;
   document.getElementById('pm-meta').textContent = email + (p && p.partner_code ? ' · ' + p.partner_code : '');
+  document.getElementById('pm-cohorts').innerHTML = '<span class="adm-sub">Loading…</span>';
   document.getElementById('pm-customers').innerHTML = '<span class="adm-sub">Loading…</span>';
   document.getElementById('pm-signatures').innerHTML = '<span class="adm-sub">Loading…</span>';
   document.getElementById('adm-pmodal').classList.add('is-open');
+
+  // Cohorts + their enrolled learners (with a simple completion %)
+  const cohorts = (await _supabase.from('organisations').select('*').eq('partner_email', email)).data || [];
+  const rate = (p && PT_RATES[p.level]) || 0.20;
+  let cohHtml = '';
+  for (const co of cohorts) {
+    const learners = (await _supabase.from('profiles').select('id,full_name,email').eq('organisation_id', co.id)).data || [];
+    let lh = '';
+    for (const ln of learners) {
+      const prog = (await _supabase.from('progress').select('phase').eq('user_id', ln.id)).data || [];
+      const done = prog.reduce((a, r) => a + Math.min(Number(r.phase) || 0, 4), 0);
+      const pctv = Math.round(done / (7 * 4) * 100);
+      lh += '<div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:6px 0;"><span>' +
+        escapeHtml(ln.full_name || ln.email || '—') + ' <span class="adm-sub">' + escapeHtml(ln.email || '') + '</span></span><span>' + pctv + '%</span></div>';
+    }
+    const revenue = (Number(co.max_seats) || 0) * (Number(co.price_per_seat) || 0);
+    cohHtml += '<div style="border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;">' +
+      '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;"><strong>' + escapeHtml(co.name || 'Cohort') + '</strong>' +
+      '<span class="pill pill--approved" style="font-family:ui-monospace,monospace;">' + escapeHtml(co.code || '') + '</span></div>' +
+      '<div class="adm-sub" style="margin:4px 0 8px;">' + learners.length + ' / ' + (Number(co.max_seats) || 0) + ' enrolled · ' + ptMoney(revenue) + ' value · ' + ptMoney(revenue * rate) + ' commission</div>' +
+      (lh || '<span class="adm-sub">No learners enrolled yet.</span>') + '</div>';
+  }
+  document.getElementById('pm-cohorts').innerHTML = cohHtml || '<span class="adm-sub">No cohorts yet.</span>';
+
   const cs = (await _supabase.from('partner_customers').select('*').eq('partner_email', email)).data || [];
   const sg = (await _supabase.from('partner_signatures').select('*').eq('partner_email', email)).data || [];
   document.getElementById('pm-customers').innerHTML = cs.length ? cs.map(c =>

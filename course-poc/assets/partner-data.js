@@ -114,6 +114,95 @@
     if (Object.keys(patch).length) { try { await _supabase.from('partners').update(patch).eq('email', email); } catch (e) {} }
   };
 
+  // ---------- corporate cohorts ----------
+  // Cohort enrolment code, e.g. NEDBANK-2026-K7Q (uppercase, matches existing convention).
+  function cohortCode(name) {
+    var base = (name || 'COHORT').toUpperCase().replace(/[^A-Z0-9]+/g, '-').replace(/^-+|-+$/g, '').split('-')[0].slice(0, 12) || 'COHORT';
+    return base + '-' + new Date().getFullYear() + '-' + Math.random().toString(36).slice(2, 5).toUpperCase();
+  }
+  window.partnerCohortCode = cohortCode;
+
+  window.loadCohorts = async function () {
+    if (isDemo()) {
+      var p = lsLoad();
+      if (!p.cohorts) {
+        p.cohorts = [{ id: 'demo-co-1', name: 'Nedbank — Group L&D', code: 'NEDBANK-2026-A', max_seats: 40,
+          price_per_seat: 14995, sector: 'Finance', start_date: '2026-09-01', status: 'active', enrolled: 23 }];
+        lsSave(p);
+      }
+      return p.cohorts;
+    }
+    var email = await sbEmail();
+    if (!email) return [];
+    var orgs = [];
+    try { orgs = (await _supabase.from('organisations').select('*').eq('partner_email', email).order('created_at', { ascending: false })).data || []; }
+    catch (e) { return []; }
+    for (var i = 0; i < orgs.length; i++) {
+      try {
+        var c = await _supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('organisation_id', orgs[i].id);
+        orgs[i].enrolled = c.count || 0;
+      } catch (e) { orgs[i].enrolled = 0; }
+    }
+    return orgs;
+  };
+
+  // d: { name, sector, contact_name, contact_email, seats, price_per_seat, start_date }
+  window.createCohort = async function (d) {
+    var seats = Number(d.seats) || 0, price = Number(d.price_per_seat) || 0;
+    if (isDemo()) {
+      var p = lsLoad(); p.cohorts = p.cohorts || [];
+      var demo = { id: 'demo-co-' + Date.now(), name: d.name, code: cohortCode(d.name), max_seats: seats,
+        price_per_seat: price, sector: d.sector, start_date: d.start_date, status: 'active', enrolled: 0,
+        contact_name: d.contact_name, contact_email: d.contact_email };
+      p.cohorts.push(demo); lsSave(p); return demo;
+    }
+    var email = await sbEmail();
+    // 1. the corporate as a pipeline customer (already onboarded)
+    var custId = null;
+    try {
+      var cust = await _supabase.from('partner_customers')
+        .insert({ partner_email: email, name: d.name, sector: d.sector, acv: seats * price, stage: 'Onboarded' })
+        .select().maybeSingle();
+      custId = cust.data ? cust.data.id : null;
+    } catch (e) { /* non-fatal */ }
+    // 2. the cohort (organisation) with a unique enrolment code (retry on collision)
+    var co = null, lastErr = null;
+    for (var attempt = 0; attempt < 4 && !co; attempt++) {
+      var r = await _supabase.from('organisations').insert({
+        name: d.name, code: cohortCode(d.name), max_seats: seats, active: true, partner_email: email,
+        customer_id: custId, price_per_seat: price, sector: d.sector, start_date: d.start_date || null,
+        status: 'active', contact_name: d.contact_name, contact_email: d.contact_email
+      }).select().maybeSingle();
+      if (r.error) {
+        lastErr = r.error;
+        if (r.error.code === '23505' || /duplicate|unique/i.test(r.error.message || '')) continue;
+        break;
+      }
+      co = r.data;
+    }
+    if (!co) throw (lastErr || new Error('Could not create cohort'));
+    co.enrolled = 0;
+    return co;
+  };
+
+  window.cohortMetrics = function (co, level) {
+    var rate = window.partnerRate(level);
+    var revenue = (Number(co.max_seats) || 0) * (Number(co.price_per_seat) || 0);
+    return { revenue: revenue, commission: revenue * rate, rate: rate };
+  };
+
+  window.loadCohortLearners = async function (orgId) {
+    if (isDemo()) return [];
+    var profs = [];
+    try { profs = (await _supabase.from('profiles').select('id,full_name,email,role,created_at').eq('organisation_id', orgId)).data || []; }
+    catch (e) { return []; }
+    for (var i = 0; i < profs.length; i++) {
+      try { profs[i].progress = (await _supabase.from('progress').select('module_id,phase').eq('user_id', profs[i].id)).data || []; }
+      catch (e) { profs[i].progress = []; }
+    }
+    return profs;
+  };
+
   // ---------- derived metrics (operate on a loaded record) ----------
   window.partnerMetrics = function (p) {
     var rate = window.partnerRate(p.level);

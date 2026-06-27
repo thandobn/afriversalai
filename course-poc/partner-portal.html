@@ -65,6 +65,18 @@
     .addrow { display:grid; grid-template-columns:1.6fr 1fr 1fr .9fr 1fr auto; gap:8px; margin-top:12px; }
     @media(max-width:820px){ .addrow{ grid-template-columns:1fr 1fr; } }
     .addrow input, .addrow select { font-family:inherit; font-size:.85em; padding:8px 10px; border:1.5px solid var(--border); border-radius:var(--radius); }
+    .cohort-form { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px; margin-top:12px; }
+    .cohort-form__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:10px; }
+    .cohort-form input { font-family:inherit; font-size:.85em; padding:9px 11px; border:1.5px solid var(--border); border-radius:var(--radius); }
+    .cohort-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:12px; }
+    .cohort-card__top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+    .cohort-card__name { font-weight:800; color:var(--green-dark); font-size:1.02em; }
+    .cohort-code { display:inline-flex; align-items:center; gap:8px; background:var(--green-pale); border:1.5px dashed var(--green-mid); color:var(--green-dark); font-family:ui-monospace,monospace; font-weight:800; letter-spacing:1px; padding:6px 12px; border-radius:8px; font-size:.95em; }
+    .cohort-code button { border:none; background:var(--green-mid); color:#fff; font-size:.72em; font-weight:700; padding:4px 9px; border-radius:6px; cursor:pointer; }
+    .cohort-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:12px; margin-top:14px; }
+    .cohort-metrics .m { background:#F7F9F8; border-radius:10px; padding:10px 12px; }
+    .cohort-metrics .m b { display:block; font-size:1.15em; color:var(--green-dark); }
+    .cohort-metrics .m span { font-size:.72em; color:var(--muted); }
 
     /* doc cards */
     .doc-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
@@ -139,6 +151,23 @@
     <button class="btn btn--primary btn--sm" id="ac-add" onclick="addCustomer()">+ Add</button>
   </div>
 
+  <div class="section-label">Corporate cohorts &amp; enrolment codes</div>
+  <p style="font-size:.86em; color:var(--muted); margin:-4px 0 12px;">Onboard a corporate to generate a unique enrolment code. Share it with their staff &mdash; everyone who registers with that code joins this cohort and the revenue rolls up to you.</p>
+  <div id="pp-cohorts"></div>
+  <div class="cohort-form">
+    <div class="cohort-form__grid">
+      <input id="co-name" placeholder="Corporate name *" />
+      <input id="co-sector" placeholder="Sector" />
+      <input id="co-contact" placeholder="Contact person" />
+      <input id="co-email" type="email" placeholder="Contact email" />
+      <input id="co-seats" type="number" min="1" placeholder="Seats *" />
+      <input id="co-price" type="number" placeholder="Price / seat (R)" />
+      <input id="co-start" type="date" title="Cohort start date" />
+    </div>
+    <button class="btn btn--primary btn--sm" id="co-add" onclick="onboardCohort()">+ Onboard corporate &amp; generate code</button>
+    <span id="co-err" style="display:none; color:#B91C1C; font-size:.85em; margin-left:10px;"></span>
+  </div>
+
   <div class="section-label">Your documents</div>
   <div id="pp-docs"></div>
 
@@ -158,6 +187,7 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/partners.js"></script>
+<script src="assets/pricing.js"></script>
 <script src="assets/partner-data.js"></script>
 <script>
 var STAGE_COLORS = { Registered:'#EEF2FF;#3730A3', Proposal:'#FEF3C7;#92400E', Signed:'#DBEAFE;#1D4ED8', Onboarded:'#D8F3DC;#1B4332' };
@@ -199,8 +229,69 @@ async function renderAll(){
   // customers
   renderCustomers(p);
 
+  // cohorts
+  renderCohorts(p);
+
   // docs
   renderDocs(p);
+}
+
+var PP_LEVEL = 'Associate';
+async function renderCohorts(p){
+  PP_LEVEL = p.level || 'Associate';
+  var el = document.getElementById('pp-cohorts');
+  if (document.getElementById('co-price') && !document.getElementById('co-price').value && window.afSeatPrice) {
+    document.getElementById('co-price').placeholder = 'Price / seat (R) — default ' + afSeatPrice().toLocaleString('en-ZA');
+  }
+  var cohorts = [];
+  try { cohorts = await loadCohorts(); } catch(e) { cohorts = []; }
+  if (!cohorts.length) { el.innerHTML = '<div class="note" style="margin:0 0 4px;">No corporate cohorts yet. Onboard your first corporate below to generate an enrolment code.</div>'; return; }
+  el.innerHTML = cohorts.map(function(co){
+    var m = cohortMetrics(co, PP_LEVEL);
+    var seats = Number(co.max_seats)||0, enrolled = Number(co.enrolled)||0;
+    return '<div class="cohort-card"><div class="cohort-card__top">'+
+      '<div><div class="cohort-card__name">'+escapeHtml(co.name||'Cohort')+'</div>'+
+        '<div style="font-size:.84em;color:var(--muted);">'+escapeHtml(co.sector||'')+(co.start_date?(' · starts '+co.start_date):'')+'</div></div>'+
+      '<div class="cohort-code">'+escapeHtml(co.code||'')+'<button onclick="copyCode(\''+escapeHtml(co.code||'')+'\')">Copy</button></div>'+
+      '</div>'+
+      '<div class="cohort-metrics">'+
+        '<div class="m"><b>'+enrolled+' / '+seats+'</b><span>Enrolled / seats</span></div>'+
+        '<div class="m"><b>'+fmtR(co.price_per_seat)+'</b><span>Per seat</span></div>'+
+        '<div class="m"><b>'+fmtR(m.revenue)+'</b><span>Cohort value</span></div>'+
+        '<div class="m"><b>'+fmtR(m.commission)+'</b><span>Your commission ('+Math.round(m.rate*100)+'%)</span></div>'+
+      '</div></div>';
+  }).join('');
+}
+
+function copyCode(code){
+  if (navigator.clipboard) navigator.clipboard.writeText(code).then(function(){},function(){});
+}
+
+async function onboardCohort(){
+  var err = document.getElementById('co-err'); err.style.display='none';
+  var name = document.getElementById('co-name').value.trim();
+  var seats = Number(document.getElementById('co-seats').value)||0;
+  if (!name){ err.textContent='Enter the corporate name.'; err.style.display='inline'; return; }
+  if (!seats || seats < 1){ err.textContent='Enter the number of seats.'; err.style.display='inline'; return; }
+  var price = Number(document.getElementById('co-price').value) || (window.afSeatPrice ? afSeatPrice() : 14995);
+  var btn = document.getElementById('co-add'); btn.disabled=true; var label=btn.textContent; btn.textContent='Onboarding…';
+  try {
+    await createCohort({
+      name: name,
+      sector: document.getElementById('co-sector').value.trim(),
+      contact_name: document.getElementById('co-contact').value.trim(),
+      contact_email: document.getElementById('co-email').value.trim(),
+      seats: seats,
+      price_per_seat: price,
+      start_date: document.getElementById('co-start').value || null
+    });
+    ['co-name','co-sector','co-contact','co-email','co-seats','co-price','co-start'].forEach(function(i){ document.getElementById(i).value=''; });
+    await renderAll();
+  } catch(ex){
+    err.textContent = 'Could not onboard: ' + (ex && ex.message ? ex.message : 'please try again.');
+    err.style.display='inline';
+  }
+  btn.disabled=false; btn.textContent=label;
 }
 
 function stat(n,l,s){ return '<div class="stat"><div class="stat__n">'+n+'</div><div class="stat__l">'+l+'</div>'+(s?'<div class="stat__s">'+s+'</div>':'')+'</div>'; }
