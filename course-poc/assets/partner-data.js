@@ -42,11 +42,20 @@
   window.isApprovedPartner = async function (email) {
     if (!email) return false;
     email = String(email).toLowerCase();
+    // Fast path: avoid a Supabase round-trip on every page load
+    var cached = sessionStorage.getItem('afv_partner_approved');
+    if (cached === '1') return true;
+    if (cached === '0') return false;
+    var result = false;
     try {
       var r = await _supabase.from('partners').select('email').eq('email', email).maybeSingle();
-      if (r && r.data && r.data.email) return true;
+      if (r && r.data && r.data.email) result = true;
     } catch (e) { /* table may not exist yet — fall through */ }
-    return !!(window.PARTNER_EMAILS && window.PARTNER_EMAILS.map(function (e) { return e.toLowerCase(); }).indexOf(email) !== -1);
+    if (!result) {
+      result = !!(window.PARTNER_EMAILS && window.PARTNER_EMAILS.map(function (e) { return e.toLowerCase(); }).indexOf(email) !== -1);
+    }
+    sessionStorage.setItem('afv_partner_approved', result ? '1' : '0');
+    return result;
   };
 
   // ---------- load full partner record ----------

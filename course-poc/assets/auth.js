@@ -159,14 +159,17 @@ async function updateNavForAuth() {
 
   const page = window.location.pathname.split('/').pop() || 'index.html'
 
-  // Home page: keep the marketing nav intact, just swap login/register for a dashboard link
+  const isPartner = sessionStorage.getItem('afv_demo_partner') === '1' ||
+                    sessionStorage.getItem('afv_partner_approved') === '1'
+
+  // Home page: keep the marketing nav intact, just swap login/register for a portal link
   if (page === 'index.html') {
     const loginItem = navLinks.querySelector('.nav__login')
     if (loginItem) loginItem.style.display = 'none'
     const registerAnchor = navLinks.querySelector('a[href="register.html"]')
     if (registerAnchor) {
-      registerAnchor.href = 'dashboard.html'
-      registerAnchor.textContent = 'My Dashboard →'
+      registerAnchor.href = isPartner ? 'partner-portal.html' : 'dashboard.html'
+      registerAnchor.textContent = isPartner ? 'Partner Portal →' : 'My Dashboard →'
     }
     return
   }
@@ -176,7 +179,9 @@ async function updateNavForAuth() {
 
   navLinks.innerHTML =
     '<li><a href="index.html"' + a('index.html') + '>Home</a></li>' +
-    '<li><a href="dashboard.html"' + a('dashboard.html') + '>My Dashboard</a></li>' +
+    (isPartner
+      ? '<li><a href="partner-portal.html">Partner Portal</a></li>'
+      : '<li><a href="dashboard.html"' + a('dashboard.html') + '>My Dashboard</a></li>') +
     '<li id="nav-instructor" style="display:none;"><a href="admin.html">Instructor</a></li>' +
     '<li><a href="glossary.html"' + a('glossary.html') + '>Glossary</a></li>' +
     '<li class="nav__dropdown">' +

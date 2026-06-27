@@ -794,3 +794,26 @@ Settings have been broken since early in the project. Chain:
 - Commit the 3 bug fixes (diff shown to Thando, pending approval)
 - T6: Extract module-engine.js — deferred from last session, still open
 - Council Round 2: content review deferred
+
+---
+## Session: 2026-06-27 (continued) — Gap analysis + nav/perf quick fixes
+
+**Gap analysis vs. original plan:**
+
+Mom covered everything core (portal, login, e-sign, admin approval, DB schema). Identified gaps:
+
+1. **Nav bar not partner-aware** (FIXED this session) — `updateNavForAuth()` in auth.js hardcoded "My Dashboard → dashboard.html" for all users. Partners saw wrong label. Fixed to check partner status and show "Partner Portal →" linking to partner-portal.html.
+
+2. **isApprovedPartner caching** (FIXED this session) — dashboard.html partner guard fired a Supabase query on every load for every learner (99% of whom are not partners). Fixed by caching result in sessionStorage after first check.
+
+3. **No formal opportunity registration workflow** (BACKLOG) — Handbook requires opportunities to be registered with AfriversalAI before commission entitlement. Partner portal has a customer tracking table but no submission flow to admin. Partners are tracking privately, not registering formally. Commission disputes would have no paper trail.
+
+4. **Growth commission tiers not tracked** (BACKLOG) — Portal shows projected earnings at acquisition rate only. Year 2 = 10%, Year 3+ = 5% not calculated. No customer start dates tracked.
+
+5. **No commission statement view** (BACKLOG) — Handbook promises detailed monthly statements (OPP ID, invoice, NCR, net payment etc.). Portal shows an estimated total only.
+
+6. **register.html has no partner path** (by design) — mom uses become-a-partner.html as separate application flow. Right UX for a curated programme, not a gap.
+
+**Next session (Items 3 & 4):**
+- Opportunity registration flow: add "Register with AfriversalAI" action on customer rows → creates a record in admin console with status tracking
+- Growth commission: add start_date to partner_customers, update partnerMetrics() to apply tiered rates by year
