@@ -25,7 +25,7 @@ window.TRANSLATIONS = {
     nav_home:         'Home',
     nav_course:       'The Course',
     nav_fundamentals: 'Preview Course',
-    nav_funda_five:   'The Funda Five',
+    nav_funda_five:   'The Funda Five™',
     nav_certificate:  'Certificate',
     nav_pricing:      'Pricing',
     nav_register:     'Register →',
@@ -64,9 +64,9 @@ window.TRANSLATIONS = {
     feat3_h3:       'A certificate that means something',
     feat3_p_html:   'No quiz at the end. Learners submit a real-world evaluation of an AI system from their own job. The certificate says <em>demonstrated</em>, not <em>completed</em>.',
 
-    /* ── Funda Five ── */
+    /* ── Funda Five™ ── */
     f5_eyebrow: 'The Core Framework',
-    f5_h2:      'The Funda Five',
+    f5_h2:      'The Funda Five™',
     f5_lead:    'Every learner leaves with one framework they can apply to any AI encounter at work — in 2 minutes, without technical knowledge.',
     f5_1_name:  'Task',
     f5_1_q:     'Is this the right kind of job for AI?',
@@ -78,12 +78,12 @@ window.TRANSLATIONS = {
     f5_4_q:     'How would I detect an error in this output?',
     f5_5_name:  'Human',
     f5_5_q:     'Who checks this? Who is accountable if it\'s wrong?',
-    f5_btn:     'Explore the Funda Five →',
+    f5_btn:     'Explore the Funda Five™ →',
 
     /* ── Course preview ── */
     course_eyebrow:   'The Course',
     course_h2_html:   'Start from zero. Build real judgment.<br>6 case studies. One framework that works.',
-    course_lead:      'Module 0 builds the shared foundation — what AI actually is, what it isn\'t, where you already encounter it. Then 6 core modules each apply the Funda Five to a real SA case study.',
+    course_lead:      'Module 0 builds the shared foundation — what AI actually is, what it isn\'t, where you already encounter it. Then 6 core modules each apply the Funda Five™ to a real SA case study.',
     course_btn:       'See full course details →',
 
     /* Module cards (index.html course preview) */
@@ -108,10 +108,10 @@ window.TRANSLATIONS = {
     mc5_p:   `"The algorithm decided" is not a legal or ethical defence. Who is accountable when AI affects people's livelihoods?`,
     mc6_num: 'Module 6',
     mc6_h3:  `When AI Works — and When It Doesn't`,
-    mc6_p:   'Apply the full Funda Five to two contrasting SA cases: a clear success and a clear failure. Build your personal AI judgment statement.',
+    mc6_p:   'Apply the full Funda Five™ to two contrasting SA cases: a clear success and a clear failure. Build your personal AI judgment statement.',
     mc7_num: 'Module 7 · Sector-Specific',
     mc7_h3:  'Your Sector Deep Dive',
-    mc7_p:   'A module built for your sector — tailored case studies, sector-specific AI failure modes, and the Funda Five applied to your professional context. Tracks available for Education, Finance, Government, Healthcare, and Corporate.',
+    mc7_p:   'A module built for your sector — tailored case studies, sector-specific AI failure modes, and the Funda Five™ applied to your professional context. Tracks available for Education, Finance, Government, Healthcare, and Corporate.',
 
     /* ── Sector callout band ── */
     sector_callout_eyebrow: 'Sector-Aware Learning',
@@ -300,7 +300,7 @@ window.TRANSLATIONS = {
     /* ── Module complete ── */
     complete_h2:          'Module 0 complete.',
     complete_p1:          'You now have the foundation every other module builds on. You know what AI is, what it isn\'t, and how to start seeing it in your own workplace.',
-    complete_p2:          'Next: Module 1 shows you what happens when AI goes wrong at the highest level — South Africa\'s national AI policy crisis. You\'ll use the Funda Five to work through it.',
+    complete_p2:          'Next: Module 1 shows you what happens when AI goes wrong at the highest level — South Africa\'s national AI policy crisis. You\'ll use the Funda Five™ to work through it.',
     complete_btn_m1:      'Start Module 1 →',
     complete_btn_register:'Register for the full course',
 
@@ -364,11 +364,11 @@ window.TRANSLATIONS = {
 
     /* ── funda-five.html ── */
     f5_page_eyebrow:      'Core Framework',
-    f5_page_h1:           'The Funda Five',
+    f5_page_h1:           'The Funda Five™',
     f5_page_lead:         'Five questions. Two minutes. Any AI situation. AfriversalAI\'s decision framework gives every learner a consistent, repeatable way to evaluate AI in professional contexts — without needing technical knowledge.',
     f5_framework_eyebrow: 'The Framework',
     f5_framework_h2:      'Click any step to expand it.',
-    f5_framework_lead:    'The Funda Five is introduced in Module 1 and applied in every module after that. By Module 6, it\'s automatic — the way you think about every AI encounter at work.',
+    f5_framework_lead:    'The Funda Five™ is introduced in Module 1 and applied in every module after that. By Module 6, it\'s automatic — the way you think about every AI encounter at work.',
     f5_1_q_full:  'Is this the right kind of job for AI? What exactly am I trying to accomplish?',
     f5_2_q_full:  'What information is involved? Is any of it personal, confidential, client data, or POPIA-protected?',
     f5_3_q_full:  'What type of AI fits this task? Is it approved by my organisation? Do I understand its limitations?',
@@ -377,10 +377,10 @@ window.TRANSLATIONS = {
     f5_dive_eyebrow:  'Step by Step',
     f5_dive_h2:       'What each step means in practice',
     f5_walk_eyebrow:  'Walkthrough Example',
-    f5_walk_h2:       'The Funda Five on the DCDT case',
-    f5_walk_lead:     'Here\'s how the Funda Five would have caught the problem — before the policy was published.',
-    f5_cta_h2:        'See the Funda Five in action.',
-    f5_cta_lead:      'Start with Module 0 — free, no registration required. Then see the Funda Five applied across seven modules built around real South African AI cases.',
+    f5_walk_h2:       'The Funda Five™ on the DCDT case',
+    f5_walk_lead:     'Here\'s how the Funda Five™ would have caught the problem — before the policy was published.',
+    f5_cta_h2:        'See the Funda Five™ in action.',
+    f5_cta_lead:      'Start with Module 0 — free, no registration required. Then see the Funda Five™ applied across seven modules built around real South African AI cases.',
     f5_cta_btn1:      'Start Module 0 — free →',
     f5_cta_btn2:      'See the full course',
 
@@ -439,7 +439,7 @@ window.TRANSLATIONS = {
     about_mission_eyebrow: 'Our Mission',
     about_mission_stmt: 'To equip South African professionals with the critical judgment — not just the technical skills — to evaluate, challenge, and act responsibly on AI in their workplaces.',
     about_mission_p1:  'AfriversalAI is an AI literacy initiative built on a simple premise: the most important AI skill for most working professionals is not knowing how to use AI tools — it is knowing when to trust them, when to question them, and who is accountable when they fail.',
-    about_mission_p2:  'We build that skill through real South African case studies, a structured five-step evaluation framework (the Funda Five), and a performance-based assessment that requires learners to demonstrate judgment — not just complete a course.',
+    about_mission_p2:  'We build that skill through real South African case studies, a structured five-step evaluation framework (the Funda Five™), and a performance-based assessment that requires learners to demonstrate judgment — not just complete a course.',
     about_what_eyebrow: 'What AfriversalAI Is',
     about_what_h2:      'An initiative built for African workplaces.',
     about_what_p1:  'AfriversalAI is a cohort-based professional training programme. Learners work through seven modules — each built around a documented South African AI case study — and complete a capstone assessment evaluated by a trained human assessor against a published rubric.',
@@ -453,7 +453,7 @@ window.TRANSLATIONS = {
     about_why_p1:  'AI is not arriving in South African workplaces as a neat technology rollout with training budgets and time to adapt. It is arriving in HR platforms, government systems, financial tools, and school administration software — quietly, without explanation, and without the critical frameworks working professionals need to interrogate it.',
     about_why_p2:  'In April 2026, South Africa withdrew its national AI policy after journalists found it contained fabricated academic citations — generated by AI. The professionals who wrote it knew how to use AI tools. They did not know when to question the output. That gap is not unique to government. It is in every sector.',
     about_why_p3:  'Most available training — vendor demos, YouTube tutorials, "prompt engineering" workshops — teaches tools, not judgment. AfriversalAI was built to close the gap between knowing how to use AI and knowing how to think about what it produces.',
-    about_why_p4:  'The Funda Five framework at AfriversalAI\'s core was developed from the founding team\'s direct experience watching AI outputs shape institutional decisions across telecoms, enterprise systems, and engineering — and seeing, repeatedly, what goes wrong when no one asks the right questions first.',
+    about_why_p4:  'The Funda Five™ framework at AfriversalAI\'s core was developed from the founding team\'s direct experience watching AI outputs shape institutional decisions across telecoms, enterprise systems, and engineering — and seeing, repeatedly, what goes wrong when no one asks the right questions first.',
     about_why_quote: '“AI literacy isn’t about knowing the tools. It’s about knowing when not to trust them — and building the professional habit to check before you act.”',
     about_why_cite:  '— The AfriversalAI founding team',
     about_values_eyebrow: 'What We Stand For',
@@ -527,7 +527,7 @@ window.TRANSLATIONS = {
     feat3_h3:       `\'n Sertifikaat wat iets beteken`,
     feat3_p_html:   `Geen toets aan die einde nie. Leerders lewer 'n werklike evaluasie in van 'n KI-stelsel uit hul eie werk. Die sertifikaat sê <em>gedemonstreer</em>, nie <em>voltooi</em> nie.`,
 
-    /* Funda Five */
+    /* Funda Five™ */
     f5_eyebrow: 'Die Kernraamwerk',
     f5_h2:      'Die Funda Vyf',
     f5_lead:    'Elke leerder vertrek met een raamwerk wat hulle op enige KI-ontmoeting by die werk kan toepas — in 2 minute, sonder tegniese kennis.',
@@ -976,7 +976,7 @@ window.TRANSLATIONS = {
     feat3_h3:       'Un certificat qui signifie quelque chose',
     feat3_p_html:   'Pas de QCM à la fin. Les apprenants soumettent une évaluation réelle d’un système IA de leur propre travail. Le certificat dit <em>démontré</em>, pas <em>complété</em>.',
 
-    /* Funda Five */
+    /* Funda Five™ */
     f5_eyebrow: 'Le Cadre Central',
     f5_h2:      'Les Cinq Funda',
     f5_lead:    'Chaque apprenant repart avec un cadre applicable à n’importe quelle rencontre avec l’IA au travail — en 2 minutes, sans connaissances techniques.',
@@ -1501,7 +1501,7 @@ window.TRANSLATIONS = {
     /* Footer */
     footer_tagline: 'Ukufunda i-AI Ezikhundleni Zomsebenzi zaseNingizimu Afrika',
 
-    /* Funda Five card names */
+    /* Funda Five™ card names */
     f5_1_name: 'Umsebenzi',
     f5_2_name: 'Idatha',
     f5_3_name: 'Ithuluzi',

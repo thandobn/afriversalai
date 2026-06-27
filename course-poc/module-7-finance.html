@@ -98,24 +98,18 @@
       <li class="nav__dropdown">
         <a href="about.html">About</a>
         <ul class="nav__dropdown-menu">
-          <li><a href="about.html">About the Founders</a></li>
-          <li><a href="funda-five.html">The Funda Five</a></li>
-          <li><a href="certificate.html">The Certificate</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
         </ul>
       </li>
-      <li><a href="course.html">The Course</a></li>
       <li class="nav__dropdown">
-        <a href="course-outline.html">Curriculum</a>
+        <a href="course.html">The Course</a>
         <ul class="nav__dropdown-menu">
-          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course.html">Course Overview</a></li>
+          <li><a href="course-outline.html">Curriculum</a></li>
           <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
-          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
-          <li><a href="outline-funda-five.html">The Funda Five</a></li>
-          <li><a href="outline-core-modules.html">Core Modules</a></li>
-          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
-          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
-          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
-          <li><a href="outline-pathways.html">Pathways</a></li>
+          <li><a href="funda-five.html">The Funda Five™</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
         </ul>
       </li>
       <li><a href="module-0.html">Preview Course</a></li>
@@ -165,7 +159,7 @@
         <li>Explain the difference between financial exclusion and credit invisibility in South Africa, and why the distinction matters for AI lending models</li>
         <li>Identify the legal obligations that apply to automated financial decisions under SA law (POPIA s71, NCA, FAIS, FSCA)</li>
         <li>Distinguish between indirect discrimination on listed grounds under PEPUDA and the US-origin disparate impact standard</li>
-        <li>Apply the Funda Five to an AI credit scoring or financial tool deployment scenario</li>
+        <li>Apply the Funda Five™ to an AI credit scoring or financial tool deployment scenario</li>
       </ul>
     </div>
 
@@ -379,7 +373,7 @@
         <div class="phase__num">4</div>
         <div>
           <div class="phase__title">Apply &mdash; The fraud analyst's queue</div>
-          <div class="phase__subtitle">Run the Funda Five on a real finance scenario &middot; ~15 min</div>
+          <div class="phase__subtitle">Run the Funda Five™ on a real finance scenario &middot; ~15 min</div>
         </div>
       </div>
       <div class="phase__body">
@@ -391,7 +385,7 @@
         </div>
 
         <div class="callout">
-          <strong>Your task:</strong> Use the Funda Five to work through how to handle the 8 spaza-shop flags &mdash; and what they reveal about the limits of the model's design.
+          <strong>Your task:</strong> Use the Funda Five™ to work through how to handle the 8 spaza-shop flags &mdash; and what they reveal about the limits of the model's design.
         </div>
 
         <div class="funda-apply">
@@ -572,7 +566,7 @@ function advancePhase(fromPhase) {
   }
   if (fromPhase === 3) {
     const vals = [1,2,3,4,5].map(n => document.getElementById('app-'+n).value.trim());
-    if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five lenses.'; return; }
+    if (vals.some(v => v.length < 10)) { errEl.style.display='block'; errEl.textContent='Please answer all five Funda Five™ lenses.'; return; }
     errEl.style.display='none';
     saveProgress('module-7-finance', 3);
     document.getElementById('phase-3').classList.add('is-done');
