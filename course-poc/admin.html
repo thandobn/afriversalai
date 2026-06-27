@@ -351,8 +351,9 @@
       <button class="adm-card__close" onclick="closePartner()" aria-label="Close">&times;</button>
     </div>
     <div class="adm-card__body">
-      <div style="margin-bottom:18px;">
-        <button class="btn btn--outline btn--sm" onclick="setPasswordForPartner()">Set / reset password</button>
+      <div style="margin-bottom:18px; display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn--primary btn--sm" onclick="resendPartnerInvite()">Send / resend set-password invite</button>
+        <button class="btn btn--outline btn--sm" onclick="setPasswordForPartner()">Set password directly</button>
       </div>
       <div class="adm-sec-label">Corporate cohorts &amp; enrolled learners</div>
       <div id="pm-cohorts" style="font-size:0.88em;"></div>
@@ -502,6 +503,45 @@ async function adminSetPasswordByEmail() {
     msg.textContent = 'The password function isn’t deployed yet (see the notice above).';
   } else {
     msg.textContent = r.error || 'Could not set the password.';
+  }
+}
+
+// ----- Partner invite (provision login + email a set-password link) -----
+async function invitePartner(email, name, code) {
+  try {
+    const session = await getSession();
+    if (!session || !session.access_token) return { ok: false, error: 'Your admin session expired — sign in again.' };
+    if (typeof SUPABASE_URL === 'undefined') return { ok: false, reason: 'not_configured' };
+    const redirectTo = location.origin + location.pathname.replace(/[^/]*$/, 'reset-password.html');
+    const url = SUPABASE_URL.replace(/\/$/, '') + '/functions/v1/partner-invite';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token, 'apikey': SUPABASE_ANON_KEY },
+      body: JSON.stringify({ email: email, redirectTo: redirectTo })
+    });
+    if (res.status === 404) return { ok: false, reason: 'not_configured' };
+    let j = {}; try { j = await res.json(); } catch (e) {}
+    if (!res.ok) return { ok: false, status: res.status, error: (j && j.error) || ('Request failed (' + res.status + ')') };
+    let emailed = false;
+    if (window.afSendEmail && window.afEmail) {
+      const er = await afSendEmail(afEmail.partnerInvite({ name: name || '', email: email, code: code || '', link: j.action_link }));
+      emailed = !!(er && er.ok);
+    }
+    return { ok: true, link: j.action_link, emailed: emailed, mode: j.mode };
+  } catch (e) { return { ok: false, error: String((e && e.message) || e) }; }
+}
+
+async function resendPartnerInvite() {
+  if (!PM_EMAIL) return;
+  const p = PT_PARTS.find(x => x.email === PM_EMAIL);
+  const inv = await invitePartner(PM_EMAIL, (p && p.legal_name) || '', (p && p.partner_code) || '');
+  if (inv.ok) {
+    if (inv.emailed) alert('A set-password link was emailed to ' + PM_EMAIL + '.');
+    else window.prompt('Email isn’t configured yet — copy this set-password link and send it to ' + PM_EMAIL + ':', inv.link);
+  } else if (inv.reason === 'not_configured') {
+    alert('The partner-invite Edge Function isn’t deployed yet. Deploy it to send invites.');
+  } else {
+    alert('Could not generate an invite: ' + (inv.error || 'unknown error'));
   }
 }
 
@@ -812,10 +852,15 @@ async function approveApplication(id) {
   );
   if (ins.error) { alert('Could not approve: ' + ins.error.message); return; }
   await _supabase.from('partner_applications').update({ status: 'approved' }).eq('id', id);
-  // Email the partner their access details + portal link (no-op until the email function is deployed).
-  if (window.afSendEmail && window.afEmail) {
-    afSendEmail(afEmail.partnerWelcome({ name: app.name || '', email: email, code: code, level: 'Associate' }))
-      .then(function (r) { if (!r.ok && r.reason !== 'not_configured') console.warn('[AfriversalAI] partner welcome email:', r); });
+  // Provision their login + send a set-password invite (Option A onboarding).
+  const inv = await invitePartner(email, app.name || '', code);
+  if (inv.ok) {
+    if (inv.emailed) alert('Approved. A set-password invite was emailed to ' + email + '.');
+    else window.prompt('Approved. Email isn’t configured yet — copy this set-password link and send it to ' + email + ':', inv.link);
+  } else if (inv.reason === 'not_configured') {
+    alert('Approved and added to the partner directory.\n\nNote: the partner-invite function isn’t deployed yet, so no login was provisioned automatically. Once deployed, use “Resend invite” in the partner panel — or set a password directly from there.');
+  } else {
+    alert('Approved, but the invite could not be generated: ' + (inv.error || 'unknown error') + '\n\nYou can retry with “Resend invite” in the partner panel.');
   }
   loadPartnersData();
 }

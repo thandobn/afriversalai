@@ -75,6 +75,14 @@
         btn(BASE + '/dashboard.html', 'Go to your dashboard');
       return { to: p.email, subject: 'Welcome to AfriversalAI', html: wrap('Your account is ready', body) };
     },
+    partnerInvite: function (p) {
+      var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
+        '<p>Your AfriversalAI Enterprise Partner account has been approved. To finish setting up, choose your password using the secure link below, then sign in to the Partner Portal.</p>' +
+        (p.code ? '<p><strong>Your partner code:</strong> <code style="font-family:monospace;">' + p.code + '</code></p>' : '') +
+        btn(p.link || (BASE + '/partner-login.html'), 'Set your password') +
+        '<p style="font-size:12px;color:#6B7280;">This link expires for security. If it has expired, ask your AfriversalAI contact to resend it, or use “Forgot password” on the sign-in page.</p>';
+      return { to: p.email, subject: 'Set your password — AfriversalAI Partner Portal', html: wrap('Set up your partner login', body) };
+    },
     cohortCode: function (p) {
       var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
         '<p>The AfriversalAI cohort for <strong>' + (p.org || 'your organisation') + '</strong> is live. Share this access code with your team &mdash; each person enters it when registering to join the cohort.</p>' +
