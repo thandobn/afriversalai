@@ -99,6 +99,13 @@ alter table profiles
   add column if not exists organisation_id uuid references organisations(id);
 
 
+-- 5. Add role (job title) to profiles
+--    Stores the learner's job title as entered in Account Settings.
+
+alter table profiles
+  add column if not exists role text;
+
+
 -- ==========================================================================
 -- EXAMPLE: Create your first test organisation
 -- Uncomment and edit to add a real client:

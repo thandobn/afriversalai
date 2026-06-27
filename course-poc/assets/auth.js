@@ -17,7 +17,7 @@ async function getProfile() {
   if (!session) return null
   const { data } = await _supabase
     .from('profiles')
-    .select('id, full_name, email, organisation, sector, org_code, organisation_id')
+    .select('id, full_name, email, organisation, sector, org_code, organisation_id, role')
     .eq('id', session.user.id)
     .single()
   return data
@@ -94,8 +94,7 @@ async function updateProfile(updates) {
   if (!session) throw new Error('Not logged in')
   const { error } = await _supabase
     .from('profiles')
-    .update(updates)
-    .eq('id', session.user.id)
+    .upsert({ id: session.user.id, ...updates }, { onConflict: 'id' })
   if (error) throw error
 }
 

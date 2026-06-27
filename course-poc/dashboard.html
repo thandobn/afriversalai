@@ -457,7 +457,6 @@ async function initDashboard() {
     const sectorEl = document.getElementById('dash-sector')
     sectorEl.textContent = profile.sector.charAt(0).toUpperCase() + profile.sector.slice(1) + ' sector'
     sectorEl.style.display = 'inline-block'
-    renderSectorModule(profile.sector, progress)
   }
 
   // Stats
@@ -482,6 +481,13 @@ async function initDashboard() {
   }
 
   const isAdmin = window.isAdminEmail && window.isAdminEmail(session.user.email)
+
+  // Sector module(s): admins see all sectors; learners see only their own sector
+  if (isAdmin) {
+    renderAllSectorModules(progress)
+  } else if (profile?.sector) {
+    renderSectorModule(profile.sector, progress)
+  }
 
   // Pre-index progress by module for O(n) lookup instead of O(n×m) repeated filters
   const byModule = {}
@@ -725,6 +731,32 @@ function renderSectorModule(sector, progress) {
       <a href="${mod.href}" class="continue-link">${linkText}</a>
     </div>
   `
+}
+
+function renderAllSectorModules(progress) {
+  const label = document.getElementById('sector-section-label')
+  label.textContent = 'Sector Modules — All Tracks'
+  label.style.display = 'block'
+  document.getElementById('sector-grid').innerHTML = Object.values(SECTOR_MODULES).map(mod => {
+    const done = progress.filter(r => r.module_id === mod.id).map(r => r.phase)
+    const isComplete = done.length === 4
+    const inProgress = done.length > 0 && !isComplete
+    const badgeClass = isComplete ? 'badge--complete' : inProgress ? 'badge--progress' : 'badge--free'
+    const badgeText  = isComplete ? 'Complete' : inProgress ? 'In progress' : 'Available'
+    const linkText   = isComplete ? 'Review module →' : inProgress ? 'Continue →' : 'Start module →'
+    const doneNums = done.map(Number)
+    const dots = [0,1,2,3].map(i =>
+      `<div class="phase-dot${doneNums.includes(i) ? ' done' : ''}"></div>`
+    ).join('')
+    return `
+      <div class="module-card${isComplete ? ' is-complete' : ''}">
+        <span class="module-card__badge ${badgeClass}">${badgeText}</span>
+        <h3>${mod.title}</h3>
+        <p>${mod.desc}</p>
+        <div class="phase-dots">${dots}</div>
+        <a href="${mod.href}" class="continue-link">${linkText}</a>
+      </div>`
+  }).join('')
 }
 
 // ===== Certification Journey roadmap (mirrors course-timetable.html) =====

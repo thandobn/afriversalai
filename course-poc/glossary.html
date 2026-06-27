@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <style>
-    .gloss-hero { background: var(--green-dark); color: white; padding: 60px 52px 48px; }
+    .gloss-hero { background: var(--green-dark); color: white; padding: 60px 24px 48px; }
+    .gloss-hero__inner { max-width: 860px; margin: 0 auto; }
     .gloss-hero h1 { font-size: 2em; font-weight: 800; color: white; margin: 12px 0 10px; }
     .gloss-hero p { color: rgba(255,255,255,0.72); max-width: 640px; }
     @media (max-width: 768px) { .gloss-hero { padding: 44px 24px 36px; } }
@@ -50,6 +51,15 @@
     .gloss-cta { background: var(--green-dark); color: white; border-radius: var(--radius-lg); padding: 36px 40px; margin-top: 64px; text-align: center; }
     .gloss-cta h3 { color: white; font-size: 1.2em; margin-bottom: 10px; }
     .gloss-cta p { color: rgba(255,255,255,0.72); font-size:0.92em; margin-bottom: 20px; }
+
+    /* Clickable tag filters in hero */
+    .gloss-tag-filter { border: none; font-family: inherit; font-size: 0.82em; font-weight: 700; padding: 3px 12px; border-radius: 12px; cursor: pointer; transition: opacity 0.12s, box-shadow 0.12s; }
+    .gloss-tag-filter:hover { opacity: 0.82; }
+    .gloss-tag-filter.is-active { box-shadow: 0 0 0 2.5px white; }
+    .gloss-tag-filter[data-filter="general"]   { background: var(--green-light); color: var(--green-dark); }
+    .gloss-tag-filter[data-filter="generative"] { background: var(--gold-light);  color: var(--gold-dark); }
+    .gloss-tag-filter[data-filter="predictive"] { background: #DBEAFE; color: #1E40AF; }
+    .gloss-tag-filter[data-filter="course"]     { background: #F3E8FF; color: #6B21A8; }
   </style>
 </head>
 <body>
@@ -97,17 +107,20 @@
 
 <!-- HERO -->
 <div class="gloss-hero">
-  <span style="font-size:0.78em; font-weight:700; color:var(--gold); letter-spacing:2px; text-transform:uppercase;">Reference</span>
-  <h1>AI Glossary</h1>
-  <p>Plain-language definitions for workplace learners. No jargon. No assumptions. Every term used across the AfriversalAI course is defined here.</p>
-  <div style="display:flex; gap:16px; margin-top:20px; flex-wrap:wrap;">
-    <span style="font-size:0.82em; padding:3px 12px; border-radius:12px; background:var(--green-light); color:var(--green-dark); font-weight:700;">Foundational</span>
-    <span style="font-size:0.82em; padding:3px 12px; border-radius:12px; background:var(--gold-light); color:var(--gold-dark); font-weight:700;">Generative AI</span>
-    <span style="font-size:0.82em; padding:3px 12px; border-radius:12px; background:#DBEAFE; color:#1E40AF; font-weight:700;">Predictive AI</span>
-  </div>
-  <div class="gloss-search-wrap">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="gloss-search" placeholder="Search terms&hellip;" autocomplete="off" spellcheck="false" aria-label="Search glossary terms" />
+  <div class="gloss-hero__inner">
+    <span style="font-size:0.78em; font-weight:700; color:var(--gold); letter-spacing:2px; text-transform:uppercase;">Reference</span>
+    <h1>AI Glossary</h1>
+    <p>Plain-language definitions for workplace learners. No jargon. No assumptions. Every term used across the AfriversalAI course is defined here.</p>
+    <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; align-items:center;">
+      <button class="gloss-tag-filter" data-filter="general">Foundational</button>
+      <button class="gloss-tag-filter" data-filter="generative">Generative AI</button>
+      <button class="gloss-tag-filter" data-filter="predictive">Predictive AI</button>
+      <button class="gloss-tag-filter" data-filter="course">AfriversalAI</button>
+    </div>
+    <div class="gloss-search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="gloss-search" placeholder="Search terms&hellip;" autocomplete="off" spellcheck="false" aria-label="Search glossary terms" />
+    </div>
   </div>
 </div>
 
@@ -521,16 +534,20 @@
   (function () {
     var input = document.getElementById('gloss-search');
     var noResults = document.querySelector('.gloss-no-results');
+    var activeFilter = null;
 
-    input.addEventListener('input', function () {
-      var q = this.value.toLowerCase().trim();
+    function applyFilters() {
+      var q = input.value.toLowerCase().trim();
       var terms = document.querySelectorAll('.gloss-term');
       var letters = document.querySelectorAll('.gloss-letter');
       var anyVisible = false;
 
       terms.forEach(function (t) {
         var name = t.querySelector('.gloss-term__name');
-        var match = !q || (name && name.textContent.toLowerCase().indexOf(q) !== -1);
+        var tag  = t.querySelector('.gloss-tag');
+        var matchSearch = !q || (name && name.textContent.toLowerCase().indexOf(q) !== -1);
+        var matchTag    = !activeFilter || (tag && tag.classList.contains('tag--' + activeFilter));
+        var match = matchSearch && matchTag;
         t.style.display = match ? '' : 'none';
         if (match) anyVisible = true;
       });
@@ -539,16 +556,30 @@
         var sib = letter.nextElementSibling;
         var visible = false;
         while (sib && !sib.classList.contains('gloss-letter')) {
-          if (sib.classList.contains('gloss-term') && sib.style.display !== 'none') {
-            visible = true;
-            break;
-          }
+          if (sib.classList.contains('gloss-term') && sib.style.display !== 'none') { visible = true; break; }
           sib = sib.nextElementSibling;
         }
         letter.style.display = visible ? '' : 'none';
       });
 
-      noResults.style.display = (!q || anyVisible) ? 'none' : 'block';
+      noResults.style.display = ((q || activeFilter) && !anyVisible) ? 'block' : 'none';
+    }
+
+    input.addEventListener('input', applyFilters);
+
+    document.querySelectorAll('.gloss-tag-filter').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var filter = btn.getAttribute('data-filter');
+        if (activeFilter === filter) {
+          activeFilter = null;
+          btn.classList.remove('is-active');
+        } else {
+          document.querySelectorAll('.gloss-tag-filter').forEach(function (b) { b.classList.remove('is-active'); });
+          activeFilter = filter;
+          btn.classList.add('is-active');
+        }
+        applyFilters();
+      });
     });
   })();
 </script>
