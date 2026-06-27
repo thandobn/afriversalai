@@ -87,10 +87,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
 <script>
-  // If already logged in, send straight to dashboard
-  getSession().then(session => {
-    if (session) window.location.href = 'dashboard.html'
+  // If already logged in, route by account type
+  if (sessionStorage.getItem('afv_demo_partner') === '1') { window.location.href = 'partner-portal.html'; }
+  getSession().then(async function (session) {
+    if (!session) return
+    if (await isApprovedPartner(session.user.email)) {
+      window.location.href = 'partner-portal.html'
+    } else {
+      window.location.href = 'dashboard.html'
+    }
   })
 
   async function handleLogin(e) {
@@ -102,13 +110,17 @@
     btn.disabled = true
 
     try {
-      await afSignIn(
-        document.getElementById('email').value.trim(),
-        document.getElementById('password').value
-      )
+      const email = document.getElementById('email').value.trim()
+      await afSignIn(email, document.getElementById('password').value)
       const params = new URLSearchParams(window.location.search)
       const next = params.get('next')
-      window.location.href = next && next !== 'login.html' ? next : 'dashboard.html'
+      if (next && next !== 'login.html') {
+        window.location.href = next
+      } else if (await isApprovedPartner(email)) {
+        window.location.href = 'partner-portal.html'
+      } else {
+        window.location.href = 'dashboard.html'
+      }
     } catch (err) {
       errEl.textContent = err.message || 'Sign in failed — check your email and password.'
       errEl.style.display = 'block'

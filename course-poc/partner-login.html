@@ -93,15 +93,15 @@
       return false;
     }
 
-    var res = await afSignIn(email, password);
-    if (res.error) {
-      errEl.textContent = res.error.message || 'Sign in failed. Check your email and password.';
+    try {
+      await afSignIn(email, password);
+    } catch (err) {
+      errEl.textContent = (err && err.message) || 'Sign in failed. Check your email and password.';
       errEl.style.display = 'block';
       btn.disabled = false; btn.textContent = 'Sign in to the portal →';
       return false;
     }
-    var authedEmail = (res.data && res.data.user && res.data.user.email) || email;
-    if (!(await isApprovedPartner(authedEmail))) {
+    if (!(await isApprovedPartner(email))) {
       try { await _supabase.auth.signOut(); } catch (_) {}
       errEl.innerHTML = 'That account is not an approved partner account. <a href="become-a-partner.html" style="color:#7F1D1D;font-weight:700;">Apply to become a partner</a> or contact <a href="mailto:ask@afriversal.ai" style="color:#7F1D1D;font-weight:700;">ask@afriversal.ai</a>.';
       errEl.style.display = 'block';

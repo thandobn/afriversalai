@@ -428,6 +428,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
 <script src="assets/admins.js"></script>
 <script src="assets/messaging.js"></script>
 <script src="assets/translations.js"></script>
@@ -444,6 +446,13 @@ const SECTOR_MODULES = {
 async function initDashboard() {
   const session = await requireAuth('dashboard.html')
   if (!session) return
+
+  // Partner guard — approved partners have their own portal, not this learner dashboard
+  if (sessionStorage.getItem('afv_demo_partner') === '1' ||
+      (window.isApprovedPartner && await isApprovedPartner(session.user.email))) {
+    window.location.href = 'partner-portal.html'
+    return
+  }
 
   try {
 

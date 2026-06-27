@@ -733,3 +733,64 @@ Settings have been broken since early in the project. Chain:
 **Open items / next steps:**
 - T6: Extract module-engine.js — showPhase, showScreen, updateTracker extracted from module-0 through module-6 (and module-7-corporate). advancePhase stays per-module. Audit complete (see session notes). Ready to implement next session.
 - Council Round 2: content and learning structure review (module-0 through module-6, glossary)
+
+---
+## Session: 2026-06-27 — Partner portal auth routing + document review
+
+**What was worked on:**
+- Pulled mom's (Ntando's) 12 partner-programme commits; understood her architecture
+- Diagnosed and fixed 3 auth routing bugs in the partner programme
+- Read and compared all 5 updated partner documents (PDFs vs HTML) — already in sync, no changes needed
+
+**Mom's architecture (important context):**
+- Separate `partners` table keyed on email (NOT columns on `profiles`) — mirrors `admins` pattern
+- `partner_customers` table: opportunity/pipeline per partner
+- `partner_signatures` table: e-sign records with upsert on (partner_email, doc_key)
+- `partner_applications` table: "Become a Partner" submissions (anon insert, admin-only read)
+- `organisations` table extended for corporate cohorts: partner_email, customer_id, price_per_seat, sector, start_date, status, contact_name, contact_email
+- `esign_consent_at` column on `profiles` (ECTA 25 of 2002 compliance)
+- Demo mode: `sessionStorage('afv_demo_partner') === '1'` bypasses Supabase; credentials partner@afriversal.ai / Partner2026
+- `isApprovedPartner(email)`: Supabase partners table first, falls back to PARTNER_EMAILS hardcoded array
+
+**SQL migration:** `course-poc/supabase-partner-migration.sql` — already run by Thando (idempotent)
+
+**Bug 1 — partner-login.html stuck button (FIXED, from prior session):**
+- `afSignIn()` throws on error but code used `if (res.error)` pattern (no try/catch)
+- `res.data.user.email` was also wrong — `afSignIn` returns `data` directly, not `{data}`
+- Fix: try/catch around `afSignIn`, use `email` variable directly for `isApprovedPartner`
+
+**Bug 2 — login.html already-logged-in + post-login routing (FIXED this session):**
+- Already-logged-in check hardcoded to `dashboard.html` for all users
+- Post-login redirect also hardcoded to `dashboard.html`
+- Fix: added partners.js + partner-data.js scripts; both paths now call `isApprovedPartner()` and route to `partner-portal.html` for approved partners; demo flag checked first (sync)
+
+**Bug 3 — dashboard.html no partner guard (FIXED this session):**
+- Approved partners landing on `dashboard.html` saw the learner dashboard with no redirect
+- Fix: added partners.js + partner-data.js scripts; partner guard added at top of `initDashboard()` — checks demo flag then `isApprovedPartner()`, redirects to `partner-portal.html` and returns
+
+**Document review:**
+- 5 updated PDFs read: Handbook (AAI-EPH-001 v1.0), Agreement (AAI-EPA-002 v1.0), Commercial Schedule (AAI-PCS-003 v1.0), Welcome Pack (AAI-EPW-004 v1.0), NDA (AAI-NDA-001 v2.0)
+- HTML files in `course-poc/partner-docs/` already match the PDFs exactly — no updates needed
+- PDFs are generated from the HTML source, they are the same document
+
+**Key programme facts (for future sessions):**
+- Commission: Associate 20%, Professional 22%, Strategic 25% on Net Collected Revenue
+- Growth: Year 2 = 10%, Year 3+ = 5% subject to material contribution
+- Payment: 15th Business Day after cleared customer funds each month
+- Partner ID format: AAP-YYYY-#####
+- Opportunity protection: 12 months active, 90 days inactivity = may be declared inactive
+- Tier 1: ACV up to R1M | Tier 2: R1M–R5M | Tier 3: R5M+
+- 3 co-founders listed in documents: Ntando Barbara Davis, Thurston R. Davis II, Thandolwenkosi B. Nkala
+
+**Files changed this session:**
+- `course-poc/partner-login.html` — Bug 1: try/catch fix for afSignIn
+- `course-poc/login.html` — Bug 2: partner-aware routing (already-logged-in + post-login)
+- `course-poc/dashboard.html` — Bug 3: partner guard in initDashboard()
+
+**Pending — needs commit (diff reviewed and approved):**
+- All 3 bug fixes staged and ready; need to commit as a single fix commit
+
+**Open items / next steps:**
+- Commit the 3 bug fixes (diff shown to Thando, pending approval)
+- T6: Extract module-engine.js — deferred from last session, still open
+- Council Round 2: content review deferred
