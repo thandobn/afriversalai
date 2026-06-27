@@ -383,6 +383,7 @@
 <script src="assets/cohorts.js"></script>
 <script src="assets/admins.js"></script>
 <script src="assets/messaging.js"></script>
+<script src="assets/email.js"></script>
 <script>
 
 // ===== Mock cohort (sample data — POC only) =====
@@ -652,6 +653,11 @@ async function approveApplication(id) {
   );
   if (ins.error) { alert('Could not approve: ' + ins.error.message); return; }
   await _supabase.from('partner_applications').update({ status: 'approved' }).eq('id', id);
+  // Email the partner their access details + portal link (no-op until the email function is deployed).
+  if (window.afSendEmail && window.afEmail) {
+    afSendEmail(afEmail.partnerWelcome({ name: app.name || '', email: email, code: code, level: 'Associate' }))
+      .then(function (r) { if (!r.ok && r.reason !== 'not_configured') console.warn('[AfriversalAI] partner welcome email:', r); });
+  }
   loadPartnersData();
 }
 
@@ -887,6 +893,14 @@ async function loadCorporates() {
 
 async function approveCohort(id) {
   await _supabase.from('organisations').update({ status: 'active', active: true }).eq('id', id);
+  // Email the corporate contact their now-live access code (no-op until email function deployed).
+  try {
+    var r = await _supabase.from('organisations').select('name, code, contact_name, contact_email').eq('id', id).single();
+    var co = r.data;
+    if (co && co.contact_email && window.afSendEmail && window.afEmail) {
+      afSendEmail(afEmail.cohortCode({ name: co.contact_name || '', email: co.contact_email, org: co.name, code: co.code }));
+    }
+  } catch (e) {}
   loadCorporates();
 }
 async function rejectCohort(id) {
@@ -956,6 +970,10 @@ async function createCorporateCohort() {
   if (created.max_seats && created.price_per_seat) detail += ' · ' + ptMoney(created.max_seats * created.price_per_seat) + ' value';
   document.getElementById('co-new-detail').textContent = detail;
   document.getElementById('co-created').style.display = 'block';
+  // Email the corporate contact their live access code (no-op until email function deployed).
+  if (created.contact_email && window.afSendEmail && window.afEmail) {
+    afSendEmail(afEmail.cohortCode({ name: created.contact_name || '', email: created.contact_email, org: created.name, code: created.code }));
+  }
   ['co-name', 'co-sector', 'co-intake', 'co-contact', 'co-email', 'co-seats', 'co-price', 'co-start'].forEach(function (id) { document.getElementById(id).value = ''; });
   loadCorporates();
 }
