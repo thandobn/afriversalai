@@ -616,3 +616,46 @@ A fresh session should know these terms:
 - course-poc/dashboard.html (isAdmin unlock logic + emoji removal)
 - course-poc/module-1.html, module-2.html, module-3.html, module-4.html, module-5.html, module-6.html, module-7-corporate.html (admin tracker step fix)
 - course-poc/assets/admins.js (email list update)
+
+---
+
+## Session: 2026-06-26 (afternoon) — Council Round 1 Remediation
+
+**What was worked on:**
+- Council Round 1 review (code/architecture/security) — all findings accepted
+- Settings load bug diagnosed and fixed: getProfile() was silently failing because `organisation_id` was in the SELECT; swallowed error returned null profile; fixed by removing the column from SELECT and adding error logging
+- Sector select default fixed: placeholder had no `selected` attr so browser defaulted to "corporate"; saveProfile now skips sector if value is empty string (passes undefined to upsert)
+- window.ADMINS typo fixed → window.ADMIN_EMAILS in auth.js (_applyInstructorVisibility was always returning false; Instructor nav link never showed)
+- Admin console sessionStorage bypass removed from admin.html (lines 365+371-377 deleted)
+- Dashboard initDashboard() wrapped in try/catch with visible error banner
+- Supabase: FK index on profiles.organisation_id added (run in SQL editor); sector CHECK constraint already existed (42710 error on re-run — expected)
+- Accessibility: aria-pressed on glossary tag filters, aria-live on module-0 lesson label, role=status on no-results paragraph
+- renderSectorModule + renderAllSectorModules unified into single renderSectorCards(mods, progress, sectionLabel)
+- messaging.js confirmed already extracted and loaded by both dashboard.html and admin.html
+- README updated: hosting corrected (Amplify not Pages), modules 2-6 status, full file tree, Supabase setup section, admin management instructions, multilingual claim corrected
+- Down-migration rollback comments added to supabase-migration.sql
+
+**Decisions made:**
+- M4 (HSRC report prompt) is intentional — the exercise deliberately uses an unverifiable source to demonstrate AI hallucination. Not a bug. Logged as false positive in council learning log.
+- Admin emails will move to Supabase (T5) — not in public repo. RLS policy allows users to check only their own email, not enumerate the list.
+- sector 'other' included in CHECK constraint (existing data had it; deprecate later)
+
+**Files changed:**
+- course-poc/assets/auth.js (getProfile fix, window.ADMIN_EMAILS fix)
+- course-poc/settings.html (sector select default, saveProfile guard)
+- course-poc/glossary.html (aria-pressed, role=status, font-weight active cue)
+- course-poc/module-0.html (aria-live on lesson label)
+- course-poc/admin.html (sessionStorage bypass removed)
+- course-poc/dashboard.html (try/catch, error banner, renderSectorCards unification)
+- course-poc/supabase-migration.sql (FK index, sector CHECK, rollback comments)
+- README.md (full update)
+
+**Open items / next steps:**
+- T5: Move admin emails from admins.js into Supabase `admins` table (auth-critical — do as standalone session)
+  - Create admins table with RLS (email = auth.email() policy)
+  - isAdminEmail() becomes async DB query in auth.js
+  - Update all callers in dashboard.html and admin.html to await it
+  - Simplify admins.js to a stub comment
+- T6: Extract module-engine.js (showPhase/showScreen/advancePhase) — 2-3 hour standalone session
+- Council Round 2: content and learning structure review (module-0 through module-6, glossary)
+- Council learning log: log HSRC false positive, log settings getProfile pattern as known issue to watch
