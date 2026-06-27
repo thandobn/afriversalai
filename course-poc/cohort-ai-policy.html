@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Policy Cohort — Certified AI Policy Practitioner™ | AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1B4332; --green-mid: #2D6A4F; --green-light: #D8F3DC;
+      --green-pale: #F0F7F4; --gold: #E9C46A; --gold-dark: #C9A227;
+      --gold-light: #FDF6E3; --text: #1A1A2E; --muted: #6B7280;
+      --border: #E5E7EB; --white: #FFFFFF; --radius: 8px; --radius-lg: 14px; --navy: #1A3A5C;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #EAECEF; line-height: 1.7; font-size: 15px; margin: 0; padding: 24px 16px 64px; }
+    .doc-wrap { max-width: 940px; margin: 0 auto; background: var(--white); padding: 0 0 64px; border-radius: 6px; box-shadow: 0 2px 24px rgba(0,0,0,.1); overflow: hidden; }
+    @media (max-width: 700px) { body { padding: 0; } .doc-wrap { border-radius: 0; } }
+
+    /* Hero */
+    .cohort-hero { background: linear-gradient(150deg, var(--navy) 0%, #102640 60%, var(--green-dark) 130%); color: #fff; padding: 46px 52px 40px; }
+    .cohort-hero__crumb { font-size: 0.78em; color: rgba(255,255,255,.6); margin-bottom: 18px; }
+    .cohort-hero__crumb a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .cohort-hero__label { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 10px; }
+    .cohort-hero h1 { font-size: 2.05em; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .cohort-hero__cert { font-size: 1.02em; font-style: italic; color: var(--gold); margin-bottom: 18px; }
+    .cohort-hero__lead { color: rgba(255,255,255,.85); font-size: 0.98em; max-width: 680px; line-height: 1.7; }
+    .cohort-hero__who { display: inline-block; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); color: #fff; padding: 6px 14px; border-radius: 30px; font-size: 0.78em; font-weight: 600; margin-top: 20px; }
+    .cohort-hero__meta { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 26px; }
+    .cohort-hero__meta b { display: block; color: var(--gold); font-size: 1.3em; font-weight: 800; line-height: 1; }
+    .cohort-hero__meta span { font-size: 0.76em; color: rgba(255,255,255,.7); }
+
+    .doc-body { padding: 40px 52px 0; }
+    @media (max-width: 700px) { .cohort-hero { padding: 32px 22px; } .doc-body { padding: 28px 20px 0; } }
+
+    h2 { font-size: 1.2em; font-weight: 800; color: var(--green-dark); margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
+    h2:first-of-type { margin-top: 0; }
+    p { margin-bottom: 14px; line-height: 1.75; }
+    .lead-p { font-size: 1.05em; color: var(--text); }
+
+    .callout { background: var(--green-pale); border-left: 4px solid var(--green-mid); padding: 16px 20px; border-radius: 0 var(--radius) var(--radius) 0; margin: 18px 0; font-size: 0.93em; }
+    .callout--gold { background: var(--gold-light); border-left-color: var(--gold-dark); }
+    .callout--dark { background: var(--navy); color: #fff; border-left-color: var(--gold); }
+    .callout--dark strong { color: var(--gold); }
+
+    /* Outcomes */
+    .outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .outcome { display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+    .outcome::before { content: '✓'; color: var(--green-mid); font-weight: 800; flex-shrink: 0; }
+    .outcome b { color: var(--green-dark); }
+    @media (max-width: 640px) { .outcomes { grid-template-columns: 1fr; } }
+
+    /* Funda Five map */
+    .ff-map { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin: 18px 0; }
+    .ff-row { display: grid; grid-template-columns: 130px 1fr; gap: 0; border-bottom: 1px solid var(--border); }
+    .ff-row:last-child { border-bottom: none; }
+    .ff-row__k { background: var(--green-dark); color: #fff; font-weight: 800; padding: 12px 16px; font-size: 0.9em; }
+    .ff-row__v { padding: 12px 16px; font-size: 0.9em; color: var(--muted); }
+    @media (max-width: 560px) { .ff-row { grid-template-columns: 1fr; } .ff-row__k { padding: 8px 16px; } }
+
+    /* Weekly modules */
+    .wk { border: 1px solid var(--border); border-radius: var(--radius-lg); margin: 16px 0; overflow: hidden; }
+    .wk--cap { border-color: var(--gold-dark); box-shadow: 0 10px 30px rgba(201,162,39,.16); }
+    .wk__head { background: var(--green-pale); padding: 16px 20px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .wk--cap .wk__head { background: var(--gold-light); }
+    .wk__num { font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold-dark); }
+    .wk__title { font-size: 1.05em; font-weight: 800; color: var(--green-dark); }
+    .wk__body { padding: 18px 20px; }
+    .wk__row { display: grid; grid-template-columns: 116px 1fr; gap: 14px; padding: 9px 0; border-top: 1px dashed var(--border); font-size: 0.9em; }
+    .wk__row:first-child { border-top: none; }
+    .wk__row__k { font-weight: 700; color: var(--navy); font-size: 0.86em; }
+    .wk__row__k.ff { color: var(--green-mid); }
+    .wk__build { background: var(--green-pale); border-radius: var(--radius); padding: 8px 12px; }
+    .wk__build b { color: var(--green-dark); }
+    @media (max-width: 560px) { .wk__row { grid-template-columns: 1fr; gap: 3px; } }
+
+    /* Toolkit */
+    .kit { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .kit__item { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; font-size: 0.9em; }
+    .kit__item b { display: block; color: var(--green-dark); margin-bottom: 3px; }
+    .kit__item span { color: var(--muted); font-size: 0.92em; }
+    @media (max-width: 640px) { .kit { grid-template-columns: 1fr; } }
+
+    .cta-band { background: var(--green-dark); color: #fff; border-radius: var(--radius-lg); padding: 30px 32px; margin-top: 40px; text-align: center; }
+    .cta-band h3 { color: #fff; font-size: 1.3em; margin-bottom: 8px; }
+    .cta-band p { color: rgba(255,255,255,.78); font-size: 0.92em; max-width: 560px; margin: 0 auto 18px; }
+    .cta-band .btn { margin: 4px; }
+    .page-nav { display: flex; justify-content: space-between; gap: 12px; margin: 32px 52px 0; flex-wrap: wrap; }
+    @media (max-width: 700px) { .page-nav { margin: 28px 20px 0; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+        </ul>
+      </li>
+      <li class="nav__dropdown">
+        <a href="course.html" class="active">The Course</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course.html">Course Overview</a></li>
+          <li><a href="course-outline.html">Curriculum</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="funda-five.html">The Funda Five™</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li><li><a href="become-a-partner.html">Partners</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+      <span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="doc-wrap">
+
+  <!-- HERO -->
+  <div class="cohort-hero">
+    <div class="cohort-hero__crumb"><a href="outline-cohorts.html">← Layer 3 Cohorts</a> &middot; Specialist Credential</div>
+    <div class="cohort-hero__label">📋 AI Policy Cohort</div>
+    <h1>Write an AI policy your organisation can actually stand behind.</h1>
+    <div class="cohort-hero__cert">Certified AI Policy Practitioner™</div>
+    <p class="cohort-hero__lead">A guided, six-week intensive for the professionals who are handed the task of "sorting out our AI policy" &mdash; and given no map. You will leave with a complete, board-ready AI policy written for <em>your</em> organisation, an implementation plan to roll it out, and the judgment to defend every clause in it.</p>
+    <div class="cohort-hero__who">For: Policy analysts · Government advisors · Researchers · Advocacy professionals · Civil servants · Compliance &amp; risk leads</div>
+    <div class="cohort-hero__meta">
+      <div><b>6 weeks</b><span>guided intensive</span></div>
+      <div><b>6 live</b><span>faculty sessions + clinics</span></div>
+      <div><b>1 policy</b><span>your org's, finished</span></div>
+      <div><b>Max 20</b><span>learners per cohort</span></div>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- THE PROBLEM -->
+    <div class="callout--dark callout">
+      <strong>The problem we're fixing.</strong> Right now, capable professionals are being told to "write the AI policy" with no framework, no precedent, and no time. So they paste the brief into ChatGPT and ship a document they can't explain, can't defend, and can't implement. A policy nobody understands is worse than no policy &mdash; it creates the <em>illusion</em> of governance. This cohort replaces that with real understanding and a real, workable document.
+    </div>
+
+    <h2>What you'll walk away with</h2>
+    <p class="lead-p">This is not a lecture series. Every week you build one more part of a real AI policy for your own organisation. By the final week you have the finished article &mdash; not a certificate that says you watched some videos.</p>
+    <div class="outcomes">
+      <div class="outcome"><div><b>A complete AI policy</b> for your organisation &mdash; scope, principles, roles, acceptable use, oversight, procurement and incident response.</div></div>
+      <div class="outcome"><div><b>A 12-month implementation roadmap</b> &mdash; how to get it approved, adopted, trained and monitored.</div></div>
+      <div class="outcome"><div><b>The judgment to defend it</b> &mdash; you can explain every clause, the law behind it, and the trade-offs you made.</div></div>
+      <div class="outcome"><div><b>A reusable toolkit</b> &mdash; templates for the policy, risk register, impact assessment and vendor evaluation.</div></div>
+      <div class="outcome"><div><b>Command of the landscape</b> &mdash; SA instruments and the international frameworks (EU AI Act, AU, OECD, NIST) that shape them.</div></div>
+      <div class="outcome"><div><b>The Certified AI Policy Practitioner™</b> credential &mdash; assessed by a domain expert against a published rubric.</div></div>
+    </div>
+
+    <h2>Built on the Funda Five™ — not on guesswork</h2>
+    <p>A good AI policy answers the same five questions our learners ask of every AI decision &mdash; just at the level of a whole organisation. The framework you already trust becomes the backbone of the document you write.</p>
+    <div class="ff-map">
+      <div class="ff-row"><div class="ff-row__k">1 · Task</div><div class="ff-row__v">Which uses of AI is this policy actually governing? Scoping the policy to real decisions and real harm, not vague "AI usage".</div></div>
+      <div class="ff-row"><div class="ff-row__k">2 · Data</div><div class="ff-row__v">POPIA, data classification, lawful basis, and what may never be put into a tool. The clauses that keep you out of court.</div></div>
+      <div class="ff-row"><div class="ff-row__k">3 · Tool</div><div class="ff-row__v">Approved vs prohibited tools, procurement standards, and how to evaluate a vendor's AI claims before you sign.</div></div>
+      <div class="ff-row"><div class="ff-row__k">4 · Trust</div><div class="ff-row__v">Risk classification, verification standards, monitoring and audit &mdash; how the organisation knows the policy is working.</div></div>
+      <div class="ff-row"><div class="ff-row__k">5 · Human</div><div class="ff-row__v">Accountability lines, human-oversight requirements, sign-off and incident response. Who answers when it goes wrong.</div></div>
+    </div>
+
+    <!-- THE CURRICULUM -->
+    <h2>The six weeks — how we hold your hand through it</h2>
+    <p>Each week has a focus, the Funda Five™ lens it sharpens, a live faculty session, and one concrete thing you build toward your own policy. Nothing is left as "go figure it out".</p>
+
+    <div class="wk">
+      <div class="wk__head"><span class="wk__num">Week 1</span><span class="wk__title">Foundations &amp; the South African landscape</span></div>
+      <div class="wk__body">
+        <div class="wk__row"><div class="wk__row__k">Focus</div><div>Why AI policy is different from IT policy. The DCDT national AI strategy, the Presidential Commission on the 4IR, POPIA &amp; PAIA, sector regulators, and the real gaps in SA's roadmap. Case: the April 2026 AI hallucination incident and what a policy should have prevented.</div></div>
+        <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Task — scoping what your policy must actually govern.</div></div>
+        <div class="wk__row"><div class="wk__row__k">Live session</div><div>Faculty walk-through of the SA instruments + Q&amp;A on your organisation's context.</div></div>
+        <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Policy Charter</b> — your organisation's scope, stakeholders, decision-makers and the harms you're governing against.</div></div>
+      </div>
+    </div>
+
+    <div class="wk">
+      <div class="wk__head"><span class="wk__num">Week 2</span><span class="wk__title">The international frameworks shaping SA</span></div>
+      <div class="wk__body">
+        <div class="wk__row"><div class="wk__row__k">Focus</div><div>The EU AI Act risk tiers, the African Union Continental AI Strategy, OECD AI Principles, the NIST AI Risk Management Framework, ISO/IEC 42001, and the UK's pro-innovation stance. What to adopt, what to adapt, and what doesn't fit the SA context.</div></div>
+        <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Tool — matching the right framework to your organisation's reality.</div></div>
+        <div class="wk__row"><div class="wk__row__k">Live session</div><div>Comparative clinic — mapping two frameworks onto a live SA use case.</div></div>
+        <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Framework Alignment Matrix</b> — which principles from which frameworks your policy will inherit, and why.</div></div>
+      </div>
+    </div>
+
+    <div class="wk">
+      <div class="wk__head"><span class="wk__num">Week 3</span><span class="wk__title">Risk, data &amp; rights</span></div>
+      <div class="wk__body">
+        <div class="wk__row"><div class="wk__row__k">Focus</div><div>POPIA in depth for AI, data classification, lawful basis and retention, and algorithmic impact assessment (AIA). Classifying AI use cases by risk, and writing the data clauses that actually protect people and the organisation.</div></div>
+        <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Data &amp; Trust — the protective core of the policy.</div></div>
+        <div class="wk__row"><div class="wk__row__k">Live session</div><div>Hands-on risk-classification workshop on your own use cases.</div></div>
+        <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>AI Risk Register + Impact Assessment</b> for one real use case in your organisation.</div></div>
+      </div>
+    </div>
+
+    <div class="wk">
+      <div class="wk__head"><span class="wk__num">Week 4</span><span class="wk__title">Writing the policy — guided drafting</span></div>
+      <div class="wk__body">
+        <div class="wk__row"><div class="wk__row__k">Focus</div><div>The anatomy of a strong AI policy: purpose, scope, principles, roles &amp; responsibilities, acceptable and prohibited use, procurement, human oversight, incident response and review cadence. We draft it together, clause by clause, using the AfriversalAI Policy Template.</div></div>
+        <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>All five — assembled into one coherent document.</div></div>
+        <div class="wk__row"><div class="wk__row__k">Live session</div><div>Live drafting clinic — bring your charter, leave with a structured draft.</div></div>
+        <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>First full draft</b> of your organisation's AI policy.</div></div>
+      </div>
+    </div>
+
+    <div class="wk">
+      <div class="wk__head"><span class="wk__num">Week 5</span><span class="wk__title">Implementation &amp; adoption — making it real</span></div>
+      <div class="wk__body">
+        <div class="wk__row"><div class="wk__row__k">Focus</div><div>A policy nobody follows is theatre. Governance structures and sign-off, training and change management, monitoring and audit, vendor evaluation, and public participation where it's required. How to get it <em>approved</em> and <em>adopted</em>, not just written.</div></div>
+        <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Human — accountability and oversight in practice.</div></div>
+        <div class="wk__row"><div class="wk__row__k">Live session</div><div>Rollout-planning workshop + stakeholder objection-handling.</div></div>
+        <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>12-month Implementation &amp; Adoption Roadmap</b> for your organisation.</div></div>
+      </div>
+    </div>
+
+    <div class="wk wk--cap">
+      <div class="wk__head"><span class="wk__num">Week 6 — Capstone</span><span class="wk__title">Finalise, review &amp; defend</span></div>
+      <div class="wk__body">
+        <div class="wk__row"><div class="wk__row__k">Focus</div><div>Structured peer review and a domain-expert assessment of your finished policy. You revise, then present and defend your key decisions &mdash; the test isn't whether you wrote a document, but whether you understand and can stand behind it.</div></div>
+        <div class="wk__row"><div class="wk__row__k">Assessment</div><div>A complete, board-ready AI policy for your organisation + the implementation roadmap, assessed by a domain expert against a published rubric. One revision opportunity if below standard.</div></div>
+        <div class="wk__row"><div class="wk__row__k">You earn</div><div class="wk__build"><b>Certified AI Policy Practitioner™</b> — the credential says <em>demonstrated</em>, not <em>completed</em>.</div></div>
+      </div>
+    </div>
+
+    <h2>The toolkit you keep</h2>
+    <p>You leave with working templates you can reuse for the next policy, the next department, or the next organisation.</p>
+    <div class="kit">
+      <div class="kit__item"><b>AI Policy Template</b><span>The full clause-by-clause structure, annotated with guidance.</span></div>
+      <div class="kit__item"><b>AI Risk Register</b><span>Classify and track AI use cases by risk and owner.</span></div>
+      <div class="kit__item"><b>Algorithmic Impact Assessment</b><span>A repeatable assessment for any new AI deployment.</span></div>
+      <div class="kit__item"><b>Vendor AI Evaluation Checklist</b><span>Interrogate a supplier's AI claims before you sign.</span></div>
+    </div>
+
+    <h2>Format &amp; logistics</h2>
+    <div class="callout--gold callout">
+      <strong>6-week guided intensive</strong> &middot; one 90-minute live faculty session each week &middot; weekly build-deliverables between sessions &middot; live drafting &amp; rollout clinics &middot; max 20 learners &middot; assessed by a domain-expert (not a facilitator) &middot; capstone in Week 6 with one revision opportunity.
+    </div>
+    <p style="font-size:0.9em; color:var(--muted);"><strong>Prerequisite:</strong> Layer 1 Core Certification (AI Literacy for South African Workplaces), so every participant shares the Funda Five™ foundation. Cross-industry by design &mdash; a government analyst, a healthcare lawyer and a corporate compliance lead in the same room is part of the value.</p>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <h3>Stop guessing. Write the policy properly.</h3>
+      <p>Register your interest in the next AI Policy Cohort, or talk to us about running it for your team. Pricing reflects a guided, expert-assessed credential &mdash; you leave with a finished, defensible policy, not a transcript.</p>
+      <a href="register.html" class="btn btn--gold btn--lg">Register your interest &rarr;</a>
+      <a href="contact.html" class="btn btn--white btn--lg">Talk to us about a team cohort</a>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <div class="page-nav">
+    <a href="outline-cohorts.html" class="btn btn--outline">← All Layer 3 Cohorts</a>
+    <a href="pricing.html" class="btn btn--outline">See pricing →</a>
+  </div>
+
+</div><!-- /doc-wrap -->
+
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>
