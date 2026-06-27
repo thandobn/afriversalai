@@ -1246,16 +1246,16 @@ var _lessonLabels = [
 
 function _setLessonDots(n) {
   for (var i = 1; i <= 7; i++) {
-    var dot = document.getElementById(‘ldot-’ + i);
+    var dot = document.getElementById('ldot-' + i);
     if (!dot) continue;
-    dot.className = ‘lesson-dot’ + (i < n ? ‘ visited’ : ‘’) + (i === n ? ‘ current’ : ‘’);
+    dot.className = 'lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
   }
-  var lbl = document.getElementById(‘lesson-label’);
+  var lbl = document.getElementById('lesson-label');
   if (lbl) lbl.textContent = _lessonLabels[n - 1];
 }
 
 function goToLesson(n) {
-  showScreen(0, ‘L’ + n);
+  showScreen(0, 'L' + n);
 }
 
 function copyLesson4Prompt(btn) {
