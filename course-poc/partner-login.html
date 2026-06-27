@@ -97,6 +97,9 @@
       sessionStorage.setItem('afv_demo_partner', '1');
       sessionStorage.setItem('afv_pkey', demo.pkey);
       sessionStorage.setItem('afv_demo_email', demo.email);
+      // Clean demo accounts (anything other than the pre-populated 'demo') always start
+      // fresh — wipe any previously stored/cached data so the dashboard is empty.
+      if (demo.pkey !== 'demo') { try { localStorage.removeItem('afv_partner_' + demo.pkey); } catch (e) {} }
       window.location.href = 'partner-portal.html';
       return false;
     }
