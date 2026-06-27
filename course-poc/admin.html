@@ -40,6 +40,25 @@
     .adm-search { border: 1.5px solid var(--border); border-radius: 30px; padding: 8px 16px; font-family: inherit; font-size: 0.85em; min-width: 240px; }
     .adm-mock-note { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); background: var(--gold-light); border: 1px solid var(--gold); padding: 4px 12px; border-radius: 20px; }
 
+    /* Tabs */
+    .adm-tabs { display: flex; gap: 8px; margin-bottom: 22px; border-bottom: 1.5px solid var(--border); }
+    .adm-tab { appearance: none; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -1.5px; padding: 12px 18px; font-family: inherit; font-size: 0.95em; font-weight: 700; color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .adm-tab:hover { color: var(--green-dark); }
+    .adm-tab.is-active { color: var(--green-dark); border-bottom-color: var(--green-mid); }
+    .adm-tab__badge { background: #DC2626; color: #fff; font-size: 0.72em; font-weight: 800; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; }
+    /* Status pills + inline controls */
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.78em; font-weight: 700; }
+    .pill--new { background: #FEF3C7; color: #92400E; }
+    .pill--reviewing { background: #DBEAFE; color: #1E40AF; }
+    .pill--approved { background: #D1FAE5; color: #065F46; }
+    .pill--declined { background: #FEE2E2; color: #991B1B; }
+    .pill--active { background: #D1FAE5; color: #065F46; }
+    .pill--onboarding { background: #FEF3C7; color: #92400E; }
+    .pill--suspended { background: #FEE2E2; color: #991B1B; }
+    .adm-table select.inline { padding: 5px 8px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.92em; background: #fff; }
+    .btn--xs { padding: 5px 11px; font-size: 0.8em; }
+    .btn--danger { background: #fff; color: #B91C1C; border: 1.5px solid #FECACA; }
+    .btn--danger:hover { background: #FEF2F2; }
     /* Student table */
     .adm-table { width: 100%; background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); border-collapse: separate; border-spacing: 0; overflow: hidden; }
     .adm-table th { background: #F7F9F8; text-align: left; font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); padding: 12px 16px; border-bottom: 1.5px solid var(--border); }
@@ -129,6 +148,13 @@
 <!-- Console -->
 <div id="adm-console" class="adm-wrap" style="display:none;">
 
+  <div class="adm-tabs">
+    <button class="adm-tab is-active" id="tabbtn-students" onclick="switchTab('students')">🎓 Students</button>
+    <button class="adm-tab" id="tabbtn-partners" onclick="switchTab('partners')">🤝 Partners <span class="adm-tab__badge" id="tab-partners-badge" style="display:none;">0</span></button>
+  </div>
+
+  <!-- ===================== STUDENTS TAB ===================== -->
+  <div id="tab-students">
   <div class="adm-stats">
     <div class="adm-stat"><div class="adm-stat__num" id="st-total">0</div><div class="adm-stat__label">Seats filled</div><div class="adm-stat__sub" id="st-cohort">Q3 2026 · 30-seat pilot</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-active">0</div><div class="adm-stat__label">Active this week</div></div>
@@ -159,6 +185,56 @@
   </table>
 
   <p style="font-size:0.78em; color:var(--muted); margin-top:14px;">Click any student to open their scorecard, payment record, and message thread. Messages you send are saved locally for this preview &mdash; in production they sync to each learner&rsquo;s dashboard.</p>
+  </div><!-- /tab-students -->
+
+  <!-- ===================== PARTNERS TAB ===================== -->
+  <div id="tab-partners" style="display:none;">
+
+    <div class="adm-stats">
+      <div class="adm-stat"><div class="adm-stat__num" id="pt-pending">0</div><div class="adm-stat__label">Applications to review</div></div>
+      <div class="adm-stat"><div class="adm-stat__num" id="pt-total">0</div><div class="adm-stat__label">Approved partners</div></div>
+      <div class="adm-stat"><div class="adm-stat__num" id="pt-active">0</div><div class="adm-stat__label">Active partners</div></div>
+      <div class="adm-stat"><div class="adm-stat__num" id="pt-onboarding">0</div><div class="adm-stat__label">Onboarding</div></div>
+    </div>
+
+    <!-- Migration-not-run notice -->
+    <div id="pt-needs-migration" style="display:none; background:#FFFBEB; border:1.5px solid #FDE68A; color:#92400E; border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:20px; font-size:0.9em;">
+      <strong>Partner tables not found.</strong> Run <code>course-poc/supabase-partner-migration.sql</code> in the Supabase SQL Editor to enable partner applications and approvals.
+    </div>
+
+    <div class="adm-bar"><h2>Partner applications</h2><span class="adm-sub" id="pt-app-count"></span></div>
+    <table class="adm-table">
+      <thead><tr><th>Applicant</th><th>Organisation</th><th>Country &amp; sectors</th><th>Submitted</th><th>Status</th><th style="text-align:right;">Action</th></tr></thead>
+      <tbody id="pt-app-rows"></tbody>
+    </table>
+
+    <div class="adm-bar" style="margin-top:28px;"><h2>Approved partners</h2><span class="adm-sub" id="pt-dir-count"></span></div>
+    <table class="adm-table">
+      <thead><tr><th>Partner</th><th>Code</th><th>Level</th><th>Status</th><th>Pipeline</th><th style="text-align:right;">Manage</th></tr></thead>
+      <tbody id="pt-dir-rows"></tbody>
+    </table>
+    <p style="font-size:0.78em; color:var(--muted); margin-top:14px;">Approving an application adds the partner to the directory and grants Partner Portal access for that email. The partner then registers / signs in with that same email.</p>
+
+  </div><!-- /tab-partners -->
+</div>
+
+<!-- Partner detail modal -->
+<div class="adm-modal" id="adm-pmodal" onclick="if(event.target===this) closePartner()">
+  <div class="adm-card">
+    <div class="adm-card__head">
+      <div>
+        <div class="adm-card__name" id="pm-name">—</div>
+        <div class="adm-card__meta" id="pm-meta">—</div>
+      </div>
+      <button class="adm-card__close" onclick="closePartner()" aria-label="Close">&times;</button>
+    </div>
+    <div class="adm-card__body">
+      <div class="adm-sec-label">Customer pipeline</div>
+      <div id="pm-customers" style="font-size:0.88em;"></div>
+      <div class="adm-sec-label" style="margin-top:18px;">Signed documents</div>
+      <div id="pm-signatures" style="font-size:0.88em;"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Student detail modal -->
@@ -355,11 +431,147 @@ function sendReply() {
 
 function closeModal() { document.getElementById('adm-modal').classList.remove('is-open'); CURRENT = null; }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closePartner(); } });
 document.addEventListener('click', function(e) {
   const row = e.target.closest('tr[data-student-id]');
   if (row) openStudent(row.dataset.studentId);
 });
+
+// ===================== PARTNERS TAB (live Supabase) =====================
+let PT_APPS = [], PT_PARTS = [], PT_CUSTS = [];
+function ptMoney(n) { return 'R' + (Math.round(Number(n) || 0)).toLocaleString('en-ZA'); }
+function ptDate(s) { return s ? new Date(s).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'; }
+
+function switchTab(name) {
+  const students = name === 'students';
+  document.getElementById('tab-students').style.display = students ? 'block' : 'none';
+  document.getElementById('tab-partners').style.display = students ? 'none' : 'block';
+  document.getElementById('tabbtn-students').classList.toggle('is-active', students);
+  document.getElementById('tabbtn-partners').classList.toggle('is-active', !students);
+  if (!students) loadPartnersData();
+}
+
+async function loadPartnersData() {
+  const needs = document.getElementById('pt-needs-migration');
+  try {
+    const appsRes = await _supabase.from('partner_applications').select('*').order('created_at', { ascending: false });
+    if (appsRes.error) throw appsRes.error;
+    const partsRes = await _supabase.from('partners').select('*').order('created_at', { ascending: false });
+    if (partsRes.error) throw partsRes.error;
+    const custRes = await _supabase.from('partner_customers').select('partner_email,name,acv,stage');
+    needs.style.display = 'none';
+    renderApplications(appsRes.data || []);
+    renderPartnerDirectory(partsRes.data || [], custRes.data || []);
+  } catch (e) {
+    needs.style.display = 'block';
+    document.getElementById('pt-app-rows').innerHTML = '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:20px;">Unavailable until the partner migration is run.</td></tr>';
+    document.getElementById('pt-dir-rows').innerHTML = '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:20px;">—</td></tr>';
+  }
+}
+
+function renderApplications(apps) {
+  PT_APPS = apps;
+  const pending = apps.filter(a => a.status === 'new' || a.status === 'reviewing');
+  document.getElementById('pt-pending').textContent = pending.length;
+  const badge = document.getElementById('tab-partners-badge');
+  if (pending.length) { badge.style.display = 'inline-flex'; badge.textContent = pending.length; } else badge.style.display = 'none';
+  document.getElementById('pt-app-count').textContent = apps.length ? apps.length + ' total' : '';
+  const rows = apps.map(a => {
+    const st = a.status || 'new';
+    let actions;
+    if (st === 'approved') actions = '<span class="adm-sub">Approved &check;</span>';
+    else if (st === 'declined') actions = '<button class="btn btn--xs btn--outline" onclick="reopenApp(\'' + a.id + '\')">Reopen</button>';
+    else actions = '<button class="btn btn--xs btn--primary" onclick="approveApplication(\'' + a.id + '\')">Approve</button> ' +
+                   '<button class="btn btn--xs btn--danger" onclick="declineApplication(\'' + a.id + '\')">Decline</button>';
+    return '<tr><td><strong>' + escapeHtml(a.name || '—') + '</strong><br><span class="adm-sub">' + escapeHtml(a.email || '') + '</span></td>' +
+      '<td>' + escapeHtml(a.organisation || '—') + '</td>' +
+      '<td>' + escapeHtml(a.country_sectors || '—') + '</td>' +
+      '<td>' + ptDate(a.created_at) + '</td>' +
+      '<td><span class="pill pill--' + st + '">' + st + '</span></td>' +
+      '<td style="text-align:right; white-space:nowrap;">' + actions + '</td></tr>';
+  }).join('');
+  document.getElementById('pt-app-rows').innerHTML = rows || '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:24px;">No applications yet.</td></tr>';
+}
+
+function renderPartnerDirectory(parts, custs) {
+  PT_PARTS = parts; PT_CUSTS = custs;
+  document.getElementById('pt-total').textContent = parts.length;
+  document.getElementById('pt-active').textContent = parts.filter(p => p.status === 'active').length;
+  document.getElementById('pt-onboarding').textContent = parts.filter(p => p.status === 'onboarding').length;
+  document.getElementById('pt-dir-count').textContent = parts.length ? parts.length + ' total' : '';
+  const byEmail = {};
+  custs.forEach(c => { (byEmail[c.partner_email] = byEmail[c.partner_email] || []).push(c); });
+  const LEVELS = ['Associate', 'Professional', 'Strategic'];
+  const STATS = ['onboarding', 'active', 'suspended'];
+  const rows = parts.map(p => {
+    const cs = byEmail[p.email] || [];
+    const acv = cs.reduce((a, c) => a + (Number(c.acv) || 0), 0);
+    const lvl = '<select class="inline" onchange="setPartnerLevel(\'' + p.email + '\',this.value)">' +
+      LEVELS.map(l => '<option' + (l === p.level ? ' selected' : '') + '>' + l + '</option>').join('') + '</select>';
+    const sta = '<select class="inline" onchange="setPartnerStatus(\'' + p.email + '\',this.value)">' +
+      STATS.map(s => '<option' + (s === p.status ? ' selected' : '') + '>' + s + '</option>').join('') + '</select>';
+    return '<tr><td><strong>' + escapeHtml(p.legal_name || p.email) + '</strong><br><span class="adm-sub">' + escapeHtml(p.email) + '</span></td>' +
+      '<td><span class="adm-sub" style="font-family:ui-monospace,monospace;">' + escapeHtml(p.partner_code || '—') + '</span></td>' +
+      '<td>' + lvl + '</td><td>' + sta + '</td>' +
+      '<td>' + cs.length + ' · ' + ptMoney(acv) + '</td>' +
+      '<td style="text-align:right; white-space:nowrap;"><button class="btn btn--xs btn--outline" onclick="viewPartner(\'' + p.email + '\')">View</button> ' +
+      '<button class="btn btn--xs btn--danger" onclick="removePartner(\'' + p.email + '\')">Remove</button></td></tr>';
+  }).join('');
+  document.getElementById('pt-dir-rows').innerHTML = rows || '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:24px;">No approved partners yet.</td></tr>';
+}
+
+async function approveApplication(id) {
+  const app = PT_APPS.find(a => a.id === id);
+  if (!app) return;
+  const email = (app.email || '').trim().toLowerCase();
+  if (!email) { alert('This application has no email address, so it cannot be approved.'); return; }
+  if (!confirm('Approve ' + (app.name || email) + ' as a partner?\n\nThey will get Partner Portal access for ' + email + '.')) return;
+  const code = 'AAP-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-5);
+  const ins = await _supabase.from('partners').upsert(
+    { email: email, legal_name: app.name || null, trading_name: app.organisation || null, country: app.country_sectors || null, level: 'Associate', status: 'onboarding', partner_code: code },
+    { onConflict: 'email', ignoreDuplicates: true }
+  );
+  if (ins.error) { alert('Could not approve: ' + ins.error.message); return; }
+  await _supabase.from('partner_applications').update({ status: 'approved' }).eq('id', id);
+  loadPartnersData();
+}
+
+async function declineApplication(id) {
+  if (!confirm('Decline this application?')) return;
+  await _supabase.from('partner_applications').update({ status: 'declined' }).eq('id', id);
+  loadPartnersData();
+}
+async function reopenApp(id) {
+  await _supabase.from('partner_applications').update({ status: 'new' }).eq('id', id);
+  loadPartnersData();
+}
+async function setPartnerLevel(email, level) { await _supabase.from('partners').update({ level: level }).eq('email', email); loadPartnersData(); }
+async function setPartnerStatus(email, status) { await _supabase.from('partners').update({ status: status }).eq('email', email); loadPartnersData(); }
+async function removePartner(email) {
+  if (!confirm('Remove ' + email + ' as a partner?\n\nThis also deletes their tracked customers and signatures and revokes portal access.')) return;
+  await _supabase.from('partners').delete().eq('email', email);
+  loadPartnersData();
+}
+
+async function viewPartner(email) {
+  const p = PT_PARTS.find(x => x.email === email);
+  document.getElementById('pm-name').textContent = (p && p.legal_name) || email;
+  document.getElementById('pm-meta').textContent = email + (p && p.partner_code ? ' · ' + p.partner_code : '');
+  document.getElementById('pm-customers').innerHTML = '<span class="adm-sub">Loading…</span>';
+  document.getElementById('pm-signatures').innerHTML = '<span class="adm-sub">Loading…</span>';
+  document.getElementById('adm-pmodal').classList.add('is-open');
+  const cs = (await _supabase.from('partner_customers').select('*').eq('partner_email', email)).data || [];
+  const sg = (await _supabase.from('partner_signatures').select('*').eq('partner_email', email)).data || [];
+  document.getElementById('pm-customers').innerHTML = cs.length ? cs.map(c =>
+    '<div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:7px 0;"><span>' +
+    escapeHtml(c.name) + ' <span class="adm-sub">(' + escapeHtml(c.stage) + ')</span></span><span>' + ptMoney(c.acv) + '</span></div>'
+  ).join('') : '<span class="adm-sub">No customers tracked yet.</span>';
+  document.getElementById('pm-signatures').innerHTML = sg.length ? sg.map(s =>
+    '<div style="border-bottom:1px solid var(--border);padding:7px 0;"><strong>' + escapeHtml(s.doc_key) + '</strong> — ' +
+    escapeHtml(s.signer_name || '') + ' <span class="adm-sub">' + ptDate(s.signed_at) + ' · ' + escapeHtml(s.verify_id || '') + '</span></div>'
+  ).join('') : '<span class="adm-sub">No documents signed yet.</span>';
+}
+function closePartner() { const m = document.getElementById('adm-pmodal'); if (m) m.classList.remove('is-open'); }
 
 function admSignOut() {
   afSignOut();
@@ -378,6 +590,7 @@ async function initAdmin() {
   document.getElementById('adm-console').style.display = 'block';
   renderStats();
   renderTable();
+  loadPartnersData(); // populate the Partners tab + applications badge in the background
 }
 
 initAdmin();

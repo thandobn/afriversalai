@@ -52,6 +52,23 @@ create policy "Admins read all partners"
   on partners for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
 
+-- Admins approve / manage partners from the console (insert on approval,
+-- update level & status, remove a partner).
+drop policy if exists "Admins insert partners" on partners;
+create policy "Admins insert partners"
+  on partners for insert to authenticated
+  with check (exists (select 1 from admins a where a.email = auth.email()));
+
+drop policy if exists "Admins update all partners" on partners;
+create policy "Admins update all partners"
+  on partners for update to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
+drop policy if exists "Admins delete partners" on partners;
+create policy "Admins delete partners"
+  on partners for delete to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
 
 -- 2. PARTNER_CUSTOMERS — opportunity / customer pipeline (the tracking table)
 create table if not exists partner_customers (
@@ -146,6 +163,12 @@ create policy "Anyone can submit an application"
 drop policy if exists "Admins read applications" on partner_applications;
 create policy "Admins read applications"
   on partner_applications for select to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
+-- Admins move applications through new → reviewing → approved/declined.
+drop policy if exists "Admins update applications" on partner_applications;
+create policy "Admins update applications"
+  on partner_applications for update to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
 
 
