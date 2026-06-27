@@ -157,8 +157,21 @@ async function updateNavForAuth() {
     return
   }
 
-  // Logged-in user on a page with guest nav — replace nav entirely so it's deterministic
   const page = window.location.pathname.split('/').pop() || 'index.html'
+
+  // Home page: keep the marketing nav intact, just swap login/register for a dashboard link
+  if (page === 'index.html') {
+    const loginItem = navLinks.querySelector('.nav__login')
+    if (loginItem) loginItem.style.display = 'none'
+    const registerAnchor = navLinks.querySelector('a[href="register.html"]')
+    if (registerAnchor) {
+      registerAnchor.href = 'dashboard.html'
+      registerAnchor.textContent = 'My Dashboard →'
+    }
+    return
+  }
+
+  // All other guest-nav pages: replace nav entirely so it's deterministic
   const a = (href) => href === page ? ' class="active"' : ''
 
   navLinks.innerHTML =
