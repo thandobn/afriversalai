@@ -15,12 +15,15 @@ async function getSession() {
 async function getProfile() {
   const session = await getSession()
   if (!session) return null
-  const { data } = await _supabase
+  const { data, error } = await _supabase
     .from('profiles')
-    .select('id, full_name, email, organisation, sector, org_code, organisation_id, role')
+    .select('id, full_name, email, organisation, sector, org_code, role')
     .eq('id', session.user.id)
     .single()
-  return data
+  if (error && error.code !== 'PGRST116') {
+    console.error('[AfriversalAI] getProfile failed:', error.message, '| code:', error.code)
+  }
+  return data || null
 }
 
 async function afSignUp(email, password, profile) {
@@ -181,6 +184,6 @@ async function updateNavForAuth() {
 function _applyInstructorVisibility(session) {
   var instrItem = document.getElementById('nav-instructor')
   if (!instrItem) return
-  var isAdmin = window.ADMINS && session && session.user && window.ADMINS.includes(session.user.email)
+  var isAdmin = window.ADMIN_EMAILS && session && session.user && window.ADMIN_EMAILS.includes(session.user.email)
   instrItem.style.display = isAdmin ? '' : 'none'
 }

@@ -112,10 +112,10 @@
     <h1>AI Glossary</h1>
     <p>Plain-language definitions for workplace learners. No jargon. No assumptions. Every term used across the AfriversalAI course is defined here.</p>
     <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; align-items:center;">
-      <button class="gloss-tag-filter" data-filter="general">Foundational</button>
-      <button class="gloss-tag-filter" data-filter="generative">Generative AI</button>
-      <button class="gloss-tag-filter" data-filter="predictive">Predictive AI</button>
-      <button class="gloss-tag-filter" data-filter="course">AfriversalAI</button>
+      <button class="gloss-tag-filter" data-filter="general" aria-pressed="false">Foundational</button>
+      <button class="gloss-tag-filter" data-filter="generative" aria-pressed="false">Generative AI</button>
+      <button class="gloss-tag-filter" data-filter="predictive" aria-pressed="false">Predictive AI</button>
+      <button class="gloss-tag-filter" data-filter="course" aria-pressed="false">AfriversalAI</button>
     </div>
     <div class="gloss-search-wrap">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -159,7 +159,7 @@
 <section class="bg-pale">
 <div class="gloss-body">
 
-  <p class="gloss-no-results">No terms match your search. Try a different word.</p>
+  <p class="gloss-no-results" role="status">No terms match your search. Try a different word.</p>
 
   <!-- A -->
   <div class="gloss-letter" id="A">A</div>
@@ -573,10 +573,15 @@
         if (activeFilter === filter) {
           activeFilter = null;
           btn.classList.remove('is-active');
+          btn.setAttribute('aria-pressed', 'false');
         } else {
-          document.querySelectorAll('.gloss-tag-filter').forEach(function (b) { b.classList.remove('is-active'); });
+          document.querySelectorAll('.gloss-tag-filter').forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-pressed', 'false');
+          });
           activeFilter = filter;
           btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
         }
         applyFilters();
       });

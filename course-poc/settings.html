@@ -92,7 +92,7 @@
       <div class="form-group">
         <label for="s-sector">Sector</label>
         <select id="s-sector">
-          <option value="" disabled>Select your sector</option>
+          <option value="" disabled selected>Select your sector</option>
           <option value="corporate">Corporate &amp; Business</option>
           <option value="government">Government &amp; Public Sector</option>
           <option value="finance">Finance &amp; Banking</option>
@@ -169,7 +169,7 @@ async function saveProfile(e) {
       full_name:    document.getElementById('s-name').value.trim(),
       role:         document.getElementById('s-role').value.trim(),
       organisation: document.getElementById('s-org').value.trim(),
-      sector:       document.getElementById('s-sector').value,
+      sector:       document.getElementById('s-sector').value || undefined,
     })
     status.textContent = 'Saved.'
     status.className = 'save-status success'
