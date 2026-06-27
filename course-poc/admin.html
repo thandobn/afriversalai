@@ -215,7 +215,7 @@
   <div class="adm-bar" style="margin-top:34px;"><h2>Set a user&rsquo;s password</h2></div>
   <div id="sp-needs-fn" style="display:none; background:#FFFBEB; border:1.5px solid #FDE68A; color:#92400E; border-radius:var(--radius-lg); padding:12px 15px; margin-bottom:12px; font-size:0.84em;">The <code>admin-set-password</code> Edge Function isn&rsquo;t deployed yet, so this can&rsquo;t set passwords. Deploy it (see <code>supabase/functions/admin-set-password</code>) to enable.</div>
   <div style="background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; max-width:640px;">
-    <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">Set a new password for any account by email &mdash; useful when someone is locked out and reset emails aren&rsquo;t reaching them. Share the temporary password and ask them to change it after signing in.</p>
+    <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">Set a new password for <strong>any account &mdash; learner, partner or facilitator</strong> &mdash; by email. Useful when someone is locked out and reset emails aren&rsquo;t reaching them. Share the temporary password and ask them to change it after signing in.</p>
     <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;">
       <div style="flex:1; min-width:200px;"><label class="co-lbl" for="sp-email">User email</label><input id="sp-email" class="co-inp" type="email" placeholder="user@example.com" /></div>
       <div style="flex:1; min-width:180px;"><label class="co-lbl" for="sp-pass">New password</label><input id="sp-pass" class="co-inp" type="text" placeholder="At least 8 characters" /></div>
@@ -351,6 +351,9 @@
       <button class="adm-card__close" onclick="closePartner()" aria-label="Close">&times;</button>
     </div>
     <div class="adm-card__body">
+      <div style="margin-bottom:18px;">
+        <button class="btn btn--outline btn--sm" onclick="setPasswordForPartner()">Set / reset password</button>
+      </div>
       <div class="adm-sec-label">Corporate cohorts &amp; enrolled learners</div>
       <div id="pm-cohorts" style="font-size:0.88em;"></div>
       <div class="adm-sec-label" style="margin-top:18px;">Customer pipeline</div>
@@ -879,7 +882,21 @@ async function declineOpportunity(id) {
   loadPartnersData();
 }
 
+var PM_EMAIL = null;
+async function setPasswordForPartner() {
+  if (!PM_EMAIL) return;
+  const pw = prompt('Set a new password for partner ' + PM_EMAIL + ' (at least 8 characters):');
+  if (pw === null) return;
+  if (pw.length < 8) { alert('Password must be at least 8 characters.'); return; }
+  const r = await adminSetPassword({ email: PM_EMAIL, password: pw });
+  if (r.ok) alert('Password updated for ' + PM_EMAIL + '. Share it securely and ask them to change it.');
+  else if (r.reason === 'not_configured') alert('The admin-set-password Edge Function isn’t deployed yet.');
+  else if (r.status === 404) alert('No login account exists for ' + PM_EMAIL + ' yet. Once they have an account (or you create one), you can set its password here.');
+  else alert('Could not set the password: ' + (r.error || 'unknown error'));
+}
+
 async function viewPartner(email) {
+  PM_EMAIL = email;
   const p = PT_PARTS.find(x => x.email === email);
   document.getElementById('pm-name').textContent = (p && p.legal_name) || email;
   document.getElementById('pm-meta').textContent = email + (p && p.partner_code ? ' · ' + p.partner_code : '');
