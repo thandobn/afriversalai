@@ -82,7 +82,7 @@
     .doc-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
     @media(max-width:760px){ .doc-grid{ grid-template-columns:1fr; } }
     .doc-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 22px; display:flex; gap:14px; }
-    .doc-card__ic { font-size:1.7em; width:44px; height:44px; border-radius:12px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .doc-card__ic { font-size:1.7em; width:44px; height:44px; border-radius:12px; background:var(--green-pale); color:var(--green-dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .doc-card__pub { font-size:.66em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--gold-dark); }
     .doc-card__name { font-weight:700; color:var(--green-dark); font-size:1.0em; margin:2px 0 4px; }
     .doc-card__desc { font-size:.83em; color:var(--muted); line-height:1.5; margin-bottom:10px; }
@@ -457,6 +457,8 @@ function renderDocs(p){
   });
   html+='</div>';
   document.getElementById('pp-docs').innerHTML = html;
+  // Swap the document emojis for custom line icons (cards render after icon-swap's initial pass).
+  if (window.afIconSwap) window.afIconSwap();
 }
 
 async function setStage(id,stage){ await setPartnerCustomerStage(id,stage); renderAll(); }

@@ -48,7 +48,13 @@
     '✅': '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
     '✔': '<path d="M5 13l4 4L19 7"/>',
     '❌': '<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
-    '✗': '<path d="M6 6l12 12M18 6L6 18"/>'
+    '✗': '<path d="M6 6l12 12M18 6L6 18"/>',
+    '🔐': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/>',
+    '📝': '<path d="M14 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>',
+    '💼': '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
+    '📘': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H19V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M8 3v14"/>',
+    '📒': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H19V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M8 3v14"/>',
+    '📄': '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5"/>'
   };
   // Longest keys first so multi-codepoint sequences (e.g. 👩‍🏫) match before parts.
   var keys = Object.keys(P).sort(function (a, b) { return b.length - a.length; });
