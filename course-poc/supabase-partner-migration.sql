@@ -269,6 +269,32 @@ create policy "Admins read all cohort registrations"
   using (exists (select 1 from admins a where a.email = auth.email()));
 
 
+-- 4d. ENTERPRISE ENQUIRIES — "AI Guardrails Engagement" / enterprise consultation
+--     requests. Anyone may submit; only admins can read.
+create table if not exists enterprise_enquiries (
+  id           uuid default gen_random_uuid() primary key,
+  name         text,
+  organisation text,
+  role         text,
+  email        text,
+  service      text,                               -- e.g. 'ai-guardrails'
+  about        text,
+  status       text not null default 'new'
+                 check (status in ('new','reviewing','contacted','closed')),
+  created_at   timestamptz default now()
+);
+
+alter table enterprise_enquiries enable row level security;
+
+drop policy if exists "Anyone can submit an enquiry" on enterprise_enquiries;
+create policy "Anyone can submit an enquiry"
+  on enterprise_enquiries for insert to anon, authenticated with check (true);
+drop policy if exists "Admins read enquiries" on enterprise_enquiries;
+create policy "Admins read enquiries"
+  on enterprise_enquiries for select to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
+
 -- 5. SEED — admins (console access) + initial / demo partners (idempotent)
 -- Grant Instructor Console / admin access. Add more emails here as needed.
 insert into admins (email) values

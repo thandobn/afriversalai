@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Guardrails Engagement — Enterprise | AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#6B7280; --border:#E5E7EB; --white:#FFF; --radius:8px; --radius-lg:14px; --navy:#1A3A5C; }
+    body { font-family:'Inter',system-ui,sans-serif; color:var(--text); background:#EAECEF; line-height:1.7; font-size:15px; margin:0; padding:24px 16px 64px; }
+    .doc-wrap { max-width:940px; margin:0 auto; background:var(--white); padding:0 0 64px; border-radius:6px; box-shadow:0 2px 24px rgba(0,0,0,.1); overflow:hidden; }
+    @media (max-width:700px){ body{padding:0;} .doc-wrap{border-radius:0;} }
+    .eng-hero { background:linear-gradient(150deg,#0c2419 0%,#143728 55%,#1B4332 130%); color:#fff; padding:46px 52px 40px; }
+    .eng-hero__crumb { font-size:0.78em; color:rgba(255,255,255,.6); margin-bottom:18px; }
+    .eng-hero__crumb a { color:var(--gold); text-decoration:none; font-weight:600; }
+    .eng-hero__label { font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:10px; }
+    .eng-hero h1 { font-size:2.05em; font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:10px; }
+    .eng-hero__lead { color:rgba(255,255,255,.85); font-size:0.98em; max-width:700px; line-height:1.7; }
+    .eng-hero__who { display:inline-block; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:#fff; padding:6px 14px; border-radius:30px; font-size:0.78em; font-weight:600; margin-top:20px; }
+    .eng-hero__meta { display:flex; gap:26px; flex-wrap:wrap; margin-top:26px; }
+    .eng-hero__meta b { display:block; color:var(--gold); font-size:1.25em; font-weight:800; line-height:1; }
+    .eng-hero__meta span { font-size:0.76em; color:rgba(255,255,255,.7); }
+    .doc-body { padding:40px 52px 0; }
+    @media (max-width:700px){ .eng-hero{padding:32px 22px;} .doc-body{padding:28px 20px 0;} }
+    h2 { font-size:1.2em; font-weight:800; color:var(--green-dark); margin:40px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--green-light); }
+    h2:first-of-type { margin-top:0; }
+    p { margin-bottom:14px; line-height:1.75; }
+    .lead-p { font-size:1.05em; }
+    .callout { background:var(--green-pale); border-left:4px solid var(--green-mid); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:18px 0; font-size:0.93em; }
+    .callout--dark { background:var(--navy); color:#fff; border-left-color:var(--gold); }
+    .callout--dark strong { color:var(--gold); }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+    @media (max-width:640px){ .grid2{grid-template-columns:1fr;} }
+    .deliver { border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; }
+    .deliver b { display:block; color:var(--green-dark); margin-bottom:3px; }
+    .deliver span { font-size:0.88em; color:var(--muted); }
+    /* difference table */
+    .diff { width:100%; border-collapse:collapse; font-size:0.88em; margin:16px 0; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+    .diff th { background:var(--green-dark); color:#fff; text-align:left; padding:12px 14px; font-size:0.82em; }
+    .diff td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+    .diff tr:last-child td { border-bottom:none; }
+    .diff td:first-child { font-weight:700; color:var(--navy); white-space:nowrap; }
+    .diff .me { background:#FFFBEC; font-weight:600; }
+    /* phases */
+    .phase { display:grid; grid-template-columns:38px 1fr; gap:14px; padding:12px 0; border-top:1px dashed var(--border); }
+    .phase:first-child { border-top:none; }
+    .phase__n { width:38px; height:38px; border-radius:50%; background:var(--green-dark); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .phase__b strong { color:var(--green-dark); }
+    .phase__b p { margin:2px 0 0; font-size:0.9em; color:var(--muted); }
+    .cost { border:2px solid var(--gold); border-radius:var(--radius-lg); padding:26px 28px; margin:18px 0; text-align:center; background:var(--gold-light); }
+    .cost__price { font-size:2.2em; font-weight:800; color:var(--green-dark); line-height:1.1; }
+    .cost__note { font-size:0.85em; color:var(--muted); margin-top:8px; }
+    /* enquiry form */
+    .enq { background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:30px 32px; margin-top:32px; }
+    .enq h3 { color:#fff; font-size:1.3em; margin-bottom:6px; }
+    .enq p { color:rgba(255,255,255,.78); font-size:0.9em; margin-bottom:18px; }
+    .enq__grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media (max-width:600px){ .enq__grid{grid-template-columns:1fr;} }
+    .enq input, .enq textarea { width:100%; padding:11px 13px; border:none; border-radius:var(--radius); font-family:inherit; font-size:0.92em; }
+    .enq textarea { grid-column:1 / -1; resize:vertical; min-height:80px; }
+    .enq__msg { display:none; grid-column:1 / -1; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:var(--radius); padding:12px 14px; font-size:0.9em; }
+    .enq__actions { grid-column:1 / -1; display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:4px; }
+    .page-nav { display:flex; justify-content:space-between; gap:12px; margin:32px 52px 0; flex-wrap:wrap; }
+    @media (max-width:700px){ .page-nav{margin:28px 20px 0;} }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown"><a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+        </ul>
+      </li>
+      <li class="nav__dropdown"><a href="course.html">The Course</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course.html">Course Overview</a></li>
+          <li><a href="course-outline.html">Curriculum</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="funda-five.html">The Funda Five™</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+          <li><a href="cohort-ai-policy.html">AI Policy Cohort</a></li>
+          <li><a href="cohort-ai-governance.html">AI Governance Cohort</a></li>
+          <li><a href="cohort-ai-regulation.html">AI Regulation Cohort</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li><li><a href="become-a-partner.html">Partners</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="doc-wrap">
+  <div class="eng-hero">
+    <div class="eng-hero__crumb"><a href="pricing.html">← Pricing</a> &middot; Enterprise Engagement</div>
+    <div class="eng-hero__label">🛡️ Enterprise &middot; Done-with-you</div>
+    <h1>AI Guardrails Engagement</h1>
+    <p class="eng-hero__lead">Defensible AI guardrails for your organisation &mdash; without the full transformation. A facilitated, fixed-scope engagement that leaves you with the policy, staff guidelines, risk register and governance framework to use AI safely. We do it <em>with</em> your team and hand you the finished artefacts.</p>
+    <div class="eng-hero__who">For organisations &middot; not individuals &mdash; banks, government, SOEs, insurers, universities &amp; enterprises</div>
+    <div class="eng-hero__meta">
+      <div><b>4–6 weeks</b><span>fixed-scope sprint</span></div>
+      <div><b>Done-with-you</b><span>facilitated by AfriversalAI</span></div>
+      <div><b>5 artefacts</b><span>delivered &amp; signed off</span></div>
+      <div><b>Exec sign-off</b><span>board-ready</span></div>
+    </div>
+  </div>
+
+  <div class="doc-body">
+    <div class="callout--dark callout">
+      <strong>When you need guardrails now.</strong> Your people are already using AI and the board is asking who signed off on it. You don't have months to upskill someone &mdash; you need defensible policy, guidelines and a governance framework in place <em>this quarter</em>. This engagement delivers exactly that, facilitated by our team, with your executives in the room.
+    </div>
+
+    <h2>Who it's for</h2>
+    <p class="lead-p">Organisations &mdash; not individual learners. The buyer is the institution; the sponsors are the people accountable for AI risk.</p>
+    <ul style="padding-left:22px;">
+      <li>Executive sponsors (CEO, COO, CIO, CRO) who need AI governance in place fast</li>
+      <li>Compliance, risk, legal and audit leaders accountable for AI exposure</li>
+      <li>HR &amp; L&amp;D leaders rolling AI out across a workforce</li>
+      <li>Public-sector entities, regulators, banks, insurers and SOEs under scrutiny</li>
+    </ul>
+
+    <h2>What you walk away with</h2>
+    <p>Finished, organisation-specific artefacts &mdash; not training notes.</p>
+    <div class="grid2">
+      <div class="deliver"><b>AI Policy</b><span>A board-ready AI policy tailored to your organisation.</span></div>
+      <div class="deliver"><b>Staff AI usage guidelines</b><span>Clear do's, don'ts and approved tools for every employee.</span></div>
+      <div class="deliver"><b>AI risk register</b><span>Your AI use cases classified, owned and mitigated.</span></div>
+      <div class="deliver"><b>Governance framework</b><span>Approval gates, oversight and incident response.</span></div>
+      <div class="deliver"><b>Executive workshop &amp; sign-off</b><span>Leadership aligned and the framework formally adopted.</span></div>
+      <div class="deliver"><b>POPIA &amp; regulatory alignment</b><span>Mapped to the SA law that already applies to you.</span></div>
+    </div>
+
+    <h2>How it works</h2>
+    <div class="phase"><div class="phase__n">1</div><div class="phase__b"><strong>Discovery</strong><p>We map your AI use, risk exposure and regulatory context with your team.</p></div></div>
+    <div class="phase"><div class="phase__n">2</div><div class="phase__b"><strong>Drafting</strong><p>Facilitated working sessions produce your policy, guidelines and risk register &mdash; built on the Funda Five™.</p></div></div>
+    <div class="phase"><div class="phase__n">3</div><div class="phase__b"><strong>Governance design</strong><p>We design your approval gates, oversight structure and incident-response protocol.</p></div></div>
+    <div class="phase"><div class="phase__n">4</div><div class="phase__b"><strong>Executive sign-off</strong><p>A leadership workshop aligns decision-makers and formally adopts the framework.</p></div></div>
+
+    <h2>How it's different</h2>
+    <p>This sits between training your people and transforming the organisation. Use this table to place it:</p>
+    <table class="diff">
+      <thead><tr><th>Offering</th><th>Who</th><th>What you get</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>Layer 3 Specialist Cohorts</td><td>An individual professional</td><td>They <em>learn to build</em> AI policy/governance and earn a credential (6 weeks)</td><td>R39,995 / person</td></tr>
+        <tr class="me"><td>AI Guardrails Engagement</td><td>Your organisation</td><td>We <em>build it with you</em> and hand over finished guardrails + exec sign-off (4–6 weeks)</td><td>R150,000–R350,000</td></tr>
+        <tr><td>Enterprise AI Transformation</td><td>Your whole organisation</td><td>Org-wide strategy, workforce readiness, governance &amp; measured adoption</td><td>R350,000+</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>The value:</strong> defensible AI guardrails in place this quarter, owned by your executives, mapped to SA law &mdash; without pulling a staff member out for a six-week credential or committing to a full transformation programme.</div>
+
+    <h2>Investment</h2>
+    <div class="cost">
+      <div class="cost__price">R150,000 – R350,000</div>
+      <div class="cost__note">Per organisation &middot; fixed-scope engagement. Final scope depends on organisation size, number of use cases and sectors. SETA/SDL eligibility subject to accreditation.</div>
+    </div>
+
+    <!-- ENQUIRY -->
+    <div class="enq">
+      <h3>Book a consultation</h3>
+      <p>Tell us about your organisation and where you are with AI. We'll scope a fixed-price engagement and come back within two business days.</p>
+      <form class="enq__grid" onsubmit="return submitEnquiry(event)">
+        <input type="text" id="eq-name" placeholder="Your name *" required />
+        <input type="text" id="eq-org" placeholder="Organisation *" required />
+        <input type="text" id="eq-role" placeholder="Your role" />
+        <input type="email" id="eq-email" placeholder="Work email *" required />
+        <textarea id="eq-about" placeholder="Where are you with AI, and what do you need? (sectors, team size, timeline)"></textarea>
+        <div class="enq__msg" id="eq-msg"></div>
+        <div class="enq__actions">
+          <button type="submit" class="btn btn--gold btn--lg" id="eq-btn">Request a consultation &rarr;</button>
+          <a href="contact.html" class="btn btn--white">Or contact us</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="pricing.html" class="btn btn--outline">← Pricing</a>
+    <a href="outline-cohorts.html" class="btn btn--outline">Specialist cohorts →</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+  async function submitEnquiry(e) {
+    e.preventDefault();
+    var msg = document.getElementById('eq-msg'), btn = document.getElementById('eq-btn');
+    var name = document.getElementById('eq-name').value.trim();
+    var email = document.getElementById('eq-email').value.trim();
+    if (!name || !email) { return false; }
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Sending…';
+    var payload = {
+      name: name, organisation: document.getElementById('eq-org').value.trim() || null,
+      role: document.getElementById('eq-role').value.trim() || null, email: email,
+      service: 'ai-guardrails', about: document.getElementById('eq-about').value.trim() || null
+    };
+    try {
+      var res = await _supabase.from('enterprise_enquiries').insert(payload);
+      if (res.error) throw res.error;
+      e.target.reset();
+      msg.innerHTML = '<strong>Thank you — your enquiry is in.</strong> We\'ll be in touch within two business days to scope your engagement.';
+      msg.style.display = 'block'; btn.style.display = 'none';
+    } catch (ex) {
+      btn.disabled = false; btn.textContent = label;
+      msg.innerHTML = 'Could not send right now — please email <a href="mailto:ask@afriversal.ai" style="color:#fff;font-weight:700;">ask@afriversal.ai</a>.';
+      msg.style.display = 'block';
+    }
+    return false;
+  }
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

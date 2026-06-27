@@ -530,7 +530,11 @@ function renderVideoSessions() {
 }
 
 // Specialist cohort opt-in (Layer 3 — separate from the Core Certification)
-async function renderCohortOptIn(unlocked) {
+var COHORTS_UNLOCKED = false, COHORTS_DONE = 0
+async function renderCohortOptIn(unlocked, done) {
+  if (typeof unlocked !== 'undefined') COHORTS_UNLOCKED = unlocked
+  if (typeof done !== 'undefined') COHORTS_DONE = done
+  unlocked = COHORTS_UNLOCKED; done = COHORTS_DONE
   var grid = document.getElementById('cohort-optin-grid')
   if (!grid || !window.AF_COHORTS) return
   var regs = []
@@ -547,7 +551,7 @@ async function renderCohortOptIn(unlocked) {
              '<button class="btn btn--primary btn--sm" id="optin-' + key + '" onclick="optInCohort(\'' + key + '\')">Register / opt in</button>'
     } else {
       foot = '<a href="' + c.page + '" class="btn btn--outline btn--sm">Learn more →</a>' +
-             '<span class="locked-note">🔒 Complete Layer 1 to unlock</span>'
+             '<span class="locked-note">🔒 Requires Layer 1 Core Certification — you\'ve completed ' + done + ' of 7 core modules. Finish the rest to unlock and register.</span>'
     }
     return '<div class="cohort-optin' + (locked ? ' is-locked' : '') + '">' +
       '<div class="cohort-optin__tag">📋 Layer 3 &middot; ' + c.label + price + '</div>' +
@@ -558,11 +562,20 @@ async function renderCohortOptIn(unlocked) {
 }
 async function optInCohort(key) {
   var c = window.AF_COHORTS[key]; if (!c) return
-  var btn = document.getElementById('optin-' + key); if (btn) { btn.disabled = true; btn.textContent = 'Opting in…' }
+  var btn = document.getElementById('optin-' + key)
+  var card = btn ? btn.closest('.cohort-optin') : null
+  if (btn) { btn.disabled = true; btn.textContent = 'Opting in…' }
   var res = await registerCohort(key, c.name)
   if (res && res.needsAuth) { window.location.href = 'login.html?next=dashboard.html'; return }
-  if (res && res.ok) { renderCohortOptIn() }
-  else { if (btn) { btn.disabled = false; btn.textContent = "Opt in — I'm interested" }; alert('Could not opt in right now — please try again in a moment.') }
+  if (res && res.ok) { renderCohortOptIn(); return }
+  // Failure — explain it inline rather than a blunt alert
+  if (card) {
+    var foot = card.querySelector('.cohort-optin__foot')
+    if (foot) foot.innerHTML =
+      '<a href="' + c.page + '" class="btn btn--outline btn--sm">Read the full curriculum →</a>' +
+      '<span class="locked-note" style="color:var(--gold-dark)">Cohort intake isn\'t open yet — we couldn\'t record your opt-in. ' +
+      'Explore the curriculum meanwhile, or <a href="contact.html" style="color:var(--green-mid);font-weight:700;">contact us</a> to join the founding list.</span>'
+  } else if (btn) { btn.disabled = false; btn.textContent = 'Register / opt in' }
 }
 
 async function initDashboard() {
@@ -679,9 +692,9 @@ async function initDashboard() {
   }
 
   // Layer 3 specialist cohorts unlock once all of Layer 1 (modules 0–6) is complete
-  let coreDone = true
-  for (let cn = 0; cn <= 6; cn++) { if ((byModule['module-' + cn] || []).length < 4) { coreDone = false; break } }
-  renderCohortOptIn(coreDone || isAdmin)
+  let coreDone = true, coreCount = 0
+  for (let cn = 0; cn <= 6; cn++) { if ((byModule['module-' + cn] || []).length >= 4) coreCount++; else coreDone = false }
+  renderCohortOptIn(coreDone || isAdmin, coreCount)
 
   } catch (err) {
     console.error('[AfriversalAI] initDashboard failed:', err)
