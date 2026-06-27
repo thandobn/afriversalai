@@ -30,9 +30,13 @@
     .badge--coming-soon { background: #EEF2FF; color: #6366F1; font-style: italic; }
     .badge--demonstrated { background: var(--gold); color: var(--green-dark); margin-left: 6px; }
 
-    /* Specialist cohort opt-in card */
-    .cohort-optin-grid { margin-top: 16px; }
-    .cohort-optin { border: 1.5px solid var(--border); border-left: 5px solid var(--navy, #1A3A5C); border-radius: var(--radius-lg); padding: 22px 24px; background: #fff; }
+    /* Specialist cohort opt-in cards */
+    .cohort-optin-grid { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+    .cohort-optin { border: 1.5px solid var(--border); border-left: 5px solid var(--navy, #1A3A5C); border-radius: var(--radius-lg); padding: 22px 24px; background: #fff; display: flex; flex-direction: column; }
+    .cohort-optin.is-locked { opacity: 0.62; filter: grayscale(0.5); border-left-color: var(--border); }
+    .cohort-optin__foot { margin-top: auto; }
+    .locked-note { font-size: 0.78em; font-weight: 700; color: var(--muted); }
+    .cohort-optin-x { /* placeholder */ }
     .cohort-optin__tag { font-size: 0.7em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gold-dark); margin-bottom: 8px; }
     .cohort-optin h3 { font-size: 1.1em; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
     .cohort-optin p { font-size: 0.88em; color: var(--muted); line-height: 1.6; margin-bottom: 16px; max-width: 720px; }
@@ -526,23 +530,31 @@ function renderVideoSessions() {
 }
 
 // Specialist cohort opt-in (Layer 3 — separate from the Core Certification)
-async function renderCohortOptIn() {
+async function renderCohortOptIn(unlocked) {
   var grid = document.getElementById('cohort-optin-grid')
   if (!grid || !window.AF_COHORTS) return
   var regs = []
   try { regs = await getMyCohorts() } catch (e) { regs = [] }
-  var c = window.AF_COHORTS['ai-policy']
-  var reg = regs.find(function (r) { return r.cohort_key === 'ai-policy' })
-  var action = reg
-    ? '<span class="optin-status">✓ Opted in &middot; ' + (reg.status || 'interested') + '</span>'
-    : '<button class="btn btn--primary btn--sm" id="optin-ai-policy" onclick="optInCohort(\'ai-policy\')">Opt in &mdash; I\'m interested</button>'
-  grid.innerHTML =
-    '<div class="cohort-optin">' +
-      '<div class="cohort-optin__tag">📋 Layer 3 &middot; Specialist Credential</div>' +
+  var price = window.AF_COHORT_PRICE ? ' &middot; ' + window.AF_COHORT_PRICE : ''
+  grid.innerHTML = Object.keys(window.AF_COHORTS).map(function (key) {
+    var c = window.AF_COHORTS[key]
+    var reg = regs.find(function (r) { return r.cohort_key === key })
+    var locked = !unlocked && !reg, foot
+    if (reg) {
+      foot = '<a href="' + c.page + '" class="btn btn--outline btn--sm">Read curriculum →</a><span class="optin-status">✓ Opted in</span>'
+    } else if (unlocked) {
+      foot = '<a href="' + c.page + '" class="btn btn--outline btn--sm">Read the full curriculum →</a>' +
+             '<button class="btn btn--primary btn--sm" id="optin-' + key + '" onclick="optInCohort(\'' + key + '\')">Register / opt in</button>'
+    } else {
+      foot = '<a href="' + c.page + '" class="btn btn--outline btn--sm">Learn more →</a>' +
+             '<span class="locked-note">🔒 Complete Layer 1 to unlock</span>'
+    }
+    return '<div class="cohort-optin' + (locked ? ' is-locked' : '') + '">' +
+      '<div class="cohort-optin__tag">📋 Layer 3 &middot; ' + c.label + price + '</div>' +
       '<h3>' + c.name + '</h3>' +
-      '<p>For professionals who write, evaluate or influence AI policy. A guided 6-week build where you finish a board-ready AI policy for your own organisation &mdash; mapped to the Funda Five™, assessed by a domain expert. Runs separately from your Core Certification.</p>' +
-      '<div class="cohort-optin__foot"><a href="' + c.page + '" class="btn btn--outline btn--sm">Read the full curriculum →</a>' + action + '</div>' +
-    '</div>'
+      '<p>' + c.blurb + '</p>' +
+      '<div class="cohort-optin__foot">' + foot + '</div></div>'
+  }).join('')
 }
 async function optInCohort(key) {
   var c = window.AF_COHORTS[key]; if (!c) return
@@ -593,9 +605,6 @@ async function initDashboard() {
 
   // Live video sessions schedule
   renderVideoSessions()
-
-  // Optional specialist cohort opt-in
-  renderCohortOptIn()
 
   // Facilitator messaging (POC — shares the localStorage bus with the instructor console)
   STUDENT_KEY = ((session.user && session.user.email) || 'me').toLowerCase()
@@ -668,6 +677,11 @@ async function initDashboard() {
     }
     prevPhases = phases
   }
+
+  // Layer 3 specialist cohorts unlock once all of Layer 1 (modules 0–6) is complete
+  let coreDone = true
+  for (let cn = 0; cn <= 6; cn++) { if ((byModule['module-' + cn] || []).length < 4) { coreDone = false; break } }
+  renderCohortOptIn(coreDone || isAdmin)
 
   } catch (err) {
     console.error('[AfriversalAI] initDashboard failed:', err)

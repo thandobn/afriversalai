@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Governance Cohort — Certified AI Governance Practitioner™ | AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#6B7280; --border:#E5E7EB; --white:#FFF; --radius:8px; --radius-lg:14px; --navy:#1A3A5C; }
+    body { font-family:'Inter',system-ui,sans-serif; color:var(--text); background:#EAECEF; line-height:1.7; font-size:15px; margin:0; padding:24px 16px 64px; }
+    .doc-wrap { max-width:940px; margin:0 auto; background:var(--white); padding:0 0 64px; border-radius:6px; box-shadow:0 2px 24px rgba(0,0,0,.1); overflow:hidden; }
+    @media (max-width:700px){ body{padding:0;} .doc-wrap{border-radius:0;} }
+    .cohort-hero { background:linear-gradient(150deg,var(--navy) 0%,#102640 60%,var(--green-dark) 130%); color:#fff; padding:46px 52px 40px; }
+    .cohort-hero__crumb { font-size:0.78em; color:rgba(255,255,255,.6); margin-bottom:18px; }
+    .cohort-hero__crumb a { color:var(--gold); text-decoration:none; font-weight:600; }
+    .cohort-hero__label { font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:10px; }
+    .cohort-hero h1 { font-size:2.05em; font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:8px; }
+    .cohort-hero__cert { font-size:1.02em; font-style:italic; color:var(--gold); margin-bottom:18px; }
+    .cohort-hero__lead { color:rgba(255,255,255,.85); font-size:0.98em; max-width:680px; line-height:1.7; }
+    .cohort-hero__who { display:inline-block; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:#fff; padding:6px 14px; border-radius:30px; font-size:0.78em; font-weight:600; margin-top:20px; }
+    .cohort-hero__meta { display:flex; gap:26px; flex-wrap:wrap; margin-top:26px; }
+    .cohort-hero__meta b { display:block; color:var(--gold); font-size:1.3em; font-weight:800; line-height:1; }
+    .cohort-hero__meta span { font-size:0.76em; color:rgba(255,255,255,.7); }
+    .doc-body { padding:40px 52px 0; }
+    @media (max-width:700px){ .cohort-hero{padding:32px 22px;} .doc-body{padding:28px 20px 0;} }
+    h2 { font-size:1.2em; font-weight:800; color:var(--green-dark); margin:40px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--green-light); }
+    h2:first-of-type { margin-top:0; }
+    p { margin-bottom:14px; line-height:1.75; }
+    .lead-p { font-size:1.05em; color:var(--text); }
+    .callout { background:var(--green-pale); border-left:4px solid var(--green-mid); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:18px 0; font-size:0.93em; }
+    .callout--gold { background:var(--gold-light); border-left-color:var(--gold-dark); }
+    .callout--dark { background:var(--navy); color:#fff; border-left-color:var(--gold); }
+    .callout--dark strong { color:var(--gold); }
+    .outcomes { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+    .outcome { display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; }
+    .outcome::before { content:'✓'; color:var(--green-mid); font-weight:800; flex-shrink:0; }
+    .outcome b { color:var(--green-dark); }
+    @media (max-width:640px){ .outcomes{grid-template-columns:1fr;} }
+    .ff-map { border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin:18px 0; }
+    .ff-row { display:grid; grid-template-columns:130px 1fr; border-bottom:1px solid var(--border); }
+    .ff-row:last-child { border-bottom:none; }
+    .ff-row__k { background:var(--green-dark); color:#fff; font-weight:800; padding:12px 16px; font-size:0.9em; }
+    .ff-row__v { padding:12px 16px; font-size:0.9em; color:var(--muted); }
+    @media (max-width:560px){ .ff-row{grid-template-columns:1fr;} .ff-row__k{padding:8px 16px;} }
+    .wk { border:1px solid var(--border); border-radius:var(--radius-lg); margin:16px 0; overflow:hidden; }
+    .wk--cap { border-color:var(--gold-dark); box-shadow:0 10px 30px rgba(201,162,39,.16); }
+    .wk__head { background:var(--green-pale); padding:16px 20px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+    .wk--cap .wk__head { background:var(--gold-light); }
+    .wk__num { font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-dark); }
+    .wk__title { font-size:1.05em; font-weight:800; color:var(--green-dark); }
+    .wk__body { padding:18px 20px; }
+    .wk__row { display:grid; grid-template-columns:116px 1fr; gap:14px; padding:9px 0; border-top:1px dashed var(--border); font-size:0.9em; }
+    .wk__row:first-child { border-top:none; }
+    .wk__row__k { font-weight:700; color:var(--navy); font-size:0.86em; }
+    .wk__row__k.ff { color:var(--green-mid); }
+    .wk__build { background:var(--green-pale); border-radius:var(--radius); padding:8px 12px; }
+    .wk__build b { color:var(--green-dark); }
+    @media (max-width:560px){ .wk__row{grid-template-columns:1fr; gap:3px;} }
+    .kit { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+    .kit__item { border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; font-size:0.9em; }
+    .kit__item b { display:block; color:var(--green-dark); margin-bottom:3px; }
+    .kit__item span { color:var(--muted); font-size:0.92em; }
+    @media (max-width:640px){ .kit{grid-template-columns:1fr;} }
+    .vsp { background:linear-gradient(135deg,var(--green-dark),#0c2419); color:#fff; border-radius:var(--radius-lg); padding:26px 28px; margin:18px 0; }
+    .vsp .eyebrow { color:var(--gold); font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; }
+    .vsp h3 { color:#fff; font-size:1.3em; margin:8px 0 10px; line-height:1.25; }
+    .vsp p { color:rgba(255,255,255,.85); font-size:0.93em; margin:0; }
+    .cost { border:2px solid var(--gold); border-radius:var(--radius-lg); padding:26px 28px; margin:18px 0; text-align:center; background:var(--gold-light); }
+    .cost__price { font-size:2.4em; font-weight:800; color:var(--green-dark); line-height:1; }
+    .cost__price span { font-size:0.36em; font-weight:600; color:var(--muted); }
+    .cost__note { font-size:0.85em; color:var(--muted); margin-top:8px; }
+    .cost__pre { font-size:0.82em; color:var(--text); background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; margin-top:14px; display:inline-block; }
+    .cta-band { background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:30px 32px; margin-top:32px; text-align:center; }
+    .cta-band h3 { color:#fff; font-size:1.3em; margin-bottom:8px; }
+    .cta-band p { color:rgba(255,255,255,.78); font-size:0.92em; max-width:560px; margin:0 auto 16px; }
+    .cta-band .btn { margin:4px; }
+    .page-nav { display:flex; justify-content:space-between; gap:12px; margin:32px 52px 0; flex-wrap:wrap; }
+    @media (max-width:700px){ .page-nav{margin:28px 20px 0;} }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown"><a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+        </ul>
+      </li>
+      <li class="nav__dropdown"><a href="course.html" class="active">The Course</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course.html">Course Overview</a></li>
+          <li><a href="course-outline.html">Curriculum</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="funda-five.html">The Funda Five™</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+          <li><a href="cohort-ai-policy.html">AI Policy Cohort</a></li>
+          <li><a href="cohort-ai-governance.html">AI Governance Cohort</a></li>
+          <li><a href="cohort-ai-regulation.html">AI Regulation Cohort</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li><li><a href="become-a-partner.html">Partners</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="doc-wrap">
+  <div class="cohort-hero">
+    <div class="cohort-hero__crumb"><a href="outline-cohorts.html">← Layer 3 Cohorts</a> &middot; Specialist Credential</div>
+    <div class="cohort-hero__label">🏗️ AI Governance Cohort</div>
+    <h1>Make your organisation's AI defensible — governed, audited, accountable.</h1>
+    <div class="cohort-hero__cert">Certified AI Governance Practitioner™</div>
+    <p class="cohort-hero__lead">A guided six-week intensive for the people who carry the risk when AI goes wrong. You will leave with a complete AI governance framework built for <em>your</em> organisation &mdash; risk register, approval and escalation workflows, board reporting and audit protocols &mdash; and the standing to take it to your audit committee.</p>
+    <div class="cohort-hero__who">For: Compliance officers · Risk managers · Internal auditors · Board advisors · Legal counsel</div>
+    <div class="cohort-hero__meta">
+      <div><b>6 weeks</b><span>guided intensive</span></div>
+      <div><b>6 live</b><span>faculty sessions + clinics</span></div>
+      <div><b>1 framework</b><span>your org's, finished</span></div>
+      <div><b>Max 20</b><span>learners per cohort</span></div>
+    </div>
+  </div>
+
+  <div class="doc-body">
+    <div class="callout--dark callout">
+      <strong>The problem we're fixing.</strong> Boards are asking "are we covered on AI?" and nobody can answer with evidence. There's no risk register, no approval gate, no audit trail &mdash; just tools spreading through the organisation faster than anyone can govern them. "We have an AI policy" is not governance. This cohort gives you the operating machinery that makes the policy real, auditable and defensible.
+    </div>
+
+    <h2>What you'll walk away with</h2>
+    <p class="lead-p">You build one piece of a real governance framework every week. By the capstone you have the whole apparatus &mdash; ready to present to an audit committee, not a folder of theory.</p>
+    <div class="outcomes">
+      <div class="outcome"><div><b>A complete AI governance framework</b> for your organisation &mdash; mandate, risk appetite, controls and assurance.</div></div>
+      <div class="outcome"><div><b>An AI risk register + control matrix</b> you can operate and audit against.</div></div>
+      <div class="outcome"><div><b>Approval, escalation &amp; incident-response workflows</b> for AI deployments and failures.</div></div>
+      <div class="outcome"><div><b>A board reporting pack</b> &mdash; how to report AI risk to a board or audit committee with credibility.</div></div>
+      <div class="outcome"><div><b>Command of the frameworks</b> &mdash; ISO/IEC 42001, NIST AI RMF, King IV and Companies Act duties, mapped to SA reality.</div></div>
+      <div class="outcome"><div><b>The Certified AI Governance Practitioner™</b> credential &mdash; assessed by a domain expert against a published rubric.</div></div>
+    </div>
+
+    <h2>Built on the Funda Five™</h2>
+    <p>Good governance answers the same five questions our learners ask of every AI decision &mdash; enforced at organisational scale, with evidence.</p>
+    <div class="ff-map">
+      <div class="ff-row"><div class="ff-row__k">1 · Task</div><div class="ff-row__v">Governance mandate and scope — which AI decisions are in scope, and the organisation's risk appetite for each.</div></div>
+      <div class="ff-row"><div class="ff-row__k">2 · Data</div><div class="ff-row__v">POPIA checkpoints, data controls and procurement gates baked into the governance framework.</div></div>
+      <div class="ff-row"><div class="ff-row__k">3 · Tool</div><div class="ff-row__v">Model and vendor onboarding gates, approval workflows, and the controls that sit around every tool.</div></div>
+      <div class="ff-row"><div class="ff-row__k">4 · Trust</div><div class="ff-row__v">The risk register, monitoring, KPIs, audit protocols and continuous assurance that prove it's working.</div></div>
+      <div class="ff-row"><div class="ff-row__k">5 · Human</div><div class="ff-row__v">Board oversight, three lines of defence, accountability lines and incident escalation.</div></div>
+    </div>
+
+    <h2>The six weeks</h2>
+    <p>Each week: a focus, the Funda Five™ lens it sharpens, a live faculty session, and one concrete thing you build toward your own framework.</p>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 1</span><span class="wk__title">Foundations &amp; the governance frameworks</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Why AI governance is not IT governance. ISO/IEC 42001 AI Management System requirements, the NIST AI Risk Management Framework, King IV on technology &amp; information governance, and Companies Act director duties for AI decisions. Comparative analysis for SA organisations.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Task — defining your governance mandate and scope.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Faculty walk-through of the frameworks + mapping them to your organisation.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Governance Mandate &amp; Scope</b> — what your framework governs, who owns it, and your AI risk appetite.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 2</span><span class="wk__title">Risk registers &amp; controls</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Building an AI risk register, risk classification, control design, and POPIA compliance checkpoints in AI procurement. Turning vague "AI risk" into a tracked, owned, mitigated set of entries.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Data &amp; Trust — the controls that protect the organisation.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Hands-on risk-register workshop on your own AI use cases.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>AI Risk Register + Control Matrix</b> for your organisation.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 3</span><span class="wk__title">Approval, escalation &amp; incident response</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Designing approval and escalation workflows, model/vendor onboarding gates, and incident-response protocols for AI failures. What happens before an AI tool is deployed, and what happens when it goes wrong.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Tool — the gates and controls around every deployment.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Workflow-design clinic + tabletop incident simulation.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Approval &amp; Incident-Response Workflows</b> for AI in your organisation.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 4</span><span class="wk__title">Board-level oversight &amp; assurance</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Reporting AI risk to boards and audit committees, non-executive director responsibilities, audit protocols for AI systems, and connecting AI governance to existing enterprise risk management (ERM) structures.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Human — accountability and oversight at the top of the house.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Board-reporting clinic — present AI risk the way a board needs to hear it.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Board Reporting Pack + Audit Protocol</b> for AI risk.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 5</span><span class="wk__title">Embedding &amp; continuous assurance</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>The operating model: three lines of defence, training and awareness, monitoring and KPIs, continuous assurance, and an AI governance maturity model. How the framework lives and improves rather than gathering dust.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Trust — proving, over time, that governance works.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Operating-model &amp; maturity workshop.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Implementation &amp; Assurance Plan</b> — how the framework operates and matures.</div></div>
+    </div></div>
+
+    <div class="wk wk--cap"><div class="wk__head"><span class="wk__num">Week 6 — Capstone</span><span class="wk__title">Design, review &amp; defend the framework</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Peer review and domain-expert assessment of your complete framework. You revise, then present and defend the design decisions to a panel &mdash; the test is whether it would survive an audit committee, not whether you produced a document.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Assessment</div><div>A complete AI governance framework for a real organisational context (risk register template, board reporting structure, incident escalation protocol), assessed by a domain expert against a published rubric. One revision opportunity.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You earn</div><div class="wk__build"><b>Certified AI Governance Practitioner™</b> — demonstrated, not completed.</div></div>
+    </div></div>
+
+    <h2>The toolkit you keep</h2>
+    <div class="kit">
+      <div class="kit__item"><b>AI Risk Register template</b><span>Classify, own and track AI risk with controls.</span></div>
+      <div class="kit__item"><b>Approval &amp; Escalation Workflow kit</b><span>Deployment gates and incident-response playbook.</span></div>
+      <div class="kit__item"><b>Board Reporting Pack</b><span>A reusable AI-risk report for board / audit committee.</span></div>
+      <div class="kit__item"><b>AI Governance Maturity Model</b><span>Benchmark and improve your governance over time.</span></div>
+    </div>
+
+    <!-- VALUE PROPOSITION -->
+    <h2>Why this is unlike anything else in SA</h2>
+    <div class="vsp">
+      <div class="eyebrow">Our difference</div>
+      <h3>You leave with a board-ready governance framework — not a certificate that says you attended.</h3>
+      <p>No other South African programme takes a compliance or risk professional from frameworks to a finished, auditable AI governance apparatus for their own organisation, assessed by a domain expert and built on a shared judgment framework (the Funda Five™). It is the difference between knowing what ISO 42001 says and being able to operate it on Monday.</p>
+    </div>
+
+    <h2>Format, prerequisites &amp; cost</h2>
+    <div class="callout--gold callout"><strong>6-week guided intensive</strong> &middot; one 90-minute live faculty session each week &middot; weekly build-deliverables &middot; live clinics &amp; a tabletop simulation &middot; max 20 learners &middot; assessed by a domain-expert (not a facilitator) &middot; capstone in Week 6 with one revision opportunity.</div>
+    <div class="cost">
+      <div class="cost__price">R39,995<span> / participant</span></div>
+      <div class="cost__note">Premium specialist credential &middot; founding-cohort rate. Team and enterprise rates available. SETA/SDL eligibility subject to accreditation.</div>
+      <div class="cost__pre"><strong>Prerequisite:</strong> Layer 1 Core Certification (AI Judgment Competency Certificate™), or demonstrated equivalent competency assessed on application.</div>
+    </div>
+
+    <div class="cta-band">
+      <div style="display:inline-block; background:rgba(233,196,106,.18); border:1px solid rgba(233,196,106,.5); color:var(--gold); font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; padding:5px 14px; border-radius:30px; margin-bottom:14px;">Founding cohort · registering interest now</div>
+      <h3>Govern your AI properly.</h3>
+      <p>Register your interest to secure a founding place and be first to know when the next cohort opens. Runs separately from the Core Certification.</p>
+      <div id="cohort-reg-msg" style="display:none; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); border-radius:var(--radius); padding:12px 16px; font-size:0.9em; max-width:540px; margin:0 auto 16px;"></div>
+      <button class="btn btn--gold btn--lg" id="cohort-reg-btn" onclick="doRegister()">Register your interest &rarr;</button>
+      <a href="contact.html" class="btn btn--white btn--lg">Talk to us about a team cohort</a>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="outline-cohorts.html" class="btn btn--outline">← All Layer 3 Cohorts</a>
+    <a href="cohort-ai-regulation.html" class="btn btn--outline">AI Regulation Cohort →</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/cohorts.js"></script>
+<script>
+  function doRegister() { cohortRegisterUI('ai-governance', 'cohort-ai-governance.html'); }
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

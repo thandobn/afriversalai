@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Regulation Cohort — Certified AI Regulation Practitioner™ | AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#6B7280; --border:#E5E7EB; --white:#FFF; --radius:8px; --radius-lg:14px; --navy:#1A3A5C; }
+    body { font-family:'Inter',system-ui,sans-serif; color:var(--text); background:#EAECEF; line-height:1.7; font-size:15px; margin:0; padding:24px 16px 64px; }
+    .doc-wrap { max-width:940px; margin:0 auto; background:var(--white); padding:0 0 64px; border-radius:6px; box-shadow:0 2px 24px rgba(0,0,0,.1); overflow:hidden; }
+    @media (max-width:700px){ body{padding:0;} .doc-wrap{border-radius:0;} }
+    .cohort-hero { background:linear-gradient(150deg,var(--navy) 0%,#102640 60%,var(--green-dark) 130%); color:#fff; padding:46px 52px 40px; }
+    .cohort-hero__crumb { font-size:0.78em; color:rgba(255,255,255,.6); margin-bottom:18px; }
+    .cohort-hero__crumb a { color:var(--gold); text-decoration:none; font-weight:600; }
+    .cohort-hero__label { font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:10px; }
+    .cohort-hero h1 { font-size:2.05em; font-weight:800; line-height:1.15; letter-spacing:-0.5px; margin-bottom:8px; }
+    .cohort-hero__cert { font-size:1.02em; font-style:italic; color:var(--gold); margin-bottom:18px; }
+    .cohort-hero__lead { color:rgba(255,255,255,.85); font-size:0.98em; max-width:680px; line-height:1.7; }
+    .cohort-hero__who { display:inline-block; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:#fff; padding:6px 14px; border-radius:30px; font-size:0.78em; font-weight:600; margin-top:20px; }
+    .cohort-hero__meta { display:flex; gap:26px; flex-wrap:wrap; margin-top:26px; }
+    .cohort-hero__meta b { display:block; color:var(--gold); font-size:1.3em; font-weight:800; line-height:1; }
+    .cohort-hero__meta span { font-size:0.76em; color:rgba(255,255,255,.7); }
+    .doc-body { padding:40px 52px 0; }
+    @media (max-width:700px){ .cohort-hero{padding:32px 22px;} .doc-body{padding:28px 20px 0;} }
+    h2 { font-size:1.2em; font-weight:800; color:var(--green-dark); margin:40px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--green-light); }
+    h2:first-of-type { margin-top:0; }
+    p { margin-bottom:14px; line-height:1.75; }
+    .lead-p { font-size:1.05em; color:var(--text); }
+    .callout { background:var(--green-pale); border-left:4px solid var(--green-mid); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:18px 0; font-size:0.93em; }
+    .callout--gold { background:var(--gold-light); border-left-color:var(--gold-dark); }
+    .callout--dark { background:var(--navy); color:#fff; border-left-color:var(--gold); }
+    .callout--dark strong { color:var(--gold); }
+    .outcomes { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+    .outcome { display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; }
+    .outcome::before { content:'✓'; color:var(--green-mid); font-weight:800; flex-shrink:0; }
+    .outcome b { color:var(--green-dark); }
+    @media (max-width:640px){ .outcomes{grid-template-columns:1fr;} }
+    .ff-map { border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin:18px 0; }
+    .ff-row { display:grid; grid-template-columns:130px 1fr; border-bottom:1px solid var(--border); }
+    .ff-row:last-child { border-bottom:none; }
+    .ff-row__k { background:var(--green-dark); color:#fff; font-weight:800; padding:12px 16px; font-size:0.9em; }
+    .ff-row__v { padding:12px 16px; font-size:0.9em; color:var(--muted); }
+    @media (max-width:560px){ .ff-row{grid-template-columns:1fr;} .ff-row__k{padding:8px 16px;} }
+    .wk { border:1px solid var(--border); border-radius:var(--radius-lg); margin:16px 0; overflow:hidden; }
+    .wk--cap { border-color:var(--gold-dark); box-shadow:0 10px 30px rgba(201,162,39,.16); }
+    .wk__head { background:var(--green-pale); padding:16px 20px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+    .wk--cap .wk__head { background:var(--gold-light); }
+    .wk__num { font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold-dark); }
+    .wk__title { font-size:1.05em; font-weight:800; color:var(--green-dark); }
+    .wk__body { padding:18px 20px; }
+    .wk__row { display:grid; grid-template-columns:116px 1fr; gap:14px; padding:9px 0; border-top:1px dashed var(--border); font-size:0.9em; }
+    .wk__row:first-child { border-top:none; }
+    .wk__row__k { font-weight:700; color:var(--navy); font-size:0.86em; }
+    .wk__row__k.ff { color:var(--green-mid); }
+    .wk__build { background:var(--green-pale); border-radius:var(--radius); padding:8px 12px; }
+    .wk__build b { color:var(--green-dark); }
+    @media (max-width:560px){ .wk__row{grid-template-columns:1fr; gap:3px;} }
+    .kit { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+    .kit__item { border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; font-size:0.9em; }
+    .kit__item b { display:block; color:var(--green-dark); margin-bottom:3px; }
+    .kit__item span { color:var(--muted); font-size:0.92em; }
+    @media (max-width:640px){ .kit{grid-template-columns:1fr;} }
+    .vsp { background:linear-gradient(135deg,var(--green-dark),#0c2419); color:#fff; border-radius:var(--radius-lg); padding:26px 28px; margin:18px 0; }
+    .vsp .eyebrow { color:var(--gold); font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; }
+    .vsp h3 { color:#fff; font-size:1.3em; margin:8px 0 10px; line-height:1.25; }
+    .vsp p { color:rgba(255,255,255,.85); font-size:0.93em; margin:0; }
+    .cost { border:2px solid var(--gold); border-radius:var(--radius-lg); padding:26px 28px; margin:18px 0; text-align:center; background:var(--gold-light); }
+    .cost__price { font-size:2.4em; font-weight:800; color:var(--green-dark); line-height:1; }
+    .cost__price span { font-size:0.36em; font-weight:600; color:var(--muted); }
+    .cost__note { font-size:0.85em; color:var(--muted); margin-top:8px; }
+    .cost__pre { font-size:0.82em; color:var(--text); background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; margin-top:14px; display:inline-block; }
+    .cta-band { background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:30px 32px; margin-top:32px; text-align:center; }
+    .cta-band h3 { color:#fff; font-size:1.3em; margin-bottom:8px; }
+    .cta-band p { color:rgba(255,255,255,.78); font-size:0.92em; max-width:560px; margin:0 auto 16px; }
+    .cta-band .btn { margin:4px; }
+    .page-nav { display:flex; justify-content:space-between; gap:12px; margin:32px 52px 0; flex-wrap:wrap; }
+    @media (max-width:700px){ .page-nav{margin:28px 20px 0;} }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown"><a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="founders.html">Meet the Founders</a></li>
+        </ul>
+      </li>
+      <li class="nav__dropdown"><a href="course.html" class="active">The Course</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course.html">Course Overview</a></li>
+          <li><a href="course-outline.html">Curriculum</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="funda-five.html">The Funda Five™</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+          <li><a href="cohort-ai-policy.html">AI Policy Cohort</a></li>
+          <li><a href="cohort-ai-governance.html">AI Governance Cohort</a></li>
+          <li><a href="cohort-ai-regulation.html">AI Regulation Cohort</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li><li><a href="become-a-partner.html">Partners</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li><li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="doc-wrap">
+  <div class="cohort-hero">
+    <div class="cohort-hero__crumb"><a href="outline-cohorts.html">← Layer 3 Cohorts</a> &middot; Specialist Credential</div>
+    <div class="cohort-hero__label">⚖️ AI Regulation Cohort</div>
+    <h1>Advise on AI with the law in your hand — not a guess.</h1>
+    <div class="cohort-hero__cert">Certified AI Regulation Practitioner™</div>
+    <p class="cohort-hero__lead">A guided six-week intensive for the lawyers, regulators and compliance specialists who have to say what the rules <em>are</em> when there is no single "AI Act" to point to. You will leave able to map the existing South African legal landscape onto any AI use case &mdash; and with a finished regulatory guidance note you drafted, defended and can stand behind.</p>
+    <div class="cohort-hero__who">For: Lawyers · Regulators · Legal counsel · Compliance specialists · FSCA / ICASA / SAHPRA staff</div>
+    <div class="cohort-hero__meta">
+      <div><b>6 weeks</b><span>guided intensive</span></div>
+      <div><b>6 live</b><span>faculty sessions + clinics</span></div>
+      <div><b>1 guidance note</b><span>drafted &amp; defended</span></div>
+      <div><b>Max 20</b><span>learners per cohort</span></div>
+    </div>
+  </div>
+
+  <div class="doc-body">
+    <div class="callout--dark callout">
+      <strong>The problem we're fixing.</strong> There is no single South African "AI Act" &mdash; so professionals are told "advise us on the AI rules" and left to stitch together POPIA, the ECT Act, sector regulators and half-understood foreign frameworks under pressure. The result is advice nobody can rely on. This cohort gives you a defensible method for finding the law that already applies, and the skill to write guidance others can act on.
+    </div>
+
+    <h2>What you'll walk away with</h2>
+    <p class="lead-p">Every week you build one more part of a real regulatory analysis. By the capstone you have a finished, defensible regulatory guidance note for a real SA AI use case &mdash; not a pile of statutes.</p>
+    <div class="outcomes">
+      <div class="outcome"><div><b>A finished regulatory guidance note</b> for a real SA AI use case &mdash; applicable law, obligations and compliance approach.</div></div>
+      <div class="outcome"><div><b>A repeatable method</b> for mapping existing SA law onto any new AI deployment.</div></div>
+      <div class="outcome"><div><b>Command of the SA landscape</b> &mdash; POPIA, ECT Act, EEA, NCA and Companies Act director liability applied to AI.</div></div>
+      <div class="outcome"><div><b>Sector-regulator fluency</b> &mdash; how FSCA, ICASA, SAHPRA and HPCSA are reading AI into existing frameworks.</div></div>
+      <div class="outcome"><div><b>Comparative grounding</b> &mdash; EU AI Act, UK and OECD approaches, and what they mean for SA clients.</div></div>
+      <div class="outcome"><div><b>The Certified AI Regulation Practitioner™</b> credential &mdash; assessed by a domain expert against a published rubric.</div></div>
+    </div>
+
+    <h2>Built on the Funda Five™</h2>
+    <p>Sound regulatory advice answers the same five questions our learners ask of every AI decision &mdash; translated into legal exposure and obligation.</p>
+    <div class="ff-map">
+      <div class="ff-row"><div class="ff-row__k">1 · Task</div><div class="ff-row__v">Characterising the AI use case precisely &mdash; because the legal analysis turns on exactly what the system does.</div></div>
+      <div class="ff-row"><div class="ff-row__k">2 · Data</div><div class="ff-row__v">POPIA, lawful processing, automated decision-making rights &mdash; the data law that bites first.</div></div>
+      <div class="ff-row"><div class="ff-row__k">3 · Tool</div><div class="ff-row__v">Which sector regulator and framework governs this tool, and how they're interpreting it.</div></div>
+      <div class="ff-row"><div class="ff-row__k">4 · Trust</div><div class="ff-row__v">Evidentiary and product-liability standards &mdash; what must be proven and who bears the risk.</div></div>
+      <div class="ff-row"><div class="ff-row__k">5 · Human</div><div class="ff-row__v">Accountability and director liability &mdash; "the algorithm decided" is not a defence in SA law.</div></div>
+    </div>
+
+    <h2>The six weeks</h2>
+    <p>Each week: a focus, the Funda Five™ lens, a live faculty session, and one concrete thing you build toward your guidance note.</p>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 1</span><span class="wk__title">The South African AI legal landscape</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>POPIA enforcement applied to AI systems, ECT Act implications for automated decisions, Employment Equity Act AI exposure, National Credit Act and AI credit scoring, and Companies Act director liability for AI decisions. The law that already governs AI, even without an "AI Act".</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Data &amp; Human — where the existing law bites.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Faculty walk-through + applying the statutes to a live use case.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Legal Exposure Map</b> for a chosen AI use case.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 2</span><span class="wk__title">Sector regulators &amp; AI</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>FSCA guidance on AI in financial services, ICASA and AI in communications, SAHPRA and AI medical devices, and HPCSA clinical AI guidance. How regulators are interpreting and extending existing frameworks for AI contexts.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Tool — which regulator and framework governs this system.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Regulator-by-regulator clinic on your sector.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Sector Regulatory Analysis</b> for your use case.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 3</span><span class="wk__title">Comparative international frameworks</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>EU AI Act obligations and their SA implications, the UK pro-innovation approach, OECD principles, and how to anticipate South Africa's emerging AI legislation. What foreign law you can borrow from &mdash; and what you can't.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Trust — the standards and obligations worth importing.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Comparative clinic — mapping EU AI Act tiers onto an SA scenario.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Comparative Obligations Matrix</b>.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 4</span><span class="wk__title">Liability, enforcement &amp; rights</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Product-liability frameworks applied to AI systems, algorithmic accountability, redress mechanisms, human-rights and algorithmic impact, and drafting enforceable obligations rather than aspirational principles.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>Human — who is accountable and how it's enforced.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Liability &amp; enforcement workshop on your scenario.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>Liability &amp; Enforcement Analysis</b>.</div></div>
+    </div></div>
+
+    <div class="wk"><div class="wk__head"><span class="wk__num">Week 5</span><span class="wk__title">Drafting the regulatory guidance</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>The anatomy of a regulatory guidance note: scope, applicable law, key obligations, evidentiary standards, recommended compliance approach and consultation. We draft it together, section by section.</div></div>
+      <div class="wk__row"><div class="wk__row__k ff">Funda Five™</div><div>All five — assembled into defensible guidance.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Live session</div><div>Live drafting clinic — leave with a structured draft.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You build</div><div class="wk__build"><b>First full draft</b> of your regulatory guidance note.</div></div>
+    </div></div>
+
+    <div class="wk wk--cap"><div class="wk__head"><span class="wk__num">Week 6 — Capstone</span><span class="wk__title">Finalise, review &amp; defend</span></div><div class="wk__body">
+      <div class="wk__row"><div class="wk__row__k">Focus</div><div>Peer review and domain-expert assessment. You revise, then present and defend your reasoning &mdash; the test is whether a colleague or a regulator could rely on your guidance.</div></div>
+      <div class="wk__row"><div class="wk__row__k">Assessment</div><div>A regulatory guidance note for a specific AI use case in an SA sector (applicable legal framework, key obligations, recommended compliance approach), assessed by a domain expert against a published rubric. One revision opportunity.</div></div>
+      <div class="wk__row"><div class="wk__row__k">You earn</div><div class="wk__build"><b>Certified AI Regulation Practitioner™</b> — demonstrated, not completed.</div></div>
+    </div></div>
+
+    <h2>The toolkit you keep</h2>
+    <div class="kit">
+      <div class="kit__item"><b>Legal Exposure Map template</b><span>Map any AI use case to the SA law that applies.</span></div>
+      <div class="kit__item"><b>Comparative Obligations Matrix</b><span>SA vs EU/UK/OECD obligations at a glance.</span></div>
+      <div class="kit__item"><b>Regulatory Guidance Note template</b><span>The full structure for defensible guidance.</span></div>
+      <div class="kit__item"><b>Sector Regulator Reference</b><span>FSCA / ICASA / SAHPRA / HPCSA AI positions.</span></div>
+    </div>
+
+    <h2>Why this is unlike anything else in SA</h2>
+    <div class="vsp">
+      <div class="eyebrow">Our difference</div>
+      <h3>You leave able to give AI legal advice others can rely on — with a finished guidance note to prove it.</h3>
+      <p>No other South African programme trains a lawyer or regulator to assemble the existing legal landscape into defensible AI guidance and then assesses whether they can actually do it. It is the difference between having read the EU AI Act and being able to tell a client what to do on Monday under South African law.</p>
+    </div>
+
+    <h2>Format, prerequisites &amp; cost</h2>
+    <div class="callout--gold callout"><strong>6-week guided intensive</strong> &middot; one 90-minute live faculty session each week &middot; weekly build-deliverables &middot; live drafting &amp; comparative clinics &middot; max 20 learners &middot; assessed by a domain-expert (not a facilitator) &middot; capstone in Week 6 with one revision opportunity.</div>
+    <div class="cost">
+      <div class="cost__price">R39,995<span> / participant</span></div>
+      <div class="cost__note">Premium specialist credential &middot; founding-cohort rate. Team and enterprise rates available. SETA/SDL eligibility subject to accreditation.</div>
+      <div class="cost__pre"><strong>Prerequisite:</strong> Layer 1 Core Certification (AI Judgment Competency Certificate™), or demonstrated equivalent competency assessed on application.</div>
+    </div>
+
+    <div class="cta-band">
+      <div style="display:inline-block; background:rgba(233,196,106,.18); border:1px solid rgba(233,196,106,.5); color:var(--gold); font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; padding:5px 14px; border-radius:30px; margin-bottom:14px;">Founding cohort · registering interest now</div>
+      <h3>Advise on AI with confidence.</h3>
+      <p>Register your interest to secure a founding place and be first to know when the next cohort opens. Runs separately from the Core Certification.</p>
+      <div id="cohort-reg-msg" style="display:none; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); border-radius:var(--radius); padding:12px 16px; font-size:0.9em; max-width:540px; margin:0 auto 16px;"></div>
+      <button class="btn btn--gold btn--lg" id="cohort-reg-btn" onclick="doRegister()">Register your interest &rarr;</button>
+      <a href="contact.html" class="btn btn--white btn--lg">Talk to us about a team cohort</a>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="cohort-ai-governance.html" class="btn btn--outline">← AI Governance Cohort</a>
+    <a href="outline-cohorts.html" class="btn btn--outline">All Layer 3 Cohorts →</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/cohorts.js"></script>
+<script>
+  function doRegister() { cohortRegisterUI('ai-regulation', 'cohort-ai-regulation.html'); }
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

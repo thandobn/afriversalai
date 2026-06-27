@@ -84,6 +84,15 @@
     .kit__item span { color: var(--muted); font-size: 0.92em; }
     @media (max-width: 640px) { .kit { grid-template-columns: 1fr; } }
 
+    .vsp { background: linear-gradient(135deg, var(--green-dark), #0c2419); color: #fff; border-radius: var(--radius-lg); padding: 26px 28px; margin: 18px 0; }
+    .vsp .eyebrow { color: var(--gold); font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; }
+    .vsp h3 { color: #fff; font-size: 1.3em; margin: 8px 0 10px; line-height: 1.25; }
+    .vsp p { color: rgba(255,255,255,.85); font-size: 0.93em; margin: 0; }
+    .cost { border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 26px 28px; margin: 18px 0; text-align: center; background: var(--gold-light); }
+    .cost__price { font-size: 2.4em; font-weight: 800; color: var(--green-dark); line-height: 1; }
+    .cost__price span { font-size: 0.36em; font-weight: 600; color: var(--muted); }
+    .cost__note { font-size: 0.85em; color: var(--muted); margin-top: 8px; }
+    .cost__pre { font-size: 0.82em; color: var(--text); background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; margin-top: 14px; display: inline-block; }
     .cta-band { background: var(--green-dark); color: #fff; border-radius: var(--radius-lg); padding: 30px 32px; margin-top: 40px; text-align: center; }
     .cta-band h3 { color: #fff; font-size: 1.3em; margin-bottom: 8px; }
     .cta-band p { color: rgba(255,255,255,.78); font-size: 0.92em; max-width: 560px; margin: 0 auto 18px; }
@@ -113,6 +122,9 @@
           <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
           <li><a href="funda-five.html">The Funda Five™</a></li>
           <li><a href="certificate.html">The Certificate</a></li>
+          <li><a href="cohort-ai-policy.html">AI Policy Cohort</a></li>
+          <li><a href="cohort-ai-governance.html">AI Governance Cohort</a></li>
+          <li><a href="cohort-ai-regulation.html">AI Regulation Cohort</a></li>
         </ul>
       </li>
       <li><a href="module-0.html">Preview Course</a></li>
@@ -252,11 +264,22 @@
       <div class="kit__item"><b>Vendor AI Evaluation Checklist</b><span>Interrogate a supplier's AI claims before you sign.</span></div>
     </div>
 
-    <h2>Format &amp; logistics</h2>
+    <h2>Why this is unlike anything else in SA</h2>
+    <div class="vsp">
+      <div class="eyebrow">Our difference</div>
+      <h3>You leave with a finished, defensible policy — not a certificate that says you attended.</h3>
+      <p>No other South African programme takes a professional from a blank page to a board-ready AI policy for their own organisation, built on a shared judgment framework (the Funda Five™) and assessed by a domain expert. It is the difference between pasting a brief into ChatGPT and being able to defend every clause to your executive.</p>
+    </div>
+
+    <h2>Format, prerequisites &amp; cost</h2>
     <div class="callout--gold callout">
       <strong>6-week guided intensive</strong> &middot; one 90-minute live faculty session each week &middot; weekly build-deliverables between sessions &middot; live drafting &amp; rollout clinics &middot; max 20 learners &middot; assessed by a domain-expert (not a facilitator) &middot; capstone in Week 6 with one revision opportunity.
     </div>
-    <p style="font-size:0.9em; color:var(--muted);"><strong>Prerequisite:</strong> Layer 1 Core Certification (AI Literacy for South African Workplaces), so every participant shares the Funda Five™ foundation. Cross-industry by design &mdash; a government analyst, a healthcare lawyer and a corporate compliance lead in the same room is part of the value.</p>
+    <div class="cost">
+      <div class="cost__price">R39,995<span> / participant</span></div>
+      <div class="cost__note">Premium specialist credential &middot; founding-cohort rate. Team and enterprise rates available. SETA/SDL eligibility subject to accreditation.</div>
+      <div class="cost__pre"><strong>Prerequisite:</strong> Layer 1 Core Certification (AI Judgment Competency Certificate™), or demonstrated equivalent competency assessed on application. Cross-industry by design — a government analyst, a healthcare lawyer and a corporate compliance lead in the same room is part of the value.</div>
+    </div>
 
     <!-- CTA -->
     <div class="cta-band">
@@ -282,22 +305,7 @@
 <script src="assets/auth.js"></script>
 <script src="assets/cohorts.js"></script>
 <script>
-  async function doRegister() {
-    var btn = document.getElementById('cohort-reg-btn');
-    var msg = document.getElementById('cohort-reg-msg');
-    var label = btn.textContent; btn.disabled = true; btn.textContent = 'Registering…';
-    var c = (window.AF_COHORTS && window.AF_COHORTS['ai-policy']) || { name: 'AI Policy Cohort' };
-    var res = await registerCohort('ai-policy', c.name);
-    if (res && res.needsAuth) { window.location.href = 'register.html?next=cohort-ai-policy.html'; return; }
-    if (res && res.ok) {
-      msg.innerHTML = '✓ You\'re registered. Track it on your <a href="dashboard.html" style="color:#fff;font-weight:800;text-decoration:underline;">dashboard</a> &mdash; we\'ll be in touch when the next cohort opens.';
-      msg.style.display = 'block'; btn.style.display = 'none';
-    } else {
-      btn.disabled = false; btn.textContent = label;
-      msg.innerHTML = 'Could not register just now. Please try again, or <a href="contact.html" style="color:#fff;text-decoration:underline;">contact us</a>.';
-      msg.style.display = 'block';
-    }
-  }
+  function doRegister() { cohortRegisterUI('ai-policy', 'cohort-ai-policy.html'); }
 </script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
