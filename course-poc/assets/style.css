@@ -1207,3 +1207,17 @@ footer a { color: rgba(255,255,255,0.7); }
 .brand-panel::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.07) 1.3px, transparent 1.3px); background-size: 20px 20px; opacity: .55; pointer-events: none; }
 .brand-panel__art { position: absolute; right: 14px; bottom: 6px; color: rgba(255,255,255,.07); pointer-events: none; }
 .brand-panel__art svg { width: 190px; height: 190px; }
+
+/* ============================================================
+   Image colour harmonisation + parallax (brand cohesion)
+   ============================================================ */
+/* Green→gold duotone wash: unifies off-palette photos to brand hues.
+   Place as an absolutely-positioned sibling directly after an <img>. */
+.tone-brand { position: absolute; inset: 0; background: linear-gradient(135deg, #0c2419 0%, #1B4332 55%, #C9A227 130%); mix-blend-mode: color; opacity: .6; pointer-events: none; }
+.tone-brand--soft { opacity: .35; }
+
+/* Parallax band — image fixed in place while content scrolls over it */
+.parallax-band { background-size: cover; background-position: center; background-attachment: fixed; padding: 92px 0; color: #fff; }
+.parallax-band .eyebrow { color: var(--gold); }
+.parallax-band h2 { color: #fff; }
+@media (max-width: 820px) { .parallax-band { background-attachment: scroll; padding: 64px 0; } }
