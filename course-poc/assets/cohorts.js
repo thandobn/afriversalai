@@ -4,11 +4,11 @@
 (function () {
   // Registry of Layer 3 cohorts and their pages.
   window.AF_COHORTS = {
-    'ai-policy': { name: 'Certified AI Policy Practitioner™', label: 'AI Policy Cohort', page: 'cohort-ai-policy.html',
+    'ai-policy': { name: 'Certified AI Policy Practitioner™', label: 'AI Policy Cohort', page: 'cohort-ai-policy.html', img: 'assets/cohort-policy.jpg',
       blurb: 'For professionals who write, evaluate or influence AI policy. A guided 6-week build — you finish a board-ready AI policy for your own organisation.' },
-    'ai-governance': { name: 'Certified AI Governance Practitioner™', label: 'AI Governance Cohort', page: 'cohort-ai-governance.html',
+    'ai-governance': { name: 'Certified AI Governance Practitioner™', label: 'AI Governance Cohort', page: 'cohort-ai-governance.html', img: 'assets/cohort-governance.jpg',
       blurb: 'For compliance, risk and audit professionals. You leave with a complete, auditable AI governance framework for your organisation — risk register, workflows and board reporting.' },
-    'ai-regulation': { name: 'Certified AI Regulation Practitioner™', label: 'AI Regulation Cohort', page: 'cohort-ai-regulation.html',
+    'ai-regulation': { name: 'Certified AI Regulation Practitioner™', label: 'AI Regulation Cohort', page: 'cohort-ai-regulation.html', img: 'assets/cohort-regulation.jpg',
       blurb: 'For lawyers, regulators and compliance specialists. You leave able to map SA law onto any AI use case — and with a finished, defensible regulatory guidance note.' }
   };
   window.AF_COHORT_PRICE = 'R39,995';
