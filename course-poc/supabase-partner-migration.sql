@@ -236,6 +236,39 @@ create policy "Admins read all progress"
   using (exists (select 1 from admins a where a.email = auth.email()));
 
 
+-- 4c. COHORT REGISTRATIONS — learners register interest in Layer 3 specialist
+--     cohorts (AI Policy, Governance, Regulation). Shows on the learner dashboard
+--     and the admin console.
+create table if not exists cohort_registrations (
+  id          uuid default gen_random_uuid() primary key,
+  user_email  text not null,
+  cohort_key  text not null,                       -- e.g. 'ai-policy'
+  cohort_name text,
+  status      text not null default 'interested'
+                check (status in ('interested','enrolled','completed','withdrawn')),
+  created_at  timestamptz default now(),
+  constraint cohort_registrations_unique unique (user_email, cohort_key)
+);
+
+create index if not exists cohort_registrations_email_idx on cohort_registrations (user_email);
+
+alter table cohort_registrations enable row level security;
+
+drop policy if exists "Users read own cohort registrations" on cohort_registrations;
+create policy "Users read own cohort registrations"
+  on cohort_registrations for select to authenticated using (user_email = auth.email());
+drop policy if exists "Users insert own cohort registrations" on cohort_registrations;
+create policy "Users insert own cohort registrations"
+  on cohort_registrations for insert to authenticated with check (user_email = auth.email());
+drop policy if exists "Users update own cohort registrations" on cohort_registrations;
+create policy "Users update own cohort registrations"
+  on cohort_registrations for update to authenticated using (user_email = auth.email());
+drop policy if exists "Admins read all cohort registrations" on cohort_registrations;
+create policy "Admins read all cohort registrations"
+  on cohort_registrations for select to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
+
 -- 5. SEED — admins (console access) + initial / demo partners (idempotent)
 -- Grant Instructor Console / admin access. Add more emails here as needed.
 insert into admins (email) values

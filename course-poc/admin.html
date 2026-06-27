@@ -168,7 +168,17 @@
 
   <!-- ===================== STUDENTS TAB ===================== -->
   <div id="tab-students">
-  <div class="adm-stats">
+
+  <!-- Specialist cohort registrations (live Supabase) -->
+  <div class="adm-bar"><h2>Specialist cohort registrations</h2><span class="adm-sub" id="cr-count"></span></div>
+  <div id="cr-needs-migration" style="display:none; background:#FFFBEB; border:1.5px solid #FDE68A; color:#92400E; border-radius:var(--radius-lg); padding:14px 16px; margin-bottom:16px; font-size:0.88em;">Cohort registrations table not found. Run <code>supabase-partner-migration.sql</code> to enable opt-ins.</div>
+  <table class="adm-table" style="margin-bottom:8px;">
+    <thead><tr><th>Learner</th><th>Cohort</th><th>Status</th><th>Registered</th></tr></thead>
+    <tbody id="cr-rows"></tbody>
+  </table>
+  <p style="font-size:0.78em; color:var(--muted); margin:6px 0 0;">Learners opt in to Layer 3 specialist cohorts from their dashboard or the cohort page. Real data &mdash; updates as people register.</p>
+
+  <div class="adm-stats" style="margin-top:30px;">
     <div class="adm-stat"><div class="adm-stat__num" id="st-total">0</div><div class="adm-stat__label">Seats filled</div><div class="adm-stat__sub" id="st-cohort">Q3 2026 · 30-seat pilot</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-active">0</div><div class="adm-stat__label">Active this week</div></div>
     <div class="adm-stat"><div class="adm-stat__num" id="st-avg">0%</div><div class="adm-stat__label">Avg. course completion</div></div>
@@ -302,6 +312,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/cohorts.js"></script>
 <script src="assets/admins.js"></script>
 <script src="assets/messaging.js"></script>
 <script>
@@ -699,6 +710,24 @@ async function initAdmin() {
   renderStats();
   renderTable();
   loadPartnersData(); // populate the Partners tab + applications badge in the background
+  renderCohortRegs(); // live Layer 3 cohort opt-ins
+}
+
+async function renderCohortRegs() {
+  const tbody = document.getElementById('cr-rows');
+  if (!tbody) return;
+  let regs = [];
+  try { regs = (window.getAllCohortRegs ? await getAllCohortRegs() : []); }
+  catch (e) { document.getElementById('cr-needs-migration').style.display = 'block'; tbody.innerHTML = ''; return; }
+  document.getElementById('cr-count').textContent = regs.length ? regs.length + ' total' : '';
+  const rows = regs.map(function (r) {
+    const d = r.created_at ? ptDate(r.created_at) : '—';
+    return '<tr><td>' + escapeHtml(r.user_email || '—') + '</td>' +
+      '<td>' + escapeHtml(r.cohort_name || r.cohort_key || '—') + '</td>' +
+      '<td><span class="pill pill--' + (r.status === 'enrolled' ? 'approved' : 'reviewing') + '">' + escapeHtml(r.status || 'interested') + '</span></td>' +
+      '<td>' + d + '</td></tr>';
+  }).join('');
+  tbody.innerHTML = rows || '<tr><td colspan="4" class="adm-sub" style="text-align:center;padding:18px;">No cohort opt-ins yet.</td></tr>';
 }
 
 initAdmin();
