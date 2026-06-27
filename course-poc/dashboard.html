@@ -15,7 +15,8 @@
     .dash-hero .sector-tag { display: inline-block; background: var(--gold); color: var(--green-dark); font-size: 0.75em; font-weight: 700; padding: 3px 12px; border-radius: 12px; margin-top: 12px; }
 
     .module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 32px; }
-    .module-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; transition: box-shadow 0.15s; }
+    .module-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; transition: box-shadow 0.15s; overflow: hidden; }
+    .module-card__banner { width: calc(100% + 48px); margin: -24px -24px 18px; display: block; }
     .module-card:hover { box-shadow: var(--shadow-md); }
     .module-card.is-complete { border-color: var(--green-mid); background: linear-gradient(180deg, #fff, var(--green-pale)); }
     .module-card.is-locked { opacity: 0.5; filter: grayscale(0.7); pointer-events: none; }
@@ -344,6 +345,7 @@
     <div class="module-grid" id="foundation-grid">
       <!-- Module 0 -->
       <div class="module-card" id="card-module-0">
+        <img class="module-card__banner" src="assets/module-0-banner.jpg" alt="Module 0 — AI Fundamentals" loading="lazy" />
         <span class="module-card__badge badge--free">Free &middot; All sectors</span>
         <h3>Module 0 — AI Fundamentals</h3>
         <p>What AI is, what it isn't, and how to start seeing it in your own workplace.</p>
@@ -360,6 +362,7 @@
     <div class="section-label">Core Course — Modules 1–6</div>
     <div class="module-grid">
       <div class="module-card is-locked" id="card-module-1">
+        <img class="module-card__banner" src="assets/module-1-banner.jpg" alt="Module 1 — The Confidence Problem" loading="lazy" />
         <span class="module-card__badge badge--locked" id="badge-module-1">Locked</span>
         <h3>Module 1 — The Confidence Problem</h3>
         <p>SA Government AI Policy Scandal &middot; April 2026. What hallucination looks like in the wild.</p>
@@ -371,6 +374,7 @@
         <span id="lock-msg-module-1" style="font-size:0.82em; color:var(--muted);">Complete all 4 phases of Module 0 to unlock</span>
       </div>
       <div class="module-card is-locked" id="card-module-2">
+        <img class="module-card__banner" src="assets/module-2-banner.jpg" alt="Module 2 — How AI Learns and Fails" loading="lazy" />
         <span class="module-card__badge badge--locked" id="badge-module-2">Locked</span>
         <h3>Module 2 — How AI Learns and Fails</h3>
         <p>African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.</p>
@@ -382,6 +386,7 @@
         <span id="lock-msg-module-2" style="font-size:0.82em; color:var(--muted);">Complete Module 1 to unlock</span>
       </div>
       <div class="module-card is-locked" id="card-module-3">
+        <img class="module-card__banner" src="assets/module-3-banner.jpg" alt="Module 3 — Bias and Discrimination" loading="lazy" />
         <span class="module-card__badge badge--locked" id="badge-module-3">Locked</span>
         <h3>Module 3 — Bias and Discrimination</h3>
         <p>SA Predictive Policing. Discrimination without discriminatory intent.</p>
