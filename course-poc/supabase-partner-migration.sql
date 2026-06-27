@@ -37,14 +37,17 @@ create table if not exists partners (
 
 alter table partners enable row level security;
 
+drop policy if exists "Partners read own row" on partners;
 create policy "Partners read own row"
   on partners for select to authenticated
   using (email = auth.email());
 
+drop policy if exists "Partners update own row" on partners;
 create policy "Partners update own row"
   on partners for update to authenticated
   using (email = auth.email());
 
+drop policy if exists "Admins read all partners" on partners;
 create policy "Admins read all partners"
   on partners for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
@@ -68,14 +71,19 @@ create index if not exists partner_customers_email_idx on partner_customers (par
 
 alter table partner_customers enable row level security;
 
+drop policy if exists "Partners manage own customers (select)" on partner_customers;
 create policy "Partners manage own customers (select)"
   on partner_customers for select to authenticated using (partner_email = auth.email());
+drop policy if exists "Partners manage own customers (insert)" on partner_customers;
 create policy "Partners manage own customers (insert)"
   on partner_customers for insert to authenticated with check (partner_email = auth.email());
+drop policy if exists "Partners manage own customers (update)" on partner_customers;
 create policy "Partners manage own customers (update)"
   on partner_customers for update to authenticated using (partner_email = auth.email());
+drop policy if exists "Partners manage own customers (delete)" on partner_customers;
 create policy "Partners manage own customers (delete)"
   on partner_customers for delete to authenticated using (partner_email = auth.email());
+drop policy if exists "Admins read all customers" on partner_customers;
 create policy "Admins read all customers"
   on partner_customers for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
@@ -101,12 +109,16 @@ create index if not exists partner_signatures_email_idx on partner_signatures (p
 
 alter table partner_signatures enable row level security;
 
+drop policy if exists "Partners read own signatures" on partner_signatures;
 create policy "Partners read own signatures"
   on partner_signatures for select to authenticated using (partner_email = auth.email());
+drop policy if exists "Partners insert own signatures" on partner_signatures;
 create policy "Partners insert own signatures"
   on partner_signatures for insert to authenticated with check (partner_email = auth.email());
+drop policy if exists "Partners update own signatures" on partner_signatures;
 create policy "Partners update own signatures"
   on partner_signatures for update to authenticated using (partner_email = auth.email());
+drop policy if exists "Admins read all signatures" on partner_signatures;
 create policy "Admins read all signatures"
   on partner_signatures for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
@@ -128,8 +140,10 @@ create table if not exists partner_applications (
 
 alter table partner_applications enable row level security;
 
+drop policy if exists "Anyone can submit an application" on partner_applications;
 create policy "Anyone can submit an application"
   on partner_applications for insert to anon, authenticated with check (true);
+drop policy if exists "Admins read applications" on partner_applications;
 create policy "Admins read applications"
   on partner_applications for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
