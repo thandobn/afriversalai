@@ -22,7 +22,7 @@ AfriversalAI is a B2B AI literacy training program for South African working pro
 **Phase: POC live — seeking first B2B pilots**
 
 - Course POC deployed via AWS Amplify (GitHub → auto-deploy on push to master)
-- Modules 0–6: all built and auth-gated — Modules 0–3 content-complete, 4–6 structured
+- Modules 0–6: all built, auth-gated, and content-complete
 - Module 7 sector variants: built for Healthcare, Finance, Government, Corporate, Education
 - Admin console: facilitator login, learner progress view, messaging (localStorage bus)
 - Registration, auth, profile, and dashboard: live (Supabase + RLS)
@@ -83,7 +83,8 @@ afriversalai/
 │   └── assets/
 │       ├── style.css                  # Shared stylesheet
 │       ├── auth.js                    # Supabase auth helpers (getProfile, updateProfile, etc.)
-│       ├── admins.js                  # Admin allowlist (stub — list managed in Supabase)
+│       ├── admins.js                  # Admin allowlist stub — list managed in Supabase admins table
+│       ├── module-engine.js           # Shared module navigation (showPhase, showScreen, updateTracker)
 │       ├── messaging.js               # Shared localStorage messaging bus (dashboard + admin)
 │       ├── nav.js                     # Shared navigation + mobile hamburger
 │       ├── lang.js                    # Language switcher (hidden until translations QA'd)

@@ -294,7 +294,8 @@
           <div class="lesson-dot" id="ldot-5"></div>
           <div class="lesson-dot" id="ldot-6"></div>
           <div class="lesson-dot" id="ldot-7"></div>
-          <span class="lesson-tracker-label" id="lesson-label">Lesson 1 of 7 &mdash; AI Learns, It Doesn't Think</span>
+          <div class="lesson-dot" id="ldot-8"></div>
+          <span class="lesson-tracker-label" id="lesson-label">Lesson 1 of 8 &mdash; AI Learns, It Doesn't Think</span>
         </div>
 
         <!-- Framing -->
@@ -364,6 +365,15 @@
           </div>
         </div>
 
+        <div class="callout" style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:16px 20px; margin:0 0 36px;">
+          <strong style="font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted);">Checkpoint &mdash; halfway through</strong>
+          <ul style="margin:10px 0 0; padding-left:18px; font-size:0.9em; line-height:1.7;">
+            <li><strong>Failure 1 &mdash; Biased Data:</strong> the AI learns discrimination from historical patterns in its training data</li>
+            <li><strong>Failure 2 &mdash; Missing Data:</strong> absent groups produce systematic blind spots in the model&rsquo;s predictions</li>
+          </ul>
+          <p style="font-size:0.9em; margin:10px 0 0; color:var(--muted);">Coming up: Feedback Loops &rarr; Correlation traps &rarr; Hallucinations &rarr; Outdated Learning &rarr; Distributional Shift.</p>
+        </div>
+
         <!-- Lesson 4: Failure 3 — Feedback Loops -->
         <div id="m2l-4" style="margin-bottom:36px;">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
@@ -427,6 +437,23 @@
             <div class="fail-card__body">
               <p class="fail-card__eg">COVID &middot; new legislation &middot; new economic conditions &middot; new technologies.</p>
               <p style="margin-top:12px;">Yesterday's patterns may no longer work. A model trained before a major shift keeps predicting as if nothing changed.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson 8: Failure 7 — Distributional Shift -->
+        <div id="m2l-8" style="margin-bottom:36px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 8</span>
+            <h3 style="margin:0; font-size:1.15em;">Failure 7 &mdash; Distributional Shift</h3>
+          </div>
+          <p>A model can be accurate for the population it was trained on &mdash; and systematically wrong for a different one.</p>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">7</span><strong>Distributional Shift</strong></div>
+            <div class="fail-card__body">
+              <p>A model validated in a European hospital is deployed in a South African clinic. The disease patterns, demographics, and comorbidities differ. The model was accurate &mdash; for its training population.</p>
+              <p class="fail-card__eg">The model doesn&rsquo;t know it has moved out of its reliable range. Its confidence score stays high. Only the outcomes degrade.</p>
+              <p style="margin-top:12px;">You will see this live in <strong>Module 6</strong> &mdash; a TB X-ray AI trained on European data deployed in SA clinics, where HIV co-infection changes how TB presents radiologically.</p>
             </div>
           </div>
         </div>
@@ -544,7 +571,7 @@
             </div>
 
             <div id="quiz-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Check my answers &rarr;</button>
               <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
               <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
             </div>
@@ -845,13 +872,14 @@
 // --- Lesson progress tracker ---
 (function() {
   var lessons = [
-    { id: 'm2l-1', label: "Lesson 1 of 7 — AI Learns, It Doesn't Think" },
-    { id: 'm2l-2', label: 'Lesson 2 of 7 — Failure 1: Biased Data' },
-    { id: 'm2l-3', label: 'Lesson 3 of 7 — Failure 2: Missing Data' },
-    { id: 'm2l-4', label: 'Lesson 4 of 7 — Failure 3: Feedback Loops' },
-    { id: 'm2l-5', label: 'Lesson 5 of 7 — Failure 4: Correlation vs Causation' },
-    { id: 'm2l-6', label: 'Lesson 6 of 7 — Failure 5: Hallucinations' },
-    { id: 'm2l-7', label: 'Lesson 7 of 7 — Failure 6: Outdated Learning' },
+    { id: 'm2l-1', label: "Lesson 1 of 8 — AI Learns, It Doesn't Think" },
+    { id: 'm2l-2', label: 'Lesson 2 of 8 — Failure 1: Biased Data' },
+    { id: 'm2l-3', label: 'Lesson 3 of 8 — Failure 2: Missing Data' },
+    { id: 'm2l-4', label: 'Lesson 4 of 8 — Failure 3: Feedback Loops' },
+    { id: 'm2l-5', label: 'Lesson 5 of 8 — Failure 4: Correlation vs Causation' },
+    { id: 'm2l-6', label: 'Lesson 6 of 8 — Failure 5: Hallucinations' },
+    { id: 'm2l-7', label: 'Lesson 7 of 8 — Failure 6: Outdated Learning' },
+    { id: 'm2l-8', label: 'Lesson 8 of 8 — Failure 7: Distributional Shift' },
   ];
   var current = 0;
   function setLesson(n) {
@@ -947,7 +975,7 @@ function tutorVerdictHTML(pass, correct, total, msg) {
   var head = pass ? 'Demonstrated!' : 'Not yet';
   return '<div class="tutor-verdict__avatar">🎓</div>'
     + '<div class="tutor-verdict__body">'
-    + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
+    + '<div class="tutor-verdict__tag">Concept Check &middot; Marking</div>'
     + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
     + '<div class="tutor-verdict__msg">' + msg + '</div>'
     + '</div>';
@@ -966,20 +994,20 @@ function submitQuizConcept() {
     fb.style.display = 'block';
     if (isOk) {
       fb.className = 'quiz-feedback tutor-note tutor-note--ok';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 Concept Check · Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
       label.classList.add('quiz-opt--ok');
       document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrongCount++;
       fb.className = 'quiz-feedback tutor-note tutor-note--no';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 Concept Check · Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
       label.classList.add('quiz-opt--no');
     }
   }
   var errEl = document.getElementById('quiz-err');
   if (!allAnswered) {
     errEl.style.display = 'block';
-    errEl.textContent = 'Answer all ' + QUIZ_CONCEPT_N + ' questions before submitting to the AI Tutor.';
+    errEl.textContent = 'Answer all ' + QUIZ_CONCEPT_N + ' questions before submitting.';
     return;
   }
   errEl.style.display = 'none';
@@ -995,7 +1023,7 @@ function submitQuizConcept() {
     document.getElementById('quiz-advance').style.display = 'inline-block';
   } else {
     verdict.className = 'tutor-verdict tutor-verdict--retry';
-    verdict.innerHTML = tutorVerdictHTML(false, correct, QUIZ_CONCEPT_N, 'A demonstration means <strong>every</strong> answer right. I’ve marked the ' + wrongCount + ' to fix in red below — read each AI Tutor note, then retake the full test.');
+    verdict.innerHTML = tutorVerdictHTML(false, correct, QUIZ_CONCEPT_N, 'A demonstration means <strong>every</strong> answer right. I’ve marked the ' + wrongCount + ' to fix in red below — read each feedback note, then retake the full test.');
     document.getElementById('quiz-retake').style.display = 'inline-block';
     var btn = document.querySelector('#quiz-submit-wrap .btn--primary');
     if (btn) btn.style.display = 'none';

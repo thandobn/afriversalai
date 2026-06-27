@@ -160,7 +160,7 @@ window.TRANSLATIONS = {
     /* ── Module 0 hero ── */
     m0_eyebrow:   'Module 0 · Foundation · Free — start here',
     m0_h1:        'AI Fundamentals:<br>What Is It, Really?',
-    m0_lead:      'Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it\'s where we all start.',
+    m0_lead:      'Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector — it\'s where we all start. This module starts with concepts rather than a case study — because AI is new territory for most learners here, and the framing first helps you recognise what you are about to encounter.',
     m0_free_note:        'Phases 1 & 2 free — register to unlock all phases',
     m0_objectives_html:  '<strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the three types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one AI system you already encounter at work and classify it by type</li></ol>',
     m0_dur:       '45 minutes · 4 phases',
