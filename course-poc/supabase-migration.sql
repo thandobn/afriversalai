@@ -98,6 +98,8 @@ create policy "Authenticated users can read active organisations"
 alter table profiles
   add column if not exists organisation_id uuid references organisations(id);
 
+create index if not exists profiles_organisation_id_idx on profiles (organisation_id);
+
 
 -- 5. Add role (job title) to profiles
 --    Stores the learner's job title as entered in Account Settings.
@@ -105,6 +107,16 @@ alter table profiles
 alter table profiles
   add column if not exists role text;
 
+
+-- ==========================================================================
+-- ROLLBACK (run manually if needed — never run automatically)
+-- drop index if exists profiles_organisation_id_idx;
+-- alter table profiles drop column if exists role;
+-- alter table profiles drop column if exists organisation_id;
+-- drop table if exists organisations;
+-- drop table if exists progress;
+-- drop table if exists profiles;
+-- ==========================================================================
 
 -- ==========================================================================
 -- EXAMPLE: Create your first test organisation

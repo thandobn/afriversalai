@@ -362,19 +362,10 @@ document.addEventListener('click', function(e) {
 });
 
 function admSignOut() {
-  try { sessionStorage.removeItem('afv_demo_admin'); } catch (e) {}
   afSignOut();
 }
 
 async function initAdmin() {
-  // POC demo facilitator session
-  if (sessionStorage.getItem('afv_demo_admin') === '1') {
-    document.getElementById('adm-who').textContent = 'facilitator@afriversal.ai (demo)';
-    document.getElementById('adm-console').style.display = 'block';
-    renderStats();
-    renderTable();
-    return;
-  }
   // Not signed in → send to the dedicated facilitator login (not the learner one)
   const session = await getSession();
   if (!session) { window.location.href = 'admin-login.html'; return; }
