@@ -117,14 +117,71 @@ async function validateOrgCode(code) {
 
 async function updateNavForAuth() {
   const session = await getSession()
-  const registerLink = document.querySelector('a[href="register.html"]')
-  if (session && registerLink) {
-    registerLink.textContent = 'My Dashboard →'
-    registerLink.href = 'dashboard.html'
-    registerLink.classList.remove('btn--primary')
-    registerLink.classList.add('btn--gold')
+  const navLinks = document.querySelector('ul.nav__links')
+  const hasGuestNav = navLinks && navLinks.querySelector('a[href="register.html"]')
+
+  if (!session) {
+    const loginItem = document.querySelector('.nav__login')
+    if (loginItem) loginItem.style.display = ''
+    return
   }
-  // Hide the "Log in" nav link once signed in (Register already becomes "My Dashboard")
-  const loginItem = document.querySelector('.nav__login')
-  if (loginItem) loginItem.style.display = session ? 'none' : ''
+
+  if (!hasGuestNav) {
+    // Already a logged-in nav page (dashboard, settings, etc.) — just sync instructor link
+    _applyInstructorVisibility(session)
+    return
+  }
+
+  // Logged-in user on a page with guest nav — replace nav entirely so it's deterministic
+  const page = window.location.pathname.split('/').pop() || 'index.html'
+  const a = (href) => href === page ? ' class="active"' : ''
+
+  navLinks.innerHTML =
+    '<li><a href="index.html"' + a('index.html') + '>Home</a></li>' +
+    '<li><a href="dashboard.html"' + a('dashboard.html') + '>My Dashboard</a></li>' +
+    '<li id="nav-instructor" style="display:none;"><a href="admin.html">Instructor</a></li>' +
+    '<li><a href="glossary.html"' + a('glossary.html') + '>Glossary</a></li>' +
+    '<li class="nav__dropdown">' +
+      '<a href="course-outline.html">Curriculum</a>' +
+      '<ul class="nav__dropdown-menu">' +
+        '<li><a href="course-outline.html">Framework Overview</a></li>' +
+        '<li><a href="course-timetable.html">Q3 2026 Timetable</a></li>' +
+        '<li><a href="outline-foundation.html">Why &amp; Who</a></li>' +
+        '<li><a href="outline-funda-five.html">The Funda Five</a></li>' +
+        '<li><a href="outline-core-modules.html">Core Modules</a></li>' +
+        '<li><a href="outline-sector-tracks.html">Sector Tracks</a></li>' +
+        '<li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>' +
+        '<li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>' +
+        '<li><a href="outline-pathways.html">Pathways</a></li>' +
+      '</ul>' +
+    '</li>' +
+    '<li><a href="resources.html"' + a('resources.html') + '>Resources</a></li>' +
+    '<li><a href="settings.html"' + a('settings.html') + '>Settings</a></li>' +
+    '<li><a href="contact.html"' + a('contact.html') + '>Contact</a></li>' +
+    '<li><a href="#" onclick="afSignOut(); return false;" class="btn btn--outline btn--sm">Sign out</a></li>'
+
+  // nav.js bound dropdown and close-on-click listeners to old nodes — re-bind to new ones
+  navLinks.querySelectorAll('.nav__dropdown > a').forEach(function(trigger) {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault()
+      trigger.closest('.nav__dropdown').classList.toggle('is-open')
+    })
+  })
+  var burger = document.querySelector('.nav__hamburger')
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (link.parentElement.classList.contains('nav__dropdown')) return
+      navLinks.classList.remove('is-open')
+      if (burger) { burger.classList.remove('is-active'); burger.setAttribute('aria-expanded', 'false') }
+    })
+  })
+
+  _applyInstructorVisibility(session)
+}
+
+function _applyInstructorVisibility(session) {
+  var instrItem = document.getElementById('nav-instructor')
+  if (!instrItem) return
+  var isAdmin = window.ADMINS && session && session.user && window.ADMINS.includes(session.user.email)
+  instrItem.style.display = isAdmin ? '' : 'none'
 }
