@@ -1184,3 +1184,19 @@ footer a { color: rgba(255,255,255,0.7); }
 @media (max-width: 520px) {
   .od-cards { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   STATEMENT BAND — crisp brand band to break up text
+   (vector/gradient based — stays sharp at any width)
+   ============================================================ */
+.statement-band { position: relative; overflow: hidden; border-radius: 18px; background: linear-gradient(135deg, var(--green-dark) 0%, #0c2419 58%, var(--green-mid) 135%); color: #fff; padding: 56px 52px; box-shadow: 0 18px 50px rgba(18,53,40,.28); }
+.statement-band::before { content: ''; position: absolute; right: -90px; top: -90px; width: 340px; height: 340px; background: radial-gradient(circle, rgba(233,196,106,.28), transparent 70%); pointer-events: none; }
+.statement-band::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,.06) 1.4px, transparent 1.4px); background-size: 22px 22px; opacity: .5; pointer-events: none; }
+.statement-band > * { position: relative; z-index: 1; }
+.statement-band__eyebrow { color: var(--gold); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-size: .74em; margin-bottom: 12px; }
+.statement-band__h { font-size: 1.95em; font-weight: 800; line-height: 1.22; max-width: 720px; color: #fff; }
+.statement-band__p { color: rgba(255,255,255,.82); font-size: 1.02em; line-height: 1.7; max-width: 640px; margin-top: 14px; }
+.statement-band__row { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 26px; }
+.statement-band__stat b { display: block; font-size: 1.9em; font-weight: 800; color: var(--gold); line-height: 1; }
+.statement-band__stat span { font-size: .82em; color: rgba(255,255,255,.78); }
+@media (max-width: 640px) { .statement-band { padding: 38px 26px; } .statement-band__h { font-size: 1.5em; } }
