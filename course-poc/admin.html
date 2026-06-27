@@ -483,9 +483,13 @@ function renderApplications(apps) {
     else if (st === 'declined') actions = '<button class="btn btn--xs btn--outline" onclick="reopenApp(\'' + a.id + '\')">Reopen</button>';
     else actions = '<button class="btn btn--xs btn--primary" onclick="approveApplication(\'' + a.id + '\')">Approve</button> ' +
                    '<button class="btn btn--xs btn--danger" onclick="declineApplication(\'' + a.id + '\')">Decline</button>';
+    const q = a.qualifiers || {};
+    const qbits = [q.pipeline_volume, q.org_size, q.decision_access].filter(Boolean);
+    const qtip = [q.relationship, q.opportunities].filter(Boolean).join(' — ');
+    const qsum = qbits.length ? '<br><span class="adm-sub" title="' + escapeHtml(qtip) + '">📊 ' + escapeHtml(qbits.join(' · ')) + '</span>' : '';
     return '<tr><td><strong>' + escapeHtml(a.name || '—') + '</strong><br><span class="adm-sub">' + escapeHtml(a.email || '') + '</span></td>' +
       '<td>' + escapeHtml(a.organisation || '—') + '</td>' +
-      '<td>' + escapeHtml(a.country_sectors || '—') + '</td>' +
+      '<td>' + escapeHtml(a.country_sectors || '—') + qsum + '</td>' +
       '<td>' + ptDate(a.created_at) + '</td>' +
       '<td><span class="pill pill--' + st + '">' + st + '</span></td>' +
       '<td style="text-align:right; white-space:nowrap;">' + actions + '</td></tr>';

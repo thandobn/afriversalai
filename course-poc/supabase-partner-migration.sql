@@ -156,10 +156,14 @@ create table if not exists partner_applications (
   email           text,
   country_sectors text,
   about           text,
+  qualifiers      jsonb,                            -- 5 opportunity-qualifying answers
   status          text not null default 'new'
                     check (status in ('new','reviewing','approved','declined')),
   created_at      timestamptz default now()
 );
+
+-- Ensure the qualifiers column exists on databases created before it was added.
+alter table partner_applications add column if not exists qualifiers jsonb;
 
 alter table partner_applications enable row level security;
 

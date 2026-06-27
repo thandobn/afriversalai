@@ -174,8 +174,33 @@
         <input id="p-email" name="email" type="email" required style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
       <div><label for="p-country" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Country &amp; sectors you serve</label>
         <input id="p-country" name="country_sectors" type="text" placeholder="e.g. South Africa — banking, government" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
-      <div><label for="p-about" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Tell us about your network &amp; why you'd be a strong partner</label>
-        <textarea id="p-about" name="about" rows="4" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea></div>
+
+      <div style="border-top:1.5px solid var(--border); padding-top:16px; margin-top:2px;">
+        <div style="font-weight:800; font-size:.78em; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:4px;">Your opportunity pipeline</div>
+        <p style="font-size:.82em; color:var(--muted); margin:0 0 14px;">These help us understand the organisations you could introduce to AfriversalAI. Your honest answers shape your accreditation level and onboarding.</p>
+      </div>
+
+      <div><label for="q-volume" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">1. How many organisations in your network could realistically enrol staff in AI-literacy training over the next 12 months?</label>
+        <select id="q-volume" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; background:#fff;">
+          <option value="">Select…</option><option>1–3 organisations</option><option>4–10 organisations</option><option>11–25 organisations</option><option>25+ organisations</option></select></div>
+
+      <div><label for="q-orgsize" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">2. What size of organisation do you typically work with?</label>
+        <select id="q-orgsize" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; background:#fff;">
+          <option value="">Select…</option><option>Under 50 employees</option><option>50–500 employees</option><option>500–5,000 employees</option><option>5,000+ employees</option><option>Mixed / varies</option></select></div>
+
+      <div><label for="q-access" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">3. Do you have direct access to the people who authorise training budgets (L&amp;D, HR, or C-suite)?</label>
+        <select id="q-access" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; background:#fff;">
+          <option value="">Select…</option><option>Yes — regularly</option><option>Sometimes / indirectly</option><option>Rarely — I'd need to build the relationship</option></select></div>
+
+      <div><label for="q-relationship" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">4. How would you describe your relationship to these organisations?</label>
+        <select id="q-relationship" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; background:#fff;">
+          <option value="">Select…</option><option>I work inside them (employee / executive)</option><option>I consult to or advise them</option><option>I sell products/services to them</option><option>Personal / professional network ties</option></select></div>
+
+      <div><label for="q-pipeline" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">5. Describe 1–2 specific opportunities you could introduce in your first 90 days.</label>
+        <textarea id="q-pipeline" rows="3" placeholder="e.g. A 40-person L&amp;D cohort at a regional bank where I advise the HR director…" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea></div>
+
+      <div><label for="p-about" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Anything else about your network &amp; why you'd be a strong partner</label>
+        <textarea id="p-about" name="about" rows="3" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea></div>
       <button type="submit" id="apply-submit" class="btn btn--primary btn--lg">Submit application &rarr;</button>
       <p style="font-size:.78em; color:var(--muted); margin:0;">By applying you agree to our <a href="privacy.html">Privacy Policy</a>. Approval is at AfriversalAI's discretion.</p>
     </form>
@@ -221,11 +246,19 @@
       return false;
     }
     btn.disabled = true; var label = btn.textContent; btn.textContent = 'Submitting…';
+    var qualifiers = {
+      pipeline_volume: document.getElementById('q-volume').value || null,
+      org_size: document.getElementById('q-orgsize').value || null,
+      decision_access: document.getElementById('q-access').value || null,
+      relationship: document.getElementById('q-relationship').value || null,
+      opportunities: document.getElementById('q-pipeline').value.trim() || null
+    };
     var payload = {
       name: name,
       organisation: document.getElementById('p-org').value.trim() || null,
       email: email,
       country_sectors: document.getElementById('p-country').value.trim() || null,
+      qualifiers: qualifiers,
       about: document.getElementById('p-about').value.trim() || null
     };
     try {
