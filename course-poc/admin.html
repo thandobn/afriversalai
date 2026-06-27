@@ -211,7 +211,20 @@
     <div class="adm-stat"><div class="adm-stat__num" id="st-pay">R0</div><div class="adm-stat__label">Payments collected</div><div class="adm-stat__sub" id="st-pay-sub">mock data</div></div>
   </div>
 
-  <div class="adm-bar">
+  <!-- Account admin: set/reset a user's password (any learner or partner) -->
+  <div class="adm-bar" style="margin-top:34px;"><h2>Set a user&rsquo;s password</h2></div>
+  <div id="sp-needs-fn" style="display:none; background:#FFFBEB; border:1.5px solid #FDE68A; color:#92400E; border-radius:var(--radius-lg); padding:12px 15px; margin-bottom:12px; font-size:0.84em;">The <code>admin-set-password</code> Edge Function isn&rsquo;t deployed yet, so this can&rsquo;t set passwords. Deploy it (see <code>supabase/functions/admin-set-password</code>) to enable.</div>
+  <div style="background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; max-width:640px;">
+    <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">Set a new password for any account by email &mdash; useful when someone is locked out and reset emails aren&rsquo;t reaching them. Share the temporary password and ask them to change it after signing in.</p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;">
+      <div style="flex:1; min-width:200px;"><label class="co-lbl" for="sp-email">User email</label><input id="sp-email" class="co-inp" type="email" placeholder="user@example.com" /></div>
+      <div style="flex:1; min-width:180px;"><label class="co-lbl" for="sp-pass">New password</label><input id="sp-pass" class="co-inp" type="text" placeholder="At least 8 characters" /></div>
+      <button class="btn btn--primary" id="sp-btn" onclick="adminSetPasswordByEmail()">Set password</button>
+    </div>
+    <div id="sp-msg" style="font-size:0.85em; margin-top:12px;"></div>
+  </div>
+
+  <div class="adm-bar" style="margin-top:34px;">
     <h2>All registered students</h2>
     <div style="display:flex; align-items:center; gap:10px;">
       <div class="adm-modeswitch">
@@ -360,6 +373,10 @@
     </div>
     <div class="adm-card__body">
 
+      <div style="margin-bottom:18px;">
+        <button class="btn btn--outline btn--sm" onclick="setPasswordForCurrent()">Set / reset password</button>
+      </div>
+
       <div class="adm-sec-label">Payment (mock)</div>
       <div class="pay-box" id="m-pay"></div>
 
@@ -430,6 +447,60 @@ const STUDENTS = [
 })();
 
 let CURRENT = null;
+
+// ----- Admin: set a user's password (via the secure admin-set-password Edge Function) -----
+async function adminSetPassword(opts) {
+  try {
+    const session = await getSession();
+    if (!session || !session.access_token) return { ok: false, error: 'Your admin session expired — sign in again.' };
+    if (typeof SUPABASE_URL === 'undefined') return { ok: false, reason: 'not_configured' };
+    const url = SUPABASE_URL.replace(/\/$/, '') + '/functions/v1/admin-set-password';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token, 'apikey': SUPABASE_ANON_KEY },
+      body: JSON.stringify(opts)
+    });
+    if (res.status === 404) return { ok: false, reason: 'not_configured' };
+    let j = {}; try { j = await res.json(); } catch (e) {}
+    if (!res.ok) return { ok: false, status: res.status, error: (j && j.error) || ('Request failed (' + res.status + ')') };
+    return { ok: true };
+  } catch (e) { return { ok: false, error: String((e && e.message) || e) }; }
+}
+
+async function setPasswordForCurrent() {
+  if (!CURRENT) return;
+  if (!CURRENT.real) { alert('Password management works on live accounts only. Switch to Live mode and open a real learner.'); return; }
+  const pw = prompt('Set a new password for ' + (CURRENT.name || CURRENT.email) + ' (at least 8 characters):');
+  if (pw === null) return;
+  if (pw.length < 8) { alert('Password must be at least 8 characters.'); return; }
+  const r = await adminSetPassword({ user_id: CURRENT.id, password: pw });
+  if (r.ok) alert('Password updated for ' + (CURRENT.email || CURRENT.name) + '. Share it securely and ask them to change it.');
+  else if (r.reason === 'not_configured') alert('The admin-set-password Edge Function isn’t deployed yet — see the notice in the Set-password panel.');
+  else alert('Could not set the password: ' + (r.error || 'unknown error'));
+}
+
+async function adminSetPasswordByEmail() {
+  const msg = document.getElementById('sp-msg');
+  const btn = document.getElementById('sp-btn');
+  const email = (document.getElementById('sp-email').value || '').trim();
+  const pass = document.getElementById('sp-pass').value || '';
+  msg.style.color = '#DC2626';
+  if (!email) { msg.textContent = 'Enter the user’s email.'; return; }
+  if (pass.length < 8) { msg.textContent = 'Password must be at least 8 characters.'; return; }
+  btn.disabled = true; btn.textContent = 'Setting…';
+  const r = await adminSetPassword({ email: email, password: pass });
+  btn.disabled = false; btn.textContent = 'Set password';
+  if (r.ok) {
+    msg.style.color = 'var(--green-dark)';
+    msg.innerHTML = '✓ Password set for <strong>' + escapeHtml(email) + '</strong>. Share it securely and ask them to change it after signing in.';
+    document.getElementById('sp-pass').value = '';
+  } else if (r.reason === 'not_configured') {
+    document.getElementById('sp-needs-fn').style.display = 'block';
+    msg.textContent = 'The password function isn’t deployed yet (see the notice above).';
+  } else {
+    msg.textContent = r.error || 'Could not set the password.';
+  }
+}
 
 // ----- Live vs sample data source -----
 var ADM_MODE = 'live';     // 'live' = real Supabase learners; 'sample' = demo data
