@@ -474,7 +474,7 @@
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
             <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">8 questions &middot; you must get <strong style="color:white;">all 8</strong> right to continue</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">9 questions &middot; you must get <strong style="color:white;">all 9</strong> right to continue</span>
           </div>
 
           <!-- AI Tutor verdict banner -->
@@ -570,10 +570,21 @@
               <div class="quiz-feedback" id="qf-7"></div>
             </div>
 
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">9. An X-ray AI trained on European chest scans is deployed in an SA clinic where HIV co-infection changes how TB appears. The model was clinically validated — but somewhere else. This is:</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q8" value="0"> <span>Outdated learning &mdash; the model needs retraining on newer scans</span></label>
+                <label class="quiz-opt"><input type="radio" name="q8" value="1"> <span>Hallucination &mdash; the AI is inventing diagnoses</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q8" value="2"> <span>Distributional shift &mdash; deployed on a population different from its training data</span></label>
+                <label class="quiz-opt"><input type="radio" name="q8" value="3"> <span>A feedback loop &mdash; the AI's outputs are changing the outcomes it measures</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-8"></div>
+            </div>
+
             <div id="quiz-submit-wrap">
               <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Check my answers &rarr;</button>
               <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
-              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
+              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 9 questions before submitting.</div>
             </div>
           </div>
         </div>
@@ -949,7 +960,7 @@ function revealAnswers() {
   }
 }
 
-// --- Concept knowledge check: AI Tutor demonstration (must score 8/8) ---
+// --- Concept knowledge check: AI Tutor demonstration (must score 9/9) ---
 var QUIZ_CONCEPT_EXP = [
   { ok: 'AI predicts from learned patterns — it does not recall facts, reason, or follow hand-written rules.',
     no: 'AI predicts an output from patterns in historical data. It is not retrieving verified facts or reasoning like a person.' },
@@ -967,8 +978,10 @@ var QUIZ_CONCEPT_EXP = [
     no: 'This is outdated learning. A model trained before a major shift keeps predicting as if nothing changed.' },
   { ok: 'Accountability rests with the people and organisation that deployed it — never the algorithm.',
     no: '"Nobody programmed discrimination" is not a defence. Accountability rests with the people and organisation that deployed and used the AI.' },
+  { ok: 'Distributional shift — the model was accurate for its training population, but SA patients with HIV co-infection present TB differently. Clinical validation doesn\'t automatically transfer across populations.',
+    no: 'This is distributional shift: the model works for the population it was trained on, but meets a meaningfully different one at deployment. It wasn\'t wrong — it just wasn\'t built for this population.' },
 ];
-var QUIZ_CONCEPT_N = 8;
+var QUIZ_CONCEPT_N = 9;
 
 // Shared AI-Tutor verdict banner markup
 function tutorVerdictHTML(pass, correct, total, msg) {
