@@ -1,15 +1,4 @@
-// AfriversalAI — facilitator / admin allowlist (POC access control).
-// Add a facilitator's account email here to grant Instructor Console access.
-// Loaded by admin-login.html, admin.html, and dashboard.html.
-window.ADMIN_EMAILS = [
-  'ask@afriversal.ai',
-  'afriversalai@gmail.com',
-  'facilitator@afriversal.ai',
-  'thandobnkala@gmail.com',
-  'ntandodavis@gmail.com',
-];
-window.isAdminEmail = function (email) {
-  return !!email && window.ADMIN_EMAILS
-    .map(function (e) { return e.toLowerCase(); })
-    .indexOf(String(email).toLowerCase()) !== -1;
-};
+// AfriversalAI — admin allowlist managed in Supabase.
+// Admins are stored in the `admins` table (RLS-enforced).
+// To add/remove admins: Supabase dashboard → Table Editor → admins → Insert / delete row.
+// window.isAdminEmail() is defined in assets/auth.js (queries Supabase, result cached per session).

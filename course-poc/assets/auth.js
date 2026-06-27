@@ -3,9 +3,19 @@
  * All functions are async — await them.
  */
 
+var _adminEmails = null
+
+async function _loadAdminEmails() {
+  if (_adminEmails !== null) return
+  const { data, error } = await _supabase.from('admins').select('email')
+  if (error) { console.error('[AfriversalAI] _loadAdminEmails failed:', error.message); return }
+  _adminEmails = new Set((data || []).map(function(r) { return r.email.toLowerCase() }))
+}
+
 async function getSession() {
   try {
     const { data: { session } } = await _supabase.auth.getSession()
+    if (session) await _loadAdminEmails()
     return session
   } catch {
     return null
@@ -41,6 +51,7 @@ async function afSignUp(email, password, profile) {
 async function afSignIn(email, password) {
   const { data, error } = await _supabase.auth.signInWithPassword({ email, password })
   if (error) throw error
+  await _loadAdminEmails()
   return data
 }
 
@@ -184,6 +195,11 @@ async function updateNavForAuth() {
 function _applyInstructorVisibility(session) {
   var instrItem = document.getElementById('nav-instructor')
   if (!instrItem) return
-  var isAdmin = window.ADMIN_EMAILS && session && session.user && window.ADMIN_EMAILS.includes(session.user.email)
-  instrItem.style.display = isAdmin ? '' : 'none'
+  var email = session && session.user && session.user.email
+  instrItem.style.display = window.isAdminEmail(email) ? '' : 'none'
+}
+
+window.isAdminEmail = function(email) {
+  if (!email || !_adminEmails) return false
+  return _adminEmails.has(String(email).toLowerCase())
 }

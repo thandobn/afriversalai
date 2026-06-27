@@ -116,8 +116,36 @@ alter table profiles
   check (sector in ('corporate','government','finance','healthcare','education','other'));
 
 
+-- 7. Admins table
+--    Stores facilitator / admin email addresses.
+--    RLS ensures authenticated users can only check their OWN email (cannot enumerate list).
+--    To add / remove admins: Supabase dashboard → Table Editor → admins → Insert / delete row.
+--    No code deploy needed to change admin access.
+
+create table if not exists admins (
+  email text primary key
+);
+
+alter table admins enable row level security;
+
+create policy "Users can check own admin status"
+  on admins for select
+  to authenticated
+  using (email = auth.email());
+
+-- Seed initial admin list (idempotent — safe to re-run)
+insert into admins (email) values
+  ('ask@afriversal.ai'),
+  ('afriversalai@gmail.com'),
+  ('facilitator@afriversal.ai'),
+  ('thandobnkala@gmail.com'),
+  ('ntandodavis@gmail.com')
+on conflict do nothing;
+
+
 -- ==========================================================================
 -- ROLLBACK (run manually if needed — never run automatically)
+-- drop table if exists admins;
 -- drop index if exists profiles_organisation_id_idx;
 -- alter table profiles drop column if exists role;
 -- alter table profiles drop column if exists organisation_id;
