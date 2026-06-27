@@ -155,6 +155,8 @@
     <h2>Choose your pathway.</h2>
     <p class="lead" style="max-width:620px; margin:12px auto 0;">From individual professionals to whole institutions &mdash; every pathway leads to a human-assessed certificate of demonstrated competency.</p>
 
+    <div id="promo-countdown" style="max-width:720px; margin:0 auto 34px; background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:24px 26px; text-align:center; box-shadow:var(--shadow-md);"></div>
+
     <div class="pricing-grid">
 
       <!-- 1. Professional Certification -->
@@ -515,6 +517,8 @@
     if (!isOpen) item.classList.add('open');
   }
 </script>
+<script src="assets/pricing.js"></script>
+<script>if (window.afRenderCountdown) afRenderCountdown('promo-countdown');</script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
