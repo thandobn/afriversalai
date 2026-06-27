@@ -79,3 +79,35 @@
 **Lesson:** PowerShell's `Get-Content`/`Set-Content` without explicit encoding corrupted every emoji and multi-byte character in 12 HTML files.
 **Why it happened:** Used `Get-Content -Raw` and `Set-Content` with the default encoding, which in PowerShell 5.1 on Windows is the system code page (Windows-1252). UTF-8 emoji bytes were misread and then written back as garbage characters (e.g. `🏢` → `ðŸ¢`). The error was silent — "Done. 12 files updated" — with no warning.
 **What to do instead:** For any bulk text operation on files containing non-ASCII characters, always use `[System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)` and `[System.IO.File]::WriteAllText($path, $content, [System.Text.Encoding]::UTF8)`. Or use Python. Never use `Get-Content`/`Set-Content` on HTML/JS files without `-Encoding utf8` — and even then, PS5.1's `-Encoding utf8` writes a BOM, which can also cause issues. The safe default is always the .NET IO class with explicit encoding.
+
+---
+
+## 2026-06-26 (session 3)
+
+**Lesson:** `getProfile()` 42703 fallback SELECT still included the missing columns (`email`, `org_code`), making the fallback useless — same error.
+**Why it happened:** When writing the fallback I copied the column list from the primary SELECT and only removed `role`, not thinking through which columns were actually confirmed to exist.
+**What to do instead:** A 42703 fallback must only select columns you have direct evidence exist (e.g. from a `select('*')` diagnostic or the original CREATE TABLE). Never copy-paste the failing SELECT into the fallback with one column removed.
+
+---
+
+**Lesson:** Added `await _loadAdminEmails()` inside `getSession()`'s try-catch without a `.catch()` guard — any unexpected throw from `_loadAdminEmails` would silently null out the session and break every auth-gated page.
+**Why it happened:** `_loadAdminEmails` handles its own Supabase errors, so I assumed it was safe. But unexpected runtime errors (not Supabase errors) still propagate.
+**What to do instead:** Any `await` inside a function with a catch-all `try/catch { return null }` must be wrapped in `.catch()` if a failure there should NOT null the return value. Use `await fn().catch(e => console.error(e))` pattern.
+
+---
+
+**Lesson:** `getProfile()` SELECT included columns (`role`, `email`, `org_code`) that were added to the migration file but never actually run in Supabase, causing silent 42703 failures for months.
+**Why it happened:** Code and DB migration were written together but the migration was never run. There was no mechanism to catch the mismatch at deploy time.
+**What to do instead:** Whenever a column is added to a SELECT in `getProfile()` or similar, add a note in the commit message: "requires migration step X to be run in Supabase." The code change and DB migration must ship together or the SELECT will fail silently.
+
+---
+
+**Lesson:** `:first-child` CSS selector on `.gloss-letter` never matched because the hidden `.gloss-no-results` paragraph was the actual first child of `.gloss-body`.
+**Why it happened:** Wrote `:first-child` based on visual/logical order (first visible letter), not DOM order. `display: none` elements still occupy their DOM position for selector purposes.
+**What to do instead:** Use adjacent sibling selector `.preceding-element + .target { margin-top: 0 }` when the first visible item isn't the first DOM child. `:first-child` only works when the target element is truly the first node in the parent.
+
+---
+
+**Lesson:** After `ALTER TABLE ADD COLUMN`, PostgREST cached the old schema causing `getProfile()` to still fail with 42703 for ~60 seconds after the column was added.
+**Why it happened:** Didn't know PostgREST has a schema cache TTL.
+**What to do instead:** After any schema change in Supabase, immediately run `NOTIFY pgrst, 'reload schema';` in the SQL editor to force an instant cache refresh. Don't rely on the TTL expiring.

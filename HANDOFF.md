@@ -659,3 +659,77 @@ A fresh session should know these terms:
 - T6: Extract module-engine.js (showPhase/showScreen/advancePhase) — 2-3 hour standalone session
 - Council Round 2: content and learning structure review (module-0 through module-6, glossary)
 - Council learning log: log HSRC false positive, log settings getProfile pattern as known issue to watch
+
+---
+## Session: 2026-06-26 (continued) — T5 complete
+
+**What was worked on:**
+- T5: Moved admin allowlist from admins.js (public repo) into Supabase `admins` table
+
+**Decisions made:**
+- Kept `window.isAdminEmail()` synchronous by caching the admin email Set at session load time, populated via `_loadAdminEmails()` called inside `getSession()`. This meant zero changes to any of the 16 existing call sites across 12 HTML files.
+- `_loadAdminEmails()` also called in `afSignIn()` to handle admin-login.html's post-sign-in check (which doesn't go through `getSession()`).
+- Error path in `_loadAdminEmails()` leaves cache as `null` (not an empty Set) so next `getSession()` retries — graceful recovery if Supabase is temporarily unavailable or table doesn't exist yet.
+- RLS policy: `using (email = auth.email())` — users can only query their own row. Non-admins get 0 rows. Admins get exactly 1 row (their own email). Cannot enumerate the list.
+- admins.js stubbed to comment-only — personal emails gone from public repo entirely.
+
+**Files changed:**
+- course-poc/assets/auth.js (added _loadAdminEmails, updated getSession + afSignIn, new window.isAdminEmail, fixed _applyInstructorVisibility)
+- course-poc/assets/admins.js (stubbed to comment only — no code)
+- course-poc/supabase-migration.sql (added step 7: admins table, RLS, seed, rollback entry)
+
+**Supabase migration run:**
+- admins table created, RLS enabled, 5 emails seeded: ask@afriversal.ai, afriversalai@gmail.com, facilitator@afriversal.ai, thandobnkala@gmail.com, ntandodavis@gmail.com
+
+**Open items / next steps:**
+- T6: Extract module-engine.js (showPhase/showScreen/advancePhase/updateTracker) — in progress this session
+- Council Round 2: content and learning structure review (module-0 through module-6, glossary)
+
+---
+## Session: 2026-06-26 (continued) — T5, settings bug, glossary fixes
+
+**What was worked on:**
+- T5 complete: admin emails moved from admins.js into Supabase `admins` table with RLS
+- Settings page blank fields bug diagnosed and fixed (multiple root causes — see below)
+- Glossary az-nav layout fixed: sticky position, content gap, letter alignment
+- Settings `role` column added to Supabase profiles table (step 5 migration, never run)
+- Settings `email` + `org_code` columns added to Supabase profiles table (missing from original table creation)
+- PostgREST schema cache force-reloaded via `NOTIFY pgrst, 'reload schema'`
+
+**Decisions made:**
+- `window.isAdminEmail()` kept synchronous via cache-on-session pattern: `_loadAdminEmails()` runs inside `getSession()`, memoized after first call. Zero changes to 16 existing call sites across 12 HTML files.
+- `_loadAdminEmails()` also called inside `afSignIn()` to cover admin-login.html's post-sign-in check (bypasses `requireAuth` flow).
+- `_loadAdminEmails()` wrapped in `.catch()` inside `getSession()` so any unexpected throw cannot null out the session.
+- `getProfile()` 42703 fallback now uses truly safe column subset (`id, full_name, organisation, sector, role`) — previously the fallback still included `email` and `org_code` which were the missing columns.
+- Glossary az-nav inner changed from `max-width: 1440px` to `860px` to align letters with content column.
+- Adjacent sibling selector `.gloss-no-results + .gloss-letter { margin-top: 0 }` used instead of `:first-child` (which never matched because the hidden gloss-no-results paragraph was the true first child).
+
+**Root cause of settings blank fields:**
+Settings have been broken since early in the project. Chain:
+1. Original `getProfile()` selected `organisation_id` → 42703 if column missing → null (fixed in fba1d12)
+2. After that fix, still selected `email`, `org_code`, `role` → table was originally created without `email`/`org_code`, and `role` was never migrated → 42703 → null
+3. `getProfile()` fallback (added in 45d38f1) still included `email` and `org_code` in fallback SELECT → same 42703
+4. Fix: added missing columns to Supabase + updated fallback to safe subset only
+
+**Supabase migrations run this session:**
+- `alter table profiles add column if not exists role text;`
+- `alter table profiles add column if not exists email text;`
+- `alter table profiles add column if not exists org_code text;`
+- `NOTIFY pgrst, 'reload schema';`
+
+**Files changed:**
+- course-poc/assets/auth.js (T5: _loadAdminEmails cache, getSession, afSignIn; settings: getProfile fallback safe subset + .catch protection)
+- course-poc/assets/admins.js (T5: stubbed to comment only)
+- course-poc/supabase-migration.sql (T5: admins table step 7, rollback entry)
+- course-poc/glossary.html (az-nav top: 100px sticky, scroll-margin-top: 160px, max-width: 860px, gap fix)
+
+**Commits this session:**
+- 51e354f — T5: Move admin allowlist from admins.js into Supabase admins table
+- 45d38f1 — Fix getProfile silently returning null when role column missing
+- 45182db — Fix settings blank fields (missing columns) + glossary nav offset
+- c96263c — Fix glossary content gap below az-nav
+- 5495d39 — Align az-nav letters with content column (860px centered)
+
+**Open items / next steps:**
+- T6: Extract module-engine.js — showPhase, showScreen, updateTracker extracted from module-0 through module-6 (and module-7-corporate). advancePhase stays per-module. Audit complete (see session notes). Ready to implement next session.
+- Council Round 2: content and learning structure review (module-0 through module-6, glossary)
