@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Document — AfriversalAI Partner Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    body { background:#EEF1F0; }
+    .sg-top { background:var(--green-dark); color:#fff; padding:14px 0; }
+    .sg-top__inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .sg-top__inner img { height:28px; width:auto; }
+    .sg-top a { color:#fff; font-size:.84em; text-decoration:none; opacity:.85; }
+    .sg-wrap { max-width:760px; margin:26px auto 64px; padding:0 16px; }
+    .sg-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:32px 34px; box-shadow:var(--shadow-md); }
+    .sg-eyebrow { font-size:.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.6px; color:var(--gold-dark); }
+    .sg-card h1 { font-size:1.5em; color:var(--green-dark); margin:6px 0 4px; }
+    .sg-sub { color:var(--muted); font-size:.9em; margin:0 0 20px; }
+    .sg-field { margin-bottom:16px; }
+    .sg-field label { display:block; font-size:.84em; font-weight:700; margin-bottom:6px; }
+    .sg-field input, .sg-field select, .sg-field textarea { width:100%; border:1.5px solid var(--border); border-radius:var(--radius); padding:11px 13px; font-family:inherit; font-size:.95em; }
+    .sg-field input:focus, .sg-field select:focus, .sg-field textarea:focus { outline:none; border-color:var(--green-mid); }
+    .sg-two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:600px){ .sg-two{ grid-template-columns:1fr; } }
+    .sg-sec { font-size:.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted); margin:26px 0 12px; padding-top:18px; border-top:1px solid var(--border); }
+    .sg-readbox { background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius); padding:14px 16px; font-size:.86em; color:var(--green-dark); line-height:1.6; margin-bottom:18px; }
+    .sg-readbox a { color:var(--green-mid); font-weight:700; }
+    .sig-pad { border:1.5px dashed var(--gold); border-radius:var(--radius); background:var(--gold-light); padding:14px 16px; }
+    .sig-preview { font-family:'Dancing Script', cursive; font-size:2em; color:var(--green-dark); min-height:1.4em; line-height:1.3; }
+    .sig-hint { font-size:.74em; color:var(--muted); margin-top:4px; }
+    .agree { display:flex; gap:10px; align-items:flex-start; margin:18px 0; font-size:.9em; }
+    .agree input { margin-top:3px; }
+    .sg-err { display:none; background:#FFF5F5; border:1px solid #FCA5A5; color:#7F1D1D; font-size:.85em; border-radius:var(--radius); padding:10px 13px; margin:12px 0; }
+    .cert { text-align:center; }
+    .cert__check { width:64px; height:64px; border-radius:50%; background:var(--green-mid); color:#fff; font-size:2em; display:flex; align-items:center; justify-content:center; margin:6px auto 16px; }
+    .cert h2 { color:var(--green-dark); font-size:1.4em; margin:0 0 4px; }
+    .cert__doc { color:var(--muted); font-size:.92em; margin:0 0 20px; }
+    .cert__tbl { width:100%; border-collapse:collapse; text-align:left; font-size:.86em; margin-bottom:18px; }
+    .cert__tbl td { padding:9px 12px; border-bottom:1px solid var(--border); }
+    .cert__tbl td:first-child { color:var(--muted); width:42%; }
+    .cert__tbl td:last-child { font-weight:600; color:var(--green-dark); font-family:ui-monospace,Menlo,monospace; }
+    .cert__note { font-size:.78em; color:var(--muted); line-height:1.6; background:var(--green-pale); border-radius:var(--radius); padding:12px 14px; margin:0 0 18px; text-align:left; }
+  </style>
+</head>
+<body>
+
+<div class="sg-top">
+  <div class="sg-top__inner">
+    <img src="assets/logo-white.png" alt="AfriversalAI" />
+    <a href="partner-portal.html">&larr; Back to Partner Portal</a>
+  </div>
+</div>
+
+<div class="sg-wrap">
+  <div class="sg-card">
+    <div class="sg-eyebrow">Digital Signature</div>
+    <h1 id="sg-title">Sign Document</h1>
+    <p class="sg-sub" id="sg-sub"></p>
+
+    <div class="sg-readbox" id="sg-readbox"></div>
+
+    <form id="sg-form" onsubmit="return submitSign(event)">
+      <div id="sg-fields"></div>
+
+      <div class="sg-sec">Signature</div>
+      <div class="sg-field">
+        <label for="sig-name">Type your full legal name to sign</label>
+        <input type="text" id="sig-name" placeholder="e.g. Nyari Samushonga" oninput="document.getElementById('sig-preview').textContent=this.value;" required />
+      </div>
+      <div class="sg-field">
+        <label>Signature</label>
+        <div class="sig-pad"><div class="sig-preview" id="sig-preview"></div><div class="sig-hint">Your typed name above is your electronic signature.</div></div>
+      </div>
+      <div class="sg-two">
+        <div class="sg-field"><label for="sig-title">Capacity / title</label><input type="text" id="sig-title" placeholder="e.g. Director / in personal capacity" /></div>
+        <div class="sg-field"><label for="sig-date">Date</label><input type="date" id="sig-date" /></div>
+      </div>
+      <label class="agree"><input type="checkbox" id="sig-agree" /> <span id="sg-agree-text">I confirm I have read and agree to this document, and that this electronic signature is legally binding.</span></label>
+
+      <div class="sg-err" id="sg-err"></div>
+      <button type="submit" id="sg-submit" class="btn btn--primary btn--lg" style="width:100%;">Sign &amp; submit &rarr;</button>
+    </form>
+
+    <div id="sg-cert" style="display:none;">
+      <div class="cert">
+        <div class="cert__check">&#10004;</div>
+        <h2>Signed &amp; recorded</h2>
+        <p class="cert__doc" id="cert-doc"></p>
+        <table class="cert__tbl">
+          <tr><td>Signatory</td><td id="cert-name"></td></tr>
+          <tr><td>Capacity</td><td id="cert-title"></td></tr>
+          <tr><td>Signed (timestamp)</td><td id="cert-time"></td></tr>
+          <tr><td>Verification ID</td><td id="cert-vid"></td></tr>
+          <tr><td>Document fingerprint</td><td id="cert-fp"></td></tr>
+        </table>
+        <p class="cert__note">This electronic signature is recorded with a secure timestamp, a unique verification ID and a document fingerprint. Electronic signatures are recognised under South Africa&rsquo;s Electronic Communications and Transactions Act 25 of 2002 (ECTA). For advanced / qualified signatures, AfriversalAI uses an accredited e-signature provider.</p>
+        <a href="partner-portal.html" class="btn btn--primary btn--lg" style="width:100%;">Return to Partner Portal &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script>
+  // Field configs per document
+  var DOCS = {
+    nda: {
+      title: 'Mutual Non-Disclosure Agreement',
+      sub: 'Protecting confidential information exchanged during the programme.',
+      docfile: 'partner-docs/nda.html',
+      fields: [
+        { id:'capacity', label:'Signing capacity', type:'select', options:['In my personal capacity','For and on behalf of an entity'], required:true },
+        { id:'entity', label:'Entity name & registration (if signing for a company/fund)', type:'text', placeholder:'Entity name & reg. no.' },
+        { id:'purpose', label:'Purpose of disclosure', type:'text', placeholder:'e.g. evaluating a partnership relating to AfriversalAI', required:true }
+      ]
+    },
+    agreement: {
+      title: 'Enterprise Partner Agreement',
+      sub: 'The legally binding agreement between you and AfriversalAI (Pty) Ltd.',
+      docfile: 'partner-docs/agreement.html',
+      fields: [
+        { id:'legalName', label:'Partner legal name', type:'text', required:true },
+        { id:'regNo', label:'Registration number', type:'text' },
+        { id:'address', label:'Registered address', type:'text' },
+        { id:'country', label:'Country', type:'text', required:true },
+        { id:'rep', label:'Authorised representative', type:'text', required:true }
+      ]
+    },
+    schedule: {
+      title: 'Partner Commercial Schedule',
+      sub: 'Your specific commercial terms, accreditation level and banking details.',
+      docfile: 'partner-docs/commercial-schedule.html',
+      fields: [
+        { id:'legalName', label:'Partner legal name', type:'text', required:true },
+        { id:'tradingName', label:'Trading name', type:'text' },
+        { id:'level', label:'Accreditation level', type:'select', options:['Associate','Professional','Strategic'], required:true },
+        { id:'primaryContact', label:'Primary contact', type:'text', required:true },
+        { id:'phone', label:'Phone', type:'text' },
+        { id:'bankName', label:'Bank name', type:'text' },
+        { id:'accountHolder', label:'Account holder', type:'text' },
+        { id:'accountNumber', label:'Account number / IBAN', type:'text' },
+        { id:'taxNumber', label:'Tax number', type:'text' },
+        { id:'vatNumber', label:'VAT number', type:'text' }
+      ]
+    }
+  };
+
+  function getParam(n){ return new URLSearchParams(location.search).get(n); }
+  var docKey = getParam('doc');
+  var cfg = DOCS[docKey];
+
+  if (!cfg) {
+    document.getElementById('sg-title').textContent = 'Document not found';
+    document.getElementById('sg-form').style.display = 'none';
+  } else {
+    document.getElementById('sg-title').textContent = 'Sign: ' + cfg.title;
+    document.getElementById('sg-sub').textContent = cfg.sub;
+    document.getElementById('sg-readbox').innerHTML =
+      'Please read the full document before signing: <a href="' + cfg.docfile + '" target="_blank">Open ' + cfg.title + ' &rarr;</a>. Fill the fields below, type your name to sign, tick the agreement box, and submit.';
+    // default date = today
+    var d = new Date(); document.getElementById('sig-date').value = d.toISOString().slice(0,10);
+    // render fields
+    var html = '';
+    cfg.fields.forEach(function(f){
+      html += '<div class="sg-field"><label for="f-'+f.id+'">'+f.label+(f.required?' *':'')+'</label>';
+      if (f.type==='select') {
+        html += '<select id="f-'+f.id+'"'+(f.required?' required':'')+'><option value="">Select…</option>'+
+          f.options.map(function(o){return '<option>'+o+'</option>';}).join('')+'</select>';
+      } else if (f.type==='textarea') {
+        html += '<textarea id="f-'+f.id+'" rows="3"'+(f.placeholder?' placeholder="'+f.placeholder+'"':'')+(f.required?' required':'')+'></textarea>';
+      } else {
+        html += '<input type="text" id="f-'+f.id+'"'+(f.placeholder?' placeholder="'+f.placeholder+'"':'')+(f.required?' required':'')+' />';
+      }
+      html += '</div>';
+    });
+    document.getElementById('sg-fields').innerHTML = html;
+  }
+
+  async function submitSign(e){
+    e.preventDefault();
+    var err = document.getElementById('sg-err'); err.style.display='none';
+    var name = document.getElementById('sig-name').value.trim();
+    var agree = document.getElementById('sig-agree').checked;
+    // required field check
+    var fields = {};
+    var missing = false;
+    cfg.fields.forEach(function(f){
+      var v = (document.getElementById('f-'+f.id).value||'').trim();
+      fields[f.id]=v;
+      if (f.required && !v) missing = true;
+    });
+    if (missing) { err.textContent='Please complete all required (*) fields.'; err.style.display='block'; return false; }
+    if (!name) { err.textContent='Type your full name to sign.'; err.style.display='block'; return false; }
+    if (!agree) { err.textContent='Please tick the agreement box to confirm.'; err.style.display='block'; return false; }
+
+    var now = new Date();
+    var verifyId = 'AAI-SIG-' + now.getTime().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2,7).toUpperCase();
+    var rec = { name:name, title:document.getElementById('sig-title').value.trim(),
+      date:document.getElementById('sig-date').value, fields:fields,
+      ts:now.getTime(), signedAt:now.toISOString(), signed_at:now.toISOString(), verifyId:verifyId };
+    rec.fingerprint = sigHash(docKey + '|' + name + '|' + JSON.stringify(fields) + '|' + rec.signedAt);
+
+    var btn = document.getElementById('sg-submit'); if (btn){ btn.disabled=true; btn.textContent='Recording signature…'; }
+    try {
+      // Persists to Supabase (partner_signatures) for authenticated partners, or
+      // localStorage for the POC demo session. Also sets level / activates partner.
+      await savePartnerSignature(docKey, rec);
+    } catch (ex) {
+      err.textContent = 'Could not record your signature. Please make sure you are signed in as an approved partner and try again.';
+      err.style.display='block';
+      if (btn){ btn.disabled=false; btn.textContent='Sign & submit →'; }
+      return false;
+    }
+    showCertificate(rec);
+    return false;
+  }
+
+  function sigHash(s){ var h=5381; for(var i=0;i<s.length;i++){ h=((h<<5)+h)+s.charCodeAt(i); h=h>>>0; } return 'FP-'+h.toString(16).toUpperCase(); }
+
+  function showCertificate(rec){
+    document.getElementById('sg-form').style.display='none';
+    var rb=document.querySelector('.sg-readbox'); if(rb) rb.style.display='none';
+    document.getElementById('sg-title').textContent='Signature complete';
+    document.getElementById('sg-sub').textContent='';
+    document.getElementById('cert-doc').textContent=cfg.title;
+    document.getElementById('cert-name').textContent=rec.name;
+    document.getElementById('cert-title').textContent=rec.title||'—';
+    document.getElementById('cert-time').textContent=new Date(rec.ts).toLocaleString('en-ZA',{dateStyle:'long',timeStyle:'short'})+' SAST';
+    document.getElementById('cert-vid').textContent=rec.verifyId;
+    document.getElementById('cert-fp').textContent=rec.fingerprint;
+    document.getElementById('sg-cert').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

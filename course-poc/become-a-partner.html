@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Become a Partner — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    .tier-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:32px; }
+    @media(max-width:860px){ .tier-grid{ grid-template-columns:1fr; max-width:480px; margin-left:auto; margin-right:auto; } }
+    .tier-card { border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:28px 26px; background:#fff; display:flex; flex-direction:column; }
+    .tier-card--mid { border-color:var(--green-mid); box-shadow:0 14px 40px rgba(27,67,50,.12); }
+    .tier-card__name { font-weight:800; color:var(--green-dark); font-size:1.15em; }
+    .tier-card__rate { font-size:2.4em; font-weight:800; color:var(--green-dark); line-height:1; margin:10px 0 2px; }
+    .tier-card__rate span { font-size:.34em; font-weight:600; color:var(--muted); }
+    .tier-card__desc { font-size:.86em; color:var(--muted); line-height:1.6; margin-bottom:16px; }
+    .tier-card ul { list-style:none; padding:0; margin:0; font-size:.88em; }
+    .tier-card li { padding:6px 0; display:flex; gap:9px; border-bottom:1px solid var(--bg); }
+    .tier-card li::before { content:'✓'; color:var(--green-mid); font-weight:800; }
+    .ben-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px; }
+    @media(max-width:860px){ .ben-grid{ grid-template-columns:1fr; } }
+    .ben { border:1px solid var(--border); border-radius:var(--radius-lg); padding:22px 24px; background:#fff; }
+    .ben__icon { font-size:1.7em; }
+    .ben h3 { font-size:1em; color:var(--green-dark); margin:10px 0 6px; }
+    .ben p { font-size:.88em; color:var(--muted); margin:0; line-height:1.6; }
+    .steps { counter-reset:s; margin-top:30px; display:grid; gap:14px; }
+    .step { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start; }
+    .step__n { counter-increment:s; width:38px; height:38px; border-radius:50%; background:var(--green-dark); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .step__n::before { content:counter(s); }
+    .step__b strong { color:var(--green-dark); }
+    .step__b p { margin:2px 0 0; font-size:.9em; color:var(--muted); }
+    .gate-cta { background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:34px 38px; margin-top:40px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .gate-cta h2 { color:#fff; margin:0 0 6px; }
+    .gate-cta p { color:rgba(255,255,255,.72); margin:0; font-size:.92em; max-width:540px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/logo.png" alt="AfriversalAI" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="about.html">About</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="about.html">About the Founders</a></li>
+          <li><a href="funda-five.html">The Funda Five</a></li>
+          <li><a href="certificate.html">The Certificate</a></li>
+        </ul>
+      </li>
+      <li><a href="course.html">The Course</a></li>
+      <li class="nav__dropdown">
+        <a href="course-outline.html">Curriculum</a>
+        <ul class="nav__dropdown-menu">
+          <li><a href="course-outline.html">Framework Overview</a></li>
+          <li><a href="course-timetable.html">Q3 2026 Timetable</a></li>
+          <li><a href="outline-foundation.html">Why &amp; Who</a></li>
+          <li><a href="outline-funda-five.html">The Funda Five</a></li>
+          <li><a href="outline-core-modules.html">Core Modules</a></li>
+          <li><a href="outline-sector-tracks.html">Sector Tracks</a></li>
+          <li><a href="outline-delivery.html">Delivery &amp; Assessment</a></li>
+          <li><a href="outline-cohorts.html">Layer 3 Cohorts</a></li>
+          <li><a href="outline-pathways.html">Pathways</a></li>
+        </ul>
+      </li>
+      <li><a href="module-0.html">Preview Course</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="become-a-partner.html" class="active">Partners</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav__login"><a href="login.html">Log in</a></li>
+      <li><a href="register.html" class="btn btn--gold btn--sm">Register &rarr;</a></li>
+    </ul>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="en" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button type="button" data-lang-btn="af" onclick="setLang('af')" aria-label="Switch to Afrikaans">AF</button>
+      <button type="button" data-lang-btn="fr" onclick="setLang('fr')" aria-label="Switch to French">FR</button>
+      <button type="button" data-lang-btn="zu" onclick="setLang('zu')" aria-label="Switch to isiZulu">ZU</button>
+    </div>
+    <button class="nav__hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span><span class="nav__hamburger__bar"></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="eyebrow eyebrow--light">AfriversalAI Enterprise Partner Programme</span>
+  <h1>Bring AI capability to African institutions &mdash; and earn from it.</h1>
+  <p class="lead lead--light">Become a trusted AfriversalAI ambassador. Introduce banks, government, universities and enterprises to responsible AI literacy, governance and executive education &mdash; and earn meaningful, recurring commission while we handle delivery, assessment and accreditation.</p>
+  <div style="margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a href="#apply" class="btn btn--gold btn--lg">Apply to become a partner &rarr;</a>
+    <a href="partner-login.html" class="btn btn--white btn--lg">Partner sign in</a>
+  </div>
+</section>
+
+<!-- WHY PARTNER -->
+<section class="bg-white">
+  <div class="container">
+    <span class="eyebrow">Why partner with AfriversalAI</span>
+    <h2>A real product, a respected brand, and recurring reward.</h2>
+    <p class="lead">You open the door; we do the rest &mdash; pricing, proposals, curriculum, facilitation, assessment and customer success. You focus on relationships and earn on every contract you help secure.</p>
+    <div class="ben-grid">
+      <div class="ben"><div class="ben__icon">💸</div><h3>Earn up to 25%</h3><p>Acquisition commission of 20&ndash;25% on Net Collected Revenue, plus growth commission on renewals and expansion.</p></div>
+      <div class="ben"><div class="ben__icon">🏦</div><h3>Sell into the top end</h3><p>Banks, telecoms, insurers, mining, government, SOEs and universities &mdash; high-value enterprise opportunities.</p></div>
+      <div class="ben"><div class="ben__icon">🤝</div><h3>We deliver, you relate</h3><p>AfriversalAI owns delivery, facilitation, certification and support. No fulfilment burden on you.</p></div>
+      <div class="ben"><div class="ben__icon">🛡️</div><h3>Protected opportunities</h3><p>Registered opportunities are protected while you stay actively engaged &mdash; clear rules of engagement.</p></div>
+      <div class="ben"><div class="ben__icon">🌍</div><h3>A brand that travels</h3><p>Responsible, African-centred AI education with global standards &mdash; credible with institutional buyers.</p></div>
+      <div class="ben"><div class="ben__icon">📈</div><h3>Enablement &amp; support</h3><p>Approved collateral, product briefings, opportunity registration, commission statements and pipeline visibility.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="bg-pale">
+  <div class="container">
+    <span class="eyebrow">Partner accreditation levels</span>
+    <h2>Three tiers. One standard of integrity.</h2>
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-card__name">Associate</div>
+        <div class="tier-card__rate">20%<span> / acquisition</span></div>
+        <div class="tier-card__desc">Introduce and qualify opportunities, arrange executive introductions and promote approved offerings.</div>
+        <ul><li>Introduce &amp; qualify</li><li>Executive introductions</li><li>Approved collateral</li></ul>
+      </div>
+      <div class="tier-card tier-card--mid">
+        <div class="tier-card__name">Professional</div>
+        <div class="tier-card__rate">22%<span> / acquisition</span></div>
+        <div class="tier-card__desc">Actively involved through discovery, proposals, procurement support and commercial execution.</div>
+        <ul><li>Everything in Associate</li><li>Discovery &amp; proposal support</li><li>Procurement assistance</li></ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-card__name">Strategic</div>
+        <div class="tier-card__rate">25%<span> / acquisition</span></div>
+        <div class="tier-card__desc">Invitation or executive-approved partners trusted with major enterprise, government or multi-country opportunities.</div>
+        <ul><li>Everything in Professional</li><li>Major / multi-country deals</li><li>Strategic account recognition</li></ul>
+      </div>
+    </div>
+    <p style="font-size:.82em; color:var(--muted); margin-top:18px;">Growth commission: Year 2 &mdash; 10%; Year 3 onwards &mdash; 5%, subject to meaningful ongoing contribution. Full terms in the Enterprise Partner Handbook and your Commercial Schedule.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="bg-white">
+  <div class="container">
+    <span class="eyebrow">How it works</span>
+    <h2>From application to your first commission.</h2>
+    <div class="steps">
+      <div class="step"><div class="step__n"></div><div class="step__b"><strong>Apply</strong><p>Submit the partner application. We assess capability, credibility and strategic fit.</p></div></div>
+      <div class="step"><div class="step__n"></div><div class="step__b"><strong>Approval &amp; due diligence</strong><p>We verify registration, tax and references, then issue your permanent Partner ID.</p></div></div>
+      <div class="step"><div class="step__n"></div><div class="step__b"><strong>Contracting</strong><p>Sign the NDA, Enterprise Partner Agreement and your Commercial Schedule.</p></div></div>
+      <div class="step"><div class="step__n"></div><div class="step__b"><strong>Onboarding</strong><p>Access the Partner Portal &mdash; Welcome Pack, Handbook, collateral and registration tools.</p></div></div>
+      <div class="step"><div class="step__n"></div><div class="step__b"><strong>Activate &amp; earn</strong><p>Register opportunities, support deals, and earn commission on every contract secured.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="bg-pale" id="apply">
+  <div class="container--sm">
+    <span class="eyebrow">Apply</span>
+    <h2>Express your interest in becoming a partner.</h2>
+    <p class="lead">Tell us about you and your network. Our Partner Programme Office will be in touch about next steps and due diligence.</p>
+    <form id="apply-form" onsubmit="return submitApplication(event)" style="margin-top:24px; display:grid; gap:14px; max-width:560px;">
+      <input type="text" name="_gotcha" id="p-gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+      <div id="apply-msg" style="display:none; border-radius:var(--radius); padding:13px 15px; font-size:.9em;"></div>
+      <div><label for="p-name" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Full name</label>
+        <input id="p-name" name="name" type="text" required style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
+      <div><label for="p-org" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Company / organisation</label>
+        <input id="p-org" name="organisation" type="text" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
+      <div><label for="p-email" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Email</label>
+        <input id="p-email" name="email" type="email" required style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
+      <div><label for="p-country" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Country &amp; sectors you serve</label>
+        <input id="p-country" name="country_sectors" type="text" placeholder="e.g. South Africa — banking, government" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
+      <div><label for="p-about" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Tell us about your network &amp; why you'd be a strong partner</label>
+        <textarea id="p-about" name="about" rows="4" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea></div>
+      <button type="submit" id="apply-submit" class="btn btn--primary btn--lg">Submit application &rarr;</button>
+      <p style="font-size:.78em; color:var(--muted); margin:0;">By applying you agree to our <a href="privacy.html">Privacy Policy</a>. Approval is at AfriversalAI's discretion.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ALREADY A PARTNER -->
+<section class="bg-white">
+  <div class="container">
+    <div class="gate-cta">
+      <div>
+        <h2>Already an approved partner?</h2>
+        <p>Sign in to your Partner Portal for the Welcome Pack, Handbook, Agreement, Commercial Schedule, NDA and your registration tools.</p>
+      </div>
+      <a href="partner-login.html" class="btn btn--gold btn--lg" style="flex-shrink:0;">Partner sign in &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="assets/logo-white.png" alt="AfriversalAI" style="height:36px; width:auto; margin:0 auto 10px; display:block;" />
+  <span data-i18n="footer_tagline">AI Literacy for South African Workplaces</span><br>
+  <span style="margin-top:8px;display:block;">&copy; 2026 AfriversalAI &middot; <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a></span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+  // Partner applications are written to the Supabase `partner_applications` table
+  // (anon insert is allowed by RLS; only admins can read them in the console).
+  async function submitApplication(e){
+    e.preventDefault();
+    var msg = document.getElementById('apply-msg');
+    var btn = document.getElementById('apply-submit');
+    msg.style.display = 'none';
+    if (document.getElementById('p-gotcha').value) return false; // spam honeypot
+    var name = document.getElementById('p-name').value.trim();
+    var email = document.getElementById('p-email').value.trim();
+    if (!name || !email) {
+      msg.textContent = 'Please add your name and email.';
+      msg.style.cssText += ';display:block;background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;';
+      return false;
+    }
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Submitting…';
+    var payload = {
+      name: name,
+      organisation: document.getElementById('p-org').value.trim() || null,
+      email: email,
+      country_sectors: document.getElementById('p-country').value.trim() || null,
+      about: document.getElementById('p-about').value.trim() || null
+    };
+    try {
+      var res = await _supabase.from('partner_applications').insert(payload);
+      if (res.error) throw res.error;
+      document.getElementById('apply-form').reset();
+      msg.innerHTML = '<strong>Thank you — your application has been received.</strong><br>Our Partner Programme Office will be in touch about next steps and due diligence.';
+      msg.style.cssText += ';display:block;background:#ECFDF5;border:1px solid #A7F3D0;color:#065F46;';
+      btn.style.display = 'none';
+    } catch (ex) {
+      msg.innerHTML = 'Sorry — we could not submit your application right now. Please email <a href="mailto:ask@afriversal.ai" style="color:#B91C1C;font-weight:700;">ask@afriversal.ai</a>.';
+      msg.style.cssText += ';display:block;background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;';
+      btn.disabled = false; btn.textContent = label;
+    }
+    return false;
+  }
+</script>
+<script src="assets/translations.js"></script>
+<script src="assets/lang.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>
