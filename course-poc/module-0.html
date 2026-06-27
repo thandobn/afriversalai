@@ -1354,38 +1354,6 @@ function syncProgressAria() {
   if (bar) bar.setAttribute('aria-valuenow', bar.querySelectorAll('.is-done').length);
 }
 
-// --- Slideshow navigation ---
-
-function showPhase(n) {
-  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
-  var phase = document.getElementById('phase-' + n);
-  if (!phase) return;
-  phase.classList.add('is-active');
-  var screens = phase.querySelectorAll('.phase-screen');
-  screens.forEach(function(s) { s.classList.remove('is-active'); });
-  if (screens.length > 0) screens[0].classList.add('is-active');
-  updateTracker(n);
-  saveM0Pos(n, null);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function showScreen(phaseNum, screenId) {
-  var phase = document.getElementById('phase-' + phaseNum);
-  if (!phase) return;
-  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
-  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
-  if (target) target.classList.add('is-active');
-  var header = phase.querySelector('.phase__header');
-  if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
-  saveM0Pos(phaseNum, screenId);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  // Keep lesson tracker dots in sync whenever a lesson screen is shown (including resume)
-  if (phaseNum === 0) {
-    var m = String(screenId).match(/^L(\d+)$/);
-    if (m) _setLessonDots(parseInt(m[1]));
-  }
-}
-
 function goBack(toPhase) { showPhase(toPhase); }
 
 // Remember exactly where the learner is (phase + screen) so they resume mid-session.
@@ -1398,17 +1366,6 @@ function showTeaserGate() {
   document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
   document.getElementById('teaser-gate').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function updateTracker(activePhaseNum) {
-  [0, 1, 2, 3].forEach(function(i) {
-    var step = document.getElementById('prog-' + i);
-    if (!step) return;
-    step.classList.remove('is-active');
-    if (i < activePhaseNum) { if (!step.classList.contains('is-done')) step.classList.add('is-done'); }
-    else if (i === activePhaseNum) { step.classList.add('is-active'); }
-  });
-  syncProgressAria();
 }
 
 function goDeeper() {
@@ -1704,7 +1661,22 @@ function retakeQuizP3() {
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
+<script src="assets/module-engine.js"></script>
 <script>
+window.MODULE_CONFIG = {
+  onPhaseEnter: function(n) { saveM0Pos(n, null); },
+  onScreenChange: function(phaseNum, screenId, phase) {
+    var header = phase.querySelector('.phase__header');
+    if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
+    saveM0Pos(phaseNum, screenId);
+    if (phaseNum === 0) {
+      var m = String(screenId).match(/^L(\d+)$/);
+      if (m) _setLessonDots(parseInt(m[1]));
+    }
+  },
+  afterTrackerUpdate: function() { syncProgressAria(); }
+};
+
   // If logged in: update nav + unlock all phases (skip teaser gate)
   getSession().then(async session => {
     await updateNavForAuth()

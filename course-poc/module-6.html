@@ -564,39 +564,10 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
+<script src="assets/module-engine.js"></script>
 <script src="assets/nav.js"></script>
 
 <script>
-function updateTracker(n) {
-  [0,1,2,3].forEach(function(i) {
-    var s = document.getElementById('prog-' + i);
-    if (!s) return;
-    s.classList.remove('is-active');
-    if (i < n) { if (!s.classList.contains('is-done')) s.classList.add('is-done'); }
-    else if (i === n) s.classList.add('is-active');
-  });
-}
-
-function showPhase(n) {
-  document.querySelectorAll('.phase').forEach(function(p) { p.classList.remove('is-active'); });
-  var phase = document.getElementById('phase-' + n);
-  if (!phase) return;
-  phase.classList.add('is-active');
-  var screens = phase.querySelectorAll('.phase-screen');
-  screens.forEach(function(s) { s.classList.remove('is-active'); });
-  if (screens.length > 0) screens[0].classList.add('is-active');
-  updateTracker(n);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function showScreen(phaseNum, screenId) {
-  var phase = document.getElementById('phase-' + phaseNum);
-  if (!phase) return;
-  phase.querySelectorAll('.phase-screen').forEach(function(s) { s.classList.remove('is-active'); });
-  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
-  if (target) target.classList.add('is-active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
 
 function advancePhase(fromPhase) {
   var errEl = document.getElementById('err-' + fromPhase);

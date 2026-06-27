@@ -686,11 +686,20 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
+<script src="assets/module-engine.js"></script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
 <script src="assets/nav.js"></script>
 
 <script>
+window.MODULE_CONFIG = {
+  restorePhaseHeader: true,
+  onScreenChange: function(phaseNum, screenId, phase) {
+    var header = phase.querySelector('.phase__header');
+    if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
+  }
+};
+
 // ── Lesson dot tracker for Concept phase (3 sections) ─────────────────────
 (function () {
   var lessons = [
@@ -726,48 +735,6 @@
   });
 })();
 
-// ── Progress tracker ───────────────────────────────────────────────────────
-function updateTracker(activePhaseNum) {
-  [0, 1, 2, 3].forEach(function (i) {
-    var step = document.getElementById('prog-' + i);
-    if (!step) return;
-    step.classList.remove('is-active');
-    if (i < activePhaseNum) {
-      if (!step.classList.contains('is-done')) step.classList.add('is-done');
-    } else if (i === activePhaseNum) {
-      step.classList.add('is-active');
-    }
-  });
-}
-
-// ── Phase display ──────────────────────────────────────────────────────────
-function showPhase(n) {
-  document.querySelectorAll('.phase').forEach(function (p) { p.classList.remove('is-active'); });
-  var phase = document.getElementById('phase-' + n);
-  if (!phase) return;
-  phase.classList.add('is-active');
-  // Always restore header visibility when entering a phase fresh
-  var header = phase.querySelector('.phase__header');
-  if (header) header.style.display = '';
-  // Reset to first screen if the phase has sub-screens
-  var screens = phase.querySelectorAll('.phase-screen');
-  screens.forEach(function (s) { s.classList.remove('is-active'); });
-  if (screens.length > 0) screens[0].classList.add('is-active');
-  updateTracker(n);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function showScreen(phaseNum, screenId) {
-  var phase = document.getElementById('phase-' + phaseNum);
-  if (!phase) return;
-  phase.querySelectorAll('.phase-screen').forEach(function (s) { s.classList.remove('is-active'); });
-  var target = document.getElementById('ps-' + phaseNum + '-' + screenId);
-  if (target) target.classList.add('is-active');
-  // Hide phase header when on quiz screen
-  var header = phase.querySelector('.phase__header');
-  if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
 
 // ── Phase advance ──────────────────────────────────────────────────────────
 function advancePhase(fromPhase) {
