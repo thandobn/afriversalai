@@ -1149,3 +1149,38 @@ footer a { color: rgba(255,255,255,0.7); }
   .funda-apply-step { flex-direction: column; }
   .preview-end-phases { flex-direction: column; }
 }
+
+/* ============================================================
+   OUR DIFFERENCE — value selling position (About Us + Home)
+   ============================================================ */
+.od-headline { font-size: 2em; font-weight: 800; color: var(--green-dark); line-height: 1.2; max-width: 760px; }
+.od-intro { font-size: 1.05em; color: var(--muted); line-height: 1.7; max-width: 720px; margin-top: 12px; }
+.od-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 36px 0 8px; }
+.od-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; position: relative; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
+.od-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(var(--green-mid), var(--gold)); }
+.od-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(27,67,50,.14); border-color: var(--green-mid); }
+.od-card__ic { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; background: linear-gradient(150deg, var(--green-mid), var(--green-dark)); margin-bottom: 14px; }
+.od-card__ic svg { width: 26px; height: 26px; }
+.od-card__t { font-weight: 800; color: var(--green-dark); font-size: 1.02em; margin-bottom: 6px; }
+.od-card__b { font-size: .88em; color: var(--muted); line-height: 1.6; }
+
+.od-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 36px; border-radius: var(--radius-lg); border: 1.5px solid var(--border); }
+.od-table { width: 100%; border-collapse: collapse; font-size: .87em; min-width: 720px; background: #fff; }
+.od-table thead th { padding: 14px 14px; text-align: left; font-size: .74em; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; background: var(--green-dark); color: rgba(255,255,255,.75); vertical-align: bottom; }
+.od-table thead th.us { background: var(--gold); color: var(--green-dark); font-size: .9em; text-transform: none; letter-spacing: 0; border-left: 2px solid var(--gold-dark); border-right: 2px solid var(--gold-dark); box-shadow: 0 -4px 14px rgba(233,196,106,.5); }
+.od-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+.od-table tbody tr:last-child td { border-bottom: none; }
+.od-table td:first-child { font-weight: 700; font-size: .8em; color: var(--text); text-transform: uppercase; letter-spacing: .3px; white-space: nowrap; background: #FAFBFA; }
+.od-table td.us-col { background: #FFFBEC; font-weight: 700; color: var(--green-dark); border-left: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+.od-table tbody tr:last-child td.us-col { border-bottom: 2px solid var(--gold); }
+.od-yes { color: var(--green-mid); font-weight: 800; }
+.od-part { color: var(--gold-dark); font-weight: 700; }
+.od-no { color: #C0C7C2; }
+.od-note { font-size: .78em; color: var(--muted); text-align: center; margin-top: 18px; }
+@media (max-width: 900px) {
+  .od-cards { grid-template-columns: repeat(2, 1fr); }
+  .od-headline { font-size: 1.6em; }
+}
+@media (max-width: 520px) {
+  .od-cards { grid-template-columns: 1fr; }
+}
