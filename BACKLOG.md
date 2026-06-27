@@ -50,6 +50,7 @@ Last updated: June 2026
 
 | # | Item | Owner | Effort | Notes |
 |---|------|-------|--------|-------|
+| T2 | **DocuSign (or equivalent) e-signature migration** — current internal e-sign system (`esign.js` + `partner_signatures` table) is legally grounded under ECTA 25 of 2002 and appropriate for pilot. Migrate to DocuSign or a recognised third-party platform before scaling to enterprise clients — procurement teams at large corporates expect a named provider for audit trails and compliance sign-off. Decision point: DocuSign (enterprise standard, pricey), HelloSign/Dropbox Sign (mid-market), or BoldSign/SignWell (more affordable). Current system stays in place until then. | Thando | Research + integration sprint | Enterprise procurement credibility — not a pilot blocker |
 | T1 | **Knowledge check answer persistence** — answers entered in module knowledge checks are held in JS memory only; navigating away (e.g. to dashboard mid-phase) clears them. Phase completion itself saves correctly to Supabase. Fix: save answers to localStorage on each selection so returning mid-phase restores state. Low risk, self-contained change per module file. | Thando/Dev | 1–2 hrs per module | UX friction only — does not affect data integrity or progress tracking |
 
 ---

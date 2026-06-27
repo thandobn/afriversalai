@@ -67,3 +67,80 @@ function updateTracker(activePhaseNum) {
     window.MODULE_CONFIG.afterTrackerUpdate(activePhaseNum)
   }
 }
+
+function goBack(toPhase) { showPhase(toPhase); }
+
+// === Quiz option shuffle (runs on load) ===
+function shuffleQuizOptions() {
+  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
+    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
+    for (var i = labels.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
+    }
+    labels.forEach(function(label) { opts.appendChild(label); });
+  });
+}
+document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
+
+// Click a completed or active progress step to jump to that phase
+document.addEventListener('DOMContentLoaded', function() {
+  [0, 1, 2, 3].forEach(function(i) {
+    var step = document.getElementById('prog-' + i);
+    if (!step) return;
+    step.addEventListener('click', function() {
+      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
+        showPhase(i);
+      }
+    });
+  });
+});
+
+// Shared AI-Tutor verdict banner markup (used by every knowledge check)
+function tutorVerdictHTML(pass, correct, total, msg) {
+  var head = pass ? 'Demonstrated!' : 'Not yet';
+  return '<div class="tutor-verdict__avatar">🎓</div>'
+    + '<div class="tutor-verdict__body">'
+    + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
+    + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
+    + '<div class="tutor-verdict__msg">' + msg + '</div>'
+    + '</div>';
+}
+
+// Mark one knowledge check. names: input name prefix. fbPrefix: feedback id prefix.
+function markCheck(names, fbPrefix, n, exp) {
+  var allAnswered = true, wrong = 0;
+  for (var i = 0; i < n; i++) {
+    var sel = document.querySelector('input[name="' + names + i + '"]:checked');
+    var fb = document.getElementById(fbPrefix + i);
+    if (!sel) { allAnswered = false; continue; }
+    var label = sel.closest('label');
+    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    var isOk = label.dataset.correct === 'true';
+    fb.style.display = 'block';
+    if (isOk) {
+      fb.className = 'quiz-feedback tutor-note tutor-note--ok';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + exp[i].ok + '</div>';
+      label.classList.add('quiz-opt--ok');
+      document.querySelectorAll('input[name="' + names + i + '"]').forEach(function(r) { r.disabled = true; });
+    } else {
+      wrong++;
+      fb.className = 'quiz-feedback tutor-note tutor-note--no';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + exp[i].no + '</div>';
+      label.classList.add('quiz-opt--no');
+    }
+  }
+  return { allAnswered: allAnswered, wrong: wrong };
+}
+
+// Reset one knowledge check for a retake.
+function resetCheck(names, fbPrefix, n) {
+  for (var i = 0; i < n; i++) {
+    document.querySelectorAll('input[name="' + names + i + '"]').forEach(function(r) {
+      r.checked = false; r.disabled = false;
+      var l = r.closest('label'); if (l) l.classList.remove('quiz-opt--ok', 'quiz-opt--no');
+    });
+    var fb = document.getElementById(fbPrefix + i);
+    if (fb) { fb.style.display = 'none'; fb.className = 'quiz-feedback'; fb.innerHTML = ''; }
+  }
+}

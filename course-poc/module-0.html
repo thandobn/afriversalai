@@ -193,8 +193,8 @@
   <div style="max-width:1440px; margin:0 auto;">
     <span class="eyebrow eyebrow--light" data-i18n="m0_eyebrow">Module 0 &middot; Foundation &middot; Free &mdash; start here</span>
     <h1 data-i18n-html="m0_h1">AI Fundamentals:<br>What Is It, Really?</h1>
-    <p class="lead" data-i18n="m0_lead">Before we get into AI judgment, we need to build a shared foundation. No assumptions. No jargon. This module applies to every learner, every sector &mdash; it's where we all start. This module starts with concepts rather than a case study &mdash; because AI is new territory for most learners here, and the framing first helps you recognise what you are about to encounter.</p>
-    <div class="m0-objectives" data-i18n-html="m0_objectives_html"><strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the four types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one AI system you already encounter at work and classify it by type</li></ol></div>
+    <p class="lead" data-i18n-html="m0_lead">Before we get into AI judgment, we need a shared foundation.<br>No assumptions. No jargon.<br>This module applies to every learner and every sector &mdash; it introduces the concepts you need to recognise AI in your work, understand what it can and cannot do, and spot when confident-sounding outputs may still be wrong. We start with concepts rather than a case study, because AI is new territory for most learners here and the framing helps you recognise what you are about to encounter.</p>
+    <div class="m0-objectives" data-i18n-html="m0_objectives_html"><strong>By the end of this module, you will be able to:</strong><ol><li>Explain the difference between AI and non-AI software using examples from your own work</li><li>Name and describe the four types of AI you are most likely to encounter at work in South Africa</li><li>Explain why AI outputs can sound authoritative and still be wrong</li><li>Identify at least one system or tool you use at work and assess whether it uses AI</li></ol></div>
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">55 minutes &middot; 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">All sectors &middot; No technical background required</span>
@@ -1146,7 +1146,7 @@
       <div class="phase__body">
         <div class="phase-screen is-active" id="ps-3-content">
         <button type="button" class="phase-back-top" onclick="goBack(2)">&larr; Back to Reflect</button>
-        <p data-i18n="p3_intro">You've seen what AI is, what it isn't, and the three types you're most likely to encounter. Now bring it to your world.</p>
+        <p data-i18n="p3_intro">You've seen what AI is, what it isn't, and the four types you're most likely to encounter. Now bring it to your world.</p>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
           <p style="font-weight:700; margin-bottom:16px;" data-i18n="p3_q_label">Answer these three questions about your own workplace:</p>
@@ -1353,8 +1353,6 @@ function syncProgressAria() {
   if (bar) bar.setAttribute('aria-valuenow', bar.querySelectorAll('.is-done').length);
 }
 
-function goBack(toPhase) { showPhase(toPhase); }
-
 // Remember exactly where the learner is (phase + screen) so they resume mid-session.
 function saveM0Pos(phase, screen) {
   if (!window._m0Uid) return;
@@ -1455,31 +1453,7 @@ function advancePhase(fromPhase) {
   }
 }
 
-// === Quiz option shuffle (runs on load and on reset) ===
-function shuffleQuizOptions() {
-  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
-    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
-    for (var i = labels.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
-    }
-    labels.forEach(function(label) { opts.appendChild(label); });
-  });
-}
-document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
 
-// Click a completed or active progress step to jump to that phase
-document.addEventListener('DOMContentLoaded', function() {
-  [0, 1, 2, 3].forEach(function(i) {
-    var step = document.getElementById('prog-' + i);
-    if (!step) return;
-    step.addEventListener('click', function() {
-      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
-        showPhase(i);
-      }
-    });
-  });
-});
 
 // === Phase 1 Knowledge Check (3 questions — core concepts) ===
 
@@ -1500,55 +1474,6 @@ var P1_EXP = [
     no: 'Shortlisting scores and classifies applications \u2014 that\u2019s Predictive / Decision AI, not generative or vision. And yes, AI is widely used in hiring.' },
 ];
 var P1_N = 7;
-
-// Shared AI-Tutor verdict banner markup (used by every knowledge check)
-function tutorVerdictHTML(pass, correct, total, msg) {
-  var head = pass ? 'Demonstrated!' : 'Not yet';
-  return '<div class="tutor-verdict__avatar">\ud83c\udf93</div>'
-    + '<div class="tutor-verdict__body">'
-    + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
-    + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
-    + '<div class="tutor-verdict__msg">' + msg + '</div>'
-    + '</div>';
-}
-
-// Mark one knowledge check. names: input name prefix (e.g. 'p1_q'). fbPrefix: feedback id prefix (e.g. 'p1qf-').
-function markCheck(names, fbPrefix, n, exp) {
-  var allAnswered = true, wrong = 0;
-  for (var i = 0; i < n; i++) {
-    var sel = document.querySelector('input[name="' + names + i + '"]:checked');
-    var fb = document.getElementById(fbPrefix + i);
-    if (!sel) { allAnswered = false; continue; }
-    var label = sel.closest('label');
-    label.classList.remove('quiz-opt--ok', 'quiz-opt--no');
-    var isOk = label.dataset.correct === 'true';
-    fb.style.display = 'block';
-    if (isOk) {
-      fb.className = 'quiz-feedback tutor-note tutor-note--ok';
-      fb.innerHTML = '<div class="tutor-note__label">\ud83c\udf93 AI Tutor \u00b7 Correct</div><div class="tutor-note__text">' + exp[i].ok + '</div>';
-      label.classList.add('quiz-opt--ok');
-      document.querySelectorAll('input[name="' + names + i + '"]').forEach(function(r) { r.disabled = true; });
-    } else {
-      wrong++;
-      fb.className = 'quiz-feedback tutor-note tutor-note--no';
-      fb.innerHTML = '<div class="tutor-note__label">\ud83c\udf93 AI Tutor \u00b7 Review this</div><div class="tutor-note__text">' + exp[i].no + '</div>';
-      label.classList.add('quiz-opt--no');
-    }
-  }
-  return { allAnswered: allAnswered, wrong: wrong };
-}
-
-// Reset one knowledge check for a retake.
-function resetCheck(names, fbPrefix, n) {
-  for (var i = 0; i < n; i++) {
-    document.querySelectorAll('input[name="' + names + i + '"]').forEach(function(r) {
-      r.checked = false; r.disabled = false;
-      var l = r.closest('label'); if (l) l.classList.remove('quiz-opt--ok', 'quiz-opt--no');
-    });
-    var fb = document.getElementById(fbPrefix + i);
-    if (fb) { fb.style.display = 'none'; fb.className = 'quiz-feedback'; fb.innerHTML = ''; }
-  }
-}
 
 function submitQuizP1() {
   var res = markCheck('p1_q', 'p1qf-', P1_N, P1_EXP);

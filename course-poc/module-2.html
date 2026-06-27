@@ -920,8 +920,6 @@
   });
 })();
 
-function goBack(toPhase) { showPhase(toPhase); }
-
 // Remember exactly where the learner is so they resume mid-session.
 function saveM2Pos(phase, screen) {
   if (!window._m2Uid) return;
@@ -982,17 +980,6 @@ var QUIZ_CONCEPT_EXP = [
     no: 'This is distributional shift: the model works for the population it was trained on, but meets a meaningfully different one at deployment. It wasn\'t wrong — it just wasn\'t built for this population.' },
 ];
 var QUIZ_CONCEPT_N = 9;
-
-// Shared AI-Tutor verdict banner markup
-function tutorVerdictHTML(pass, correct, total, msg) {
-  var head = pass ? 'Demonstrated!' : 'Not yet';
-  return '<div class="tutor-verdict__avatar">🎓</div>'
-    + '<div class="tutor-verdict__body">'
-    + '<div class="tutor-verdict__tag">Concept Check &middot; Marking</div>'
-    + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
-    + '<div class="tutor-verdict__msg">' + msg + '</div>'
-    + '</div>';
-}
 
 function submitQuizConcept() {
   var allAnswered = true;
@@ -1126,31 +1113,6 @@ function advancePhase(fromPhase) {
   }
 }
 
-// Quiz option shuffle
-function shuffleQuizOptions() {
-  document.querySelectorAll('.quiz-opts').forEach(function(opts) {
-    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
-    for (var i = labels.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
-    }
-    labels.forEach(function(label) { opts.appendChild(label); });
-  });
-}
-document.addEventListener('DOMContentLoaded', shuffleQuizOptions);
-
-// Click a completed/active progress step to jump
-document.addEventListener('DOMContentLoaded', function() {
-  [0, 1, 2, 3].forEach(function(i) {
-    var step = document.getElementById('prog-' + i);
-    if (!step) return;
-    step.addEventListener('click', function() {
-      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
-        showPhase(i);
-      }
-    });
-  });
-});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>

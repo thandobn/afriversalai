@@ -827,17 +827,6 @@ function submitQuizM1() {
   }
 }
 
-// Shuffle quiz options on load (prevents position bias)
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.quiz-opts').forEach(function (opts) {
-    var labels = Array.from(opts.querySelectorAll('label.quiz-opt'));
-    for (var i = labels.length - 1; i > 0; i--) {
-      var j   = Math.floor(Math.random() * (i + 1));
-      var tmp = labels[i]; labels[i] = labels[j]; labels[j] = tmp;
-    }
-    labels.forEach(function (label) { opts.appendChild(label); });
-  });
-});
 
 // ── Apply submit ───────────────────────────────────────────────────────────
 function completeModule1() {
@@ -874,18 +863,6 @@ function completeModule1() {
   }, 100);
 }
 
-// ── Clickable progress steps ───────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function () {
-  [0, 1, 2, 3].forEach(function (i) {
-    var step = document.getElementById('prog-' + i);
-    if (!step) return;
-    step.addEventListener('click', function () {
-      if (step.classList.contains('is-done') || step.classList.contains('is-active')) {
-        showPhase(i);
-      }
-    });
-  });
-});
 </script>
 
 <script>
