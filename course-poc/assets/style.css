@@ -1200,3 +1200,10 @@ footer a { color: rgba(255,255,255,0.7); }
 .statement-band__stat b { display: block; font-size: 1.9em; font-weight: 800; color: var(--gold); line-height: 1; }
 .statement-band__stat span { font-size: .82em; color: rgba(255,255,255,.78); }
 @media (max-width: 640px) { .statement-band { padding: 38px 26px; } .statement-band__h { font-size: 1.5em; } }
+
+/* Brand panel — crisp gradient fill that replaces low-res photos in image slots */
+.brand-panel { position: relative; overflow: hidden; background: linear-gradient(140deg, var(--green-dark) 0%, #0c2419 58%, var(--green-mid) 138%); }
+.brand-panel::before { content: ''; position: absolute; right: -70px; top: -70px; width: 260px; height: 260px; background: radial-gradient(circle, rgba(233,196,106,.32), transparent 70%); pointer-events: none; }
+.brand-panel::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.07) 1.3px, transparent 1.3px); background-size: 20px 20px; opacity: .55; pointer-events: none; }
+.brand-panel__art { position: absolute; right: 14px; bottom: 6px; color: rgba(255,255,255,.07); pointer-events: none; }
+.brand-panel__art svg { width: 190px; height: 190px; }
