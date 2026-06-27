@@ -786,7 +786,7 @@ footer a { color: rgba(255,255,255,0.7); }
 }
 
 .sector-callout { background: var(--green-dark); padding: 52px 0; }
-.sector-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+.sector-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: nowrap; margin-bottom: 36px; }
 .sector-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 8px 18px; font-size: 0.85em; color: white; font-weight: 600; }
 
 /* ---- Sector cards ---- */
