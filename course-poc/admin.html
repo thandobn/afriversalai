@@ -59,6 +59,10 @@
     .co-members th { text-align:left; color:var(--muted); font-size:0.92em; padding:5px 8px; border-bottom:1px solid var(--border); }
     .co-members td { padding:6px 8px; border-bottom:1px solid var(--border); }
     .co-members .mid { font-family:ui-monospace,monospace; font-weight:700; color:var(--green-dark); }
+    .adm-modeswitch { display:inline-flex; border:1.5px solid var(--border); border-radius:30px; overflow:hidden; }
+    .adm-modeswitch button { appearance:none; border:none; background:none; font-family:inherit; font-size:0.78em; font-weight:700; padding:6px 14px; cursor:pointer; color:var(--muted); }
+    .adm-modeswitch button.is-active { background:var(--green-dark); color:#fff; }
+    .adm-name .msg-dot { display:inline-block; }
     .adm-mock-note { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); background: var(--gold-light); border: 1px solid var(--gold); padding: 4px 12px; border-radius: 20px; }
 
     /* Tabs */
@@ -210,7 +214,10 @@
   <div class="adm-bar">
     <h2>All registered students</h2>
     <div style="display:flex; align-items:center; gap:10px;">
-      <span class="adm-mock-note">Sample data</span>
+      <div class="adm-modeswitch">
+        <button type="button" id="mode-live" class="is-active" onclick="setStudentMode('live')">Live</button>
+        <button type="button" id="mode-sample" onclick="setStudentMode('sample')">Sample</button>
+      </div>
       <input type="text" class="adm-search" id="adm-search" placeholder="Search name, org, sector…" oninput="renderTable()" />
     </div>
   </div>
@@ -424,68 +431,137 @@ const STUDENTS = [
 
 let CURRENT = null;
 
-// Mock cohort + any real logged-in learners who have sent a question (thread keys not in the mock set).
-function allStudents() {
-  const t = loadThreads();
-  const mockIds = STUDENTS.map(s => s.id);
-  const extras = Object.keys(t).filter(k => !mockIds.includes(k)).map(k => ({
-    id: k, name: k, email: k, org: '—', sector: '—', joined: '—',
-    pay: { status: 'pending', method: '—', date: '—' }, last: 'Recently',
-    progress: [0,0,0,0,0,0,0], live: 0, real: true,
-  }));
-  return STUDENTS.concat(extras);
+// ----- Live vs sample data source -----
+var ADM_MODE = 'live';     // 'live' = real Supabase learners; 'sample' = demo data
+var ADM_REAL = [];         // cache of mapped real learners
+var ADM_REAL_LOADED = false;
+
+// Map a real profile row (+ its progress rows) into the student shape the UI expects.
+function mapRealStudent(p, progRows) {
+  var arr = [0,0,0,0,0,0,0];
+  (progRows || []).forEach(function (r) {
+    var m = /(\d+)/.exec(r.module_id || '');
+    if (m) { var i = parseInt(m[1], 10); if (i >= 0 && i < arr.length) arr[i] = Math.max(arr[i], Math.min(Number(r.phase) || 0, 4)); }
+  });
+  return {
+    id: p.id, name: p.full_name || p.email || '—', email: p.email || '—',
+    org: p.organisation || '—', sector: p.sector || '—',
+    joined: p.created_at ? ptDate(p.created_at) : '—',
+    member_id: p.member_id || '', organisation_id: p.organisation_id || null,
+    role: p.role || '', progress: arr, live: 0, real: true,
+    last: p.last_seen ? ptRel(p.last_seen) : '—', last_seen: p.last_seen || null,
+    pay: { status: 'na', method: '—', date: '—' }
+  };
+}
+
+async function loadRealStudents() {
+  try {
+    var pr = await _supabase.from('profiles')
+      .select('id, full_name, email, organisation, sector, role, member_id, organisation_id, created_at')
+      .order('created_at', { ascending: false });
+    if (pr.error) throw pr.error;
+    var profiles = pr.data || [];
+    var progByUser = {};
+    try {
+      var gr = await _supabase.from('progress').select('user_id, module_id, phase');
+      (gr.data || []).forEach(function (r) { (progByUser[r.user_id] = progByUser[r.user_id] || []).push(r); });
+    } catch (e) { /* progress unreadable — leave empty */ }
+    ADM_REAL = profiles.map(function (p) { return mapRealStudent(p, progByUser[p.id]); });
+    ADM_REAL_LOADED = true;
+  } catch (e) {
+    ADM_REAL = []; ADM_REAL_LOADED = true;
+  }
+}
+
+function currentStudents() {
+  if (ADM_MODE === 'sample') return STUDENTS;
+  return ADM_REAL;
+}
+
+function setStudentMode(mode) {
+  ADM_MODE = mode;
+  document.getElementById('mode-live').classList.toggle('is-active', mode === 'live');
+  document.getElementById('mode-sample').classList.toggle('is-active', mode === 'sample');
+  renderStats();
+  renderTable();
 }
 
 function pct(progress) { return Math.round(progress.reduce((a, b) => a + Math.min(b, 4), 0) / (MODULES.length * 4) * 100); }
 function unread(id) { const t = loadThreads(); return (t[id] || []).filter(m => m.from === 'student').length; }
 
 function renderStats() {
-  const total = STUDENTS.length;
-  const active = STUDENTS.filter(s => s.last === 'Today' || s.last === 'Yesterday').length;
-  const avg = Math.round(STUDENTS.reduce((a, s) => a + pct(s.progress), 0) / total);
-  const collected = STUDENTS.filter(s => s.pay.status === 'paid').length * PRICE;
-  document.getElementById('st-total').textContent = total + ' / ' + SEAT_CAP;
-  document.getElementById('st-cohort').textContent =
-    (total >= SEAT_CAP ? 'Cohort full' : (SEAT_CAP - total) + ' seats left') + ' · Q3 2026 pilot';
+  const list = currentStudents();
+  const total = list.length;
+  const active = list.filter(s => s.last === 'Today' || s.last === 'Yesterday').length;
+  const avg = total ? Math.round(list.reduce((a, s) => a + pct(s.progress), 0) / total) : 0;
+  if (ADM_MODE === 'sample') {
+    const collected = list.filter(s => s.pay && s.pay.status === 'paid').length * PRICE;
+    document.getElementById('st-total').textContent = total + ' / ' + SEAT_CAP;
+    document.getElementById('st-cohort').textContent =
+      (total >= SEAT_CAP ? 'Cohort full' : (SEAT_CAP - total) + ' seats left') + ' · Q3 2026 pilot';
+    document.getElementById('st-pay').textContent = 'R' + collected.toLocaleString('en-ZA');
+    document.getElementById('st-pay-sub').textContent = 'mock data';
+  } else {
+    document.getElementById('st-total').textContent = total;
+    document.getElementById('st-cohort').textContent = 'Registered learners (live)';
+    document.getElementById('st-pay').textContent = '—';
+    document.getElementById('st-pay-sub').textContent = 'not tracked';
+  }
   document.getElementById('st-active').textContent = active;
   document.getElementById('st-avg').textContent = avg + '%';
-  document.getElementById('st-pay').textContent = 'R' + collected.toLocaleString('en-ZA');
 }
 
 function renderTable() {
   const q = (document.getElementById('adm-search').value || '').toLowerCase();
-  const rows = allStudents().filter(s =>
-    (s.name + ' ' + s.org + ' ' + s.sector).toLowerCase().includes(q)
+  const list = currentStudents();
+  if (ADM_MODE === 'live' && !list.length) {
+    document.getElementById('adm-rows').innerHTML = '<tr><td colspan="6" class="adm-sub" style="text-align:center; padding:24px;">' +
+      (ADM_REAL_LOADED ? 'No learners have registered yet. (Switch to Sample to see demo data.)' : 'Loading registered learners…') + '</td></tr>';
+    return;
+  }
+  const rows = list.filter(s =>
+    (s.name + ' ' + s.org + ' ' + s.sector + ' ' + (s.member_id || '')).toLowerCase().includes(q)
   ).map(s => {
     const p = pct(s.progress);
     const u = unread(s.id);
-    const payCls = 'pay--' + s.pay.status;
-    const payTxt = s.pay.status.charAt(0).toUpperCase() + s.pay.status.slice(1);
+    const pay = s.pay || { status: 'na' };
+    const payCls = 'pay--' + pay.status;
+    const payTxt = pay.status === 'na' ? '—' : pay.status.charAt(0).toUpperCase() + pay.status.slice(1);
+    const mid = s.member_id ? `<div class="adm-sub" style="font-family:ui-monospace,monospace;">${escapeHtml(s.member_id)}</div>` : '';
     return `<tr data-student-id="${escapeHtml(String(s.id))}" style="cursor:pointer">
-      <td><div class="adm-name">${s.name}${s.real ? ' <span class="msg-dot" style="background:var(--gold-dark);">live</span>' : ''}${u ? `<span class="msg-dot">${u} ✉</span>` : ''}</div><div class="adm-sub">${s.email}</div></td>
-      <td>${s.org}</td>
-      <td>${s.sector}</td>
+      <td><div class="adm-name">${escapeHtml(s.name)}${s.real ? ' <span class="msg-dot" style="background:var(--gold-dark);">live</span>' : ''}${u ? `<span class="msg-dot">${u} ✉</span>` : ''}</div><div class="adm-sub">${escapeHtml(s.email)}</div>${mid}</td>
+      <td>${escapeHtml(s.org)}</td>
+      <td>${escapeHtml(s.sector)}</td>
       <td><div class="prog-wrap"><div class="prog-track"><div class="prog-fill" style="width:${p}%"></div></div><span class="prog-pct">${p}%</span></div></td>
       <td><span class="pay ${payCls}">${payTxt}</span></td>
-      <td class="adm-sub">${s.last}</td>
+      <td class="adm-sub">${escapeHtml(s.last)}</td>
     </tr>`;
   }).join('');
   document.getElementById('adm-rows').innerHTML = rows || '<tr><td colspan="6" class="adm-sub" style="text-align:center; padding:24px;">No students match your search.</td></tr>';
 }
 
 function openStudent(id) {
-  const s = allStudents().find(x => x.id === id);
+  const s = currentStudents().find(x => x.id === id);
   if (!s) return;
   CURRENT = s;
   document.getElementById('m-name').textContent = s.name;
-  document.getElementById('m-meta').innerHTML = `${s.email} &middot; ${s.org} &middot; ${s.sector} &middot; Joined ${s.joined}`;
+  const metaBits = [escapeHtml(s.email), escapeHtml(s.org), escapeHtml(s.sector)];
+  if (s.role) metaBits.push(escapeHtml(s.role));
+  metaBits.push('Joined ' + escapeHtml(s.joined));
+  if (s.member_id) metaBits.push('Member ID <span style="font-family:ui-monospace,monospace;font-weight:700;color:var(--green-dark);">' + escapeHtml(s.member_id) + '</span>');
+  document.getElementById('m-meta').innerHTML = metaBits.join(' &middot; ');
 
   // Payment
-  const payTxt = s.pay.status.charAt(0).toUpperCase() + s.pay.status.slice(1);
-  document.getElementById('m-pay').innerHTML = `
-    <div class="pay-box__item"><div class="pay-box__k">Status</div><div class="pay-box__v"><span class="pay pay--${s.pay.status}">${payTxt}</span></div></div>
-    <div class="pay-box__item"><div class="pay-box__k">Amount</div><div class="pay-box__v">R${PRICE.toLocaleString('en-ZA')}</div></div>
-    <div class="pay-box__item"><div class="pay-box__k">Method &middot; Date</div><div class="pay-box__v">${s.pay.method} &middot; ${s.pay.date}</div></div>`;
+  const pay = s.pay || { status: 'na' };
+  if (pay.status === 'na') {
+    document.getElementById('m-pay').innerHTML = '<div class="pay-box__item"><div class="pay-box__k">Status</div><div class="pay-box__v adm-sub">Not tracked for live accounts</div></div>';
+  } else {
+    const payTxt = pay.status.charAt(0).toUpperCase() + pay.status.slice(1);
+    document.getElementById('m-pay').innerHTML = `
+      <div class="pay-box__item"><div class="pay-box__k">Status</div><div class="pay-box__v"><span class="pay pay--${pay.status}">${payTxt}</span></div></div>
+      <div class="pay-box__item"><div class="pay-box__k">Amount</div><div class="pay-box__v">R${PRICE.toLocaleString('en-ZA')}</div></div>
+      <div class="pay-box__item"><div class="pay-box__k">Method &middot; Date</div><div class="pay-box__v">${pay.method} &middot; ${pay.date}</div></div>`;
+  }
 
   // Scorecard
   const p = pct(s.progress);
@@ -548,6 +624,15 @@ let PT_APPS = [], PT_PARTS = [], PT_CUSTS = [];
 const PT_RATES = { Associate: 0.20, Professional: 0.22, Strategic: 0.25 };
 function ptMoney(n) { return 'R' + (Math.round(Number(n) || 0)).toLocaleString('en-ZA'); }
 function ptDate(s) { return s ? new Date(s).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'; }
+function ptRel(s) {
+  if (!s) return '—';
+  var diff = (Date.now() - new Date(s).getTime()) / 60000; // minutes
+  if (diff < 2) return 'Just now';
+  if (diff < 60) return Math.round(diff) + ' min ago';
+  if (diff < 1440) return Math.round(diff / 60) + 'h ago';
+  if (diff < 2880) return 'Yesterday';
+  return Math.round(diff / 1440) + ' days ago';
+}
 
 function switchTab(name) {
   ['students', 'corporates', 'partners'].forEach(function (t) {
@@ -785,6 +870,7 @@ async function initAdmin() {
   document.getElementById('adm-console').style.display = 'block';
   renderStats();
   renderTable();
+  loadRealStudents().then(function () { renderStats(); renderTable(); }); // real registered learners (live mode)
   loadPartnersData(); // populate the Partners tab + applications badge in the background
   renderCohortRegs(); // live Layer 3 cohort opt-ins
   loadCorporates();   // corporate cohorts list (admin-created + partner-sourced)
