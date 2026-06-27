@@ -38,6 +38,14 @@
       .f5-detail-pane { padding:28px 22px; min-height:auto; }
       .f5-detail-name { font-size:1.6em; }
     }
+    /* Visual framework flow */
+    .f5-flow { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:6px 4px; margin:32px 0 8px; }
+    .f5-flow__item { display:flex; flex-direction:column; align-items:center; gap:8px; width:96px; }
+    .f5-flow__ic { width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; background:linear-gradient(150deg, var(--green-mid), var(--green-dark)); box-shadow:0 6px 16px rgba(27,67,50,.22); }
+    .f5-flow__ic svg { width:26px; height:26px; }
+    .f5-flow__lbl { font-weight:800; font-size:.92em; color:var(--green-dark); letter-spacing:.2px; }
+    .f5-flow__arrow { color:var(--gold-dark); font-size:1.3em; font-weight:700; padding-bottom:22px; }
+    @media (max-width:560px) { .f5-flow__arrow { display:none; } .f5-flow__item { width:30%; } }
   </style>
 </head>
 <body>
@@ -95,6 +103,34 @@
     <span class="eyebrow" data-i18n="f5_framework_eyebrow">The Framework</span>
     <h2>Five questions. Any AI situation.</h2>
     <p class="lead">The Funda Five™ is introduced in Module 1 and applied in every module after that. By Module 6, it&rsquo;s the way you think about every AI encounter at work. <strong>Select any step below to see what it means in practice.</strong></p>
+
+    <!-- Visual framework flow -->
+    <div class="f5-flow" aria-hidden="true">
+      <div class="f5-flow__item">
+        <span class="f5-flow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <span class="f5-flow__lbl">Task</span>
+      </div>
+      <span class="f5-flow__arrow">&rarr;</span>
+      <div class="f5-flow__item">
+        <span class="f5-flow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span>
+        <span class="f5-flow__lbl">Data</span>
+      </div>
+      <span class="f5-flow__arrow">&rarr;</span>
+      <div class="f5-flow__item">
+        <span class="f5-flow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.2L3 17.6 6.4 21l6.1-6.1a4 4 0 0 0 5.2-5.6l-2.7 2.7-2.3-2.3z"/></svg></span>
+        <span class="f5-flow__lbl">Tool</span>
+      </div>
+      <span class="f5-flow__arrow">&rarr;</span>
+      <div class="f5-flow__item">
+        <span class="f5-flow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <span class="f5-flow__lbl">Trust</span>
+      </div>
+      <span class="f5-flow__arrow">&rarr;</span>
+      <div class="f5-flow__item">
+        <span class="f5-flow__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+        <span class="f5-flow__lbl">Human</span>
+      </div>
+    </div>
 
     <div class="f5-tabs-wrapper">
 
