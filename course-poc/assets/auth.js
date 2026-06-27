@@ -27,7 +27,7 @@ async function getProfile() {
   if (!session) return null
   const { data, error } = await _supabase
     .from('profiles')
-    .select('id, full_name, email, organisation, sector, org_code, role')
+    .select('id, full_name, email, organisation, sector, org_code, role, organisation_id, member_id')
     .eq('id', session.user.id)
     .single()
   if (error) {

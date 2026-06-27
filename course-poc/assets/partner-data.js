@@ -179,22 +179,25 @@
     return orgs;
   };
 
-  // d: { name, sector, contact_name, contact_email, seats, price_per_seat, start_date }
+  // d: { name, sector, contact_name, contact_email, seats, price_per_seat, start_date, intake_label, brand_color }
+  // Partner-created cohorts start PENDING admin approval: active=false so the access code
+  // can't accept enrolments until an admin approves it.
   window.createCohort = async function (d) {
     var seats = Number(d.seats) || 0, price = Number(d.price_per_seat) || 0;
     if (isDemo()) {
       var p = lsLoad(); p.cohorts = p.cohorts || [];
       var demo = { id: 'demo-co-' + Date.now(), name: d.name, code: cohortCode(d.name), max_seats: seats,
-        price_per_seat: price, sector: d.sector, start_date: d.start_date, status: 'active', enrolled: 0,
+        price_per_seat: price, sector: d.sector, start_date: d.start_date, intake_label: d.intake_label || null,
+        brand_color: d.brand_color || null, status: 'pending', active: false, created_by: 'partner', enrolled: 0,
         contact_name: d.contact_name, contact_email: d.contact_email };
       p.cohorts.push(demo); lsSave(p); return demo;
     }
     var email = await sbEmail();
-    // 1. the corporate as a pipeline customer (already onboarded)
+    // 1. the corporate as a pipeline customer (Signed — pending enrolment go-live)
     var custId = null;
     try {
       var cust = await _supabase.from('partner_customers')
-        .insert({ partner_email: email, name: d.name, sector: d.sector, acv: seats * price, stage: 'Onboarded' })
+        .insert({ partner_email: email, name: d.name, sector: d.sector, acv: seats * price, stage: 'Signed' })
         .select().maybeSingle();
       custId = cust.data ? cust.data.id : null;
     } catch (e) { /* non-fatal */ }
@@ -202,9 +205,10 @@
     var co = null, lastErr = null;
     for (var attempt = 0; attempt < 4 && !co; attempt++) {
       var r = await _supabase.from('organisations').insert({
-        name: d.name, code: cohortCode(d.name), max_seats: seats, active: true, partner_email: email,
+        name: d.name, code: cohortCode(d.name), max_seats: seats, active: false, partner_email: email,
         customer_id: custId, price_per_seat: price, sector: d.sector, start_date: d.start_date || null,
-        status: 'active', contact_name: d.contact_name, contact_email: d.contact_email
+        status: 'pending', created_by: 'partner', intake_label: d.intake_label || null,
+        brand_color: d.brand_color || null, contact_name: d.contact_name, contact_email: d.contact_email
       }).select().maybeSingle();
       if (r.error) {
         lastErr = r.error;
@@ -227,7 +231,7 @@
   window.loadCohortLearners = async function (orgId) {
     if (isDemo()) return [];
     var profs = [];
-    try { profs = (await _supabase.from('profiles').select('id,full_name,email,role,created_at').eq('organisation_id', orgId)).data || []; }
+    try { profs = (await _supabase.from('profiles').select('id,full_name,email,role,member_id,member_no,created_at').eq('organisation_id', orgId)).data || []; }
     catch (e) { return []; }
     for (var i = 0; i < profs.length; i++) {
       try { profs[i].progress = (await _supabase.from('progress').select('module_id,phase').eq('user_id', profs[i].id)).data || []; }

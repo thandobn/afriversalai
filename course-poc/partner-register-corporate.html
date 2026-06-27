@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register a Corporate — AfriversalAI Partner Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    body { background:#EEF1F0; }
+    .pp-top { background:var(--green-dark); color:#fff; padding:14px 0; }
+    .pp-top__inner { max-width:1040px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .pp-top__brand { display:flex; align-items:center; gap:14px; }
+    .pp-top__brand img { height:30px; width:auto; }
+    .pp-top__tag { font-size:.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); border-left:1px solid rgba(255,255,255,.25); padding-left:14px; }
+    .pp-top__right { display:flex; align-items:center; gap:14px; font-size:.85em; }
+    .pp-top__who { color:rgba(255,255,255,.75); }
+    .rc-wrap { max-width:1040px; margin:0 auto; padding:28px 24px 64px; }
+    .pp-denied { max-width:520px; margin:80px auto; background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:40px; text-align:center; box-shadow:var(--shadow-md); }
+    .pp-denied h1 { font-size:1.3em; color:var(--green-dark); margin-bottom:10px; }
+
+    .rc-hero { background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:30px 36px; }
+    .rc-hero .eyebrow { color:var(--gold); font-size:.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; }
+    .rc-hero h1 { color:#fff; font-size:1.7em; margin:8px 0 8px; }
+    .rc-hero p { color:rgba(255,255,255,.78); max-width:640px; line-height:1.6; font-size:.95em; }
+
+    .section-label { font-size:.75em; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin:36px 0 14px; }
+
+    /* journey steps */
+    .journey { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    @media(max-width:820px){ .journey{ grid-template-columns:1fr; } }
+    .jstep { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; position:relative; }
+    .jstep__n { width:30px; height:30px; border-radius:50%; background:var(--green-dark); color:#fff; font-weight:800; font-size:.9em; display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+    .jstep__t { font-weight:800; color:var(--green-dark); font-size:1.0em; margin-bottom:5px; }
+    .jstep__d { font-size:.85em; color:var(--muted); line-height:1.55; }
+    .jstep__tag { display:inline-block; margin-top:9px; font-size:.68em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:3px 9px; border-radius:20px; }
+    .tag-you { background:var(--gold-light); color:var(--gold-dark); }
+    .tag-admin { background:#EEF2FF; color:#3730A3; }
+    .tag-auto { background:var(--green-pale); color:var(--green-dark); }
+
+    /* form */
+    .rc-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:26px 28px; }
+    .rc-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px 20px; }
+    @media(max-width:640px){ .rc-grid{ grid-template-columns:1fr; } }
+    .rc-fld label { display:block; font-size:.78em; font-weight:700; color:var(--text); margin-bottom:5px; }
+    .rc-fld input, .rc-fld select { width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:.92em; color:var(--text); background:#fff; }
+    .rc-fld input:focus, .rc-fld select:focus { outline:none; border-color:var(--green-mid); box-shadow:0 0 0 3px rgba(45,106,79,.1); }
+    .rc-fld input[type=color] { padding:4px; height:42px; }
+    .rc-sub { font-size:.78em; color:var(--muted); margin-top:4px; }
+    .rc-grouphead { grid-column:1 / -1; font-size:.74em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-mid); margin-top:6px; border-top:1px solid var(--border); padding-top:16px; }
+    .rc-grouphead:first-child { border-top:none; padding-top:0; margin-top:0; }
+
+    .rc-success { background:var(--green-pale); border:1.5px solid var(--green-light); border-radius:var(--radius-lg); padding:24px 26px; }
+    .rc-success__code { font-size:1.6em; font-weight:800; color:var(--green-dark); letter-spacing:1px; }
+    .rc-status-pill { display:inline-block; font-size:.74em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:4px 12px; border-radius:20px; background:#FEF3C7; color:#92400E; }
+
+    /* cohort list */
+    .cohort-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:12px; border-left-width:5px; }
+    .cohort-card__top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+    .cohort-card__name { font-weight:800; color:var(--green-dark); font-size:1.04em; }
+    .cohort-code { font-family:ui-monospace,monospace; font-weight:800; color:var(--green-dark); background:var(--green-pale); padding:5px 10px; border-radius:8px; font-size:.86em; }
+    .cohort-code button { margin-left:8px; border:none; background:var(--green-dark); color:#fff; font-size:.72em; font-weight:700; padding:3px 9px; border-radius:6px; cursor:pointer; }
+    .cstat-pill { font-size:.72em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:4px 11px; border-radius:20px; }
+    .cstat-pending { background:#FEF3C7; color:#92400E; }
+    .cstat-active { background:var(--green-pale); color:var(--green-dark); }
+    .cstat-rejected { background:#FEE2E2; color:#991B1B; }
+  </style>
+</head>
+<body>
+
+<div class="pp-top">
+  <div class="pp-top__inner">
+    <div class="pp-top__brand">
+      <img src="assets/logo-white.png" alt="AfriversalAI" />
+      <span class="pp-top__tag">Register a Corporate</span>
+    </div>
+    <div class="pp-top__right">
+      <span class="pp-top__who" id="pp-who"></span>
+      <a href="partner-portal.html" class="btn btn--outline btn--sm" style="color:#fff; border-color:rgba(255,255,255,.4);">&larr; Partner Portal</a>
+      <a href="#" onclick="ppSignOut(); return false;" class="btn btn--outline btn--sm" style="color:#fff; border-color:rgba(255,255,255,.4);">Sign out</a>
+    </div>
+  </div>
+</div>
+
+<div id="pp-checking" style="text-align:center; padding:80px 20px; color:var(--muted);">Loading…</div>
+
+<div id="pp-denied" class="pp-denied" style="display:none;">
+  <h1>Approved partners only</h1>
+  <p style="color:var(--muted);font-size:.92em;">This page is restricted to approved AfriversalAI Enterprise Partners. Contact <a href="mailto:ask@afriversal.ai">ask@afriversal.ai</a>.</p>
+  <p style="margin-top:18px;"><a href="partner-login.html" class="btn btn--primary btn--sm">Sign in</a></p>
+</div>
+
+<div id="rc-main" class="rc-wrap" style="display:none;">
+
+  <div class="rc-hero">
+    <div class="eyebrow">Partner workflow</div>
+    <h1>Onboard a corporate &amp; create their cohort</h1>
+    <p>Bringing a corporate client onto AfriversalAI follows one clear path: you register them here, an AfriversalAI admin approves the cohort, and their staff enrol with a unique access code that stamps every learner with a cohort-coded Member ID. Here's exactly how it works.</p>
+  </div>
+
+  <!-- THE JOURNEY -->
+  <div class="section-label">The onboarding journey &mdash; six steps</div>
+  <div class="journey">
+    <div class="jstep">
+      <div class="jstep__n">1</div>
+      <div class="jstep__t">Register the corporate</div>
+      <div class="jstep__d">Capture the company, intake, seat count and branding below. We generate a unique, provisional <strong>access code</strong> for the cohort.</div>
+      <span class="jstep__tag tag-you">You</span>
+    </div>
+    <div class="jstep">
+      <div class="jstep__n">2</div>
+      <div class="jstep__t">Admin review &amp; approval</div>
+      <div class="jstep__d">The cohort lands in the AfriversalAI admin console as <em>Pending</em>. An admin verifies the deal and approves it &mdash; only then does the access code go live for enrolment.</div>
+      <span class="jstep__tag tag-admin">AfriversalAI admin</span>
+    </div>
+    <div class="jstep">
+      <div class="jstep__n">3</div>
+      <div class="jstep__t">Distribute the access code</div>
+      <div class="jstep__d">Once approved, share the cohort's access code with the corporate's staff (e.g. via their L&amp;D lead).</div>
+      <span class="jstep__tag tag-you">You</span>
+    </div>
+    <div class="jstep">
+      <div class="jstep__n">4</div>
+      <div class="jstep__t">Staff enrol &amp; get a Member ID</div>
+      <div class="jstep__d">Each employee registers with the code. They're grouped into this cohort and automatically issued a <strong>cohort-stamped Member ID</strong> (e.g. <code>ACME-2026-014</code>).</div>
+      <span class="jstep__tag tag-auto">Automatic</span>
+    </div>
+    <div class="jstep">
+      <div class="jstep__n">5</div>
+      <div class="jstep__t">Track the cohort dashboard</div>
+      <div class="jstep__d">Enrolment and progress for this cohort appear here in your portal and in the admin console &mdash; grouped under the cohort's access-code block.</div>
+      <span class="jstep__tag tag-auto">Automatic</span>
+    </div>
+    <div class="jstep">
+      <div class="jstep__n">6</div>
+      <div class="jstep__t">Certify</div>
+      <div class="jstep__d">When a learner is assessed as <em>demonstrated</em>, their certificate carries their cohort Member ID &mdash; tying every credential back to this corporate intake.</div>
+      <span class="jstep__tag tag-auto">Automatic</span>
+    </div>
+  </div>
+
+  <!-- REGISTER FORM -->
+  <div class="section-label" id="form-anchor">Step 1 &mdash; Register the corporate</div>
+  <div class="rc-card" id="rc-form-card">
+    <div class="rc-grid">
+      <div class="rc-grouphead">Company</div>
+      <div class="rc-fld"><label for="rc-name">Corporate name *</label><input id="rc-name" type="text" placeholder="e.g. Acme Holdings" /></div>
+      <div class="rc-fld"><label for="rc-sector">Sector</label>
+        <select id="rc-sector">
+          <option value="">Select sector…</option>
+          <option>Finance</option><option>Government</option><option>Healthcare</option>
+          <option>Education</option><option>Corporate</option><option>Telecoms</option><option>Other</option>
+        </select>
+      </div>
+      <div class="rc-fld"><label for="rc-contact">L&amp;D / programme contact</label><input id="rc-contact" type="text" placeholder="Contact person" /></div>
+      <div class="rc-fld"><label for="rc-email">Contact email</label><input id="rc-email" type="email" placeholder="name@acme.co.za" /></div>
+
+      <div class="rc-grouphead">Cohort</div>
+      <div class="rc-fld"><label for="rc-intake">Intake label</label><input id="rc-intake" type="text" placeholder="e.g. August 2026" /><div class="rc-sub">How this cohort is grouped (e.g. the monthly intake).</div></div>
+      <div class="rc-fld"><label for="rc-start">Start date</label><input id="rc-start" type="date" /></div>
+      <div class="rc-fld"><label for="rc-seats">Seats *</label><input id="rc-seats" type="number" min="1" placeholder="e.g. 35" /></div>
+      <div class="rc-fld"><label for="rc-price">Price per seat (R)</label><input id="rc-price" type="number" min="0" placeholder="e.g. 16500" /></div>
+      <div class="rc-fld"><label for="rc-color">Cohort brand colour</label><input id="rc-color" type="color" value="#1B4332" /><div class="rc-sub">Stamps this cohort's cards and the learner's dashboard.</div></div>
+    </div>
+    <div id="rc-err" style="display:none; color:#B91C1C; font-size:.86em; margin-top:14px;"></div>
+    <button class="btn btn--primary" style="margin-top:18px;" id="rc-submit" onclick="submitCorporate()">Submit cohort for approval &amp; generate access code</button>
+    <p class="rc-sub" style="margin-top:10px;">Submitting creates the cohort in <strong>Pending</strong> status and notifies AfriversalAI admin for approval. The access code activates once approved.</p>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="rc-success" id="rc-success" style="display:none; margin-top:20px;">
+    <div style="font-size:.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-mid); margin-bottom:8px;">Cohort submitted</div>
+    <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:10px;">
+      <span class="rc-success__code" id="rc-new-code">&mdash;</span>
+      <button class="btn btn--outline btn--sm" id="rc-copy" onclick="copyNewCode()">Copy code</button>
+      <span class="rc-status-pill">Pending admin approval</span>
+    </div>
+    <p style="font-size:.9em; color:var(--text); line-height:1.65; margin:0;">This cohort is now in the AfriversalAI admin console for review. <strong>Don't distribute the code yet</strong> &mdash; it activates for enrolment once an admin approves it. You'll see the status change to <em>Active</em> in the list below and in your main portal.</p>
+  </div>
+
+  <!-- EXISTING COHORTS -->
+  <div class="section-label">Your cohorts &amp; their status</div>
+  <div id="rc-cohorts"><div class="rc-sub">Loading…</div></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script>
+function ppSignOut(){ try{ sessionStorage.removeItem('afv_demo_partner'); sessionStorage.removeItem('afv_pkey'); sessionStorage.removeItem('afv_demo_email'); }catch(e){} afSignOut(); }
+
+var RC_NEW_CODE = '';
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+function copyNewCode(){
+  if(!RC_NEW_CODE) return;
+  var b=document.getElementById('rc-copy');
+  if(navigator.clipboard) navigator.clipboard.writeText(RC_NEW_CODE).then(function(){ if(b){b.textContent='Copied!'; setTimeout(function(){b.textContent='Copy code';},1600);} });
+}
+function copyCode(code){ if(navigator.clipboard && code) navigator.clipboard.writeText(code); }
+
+function statusPill(co){
+  var s = (co.status||'').toLowerCase();
+  if(!s){ s = co.active ? 'active' : 'pending'; }
+  var cls = s==='active' ? 'cstat-active' : (s==='rejected' ? 'cstat-rejected' : 'cstat-pending');
+  var label = s==='active' ? 'Active · code live' : (s==='rejected' ? 'Rejected' : 'Pending approval');
+  return '<span class="cstat-pill '+cls+'">'+label+'</span>';
+}
+
+async function renderRcCohorts(){
+  var el = document.getElementById('rc-cohorts');
+  var cohorts = [];
+  try { cohorts = await loadCohorts(); } catch(e){ cohorts = []; }
+  if(!cohorts.length){ el.innerHTML = '<div class="note" style="margin:0;">No cohorts yet. Register your first corporate above.</div>'; return; }
+  el.innerHTML = cohorts.map(function(co){
+    var seats = Number(co.max_seats)||0, enrolled = Number(co.enrolled)||0;
+    var color = co.brand_color || '#1B4332';
+    return '<div class="cohort-card" style="border-left-color:'+esc(color)+';">'+
+      '<div class="cohort-card__top">'+
+        '<div><div class="cohort-card__name">'+esc(co.name||'Cohort')+'</div>'+
+          '<div style="font-size:.84em;color:var(--muted);">'+esc(co.intake_label||'')+(co.intake_label&&co.sector?' · ':'')+esc(co.sector||'')+(co.start_date?(' · starts '+esc(co.start_date)):'')+'</div></div>'+
+        '<div style="text-align:right;">'+statusPill(co)+'<div style="margin-top:8px;"><span class="cohort-code">'+esc(co.code||'')+'<button onclick="copyCode(\''+esc(co.code||'')+'\')">Copy</button></span></div></div>'+
+      '</div>'+
+      '<div style="font-size:.84em; color:var(--muted); margin-top:10px;">'+enrolled+' / '+seats+' enrolled</div>'+
+      '</div>';
+  }).join('');
+}
+
+async function submitCorporate(){
+  var err = document.getElementById('rc-err');
+  var btn = document.getElementById('rc-submit');
+  err.style.display='none';
+  var name = document.getElementById('rc-name').value.trim();
+  var seats = parseInt(document.getElementById('rc-seats').value,10);
+  if(!name){ err.textContent='Enter the corporate name.'; err.style.display='block'; return; }
+  if(!seats || seats<1){ err.textContent='Enter the number of seats.'; err.style.display='block'; return; }
+  btn.disabled=true; btn.textContent='Submitting…';
+  var co = null;
+  try {
+    co = await createCohort({
+      name: name,
+      sector: document.getElementById('rc-sector').value || null,
+      contact_name: document.getElementById('rc-contact').value.trim() || null,
+      contact_email: document.getElementById('rc-email').value.trim() || null,
+      seats: seats,
+      price_per_seat: parseFloat(document.getElementById('rc-price').value) || null,
+      start_date: document.getElementById('rc-start').value || null,
+      intake_label: document.getElementById('rc-intake').value.trim() || null,
+      brand_color: document.getElementById('rc-color').value || null
+    });
+  } catch(e){
+    btn.disabled=false; btn.textContent='Submit cohort for approval & generate access code';
+    err.textContent = (e && e.message) ? ('Could not submit: '+e.message) : 'Could not submit. Make sure the migration has been run.';
+    err.style.display='block';
+    return;
+  }
+  btn.disabled=false; btn.textContent='Submit cohort for approval & generate access code';
+  RC_NEW_CODE = co.code || '';
+  document.getElementById('rc-new-code').textContent = RC_NEW_CODE;
+  document.getElementById('rc-success').style.display='block';
+  ['rc-name','rc-contact','rc-email','rc-seats','rc-price','rc-start','rc-intake'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('rc-sector').value='';
+  renderRcCohorts();
+  document.getElementById('rc-success').scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+async function initPage(){
+  // POC demo partner
+  if (sessionStorage.getItem('afv_demo_partner')==='1'){
+    if(!sessionStorage.getItem('afv_pkey')) sessionStorage.setItem('afv_pkey','demo');
+    document.getElementById('pp-who').textContent = (sessionStorage.getItem('afv_demo_email')||'partner@afriversal.ai')+' (demo)';
+    reveal();
+    return;
+  }
+  var session = await getSession();
+  if(!session){ window.location.href='partner-login.html'; return; }
+  var email = ((session.user && session.user.email)||'').toLowerCase();
+  if(!(await isApprovedPartner(email))){
+    document.getElementById('pp-checking').style.display='none';
+    document.getElementById('pp-denied').style.display='block';
+    return;
+  }
+  sessionStorage.setItem('afv_pkey', email);
+  document.getElementById('pp-who').textContent = email;
+  reveal();
+}
+function reveal(){
+  document.getElementById('pp-checking').style.display='none';
+  document.getElementById('rc-main').style.display='block';
+  renderRcCohorts();
+}
+initPage();
+</script>
+<script src="assets/icon-swap.js"></script>
+</body>
+</html>

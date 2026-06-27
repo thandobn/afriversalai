@@ -216,6 +216,13 @@ create policy "Admins read all organisations"
   on organisations for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
 
+-- Partners read their OWN cohorts in any status (the base policy only exposes active ones,
+-- so a partner couldn't otherwise see a cohort that's still pending admin approval).
+drop policy if exists "Partners read own organisations" on organisations;
+create policy "Partners read own organisations"
+  on organisations for select to authenticated
+  using (partner_email = auth.email());
+
 -- Partners may read the profiles & progress of learners enrolled in THEIR cohorts;
 -- admins may read all. (Learners' own-row policies from the main migration remain.)
 drop policy if exists "Partners read own cohort learners" on profiles;
@@ -299,6 +306,45 @@ drop policy if exists "Admins read enquiries" on enterprise_enquiries;
 create policy "Admins read enquiries"
   on enterprise_enquiries for select to authenticated
   using (exists (select 1 from admins a where a.email = auth.email()));
+
+
+-- 4d. COHORT BRANDING + MEMBER IDs
+--     Each cohort (organisations row) carries an intake label, brand colour and the
+--     identity of who created it. Each enrolled learner gets a stable Member ID that
+--     starts with the cohort's access code (e.g. STDBANK-2026-A1B-014) — shown on the
+--     learner dashboard and printed on the certificate.
+alter table organisations add column if not exists intake_label text;     -- e.g. 'August 2026'
+alter table organisations add column if not exists brand_color  text;     -- hex, e.g. '#1B4332'
+alter table organisations add column if not exists created_by   text;     -- 'admin' | 'partner'
+
+alter table profiles add column if not exists member_no integer;          -- sequence within the cohort
+alter table profiles add column if not exists member_id text;             -- access-code-stamped ID
+
+-- Assign a sequential, cohort-stamped Member ID the moment a learner is linked to a cohort.
+-- Runs in the DB so numbering is atomic and unique per cohort regardless of the client.
+create or replace function assign_cohort_member_id() returns trigger as $$
+declare
+  v_code text;
+  v_next integer;
+begin
+  if new.organisation_id is not null
+     and (new.member_no is null or new.organisation_id is distinct from old.organisation_id) then
+    select code into v_code from organisations where id = new.organisation_id;
+    if v_code is not null then
+      select coalesce(max(member_no), 0) + 1 into v_next
+        from profiles where organisation_id = new.organisation_id;
+      new.member_no := v_next;
+      new.member_id := v_code || '-' || lpad(v_next::text, 3, '0');
+    end if;
+  end if;
+  return new;
+end;
+$$ language plpgsql security definer;
+
+drop trigger if exists trg_assign_member_id on profiles;
+create trigger trg_assign_member_id
+  before insert or update on profiles
+  for each row execute function assign_cohort_member_id();
 
 
 -- 5. SEED — admins (console access) + initial / demo partners (idempotent)

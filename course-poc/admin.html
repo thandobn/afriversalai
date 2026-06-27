@@ -42,6 +42,23 @@
     .co-inp { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.9em; color: var(--text); background: #fff; }
     .co-inp:focus { outline: none; border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(45,106,79,0.1); }
     @media (max-width: 640px) { .co-form-grid { grid-template-columns: 1fr !important; } }
+    .co-card { background:#fff; border:1.5px solid var(--border); border-left-width:5px; border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:14px; }
+    .co-card__head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+    .co-card__name { font-weight:800; color:var(--green-dark); font-size:1.05em; }
+    .co-card__sub { font-size:0.82em; color:var(--muted); margin-top:2px; }
+    .co-card__code { font-family:ui-monospace,monospace; font-weight:800; color:var(--green-dark); background:var(--green-pale); padding:5px 11px; border-radius:8px; font-size:0.9em; }
+    .co-card__meta { display:flex; gap:18px; flex-wrap:wrap; font-size:0.84em; color:var(--text); margin-top:12px; }
+    .co-card__meta b { color:var(--green-dark); }
+    .co-cstat { font-size:0.7em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:4px 11px; border-radius:20px; }
+    .co-cstat--pending { background:#FEF3C7; color:#92400E; }
+    .co-cstat--active { background:var(--green-pale); color:var(--green-dark); }
+    .co-cstat--rejected { background:#FEE2E2; color:#991B1B; }
+    .co-toggle { background:none; border:none; color:var(--green-mid); font-weight:700; font-size:0.84em; cursor:pointer; padding:0; margin-top:12px; }
+    .co-members { margin-top:12px; border-top:1px solid var(--border); padding-top:10px; }
+    .co-members table { width:100%; border-collapse:collapse; font-size:0.83em; }
+    .co-members th { text-align:left; color:var(--muted); font-size:0.92em; padding:5px 8px; border-bottom:1px solid var(--border); }
+    .co-members td { padding:6px 8px; border-bottom:1px solid var(--border); }
+    .co-members .mid { font-family:ui-monospace,monospace; font-weight:700; color:var(--green-dark); }
     .adm-mock-note { font-size: 0.72em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-dark); background: var(--gold-light); border: 1px solid var(--gold); padding: 4px 12px; border-radius: 20px; }
 
     /* Tabs */
@@ -270,6 +287,7 @@
       <div class="co-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:14px 18px;">
         <div><label class="co-lbl" for="co-name">Corporate name *</label><input id="co-name" class="co-inp" type="text" placeholder="e.g. Acme Holdings" /></div>
         <div><label class="co-lbl" for="co-sector">Sector</label><input id="co-sector" class="co-inp" type="text" placeholder="e.g. Finance" /></div>
+        <div><label class="co-lbl" for="co-intake">Intake label</label><input id="co-intake" class="co-inp" type="text" placeholder="e.g. August 2026" /></div>
         <div><label class="co-lbl" for="co-contact">Contact name</label><input id="co-contact" class="co-inp" type="text" placeholder="L&amp;D lead" /></div>
         <div><label class="co-lbl" for="co-email">Contact email</label><input id="co-email" class="co-inp" type="email" placeholder="name@acme.co.za" /></div>
         <div><label class="co-lbl" for="co-seats">Seats *</label><input id="co-seats" class="co-inp" type="number" min="1" placeholder="e.g. 35" /></div>
@@ -289,12 +307,15 @@
       </div>
     </div>
 
+    <div id="co-pending-wrap" style="display:none;">
+      <div class="adm-bar"><h2>Pending approval</h2><span class="adm-sub" id="co-pending-count"></span></div>
+      <p style="font-size:0.82em; color:var(--muted); margin:-6px 0 12px;">Cohorts submitted by partners. Approving activates the access code so staff can enrol; rejecting keeps it inactive.</p>
+      <div id="co-pending"></div>
+    </div>
+
     <div class="adm-bar"><h2>Corporate cohorts</h2><span class="adm-sub" id="co-count"></span></div>
-    <table class="adm-table">
-      <thead><tr><th>Corporate</th><th>Access code</th><th>Enrolled</th><th>Sector</th><th>Source</th><th>Status</th></tr></thead>
-      <tbody id="co-rows"></tbody>
-    </table>
-    <p style="font-size:0.78em; color:var(--muted); margin-top:14px;">Direct cohorts are created here by the admin. Partner-sourced cohorts (created in the Partner Portal) also appear, marked with the partner's email.</p>
+    <p style="font-size:0.8em; color:var(--muted); margin:-6px 0 14px;">Each card is one cohort, grouped by its access code. Click <em>View members</em> to see the individual enrolled profiles. Run several intakes side by side (e.g. seven banks in the August cohort) and they stay organised in separate access-code blocks.</p>
+    <div id="co-cards"></div>
 
   </div><!-- /tab-corporates -->
 </div>
@@ -771,10 +792,47 @@ function cohortCodeGen(name) {
   return base + '-' + new Date().getFullYear() + '-' + Math.random().toString(36).slice(2, 5).toUpperCase();
 }
 
+function coStatus(co) {
+  var s = (co.status || '').toLowerCase();
+  if (!s) s = co.active ? 'active' : 'pending';
+  return s;
+}
+
+async function coEnrolled(orgId) {
+  try {
+    var lr = await _supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('organisation_id', orgId);
+    return (lr.count != null) ? lr.count : 0;
+  } catch (e) { return 0; }
+}
+
+function coCardHtml(co, enrolled) {
+  var s = coStatus(co);
+  var pill = '<span class="co-cstat co-cstat--' + (s === 'active' ? 'active' : (s === 'rejected' ? 'rejected' : 'pending')) + '">' +
+    (s === 'active' ? 'Active · code live' : (s === 'rejected' ? 'Rejected' : 'Pending')) + '</span>';
+  var source = co.partner_email ? ('Partner: ' + escapeHtml(co.partner_email)) : 'Direct (admin)';
+  var sub = [co.intake_label, co.sector].filter(Boolean).map(escapeHtml).join(' · ');
+  var color = co.brand_color || '#1B4332';
+  var revenue = (Number(co.max_seats) || 0) * (Number(co.price_per_seat) || 0);
+  return '<div class="co-card" style="border-left-color:' + escapeHtml(color) + ';">' +
+    '<div class="co-card__head">' +
+      '<div><div class="co-card__name">' + escapeHtml(co.name || 'Cohort') + '</div>' +
+        '<div class="co-card__sub">' + (sub || '—') + ' · ' + source + '</div></div>' +
+      '<div style="text-align:right;">' + pill + '<div style="margin-top:8px;"><span class="co-card__code">' + escapeHtml(co.code || '—') + '</span></div></div>' +
+    '</div>' +
+    '<div class="co-card__meta">' +
+      '<span><b>' + enrolled + ' / ' + (Number(co.max_seats) || 0) + '</b> enrolled</span>' +
+      '<span><b>' + ptMoney(co.price_per_seat || 0) + '</b> / seat</span>' +
+      '<span><b>' + ptMoney(revenue) + '</b> value</span>' +
+    '</div>' +
+    '<button class="co-toggle" onclick="toggleAdminMembers(this,\'' + escapeHtml(co.id) + '\')">View members &rarr;</button>' +
+    '<div class="co-members" id="cm-' + escapeHtml(co.id) + '" style="display:none;"></div>' +
+    '</div>';
+}
+
 async function loadCorporates() {
-  var tbody = document.getElementById('co-rows');
+  var cards = document.getElementById('co-cards');
   var notice = document.getElementById('co-needs-migration');
-  if (!tbody) return;
+  if (!cards) return;
   var orgs = [];
   try {
     var r = await _supabase.from('organisations').select('*').order('created_at', { ascending: false });
@@ -783,31 +841,74 @@ async function loadCorporates() {
     notice.style.display = 'none';
   } catch (e) {
     notice.style.display = 'block';
-    tbody.innerHTML = '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:20px;">Unavailable until the migration is run.</td></tr>';
+    cards.innerHTML = '<div class="adm-sub" style="padding:18px 0;">Unavailable until the migration is run.</div>';
     document.getElementById('co-count').textContent = '';
     return;
   }
+  // enrolment counts
+  for (var i = 0; i < orgs.length; i++) { orgs[i]._enrolled = await coEnrolled(orgs[i].id); }
+
+  var pending = orgs.filter(function (o) { return coStatus(o) === 'pending'; });
+  var rest = orgs.filter(function (o) { return coStatus(o) !== 'pending'; });
+
+  // pending approvals
+  var pwrap = document.getElementById('co-pending-wrap');
+  if (pending.length) {
+    pwrap.style.display = 'block';
+    document.getElementById('co-pending-count').textContent = pending.length + ' awaiting';
+    document.getElementById('co-pending').innerHTML = pending.map(function (co) {
+      var color = co.brand_color || '#1B4332';
+      var sub = [co.intake_label, co.sector].filter(Boolean).map(escapeHtml).join(' · ');
+      return '<div class="co-card" style="border-left-color:' + escapeHtml(color) + ';">' +
+        '<div class="co-card__head">' +
+          '<div><div class="co-card__name">' + escapeHtml(co.name || 'Cohort') + '</div>' +
+            '<div class="co-card__sub">' + (sub || '—') + ' · Partner: ' + escapeHtml(co.partner_email || '—') + '</div></div>' +
+          '<span class="co-card__code">' + escapeHtml(co.code || '—') + '</span>' +
+        '</div>' +
+        '<div class="co-card__meta"><span><b>' + (Number(co.max_seats) || 0) + '</b> seats</span>' +
+          '<span><b>' + ptMoney(co.price_per_seat || 0) + '</b> / seat</span>' +
+          (co.contact_email ? '<span>' + escapeHtml(co.contact_name || '') + ' · ' + escapeHtml(co.contact_email) + '</span>' : '') + '</div>' +
+        '<div style="margin-top:14px; display:flex; gap:10px;">' +
+          '<button class="btn btn--primary btn--sm" onclick="approveCohort(\'' + escapeHtml(co.id) + '\')">Approve &amp; activate code</button>' +
+          '<button class="btn btn--outline btn--sm" onclick="rejectCohort(\'' + escapeHtml(co.id) + '\')">Reject</button>' +
+        '</div></div>';
+    }).join('');
+  } else {
+    pwrap.style.display = 'none';
+    document.getElementById('co-pending').innerHTML = '';
+  }
+
+  // all cohorts (grouped cards)
   document.getElementById('co-count').textContent = orgs.length ? orgs.length + ' total' : '';
   var html = '';
-  for (var i = 0; i < orgs.length; i++) {
-    var co = orgs[i];
-    var enrolled = 0;
-    try {
-      var lr = await _supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('organisation_id', co.id);
-      enrolled = (lr.count != null) ? lr.count : 0;
-    } catch (e) { enrolled = 0; }
-    var source = co.partner_email
-      ? escapeHtml(co.partner_email)
-      : '<span style="color:var(--green-dark);font-weight:700;">Direct</span>';
-    var active = (co.status === 'active') || co.active;
-    html += '<tr><td>' + escapeHtml(co.name || '—') + '</td>' +
-      '<td><span class="pill pill--approved" style="font-family:ui-monospace,monospace;">' + escapeHtml(co.code || '—') + '</span></td>' +
-      '<td>' + enrolled + ' / ' + (Number(co.max_seats) || 0) + '</td>' +
-      '<td>' + escapeHtml(co.sector || '—') + '</td>' +
-      '<td>' + source + '</td>' +
-      '<td><span class="pill pill--' + (active ? 'approved' : 'reviewing') + '">' + escapeHtml(co.status || (co.active ? 'active' : 'inactive')) + '</span></td></tr>';
-  }
-  tbody.innerHTML = html || '<tr><td colspan="6" class="adm-sub" style="text-align:center;padding:18px;">No corporate cohorts yet.</td></tr>';
+  for (var j = 0; j < rest.length; j++) { html += coCardHtml(rest[j], rest[j]._enrolled); }
+  cards.innerHTML = html || '<div class="adm-sub" style="padding:18px 0;">No active corporate cohorts yet.</div>';
+}
+
+async function approveCohort(id) {
+  await _supabase.from('organisations').update({ status: 'active', active: true }).eq('id', id);
+  loadCorporates();
+}
+async function rejectCohort(id) {
+  await _supabase.from('organisations').update({ status: 'rejected', active: false }).eq('id', id);
+  loadCorporates();
+}
+
+async function toggleAdminMembers(btn, orgId) {
+  var box = document.getElementById('cm-' + orgId);
+  if (!box) return;
+  if (box.style.display !== 'none') { box.style.display = 'none'; btn.innerHTML = 'View members &rarr;'; return; }
+  box.style.display = 'block'; btn.innerHTML = 'Hide members';
+  box.innerHTML = '<div class="adm-sub" style="padding:6px 0;">Loading…</div>';
+  var members = [];
+  try { members = (await _supabase.from('profiles').select('id,full_name,email,role,member_id,member_no').eq('organisation_id', orgId).order('member_no', { ascending: true })).data || []; }
+  catch (e) { members = []; }
+  if (!members.length) { box.innerHTML = '<div class="adm-sub" style="padding:6px 0;">No one has enrolled with this code yet.</div>'; return; }
+  var rows = members.map(function (m) {
+    return '<tr><td class="mid">' + escapeHtml(m.member_id || '—') + '</td><td>' + escapeHtml(m.full_name || '—') + '</td>' +
+      '<td class="adm-sub">' + escapeHtml(m.role || '') + '</td><td class="adm-sub">' + escapeHtml(m.email || '') + '</td></tr>';
+  }).join('');
+  box.innerHTML = '<table><thead><tr><th>Member ID</th><th>Name</th><th>Role</th><th>Email</th></tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
 async function createCorporateCohort() {
@@ -821,12 +922,13 @@ async function createCorporateCohort() {
   var base = {
     name: name,
     sector: document.getElementById('co-sector').value.trim() || null,
+    intake_label: document.getElementById('co-intake').value.trim() || null,
     contact_name: document.getElementById('co-contact').value.trim() || null,
     contact_email: document.getElementById('co-email').value.trim() || null,
     max_seats: seats,
     price_per_seat: parseFloat(document.getElementById('co-price').value) || null,
     start_date: document.getElementById('co-start').value || null,
-    active: true, status: 'active'
+    active: true, status: 'active', created_by: 'admin'
   };
   btn.disabled = true; btn.textContent = 'Creating…';
   var created = null, lastErr = null;
@@ -854,7 +956,7 @@ async function createCorporateCohort() {
   if (created.max_seats && created.price_per_seat) detail += ' · ' + ptMoney(created.max_seats * created.price_per_seat) + ' value';
   document.getElementById('co-new-detail').textContent = detail;
   document.getElementById('co-created').style.display = 'block';
-  ['co-name', 'co-sector', 'co-contact', 'co-email', 'co-seats', 'co-price', 'co-start'].forEach(function (id) { document.getElementById(id).value = ''; });
+  ['co-name', 'co-sector', 'co-intake', 'co-contact', 'co-email', 'co-seats', 'co-price', 'co-start'].forEach(function (id) { document.getElementById(id).value = ''; });
   loadCorporates();
 }
 

@@ -68,7 +68,17 @@
     .cohort-form { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px; margin-top:12px; }
     .cohort-form__grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:10px; }
     .cohort-form input { font-family:inherit; font-size:.85em; padding:9px 11px; border:1.5px solid var(--border); border-radius:var(--radius); }
-    .cohort-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:12px; }
+    .cohort-card { background:#fff; border:1.5px solid var(--border); border-left-width:5px; border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:12px; }
+    .cstat-pill { font-size:.7em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:4px 10px; border-radius:20px; }
+    .cstat-pending { background:#FEF3C7; color:#92400E; }
+    .cstat-active { background:var(--green-pale); color:var(--green-dark); }
+    .cstat-rejected { background:#FEE2E2; color:#991B1B; }
+    .cohort-members { margin-top:14px; border-top:1px solid var(--border); padding-top:12px; }
+    .cohort-members table { width:100%; border-collapse:collapse; font-size:.82em; }
+    .cohort-members th { text-align:left; color:var(--muted); font-size:.92em; padding:5px 8px; border-bottom:1px solid var(--border); }
+    .cohort-members td { padding:6px 8px; border-bottom:1px solid var(--border); }
+    .cohort-members .mid { font-family:ui-monospace,monospace; font-weight:700; color:var(--green-dark); }
+    .cohort-toggle { background:none; border:none; color:var(--green-mid); font-weight:700; font-size:.82em; cursor:pointer; padding:0; margin-top:12px; }
     .cohort-card__top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
     .cohort-card__name { font-weight:800; color:var(--green-dark); font-size:1.02em; }
     .cohort-code { display:inline-flex; align-items:center; gap:8px; background:var(--green-pale); border:1.5px dashed var(--green-mid); color:var(--green-dark); font-family:ui-monospace,monospace; font-weight:800; letter-spacing:1px; padding:6px 12px; border-radius:8px; font-size:.95em; }
@@ -218,21 +228,11 @@
   <div id="pp-opportunities"></div>
 
   <div class="section-label">Corporate cohorts &amp; enrolment codes</div>
-  <p style="font-size:.86em; color:var(--muted); margin:-4px 0 12px;">Onboard a corporate to generate a unique enrolment code. Share it with their staff &mdash; everyone who registers with that code joins this cohort and the revenue rolls up to you.</p>
-  <div id="pp-cohorts"></div>
-  <div class="cohort-form">
-    <div class="cohort-form__grid">
-      <input id="co-name" placeholder="Corporate name *" />
-      <input id="co-sector" placeholder="Sector" />
-      <input id="co-contact" placeholder="Contact person" />
-      <input id="co-email" type="email" placeholder="Contact email" />
-      <input id="co-seats" type="number" min="1" placeholder="Seats *" />
-      <input id="co-price" type="number" placeholder="Price / seat (R)" />
-      <input id="co-start" type="date" title="Cohort start date" />
-    </div>
-    <button class="btn btn--primary btn--sm" id="co-add" onclick="onboardCohort()">+ Onboard corporate &amp; generate code</button>
-    <span id="co-err" style="display:none; color:#B91C1C; font-size:.85em; margin-left:10px;"></span>
+  <p style="font-size:.86em; color:var(--muted); margin:-4px 0 12px;">Each cohort has a unique access code &mdash; everyone who registers with it joins that cohort, gets a cohort-stamped Member ID, and the revenue rolls up to you. New cohorts go live once an AfriversalAI admin approves them.</p>
+  <div style="margin-bottom:16px;">
+    <a href="partner-register-corporate.html" class="btn btn--primary btn--sm">+ Register a corporate &amp; create a cohort &rarr;</a>
   </div>
+  <div id="pp-cohorts"></div>
 
   <div class="section-label">Your documents</div>
   <div id="pp-docs"></div>
@@ -346,18 +346,42 @@ async function renderCohorts(p){
   el.innerHTML = cohorts.map(function(co){
     var m = cohortMetrics(co, PP_LEVEL);
     var seats = Number(co.max_seats)||0, enrolled = Number(co.enrolled)||0;
-    return '<div class="cohort-card"><div class="cohort-card__top">'+
+    var color = co.brand_color || '#1B4332';
+    var s = (co.status||'').toLowerCase(); if(!s){ s = co.active ? 'active' : 'pending'; }
+    var pillCls = s==='active' ? 'cstat-active' : (s==='rejected' ? 'cstat-rejected' : 'cstat-pending');
+    var pillTxt = s==='active' ? 'Active · code live' : (s==='rejected' ? 'Rejected' : 'Pending approval');
+    var sub = [co.intake_label, co.sector].filter(Boolean).map(escapeHtml).join(' · ');
+    return '<div class="cohort-card" style="border-left-color:'+escapeHtml(color)+';"><div class="cohort-card__top">'+
       '<div><div class="cohort-card__name">'+escapeHtml(co.name||'Cohort')+'</div>'+
-        '<div style="font-size:.84em;color:var(--muted);">'+escapeHtml(co.sector||'')+(co.start_date?(' · starts '+co.start_date):'')+'</div></div>'+
-      '<div class="cohort-code">'+escapeHtml(co.code||'')+'<button onclick="copyCode(\''+escapeHtml(co.code||'')+'\')">Copy</button></div>'+
+        '<div style="font-size:.84em;color:var(--muted);">'+sub+(co.start_date?(' · starts '+escapeHtml(co.start_date)):'')+'</div></div>'+
+      '<div style="text-align:right;"><span class="cstat-pill '+pillCls+'">'+pillTxt+'</span>'+
+        '<div style="margin-top:8px;"><span class="cohort-code">'+escapeHtml(co.code||'')+'<button onclick="copyCode(\''+escapeHtml(co.code||'')+'\')">Copy</button></span></div></div>'+
       '</div>'+
       '<div class="cohort-metrics">'+
         '<div class="m"><b>'+enrolled+' / '+seats+'</b><span>Enrolled / seats</span></div>'+
         '<div class="m"><b>'+fmtR(co.price_per_seat)+'</b><span>Per seat</span></div>'+
         '<div class="m"><b>'+fmtR(m.revenue)+'</b><span>Cohort value</span></div>'+
         '<div class="m"><b>'+fmtR(m.commission)+'</b><span>Your commission ('+Math.round(m.rate*100)+'%)</span></div>'+
-      '</div></div>';
+      '</div>'+
+      '<button class="cohort-toggle" onclick="toggleCohortMembers(this,\''+escapeHtml(co.id)+'\')">View enrolled members &rarr;</button>'+
+      '<div class="cohort-members" id="cm-'+escapeHtml(co.id)+'" style="display:none;"></div>'+
+      '</div>';
   }).join('');
+}
+
+async function toggleCohortMembers(btn, orgId){
+  var box = document.getElementById('cm-'+orgId);
+  if(!box) return;
+  if(box.style.display!=='none'){ box.style.display='none'; btn.innerHTML='View enrolled members &rarr;'; return; }
+  box.style.display='block'; btn.innerHTML='Hide members';
+  box.innerHTML='<div style="font-size:.82em;color:var(--muted);padding:6px 0;">Loading…</div>';
+  var members = [];
+  try { members = await loadCohortLearners(orgId); } catch(e){ members = []; }
+  if(!members.length){ box.innerHTML='<div style="font-size:.82em;color:var(--muted);padding:6px 0;">No one has enrolled with this code yet.</div>'; return; }
+  var rows = members.map(function(m){
+    return '<tr><td class="mid">'+escapeHtml(m.member_id||'—')+'</td><td>'+escapeHtml(m.full_name||'—')+'</td><td style="color:var(--muted);">'+escapeHtml(m.email||'')+'</td></tr>';
+  }).join('');
+  box.innerHTML='<table><thead><tr><th>Member ID</th><th>Name</th><th>Email</th></tr></thead><tbody>'+rows+'</tbody></table>';
 }
 
 function copyCode(code){

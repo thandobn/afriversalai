@@ -264,6 +264,12 @@
         <p id="dash-org"></p>
         <span id="dash-sector" class="sector-tag" style="display:none;"></span>
 
+        <div id="dash-cohort" style="display:none; margin-top:14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.22); border-left-width:4px; border-radius:10px; padding:11px 15px; max-width:440px;">
+          <div id="dash-cohort-co" style="font-size:0.72em; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--gold);"></div>
+          <div id="dash-cohort-meta" style="font-size:0.85em; color:rgba(255,255,255,0.82); margin-top:4px;"></div>
+          <div style="font-size:0.74em; color:rgba(255,255,255,0.6); margin-top:6px;">Member ID <span id="dash-cohort-mid" style="font-family:ui-monospace,monospace; font-weight:700; color:#fff; letter-spacing:0.5px;"></span></div>
+        </div>
+
         <div class="level-chip">⭐ Level <b id="jr-level">1</b> &middot; <span id="jr-title">Getting started</span></div>
 
         <div class="bigprog">
@@ -617,6 +623,27 @@ async function initDashboard() {
     const sectorEl = document.getElementById('dash-sector')
     sectorEl.textContent = profile.sector.charAt(0).toUpperCase() + profile.sector.slice(1) + ' sector'
     sectorEl.style.display = 'inline-block'
+  }
+
+  // Cohort identity — which company/intake you belong to + your cohort-stamped Member ID
+  if (profile?.organisation_id) {
+    try {
+      const { data: co } = await _supabase
+        .from('organisations')
+        .select('name, intake_label, brand_color, code')
+        .eq('id', profile.organisation_id)
+        .single()
+      if (co) {
+        const box = document.getElementById('dash-cohort')
+        document.getElementById('dash-cohort-co').textContent = co.name || 'Your cohort'
+        const bits = [co.intake_label, co.code].filter(Boolean)
+        document.getElementById('dash-cohort-meta').textContent =
+          (co.intake_label ? co.intake_label + ' intake' : 'Corporate cohort') + (co.code ? ' · ' + co.code : '')
+        document.getElementById('dash-cohort-mid').textContent = profile.member_id || '—'
+        if (co.brand_color) box.style.borderLeftColor = co.brand_color
+        box.style.display = 'block'
+      }
+    } catch (e) { /* migration may not be applied yet */ }
   }
 
   // Stats
