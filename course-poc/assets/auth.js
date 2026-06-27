@@ -15,7 +15,7 @@ async function _loadAdminEmails() {
 async function getSession() {
   try {
     const { data: { session } } = await _supabase.auth.getSession()
-    if (session) await _loadAdminEmails()
+    if (session) await _loadAdminEmails().catch(function(e) { console.error('[AfriversalAI] _loadAdminEmails threw:', e) })
     return session
   } catch {
     return null
@@ -30,7 +30,19 @@ async function getProfile() {
     .select('id, full_name, email, organisation, sector, org_code, role')
     .eq('id', session.user.id)
     .single()
-  if (error && error.code !== 'PGRST116') {
+  if (error) {
+    if (error.code === 'PGRST116') return null
+    if (error.code === '42703') {
+      // Column missing — fall back to base set so other fields still load
+      console.warn('[AfriversalAI] getProfile: missing column, retrying without role:', error.message)
+      const { data: d2, error: e2 } = await _supabase
+        .from('profiles')
+        .select('id, full_name, email, organisation, sector, org_code')
+        .eq('id', session.user.id)
+        .single()
+      if (e2 && e2.code !== 'PGRST116') console.error('[AfriversalAI] getProfile fallback failed:', e2.message)
+      return d2 || null
+    }
     console.error('[AfriversalAI] getProfile failed:', error.message, '| code:', error.code)
   }
   return data || null
