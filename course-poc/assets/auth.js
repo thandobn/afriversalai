@@ -33,11 +33,11 @@ async function getProfile() {
   if (error) {
     if (error.code === 'PGRST116') return null
     if (error.code === '42703') {
-      // Column missing — fall back to base set so other fields still load
-      console.warn('[AfriversalAI] getProfile: missing column, retrying without role:', error.message)
+      // One or more columns missing — fall back to only the columns confirmed to exist
+      console.warn('[AfriversalAI] getProfile: missing column(s), retrying with safe subset:', error.message)
       const { data: d2, error: e2 } = await _supabase
         .from('profiles')
-        .select('id, full_name, email, organisation, sector, org_code')
+        .select('id, full_name, organisation, sector, role')
         .eq('id', session.user.id)
         .single()
       if (e2 && e2.code !== 'PGRST116') console.error('[AfriversalAI] getProfile fallback failed:', e2.message)
