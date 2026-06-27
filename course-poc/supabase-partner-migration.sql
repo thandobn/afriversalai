@@ -210,6 +210,12 @@ create policy "Partners update own organisations"
   using (partner_email = auth.email()
          or exists (select 1 from admins a where a.email = auth.email()));
 
+-- Admins read every cohort (the base policy only exposes active ones for code validation).
+drop policy if exists "Admins read all organisations" on organisations;
+create policy "Admins read all organisations"
+  on organisations for select to authenticated
+  using (exists (select 1 from admins a where a.email = auth.email()));
+
 -- Partners may read the profiles & progress of learners enrolled in THEIR cohorts;
 -- admins may read all. (Learners' own-row policies from the main migration remain.)
 drop policy if exists "Partners read own cohort learners" on profiles;
