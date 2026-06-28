@@ -247,9 +247,8 @@
           <!-- Technology adoption context — framing before lessons begin -->
           <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:24px 28px; margin-bottom:40px;">
             <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:14px;">Before we begin</p>
-            <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7; margin-top:0;">Every generation has had its version of this moment. ATMs were supposed to eliminate bank tellers. Computers were going to make office workers obsolete. The internet was certain to destroy retail and journalism. Smartphones were going to ruin attention spans. In every case, the anxiety was real &mdash; and not entirely wrong. Things changed. Jobs transformed. New skills became essential.</p>
-            <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7;">In each shift, the people who stayed in control were those who understood the technology &mdash; not the ones who feared it most, and not the ones who trusted it blindly. The ability to ask <em>"what does this tool actually do, and when should I not rely on it?"</em> made the difference.</p>
-            <p style="margin-bottom:0; font-size:0.92em; line-height:1.7;">AI is this generation's version of that moment. The tools are new. The pattern is familiar. This module gives you what you need to understand the tool &mdash; so you can shape how it changes your work, rather than having it happen to you.</p>
+            <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7; margin-top:0;">Every generation has had its version of this moment. ATMs were supposed to eliminate bank tellers. Computers were going to make office workers obsolete. In every case, things changed, jobs transformed &mdash; and the people who stayed in control were not those who feared the technology or trusted it blindly. They were those who understood it.</p>
+            <p style="margin-bottom:0; font-size:0.92em; line-height:1.7;">The ability to ask <em>"what does this tool actually do, and when should I not rely on it?"</em> made the difference. AI is this generation's version of that moment. This module gives you what you need to understand the tool &mdash; so you can shape how it changes your work, rather than having it happen to you.</p>
           </div>
 
           <!-- Lesson 1: The Librarian Analogy -->
@@ -260,15 +259,15 @@
             </div>
             <p>Imagine a librarian who has read every book in the library.</p>
             <p>You ask: <em>"How do I start a business?"</em></p>
-            <p>The librarian doesn't think. The librarian remembers patterns from all the books &mdash; what business books usually say when someone asks that question.</p>
+            <p>The librarian doesn't check whether the answer is true. They recall patterns from all the books &mdash; giving you the kind of answer business books tend to suggest.</p>
             <div class="concept-block">
-              <h4 data-i18n="lesson_1_concept">AI is similar</h4>
-              <p>Except it has read far more than any library &mdash; and responds much faster. But like the librarian, it is recalling patterns, not reasoning from scratch.</p>
+              <h4 data-i18n="lesson_1_concept">Key idea</h4>
+              <p>AI can sound like it understands. But it is recognising patterns, not independently verifying whether the answer is true &mdash; just like the librarian, at a much larger scale.</p>
             </div>
           </div>
 
           <div class="phase-nav" style="justify-content:flex-end;">
-            <button class="btn btn--primary" onclick="goToLesson(2)">Next: Lesson 2 &rarr;</button>
+            <button class="btn btn--primary" onclick="goToLesson(2)">Next: The World's Fastest Guesser &rarr;</button>
           </div>
         </div>
 
@@ -290,11 +289,12 @@
               Happy birthday to _____.
             </div>
             <p>You can probably guess: <em>you, her, him.</em> Again &mdash; you're predicting.</p>
-            <p>Now imagine you had read every book, every website, millions of conversations, billions of sentences. You'd become extraordinarily good at guessing what word comes next.</p>
+            <p>Now imagine you had read an enormous amount of text &mdash; books, websites, millions of conversations, billions of examples of how people use language. You would become extraordinarily good at predicting what word is likely to come next.</p>
             <div class="concept-block">
               <h4 data-i18n="lesson_2_concept">That is essentially what ChatGPT does</h4>
-              <p>Not thinking. Not understanding. <strong>Predicting.</strong></p>
+              <p>Its core task is prediction &mdash; generating the most likely next piece of text from patterns in its training data, not from direct access to truth.</p>
             </div>
+            <p style="font-size:0.88em; color:var(--muted); margin-top:16px; line-height:1.7;">It also doesn't write a whole answer at once. It predicts one small piece of text, then uses what it just wrote to predict the next piece &mdash; building the response continuously, word by word.</p>
           </div>
 
           <!-- Exercise: Fill in the blank -->
@@ -317,6 +317,7 @@
               <div id="fill-reveal" style="display:none; margin-top:22px; background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:24px 28px;">
                 <p style="color:var(--gold); font-weight:800; font-size:0.85em; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;" data-i18n="lesson_fill_congrats">Congratulations.</p>
                 <p style="font-size:1.05em; margin-bottom:10px; color:white; font-weight:700;" data-i18n="lesson_fill_reveal">You just did the same thing AI does.</p>
+                <p style="color:rgba(255,255,255,0.78); margin-bottom:10px; font-size:0.92em; line-height:1.7;">Your answers may differ from someone else's &mdash; "jam" instead of "jelly", something other than "blue". That is the point: some completions are simply more probable than others. AI works the same way, always predicting what seems most likely &mdash; not what is definitively true.</p>
                 <p style="color:rgba(255,255,255,0.78); margin:0; font-size:0.92em; line-height:1.7;">The difference? <strong style="color:white;">You understand meaning. AI predicts patterns.</strong> That one distinction explains almost everything you need to know about how AI works &mdash; and why it sometimes gets things badly wrong.</p>
               </div>
             </div>
@@ -324,7 +325,7 @@
 
           <div class="phase-nav">
             <button type="button" class="btn btn--outline" onclick="goToLesson(1)">&larr; Lesson 1</button>
-            <button class="btn btn--primary" onclick="goToLesson(3)">Next: Lesson 3 &rarr;</button>
+            <button class="btn btn--primary" onclick="goToLesson(3)">Next: Why AI Feels Intelligent &rarr;</button>
           </div>
         </div>
 
@@ -337,19 +338,28 @@
               <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;" data-i18n="lesson_3_badge">Lesson 3</span>
               <h3 style="margin:0; font-size:1.15em;" data-i18n="lesson_3_title">Why AI Feels Intelligent</h3>
             </div>
-            <p>Why does a parrot sound like it understands English?</p>
-            <p>Because it can repeat words.</p>
-            <p>Why does AI sound intelligent? Because it has seen enormous amounts of language and learned patterns.</p>
+            <p>Why can a parrot sound like it understands English?</p>
+            <p>Because it produces familiar sounds in the right context &mdash; without actually comprehending what they mean.</p>
+            <p>AI feels intelligent for the same reason: it generates responses that fit the pattern of the conversation, learned from enormous amounts of language.</p>
             <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
               <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;" data-i18n="lesson_example_label">Example</p>
               <p style="margin-bottom:8px; font-size:0.92em;">If I ask AI to write a resignation letter &mdash; it has seen millions of resignation letters. It predicts what one usually looks like.</p>
-              <p style="margin-bottom:0; font-size:0.92em; color:var(--muted);">But it doesn't know your boss, your feelings, or your company. <strong style="color:var(--text);">It only knows patterns.</strong></p>
+              <p style="margin-bottom:8px; font-size:0.92em; color:var(--muted);">But it doesn't know your boss, your feelings, or your company. It may produce a professional-sounding letter while missing the details that actually matter: your notice period, your contractual obligations, or the real reason you are leaving.</p>
+              <p style="margin-bottom:0; font-size:0.92em; color:var(--muted);"><strong style="color:var(--text);">It works from patterns, not from personal knowledge of your situation.</strong></p>
+            </div>
+            <div class="concept-block">
+              <h4>Key idea</h4>
+              <p>A response can sound fluent, relevant, and confident without being grounded in the facts that actually matter. Fluency is not the same as accuracy, judgment, or understanding of your specific context.</p>
+            </div>
+            <div class="callout" style="margin:24px 0;">
+              <strong style="display:block; font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Pause and think</strong>
+              <p style="margin:0; font-size:0.92em; line-height:1.7;">Think of a message you write regularly at work &mdash; an email, a report, a client update. What would AI need to know before its draft could actually be trusted? The relationship with the reader? A policy or legal constraint? The consequence if the message gets something wrong?</p>
             </div>
           </div>
 
           <div class="phase-nav">
             <button type="button" class="btn btn--outline" onclick="goToLesson(2)">&larr; Lesson 2</button>
-            <button class="btn btn--primary" onclick="goToLesson(4)">Next: Lesson 4 &rarr;</button>
+            <button class="btn btn--primary" onclick="goToLesson(4)">Next: Why AI Makes Stuff Up &rarr;</button>
           </div>
         </div>
 
@@ -370,7 +380,7 @@
                 <span style="color:white; font-weight:800; font-size:0.85em; letter-spacing:0.5px;" data-i18n="lesson_4_hallucination">This is called Hallucination</span>
               </div>
               <div style="padding:18px 20px; background:#FFF5F5;">
-                <p style="margin:0; font-size:0.92em; color:#7F1D1D; line-height:1.65;">Not because AI is broken or lying &mdash; because it is <strong>guessing</strong>. It completes the pattern even when it has no real information to draw on.</p>
+                <p style="margin:0; font-size:0.92em; color:#7F1D1D; line-height:1.65;">AI is not deliberately lying. It generates plausible-sounding text from patterns &mdash; even when it has no verified information to draw on.</p>
               </div>
             </div>
             <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
@@ -380,13 +390,25 @@
                 <div style="color:var(--gold); font-family:monospace; font-size:0.9em; padding:14px 18px; padding-right:80px; line-height:1.6; user-select:all;">What were the three main findings of the 2023 Human Sciences Research Council report on AI use in South African workplaces?</div>
                 <button type="button" onclick="copyLesson4Prompt(this)" style="position:absolute; top:10px; right:10px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.85); font-size:0.75em; font-weight:700; padding:4px 10px; border-radius:6px; cursor:pointer; letter-spacing:0.5px; transition:background 0.15s;">Copy</button>
               </div>
-              <p style="margin:0; font-size:0.88em; color:var(--muted);">It will likely produce three detailed, specific, confident findings &mdash; complete with percentages and recommendations. That report may not exist at all. AI is completing the pattern of what a research report <em>usually sounds like</em>, not retrieving a real document.</p>
+              <p style="margin-bottom:8px; font-size:0.88em; color:var(--muted);">It will likely produce three detailed, specific, confident-sounding findings &mdash; complete with percentages and recommendations.</p>
+              <p style="margin-bottom:8px; font-size:0.88em; color:var(--muted);">We searched for this report and could not verify it exists. The HSRC does publish material about AI in South Africa &mdash; which is exactly why the invented report sounds plausible. AI is completing the pattern of what an institutional report sounds like, not retrieving a real document.</p>
+              <p style="margin:0; font-size:0.88em; color:var(--muted);">Note: some AI tools can browse the web or retrieve linked documents. But they should show you the source. If no source is cited, treat the output as pattern-generated, not verified.</p>
+            </div>
+            <div class="concept-block" style="margin-top:20px;">
+              <h4>Verification habit</h4>
+              <p>When AI gives you a specific claim, statistic, study, or citation:</p>
+              <ol style="margin:8px 0 0; padding-left:18px; font-size:0.92em; line-height:1.8;">
+                <li>Search the exact title or claim in quotation marks</li>
+                <li>Check the organisation's official website or publication archive</li>
+                <li>If you cannot find the original source, do not repeat the claim</li>
+              </ol>
+              <p style="margin:10px 0 0; font-size:0.9em; font-style:italic;">Confidence in the answer is not evidence that the answer is correct.</p>
             </div>
           </div>
 
           <div class="phase-nav">
             <button type="button" class="btn btn--outline" onclick="goToLesson(3)">&larr; Lesson 3</button>
-            <button class="btn btn--primary" onclick="goToLesson(5)">Next: Lesson 5 &rarr;</button>
+            <button class="btn btn--primary" onclick="goToLesson(5)">Next: AI Is Not One Thing &rarr;</button>
           </div>
         </div>
 
@@ -399,48 +421,54 @@
               <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;" data-i18n="lesson_5_badge">Lesson 5</span>
               <h3 style="margin:0; font-size:1.15em;" data-i18n="lesson_5_title">AI Is Not One Thing</h3>
             </div>
-            <p>People think of AI as a robot, or a chatbot. But you're already using AI every day &mdash; you just didn't know it was AI.</p>
+            <p>People often picture AI as a robot or a chatbot. But AI also appears in many everyday tools &mdash; often quietly, in the background.</p>
             <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:12px; margin:20px 0;">
               <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
                 <div style="font-size:1.8em; margin-bottom:8px;">🎵</div>
+                <div style="font-size:0.65em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:6px;">Recommend</div>
                 <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Spotify</div>
-                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_spotify_desc">Predicts music you'll like</div>
+                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_spotify_desc">Suggests music based on your listening patterns</div>
               </div>
               <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
                 <div style="font-size:1.8em; margin-bottom:8px;">📺</div>
+                <div style="font-size:0.65em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:6px;">Recommend</div>
                 <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Netflix</div>
-                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_netflix_desc">Predicts shows you'll watch</div>
+                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_netflix_desc">Suggests shows you're likely to watch</div>
               </div>
               <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
                 <div style="font-size:1.8em; margin-bottom:8px;">📧</div>
+                <div style="font-size:0.65em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:6px;">Classify</div>
                 <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Gmail</div>
-                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_gmail_desc">Predicts what's spam</div>
+                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_gmail_desc">Classifies messages as likely spam or not</div>
               </div>
               <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
                 <div style="font-size:1.8em; margin-bottom:8px;">📱</div>
+                <div style="font-size:0.65em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:6px;">Verify</div>
                 <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Face ID</div>
-                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_faceid_desc">Predicts whether it's your face</div>
+                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_faceid_desc">Checks whether a face matches an enrolled identity</div>
               </div>
               <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
                 <div style="font-size:1.8em; margin-bottom:8px;">💳</div>
+                <div style="font-size:0.65em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:6px;">Estimate risk</div>
                 <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">Credit Score</div>
-                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_credit_desc">Predicts whether you'll repay</div>
+                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_credit_desc">Estimates the likelihood of repayment</div>
               </div>
               <div style="border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; text-align:center; background:var(--white);">
                 <div style="font-size:1.8em; margin-bottom:8px;">🤖</div>
+                <div style="font-size:0.65em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:6px;">Generate</div>
                 <div style="font-weight:700; font-size:0.88em; margin-bottom:4px;">ChatGPT</div>
-                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_chatgpt_desc">Predicts the next word</div>
+                <div style="font-size:0.78em; color:var(--muted);" data-i18n="lesson_5_chatgpt_desc">Predicts the next piece of text</div>
               </div>
             </div>
             <div class="concept-block">
               <h4 data-i18n="lesson_5_concept">The key insight</h4>
-              <p>AI is not a robot. AI is <strong>prediction applied to different problems</strong>. The tool changes. The core mechanism &mdash; learn patterns, make predictions &mdash; stays the same.</p>
+              <p>AI is not one kind of tool. It can recommend, classify, verify, estimate, or generate. What most AI systems share: they learn patterns from data, then use those patterns to produce a likely output. Not all use the same approach &mdash; and not every scoring or filtering system you encounter is necessarily AI-driven.</p>
             </div>
           </div>
 
           <div class="phase-nav">
             <button type="button" class="btn btn--outline" onclick="goToLesson(4)">&larr; Lesson 4</button>
-            <button class="btn btn--primary" onclick="goToLesson(6)">Next: Lesson 6 &rarr;</button>
+            <button class="btn btn--primary" onclick="goToLesson(6)">Next: Smart at Some Things, Helpless at Others &rarr;</button>
           </div>
         </div>
 
@@ -453,8 +481,8 @@
               <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;" data-i18n="lesson_6_badge">Lesson 6</span>
               <h3 style="margin:0; font-size:1.15em;" data-i18n="lesson_6_title">Smart at Some Things, Helpless at Others</h3>
             </div>
-            <p>A dog can recognise faces, learn commands, and solve problems. But a dog doesn't understand mathematics.</p>
-            <p>AI is similar. It can be incredibly capable in some areas &mdash; and completely unreliable in others.</p>
+            <p>Being impressive in one area does not mean being reliable in every area.</p>
+            <p>A dog can recognise faces, learn commands, and solve practical problems &mdash; but cannot do mathematics. AI systems are similar: remarkably capable at some tasks, completely unreliable at others.</p>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0;">
               <div style="border:1.5px solid var(--green-light); border-radius:var(--radius-lg); padding:18px; background:var(--green-pale);">
                 <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:10px;" data-i18n="lesson_6_powerful">Where AI is powerful</div>
@@ -462,7 +490,7 @@
                   <li>Processing huge amounts of text quickly</li>
                   <li>Finding patterns in data humans would miss</li>
                   <li>Drafting, summarising, translating</li>
-                  <li>Recognising images and faces at scale</li>
+                  <li>Identifying patterns in images at scale</li>
                 </ul>
               </div>
               <div style="border:1.5px solid #FCA5A5; border-radius:var(--radius-lg); padding:18px; background:#FFF5F5;">
@@ -471,18 +499,26 @@
                   <li>Knowing when it's wrong</li>
                   <li>Checking facts or verifying sources</li>
                   <li>Understanding your specific context</li>
-                  <li>Taking moral responsibility for decisions</li>
+                  <li>Taking responsibility for decisions or their consequences</li>
                 </ul>
               </div>
             </div>
             <div class="callout">
               <strong>The mistake most people make:</strong> "If AI is smart at one thing, it must be smart at everything." That assumption is where most AI mistakes in the workplace happen.
             </div>
+            <div class="concept-block" style="margin-top:20px;">
+              <h4>The better question</h4>
+              <p>Not <em>"Is AI smart?"</em> &mdash; but: <strong>smart at what, trained on which data, in which context, and with what consequences if it is wrong?</strong></p>
+            </div>
+            <div class="callout" style="margin-top:16px;">
+              <strong style="display:block; font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Pause and think</strong>
+              <p style="margin:0; font-size:0.92em; line-height:1.7;">Think of one task at your work that AI could do quickly. What would still need a human to check, decide, or take responsibility for?</p>
+            </div>
           </div>
 
           <div class="phase-nav">
             <button type="button" class="btn btn--outline" onclick="goToLesson(5)">&larr; Lesson 5</button>
-            <button class="btn btn--primary" onclick="goToLesson(7)">Next: Lesson 7 &rarr;</button>
+            <button class="btn btn--primary" onclick="goToLesson(7)">Next: The Most Important Rule &rarr;</button>
           </div>
         </div>
 
@@ -497,24 +533,25 @@
             <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(195px, 1fr)); gap:12px; text-align:left; max-width:720px; margin:0 auto 28px;">
               <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
                 <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;" data-i18n="lesson_7_term1">Bias?</div>
-                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction from historical patterns that contain discrimination</div>
+                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction from historical patterns that may reflect past discrimination or unequal treatment</div>
               </div>
               <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
                 <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;" data-i18n="lesson_7_term2">Hallucinations?</div>
-                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction without enough real information to draw on</div>
+                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Plausible-sounding output produced without reliable information to ground it</div>
               </div>
               <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
                 <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;" data-i18n="lesson_7_term3">Recommendations?</div>
-                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction of what you'll like, based on what others did</div>
+                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction of what you may like, based on patterns in your behaviour and preferences</div>
               </div>
               <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 16px;">
                 <div style="color:var(--gold); font-weight:700; font-size:0.8em; margin-bottom:6px;" data-i18n="lesson_7_term4">Credit scoring?</div>
-                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Prediction of repayment, based on patterns in past data</div>
+                <div style="color:rgba(255,255,255,0.75); font-size:0.82em; line-height:1.55;">Estimate of repayment risk, based on patterns in past data</div>
               </div>
             </div>
             <p style="color:rgba(255,255,255,0.55); font-size:0.85em; max-width:520px; margin:0 auto; font-style:italic;">If you finish this section understanding only one thing &mdash; this is the one. Everything else in this course builds on it.</p>
           </div>
 
+          <p style="text-align:center; font-size:0.9em; color:var(--muted); margin:0 0 12px;">Now test whether you can spot the difference between a useful prediction and a trustworthy answer.</p>
           <div class="phase-nav">
             <button type="button" class="btn btn--outline" onclick="goToLesson(6)">&larr; Lesson 6</button>
             <button class="btn btn--primary" onclick="showScreen(0,'quiz')">Take the knowledge check &rarr;</button>
@@ -526,7 +563,7 @@
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
             <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">7 questions &middot; you must get <strong style="color:white;">all 7</strong> right to continue</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">8 questions &middot; you must get <strong style="color:white;">all 8</strong> right to continue</span>
           </div>
 
           <!-- AI Tutor verdict -->
@@ -538,7 +575,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">1. What best describes how AI works?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q0" value="0"> <span>It retrieves answers from a verified database of facts</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q0" value="1"> <span>It learns patterns from large amounts of data to make predictions or generate content</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q0" value="1"> <span>It learns patterns from data to make predictions, classifications, recommendations, or generated content</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q0" value="2"> <span>It follows explicit rules programmed for every situation</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q0" value="3"> <span>It thinks and reasons the way humans do</span></label>
               </div>
@@ -561,29 +598,29 @@
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q2" value="0"> <span>They all use the same underlying AI model</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q2" value="1"> <span>They were all built to generate new content</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q2" value="2"> <span>They all use pattern recognition to make predictions about what you want or need</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q2" value="2"> <span>They use patterns in data to recommend, classify, or match</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q2" value="3"> <span>They all require a human to approve every decision</span></label>
               </div>
               <div class="quiz-feedback" id="p1qf-2"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">4. Which everyday tool is NOT AI?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">4. Which of these is least likely to be AI?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q3" value="0"> <span>A spam filter that learns which emails are junk</span></label>
                 <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q3" value="1"> <span>An Excel =SUM formula that adds a column</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q3" value="2"> <span>Face ID unlocking your phone</span></label>
-                <label class="quiz-opt"><input type="radio" name="p1_q3" value="3"> <span>Autocorrect predicting your next word</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q3" value="3"> <span>A keyboard suggestion tool that learns from language patterns to predict your next word</span></label>
               </div>
               <div class="quiz-feedback" id="p1qf-3"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">5. What is the single most reliable question to decide whether something is AI?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">5. Which question is usually most useful for distinguishing a learning-based AI system from a conventional rules-based program?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q4" value="0"> <span>Does it run on a powerful computer or in the cloud?</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q4" value="1"> <span>Does it have a chat interface or talk like a person?</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q4" value="2"> <span>Did a human write every rule &mdash; or did the system learn the rules from data?</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q4" value="2"> <span>Does it learn patterns from data to make predictions or decisions, rather than follow only fixed rules written in advance?</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q4" value="3"> <span>Is it made by a big technology company?</span></label>
               </div>
               <div class="quiz-feedback" id="p1qf-4"></div>
@@ -604,17 +641,28 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. Your HR system shortlists CVs before a human sees them. Which type of AI is this most likely to be?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="p1_q6" value="0"> <span>Generative AI &mdash; it writes new content</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q6" value="1"> <span>Predictive / Decision AI &mdash; it scores and classifies the applications</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q6" value="1"> <span>Predictive or decision-support AI &mdash; it may score, rank, or classify applications</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q6" value="2"> <span>Computer Vision &mdash; it reads images and video</span></label>
                 <label class="quiz-opt"><input type="radio" name="p1_q6" value="3"> <span>It cannot be AI &mdash; hiring is always done by people</span></label>
               </div>
               <div class="quiz-feedback" id="p1qf-6"></div>
             </div>
 
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">8. A model writes excellent summaries of meeting notes. A manager then asks it to decide whether an employee should be promoted. What is the strongest concern?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="p1_q7" value="0"> <span>The model may not have access to all the meeting notes</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q7" value="1"> <span>The model was not specifically designed for HR tasks</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="p1_q7" value="2"> <span>Being impressive at one task does not mean it is reliable or appropriate for a different, higher-stakes task</span></label>
+                <label class="quiz-opt"><input type="radio" name="p1_q7" value="3"> <span>The model will decline because it is not allowed to make decisions about people</span></label>
+              </div>
+              <div class="quiz-feedback" id="p1qf-7"></div>
+            </div>
+
             <div id="quiz-p1-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizP1()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--primary" type="button" onclick="submitQuizP1()">Check my answers &rarr;</button>
               <button class="btn btn--outline" type="button" id="quiz-p1-retake" style="display:none; margin-left:10px;" onclick="retakeQuizP1()">↻ Retake the test</button>
-              <div id="quiz-p1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 7 questions before submitting.</div>
+              <div id="quiz-p1-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
             </div>
             <div id="quiz-p1-result" style="display:none; margin-top:20px;"></div>
           </div>
@@ -652,7 +700,7 @@
             <div class="activity-card__name" data-i18n="card_gmail_name">Gmail spam filter</div>
             <div class="activity-card__hint" data-i18n="card_gmail_hint">Automatically puts junk email in your spam folder</div>
             <span class="reveal-badge" data-i18n="badge_ai">AI ?</span>
-            <div class="reveal-explanation">No human wrote a list of rules for every type of spam. The filter <strong>learned patterns</strong> from millions of flagged emails. Each time you correct it, it updates. That learning from examples &mdash; not rules &mdash; is the hallmark of AI.</div>
+            <div class="reveal-explanation">No human wrote a list of rules for every type of spam. The filter <strong>learned patterns</strong> from flagged emails and updates when you correct it. That learning from examples is the hallmark of AI. Note: many real filters also combine learned models with some fixed safety rules &mdash; a common real-world pattern.</div>
           </div>
 
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
@@ -676,7 +724,7 @@
             <div class="activity-card__name" data-i18n="card_faceid_name">Face ID / facial recognition</div>
             <div class="activity-card__hint" data-i18n="card_faceid_hint">Your phone unlocking when it sees your face</div>
             <span class="reveal-badge" data-i18n="badge_ai">AI ?</span>
-            <div class="reveal-explanation">Trained on thousands of facial images to recognise structural patterns unique to your face. There is no rule like "if nose = X, unlock" &mdash; the system <strong>learned what your face looks like from examples</strong>. That's computer vision AI.</div>
+            <div class="reveal-explanation">It compares a captured facial pattern to your enrolled identity template &mdash; a model <strong>trained from examples of faces</strong>, not hand-written rules about specific features. This card covers device authentication. Broader facial recognition systems that identify people across databases are a different, more contested category covered later in the course.</div>
           </div>
 
           <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
@@ -708,7 +756,7 @@
             <div class="activity-card__name" data-i18n="card_credit_name">Credit application decision</div>
             <div class="activity-card__hint" data-i18n="card_credit_hint">Your bank loan approved or declined in seconds</div>
             <span class="reveal-badge" data-i18n="badge_ai">AI ?</span>
-            <div class="reveal-explanation">A predictive model scored your application against patterns learned from <strong>millions of historical loan outcomes</strong> &mdash; income ratios, repayment history, location, employment type. It learned which profiles repay. This is also where data bias enters: if past lending was discriminatory, the AI learns to repeat it.</div>
+            <div class="reveal-explanation">Some credit decisions use <strong>predictive models trained on historical outcomes</strong> &mdash; income ratios, repayment history, employment type. Others use conventional scorecards or fixed policies. Either way: if historical lending was discriminatory, any model trained on that data learns to repeat those patterns. This is one of the most consequential applications in the course.</div>
           </div>
 
           <div class="activity-card" data-answer="ai" onclick="sortCard(this)">
@@ -716,7 +764,7 @@
             <div class="activity-card__name" data-i18n="card_autocorrect_name">Autocorrect on your phone</div>
             <div class="activity-card__hint" data-i18n="card_autocorrect_hint">Your phone predicting your next word while typing</div>
             <span class="reveal-badge" data-i18n="badge_ai">AI ?</span>
-            <div class="reveal-explanation">Trained on billions of words to <strong>predict</strong> the most likely next word as you type. Modern autocorrect also learns your personal vocabulary over time. It uses the same core mechanism as ChatGPT &mdash; just at word level rather than paragraph level.</div>
+            <div class="reveal-explanation">Modern autocorrect systems use language patterns to <strong>predict</strong> what you are likely to type next. Many also learn your personal vocabulary over time. The core mechanism is the same as ChatGPT &mdash; just operating at word level rather than paragraph level.</div>
           </div>
 
           <div class="activity-card" data-answer="not-ai" onclick="sortCard(this)">
@@ -747,16 +795,16 @@
               <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:12px;">Signs it IS AI</div>
               <ul style="margin:0; padding-left:16px; font-size:0.88em; line-height:2; color:var(--text);">
                 <li>It <strong>learned from examples</strong>, not rules someone wrote</li>
-                <li>It <strong>predicts, recommends, or classifies</strong> something</li>
+                <li>It <strong>predicts, recommends, classifies, or matches</strong></li>
                 <li>It improves or adapts <strong>without being reprogrammed</strong></li>
                 <li>Its output can vary &mdash; even for the same input</li>
-                <li>No human could have manually written a rule for every case</li>
+                <li>It may work alongside fixed human-written rules &mdash; hybrid systems are common</li>
               </ul>
             </div>
             <div style="border:1.5px solid #FCA5A5; border-radius:var(--radius-lg); padding:20px; background:#FFF5F5;">
               <div style="font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#DC2626; margin-bottom:12px;">Signs it is NOT AI</div>
               <ul style="margin:0; padding-left:16px; font-size:0.88em; line-height:2; color:#7F1D1D;">
-                <li>It <strong>follows rules a human explicitly wrote</strong></li>
+                <li>It follows <strong>only fixed rules a human explicitly wrote</strong> &mdash; no learned patterns from data</li>
                 <li>The same input <strong>always gives the same output</strong></li>
                 <li>It <strong>never improves</strong> no matter how much you use it</li>
                 <li>It holds, displays, or moves data &mdash; but doesn't interpret it</li>
@@ -766,10 +814,10 @@
           </div>
 
           <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:28px 32px;">
-            <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">The one question that cuts through everything</p>
-            <p style="font-size:1.1em; font-weight:700; color:white; margin-bottom:12px; line-height:1.4;">Did a human write every rule &mdash; or did the system learn the rules from data?</p>
-            <p style="color:rgba(255,255,255,0.75); font-size:0.9em; line-height:1.75; margin-bottom:16px;">If a human wrote every rule: <strong style="color:white;">not AI.</strong> If the system figured out the rules by analysing examples: <strong style="color:var(--gold);">AI.</strong></p>
-            <p style="color:rgba(255,255,255,0.65); font-size:0.85em; margin:0; line-height:1.7;">Use this question on anything you encounter at work. Your HR shortlisting tool &mdash; did someone write every criterion, or did it learn from past hires? Your fraud alert &mdash; did someone list every fraud pattern, or did it learn from millions of transactions? The answer tells you whether AI is involved &mdash; and whether you need to think carefully about bias, accountability, and error.</p>
+            <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">A useful first question</p>
+            <p style="font-size:1.1em; font-weight:700; color:white; margin-bottom:12px; line-height:1.4;">Does this system use learned patterns from data to make predictions, rankings, classifications, matches, or generated responses?</p>
+            <p style="color:rgba(255,255,255,0.75); font-size:0.9em; line-height:1.75; margin-bottom:12px;">If yes: it is AI-based, or has AI components. If it follows only fixed rules written by a human: likely not AI. <strong style="color:white;">Many real systems combine both.</strong></p>
+            <p style="color:rgba(255,255,255,0.65); font-size:0.85em; margin:0; line-height:1.7;">Use this question on anything you encounter at work. Your HR shortlisting tool &mdash; did someone write every criterion, or did it learn from past hires? Your fraud alert &mdash; did someone list every fraud pattern, or did it learn from transactions? Knowing which components use learned data &mdash; and which don't &mdash; tells you where to think carefully about bias, accountability, and error.</p>
           </div>
           <div style="margin-top:24px; text-align:right;">
             <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(1)">Done &mdash; see what I spotted &rarr;</button>
@@ -825,24 +873,26 @@
         <!-- Branching question -->
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
           <p style="font-weight:700; margin-bottom:14px;" data-i18n="p1_branch_q">First &mdash; one quick question about your workplace:</p>
-          <p style="font-size:0.9em; color:var(--muted); margin-bottom:16px;" data-i18n="p1_branch_sub">Does your organisation currently use AI tools in day-to-day work?</p>
+          <p style="font-size:0.9em; color:var(--muted); margin-bottom:16px;" data-i18n="p1_branch_sub">Does your organisation use AI directly or in the background of its systems?</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button type="button" class="btn btn--outline btn--sm" id="branch-yes" onclick="setBranch('yes')" data-i18n="p1_branch_yes">Yes, definitely</button>
             <button type="button" class="btn btn--outline btn--sm" id="branch-unsure" onclick="setBranch('unsure')" data-i18n="p1_branch_unsure">Not sure / maybe</button>
             <button type="button" class="btn btn--outline btn--sm" id="branch-no" onclick="setBranch('no')" data-i18n="p1_branch_no">Not really / no</button>
           </div>
+          <p style="font-size:0.82em; color:var(--muted); margin-top:10px; margin-bottom:0; font-style:italic;">Not sure is a valid answer. This course helps you learn what questions to ask before assuming a system is or is not AI.</p>
         </div>
 
         <!-- Q1 &mdash; same for everyone -->
         <div style="margin: 20px 0;">
-          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;" data-i18n="p1_q1_label">Which one surprised you most &mdash; AI or not AI? Why?</label>
-          <textarea id="reflect-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. I didn't realise the spam filter counted as AI &mdash; I thought AI meant something more like a robot..." data-i18n-placeholder="p1_q1_placeholder"></textarea>
+          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;" data-i18n="p1_q1_label">Which example challenged what you thought AI was? Why?</label>
+          <textarea id="reflect-1" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. I was surprised the spam filter counted as AI — I thought AI meant something like a chatbot or robot, not background classification..." data-i18n-placeholder="p1_q1_placeholder"></textarea>
         </div>
 
         <!-- Q2 &mdash; changes based on branch -->
         <div style="margin: 20px 0;" id="reflect-q2-wrap">
-          <label for="reflect-2" id="reflect-2-label" style="display:block; font-weight:600; margin-bottom:8px;">Where do you encounter AI in your own job? (Even if you're not sure &mdash; take a guess.)</label>
-          <textarea id="reflect-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The HR system that shortlists CVs, the chatbot on our website, the fraud alerts our bank sends..."></textarea>
+          <label for="reflect-2" id="reflect-2-label" style="display:block; font-weight:600; margin-bottom:8px;">Where might AI appear in your job or workplace? (Even if you're not sure &mdash; take a guess.)</label>
+          <p style="font-size:0.82em; color:var(--muted); margin:-4px 0 8px; font-style:italic;">Use general descriptions only &mdash; do not include personal information (names, ID numbers, contact details, salary, medical or disciplinary history).</p>
+          <textarea id="reflect-2" style="width:100%; min-height:90px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The system that shortlists job applications, the chatbot on our website, fraud alerts from our bank..."></textarea>
         </div>
         <div id="err-2" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in both boxes before going deeper.</div>
         <div class="phase-nav">
@@ -1002,7 +1052,7 @@
 
           <div style="padding:28px;">
 
-            <p style="font-size:0.85em; color:var(--muted); margin-bottom:24px; padding:10px 14px; background:var(--bg-pale,#F9FAFB); border-radius:var(--radius); border-left:3px solid var(--gold);">This is a demonstration, not a tick-box. You must answer <strong>all 10</strong> correctly to move on — the AI Tutor will mark your answers, explain anything you miss, and ask you to retake until you've shown true understanding.</p>
+            <p style="font-size:0.85em; color:var(--muted); margin-bottom:24px; padding:10px 14px; background:var(--bg-pale,#F9FAFB); border-radius:var(--radius); border-left:3px solid var(--gold);">This is a demonstration, not a tick-box. You must answer <strong>all 10</strong> correctly to move on — each question is marked automatically, anything you miss is explained, and you retake until you've shown true understanding.</p>
 
             <div class="quiz-q" style="margin-bottom:28px;">
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;" data-i18n="quiz_q1">1. What best describes how AI works?</p>
@@ -1115,7 +1165,7 @@
             </div>
 
             <div id="quiz-p3-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizP3()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--primary" type="button" onclick="submitQuizP3()">Check my answers &rarr;</button>
               <button class="btn btn--outline" type="button" id="quiz-p3-retake" style="display:none; margin-left:10px;" onclick="retakeQuizP3()">↻ Retake the test</button>
               <div id="quiz-p3-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 10 questions before submitting.</div>
             </div>
@@ -1150,6 +1200,7 @@
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
           <p style="font-weight:700; margin-bottom:16px;" data-i18n="p3_q_label">Answer these three questions about your own workplace:</p>
+          <p style="font-size:0.82em; color:var(--muted); margin:-8px 0 16px; font-style:italic;">Use general descriptions only. Do not include personal information (names, ID numbers, contact details, salary, medical or disciplinary history).</p>
 
           <div style="margin-bottom:20px;">
             <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;" data-i18n="p3_q1_label">1. Name one AI tool you or your colleagues already use at work (or suspect might be AI-powered).</label>
@@ -1157,7 +1208,8 @@
           </div>
 
           <div style="margin-bottom:20px;">
-            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;" data-i18n="p3_q2_label">2. Which type of AI is it &mdash; Generative, Predictive/Decision, Computer Vision, or Agentic?</label>
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:8px;" data-i18n="p3_q2_label">2. Which of the four types best describes what this system mainly does? (It may use more than one.)</label>
+            <p style="font-size:0.8em; color:var(--muted); margin:-2px 0 10px; line-height:1.7;">Generative = creates content<br>Predictive/Decision = scores, ranks, or classifies<br>Computer Vision = interprets images or video<br>Agentic = plans and takes multiple steps toward a goal<br>Not sure = describe what it does</p>
             <textarea id="apply-2" style="width:100%; min-height:70px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. It's probably predictive AI &mdash; it scores candidates and filters them before a human sees the CV..." data-i18n-placeholder="p3_q2_ph"></textarea>
           </div>
 
@@ -1199,7 +1251,7 @@
         <div class="m0-apply-feedback__item">
           <div class="m0-apply-feedback__q">Q2: Type of AI</div>
           <div class="m0-apply-feedback__a" id="feedback-a2"></div>
-          <div class="m0-apply-feedback__example">Strong answer example: <em>"Predictive/Decision AI — it produces a score or ranking based on patterns in past data, not generated text. It doesn't know anything; it predicts from history."</em></div>
+          <div class="m0-apply-feedback__example">Strong answer example: <em>"Predictive/Decision AI — it produces a score or ranking based on patterns in past data, not generated text. It doesn't know anything; it predicts from history."</em> If a system uses more than one type, name them both — that's a stronger answer than picking just one.</div>
         </div>
 
         <div class="m0-apply-feedback__item">
@@ -1462,25 +1514,27 @@ var P1_EXP = [
     no: 'AI learns patterns from data \u2014 it doesn\u2019t retrieve from a database, follow pre-programmed rules, or think like a human.' },
   { ok: 'AI confidence is not a reliability signal. Always verify.',
     no: 'Verification is the right move \u2014 AI confidence tells you nothing about accuracy. It can sound certain and still be wrong.' },
-  { ok: 'Pattern recognition is the common thread across all types of AI.',
-    no: 'They all use pattern recognition to make predictions \u2014 the same underlying approach, built by different companies for different purposes.' },
+  { ok: 'Pattern recognition is the common thread \u2014 used to recommend, classify, or match depending on the task.',
+    no: 'They all use patterns in data \u2014 to recommend (Spotify, Netflix), classify (Gmail), or match (Face ID). Same underlying approach, different applications.' },
   { ok: 'A fixed formula follows an exact rule you gave it \u2014 no learning, no prediction. That\u2019s automation, not AI.',
-    no: 'The =SUM formula is not AI. It follows an exact rule with no learning or prediction. The other three learn patterns from data.' },
-  { ok: 'Exactly \u2014 \u201cdid a human write the rules, or did the system learn them from data?\u201d cuts through every case.',
-    no: 'The reliable test is: did a human write every rule, or did the system learn the rules from data? Cloud, chat interfaces and big brands tell you nothing.' },
+    no: 'The =SUM formula is not AI. It follows an exact rule with no learning or prediction. The other three all learn from data.' },
+  { ok: 'Exactly \u2014 learning from data rather than following only fixed written rules is what distinguishes most AI from conventional software.',
+    no: 'The useful test is whether the system learned its behaviour from data rather than following only fixed rules written in advance. Cloud, chat interfaces and brand names tell you nothing.' },
   { ok: 'Right \u2014 it predicts what a citation looks like, with no check on whether the source is real.',
     no: 'It\u2019s not a typo or a lie \u2014 the AI predicts what a citation usually looks like. It has no mechanism to check the source exists.' },
-  { ok: 'Correct \u2014 shortlisting scores and ranks applications, so it\u2019s Predictive / Decision AI.',
-    no: 'Shortlisting scores and classifies applications \u2014 that\u2019s Predictive / Decision AI, not generative or vision. And yes, AI is widely used in hiring.' },
+  { ok: 'Correct \u2014 scoring, ranking, or classifying applications is Predictive or decision-support AI.',
+    no: 'Shortlisting scores and classifies applications \u2014 that\u2019s Predictive or decision-support AI, not generative or vision. And yes, AI is widely used in hiring.' },
+  { ok: 'Exactly \u2014 AI capability is task-specific. Strong at summaries does not mean reliable for a promotion decision.',
+    no: 'The key issue is narrow capability: a system that performs well at one task may be unreliable at another, especially when the stakes or required judgment are different.' },
 ];
-var P1_N = 7;
+var P1_N = 8;
 
 function submitQuizP1() {
   var res = markCheck('p1_q', 'p1qf-', P1_N, P1_EXP);
   var errEl = document.getElementById('quiz-p1-err');
   if (!res.allAnswered) {
     errEl.style.display = 'block';
-    errEl.textContent = 'Answer all ' + P1_N + ' questions before submitting to the AI Tutor.';
+    errEl.textContent = 'Answer all ' + P1_N + ' questions before submitting.';
     return;
   }
   errEl.style.display = 'none';
@@ -1494,7 +1548,7 @@ function submitQuizP1() {
     document.getElementById('quiz-p1-advance').style.display = 'inline-block';
   } else {
     verdict.className = 'tutor-verdict tutor-verdict--retry';
-    verdict.innerHTML = tutorVerdictHTML(false, correct, P1_N, 'A demonstration means <strong>every</strong> answer right. I\u2019ve marked the ' + res.wrong + ' to fix in red below \u2014 read each AI Tutor note, then retake the full test.');
+    verdict.innerHTML = tutorVerdictHTML(false, correct, P1_N, 'A demonstration means <strong>every</strong> answer right. I\u2019ve marked the ' + res.wrong + ' to fix in red below \u2014 review each marked question, then retake.');
     document.getElementById('quiz-p1-retake').style.display = 'inline-block';
     var btn = document.querySelector('#quiz-p1-submit-wrap .btn--primary');
     if (btn) btn.style.display = 'none';
@@ -1548,7 +1602,7 @@ function submitQuizP3() {
   var errEl = document.getElementById('quiz-p3-err');
   if (!res.allAnswered) {
     errEl.style.display = 'block';
-    errEl.textContent = 'Answer all ' + P3_N + ' questions before submitting to the AI Tutor.';
+    errEl.textContent = 'Answer all ' + P3_N + ' questions before submitting.';
     return;
   }
   errEl.style.display = 'none';
@@ -1562,7 +1616,7 @@ function submitQuizP3() {
     document.getElementById('quiz-p3-advance').style.display = 'inline-block';
   } else {
     verdict.className = 'tutor-verdict tutor-verdict--retry';
-    verdict.innerHTML = tutorVerdictHTML(false, correct, P3_N, 'A demonstration means <strong>every</strong> answer right. I\u2019ve marked the ' + res.wrong + ' to fix in red below \u2014 read each AI Tutor note, then retake the full test.');
+    verdict.innerHTML = tutorVerdictHTML(false, correct, P3_N, 'A demonstration means <strong>every</strong> answer right. I\u2019ve marked the ' + res.wrong + ' to fix in red below \u2014 review each marked question, then retake.');
     document.getElementById('quiz-p3-retake').style.display = 'inline-block';
     var btn = document.querySelector('#quiz-p3-submit-wrap .btn--primary');
     if (btn) btn.style.display = 'none';

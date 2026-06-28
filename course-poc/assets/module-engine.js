@@ -101,7 +101,7 @@ function tutorVerdictHTML(pass, correct, total, msg) {
   var head = pass ? 'Demonstrated!' : 'Not yet';
   return '<div class="tutor-verdict__avatar">🎓</div>'
     + '<div class="tutor-verdict__body">'
-    + '<div class="tutor-verdict__tag">AI Tutor &middot; Marking</div>'
+    + '<div class="tutor-verdict__tag">Knowledge Check &middot; Marking</div>'
     + '<div class="tutor-verdict__headline">' + head + ' <span class="tutor-verdict__score">' + correct + ' / ' + total + ' correct</span></div>'
     + '<div class="tutor-verdict__msg">' + msg + '</div>'
     + '</div>';
@@ -120,13 +120,13 @@ function markCheck(names, fbPrefix, n, exp) {
     fb.style.display = 'block';
     if (isOk) {
       fb.className = 'quiz-feedback tutor-note tutor-note--ok';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + exp[i].ok + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 Correct</div><div class="tutor-note__text">' + exp[i].ok + '</div>';
       label.classList.add('quiz-opt--ok');
       document.querySelectorAll('input[name="' + names + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrong++;
       fb.className = 'quiz-feedback tutor-note tutor-note--no';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + exp[i].no + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 Review this</div><div class="tutor-note__text">' + exp[i].no + '</div>';
       label.classList.add('quiz-opt--no');
     }
   }
