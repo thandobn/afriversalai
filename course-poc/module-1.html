@@ -108,14 +108,14 @@
       <a href="course.html">Core Course</a> / Module 1
     </div>
     <h1>The Confidence Problem</h1>
-    <p class="lead lead--light">Before you can judge AI output, you need to understand what AI actually does &mdash; and what it can't do. This module starts with a real South African case: a government document that looked authoritative but wasn't.</p>
+    <p class="lead lead--light">AI can produce polished, authoritative language even when the information behind it is wrong. This module begins with a real South African case: a government document that looked credible &mdash; but wasn't.</p>
     <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
       <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
       <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
-        <li>Explain what AI <a href="glossary.html#hallucination" style="color:var(--gold);">hallucination</a> is and why it occurs in language models</li>
-        <li>Identify the signals that distinguish fabricated citations from real ones</li>
-        <li>Apply the Funda Five™ framework to evaluate AI-generated policy documents</li>
-        <li>Recognise where accountability sits when AI output causes institutional harm</li>
+        <li>Explain why a language model can generate a confident answer without reliable evidence behind it</li>
+        <li>Identify warning signs in a citation and verify whether the original source exists</li>
+        <li>Apply the Funda Five™ framework &mdash; five questions for checking AI-generated policy documents</li>
+        <li>Identify who remains responsible when an organisation relies on AI output that causes harm</li>
       </ul>
     </div>
     <div style="margin-top:16px;">
@@ -171,7 +171,7 @@
       </div>
 
       <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin-bottom:20px; font-size:0.88em; line-height:1.6;">
-        <strong>You'll notice this module works differently from Module 0.</strong> You're getting the material before any explanation — no framing, no context first. That's deliberate. We want to surface your instincts before we shape them. The concept comes after you've had a chance to react.
+        <strong>You'll notice this module works differently from Module 0.</strong> You're getting the material before any explanation — no framing, no context first. That's deliberate. We want to surface your instincts before we shape them. The concept comes after you've had a chance to react. <strong>Course note:</strong> Do not paste or upload real workplace documents into public AI tools while working through this exercise.
       </div>
 
       <div class="artifact">
@@ -203,10 +203,11 @@
       <div class="reflect-q">
         <label>What do you notice about this document? Write your first reaction &mdash; anything at all.</label>
         <textarea class="reflect-q__field" id="enc-1" placeholder="It looks official. The statistics seem specific. But..."></textarea>
+        <p style="font-size:0.82em; color:var(--muted); margin:8px 0 0; line-height:1.6;">You might notice the tone, the statistics, the names of institutions, the reference format, the implementation date &mdash; or anything that made you trust or doubt it.</p>
       </div>
 
       <div style="text-align:right; margin-top:24px;">
-        <button class="btn btn--primary" onclick="advancePhase(0)">I've read it &rarr;</button>
+        <button class="btn btn--primary" onclick="advancePhase(0)">Record my first reaction &rarr;</button>
       </div>
     </div>
   </div>
@@ -217,6 +218,7 @@
       <div style="font-size:1.8em; margin-bottom:12px;">🔒</div>
       <h3 style="margin-bottom:8px;">You've experienced the Encounter phase.</h3>
       <p style="font-size:0.93em; color:var(--muted); max-width:520px; margin:0 auto 8px;">This is how every AfriversalAI module begins &mdash; a real artifact, no context, just your instincts.</p>
+      <p style="font-size:0.82em; color:var(--muted); max-width:520px; margin:8px auto 12px; font-style:italic;">Note: the document above is a simulated exercise. The organisations, sources, and statistics were designed to look credible &mdash; the reveal and full explanation are inside the complete module.</p>
       <p style="font-size:0.93em; color:var(--muted); max-width:520px; margin:0 auto 20px;">The full module takes you through three more phases with a cohort and facilitator:</p>
       <div class="preview-end-phases">
         <div class="preview-end-phase">✍️ Reflect &mdash; surface what you were sensing</div>
@@ -283,132 +285,201 @@
     </div>
     <div class="phase__body">
 
-      <!-- CONTENT SCREEN -->
-      <div class="phase-screen is-active" id="ps-2-content">
+      <!-- LESSON TRACKER (outside screens — hidden on quiz screen) -->
+      <div class="lesson-tracker" id="m1-lesson-tracker">
+        <div class="lesson-dot current" id="ldot-1"></div>
+        <div class="lesson-dot" id="ldot-2"></div>
+        <div class="lesson-dot" id="ldot-3"></div>
+        <span class="lesson-tracker-label" id="m1-lesson-label">Lesson 1 of 3 &mdash; What happened &amp; why</span>
+      </div>
 
-        <!-- Lesson progress tracker — 3 sections -->
-        <div class="lesson-tracker" id="m1-lesson-tracker">
-          <div class="lesson-dot current" id="ldot-1"></div>
-          <div class="lesson-dot" id="ldot-2"></div>
-          <div class="lesson-dot" id="ldot-3"></div>
-          <span class="lesson-tracker-label" id="m1-lesson-label">Section 1 of 3 &mdash; What happened &amp; why</span>
-        </div>
+      <!-- LESSON 1: What happened and why -->
+      <div class="phase-screen is-active" id="ps-2-les1">
 
-        <!-- Bridging sentence from Module 0 -->
         <div class="callout" style="margin-bottom:28px;">
           In Module 0 you learned that AI <strong>predicts</strong> rather than knows &mdash; it generates plausible-sounding text whether or not that text is accurate. What you read in the Encounter phase is a direct consequence of that. Let's name it.
         </div>
 
-        <!-- Section 1: What is hallucination + real case -->
-        <div id="m1l-1" style="margin-bottom:36px;">
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Section 1</span>
-            <h3 style="margin:0; font-size:1.15em;">What happened &mdash; and why</h3>
-          </div>
-
-          <div class="callout">
-            <strong>What you were reading was a simulation of <a href="glossary.html#hallucination" style="color:var(--green-dark); font-weight:700;">AI hallucination</a> &mdash; in a real-world policy context.</strong>
-            The document above was written to look like the kind of AI-generated policy section that caused South Africa's real AI policy crisis in April 2026. None of the three sources cited in it exist.
-          </div>
-
-          <h4 style="margin-top:24px; margin-bottom:10px;">What actually happened in April 2026</h4>
-          <p style="font-size:0.93em; margin-bottom:16px;">South Africa's Department of Communications and Digital Technologies (DCDT) published an 86-page draft national AI policy. Shortly after publication, journalists discovered that the document contained fabricated academic citations &mdash; the kind that generative AI creates when it "hallucinates" sources that sound plausible but don't exist.</p>
-          <p style="font-size:0.93em; margin-bottom:16px;">The Minister confirmed that AI was used in drafting without proper human verification. The document was withdrawn 16 days after publication. South Africa's AI policy process had to restart.</p>
-          <p style="font-size:0.93em; margin-bottom:0;">The people responsible were not bad at their jobs. They were skilled policy professionals who knew how to use AI tools. What they didn't know was when and how to question the output.</p>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 1</span>
+          <h3 style="margin:0; font-size:1.15em;">What happened &mdash; and why</h3>
         </div>
 
-        <!-- Section 2: Why hallucination happens -->
-        <div id="m1l-2" style="margin-bottom:36px;">
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Section 2</span>
-            <h3 style="margin:0; font-size:1.15em;">Why this happens &mdash; and why it matters for you</h3>
-          </div>
+        <div class="callout">
+          <strong>What you were reading was a simulation of <a href="glossary.html#hallucination" style="color:var(--green-dark); font-weight:700;">AI hallucination</a> &mdash; in a real-world policy context.</strong>
+          The excerpt was created for this course. The three sources cited in it do not exist.
+        </div>
 
-          <div class="concept-block">
-            <h4>What is AI hallucination?</h4>
-            <p>You already know from Module 0 that AI <strong>predicts</strong> rather than knows. When applied to citations, that prediction produces text that <em>sounds like</em> a real source &mdash; author, journal, page numbers and all &mdash; whether or not it exists. The output looks exactly the same whether the source is real or invented. There is no warning signal.</p>
-          </div>
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; margin:16px 0; font-size:0.85em; line-height:1.6;">
+          <strong>Course simulation vs real case:</strong> The document above was not drawn from the actual SA government draft. The real incident involved fabricated references in an 86-page policy document published for public comment &mdash; different sources, same failure mode.
+        </div>
 
-          <div class="concept-block" style="margin-top:16px;">
-            <h4>Why this matters for professionals (not just policy writers)</h4>
-            <p>Every time you ask an AI to summarise research, write a report, or support a recommendation with evidence &mdash; this risk exists. AI doesn't flag uncertainty in citations the way it sometimes does in regular text. The only person who can catch it is the human who reviews the output. That human is you.</p>
-          </div>
+        <h4 style="margin-top:24px; margin-bottom:10px;">What actually happened in April 2026</h4>
+        <p style="font-size:0.93em; margin-bottom:16px;">South Africa's Department of Communications and Digital Technologies (DCDT) published an 86-page draft national AI policy for public comment. Shortly after publication, journalists and officials identified fictitious references in the document's bibliography &mdash; sources that appeared to have been generated by AI.</p>
+        <p style="font-size:0.93em; margin-bottom:16px;">The Minister said the most plausible explanation was that AI-generated citations had been included without proper human verification. Sixteen days after publication, the Minister announced that the draft would be withdrawn. South Africa's AI policy process had to restart.</p>
+        <p style="font-size:0.93em; margin-bottom:16px;">This was not simply a technical error. It was a failure of verification, review and accountability. A document can look polished, cite specific research and still fail the most basic professional test: are the claims and sources real?</p>
 
-          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-top:16px;">
-            <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Your sector context</p>
-            <p style="margin:0; font-size:0.92em;">Whether you're in finance, healthcare, HR, or government &mdash; if AI helps produce a document that others act on, you are part of the accountability chain. "I used AI" is not a defence if the output harms someone.</p>
+        <div style="background:var(--green-pale); border-left:3px solid var(--green-mid); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:0 0 28px; font-size:0.92em; line-height:1.6;">
+          The problem was not that the document looked unprofessional. The problem was that professional-looking details were treated as evidence before anyone checked the original sources.
+        </div>
+
+        <div class="phase-nav">
+          <span></span>
+          <button type="button" class="btn btn--primary" onclick="goLesson(2)">Lesson 2 &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les1 -->
+
+      <!-- LESSON 2: Why hallucination happens -->
+      <div class="phase-screen" id="ps-2-les2">
+
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 2</span>
+          <h3 style="margin:0; font-size:1.15em;">Why this happens &mdash; and why it matters for you</h3>
+        </div>
+
+        <div class="concept-block">
+          <h4>What is AI hallucination?</h4>
+          <p>You already know from Module 0 that AI <strong>predicts</strong> rather than knows. When asked for a source, a language model may produce something that has the shape of a real citation &mdash; an author, article title, journal and page numbers &mdash; without that source being real.</p>
+          <p style="margin-top:10px;">This is called <strong>hallucination</strong> &mdash; when a generative AI produces text that sounds real and credible but is not grounded in an actual source. The term does not mean the AI is confused or lying: it means the generation process produces plausible-sounding output regardless of whether a real source exists. The same process runs whether the citation is real or fabricated &mdash; the model has no internal check that changes the output when a source doesn't exist.</p>
+          <p style="margin-top:10px;"><strong>AI does not reliably warn you when this happens.</strong> A citation can look complete and authoritative even when it cannot be independently verified. The output looks exactly the same whether the source is real or fabricated.</p>
+        </div>
+
+        <div class="concept-block" style="margin-top:16px;">
+          <h4>Why this matters for professionals</h4>
+          <p>Whenever AI helps draft a report, summarise research, or support a recommendation, the output still needs human verification. Confidence, detail and professional formatting are not evidence.</p>
+          <p style="margin-top:10px;">AI will not reliably catch its own unsupported claims. Human review and organisational verification processes are still responsible for checking the output before others act on it.</p>
+        </div>
+
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-top:16px;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Your sector context</p>
+          <p style="margin:0; font-size:0.92em;">If you create, approve, share, or act on an AI-assisted document, you are part of the accountability chain. "I used AI" does not remove the responsibility to check the claims before others rely on them.</p>
+        </div>
+
+        <div style="border-left:3px solid var(--border); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin-top:12px; font-size:0.88em; line-height:1.6; color:var(--muted);">
+          This applies even when a human has edited or approved the final document. AI-assisted work can still contain AI-generated errors — the editing or approval step does not automatically catch what the underlying model generated.
+        </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson(1)">&larr; Lesson 1</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(3)">Lesson 3 &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les2 -->
+
+      <!-- LESSON 3: The signals -->
+      <div class="phase-screen" id="ps-2-les3">
+
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 3</span>
+          <h3 style="margin:0; font-size:1.15em;">The signals you could have caught</h3>
+        </div>
+
+        <div class="concept-block">
+          <h4>Warning signs &mdash; not a lie detector</h4>
+          <p>A document can pass every quick check below and still be wrong. These checks tell you when to slow down and verify &mdash; not when to trust automatically. Look back at the course excerpt. Three patterns a trained reader checks:</p>
+        </div>
+
+        <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
+            <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Check 1 &mdash; Can the institution be found?</div>
+            <p style="margin:0; font-size:0.92em;">In the course simulation, "South African Institute of Digital Futures Research" and "Pan-African Technology Readiness Council" do not exist &mdash; a search returns nothing. Real policy documents cite organisations with established public presences, official websites, and a track record of publications. If you cannot find the institution through an official or credible source, treat the citation as unverified.</p>
+          </div>
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
+            <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Check 2 &mdash; Can the statistic be traced?</div>
+            <p style="margin:0; font-size:0.92em;">A precise number is not automatically suspicious &mdash; real research can produce exact figures. The question is traceability: What was measured? Over what period? In which population? Who conducted the study? Can you find the original report or dataset? If a specific figure cannot be traced to its method and source, treat it as unverified.</p>
+          </div>
+          <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
+            <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Check 3 &mdash; Can you reach the original source?</div>
+            <p style="margin:0; font-size:0.92em;">If you cannot verify a source quickly, do not rely on it yet &mdash; treat the claim as unverified and escalate the check. Where to look: the official publisher or government archive; a DOI or journal website; a library database; the author's institutional profile; or ask the person who shared the document for the original.</p>
           </div>
         </div>
 
-        <!-- Section 3: The signals -->
-        <div id="m1l-3" style="margin-bottom:36px;">
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-            <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Section 3</span>
-            <h3 style="margin:0; font-size:1.15em;">The signals you could have caught</h3>
-          </div>
+        <!-- Verification table + Step 1/2 note -->
+        <div style="margin:24px 0; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden;">
+          <div style="background:var(--green-dark); color:white; padding:12px 18px; font-size:0.78em; font-weight:800; letter-spacing:1px; text-transform:uppercase;">What verifiable looks like — vs what it doesn't<div style="font-size:0.75em; color:rgba(255,255,255,0.6); margin-top:2px; font-weight:400; text-transform:none; letter-spacing:0;">Use for: recognising patterns when reading a document</div></div>
+          <table style="width:100%; border-collapse:collapse; font-size:0.87em;">
+            <thead>
+              <tr style="background:var(--bg);">
+                <th style="padding:10px 16px; text-align:left; font-weight:700; color:var(--muted); border-bottom:1px solid var(--border);">Weak / unverified citation</th>
+                <th style="padding:10px 16px; text-align:left; font-weight:700; color:var(--muted); border-bottom:1px solid var(--border);">Strong / verifiable citation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:10px 16px; border-bottom:1px solid var(--border);">Institution cannot be found</td>
+                <td style="padding:10px 16px; border-bottom:1px solid var(--border);">Official website or recognised journal record exists</td>
+              </tr>
+              <tr style="background:var(--bg);">
+                <td style="padding:10px 16px; border-bottom:1px solid var(--border);">Generic or vague report title</td>
+                <td style="padding:10px 16px; border-bottom:1px solid var(--border);">Original publication title and date confirmed</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 16px; border-bottom:1px solid var(--border);">No accessible trail to the source</td>
+                <td style="padding:10px 16px; border-bottom:1px solid var(--border);">Government archive, DOI, publisher page, or library record</td>
+              </tr>
+              <tr style="background:var(--bg);">
+                <td style="padding:10px 16px;">Statistic without method or context</td>
+                <td style="padding:10px 16px;">Population, timeframe, method, and original dataset named</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <div class="concept-block">
-            <h4>What a trained reader looks for</h4>
-            <p>Look back at the excerpt. Three signals a trained reader would catch:</p>
-          </div>
-
-          <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
-            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
-              <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Signal 1 &mdash; Institutional names that don't exist</div>
-              <p style="margin:0; font-size:0.92em;">"South African Institute of Digital Futures Research" and "Pan-African Technology Readiness Council" are not real institutions &mdash; a quick search returns nothing. Real policy documents cite organisations with established public presences and accessible websites.</p>
-            </div>
-            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
-              <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Signal 2 &mdash; Suspiciously precise, dramatic statistics</div>
-              <p style="margin:0; font-size:0.92em;">67.3%. 71%. 340%. Real research produces messier numbers &mdash; "approximately 65%", "between 60 and 75%", "up to 340%". When every figure is exact and dramatic, it often means AI predicted what a statistic <em>should sound like</em>, rather than reporting a real finding.</p>
-            </div>
-            <div style="border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; background:var(--white);">
-              <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--green-dark); margin-bottom:8px;">Signal 3 &mdash; Sources that can't be independently verified</div>
-              <p style="margin:0; font-size:0.92em;">All three citations point to sources that are almost impossible to confirm. Real policy documents cite accessible public sources &mdash; government reports you can download, journals with DOIs, NGO publications with public links. If you can't find it in 5 minutes of searching, treat it as unverified.</p>
-            </div>
-          </div>
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin-bottom:24px; font-size:0.9em; line-height:1.6;">
+          <strong>Finding a real source is Step 1.</strong> Checking whether it actually supports the claim being made is Step 2. A real study can be outdated, from a different country or population, or cited in a way that overstates what it shows.
         </div>
 
         <!-- Pocket checklist -->
         <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:24px 28px; margin:24px 0;">
-          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--gold); margin-bottom:14px;">Pocket checklist &mdash; use this before acting on any AI-generated document</p>
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--gold); margin-bottom:14px;">Pocket checklist &mdash; use this before acting on any AI-generated document <span style="font-size:0.85em; color:rgba(255,255,255,0.5); font-weight:400; text-transform:none; letter-spacing:0;">&mdash; Use for: deciding what to do before acting</span></p>
           <div style="display:flex; flex-direction:column; gap:10px;">
             <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
               <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
-              <span>Can I find every cited institution or author with a 30-second search?</span>
+              <span>Can I find the named institution or author through an official or credible source?</span>
             </div>
             <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
               <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
-              <span>Do the statistics look too precise and too dramatic to be real research?</span>
+              <span>Can I locate the original publication, report, or dataset &mdash; not just a citation to it?</span>
             </div>
             <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
               <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
-              <span>Can I access at least one source independently &mdash; a real URL, a real DOI, a real shelf?</span>
+              <span>Do the statistic's population, date, and method match the claim being made?</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px; font-size:0.9em; color:rgba(255,255,255,0.85);">
+              <span style="width:22px; height:22px; border:2px solid rgba(255,255,255,0.4); border-radius:4px; flex-shrink:0; margin-top:1px;"></span>
+              <span>Can I access at least one independent source &mdash; an official URL, DOI, journal record, or government archive?</span>
             </div>
           </div>
-          <p style="font-size:0.8em; color:rgba(255,255,255,0.5); margin-top:14px; margin-bottom:0;">If any answer is "no" or "I'm not sure" &mdash; treat the document as unverified before acting on it.</p>
+          <p style="font-size:0.8em; color:rgba(255,255,255,0.5); margin-top:14px; margin-bottom:0;">If any answer is "no" or "I'm not sure" &mdash; do not treat the claim as verified.</p>
         </div>
 
-        <!-- External resources -->
+        <!-- Further reading -->
+        <p style="font-size:0.82em; color:var(--muted); margin-bottom:12px; font-style:italic;">Explore these after you complete the knowledge check &mdash; they'll make more sense once you've applied what you know.</p>
         <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:24px 28px; margin-bottom:32px;">
           <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--muted); margin-bottom:16px;">Go deeper &mdash; further reading</p>
           <ul style="margin:0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
             <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
-              <strong>DCDT AI Policy Withdrawal (2026)</strong> &mdash; CNBC Africa and IOL covered the story as it broke; the policy withdrawal and official suspensions were confirmed by The Citizen and TechNext. Search <em>cnbcafrica.com</em> for "SA AI policy hallucinated citations" to find the original coverage.
+              <strong>Ministerial withdrawal statement (SAnews, April 2026)</strong> &mdash; The official government announcement confirming fictitious references were found and two officials suspended. At <em>sanews.gov.za</em> &mdash; search "DCDT AI policy withdrawal 2026" or browse the April 2026 archive.
             </li>
             <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
-              <strong>Why AI chatbots hallucinate</strong> &mdash; MIT Technology Review has covered this well. Search "MIT Technology Review AI hallucination explained" for a non-technical breakdown.
+              <strong>Reuters (April 2026)</strong> &mdash; "South Africa withdraws AI policy due to fake AI-generated sources." Search that exact headline at <em>reuters.com</em>.
             </li>
             <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
-              <strong>SA DCDT AI Policy Framework</strong> &mdash; The official public page is at <em>dcdt.gov.za</em>. Any revised draft after the withdrawal will be published there.
+              <strong>Wits School of Governance (wits.ac.za)</strong> &mdash; Academic commentary on the SA public sector AI policy process. Search "DCDT AI policy 2026 Wits" for any published analysis.
+            </li>
+            <li style="font-size:0.9em; border-left:3px solid var(--green-mid); padding-left:14px;">
+              <strong>Why AI chatbots hallucinate</strong> &mdash; MIT Technology Review. Search "MIT Technology Review AI hallucination explained" for a non-technical breakdown.
             </li>
           </ul>
         </div>
 
-        <div style="text-align:right;">
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson(2)">&larr; Lesson 2</button>
           <button type="button" class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
         </div>
 
-      </div><!-- /ps-2-content -->
+      </div><!-- /ps-2-les3 -->
 
       <!-- QUIZ SCREEN -->
       <div class="phase-screen" id="ps-2-quiz">
@@ -476,7 +547,7 @@
         </div>
 
         <div class="phase-nav">
-          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--outline" onclick="goLesson(3)">&larr; Back to reading</button>
           <button type="button" class="btn btn--primary" id="quiz-m1-advance" style="display:none" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
         </div>
 
@@ -515,8 +586,8 @@
             <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">1</div>
             <div>
               <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TASK</div>
-              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What is this AI being used for?</div>
-              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">Is this the right kind of task for AI? Some uses are low-risk. Others &mdash; like producing citations, making legal decisions, or diagnosing patients &mdash; require a different level of scrutiny.</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What is this AI being used for, who could it affect, and what happens if it is wrong?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">Is this the right kind of task for AI? What is at stake if the output is inaccurate, unfair, delayed, or misunderstood? Low-risk drafting is different from decisions about employment, credit, healthcare, legal rights, or public policy.</div>
             </div>
           </div>
 
@@ -524,8 +595,8 @@
             <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">2</div>
             <div>
               <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">DATA</div>
-              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What information does this involve?</div>
-              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">What data went in, and what came out? Is any of it personal, sensitive, or regulated? AI can leak, misuse, or misrepresent data in ways that aren't obvious from the output alone.</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What information is being entered, used, or produced?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">What sensitive, personal, confidential, regulated, or copyrighted information is involved? What evidence or source material is the system relying on? What information could be exposed, distorted, omitted, or invented?</div>
             </div>
           </div>
 
@@ -533,8 +604,8 @@
             <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">3</div>
             <div>
               <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TOOL</div>
-              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What type of AI produced this?</div>
-              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">Different AI types have different failure modes. A language model hallucinates. A prediction model reflects historical bias. Knowing the tool tells you where to look for errors.</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">What kind of system is this, and what are its likely limits?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">Is it generating text, scoring risk, recommending options, matching identities, interpreting images, retrieving information, or taking actions? Does it rely on a model, fixed rules, external sources, or a mix? Different systems fail in different ways.</div>
             </div>
           </div>
 
@@ -543,7 +614,7 @@
             <div>
               <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TRUST</div>
               <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">How do I verify this before acting?</div>
-              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">AI confidence is not evidence. What specific steps would confirm or deny this output? If you can't describe a verification step, you're not ready to act on it.</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">AI confidence is not evidence. What specific steps would confirm or deny this output? Can you name the original source, person, record, calculation, policy, or independent expert who would verify the claim?</div>
             </div>
           </div>
 
@@ -551,8 +622,8 @@
             <div style="width:36px; height:36px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; flex-shrink:0;">5</div>
             <div>
               <div style="font-weight:800; font-size:0.88em; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">HUMAN</div>
-              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">Who is accountable here?</div>
-              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">"The AI did it" is not a defence. Someone decided to use it, approved the output, and acted on it. Who is in that chain &mdash; and what should they have done differently?</div>
+              <div style="font-size:0.93em; font-weight:600; margin-bottom:4px;">Who chose, supplied, reviewed, approved, and acted on this output &mdash; and who remains accountable?</div>
+              <div style="font-size:0.85em; color:var(--muted); line-height:1.6;">"The AI did it" is not a defence. Trace the full accountability chain: who chose the tool, set the rules, supplied the data, reviewed the output, approved the decision, and is responsible if harm occurs?</div>
             </div>
           </div>
 
@@ -563,108 +634,188 @@
         </div>
 
         <div class="phase-nav" style="justify-content:flex-end;">
-          <button class="btn btn--primary" onclick="showScreen(3,'apply')">Apply the Funda Five™ &rarr;</button>
+          <button class="btn btn--primary" onclick="showScreen(3,'step1')">Apply the Funda Five™ &rarr;</button>
         </div>
 
       </div><!-- /ps-3-intro -->
 
-      <!-- ── SCREEN 2: Apply ──────────────────────────────────────────── -->
-      <div class="phase-screen" id="ps-3-apply">
+      <!-- ── STEP 1: TASK ──────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-step1">
 
-      <div class="phase__task">
-        🎯 <strong>Your task:</strong> Apply the Funda Five™ to the DCDT policy scenario. Work through each step as if you were a professional who just received this document from a colleague and needs to decide what to do with it.
-      </div>
+        <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:20px;">Step 1 of 5 &mdash; Task</div>
 
-      <!-- Scaffold: worked example for Step 1 before they attempt all five -->
-      <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:24px;">
-        <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:12px;">Example &mdash; what a strong Step 1 response looks like</p>
-        <div style="display:flex; gap:12px; align-items:flex-start;">
-          <div style="width:30px; height:30px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0;">1</div>
-          <div>
-            <div style="font-size:0.8em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">TASK</div>
-            <p style="font-size:0.9em; color:var(--text); line-height:1.65; margin:0; font-style:italic;">"AI was being used to research and draft supporting evidence for a policy position. This is a high-risk use case because policy documents require verifiable citations &mdash; AI cannot reliably produce these."</p>
-          </div>
-        </div>
-        <p style="font-size:0.82em; color:var(--muted); margin:12px 0 0;">Notice: it names what AI was doing, then immediately evaluates whether that was appropriate. That's the standard for all five steps.</p>
-      </div>
-
-      <div class="funda-apply">
-        <div class="funda-apply-step">
+        <div class="funda-apply-step" style="margin-bottom:16px;">
           <div class="funda-apply-step__num">1</div>
           <div style="flex:1;">
-            <div class="funda-apply-step__name">TASK &mdash; What is this AI being used for?</div>
-            <div style="font-size:0.85em; color:var(--muted);">What job was AI doing in this document? Is that the right kind of job for AI?</div>
-            <textarea placeholder="AI was being used to... This is / isn't appropriate because..."></textarea>
+            <div class="funda-apply-step__name">TASK &mdash; What is this AI being used for, who could it affect, and what happens if it is wrong?</div>
+            <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">What job was AI doing in this document? Is that the right kind of job for AI? What was at stake?</div>
           </div>
         </div>
-        <div class="funda-apply-step">
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:20px;">
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:12px;">Example &mdash; what a strong response looks like</p>
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="width:30px; height:30px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0;">1</div>
+            <p style="font-size:0.9em; color:var(--text); line-height:1.65; margin:0; font-style:italic;">"AI was used to draft evidence for a public policy document. This is high-risk because policy claims influence public decisions and must be traceable to real, verifiable sources."</p>
+          </div>
+          <p style="font-size:0.82em; color:var(--muted); margin:12px 0 0;">It names what AI was doing, then evaluates whether that was appropriate.</p>
+        </div>
+
+        <textarea id="m1-task-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="AI was being used to... This is high / lower risk because..."></textarea>
+        <p id="m1-step-err-1" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'intro')">&larr; Funda Five™</button>
+          <button type="button" class="btn btn--primary" onclick="fundaNext(1)">Save &amp; continue &rarr;</button>
+        </div>
+
+      </div><!-- /ps-3-step1 -->
+
+      <!-- ── STEP 2: DATA ──────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-step2">
+
+        <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:20px;">Step 2 of 5 &mdash; Data</div>
+
+        <div class="funda-apply-step" style="margin-bottom:16px;">
           <div class="funda-apply-step__num">2</div>
           <div style="flex:1;">
-            <div class="funda-apply-step__name">DATA &mdash; What information does this involve?</div>
-            <div style="font-size:0.85em; color:var(--muted);">What kind of data went into producing this? Is any of it sensitive or regulated?</div>
-            <textarea placeholder="The data involved includes... I would / wouldn't be comfortable because..."></textarea>
+            <div class="funda-apply-step__name">DATA &mdash; What information is being entered, used, or produced?</div>
+            <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">What kind of evidence or information did the AI produce? Is any of it sensitive, regulated, or difficult to verify?</div>
           </div>
         </div>
-        <div class="funda-apply-step">
+
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin-bottom:16px; font-size:0.85em; line-height:1.6;">
+          <strong>Confidentiality reminder:</strong> Use a general description only. Do not enter confidential company, client, employee, customer, financial, health, legal, or personal information.
+        </div>
+
+        <textarea id="m1-data-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="The information produced included... The risk here is..."></textarea>
+        <p id="m1-step-err-2" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'step1')">&larr; Step 1</button>
+          <button type="button" class="btn btn--primary" onclick="fundaNext(2)">Save &amp; continue &rarr;</button>
+        </div>
+
+      </div><!-- /ps-3-step2 -->
+
+      <!-- ── STEP 3: TOOL ──────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-step3">
+
+        <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:20px;">Step 3 of 5 &mdash; Tool</div>
+
+        <div class="funda-apply-step" style="margin-bottom:16px;">
           <div class="funda-apply-step__num">3</div>
           <div style="flex:1;">
-            <div class="funda-apply-step__name">TOOL &mdash; What type of AI produced this?</div>
-            <div style="font-size:0.85em; color:var(--muted);">What kind of AI is good at generating policy language? What is it bad at?</div>
-            <textarea placeholder="A language model was probably used. It's good at... but unreliable at..."></textarea>
+            <div class="funda-apply-step__name">TOOL &mdash; What kind of system is this, and what are its likely limits?</div>
+            <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">What type of AI was likely used here? What does that kind of system do well &mdash; and where does it fail?</div>
           </div>
         </div>
-        <div class="funda-apply-step">
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:20px;">
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:12px;">Example &mdash; what a strong response looks like</p>
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="width:30px; height:30px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0;">3</div>
+            <p style="font-size:0.9em; color:var(--text); line-height:1.65; margin:0; font-style:italic;">"This was a large language model &mdash; a text-generation system that predicts what words should come next. These systems produce fluent, professional-sounding output but have no internal check for whether a source actually exists. They are unreliable for citation because the generation process is the same whether the source is real or fabricated."</p>
+          </div>
+          <p style="font-size:0.82em; color:var(--muted); margin:12px 0 0;">It names the system type, then explains its relevant failure mode for this specific task.</p>
+        </div>
+
+        <textarea id="m1-tool-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="A language model was probably used. It is good at... but unreliable at..."></textarea>
+        <p id="m1-step-err-3" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'step2')">&larr; Step 2</button>
+          <button type="button" class="btn btn--primary" onclick="fundaNext(3)">Save &amp; continue &rarr;</button>
+        </div>
+
+      </div><!-- /ps-3-step3 -->
+
+      <!-- ── STEP 4: TRUST ─────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-step4">
+
+        <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:20px;">Step 4 of 5 &mdash; Trust</div>
+
+        <div class="funda-apply-step" style="margin-bottom:16px;">
           <div class="funda-apply-step__num">4</div>
           <div style="flex:1;">
             <div class="funda-apply-step__name">TRUST &mdash; How do I verify this before acting?</div>
-            <div style="font-size:0.85em; color:var(--muted);">What specific verification steps would you take before using this document in a decision?</div>
-            <textarea placeholder="I would verify by... The red flags I'd look for are..."></textarea>
+            <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">What exact steps would you take to verify this before using or sharing it?</div>
           </div>
         </div>
-        <div class="funda-apply-step">
+
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; margin-bottom:16px; font-size:0.87em; line-height:1.6;">
+          <strong>Remember:</strong> Unverified is not the same as false. It means: do not rely on this claim until you can trace it to an original, credible source. If you cannot verify a high-stakes claim yourself, escalate it &mdash; to a subject-matter expert, your compliance team, or the document's author.
+        </div>
+
+        <textarea id="m1-trust-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="I would verify by... If I could not verify, I would..."></textarea>
+        <p id="m1-step-err-4" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'step3')">&larr; Step 3</button>
+          <button type="button" class="btn btn--primary" onclick="fundaNext(4)">Save &amp; continue &rarr;</button>
+        </div>
+
+      </div><!-- /ps-3-step4 -->
+
+      <!-- ── STEP 5: HUMAN ─────────────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-step5">
+
+        <div style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:20px;">Step 5 of 5 &mdash; Human</div>
+
+        <div class="funda-apply-step" style="margin-bottom:16px;">
           <div class="funda-apply-step__num">5</div>
           <div style="flex:1;">
-            <div class="funda-apply-step__name">HUMAN &mdash; Who is accountable here?</div>
-            <div style="font-size:0.85em; color:var(--muted);">If someone made a budget decision based on this document and the sources turned out not to exist &mdash; who is responsible? What should have been in place?</div>
-            <textarea placeholder="The responsible party is... What should have existed is a process where..."></textarea>
+            <div class="funda-apply-step__name">HUMAN &mdash; Who chose, supplied, reviewed, approved, and acted on this output?</div>
+            <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">If someone made a decision based on this document and the sources turned out not to exist &mdash; who is responsible? What should have been in place?</div>
           </div>
         </div>
-      </div>
 
-      <div style="text-align:right; margin-top:24px;">
-        <button type="button" class="btn btn--primary" id="m1-submit-btn" onclick="completeModule1()">Submit my Funda Five™ responses &rarr;</button>
-      </div>
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:20px;">
+          <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:12px;">Example &mdash; what a strong response looks like</p>
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div style="width:30px; height:30px; background:var(--green-dark); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82em; flex-shrink:0;">5</div>
+            <p style="font-size:0.9em; color:var(--text); line-height:1.65; margin:0; font-style:italic;">"Responsibility sat with the team that chose to use an AI tool for policy drafting, the drafter who included AI-generated citations, the reviewer who did not check them, the official who approved publication, and the department that allowed the document to reach the public. Not one person &mdash; the whole chain. What should have existed: a mandatory citation verification step before any AI-assisted document is submitted for approval."</p>
+          </div>
+          <p style="font-size:0.82em; color:var(--muted); margin:12px 0 0;">It names every link in the chain, not just the final approver.</p>
+        </div>
 
-      <!-- Model answer feedback — revealed on submit -->
-      <div id="m1-apply-feedback" style="display:none; margin-top:28px;">
-        <div class="callout">
-          <strong>Strong answer examples &mdash; compare yours:</strong>
-          <div style="margin-top:12px; font-size:0.9em; line-height:1.7;">
-            <p><strong>1 &mdash; TASK:</strong> "AI was being used to research and draft supporting evidence for a policy position. This is a high-risk use case because policy documents require verifiable citations &mdash; AI cannot reliably produce these."</p>
-            <p><strong>2 &mdash; DATA:</strong> "The data involved publicly available academic and government reports. The risk isn't sensitivity &mdash; it's that AI fabricated sources that look like real publications."</p>
-            <p><strong>3 &mdash; TOOL:</strong> "A large language model. These are excellent at producing fluent, authoritative-sounding text. They are unreliable at factual citation &mdash; they generate plausible-sounding references whether or not the source exists."</p>
-            <p><strong>4 &mdash; TRUST:</strong> "Search each citation independently. Check whether the journal, institution, and author exist. If any can't be found in 5 minutes, treat the whole document as unverified."</p>
-            <p><strong>5 &mdash; HUMAN:</strong> "The policy professional who approved the document for publication is accountable. What should have existed: a mandatory verification step before any AI-assisted document goes to publication."</p>
+        <textarea id="m1-human-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="The responsible party is... What should have existed is a process where..."></textarea>
+        <p id="m1-step-err-5" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+
+        <div style="text-align:right; margin-top:16px;">
+          <button type="button" class="btn btn--primary" id="m1-submit-btn" onclick="completeModule1()">Submit my Funda Five™ &rarr;</button>
+        </div>
+
+        <!-- Model answer — revealed on submit -->
+        <div id="m1-apply-feedback" style="display:none; margin-top:28px;">
+          <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:24px 28px; margin-bottom:20px;">
+            <p style="font-size:0.78em; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:16px;">Model answer &mdash; compare yours:</p>
+            <div style="display:flex; flex-direction:column; gap:14px; font-size:0.9em; line-height:1.7;">
+              <div><strong>1 &mdash; TASK:</strong> "AI was used to draft evidence for a public policy document. This is high-risk because policy claims influence public decisions and must be traceable to real, verifiable sources &mdash; AI cannot reliably produce these."</div>
+              <div><strong>2 &mdash; DATA:</strong> "The document included research claims, statistics, citations, institutional names, and policy recommendations. These are not necessarily private, but they are high-impact and require reliable sourcing. The risk was that AI fabricated sources that look like real publications."</div>
+              <div><strong>3 &mdash; TOOL:</strong> "A large language model. These are excellent at producing fluent, authoritative-sounding text. They are unreliable at factual citation &mdash; they generate plausible-sounding references whether or not the source exists."</div>
+              <div><strong>4 &mdash; TRUST:</strong> "Each citation should have been checked against the original source before publication: official government archive, journal record, DOI, publisher website, or named institution. If a citation cannot be verified independently, treat the claim as unverified &mdash; and escalate rather than publishing."</div>
+              <div><strong>5 &mdash; HUMAN:</strong> "Responsibility sat with the people who selected the tool, drafted the document, reviewed the references, approved publication, and acted on the policy. AI does not carry institutional responsibility. What should have existed: a mandatory source-verification step before any AI-assisted document reaches publication or a decision. Where AI output falsely attributes work or statements to a named individual — even a fictional one in a draft — this also raises POPIA accuracy obligations: personal information must not be misleading, incomplete, or incorrectly attributed."</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- COMPLETION — revealed on submit -->
-      <div id="m1-completion-block" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:32px;">
-        <div style="font-size:1.8em; margin-bottom:12px;">🎓</div>
-        <h3 style="margin-bottom:8px;">You've completed Module 1.</h3>
-        <p style="font-size:0.9em; color:var(--muted); max-width:480px; margin:0 auto 24px;">In a real cohort, your facilitator would debrief the Funda Five™ responses with the group and connect your answers to other sectors. The real learning is in hearing how colleagues in different roles approached the same case differently.</p>
-        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-          <a href="dashboard.html" class="btn btn--primary">Back to Dashboard &rarr;</a>
-          <a href="funda-five.html" class="btn btn--outline">Explore the Funda Five™</a>
+        <!-- COMPLETION — revealed on submit -->
+        <div id="m1-completion-block" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:32px; text-align:center; margin-top:20px;">
+          <div style="font-size:1.8em; margin-bottom:12px;">🎓</div>
+          <h3 style="margin-bottom:8px;">You've completed Module 1.</h3>
+          <p style="font-size:0.9em; color:var(--muted); max-width:480px; margin:0 auto 24px;">In a real cohort, your facilitator would debrief the Funda Five™ responses with the group and connect your answers to other sectors. The real learning is in hearing how colleagues in different roles approached the same case differently.</p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="dashboard.html" class="btn btn--primary">Back to Dashboard &rarr;</a>
+            <a href="funda-five.html" class="btn btn--outline">Explore the Funda Five™</a>
+          </div>
         </div>
-      </div>
 
-      <div class="phase-nav" style="justify-content:flex-start;">
-        <button type="button" class="btn btn--outline" onclick="showScreen(3,'intro')">&larr; The Funda Five™</button>
-      </div>
+        <div class="phase-nav" style="justify-content:flex-start; margin-top:24px;">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'step4')">&larr; Step 4</button>
+        </div>
 
-      </div><!-- /ps-3-apply -->
+      </div><!-- /ps-3-step5 -->
 
     </div><!-- /phase__body -->
   </div><!-- /phase-3 -->
@@ -696,43 +847,30 @@ window.MODULE_CONFIG = {
   onScreenChange: function(phaseNum, screenId, phase) {
     var header = phase.querySelector('.phase__header');
     if (header) header.style.display = (screenId === 'quiz') ? 'none' : '';
+    var tracker = document.getElementById('m1-lesson-tracker');
+    if (tracker) tracker.style.display = (screenId === 'quiz') ? 'none' : '';
   }
 };
 
-// ── Lesson dot tracker for Concept phase (3 sections) ─────────────────────
-(function () {
-  var lessons = [
-    { id: 'm1l-1', label: 'Section 1 of 3 — What happened & why' },
-    { id: 'm1l-2', label: 'Section 2 of 3 — Why hallucination happens' },
-    { id: 'm1l-3', label: 'Section 3 of 3 — The signals to catch' },
-  ];
-  var current = 0;
-  function setSection(n) {
-    if (n === current) return;
-    current = n;
-    lessons.forEach(function (_, i) {
-      var dot = document.getElementById('ldot-' + (i + 1));
-      if (!dot) return;
-      dot.className = 'lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
-    });
-    var lbl = document.getElementById('m1-lesson-label');
-    if (lbl) lbl.textContent = lessons[n].label;
-  }
-  document.addEventListener('DOMContentLoaded', function () {
-    if (!window.IntersectionObserver) return;
-    var obs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var idx = lessons.findIndex(function (l) { return l.id === entry.target.id; });
-        if (idx >= 0) setSection(idx);
-      });
-    }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
-    lessons.forEach(function (l) {
-      var el = document.getElementById(l.id);
-      if (el) obs.observe(el);
-    });
+// ── Lesson navigation for Concept phase ───────────────────────────────────
+var M1_LESSON_LABELS = [
+  'Lesson 1 of 3 — What happened & why',
+  'Lesson 2 of 3 — Why hallucination happens',
+  'Lesson 3 of 3 — The signals to catch',
+];
+function setLesson(n) {
+  [1, 2, 3].forEach(function(i) {
+    var dot = document.getElementById('ldot-' + i);
+    if (!dot) return;
+    dot.className = 'lesson-dot' + (i - 1 < n ? ' visited' : '') + (i - 1 === n ? ' current' : '');
   });
-})();
+  var lbl = document.getElementById('m1-lesson-label');
+  if (lbl) lbl.textContent = M1_LESSON_LABELS[n];
+}
+function goLesson(n) {
+  setLesson(n - 1);
+  showScreen(2, 'les' + n);
+}
 
 
 // ── Phase advance ──────────────────────────────────────────────────────────
@@ -781,12 +919,12 @@ function submitQuizM1() {
   var allAnswered = true;
   var wrongCount  = 0;
   var explanations = [
-    { ok: 'Correct — suspiciously precise statistics (67.3%, 340%) are a key signal. Real research produces messier numbers.',
-      no: 'Think about what stood out in the DCDT document. The statistics were unusually exact and uniformly dramatic — that\'s a hallucination signal.' },
+    { ok: 'Correct — in the DCDT simulation, those statistics were signals not because they were precise, but because they couldn\'t be traced to a method, population, or original source. That\'s the test: traceability, not the number of decimal places.',
+      no: 'Think about Check 2 in Lesson 3: precision alone isn\'t the issue. The signal was that the statistics came with no traceable source, population, or methodology — the AI produced exact-sounding figures with nothing behind them.' },
     { ok: 'Right — generative AI predicts plausible-sounding text based on patterns. It generates realistic-looking citations whether or not the source exists.',
       no: 'Generative AI doesn\'t retrieve from a database. It predicts what text should come next — including citations that sound real but may not be.' },
-    { ok: 'Correct — accountability rests with the humans and organisations that approve and publish AI-generated content without verification.',
-      no: 'The AI model has no legal standing. Under South African law and internationally, the organisation that deploys and approves AI output bears responsibility.' },
+    { ok: 'Correct — and the chain is wider than just approval. Responsibility sits with everyone who chose the tool, drafted the content, reviewed the references, approved publication, and acted on the output. AI does not carry institutional responsibility. Consistent with POPIA\'s principle that responsible parties bear accountability for processing outcomes and their effects.',
+      no: 'The AI model has no legal standing. But it\'s not only the approver — responsibility is distributed across everyone who chose the tool, drafted the document, reviewed it, and signed off. Lesson 2 names this: if you create, approve, share, or act on AI-assisted output, you\'re in the accountability chain.' },
     { ok: 'Right — independent search is the only reliable method. Asking the AI to confirm its own output is circular.',
       no: 'Asking the AI to verify itself is circular — it will sound confident whether it\'s right or wrong. Always verify independently by searching for the source.' },
   ];
@@ -829,36 +967,41 @@ function submitQuizM1() {
 
 
 // ── Apply submit ───────────────────────────────────────────────────────────
-function completeModule1() {
-  var phase3    = document.getElementById('phase-3');
-  var textareas = phase3.querySelectorAll('textarea');
-  var total     = Array.from(textareas).reduce(function (sum, ta) { return sum + ta.value.trim().length; }, 0);
-
-  var err = phase3.querySelector('.advance-err');
-  if (total < 20) {
-    if (!err) {
-      err = document.createElement('p');
-      err.className = 'advance-err';
-      err.setAttribute('role', 'alert');
-      err.setAttribute('aria-live', 'polite');
-      var btn = document.getElementById('m1-submit-btn');
-      btn.parentNode.insertBefore(err, btn);
-    }
-    err.textContent = 'Please complete your Funda Five™ responses before submitting.';
+function fundaNext(step) {
+  var names = ['task', 'data', 'tool', 'trust', 'human'];
+  var ta  = document.getElementById('m1-' + names[step - 1] + '-answer');
+  var err = document.getElementById('m1-step-err-' + step);
+  if (!ta || ta.value.trim().length < 10) {
+    if (err) { err.style.display = 'block'; err.textContent = 'Please write at least a few words before continuing.'; }
     return;
   }
-  if (err) err.remove();
+  if (err) err.style.display = 'none';
+  showScreen(3, 'step' + (step + 1));
+}
+
+function completeModule1() {
+  var names  = ['task', 'data', 'tool', 'trust', 'human'];
+  var total  = names.reduce(function(sum, n) {
+    var ta = document.getElementById('m1-' + n + '-answer');
+    return sum + (ta ? ta.value.trim().length : 0);
+  }, 0);
+  var err = document.getElementById('m1-step-err-5');
+  if (total < 20) {
+    if (err) { err.style.display = 'block'; err.textContent = 'Please complete your response before submitting.'; }
+    return;
+  }
+  if (err) err.style.display = 'none';
 
   if (window._m1UserLoggedIn) saveProgress('module-1', 3);
 
-  document.getElementById('m1-submit-btn').style.display   = 'none';
+  document.getElementById('m1-submit-btn').style.display     = 'none';
   document.getElementById('m1-apply-feedback').style.display = 'block';
   document.getElementById('m1-completion-block').style.display = 'block';
 
   var prog3 = document.getElementById('prog-3');
   if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
 
-  setTimeout(function () {
+  setTimeout(function() {
     document.getElementById('m1-apply-feedback').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
 }

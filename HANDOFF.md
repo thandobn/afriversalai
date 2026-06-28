@@ -937,3 +937,80 @@ Admin needs full read+update access — grant via Supabase service role or add a
 - `course-poc/pricing.html` — arrow nowrap on cohorts button; sector chips compact + nowrap
 - `course-poc/assets/style.css` — sector-chips nowrap; feature icons 80px
 - `course-poc/partner-login.html` — main demo partner routes through real Supabase auth
+
+---
+## Session: 2026-06-27 (continued) — Item 5 + T6 complete
+
+**What was worked on:**
+- Item 5 (Commission Statement View): added `renderCommissionStatement(m, opps)` to partner-portal.html — shows a formal statement table for all Signed/Onboarded customers with OPP ID, ACV, commission tier (Y1/Y2/Y3+), rate, estimated gross commission, and stage. Summary stats at top (est. earned, total projected, NCR disclaimer chip). Empty state if no earned customers yet. Committed in f4516f6 with a previous batch.
+- T6 (Module Engine Cleanup): extracted 6 shared utility functions from module-0 through module-6 into `course-poc/assets/module-engine.js`:
+  - `goBack(toPhase)` — was duplicated in m0, m2, m3
+  - `shuffleQuizOptions()` + DOMContentLoaded call — was in all 6 modules (named function in m0-m3, inline in m4-m6)
+  - Progress step click handler — was in all 6 modules (m4-m6 combined with shuffle in one block)
+  - `tutorVerdictHTML(pass, correct, total, msg)` — was in m0, m2, m3
+  - `markCheck(names, fbPrefix, n, exp)` — was in m0 only (now global for future modules)
+  - `resetCheck(names, fbPrefix, n)` — was in m0 only (now global for future modules)
+- Net: 234 lines removed from module files, 77 lines added to engine. Zero functionality change.
+
+**Decisions made:**
+- m2's `tutorVerdictHTML` had "Concept Check · Marking" as tag label; centralized version uses "AI Tutor · Marking" (m0/m3 standard). Minor cosmetic normalization — accepted.
+- `markCheck` and `resetCheck` were m0-only — moved to engine so future modules can reuse without copy-pasting.
+- `goBack` is now global in all modules even if some didn't call it — harmless, and removes the need to add it per-module later.
+
+**Open items / next steps:**
+- BACKLOG T1: knowledge check answer persistence (localStorage) — answers clear on nav away from a phase, self-contained fix per module file
+- BACKLOG T2: DocuSign migration — pilot can ship without it, needed before enterprise scaling
+- RD1: Create CITATIONS.md — seed with 37% stat, 1.4M Microsoft figure, completion rate, Vumacam docs
+- translations.js: m0 copy updates are EN-only — AF/FR/ZU need professional translation before language switcher goes live
+- www.afriversal.ai redirect to coming soon — low priority
+
+**Files changed:**
+- `course-poc/assets/module-engine.js` — 6 functions appended (goBack, shuffleQuizOptions, progress handler, tutorVerdictHTML, markCheck, resetCheck)
+- `course-poc/module-0.html` — removed all 6 functions (-83 lines)
+- `course-poc/module-1.html` — removed shuffle + progress handler (-23 lines)
+- `course-poc/module-2.html` — removed goBack, tutorVerdictHTML, shuffle, progress handler (-38 lines)
+- `course-poc/module-3.html` — removed goBack, tutorVerdictHTML, shuffle, progress handler (-38 lines)
+- `course-poc/module-4.html` — removed combined shuffle+progress block (-18 lines)
+- `course-poc/module-5.html` — removed combined shuffle+progress block (-18 lines)
+- `course-poc/module-6.html` — removed combined shuffle+progress block (-18 lines)
+- `BACKLOG.md` — T2 DocuSign migration entry added
+- `course-poc/assets/translations.js` — m0_lead rewritten; m0_objectives_html "three types" → "four types" + objective 4 reworded
+
+**Commit:** c366c1d — pushed to master
+
+---
+## Session: 2026-06-28 — Module 1 council review + full remediation
+
+**What was worked on:**
+- Full 5-expert council review of module-1.html (all 4 phases: Encounter, Reflect, Concept x3 lessons + quiz, Apply x5 Funda Five steps)
+  - Experts: Adeyemi (Learning Design), Diallo (Africa Context), Obi (Language/Linguistics), Osei (Responsible AI), Okonkwo (Legal)
+  - Blind Phase 1 reviews → Phase 4 deliberation → Phase 5 synthesis report
+  - All findings accepted; 5 new patterns logged to learning log
+- M1 council remediation — 10 changes to module-1.html:
+  - C1: Wits citation → org-level reference (specific URL path unverifiable in a verification-literacy module)
+  - MC1: Quiz Q1 explanation rewritten — traceability framing, not "messier numbers" (was contradicting Lesson 3 Check 2)
+  - MC2: Quiz Q3 explanation rewritten — full accountability chain named + POPIA responsible-party anchor added
+  - MC3+m8: Lesson 2 — formal hallucination definition added + mechanism sentence ("same process runs whether source is real or fabricated")
+  - MC4: SAnews search string improved — "DCDT AI policy withdrawal 2026" + two-officials-suspended detail
+  - MC5: HUMAN model answer — POPIA personal information accuracy sentence added
+  - MC6: Step 3 TOOL — example scaffold block with model response added
+  - MC7: Step 5 HUMAN — example scaffold block with model response added
+  - MC8: Lesson 3 table + checklist differentiated with micro-labels (recognition vs. action)
+  - MC9: "Explore after knowledge check" note added before Further Reading
+- Verified Round 2 remediation plan (T1-A through T1-L, T2-A through T2-E): all items already implemented in prior sessions — no additional edits needed
+- Plan file (eager-launching-hopper.md) updated with M1 council section and T1-K marked done
+
+**Decisions made:**
+- Wits citation replaced with org-level reference rather than verifying URL — module teaching citation verification cannot ship with an unverifiable citation; org-level is the learning-log-approved pattern
+- T1-D (heuristic "approx." qualifiers in M4) treated as done — `~` prefix already present on all 4 heuristic cards and a comprehensive temporal-bounds callout already exists; adding "approx." text would be redundant
+- T1-H (Riskio disclosure) not needed — Riskio not found in module-3.html; module uses "automated risk-scoring" generically with Vumacam named specifically; generic framing is acceptable
+
+**Open items / next steps:**
+- Round 2 remediation plan is fully complete — all T1/T2 items done across M0–M6 and glossary
+- Module 1 is the strongest module to date (no critical or major council findings remain)
+- Next priorities: BACKLOG T1 (knowledge check answer persistence), BACKLOG T2 (DocuSign), RD1 (CITATIONS.md), translations for AF/ZU/FR on all EN keys changed this session
+- No push to remote yet — user will explicitly request when ready
+
+**Files changed:**
+- `course-poc/module-1.html` — 10 council remediation edits (quiz explanations, Lesson 2 definition, Further Reading fixes, Apply scaffolding, micro-labels)
+- `HANDOFF.md` — this entry + previous uncommitted 2026-06-27 (continued) session entry
