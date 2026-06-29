@@ -140,3 +140,17 @@
 **Why it happened:** Fixed the RLS gap first (correct), but didn't immediately flag that demo-mode submissions go to localStorage and will never appear in Supabase regardless of policies. User had to go through the full cycle before the second root cause surfaced.
 **What to do instead:** When debugging a data-not-showing issue on this project, always check demo mode first: `SELECT * FROM [table]` — if empty, the data never reached Supabase. Suspect localStorage before suspecting policies.
 
+---
+
+## 2026-06-28
+
+**Lesson:** Started a multi-phase council review (5 experts, 4 module phases) without reading the full target file first — context compaction hit mid-review, requiring a full re-read in the next session.
+**Why it happened:** Read the module in chunks as each expert's Phase 1 review was being written, instead of front-loading all reads before writing any review.
+**What to do instead:** For any structured multi-expert review, read ALL target file sections before writing the first blind review. The entire read phase must complete before Phase 3 starts — otherwise compaction mid-review forces expensive re-reads and breaks the blind-review isolation window.
+
+---
+
+**Lesson:** Plan file (eager-launching-hopper.md) had 17 items from prior sessions that were already implemented — discovered only by reading each target file during execution.
+**Why it happened:** Plan status wasn't updated after each session that completed items; the plan was append-only, never updated with completion status.
+**What to do instead:** At the end of every session that addresses plan items, mark each completed item directly in the plan file (add "✅ DONE — [date]" inline). The next session should be able to scan the plan and immediately know what's left without re-reading every target file to find out.
+
