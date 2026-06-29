@@ -700,6 +700,18 @@ function completeModule4() {
   gateLocked.style.display   = 'none';
   content.style.display      = 'block';
 
+  // Persist textarea answers locally (keyed by user)
+  var uid = session.user.id;
+  var fields = ['enc-reaction', 'ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5'];
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var key = 'afv_' + uid + '_m4_' + id;
+    var saved = localStorage.getItem(key);
+    if (saved) el.value = saved;
+    el.addEventListener('input', function() { localStorage.setItem(key, el.value); });
+  });
+
   const phases = await getModuleProgress('module-4');
   if (phases.length === 0) return;
 

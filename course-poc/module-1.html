@@ -1052,6 +1052,18 @@ function completeModule1() {
   gateLocked.style.display   = 'none'
   content.style.display      = 'block'
 
+  // Persist textarea answers locally (keyed by user)
+  const uid = session.user.id
+  ;['enc-1', 'ref-1', 'ref-2', 'ref-3', 'ref-4',
+    'm1-task-answer', 'm1-data-answer', 'm1-tool-answer', 'm1-trust-answer', 'm1-human-answer'].forEach(id => {
+    const el = document.getElementById(id)
+    if (!el) return
+    const key = 'afv_' + uid + '_m1_' + id
+    const saved = localStorage.getItem(key)
+    if (saved) el.value = saved
+    el.addEventListener('input', () => localStorage.setItem(key, el.value))
+  })
+
   // Restore Module 1 progress
   const progress = await getAllProgress()
   const phases   = progress
