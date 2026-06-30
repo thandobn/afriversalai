@@ -53,18 +53,22 @@
   // ---- 2. Turn every .fill blank into an inline input ----
   function makeFillable(savedFields, locked) {
     fillEls = [];
-    var nodes = document.querySelectorAll('.fill');
+    // .fill = inline blanks/brackets; .sline = signature-block lines (empty spans)
+    var nodes = document.querySelectorAll('.fill, .sline');
     for (var i = 0; i < nodes.length; i++) {
       var node = nodes[i];
       if (node.closest && node.closest('#af-sign')) continue;       // skip our own block
       if (node.querySelector && node.querySelector('.af-fillin')) continue;
+      var isLine = node.classList && node.classList.contains('sline');
       var raw = (node.textContent || '').trim();
       var ph = raw.replace(/_+/g, '').replace(/^[\[\(]+|[\]\)]+$/g, '').trim();
       var key = 'f' + i;
       var isCell = node.tagName === 'TD' || node.tagName === 'TH';
       var widthCh = Math.max(8, Math.min(42, (ph.length || raw.length || 14) + 2));
+      var width = isCell ? 'width:100%;box-sizing:border-box;' : (isLine ? 'width:100%;box-sizing:border-box;min-width:120px;' : 'width:' + widthCh + 'ch;max-width:100%;');
       var style = 'font-family:inherit;font-size:1em;color:#123528;border:none;border-bottom:1.5px solid var(--gold-dark,#C9A227);' +
-        'background:var(--gold-light,#FDF6E3);padding:1px 6px;border-radius:4px 4px 0 0;' + (isCell ? 'width:100%;box-sizing:border-box;' : 'width:' + widthCh + 'ch;max-width:100%;');
+        'background:var(--gold-light,#FDF6E3);padding:1px 6px;border-radius:4px 4px 0 0;' + width;
+      if (isLine) node.style.borderBottom = 'none';                 // input supplies the underline
       node.innerHTML = '<input class="af-fillin" data-key="' + key + '" type="text"' + (ph ? ' placeholder="' + esc(ph) + '"' : '') + ' style="' + style + '"' + (locked ? ' readonly' : '') + ' />';
       var input = node.querySelector('.af-fillin');
       if (savedFields && savedFields[key] != null) input.value = savedFields[key];
@@ -185,19 +189,28 @@
       if (window.html2pdf) {
         var dataUri = await html2pdf().set(pdfOptions(rec)).from(document.body).outputPdf('datauristring');
         var base64 = (dataUri.split(',')[1]) || '';
-        if (base64) attachments.push({ filename: pdfOptions(rec).filename, content: base64 });
+        // Keep the attachment within a safe request size (~9MB base64); if the
+        // PDF is bigger, send the confirmation without it (download still works).
+        if (base64 && base64.length < 9000000) attachments.push({ filename: pdfOptions(rec).filename, content: base64 });
       }
     } catch (e) {}
 
     try {
       if (window.afSendEmail && window.afEmail) {
-        var msg = afEmail.signatureConfirmation({
-          name: rec.name, email: partnerEmail || TEAM_EMAIL, docName: cfg.title, docUrl: docUrl,
-          verifyId: rec.verifyId, fingerprint: rec.fingerprint, signedAtText: signedAtText, capacity: rec.title
-        });
-        msg.to = partnerEmail ? [partnerEmail, TEAM_EMAIL] : [TEAM_EMAIL];
+        var recipients = partnerEmail ? [partnerEmail, TEAM_EMAIL] : [TEAM_EMAIL];
+        var build = function () {
+          var m = afEmail.signatureConfirmation({
+            name: rec.name, email: partnerEmail || TEAM_EMAIL, docName: cfg.title, docUrl: docUrl,
+            verifyId: rec.verifyId, fingerprint: rec.fingerprint, signedAtText: signedAtText, capacity: rec.title
+          });
+          m.to = recipients; return m;
+        };
+        var msg = build();
         if (attachments.length) msg.attachments = attachments;
         var r = await afSendEmail(msg);
+        // If sending with the attachment failed, retry without it so the
+        // confirmation still gets through.
+        if ((!r || !r.ok) && attachments.length) { r = await afSendEmail(build()); }
         if (note) note.innerHTML = (r && r.ok)
           ? '&#10004; A signed copy has been emailed to ' + esc(partnerEmail || 'you') + ' and the AfriversalAI team. You can download it above any time.'
           : 'Your signature is recorded. (The confirmation email could not be sent right now — you can still download the PDF above.)';

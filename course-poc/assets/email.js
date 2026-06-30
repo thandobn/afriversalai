@@ -27,10 +27,13 @@
         headers['Authorization'] = 'Bearer ' + SUPABASE_ANON_KEY;
         headers['apikey'] = SUPABASE_ANON_KEY;
       }
-      // keepalive lets the request finish even if the page navigates away
-      // immediately after (e.g. register -> dashboard redirect), so the email
-      // is never aborted mid-flight.
-      var res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(msg), keepalive: true });
+      // keepalive lets a small email finish even if the page navigates away
+      // immediately after (e.g. register -> dashboard redirect). BUT browsers cap
+      // keepalive request bodies at 64KB, so it must be OFF for large emails
+      // (e.g. with a PDF attachment) or the fetch is rejected before sending.
+      var bodyStr = JSON.stringify(msg);
+      var useKeepalive = bodyStr.length < 60000 && !(msg.attachments && msg.attachments.length);
+      var res = await fetch(url, { method: 'POST', headers: headers, body: bodyStr, keepalive: useKeepalive });
       if (!res.ok) {
         var t = '';
         try { t = await res.text(); } catch (e) {}
