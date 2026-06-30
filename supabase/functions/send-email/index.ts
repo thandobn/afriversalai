@@ -15,7 +15,6 @@
 // CORS is open to the site origin; invocation is authorised with the anon key
 // (sent by email.js), so only your front-end can call it in practice.
 
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -23,7 +22,7 @@ const CORS = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405, headers: { ...CORS, "Content-Type": "application/json" } });
