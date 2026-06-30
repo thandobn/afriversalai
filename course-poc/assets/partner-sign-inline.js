@@ -155,7 +155,7 @@
     // is dynamic (today); the signature lines are auto-applied by the system.
     var NAME = 'Thurston R. Davis II', TITLE = 'Managing Partner / Co-Founder', NOTICE = 'ask@afriversal.ai';
     var today = fmtDate(Date.now());
-    var script = function (txt) { return '<span style="font-family:\'Dancing Script\',cursive;font-size:1.55em;font-weight:700;color:var(--green-dark,#1B4332);">' + esc(txt) + '</span>'; };
+    var script = function (txt) { return '<span style="font-family:\'Great Vibes\',\'Dancing Script\',cursive;font-size:1.35em;line-height:1;white-space:nowrap;color:var(--green-dark,#1B4332);">' + esc(txt) + '</span>'; };
     var blocks = document.querySelectorAll('.sigblock');
     for (var b = 0; b < blocks.length; b++) {
       var blk = blocks[b];
@@ -352,6 +352,12 @@
 
   // ---- init ----
   async function init() {
+    // Load signature-style fonts for the auto-applied signatures.
+    if (!document.getElementById('af-sig-font')) {
+      var lk = document.createElement('link'); lk.id = 'af-sig-font'; lk.rel = 'stylesheet';
+      lk.href = 'https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap';
+      document.head.appendChild(lk);
+    }
     await personalise();
     if (!cfg || !container) return;
     var signed = null;
