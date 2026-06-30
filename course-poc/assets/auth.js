@@ -99,7 +99,7 @@ async function getAllProgress() {
   if (!session) return []
   const { data, error } = await _supabase
     .from('progress')
-    .select('module_id, phase')
+    .select('module_id, phase, completed_at')
     .eq('user_id', session.user.id)
   if (error) console.error('[AfriversalAI] getAllProgress failed:', error.message)
   return data || []
