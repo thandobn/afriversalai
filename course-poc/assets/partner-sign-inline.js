@@ -31,6 +31,25 @@
   var fillEls = [];
   var lastRec = null;
 
+  // ---- semantic label derivation (clean, self-describing field keys) ----
+  function groupOf(node) {
+    var blk = node.closest && node.closest('.sigblock');
+    if (blk) { var h = blk.querySelector('.party__h'); var t = (h && h.textContent || '').trim(); return /afriversal/i.test(t) ? 'AfriversalAI' : 'Partner'; }
+    return '';
+  }
+  function labelFor(node, isLine) {
+    if (node.tagName === 'TD' || node.tagName === 'TH') {
+      var tr = node.closest('tr'); if (tr) { var first = tr.querySelector('td,th'); if (first && first !== node) return (first.textContent || '').trim(); }
+    }
+    if (isLine) { var row = node.closest('.sigrow'); if (row) { var lbl = row.querySelector('.lbl'); if (lbl) return (lbl.textContent || '').trim(); } }
+    var raw = (node.textContent || '').trim().replace(/_+/g, '').replace(/^[\[\(]+|[\]\)]+$/g, '').trim();
+    if (raw) return raw;
+    var prev = node.previousSibling, t = '';
+    while (prev && !t) { t = (prev.textContent || '').trim(); prev = prev.previousSibling; }
+    return t || 'Field';
+  }
+  function blobToBase64(blob) { return new Promise(function (res) { var r = new FileReader(); r.onloadend = function () { res(((r.result || '') + '').split(',')[1] || ''); }; r.readAsDataURL(blob); }); }
+
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function sigHash(s) { var h = 5381; for (var i = 0; i < s.length; i++) { h = ((h << 5) + h) + s.charCodeAt(i); h = h >>> 0; } return 'FP-' + h.toString(16).toUpperCase(); }
   function genVerifyId() {
@@ -53,6 +72,7 @@
   // ---- 2. Turn every .fill blank into an inline input ----
   function makeFillable(savedFields, locked) {
     fillEls = [];
+    var usedKeys = {};
     // .fill = inline blanks/brackets; .sline = signature-block lines (empty spans)
     var nodes = document.querySelectorAll('.fill, .sline');
     for (var i = 0; i < nodes.length; i++) {
@@ -62,7 +82,11 @@
       var isLine = node.classList && node.classList.contains('sline');
       var raw = (node.textContent || '').trim();
       var ph = raw.replace(/_+/g, '').replace(/^[\[\(]+|[\]\)]+$/g, '').trim();
-      var key = 'f' + i;
+      // Build a clean, human-readable, stable key (e.g. "Partner — Capacity").
+      var grp = groupOf(node), lab = labelFor(node, isLine);
+      var base = (grp ? grp + ' — ' : '') + lab;
+      var key = base, n = 2; while (usedKeys[key]) { key = base + ' (' + n + ')'; n++; }
+      usedKeys[key] = true;
       var isCell = node.tagName === 'TD' || node.tagName === 'TH';
       var widthCh = Math.max(8, Math.min(42, (ph.length || raw.length || 14) + 2));
       var width = isCell ? 'width:100%;box-sizing:border-box;' : (isLine ? 'width:100%;box-sizing:border-box;min-width:120px;' : 'width:' + widthCh + 'ch;max-width:100%;');
@@ -73,7 +97,7 @@
       var input = node.querySelector('.af-fillin');
       if (savedFields && savedFields[key] != null) input.value = savedFields[key];
       if (locked) { input.style.background = 'transparent'; input.style.borderBottomColor = 'var(--border,#E5E7EB)'; }
-      fillEls.push({ key: key, input: input, label: ph || raw });
+      fillEls.push({ key: key, input: input, label: base });
     }
   }
   function collectFields() { var o = {}; fillEls.forEach(function (f) { o[f.key] = (f.input.value || '').trim(); }); return o; }
@@ -144,8 +168,11 @@
     };
   }
   async function downloadPdf(rec) {
-    if (!window.html2pdf) return;
-    try { await html2pdf().set(pdfOptions(rec)).from(document.body).save(); } catch (e) {}
+    // Prefer the archived copy in storage; fall back to regenerating.
+    if (rec && rec.pdf_path && typeof _supabase !== 'undefined') {
+      try { var s = await _supabase.storage.from('signed-docs').createSignedUrl(rec.pdf_path, 3600); if (s && s.data && s.data.signedUrl) { window.open(s.data.signedUrl, '_blank'); return; } } catch (e) {}
+    }
+    if (window.html2pdf) { try { await html2pdf().set(pdfOptions(rec)).from(document.body).save(); } catch (e) {} }
   }
 
   async function submitSign(e) {
@@ -179,18 +206,28 @@
 
   async function finishWithEmail(rec) {
     var note = document.getElementById('afs-emailnote');
-    var partnerEmail = '';
-    try { var s = await getSession(); partnerEmail = (s && s.user && s.user.email) || ''; } catch (e) {}
+    var partnerEmail = '', uid = '';
+    try { var s = await getSession(); partnerEmail = (s && s.user && s.user.email) || ''; uid = (s && s.user && s.user.id) || ''; } catch (e) {}
     var docUrl = 'https://app.afriversal.ai/' + cfg.file;
     var signedAtText = new Date(rec.ts).toLocaleString('en-ZA', { dateStyle: 'long', timeStyle: 'short' }) + ' SAST';
 
     var attachments = [];
     try {
       if (window.html2pdf) {
-        var dataUri = await html2pdf().set(pdfOptions(rec)).from(document.body).outputPdf('datauristring');
-        var base64 = (dataUri.split(',')[1]) || '';
-        // Keep the attachment within a safe request size (~9MB base64); if the
-        // PDF is bigger, send the confirmation without it (download still works).
+        var blob = await html2pdf().set(pdfOptions(rec)).from(document.body).outputPdf('blob');
+        var base64 = await blobToBase64(blob);
+        // Archive a copy of the signed PDF to Supabase Storage (best-effort).
+        try {
+          if (uid && typeof _supabase !== 'undefined') {
+            var path = uid + '/' + (docKey + '-' + rec.verifyId + '.pdf').replace(/[^A-Za-z0-9._\/-]/g, '');
+            var up = await _supabase.storage.from('signed-docs').upload(path, blob, { upsert: true, contentType: 'application/pdf' });
+            if (!up.error) {
+              rec.pdf_path = path;
+              try { await _supabase.from('partner_signatures').update({ pdf_path: path }).eq('partner_email', partnerEmail).eq('doc_key', docKey); } catch (e) {}
+            }
+          }
+        } catch (e) {}
+        // Keep the email attachment within a safe request size (~9MB base64).
         if (base64 && base64.length < 9000000) attachments.push({ filename: pdfOptions(rec).filename, content: base64 });
       }
     } catch (e) {}

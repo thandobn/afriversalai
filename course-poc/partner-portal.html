@@ -483,7 +483,16 @@ function renderCustomers(p){
   document.getElementById('pp-customers').innerHTML = rows || '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px;">No opportunities yet — add your first below.</td></tr>';
 }
 
+function downloadSignedDoc(docKey){
+  var s = (window.__ppSigned||{})[docKey];
+  if (!s || !s.pdf_path){ alert('No stored signed copy was found for this document.'); return; }
+  _supabase.storage.from('signed-docs').createSignedUrl(s.pdf_path, 3600).then(function(r){
+    if (r && r.data && r.data.signedUrl){ window.open(r.data.signedUrl,'_blank'); }
+    else { alert('Could not open the signed PDF right now.'); }
+  }).catch(function(){ alert('Could not open the signed PDF right now.'); });
+}
 function renderDocs(p){
+  window.__ppSigned = p.signed || {};
   var docs = [
     {sec:'Start here', key:'welcome', pub:'Publication 004', ic:'👋', name:'Enterprise Partner Welcome Pack', desc:'Your 90-day roadmap, partner journey, sales guide and commission quick reference.', file:'partner-docs/welcome-pack.html', sign:false},
     {sec:'Start here', key:'nda', pub:'Confidentiality', ic:'🔐', name:'Mutual Non-Disclosure Agreement', desc:'Protects confidential information exchanged during the programme.', file:'partner-docs/nda.html', sign:true},
@@ -501,6 +510,9 @@ function renderDocs(p){
                  : '<span class="await">● Awaiting signature</span>';
     }
     var links='<a class="view" href="'+d.file+'">'+(d.sign?(p.signed&&p.signed[d.key]?'Review / re-sign':'Review &amp; sign'):'Open')+' &rarr;</a>';
+    if (d.sign && p.signed && p.signed[d.key] && p.signed[d.key].pdf_path){
+      links += ' <a class="sign" href="#" onclick="downloadSignedDoc(\''+d.key+'\');return false;">&#11015; Signed PDF</a>';
+    }
     html+='<div class="doc-card"><div class="doc-card__ic">'+d.ic+'</div><div>'+
       '<div class="doc-card__pub">'+d.pub+'</div><div class="doc-card__name">'+d.name+'</div>'+
       '<div class="doc-card__desc">'+d.desc+'</div>'+

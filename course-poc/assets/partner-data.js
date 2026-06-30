@@ -108,7 +108,7 @@
     var signed = {};
     sigs.forEach(function (s) {
       signed[s.doc_key] = { name: s.signer_name, date: (s.signed_at || '').slice(0, 10),
-        signed_at: s.signed_at, verifyId: s.verify_id, fingerprint: s.fingerprint, fields: s.fields };
+        signed_at: s.signed_at, verifyId: s.verify_id, fingerprint: s.fingerprint, fields: s.fields, pdf_path: s.pdf_path || null };
     });
     return {
       email: email, level: prof.level || 'Associate', status: prof.status || 'onboarding',
