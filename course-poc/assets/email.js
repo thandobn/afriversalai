@@ -47,13 +47,16 @@
   var ORIGIN = (typeof location !== 'undefined' && location.origin) ? location.origin : 'https://afriversal.ai';
   var BASE = ORIGIN + (typeof location !== 'undefined' && /\/course-poc\//.test(location.pathname) ? '/course-poc' : '');
 
+  // Absolute URL so the real logo renders in any email client (hard-coded to the
+  // production host, not the sending page's origin).
+  var LOGO_URL = 'https://app.afriversal.ai/assets/logo.png';
   function wrap(title, bodyHtml) {
     return '<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;color:#1A1A2E;">' +
-      '<div style="background:#1B4332;color:#fff;padding:22px 28px;border-radius:12px 12px 0 0;">' +
-      '<strong style="font-size:18px;letter-spacing:.3px;">AfriversalAI</strong></div>' +
-      '<div style="border:1px solid #E5E7EB;border-top:none;border-radius:0 0 12px 12px;padding:28px;">' +
+      '<div style="text-align:center;padding:6px 0 18px;">' +
+      '<img src="' + LOGO_URL + '" alt="AfriversalAI" width="240" style="width:240px;max-width:72%;height:auto;border:0;" /></div>' +
+      '<div style="border:1px solid #E5E7EB;border-radius:12px;padding:28px;">' +
       '<h2 style="color:#1B4332;font-size:20px;margin:0 0 14px;">' + title + '</h2>' + bodyHtml +
-      '<p style="font-size:12px;color:#6B7280;margin-top:26px;">AfriversalAI · African professionals. Global impact.</p>' +
+      '<p style="font-size:12px;color:#6B7280;margin-top:26px;">AfriversalAI &middot; African professionals. Global impact.</p>' +
       '</div></div>';
   }
   function btn(href, label) {
