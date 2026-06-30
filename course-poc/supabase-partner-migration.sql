@@ -316,6 +316,7 @@ create policy "Admins read enquiries"
 alter table organisations add column if not exists intake_label text;     -- e.g. 'August 2026'
 alter table organisations add column if not exists brand_color  text;     -- hex, e.g. '#1B4332'
 alter table organisations add column if not exists created_by   text;     -- 'admin' | 'partner'
+alter table organisations add column if not exists enrolled     integer default 0; -- learners enrolled in the cohort
 
 alter table profiles add column if not exists member_no integer;          -- sequence within the cohort
 alter table profiles add column if not exists member_id text;             -- access-code-stamped ID
