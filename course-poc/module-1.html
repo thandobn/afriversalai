@@ -571,6 +571,16 @@
     </div>
     <div class="phase__body">
 
+      <!-- Shown when this module is already complete (on finish + on revisit) -->
+      <div id="m1-demonstrated" class="demonstrated-banner" style="display:none;">
+        <span class="demonstrated-banner__trophy">🏆</span>
+        <div>
+          <div class="demonstrated-banner__title">Module 1 — Completed &amp; Demonstrated</div>
+          <div class="demonstrated-banner__sub">Your Funda Five™ responses are saved and confirmed. Compare them with the model answers below any time.</div>
+        </div>
+      </div>
+
+
       <!-- ── SCREEN 1: Funda Five™ introduction ─────────────────────────── -->
       <div class="phase-screen is-active" id="ps-3-intro">
 
@@ -1005,6 +1015,8 @@ function completeModule1() {
   document.getElementById('m1-submit-btn').style.display     = 'none';
   document.getElementById('m1-apply-feedback').style.display = 'block';
   document.getElementById('m1-completion-block').style.display = 'block';
+  var demo = document.getElementById('m1-demonstrated');
+  if (demo) demo.style.display = 'flex';
 
   var prog3 = document.getElementById('prog-3');
   if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
@@ -1092,15 +1104,17 @@ function completeModule1() {
     // Show the next unlocked phase
     showPhase(maxPhase + 1)
   } else {
-    // All phases complete — show Apply with completion state restored
+    // All phases complete — show the finished Apply screen with completion state restored
     showPhase(3)
-    showScreen(3, 'apply')
+    showScreen(3, 'step5')
     const submitBtn = document.getElementById('m1-submit-btn')
     const feedback  = document.getElementById('m1-apply-feedback')
     const complete  = document.getElementById('m1-completion-block')
+    const demo      = document.getElementById('m1-demonstrated')
     if (submitBtn) submitBtn.style.display   = 'none'
     if (feedback)  feedback.style.display    = 'block'
     if (complete)  complete.style.display    = 'block'
+    if (demo)      demo.style.display        = 'flex'
     const prog3 = document.getElementById('prog-3')
     if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
   }

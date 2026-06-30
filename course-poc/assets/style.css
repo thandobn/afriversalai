@@ -863,6 +863,20 @@ footer a { color: rgba(255,255,255,0.7); }
 .fac-note--needs_work .fac-note__head { color: #B91C1C; }
 .fac-note--loading { opacity: 0.85; }
 .fac-note--info { background: var(--bg); }
+
+/* "Completed & Demonstrated" trophy banner shown when revisiting a finished module */
+.demonstrated-banner {
+  display: flex; align-items: center; gap: 16px;
+  background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+}
+.demonstrated-banner__trophy { font-size: 2em; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,.25)); }
+.demonstrated-banner__title { font-weight: 800; font-size: 1.05em; color: var(--gold); }
+.demonstrated-banner__sub { font-size: 0.85em; opacity: 0.9; margin-top: 3px; line-height: 1.5; }
 .sector-icon { font-size: 1.8em; margin-bottom: 12px; }
 .sector-name { font-weight: 700; font-size: 0.95em; margin-bottom: 6px; color: var(--text); }
 .sector-desc { font-size: 0.81em; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
