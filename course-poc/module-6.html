@@ -454,6 +454,15 @@
     </div>
     <div class="phase__body">
 
+      <!-- Shown when this module is already complete (on finish + on revisit) -->
+      <div id="m6-demonstrated" class="demonstrated-banner" style="display:none;">
+        <span class="demonstrated-banner__trophy">🏆</span>
+        <div>
+          <div class="demonstrated-banner__title">Module 6 — Completed &amp; Demonstrated</div>
+          <div class="demonstrated-banner__sub">Your Funda Five™ responses are saved and confirmed. Compare them with the model answers below any time.</div>
+        </div>
+      </div>
+
       <div class="phase-screen is-active" id="ps-3-apply">
 
         <div class="phase__task">
@@ -663,6 +672,8 @@ function completeModule6() {
   document.getElementById('m6-apply-submit').style.display = 'none';
   var answers = document.getElementById('model-answers-m6');
   answers.style.display = 'block';
+  var m6demo = document.getElementById('m6-demonstrated');
+  if (m6demo) m6demo.style.display = 'flex';
   setTimeout(function() { answers.scrollIntoView({ behavior:'smooth', block:'start' }); }, 100);
   setTimeout(function() { document.getElementById('module-complete').style.display = 'block'; }, 600);
 }
@@ -732,6 +743,8 @@ function completeModule6() {
     document.getElementById('m6-apply-submit').style.display = 'none';
     document.getElementById('model-answers-m6').style.display = 'block';
     document.getElementById('module-complete').style.display  = 'block';
+    var m6d = document.getElementById('m6-demonstrated');
+    if (m6d) m6d.style.display = 'flex';
     var prog3 = document.getElementById('prog-3');
     if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
   }

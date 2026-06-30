@@ -619,7 +619,7 @@ async function adminAddPartnerSubmit() {
   var r = await adminCreateUser(payload);
   btn.disabled = false; btn.textContent = 'Add partner';
 
-  if (r.reason === 'not_configured') { document.getElementById('ap-needs-fn').style.display = 'block'; msg.textContent = 'The create-user function isn’t deployed yet (see the notice below).'; return; }
+  if (r.reason === 'not_configured' || r.reason === 'unreachable') { document.getElementById('ap-needs-fn').style.display = 'block'; msg.textContent = 'Couldn’t reach the create-user function — it needs to be deployed before accounts can be created (see the notice below).'; return; }
   if (!r.ok) { msg.textContent = r.error || 'Could not add the partner.'; return; }
 
   var emailed = false;
@@ -665,7 +665,13 @@ async function adminCreateUser(payload) {
     let j = {}; try { j = await res.json(); } catch (e) {}
     if (!res.ok) return { ok: false, status: res.status, error: (j && j.error) || ('Request failed (' + res.status + ')') };
     return { ok: true, user_id: j.user_id, action_link: j.action_link, role: j.role };
-  } catch (e) { return { ok: false, error: String((e && e.message) || e) }; }
+  } catch (e) {
+    var em = String((e && e.message) || e);
+    // A thrown fetch ("Failed to fetch" / NetworkError) almost always means the function
+    // URL can't be reached — i.e. the Edge Function isn't deployed yet (or CORS/offline).
+    if (/failed to fetch|networkerror|load failed|fetch/i.test(em)) return { ok: false, reason: 'unreachable', error: em };
+    return { ok: false, error: em };
+  }
 }
 
 async function adminCreateUserSubmit() {
@@ -702,7 +708,7 @@ async function adminCreateUserSubmit() {
   const r = await adminCreateUser(payload);
   btn.disabled = false; btn.textContent = 'Create user';
 
-  if (r.reason === 'not_configured') { document.getElementById('cu-needs-fn').style.display = 'block'; msg.textContent = 'The create-user function isn’t deployed yet (see the notice above).'; return; }
+  if (r.reason === 'not_configured' || r.reason === 'unreachable') { document.getElementById('cu-needs-fn').style.display = 'block'; msg.textContent = 'Couldn’t reach the create-user function — it needs to be deployed before accounts can be created (see the notice above).'; return; }
   if (!r.ok) { msg.textContent = r.error || 'Could not create the user.'; return; }
 
   // Email the set-password link if we got one and no password was set.
