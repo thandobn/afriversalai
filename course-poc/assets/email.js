@@ -94,6 +94,19 @@
         '<p style="font-size:12px;color:#6B7280;">If the link has expired, use “Forgot password” on the sign-in page.</p>';
       return { to: p.email, subject: 'Set your password — AfriversalAI', html: wrap('Welcome to AfriversalAI', body) };
     },
+    accountCredentials: function (p) {
+      var isPartner = (p.role === 'partner' || p.roleLabel === 'partner');
+      var signin = isPartner ? (BASE + '/partner-login.html') : (BASE + '/login.html');
+      var roleLabel = p.roleLabel || 'account';
+      var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
+        '<p>An AfriversalAI ' + roleLabel + ' account has been created for you. You can sign in now using the details below:</p>' +
+        '<p style="background:#F3F4F6;border:1px solid #E5E7EB;border-radius:8px;padding:14px 16px;font-size:15px;">' +
+          '<strong>Email:</strong> ' + (p.email || '') + '<br>' +
+          '<strong>Password:</strong> <code style="font-family:monospace;">' + (p.password || '') + '</code></p>' +
+        btn(signin, isPartner ? 'Open the Partner Portal' : 'Sign in') +
+        '<p style="font-size:12px;color:#6B7280;">For your security, please change your password after signing in &mdash; use &ldquo;Forgot password&rdquo; on the sign-in page if you ever need to reset it.</p>';
+      return { to: p.email, subject: 'Your AfriversalAI ' + (isPartner ? 'Partner Portal ' : '') + 'login details', html: wrap('Your account is ready', body) };
+    },
     cohortCode: function (p) {
       var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
         '<p>The AfriversalAI cohort for <strong>' + (p.org || 'your organisation') + '</strong> is live. Share this access code with your team &mdash; each person enters it when registering to join the cohort.</p>' +
