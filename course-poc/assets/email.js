@@ -110,6 +110,24 @@
         '<p style="font-size:12px;color:#6B7280;">For your security, please change your password after signing in &mdash; use &ldquo;Forgot password&rdquo; on the sign-in page if you ever need to reset it.</p>';
       return { to: p.email, subject: 'Your AfriversalAI ' + (isPartner ? 'Partner Portal ' : '') + 'login details', html: wrap('Your account is ready', body) };
     },
+    signatureConfirmation: function (p) {
+      // p: { name, email, docName, docUrl, verifyId, fingerprint, signedAtText, capacity }
+      var row = function (k, v, mono) {
+        return '<tr><td style="color:#6B7280;padding:7px 10px;border-bottom:1px solid #E5E7EB;width:42%;">' + k +
+          '</td><td style="padding:7px 10px;border-bottom:1px solid #E5E7EB;font-weight:600;' + (mono ? 'font-family:ui-monospace,monospace;' : '') + '">' + (v || '—') + '</td></tr>';
+      };
+      var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
+        '<p>This confirms that <strong>' + (p.docName || 'your document') + '</strong> has been electronically signed and recorded. A PDF copy of the signed document is attached for your records.</p>' +
+        '<table style="width:100%;border-collapse:collapse;font-size:14px;margin:10px 0 4px;border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;">' +
+          row('Document', p.docName) + row('Signatory', p.name) +
+          (p.capacity ? row('Capacity', p.capacity) : '') +
+          row('Date signed', p.signedAtText) + row('Verification ID', p.verifyId, true) +
+          row('Document fingerprint', p.fingerprint, true) +
+        '</table>' +
+        (p.docUrl ? btn(p.docUrl, 'View the document') : '') +
+        '<p style="font-size:12px;color:#6B7280;">This electronic signature is legally binding and equivalent to a handwritten (wet-ink) signature under South Africa&rsquo;s Electronic Communications and Transactions Act 25 of 2002 (ECTA).</p>';
+      return { to: p.email, subject: 'Signed &amp; recorded: ' + (p.docName || 'AfriversalAI document'), html: wrap('Signature confirmed', body) };
+    },
     cohortCode: function (p) {
       var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
         '<p>The AfriversalAI cohort for <strong>' + (p.org || 'your organisation') + '</strong> is live. Share this access code with your team &mdash; each person enters it when registering to join the cohort.</p>' +

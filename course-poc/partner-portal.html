@@ -105,6 +105,14 @@
     .doc-card__links .sign { color:var(--gold-dark); }
     .signed { font-size:.74em; font-weight:700; color:var(--green-mid); }
     .await { font-size:.74em; font-weight:700; color:#B45309; }
+    /* Two-column layout: main content + persistent documents column */
+    .pp-layout { display:grid; grid-template-columns:minmax(0,1fr) 350px; gap:28px; align-items:start; }
+    .pp-side { position:sticky; top:16px; background:var(--green-pale); border:1.5px solid var(--green-light); border-radius:var(--radius-lg); padding:16px 18px 20px; max-height:calc(100vh - 32px); overflow:auto; }
+    .pp-side .doc-grid { grid-template-columns:1fr !important; gap:12px; }
+    .pp-side .section-label:first-child { margin-top:0; }
+    .pp-side__head { font-size:1.02em; font-weight:800; color:var(--green-dark); margin-bottom:4px; }
+    .pp-side__sub { font-size:.8em; color:var(--muted); margin-bottom:12px; line-height:1.5; }
+    @media (max-width: 980px){ .pp-layout{ grid-template-columns:1fr; } .pp-side{ position:static; order:-1; max-height:none; margin-bottom:20px; } }
 
     .quick { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-top:18px; }
     .quick h3 { font-size:1em; color:var(--green-dark); margin:0 0 10px; }
@@ -204,6 +212,8 @@
     </div>
   </div>
 
+  <div class="pp-layout">
+  <div class="pp-main">
   <div class="section-label">Your performance</div>
   <div class="stats" id="pp-stats"></div>
 
@@ -240,9 +250,14 @@
     <a href="partner-register-corporate.html" class="btn btn--primary btn--sm">+ Register a corporate &amp; create a cohort &rarr;</a>
   </div>
   <div id="pp-cohorts"></div>
+  </div><!-- /pp-main -->
 
-  <div class="section-label">Your documents</div>
-  <div id="pp-docs"></div>
+  <aside class="pp-side">
+    <div class="pp-side__head">Documents to review &amp; sign</div>
+    <div class="pp-side__sub">Open each document, complete the highlighted fields, and sign at the bottom. Your signed copy is emailed to you and saved here.</div>
+    <div id="pp-docs"></div>
+  </aside>
+  </div><!-- /pp-layout -->
 
   <div class="quick">
     <h3>Core programme rules</h3>
@@ -485,11 +500,7 @@ function renderDocs(p){
       status = s ? '<span class="signed">✓ Signed '+(s.date||'')+'</span>'+(s.verifyId?'<br><span style="font-size:.92em;color:var(--muted);font-family:ui-monospace,monospace;">'+s.verifyId+'</span>':'')
                  : '<span class="await">● Awaiting signature</span>';
     }
-    var links='<a class="view" href="'+d.file+'">Open &rarr;</a>';
-    if (d.sign){
-      var s=p.signed&&p.signed[d.key];
-      links += ' <a class="sign" href="partner-sign.html?doc='+d.key+'">'+(s?'Re-sign':'Sign now')+' &rarr;</a>';
-    }
+    var links='<a class="view" href="'+d.file+'">'+(d.sign?(p.signed&&p.signed[d.key]?'Review / re-sign':'Review &amp; sign'):'Open')+' &rarr;</a>';
     html+='<div class="doc-card"><div class="doc-card__ic">'+d.ic+'</div><div>'+
       '<div class="doc-card__pub">'+d.pub+'</div><div class="doc-card__name">'+d.name+'</div>'+
       '<div class="doc-card__desc">'+d.desc+'</div>'+

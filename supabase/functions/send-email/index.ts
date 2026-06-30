@@ -34,18 +34,34 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ error: "Email provider not configured" }), { status: 503, headers: { ...CORS, "Content-Type": "application/json" } });
   }
 
-  let body: { to?: string; subject?: string; html?: string; text?: string; replyTo?: string };
+  let body: {
+    to?: string | string[]; subject?: string; html?: string; text?: string; replyTo?: string;
+    cc?: string | string[]; bcc?: string | string[];
+    attachments?: Array<{ filename?: string; content?: string }>;
+  };
   try { body = await req.json(); } catch { body = {}; }
 
-  const { to, subject, html, text, replyTo } = body;
+  const { to, subject, html, text, replyTo, cc, bcc, attachments } = body;
   if (!to || !subject || (!html && !text)) {
     return new Response(JSON.stringify({ error: "Missing to, subject, or html/text" }), { status: 400, headers: { ...CORS, "Content-Type": "application/json" } });
   }
 
-  const payload: Record<string, unknown> = { from: EMAIL_FROM, to: [to], subject };
+  const payload: Record<string, unknown> = {
+    from: EMAIL_FROM,
+    to: Array.isArray(to) ? to : [to],
+    subject,
+  };
   if (html) payload.html = html;
   if (text) payload.text = text;
   if (replyTo) payload.reply_to = replyTo;
+  if (cc) payload.cc = Array.isArray(cc) ? cc : [cc];
+  if (bcc) payload.bcc = Array.isArray(bcc) ? bcc : [bcc];
+  // attachments: [{ filename, content }] where content is base64 (Resend format).
+  if (Array.isArray(attachments) && attachments.length) {
+    payload.attachments = attachments
+      .filter((a) => a && a.filename && a.content)
+      .map((a) => ({ filename: a.filename, content: a.content }));
+  }
 
   const resp = await fetch("https://api.resend.com/emails", {
     method: "POST",
