@@ -179,6 +179,63 @@
   }
   function fmtDate(d) { return new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' }); }
 
+  // Remove redundant signature rows: Witness 1/2 from BOTH parties, and the
+  // 'Signature' row from the PARTNER side (they sign in the form below).
+  function pruneSignatureRows() {
+    var blocks = document.querySelectorAll('.sigblock');
+    for (var b = 0; b < blocks.length; b++) {
+      var blk = blocks[b];
+      var h = blk.querySelector('.party__h');
+      var isAF = h && /afriversal/i.test(h.textContent || '');
+      var rows = blk.querySelectorAll('.sigrow');
+      for (var r = 0; r < rows.length; r++) {
+        var lbl = rows[r].querySelector('.lbl');
+        var L = (lbl && lbl.textContent || '').toLowerCase().trim();
+        if (/witness/.test(L) || (!isAF && /^signature$/.test(L))) {
+          if (rows[r].parentNode) rows[r].parentNode.removeChild(rows[r]);
+        }
+      }
+    }
+  }
+
+  // Make empty data-entry table rows (e.g. Protected Accounts, Named Exclusions)
+  // fillable: every empty body cell becomes an input keyed by column + row.
+  function makeTablesFillable(savedFields, locked) {
+    var tables = document.querySelectorAll('table');
+    for (var t = 0; t < tables.length; t++) {
+      var table = tables[t];
+      if (table.closest && table.closest('#af-sign')) continue;
+      var heads = table.querySelectorAll('thead th');
+      if (!heads.length) continue;                       // need a header row to label columns
+      var cols = []; for (var c = 0; c < heads.length; c++) cols.push((heads[c].textContent || '').trim());
+      var caption = '';
+      var prev = table.previousElementSibling;
+      while (prev && !caption) { var tx = (prev.textContent || '').trim(); if (tx) caption = tx; prev = prev.previousElementSibling; }
+      var bodyRows = table.querySelectorAll('tbody tr');
+      var rowIdx = 0;
+      for (var br = 0; br < bodyRows.length; br++) {
+        var cells = bodyRows[br].children;
+        // Only treat rows whose cells are ALL empty as data-entry rows.
+        var allEmpty = true;
+        for (var ci = 0; ci < cells.length; ci++) { if ((cells[ci].textContent || '').replace(/\s| /g, '').length) { allEmpty = false; break; } }
+        if (!allEmpty) continue;
+        rowIdx++;
+        for (var ci2 = 0; ci2 < cells.length; ci2++) {
+          var cell = cells[ci2];
+          if (cell.querySelector && cell.querySelector('.af-fillin')) continue;
+          var colName = cols[ci2] || ('Col ' + (ci2 + 1));
+          var key = (caption ? caption + ' — ' : '') + colName + ' (row ' + rowIdx + ')';
+          var style = 'width:100%;box-sizing:border-box;font-family:inherit;font-size:1em;color:#123528;border:none;border-bottom:1.5px solid var(--gold-dark,#C9A227);background:var(--gold-light,#FDF6E3);padding:4px 6px;border-radius:4px 4px 0 0;';
+          cell.innerHTML = '<input class="af-fillin" data-key="' + esc(key) + '" type="text" style="' + style + '"' + (locked ? ' readonly' : '') + ' />';
+          var input = cell.querySelector('.af-fillin');
+          if (savedFields && savedFields[key] != null) input.value = savedFields[key];
+          if (locked) { input.style.background = 'transparent'; input.style.borderBottomColor = 'var(--border,#E5E7EB)'; }
+          fillEls.push({ key: key, input: input, label: key });
+        }
+      }
+    }
+  }
+
   // ---- 3. Signature step ----
   function renderForm() {
     var gd = 'var(--green-dark,#1B4332)';
@@ -360,6 +417,7 @@
     }
     await personalise();
     if (!cfg || !container) return;
+    pruneSignatureRows();                          // drop witness rows + partner Signature row
     var signed = null;
     try {
       if (typeof loadPartner === 'function') {
@@ -370,6 +428,7 @@
     if (signed) {
       makeFillable(signed.fields || {}, true);   // re-fill (read-only) for review
       makeCheckable(signed.fields || {}, true);
+      makeTablesFillable(signed.fields || {}, true);
       autoSignAfriversal(fmtDate(signed.signed_at || signed.ts || Date.now()));
       renderCertificate(signed, 'You signed this document on ' +
         new Date(signed.signed_at || signed.ts || Date.now()).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' }) +
@@ -377,6 +436,7 @@
     } else {
       makeFillable(null, false);                 // editable for completion
       makeCheckable(null, false);
+      makeTablesFillable(null, false);
       autoSignAfriversal('1 June 2026');          // AfriversalAI side is static & pre-signed by the system
       renderForm();
     }
