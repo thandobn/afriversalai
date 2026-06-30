@@ -377,16 +377,16 @@
           esign_consent_at: new Date().toISOString(),
         }
       )
-      // Best-effort welcome email with their Member ID (no-op until the email function is deployed).
+      // Best-effort welcome email with their login details (email + the password
+      // they chose). Never blocks the redirect; keepalive lets it finish.
       try {
         if (window.afSendEmail && window.afEmail) {
-          let mid = ''
-          try { const _p = await getProfile(); mid = (_p && _p.member_id) || '' } catch (e) {}
-          await afSendEmail(afEmail.learnerWelcome({
+          await afSendEmail(afEmail.accountCredentials({
             name: document.getElementById('ind-name').value.trim(),
             email: document.getElementById('ind-email').value.trim(),
-            cohort: document.getElementById('ind-org').value.trim() || '',
-            memberId: mid
+            password: document.getElementById('ind-password').value,
+            role: 'learner',
+            roleLabel: 'learner'
           }))
         }
       } catch (e) {}

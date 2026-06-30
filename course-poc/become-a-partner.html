@@ -168,7 +168,10 @@
       <div><label for="p-org" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Company / organisation</label>
         <input id="p-org" name="organisation" type="text" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
       <div><label for="p-email" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Email</label>
-        <input id="p-email" name="email" type="email" required style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
+        <input id="p-email" name="email" type="email" required autocomplete="email" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
+      <div><label for="p-password" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Choose a password</label>
+        <input id="p-password" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" />
+        <p style="font-size:.76em; color:var(--muted); margin:6px 0 0;">You'll use this to sign in to the Partner Portal. We'll email you a copy of your login details.</p></div>
       <div><label for="p-country" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Country &amp; sectors you serve</label>
         <input id="p-country" name="country_sectors" type="text" placeholder="e.g. South Africa — banking, government" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit;" /></div>
 
@@ -198,8 +201,8 @@
 
       <div><label for="p-about" style="display:block; font-weight:600; font-size:.88em; margin-bottom:6px;">Anything else about your network &amp; why you'd be a strong partner</label>
         <textarea id="p-about" name="about" rows="3" style="width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea></div>
-      <button type="submit" id="apply-submit" class="btn btn--primary btn--lg">Submit application &rarr;</button>
-      <p style="font-size:.78em; color:var(--muted); margin:0;">By applying you agree to our <a href="privacy.html">Privacy Policy</a>. Approval is at AfriversalAI's discretion.</p>
+      <button type="submit" id="apply-submit" class="btn btn--primary btn--lg">Create my partner account &rarr;</button>
+      <p style="font-size:.78em; color:var(--muted); margin:0;">By signing up you agree to our <a href="privacy.html">Privacy Policy</a>. Your account is created immediately; our Partner Programme Office will be in touch about onboarding and accreditation.</p>
     </form>
   </div>
 </section>
@@ -226,9 +229,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/auth.js"></script>
+<script src="assets/email.js"></script>
 <script>
-  // Partner applications are written to the Supabase `partner_applications` table
-  // (anon insert is allowed by RLS; only admins can read them in the console).
+  // Instant self-service partner signup: creates a Portal account (via the
+  // public `partner-signup` Edge Function, which holds the service role) and
+  // emails the new partner their login details. Pipeline answers are also saved
+  // to `partner_applications` (best-effort) so the team keeps the onboarding intel.
   async function submitApplication(e){
     e.preventDefault();
     var msg = document.getElementById('apply-msg');
@@ -237,37 +243,55 @@
     if (document.getElementById('p-gotcha').value) return false; // spam honeypot
     var name = document.getElementById('p-name').value.trim();
     var email = document.getElementById('p-email').value.trim();
-    if (!name || !email) {
-      msg.textContent = 'Please add your name and email.';
-      msg.style.cssText += ';display:block;background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;';
-      return false;
-    }
-    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Submitting…';
-    var qualifiers = {
-      pipeline_volume: document.getElementById('q-volume').value || null,
-      org_size: document.getElementById('q-orgsize').value || null,
-      decision_access: document.getElementById('q-access').value || null,
-      relationship: document.getElementById('q-relationship').value || null,
-      opportunities: document.getElementById('q-pipeline').value.trim() || null
-    };
-    var payload = {
-      name: name,
-      organisation: document.getElementById('p-org').value.trim() || null,
-      email: email,
-      country_sectors: document.getElementById('p-country').value.trim() || null,
-      qualifiers: qualifiers,
-      about: document.getElementById('p-about').value.trim() || null
-    };
+    var password = document.getElementById('p-password').value;
+    var org = document.getElementById('p-org').value.trim();
+    var country = document.getElementById('p-country').value.trim();
+    function showErr(html){ msg.innerHTML = html; msg.style.cssText += ';display:block;background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;'; }
+    if (!name || !email) { showErr('Please add your name and email.'); return false; }
+    if (!password || password.length < 8) { showErr('Please choose a password of at least 8 characters.'); return false; }
+
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Creating your account…';
+
     try {
-      var res = await _supabase.from('partner_applications').insert(payload);
-      if (res.error) throw res.error;
+      // 1. Create the account with their chosen password.
+      var url = SUPABASE_URL.replace(/\/$/, '') + '/functions/v1/partner-signup';
+      var res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY, 'apikey': SUPABASE_ANON_KEY },
+        body: JSON.stringify({ email: email, password: password, full_name: name, organisation: org, country: country })
+      });
+      var j = {}; try { j = await res.json(); } catch (e) {}
+      if (!res.ok) { showErr(j.error || 'Sorry — we could not create your account right now. Please email <a href="mailto:ask@afriversal.ai" style="color:#B91C1C;font-weight:700;">ask@afriversal.ai</a>.'); btn.disabled = false; btn.textContent = label; return false; }
+
+      // 2. Best-effort: store pipeline answers for the team (does not block signup).
+      try {
+        await _supabase.from('partner_applications').insert({
+          name: name, organisation: org || null, email: email,
+          country_sectors: country || null,
+          qualifiers: {
+            pipeline_volume: document.getElementById('q-volume').value || null,
+            org_size: document.getElementById('q-orgsize').value || null,
+            decision_access: document.getElementById('q-access').value || null,
+            relationship: document.getElementById('q-relationship').value || null,
+            opportunities: document.getElementById('q-pipeline').value.trim() || null
+          },
+          about: document.getElementById('p-about').value.trim() || null
+        });
+      } catch (e2) { /* non-blocking */ }
+
+      // 3. Email their login details (best-effort — never blocks).
+      try {
+        if (window.afSendEmail && window.afEmail) {
+          await afSendEmail(afEmail.accountCredentials({ name: name, email: email, password: password, role: 'partner', roleLabel: 'partner' }));
+        }
+      } catch (e3) {}
+
       document.getElementById('apply-form').reset();
-      msg.innerHTML = '<strong>Thank you — your application has been received.</strong><br>Our Partner Programme Office will be in touch about next steps and due diligence.';
+      msg.innerHTML = '<strong>Your Partner Portal account is ready.</strong><br>We’ve emailed your login details to <strong>' + email + '</strong>. <a href="partner-login.html" style="color:#065F46;font-weight:700;">Sign in to the Partner Portal &rarr;</a>';
       msg.style.cssText += ';display:block;background:#ECFDF5;border:1px solid #A7F3D0;color:#065F46;';
       btn.style.display = 'none';
     } catch (ex) {
-      msg.innerHTML = 'Sorry — we could not submit your application right now. Please email <a href="mailto:ask@afriversal.ai" style="color:#B91C1C;font-weight:700;">ask@afriversal.ai</a>.';
-      msg.style.cssText += ';display:block;background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;';
+      showErr('Sorry — we could not create your account right now. Please email <a href="mailto:ask@afriversal.ai" style="color:#B91C1C;font-weight:700;">ask@afriversal.ai</a>.');
       btn.disabled = false; btn.textContent = label;
     }
     return false;

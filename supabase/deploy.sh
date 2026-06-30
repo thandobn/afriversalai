@@ -8,6 +8,7 @@ FUNCTIONS=(
   admin-create-user
   admin-set-password
   partner-invite
+  partner-signup
   send-email
   tutor-review
   grade-apply
