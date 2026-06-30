@@ -382,7 +382,7 @@
         if (window.afSendEmail && window.afEmail) {
           let mid = ''
           try { const _p = await getProfile(); mid = (_p && _p.member_id) || '' } catch (e) {}
-          afSendEmail(afEmail.learnerWelcome({
+          await afSendEmail(afEmail.learnerWelcome({
             name: document.getElementById('ind-name').value.trim(),
             email: document.getElementById('ind-email').value.trim(),
             cohort: document.getElementById('ind-org').value.trim() || '',

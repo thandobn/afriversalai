@@ -27,7 +27,10 @@
         headers['Authorization'] = 'Bearer ' + SUPABASE_ANON_KEY;
         headers['apikey'] = SUPABASE_ANON_KEY;
       }
-      var res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(msg) });
+      // keepalive lets the request finish even if the page navigates away
+      // immediately after (e.g. register -> dashboard redirect), so the email
+      // is never aborted mid-flight.
+      var res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(msg), keepalive: true });
       if (!res.ok) {
         var t = '';
         try { t = await res.text(); } catch (e) {}
