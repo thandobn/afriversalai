@@ -150,7 +150,11 @@
   // Auto-apply AfriversalAI's counter-signature into the AfriversalAI execution
   // block (Signature 1 = signatory, Signature 2 = witness). Runs on partner
   // signing and when reopening a signed doc, so the form is fully executed.
-  function autoSignAfriversal(dateStr) {
+  function autoSignAfriversal() {
+    // Static AfriversalAI execution details (identical on every form). The date
+    // is dynamic (today); the signature lines are auto-applied by the system.
+    var NAME = 'Thurston R. Davis II', TITLE = 'Managing Partner / Co-Founder', NOTICE = 'ask@afriversal.ai';
+    var today = fmtDate(Date.now());
     var script = function (txt) { return '<span style="font-family:\'Dancing Script\',cursive;font-size:1.55em;font-weight:700;color:var(--green-dark,#1B4332);">' + esc(txt) + '</span>'; };
     var blocks = document.querySelectorAll('.sigblock');
     for (var b = 0; b < blocks.length; b++) {
@@ -159,16 +163,16 @@
       if (!h || !/afriversal/i.test(h.textContent || '')) continue;
       var rows = blk.querySelectorAll('.sigrow');
       for (var r = 0; r < rows.length; r++) {
-        var lbl = rows[r].querySelector('.lbl'); var line = rows[r].querySelector('.sline');
+        var lbl = rows[r].querySelector('.lbl'); var line = rows[r].querySelector('.sline, .fill');
         if (!lbl || !line) continue;
         var L = (lbl.textContent || '').toLowerCase().trim();
         var html = null;
-        if (/witness 1/.test(L)) html = script(AF_SIGNATORY2.name);
-        else if (/witness 2/.test(L)) html = '';
-        else if (/signature|authorised signatory/.test(L)) html = script(AF_SIGNATORY1.name);
-        else if (/^name/.test(L)) html = esc(AF_SIGNATORY1.name);
-        else if (/title|capacity/.test(L)) html = esc(AF_SIGNATORY1.title);
-        else if (/date/.test(L)) html = esc(dateStr);
+        if (/witness/.test(L)) html = '';                                   // witness lines left blank
+        else if (/authorised signatory|signature/.test(L)) html = script(NAME);
+        else if (/^name/.test(L)) html = esc(NAME);
+        else if (/title|capacity/.test(L)) html = esc(TITLE);
+        else if (/date/.test(L)) html = esc(today);
+        else if (/notice/.test(L)) html = esc(NOTICE);
         if (html !== null) { line.innerHTML = html; line.style.borderBottom = (html === '') ? '' : 'none'; }
       }
     }
@@ -236,15 +240,33 @@
       image: { type: 'jpeg', quality: 0.9 },
       html2canvas: { scale: 1.3, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: document.documentElement.scrollWidth },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'] }
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'], avoid: ['tr', '.sigblock', '.cert', '.keynote', 'img', 'h1', 'h2', 'h3'] }
     };
+  }
+  // Inject transient CSS so blocks don't split across PDF pages, then remove it.
+  function pdfStyle(on) {
+    var id = 'af-pdf-style', ex = document.getElementById(id);
+    if (on) {
+      if (ex) return;
+      var s = document.createElement('style'); s.id = id;
+      s.textContent = 'tr,td,th,.sigblock,.cert,.keynote,.doc-card,table,img,figure,blockquote{page-break-inside:avoid!important;break-inside:avoid!important;}' +
+        'h1,h2,h3,.party__h,.section-label{page-break-after:avoid!important;break-after:avoid-page!important;}';
+      document.head.appendChild(s);
+    } else if (ex) { ex.remove(); }
+  }
+  async function makePdf(rec, mode) {
+    pdfStyle(true);
+    try {
+      if (mode === 'save') return await html2pdf().set(pdfOptions(rec)).from(document.body).save();
+      return await html2pdf().set(pdfOptions(rec)).from(document.body).outputPdf('blob');
+    } finally { pdfStyle(false); }
   }
   async function downloadPdf(rec) {
     // Prefer the archived copy in storage; fall back to regenerating.
     if (rec && rec.pdf_path && typeof _supabase !== 'undefined') {
       try { var s = await _supabase.storage.from('signed-docs').createSignedUrl(rec.pdf_path, 3600); if (s && s.data && s.data.signedUrl) { window.open(s.data.signedUrl, '_blank'); return; } } catch (e) {}
     }
-    if (window.html2pdf) { try { await html2pdf().set(pdfOptions(rec)).from(document.body).save(); } catch (e) {} }
+    if (window.html2pdf) { try { await makePdf(rec, 'save'); } catch (e) {} }
   }
 
   async function submitSign(e) {
@@ -287,7 +309,7 @@
     var attachments = [];
     try {
       if (window.html2pdf) {
-        var blob = await html2pdf().set(pdfOptions(rec)).from(document.body).outputPdf('blob');
+        var blob = await makePdf(rec);
         var base64 = await blobToBase64(blob);
         // Archive a copy of the signed PDF to Supabase Storage (best-effort).
         try {
