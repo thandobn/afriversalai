@@ -209,6 +209,54 @@
     .ask__bubble--facilitator { background: var(--green-pale); border: 1px solid var(--green-light); border-bottom-left-radius: 4px; }
     .ask__row { display: flex; gap: 10px; }
     .ask__row textarea { flex: 1; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 11px 13px; font-family: inherit; font-size: 0.9em; resize: vertical; min-height: 46px; }
+
+    /* ===== Detailed progress tracker ("you are here") ===== */
+    .tracker-panel { background:#fff; border:1.5px solid var(--border); border-left:5px solid var(--gold); border-radius:var(--radius-lg); padding:20px 24px; margin-top:8px; display:flex; gap:24px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .tk-now { flex:1; min-width:260px; }
+    .tk-now__label { font-size:0.7em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:6px; }
+    .tk-now__title { font-size:1.15em; font-weight:800; color:var(--green-dark); }
+    .tk-now__phase { font-size:0.9em; color:var(--text); margin-top:4px; }
+    .tk-phasebar { display:flex; gap:6px; margin-top:11px; max-width:360px; }
+    .tk-phasebar__seg { height:7px; flex:1; border-radius:4px; background:var(--border); position:relative; }
+    .tk-phasebar__seg.done { background:var(--green-mid); }
+    .tk-phasebar__seg.current { background:var(--gold); }
+    .tk-phasebar__lbl { display:flex; gap:6px; margin-top:5px; max-width:360px; }
+    .tk-phasebar__lbl span { flex:1; font-size:0.6em; text-align:center; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.3px; }
+    .tk-next { font-size:0.85em; color:var(--muted); margin-top:12px; }
+    .tk-next strong { color:var(--green-dark); }
+    .tk-count { text-align:center; flex-shrink:0; min-width:200px; background:var(--green-dark); color:#fff; border-radius:var(--radius-lg); padding:16px 20px; }
+    .tk-count__label { font-size:0.64em; font-weight:800; text-transform:uppercase; letter-spacing:1.3px; color:var(--gold); }
+    .tk-count__clock { font-size:1.4em; font-weight:800; font-variant-numeric:tabular-nums; margin:6px 0 3px; line-height:1; }
+    .tk-count__sub { font-size:0.74em; color:rgba(255,255,255,.72); line-height:1.4; }
+
+    /* ===== Learning path: live-event milestone bands ===== */
+    .lp-band { display:flex; align-items:stretch; gap:0; margin:24px 0; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border); background:#0c1a12; }
+    .lp-band__img { width:210px; min-height:128px; object-fit:cover; object-position:center; flex-shrink:0; }
+    .lp-band__body { flex:1; min-width:200px; padding:16px 20px; color:#fff; display:flex; flex-direction:column; justify-content:center; }
+    .lp-band__tag { font-size:0.64em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); margin-bottom:5px; }
+    .lp-band__name { font-weight:800; font-size:1.06em; line-height:1.2; }
+    .lp-band__theme { font-size:0.83em; color:rgba(255,255,255,0.72); font-style:italic; margin:3px 0 8px; }
+    .lp-band__meta { font-size:0.8em; color:rgba(255,255,255,0.85); }
+    .lp-band__foot { flex-shrink:0; padding:16px 20px; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:8px; text-align:right; }
+    .lp-band.is-live { border-color:#DC2626; box-shadow:0 8px 26px rgba(220,38,38,.22); }
+    .lp-band.is-locked .lp-band__img { filter:grayscale(0.8); opacity:0.7; }
+    .lp-band__lockmsg { font-size:0.74em; color:var(--gold); max-width:160px; }
+    .lp-band__cta { display:inline-block; background:var(--gold); color:var(--green-dark); font-weight:800; font-size:0.8em; padding:8px 16px; border-radius:8px; text-decoration:none; white-space:nowrap; }
+    .lp-band__cta--ghost { background:rgba(255,255,255,.12); color:rgba(255,255,255,.85); }
+    .lp-status { font-size:0.7em; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; padding:5px 12px; border-radius:20px; display:inline-block; }
+    .lp-status--done { background:var(--green-light); color:var(--green-dark); }
+    .lp-status--live { background:#DC2626; color:#fff; }
+    .lp-status--soon { background:var(--gold-light); color:var(--gold-dark); }
+    .lp-status--upcoming { background:rgba(255,255,255,.14); color:rgba(255,255,255,.82); }
+    .lp-status--locked { background:rgba(255,255,255,.12); color:rgba(255,255,255,.6); }
+    @media (max-width:600px){ .lp-band{flex-wrap:wrap;} .lp-band__img{width:100%;min-height:120px;} .lp-band__foot{align-items:flex-start;text-align:left;width:100%;} }
+
+    .lp-segment-label { font-size:0.72em; font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin:30px 0 -8px; }
+    .module-card__date { font-size:0.8em; color:var(--green-dark); font-weight:700; margin-top:10px; }
+    .module-card__datelock { font-size:0.8em; color:var(--gold-dark); font-weight:700; margin-top:10px; }
+
+    /* ===== Trophy medallions (SVG) ===== */
+    .tc-item__icon svg { width:42px; height:42px; display:block; margin:1px auto 0; }
   </style>
 </head>
 <body>
@@ -350,99 +398,13 @@
 <section class="bg-pale">
   <div class="container">
 
-    <div class="section-label">Foundation</div>
-    <div class="module-grid" id="foundation-grid">
-      <!-- Module 0 -->
-      <div class="module-card" id="card-module-0">
-        <img class="module-card__banner" src="assets/module-0-banner.jpg?v=2" alt="Module 0 — AI Fundamentals" loading="lazy" />
-        <span class="module-card__badge badge--free">Free &middot; All sectors</span>
-        <h3>Module 0 — AI Fundamentals</h3>
-        <p>What AI is, what it isn't, and how to start seeing it in your own workplace.</p>
-        <div class="phase-dots" id="dots-module-0">
-          <div class="phase-dot" title="Concept"></div>
-          <div class="phase-dot" title="Encounter"></div>
-          <div class="phase-dot" title="Reflect"></div>
-          <div class="phase-dot" title="Apply"></div>
-        </div>
-        <a href="module-0.html" class="continue-link" id="link-module-0">Start module →</a>
-      </div>
-    </div>
+    <!-- Detailed progress tracker -->
+    <div id="tracker-panel" class="tracker-panel" style="display:none;"></div>
 
-    <div class="section-label">Core Course — Modules 1–6</div>
-    <div class="module-grid">
-      <div class="module-card is-locked" id="card-module-1">
-        <img class="module-card__banner" src="assets/module-1-banner.jpg" alt="Module 1 — The Confidence Problem" loading="lazy" />
-        <span class="module-card__badge badge--locked" id="badge-module-1">Locked</span>
-        <h3>Module 1 — The Confidence Problem</h3>
-        <p>SA Government AI Policy Scandal &middot; April 2026. What hallucination looks like in the wild.</p>
-        <div class="phase-dots" id="dots-module-1">
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-        </div>
-        <a href="module-1.html" class="continue-link" id="link-module-1" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-1" style="font-size:0.82em; color:var(--muted);">Complete all 4 phases of Module 0 to unlock</span>
-      </div>
-      <div class="module-card is-locked" id="card-module-2">
-        <img class="module-card__banner" src="assets/module-2-banner.jpg" alt="Module 2 — How AI Learns and Fails" loading="lazy" />
-        <span class="module-card__badge badge--locked" id="badge-module-2">Locked</span>
-        <h3>Module 2 — How AI Learns and Fails</h3>
-        <p>African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.</p>
-        <div class="phase-dots" id="dots-module-2">
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-        </div>
-        <a href="module-2.html" class="continue-link" id="link-module-2" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-2" style="font-size:0.82em; color:var(--muted);">Complete Module 1 to unlock</span>
-      </div>
-      <div class="module-card is-locked" id="card-module-3">
-        <img class="module-card__banner" src="assets/module-3-banner.jpg" alt="Module 3 — Bias and Discrimination" loading="lazy" />
-        <span class="module-card__badge badge--locked" id="badge-module-3">Locked</span>
-        <h3>Module 3 — Bias and Discrimination</h3>
-        <p>SA Predictive Policing. Discrimination without discriminatory intent.</p>
-        <div class="phase-dots" id="dots-module-3">
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-        </div>
-        <a href="module-3.html" class="continue-link" id="link-module-3" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-3" style="font-size:0.82em; color:var(--muted);">Complete Module 2 to unlock</span>
-      </div>
-      <div class="module-card is-locked" id="card-module-4">
-        <img class="module-card__banner" src="assets/module-4-banner.jpg" alt="Module 4 — Verification and Judgment" loading="lazy" />
-        <span class="module-card__badge badge--locked" id="badge-module-4">Locked</span>
-        <h3>Module 4 — Verification and Judgment</h3>
-        <p>SA 2024 Election Deepfakes. How to know when AI output is good enough to act on.</p>
-        <div class="phase-dots" id="dots-module-4">
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-        </div>
-        <a href="module-4.html" class="continue-link" id="link-module-4" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-4" style="font-size:0.82em; color:var(--muted);">Complete Module 3 to unlock</span>
-      </div>
-      <div class="module-card is-locked" id="card-module-5">
-        <img class="module-card__banner" src="assets/module-5-banner.jpg" alt="Module 5 — Accountability and Governance" loading="lazy" />
-        <span class="module-card__badge badge--locked" id="badge-module-5">Locked</span>
-        <h3>Module 5 — Accountability and Governance</h3>
-        <p>AI Recruitment + Employment Equity Act. &ldquo;The algorithm decided&rdquo; is not a defence.</p>
-        <div class="phase-dots" id="dots-module-5">
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-        </div>
-        <a href="module-5.html" class="continue-link" id="link-module-5" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-5" style="font-size:0.82em; color:var(--muted);">Complete Module 4 to unlock</span>
-      </div>
-      <div class="module-card is-locked" id="card-module-6">
-        <img class="module-card__banner" src="assets/module-6-banner.jpg" alt="Module 6 — When AI Works and When It Doesn't" loading="lazy" />
-        <span class="module-card__badge badge--locked" id="badge-module-6">Locked</span>
-        <h3>Module 6 — When AI Works and When It Doesn&rsquo;t</h3>
-        <p>Dr Math vs Clinical AI Decision Support. The full Funda Five™ synthesis.</p>
-        <div class="phase-dots" id="dots-module-6">
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-          <div class="phase-dot"></div><div class="phase-dot"></div>
-        </div>
-        <a href="module-6.html" class="continue-link" id="link-module-6" style="display:none;">Start module →</a>
-        <span id="lock-msg-module-6" style="font-size:0.82em; color:var(--muted);">Complete Module 5 to unlock</span>
-      </div>
-    </div>
+    <!-- Learning path — modules interleaved with live-event milestones, in cohort timeline order -->
+    <div class="section-label">Your Learning Path</div>
+    <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 4px; max-width:680px;">Your cohort moves through the modules and the four live forums in order. Finish the modules before each forum to keep your place &mdash; forums and later modules open on their scheduled dates.</p>
+    <div id="learning-path"></div>
 
     <div class="section-label" id="sector-section-label" style="display:none;">Your Sector Module</div>
     <div class="module-grid" id="sector-grid"></div>
@@ -458,13 +420,6 @@
       <a href="resources.html" class="btn btn--outline" style="flex-shrink:0;">Explore resources &rarr;</a>
     </div>
 
-    <!-- LIVE VIDEO SESSIONS -->
-    <div class="cj-head">
-      <div class="section-label" style="margin-top:44px;">Live Video Sessions</div>
-      <div class="cj-head__dates">Q3 2026 &middot; on Zoom &middot; <a href="course-timetable.html" style="color:var(--green-mid); font-weight:700;">Full timetable →</a></div>
-    </div>
-    <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 6px; max-width:660px;">Four faculty-led video-conference forums anchor your cohort &mdash; each a milestone, not a webinar. Attendance counts toward your certification.</p>
-    <div class="vsession-grid" id="vsession-grid"></div>
 
   </div>
 </section>
@@ -601,6 +556,252 @@ async function optInCohort(key) {
   } else if (btn) { btn.disabled = false; btn.textContent = 'Register / opt in' }
 }
 
+// ===================== Cohort schedule & timeline learning path =====================
+// Soft mode: date-locks are shown but never block during the POC. Flip to true to hard-enforce.
+var AF_ENFORCE_SCHEDULE = false;
+var COHORT_REF_START = '2026-08-03';   // reference start — reproduces the published Q3 2026 dates
+var AF_ANCHOR = null;                   // resolved Date the schedule is measured from
+
+function resolveAnchor(startStr) {
+  var d = new Date((startStr || COHORT_REF_START) + 'T00:00:00');
+  if (isNaN(d.getTime())) d = new Date(COHORT_REF_START + 'T00:00:00');
+  return d;
+}
+function dayDate(offset) { var d = new Date(AF_ANCHOR.getTime()); d.setDate(d.getDate() + offset); d.setHours(0,0,0,0); return d; }
+function eventDateTime(offset) { var d = dayDate(offset); d.setHours(18,0,0,0); return d; }
+function isPast(d) { return Date.now() >= d.getTime(); }
+function fmtDate(d) { return d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' }); }
+function fmtDateYear(d) { return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
+
+var CORE_META = [
+  { id:'module-0', num:'0', title:'AI Fundamentals', desc:'What AI is, what it isn’t, and how to start seeing it in your own workplace.', img:'assets/module-0-banner.jpg?v=2' },
+  { id:'module-1', num:'1', title:'The Confidence Problem', desc:'SA Government AI Policy Scandal. What hallucination looks like in the wild.', img:'assets/module-1-banner.jpg' },
+  { id:'module-2', num:'2', title:'How AI Learns and Fails', desc:'African Fintech Credit Scoring Bias. Training data and the inequality it carries forward.', img:'assets/module-2-banner.jpg' },
+  { id:'module-3', num:'3', title:'Bias and Discrimination', desc:'SA Predictive Policing. Discrimination without discriminatory intent.', img:'assets/module-3-banner.jpg' },
+  { id:'module-4', num:'4', title:'Verification and Judgment', desc:'SA 2024 Election Deepfakes. Knowing when AI output is good enough to act on.', img:'assets/module-4-banner.jpg' },
+  { id:'module-5', num:'5', title:'Accountability and Governance', desc:'AI Recruitment + Employment Equity Act. “The algorithm decided” is not a defence.', img:'assets/module-5-banner.jpg' },
+  { id:'module-6', num:'6', title:'When AI Works — and When It Doesn’t', desc:'Dr Math vs Clinical AI Decision Support. The full Funda Five™ synthesis.', img:'assets/module-6-banner.jpg' },
+];
+var PHASE_NAMES_DEFAULT = ['Encounter','Reflect','Concept','Apply'];
+var PHASE_NAMES = { 'module-0':['Concept','Encounter','Reflect','Apply'] };
+function phaseNames(id) { return PHASE_NAMES[id] || PHASE_NAMES_DEFAULT; }
+function metaFor(id) { for (var i=0;i<CORE_META.length;i++) if (CORE_META[i].id===id) return CORE_META[i]; return null; }
+
+var EVENTS = {
+  'future-forum': { off:0,  name:'AfriversalAI Future Forum™',     theme:'Future of Work',             img:'assets/event-1-future-forum.jpg',     time:'18:00–19:30 SAST' },
+  'thinklab':     { off:10, name:'AfriversalAI ThinkLab™',         theme:'Can AI Be Trusted?',         img:'assets/event-2-thinklab.jpg',         time:'18:00–19:30 SAST' },
+  'governance':   { off:24, name:'AfriversalAI Governance Forum™', theme:'Who Is Responsible?',        img:'assets/event-3-governance-forum.jpg', time:'18:00–19:30 SAST' },
+  'strategy':     { off:38, name:'AfriversalAI Strategy Lab™',     theme:'How Should We Implement AI?', img:'assets/event-4-strategy-lab.jpg',     time:'18:00–20:00 SAST' },
+  'graduation':   { off:59, name:'Certification Ceremony™',         theme:'Graduation',                 img:null,                                  time:'18:00 SAST', grad:true },
+};
+var PATH = [
+  { type:'event',  key:'future-forum', requires:[] },
+  { type:'module', id:'module-0', open:0 },
+  { type:'module', id:'module-1', open:2 },
+  { type:'module', id:'module-2', open:5 },
+  { type:'event',  key:'thinklab',   requires:['module-0','module-1','module-2'] },
+  { type:'module', id:'module-3', open:10, afterEvent:'thinklab' },
+  { type:'module', id:'module-4', open:14 },
+  { type:'event',  key:'governance', requires:['module-0','module-1','module-2','module-3','module-4'] },
+  { type:'module', id:'module-5', open:24, afterEvent:'governance' },
+  { type:'module', id:'module-6', open:28 },
+  { type:'event',  key:'strategy',   requires:['module-0','module-1','module-2','module-3','module-4','module-5','module-6'] },
+  { type:'event',  key:'graduation', requires:['module-0','module-1','module-2','module-3','module-4','module-5','module-6'] },
+];
+
+function moduleCompletedAt(id, progress) {
+  var rows = (progress||[]).filter(function(r){ return r.module_id===id && r.completed_at; });
+  if (!rows.length) return null;
+  var max = rows.reduce(function(m,r){ var t=new Date(r.completed_at).getTime(); return t>m?t:m; }, 0);
+  return max ? new Date(max) : null;
+}
+
+function moduleCardHTML(item, prevId, byModule, isAdmin, progress) {
+  var meta = metaFor(item.id);
+  var phases = byModule[item.id] || [];
+  var done = phases.length >= 4;
+  var inProg = phases.length > 0 && !done;
+  var prereqOk = !prevId || (byModule[prevId]||[]).length >= 4 || isAdmin;
+  var openD = dayDate(item.open);
+  var afterEvD = item.afterEvent ? eventDateTime(EVENTS[item.afterEvent].off) : null;
+  var dateReady = isPast(openD) && (!afterEvD || isPast(afterEvD));
+  var dateLocked = !dateReady && !isAdmin;
+  var afterName = item.afterEvent ? EVENTS[item.afterEvent].name.replace('AfriversalAI ','') : '';
+
+  var dn = phases.map(Number), dots = '';
+  for (var i=0;i<4;i++) dots += '<div class="phase-dot'+(dn.indexOf(i)>=0?' done':'')+'"></div>';
+  var href = item.id + '.html';
+  var cls = 'module-card', badge = '', foot = '';
+
+  if (!prereqOk) {
+    var pm = metaFor(prevId);
+    cls += ' is-locked';
+    badge = '<span class="module-card__badge badge--locked">Locked</span>';
+    foot = '<span style="font-size:0.82em;color:var(--muted);">Complete Module '+(pm?pm.num:'?')+' to unlock</span>';
+  } else if (done) {
+    cls += ' is-complete';
+    var cAt = moduleCompletedAt(item.id, progress);
+    badge = '<span class="module-card__badge badge--complete">✓ COMPLETED</span><span class="module-card__badge badge--demonstrated">★ DEMONSTRATED</span>';
+    foot = '<a href="'+href+'" class="continue-link">Review module →</a>'
+         + (cAt ? '<div class="module-card__date">🏆 Completed '+fmtDateYear(cAt)+'</div>' : '');
+  } else if (dateLocked && AF_ENFORCE_SCHEDULE) {
+    cls += ' is-locked';
+    badge = '<span class="module-card__badge badge--locked">Locked</span>';
+    foot = '<div class="module-card__datelock">🔒 Opens '+fmtDate(openD)+(afterName?' · after '+afterName:'')+'</div>';
+  } else {
+    badge = inProg ? '<span class="module-card__badge badge--progress">In progress</span>'
+          : '<span class="module-card__badge badge--free">'+(item.id==='module-0'?'Free · Start here':'Start here')+'</span>';
+    foot = '<a href="'+href+'" class="continue-link">'+(inProg?'Continue →':'Start module →')+'</a>'
+         + (dateLocked ? '<div class="module-card__datelock">🗓️ Scheduled to open '+fmtDate(openD)+(afterName?' · after '+afterName:'')+'</div>' : '');
+  }
+  return '<div class="'+cls+'" id="card-'+item.id+'">'
+    + '<img class="module-card__banner" src="'+meta.img+'" alt="Module '+meta.num+' — '+meta.title+'" loading="lazy" />'
+    + badge
+    + '<h3>Module '+meta.num+' — '+meta.title+'</h3>'
+    + '<p>'+meta.desc+'</p>'
+    + '<div class="phase-dots">'+dots+'</div>'
+    + foot
+    + '</div>';
+}
+
+function eventBandHTML(item, byModule, isAdmin) {
+  var ev = EVENTS[item.key];
+  var dt = eventDateTime(ev.off), dayD = dayDate(ev.off);
+  var reqDone = item.requires.every(function(id){ return (byModule[id]||[]).length>=4; }) || isAdmin;
+  var past = isPast(dt);
+  var today0 = new Date(); today0.setHours(0,0,0,0);
+  var diffDays = Math.round((dayD - today0)/86400000);
+  var statusCls, statusTxt;
+  if (past) { statusCls='done'; statusTxt='Completed'; }
+  else if (diffDays===0) { statusCls='live'; statusTxt='Live today'; }
+  else if (diffDays>0 && diffDays<=7) { statusCls='soon'; statusTxt='In '+diffDays+' day'+(diffDays===1?'':'s'); }
+  else { statusCls='upcoming'; statusTxt='Upcoming'; }
+  var locked = !reqDone;
+  var bandCls = 'lp-band' + (statusCls==='live'?' is-live':'') + (locked?' is-locked':'');
+  var img = ev.img
+    ? '<img class="lp-band__img" src="'+ev.img+'" alt="'+ev.name+'" loading="lazy" />'
+    : '<div class="lp-band__img" style="background:linear-gradient(135deg,var(--green-dark),var(--gold-dark));display:flex;align-items:center;justify-content:center;font-size:2.6em;">🎓</div>';
+  var foot;
+  if (locked) {
+    var remaining = item.requires.filter(function(id){ return (byModule[id]||[]).length<4; }).length;
+    foot = '<span class="lp-status lp-status--locked">🔒 Locked</span>'
+         + '<span class="lp-band__lockmsg">Finish '+remaining+' more required module'+(remaining===1?'':'s')+' to unlock the details.</span>';
+  } else if (past) {
+    foot = '<span class="lp-status lp-status--done">✓ Attended</span>'
+         + '<a class="lp-band__cta lp-band__cta--ghost" href="course-timetable.html">Recap</a>';
+  } else {
+    foot = '<span class="lp-status lp-status--'+statusCls+'">'+statusTxt+'</span>'
+         + '<a class="lp-band__cta" href="course-timetable.html">'+(statusCls==='live'?'Join →':'View details')+'</a>';
+  }
+  return '<div class="'+bandCls+'">'+ img
+    + '<div class="lp-band__body">'
+    +   '<div class="lp-band__tag">'+(ev.grad?'🎓 Graduation':'📹 Live Video Conference')+'</div>'
+    +   '<div class="lp-band__name">'+ev.name+'</div>'
+    +   '<div class="lp-band__theme">'+ev.theme+'</div>'
+    +   '<div class="lp-band__meta">📅 '+fmtDate(dt)+' · '+ev.time+'</div>'
+    + '</div>'
+    + '<div class="lp-band__foot">'+foot+'</div>'
+    + '</div>';
+}
+
+function renderLearningPath(byModule, isAdmin) {
+  var host = document.getElementById('learning-path');
+  if (!host) return;
+  var progress = window._afProgress || [];
+  var prevId = null, html = '', gridOpen = false;
+  PATH.forEach(function(item){
+    if (item.type === 'event') {
+      if (gridOpen) { html += '</div>'; gridOpen = false; }
+      html += eventBandHTML(item, byModule, isAdmin);
+    } else {
+      if (!gridOpen) { html += '<div class="module-grid">'; gridOpen = true; }
+      html += moduleCardHTML(item, prevId, byModule, isAdmin, progress);
+      prevId = item.id;
+    }
+  });
+  if (gridOpen) html += '</div>';
+  host.innerHTML = html;
+}
+
+function renderTracker(byModule, isAdmin) {
+  var panel = document.getElementById('tracker-panel');
+  if (!panel) return;
+  var cur = null;
+  for (var i=0;i<CORE_META.length;i++) {
+    var ph = (byModule[CORE_META[i].id]||[]).length;
+    if (ph < 4) { cur = { meta:CORE_META[i], ph:ph }; break; }
+  }
+  var html = '';
+  if (!cur) {
+    html = '<div class="tk-now"><div class="tk-now__label">Your progress</div>'
+         + '<div class="tk-now__title">All 7 core modules complete 🏆</div>'
+         + '<div class="tk-now__phase">You’ve demonstrated every module. Next: your Workplace Application Project and the Certification Ceremony.</div></div>';
+  } else {
+    var names = phaseNames(cur.meta.id), segs = '', lbls = '';
+    for (var p=0;p<4;p++) {
+      var c = p<cur.ph?'done':(p===cur.ph?'current':'');
+      segs += '<div class="tk-phasebar__seg '+c+'"></div>';
+      lbls += '<span>'+names[p]+'</span>';
+    }
+    var curName = names[Math.min(cur.ph,3)];
+    var nextTxt = cur.ph < 3
+      ? 'Next up: Phase '+(cur.ph+2)+' — <strong>'+names[cur.ph+1]+'</strong>'
+      : 'Next up: finish this module to unlock <strong>Module '+(parseInt(cur.meta.num,10)+1)+'</strong>';
+    html = '<div class="tk-now">'
+      + '<div class="tk-now__label">You are here</div>'
+      + '<div class="tk-now__title">Module '+cur.meta.num+' — '+cur.meta.title+'</div>'
+      + '<div class="tk-now__phase">'+(cur.ph===0?'Ready to start · ':'')+'Phase '+Math.min(cur.ph+1,4)+' of 4 — <strong>'+curName+'</strong></div>'
+      + '<div class="tk-phasebar">'+segs+'</div>'
+      + '<div class="tk-phasebar__lbl">'+lbls+'</div>'
+      + '<div class="tk-next">'+nextTxt+'</div>'
+      + '</div>';
+  }
+  var nextEv = null, order = ['future-forum','thinklab','governance','strategy','graduation'];
+  for (var k=0;k<order.length;k++) { var dt = eventDateTime(EVENTS[order[k]].off); if (!isPast(dt)) { nextEv = { k:order[k], dt:dt }; break; } }
+  if (nextEv) {
+    var ev = EVENTS[nextEv.k];
+    html += '<div class="tk-count">'
+      + '<div class="tk-count__label">Next live forum in</div>'
+      + '<div class="tk-count__clock" id="tk-clock">—</div>'
+      + '<div class="tk-count__sub">'+ev.name.replace('AfriversalAI ','')+'<br>'+fmtDate(nextEv.dt)+' · '+ev.time+'</div>'
+      + '</div>';
+  }
+  panel.innerHTML = html;
+  panel.style.display = 'flex';
+  if (nextEv) startCountdown(nextEv.dt.getTime());
+}
+
+var _afCountdownTimer = null;
+function startCountdown(targetMs) {
+  if (_afCountdownTimer) clearInterval(_afCountdownTimer);
+  function tick() {
+    var el = document.getElementById('tk-clock');
+    if (!el) { clearInterval(_afCountdownTimer); return; }
+    var diff = targetMs - Date.now();
+    if (diff <= 0) { el.textContent = 'Live now'; clearInterval(_afCountdownTimer); return; }
+    var d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000),
+        m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+    el.textContent = d > 0 ? (d+'d '+h+'h '+m+'m') : (h+'h '+m+'m '+s+'s');
+  }
+  tick();
+  _afCountdownTimer = setInterval(tick, 1000);
+}
+
+// ---- Trophy medallions (inline SVG, gold) ----
+function svgMedal(num) { return '<svg viewBox="0 0 48 48">'
+  + '<path d="M15 4l5 16h-9z" fill="#1B4332"/><path d="M33 4l4 16h-9z" fill="#C9A227"/>'
+  + '<circle cx="24" cy="30" r="13" fill="#E9C46A" stroke="#C9A227" stroke-width="2"/>'
+  + '<circle cx="24" cy="30" r="9" fill="#F4D77E"/>'
+  + '<text x="24" y="34.5" text-anchor="middle" font-size="12" font-weight="800" fill="#7a5b00" font-family="Inter,Arial,sans-serif">'+num+'</text></svg>'; }
+function svgTrophy() { return '<svg viewBox="0 0 48 48">'
+  + '<path d="M14 7h20v7a10 10 0 01-20 0z" fill="#E9C46A" stroke="#C9A227" stroke-width="1.5"/>'
+  + '<path d="M14 9h-4a4 4 0 004 7" fill="none" stroke="#C9A227" stroke-width="2"/>'
+  + '<path d="M34 9h4a4 4 0 01-4 7" fill="none" stroke="#C9A227" stroke-width="2"/>'
+  + '<rect x="22" y="23" width="4" height="6" fill="#C9A227"/><rect x="16" y="29" width="16" height="3.5" rx="1" fill="#C9A227"/>'
+  + '<rect x="13" y="32" width="22" height="4.5" rx="1.5" fill="#E9C46A" stroke="#C9A227" stroke-width="1"/></svg>'; }
+function svgStar() { return '<svg viewBox="0 0 48 48"><path d="M24 6l5.2 10.6L41 18.3l-8.5 8.3 2 11.7L24 32.8l-10.5 5.5 2-11.7L7 18.3l11.8-1.7z" fill="#E9C46A" stroke="#C9A227" stroke-width="1.3"/></svg>'; }
+function svgCap() { return '<svg viewBox="0 0 48 48"><path d="M24 11l20 7-20 7-20-7z" fill="#1B4332"/><path d="M14 23v6c0 2.8 4.5 5 10 5s10-2.2 10-5v-6" fill="#2d5a44"/><line x1="44" y1="18" x2="44" y2="31" stroke="#C9A227" stroke-width="1.6"/><circle cx="44" cy="32" r="2" fill="#E9C46A"/></svg>'; }
+
 async function initDashboard() {
   const session = await requireAuth('dashboard.html')
   if (!session) return
@@ -636,10 +837,11 @@ async function initDashboard() {
     try {
       const { data: co } = await _supabase
         .from('organisations')
-        .select('name, intake_label, brand_color, code')
+        .select('name, intake_label, brand_color, code, start_date')
         .eq('id', profile.organisation_id)
         .single()
       if (co) {
+        if (co.start_date) window._afCohortStart = co.start_date
         const box = document.getElementById('dash-cohort')
         document.getElementById('dash-cohort-co').textContent = co.name || 'Your cohort'
         const bits = [co.intake_label, co.code].filter(Boolean)
@@ -657,11 +859,12 @@ async function initDashboard() {
   const modulesStarted = new Set(progress.map(r => r.module_id)).size
   document.getElementById('stat-modules').textContent = modulesStarted
 
+  // Resolve the cohort schedule anchor before anything date-aware renders
+  AF_ANCHOR = resolveAnchor(window._afCohortStart)
+  window._afProgress = progress
+
   // Gamification: level, XP, streak, trophies
   renderGamification(progress, session)
-
-  // Live video sessions schedule
-  renderVideoSessions()
 
   // Facilitator messaging (POC — shares the localStorage bus with the instructor console)
   STUDENT_KEY = ((session.user && session.user.email) || 'me').toLowerCase()
@@ -689,51 +892,11 @@ async function initDashboard() {
     byModule[r.module_id].push(r.phase)
   })
 
-  // Module 0 — always unlocked (free)
-  renderDots('module-0', progress)
-  const m0Phases = byModule['module-0'] || []
-  const m0Link = document.getElementById('link-module-0')
-  const m0Card = document.getElementById('card-module-0')
-  if (m0Phases.length === 4) {
-    m0Card.classList.add('is-complete')
-    markComplete(m0Card)
-    m0Link.textContent = 'Review module →'
-  } else if (m0Phases.length > 0) {
-    document.querySelector('#card-module-0 .module-card__badge').textContent = 'In progress'
-    document.querySelector('#card-module-0 .module-card__badge').className = 'module-card__badge badge--progress'
-    m0Link.textContent = 'Continue →'
-  }
-
-  // Modules 1–6: each unlocks when the previous module is complete (all 4 phases)
-  let prevPhases = m0Phases
-  for (let n = 1; n <= 6; n++) {
-    const id     = 'module-' + n
-    const phases = byModule[id] || []
-    const card   = document.getElementById('card-' + id)
-    const badge  = document.getElementById('badge-' + id)
-    const link   = document.getElementById('link-' + id)
-    const lock   = document.getElementById('lock-msg-' + id)
-    if (prevPhases.length === 4 || isAdmin) {
-      card.classList.remove('is-locked')
-      lock.style.display = 'none'
-      link.style.display = 'inline'
-      renderDots(id, progress)
-      if (phases.length === 4) {
-        card.classList.add('is-complete')
-        markComplete(card)
-        link.textContent = 'Review module →'
-      } else if (phases.length > 0) {
-        badge.textContent = 'In progress'
-        badge.className = 'module-card__badge badge--progress'
-        link.textContent = 'Continue →'
-      } else {
-        badge.textContent = 'Start here'
-        badge.className = 'module-card__badge badge--free'
-        link.textContent = 'Start module →'
-      }
-    }
-    prevPhases = phases
-  }
+  // Render the timeline learning path (modules interleaved with live-event milestones)
+  // and the detailed "you are here" tracker. Schedule is anchored to the cohort start date.
+  AF_ANCHOR = resolveAnchor(window._afCohortStart)
+  renderLearningPath(byModule, isAdmin)
+  renderTracker(byModule, isAdmin)
 
   // Layer 3 specialist cohorts unlock once all of Layer 1 (modules 0–6) is complete
   let coreDone = true, coreCount = 0
@@ -807,32 +970,35 @@ function renderGamification(progress, session) {
   document.getElementById('stat-modules').textContent = new Set(progress.map(r => r.module_id)).size
   document.getElementById('stat-streak').innerHTML = '<span id="stat-streak-flame">' + (streak === 0 ? '🔥' : '🔥') + '</span> ' + streak
 
-  // ---- Trophy case — mirrors the certification journey (modules, live forums, graduation) ----
+  // ---- Trophy case — a medallion for each completed-and-demonstrated module + live-forum & certification awards ----
+  if (!AF_ANCHOR) AF_ANCHOR = resolveAnchor(window._afCohortStart)
   const allCore = CORE_MODULES.every(m => count(m) >= 4)
-  const ff   = eventStatus('2026-08-03') === 'past'  // Future Forum attended
-  const tl   = eventStatus('2026-08-13') === 'past'  // ThinkLab attended
-  const gf   = eventStatus('2026-08-27') === 'past'  // Governance Forum attended
-  const sl   = eventStatus('2026-09-10') === 'past'  // Strategy Lab attended
-  const grad = eventStatus('2026-10-01') === 'past'  // Ceremony passed
+  const ff   = isPast(eventDateTime(EVENTS['future-forum'].off))  // Future Forum attended
+  const tl   = isPast(eventDateTime(EVENTS['thinklab'].off))      // ThinkLab attended
+  const gf   = isPast(eventDateTime(EVENTS['governance'].off))    // Governance Forum attended
+  const sl   = isPast(eventDateTime(EVENTS['strategy'].off))      // Strategy Lab attended
+  const grad = isPast(eventDateTime(EVENTS['graduation'].off))    // Ceremony passed
+  const dmd = (id) => count(id) >= 4   // completed AND demonstrated (all 4 phases)
   const trophies = [
-    { icon: '🌱', name: 'First Step',            earned: phasesDone >= 1 },
-    { icon: '🎓', name: 'Foundation Graduate',   earned: m0 >= 4 },
-    { icon: '🌍', name: 'Future Forum',          earned: ff },
-    { icon: '🔍', name: 'Hallucination Hunter',  earned: m1 >= 4 },
-    { icon: '🧠', name: 'ThinkLab Thinker',      earned: tl },
-    { icon: '⚖️', name: 'Bias Detective',        earned: m2 >= 4 },
-    { icon: '🏛️', name: 'Governance Forum',      earned: gf },
-    { icon: '🔥', name: 'On Fire',               earned: streak >= 3 },
-    { icon: '🚀', name: 'Strategy Lab',          earned: sl },
-    { icon: '🧭', name: 'Funda Five™ Adept',      earned: anyApply },
-    { icon: '📋', name: 'Project Submitted',     earned: allCore },
-    { icon: '🏅', name: 'Certified Practitioner', earned: allCore && grad },
+    { svg: svgMedal('0'), name: 'AI Fundamentals',         earned: dmd('module-0') },
+    { svg: svgStar(),     name: 'Future Forum',            earned: ff },
+    { svg: svgMedal('1'), name: 'Confidence Problem',      earned: dmd('module-1') },
+    { svg: svgMedal('2'), name: 'How AI Learns & Fails',   earned: dmd('module-2') },
+    { svg: svgStar(),     name: 'ThinkLab',                earned: tl },
+    { svg: svgMedal('3'), name: 'Bias & Discrimination',   earned: dmd('module-3') },
+    { svg: svgMedal('4'), name: 'Verification & Judgment', earned: dmd('module-4') },
+    { svg: svgStar(),     name: 'Governance Forum',        earned: gf },
+    { svg: svgMedal('5'), name: 'Accountability',          earned: dmd('module-5') },
+    { svg: svgMedal('6'), name: 'When AI Works',           earned: dmd('module-6') },
+    { svg: svgStar(),     name: 'Strategy Lab',            earned: sl },
+    { svg: svgTrophy(),   name: 'Funda Five™ Adept',        earned: anyApply },
+    { svg: svgCap(),      name: 'Certified Practitioner',  earned: allCore && grad },
   ]
   const earnedCount = trophies.filter(t => t.earned).length
   document.getElementById('tc-count').innerHTML = earnedCount + '<span>/' + trophies.length + '</span>'
   document.getElementById('tc-grid').innerHTML = trophies.map(t =>
-    `<div class="tc-item${t.earned ? ' earned' : ''}">
-      <div class="tc-item__icon">${t.icon}</div>
+    `<div class="tc-item${t.earned ? ' earned' : ''}" title="${t.name}">
+      <div class="tc-item__icon">${t.svg}</div>
       <div class="tc-item__name">${t.name}</div>
     </div>`
   ).join('')
