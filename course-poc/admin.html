@@ -294,7 +294,22 @@
       <strong>Partner tables not found.</strong> Run <code>course-poc/supabase-partner-migration.sql</code> in the Supabase SQL Editor to enable partner applications and approvals.
     </div>
 
-    <div class="adm-bar"><h2>Partner applications</h2><span class="adm-sub" id="pt-app-count"></span></div>
+    <!-- Add a partner directly (provision login + Portal access) -->
+    <div class="adm-bar"><h2>➕ Add a partner</h2></div>
+    <div style="background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; max-width:760px; margin-bottom:8px;">
+      <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">Create an Enterprise Partner with login credentials and full Partner Portal access. Set a password to let them sign in immediately, or leave it blank to email a secure set-password link.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px 18px;">
+        <div><label class="co-lbl" for="ap-name">Full name</label><input id="ap-name" class="co-inp" type="text" placeholder="Jane Doe" /></div>
+        <div><label class="co-lbl" for="ap-email">Email *</label><input id="ap-email" class="co-inp" type="email" placeholder="partner@example.com" /></div>
+        <div><label class="co-lbl" for="ap-pass">Password (optional)</label><input id="ap-pass" class="co-inp" type="text" placeholder="Blank = email a set-password link" /><button type="button" onclick="apGenPass()" style="margin-top:6px; background:none; border:none; color:var(--green-mid); font-weight:700; font-size:0.78em; cursor:pointer; padding:0;">⚡ Generate a strong password</button></div>
+        <div><label class="co-lbl" for="ap-level">Partner level</label><select id="ap-level" class="co-inp"><option>Associate</option><option>Professional</option><option>Strategic</option></select></div>
+      </div>
+      <button class="btn btn--primary" style="margin-top:16px;" id="ap-btn" onclick="adminAddPartnerSubmit()">Add partner</button>
+      <div id="ap-msg" style="font-size:0.85em; margin-top:12px;"></div>
+    </div>
+    <div id="ap-needs-fn" style="display:none; background:#FFFBEB; border:1.5px solid #FDE68A; color:#92400E; border-radius:var(--radius-lg); padding:12px 15px; margin:8px 0 18px; font-size:0.84em;">The <code>admin-create-user</code> Edge Function isn&rsquo;t deployed yet, so accounts can&rsquo;t be created here yet. Deploy it (see <code>supabase/functions/admin-create-user</code>) to enable.</div>
+
+    <div class="adm-bar" style="margin-top:30px;"><h2>Partner applications</h2><span class="adm-sub" id="pt-app-count"></span></div>
     <table class="adm-table">
       <thead><tr><th>Applicant</th><th>Organisation</th><th>Country &amp; sectors</th><th>Submitted</th><th>Status</th><th style="text-align:right;">Action</th></tr></thead>
       <tbody id="pt-app-rows"></tbody>
@@ -543,6 +558,58 @@ function cuGenPass() {
   for (var i = 0; i < 14; i++) pw += chars[arr[i] % chars.length];
   var el = document.getElementById('cu-pass');
   el.value = pw; el.focus();
+}
+
+// ----- Add a partner (Partners tab) — provisions login + Portal access via admin-create-user -----
+function apGenPass() {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+  var arr = new Uint32Array(14);
+  (window.crypto || window.msCrypto).getRandomValues(arr);
+  var pw = ''; for (var i = 0; i < 14; i++) pw += chars[arr[i] % chars.length];
+  var el = document.getElementById('ap-pass'); el.value = pw; el.focus();
+}
+
+async function adminAddPartnerSubmit() {
+  var msg = document.getElementById('ap-msg');
+  var btn = document.getElementById('ap-btn');
+  msg.style.color = '#DC2626';
+  var email = (document.getElementById('ap-email').value || '').trim();
+  var name  = (document.getElementById('ap-name').value || '').trim();
+  var pass  = document.getElementById('ap-pass').value || '';
+  var level = document.getElementById('ap-level').value;
+  if (!email) { msg.textContent = 'Enter an email.'; return; }
+  if (pass && pass.length < 8) { msg.textContent = 'Password must be at least 8 characters (or leave it blank).'; return; }
+
+  var payload = { email: email, role: 'partner', full_name: name, level: level };
+  if (pass) payload.password = pass;
+  payload.redirectTo = location.origin + location.pathname.replace(/[^/]*$/, 'reset-password.html');
+
+  btn.disabled = true; btn.textContent = 'Adding…';
+  var r = await adminCreateUser(payload);
+  btn.disabled = false; btn.textContent = 'Add partner';
+
+  if (r.reason === 'not_configured') { document.getElementById('ap-needs-fn').style.display = 'block'; msg.textContent = 'The create-user function isn’t deployed yet (see the notice below).'; return; }
+  if (!r.ok) { msg.textContent = r.error || 'Could not add the partner.'; return; }
+
+  var emailed = false;
+  if (r.action_link && window.afSendEmail && window.afEmail) {
+    var er = await afSendEmail(afEmail.partnerInvite({ name: name, email: email, link: r.action_link }));
+    emailed = !!(er && er.ok);
+  }
+  msg.style.color = 'var(--green-dark)';
+  if (pass) {
+    msg.innerHTML = '✓ Partner added: <strong>' + escapeHtml(email) + '</strong> with full Partner Portal access. They can sign in now at <a href="partner-login.html" target="_blank" style="color:var(--green-mid);font-weight:700;">the Partner Portal →</a>'
+      + '<br><span style="display:inline-block; margin-top:8px; background:var(--gold-light); border:1px solid var(--border); border-radius:8px; padding:8px 12px;">Credentials to share — Email: <strong>' + escapeHtml(email) + '</strong> · Password: <code style="font-family:ui-monospace,monospace;">' + escapeHtml(pass) + '</code></span>';
+  } else if (emailed) {
+    msg.innerHTML = '✓ Partner added: <strong>' + escapeHtml(email) + '</strong>. A set-password link was emailed to them.';
+  } else if (r.action_link) {
+    msg.style.color = 'var(--text)';
+    msg.innerHTML = '✓ Partner added: <strong>' + escapeHtml(email) + '</strong>. Email isn’t configured — share this set-password link:<br><textarea readonly style="width:100%;margin-top:6px;font-family:ui-monospace,monospace;font-size:0.8em;padding:6px;border:1px solid var(--border);border-radius:6px;" rows="2">' + escapeHtml(r.action_link) + '</textarea>';
+  } else {
+    msg.innerHTML = '✓ Partner added: <strong>' + escapeHtml(email) + '</strong>.';
+  }
+  document.getElementById('ap-email').value = ''; document.getElementById('ap-name').value = ''; document.getElementById('ap-pass').value = '';
+  if (typeof loadPartnersData === 'function') loadPartnersData();
 }
 
 function cuRoleChange() {
