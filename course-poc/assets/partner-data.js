@@ -84,6 +84,17 @@
     return result;
   };
 
+  // True if this email is an approved/active corporate (Corporate Portal access).
+  window.isCorporate = async function (email) {
+    if (!email) return false;
+    email = String(email).toLowerCase();
+    try {
+      var r = await _supabase.from('corporates').select('email,status').eq('email', email).maybeSingle();
+      if (r && r.data && r.data.email && ['approved', 'active'].indexOf(r.data.status) !== -1) return true;
+    } catch (e) { /* table may not exist yet */ }
+    return false;
+  };
+
   // Clear the approval cache for a given email on sign-out.
   window.clearPartnerApprovalCache = function (email) {
     if (!email) return;

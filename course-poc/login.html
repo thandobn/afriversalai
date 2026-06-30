@@ -59,6 +59,7 @@
       <button type="button" class="role-tab" onclick="location.href='admin-login.html'" title="Course facilitator">👩‍🏫 Facilitator</button>
       <button type="button" class="role-tab" onclick="location.href='admin-login.html'" title="Administrator / Instructor Console">🛠️ Admin</button>
       <button type="button" class="role-tab" onclick="location.href='partner-login.html'" title="Enterprise partner">🤝 Partner</button>
+      <button type="button" class="role-tab" onclick="location.href='corporate-login.html'" title="Corporate / employer (L&amp;D / HR)">🏢 Corporate</button>
     </div>
 
     <div id="auth-error" class="auth-error" role="alert" aria-live="polite"></div>
@@ -95,7 +96,9 @@
   if (sessionStorage.getItem('afv_demo_partner') === '1') { window.location.href = 'partner-portal.html'; }
   getSession().then(async function (session) {
     if (!session) return
-    if (await isApprovedPartner(session.user.email)) {
+    if (await isCorporate(session.user.email)) {
+      window.location.href = 'corporate-portal.html'
+    } else if (await isApprovedPartner(session.user.email)) {
       window.location.href = 'partner-portal.html'
     } else {
       window.location.href = 'dashboard.html'
@@ -117,6 +120,8 @@
       const next = params.get('next')
       if (next && next !== 'login.html') {
         window.location.href = next
+      } else if (await isCorporate(email)) {
+        window.location.href = 'corporate-portal.html'
       } else if (await isApprovedPartner(email)) {
         window.location.href = 'partner-portal.html'
       } else {
