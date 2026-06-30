@@ -563,7 +563,20 @@ var COHORT_REF_START = '2026-08-03';   // reference start — reproduces the pub
 var AF_ANCHOR = null;                   // resolved Date the schedule is measured from
 
 function resolveAnchor(startStr) {
-  var d = new Date((startStr || COHORT_REF_START) + 'T00:00:00');
+  // Testing/preview override: ?start=YYYY-MM-DD forces the cohort start date (persists in
+  // localStorage so you can navigate around); ?start=clear removes it. This lets you watch
+  // the schedule unlock with live dates without touching the database or the published calendar.
+  var override = null;
+  try {
+    var qp = new URLSearchParams(location.search);
+    if (qp.has('start')) {
+      var v = qp.get('start');
+      if (v === 'clear' || v === '') { localStorage.removeItem('afv_preview_start'); }
+      else { localStorage.setItem('afv_preview_start', v); override = v; }
+    }
+    if (!override) override = localStorage.getItem('afv_preview_start');
+  } catch (e) {}
+  var d = new Date(((override || startStr || COHORT_REF_START)) + 'T00:00:00');
   if (isNaN(d.getTime())) d = new Date(COHORT_REF_START + 'T00:00:00');
   return d;
 }
