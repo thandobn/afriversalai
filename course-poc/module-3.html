@@ -1240,18 +1240,8 @@ window.MODULE_CONFIG = {
         }
       }
 
-      // Persist text answers locally (keyed by user)
-      var uid = session.user.id;
-      var fields = ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3',
-                    'ws-0','ws-1','ws-2','ws-3','ws-4','ws-5','ws-6','ws-7'];
-      fields.forEach(function (id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        var key = 'afv_' + uid + '_m3_' + id;
-        var saved = localStorage.getItem(key);
-        if (saved) el.value = saved;
-        el.addEventListener('input', function () { localStorage.setItem(key, el.value); });
-      });
+      initAnswerPersistence('module-3', ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3',
+                    'ws-0','ws-1','ws-2','ws-3','ws-4','ws-5','ws-6','ws-7'], session.user.id);
     }).catch(function () {
       // On any error, fail safe to the locked screen
       showLocked(

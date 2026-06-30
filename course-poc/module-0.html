@@ -1699,17 +1699,7 @@ window.MODULE_CONFIG = {
       }
     }
 
-    // Persist textarea answers to localStorage (keyed by user so multi-user browsers don't clash)
-    const uid = session.user.id
-    const answerFields = ['reflect-1', 'reflect-2', 'apply-1', 'apply-2', 'apply-3']
-    answerFields.forEach(id => {
-      const el = document.getElementById(id)
-      if (!el) return
-      const key = 'afv_' + uid + '_m0_' + id
-      const saved = localStorage.getItem(key)
-      if (saved) el.value = saved
-      el.addEventListener('input', () => localStorage.setItem(key, el.value))
-    })
+    initAnswerPersistence('module-0', ['reflect-1', 'reflect-2', 'apply-1', 'apply-2', 'apply-3'], session.user.id)
   }).catch(err => console.error('[AfriversalAI] module-0 session init error:', err))
 </script>
 <script src="assets/translations.js"></script>

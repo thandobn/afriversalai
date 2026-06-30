@@ -143,6 +143,35 @@ insert into admins (email) values
 on conflict do nothing;
 
 
+-- 8. Answers table
+--    One row per (user, module, field). Learner textarea responses.
+--    Unlike progress, answers are updateable (upsert via saveAnswer in auth.js).
+
+create table if not exists answers (
+  id          bigint generated always as identity primary key,
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  module_id   text not null,
+  field_id    text not null,
+  answer_text text,
+  updated_at  timestamptz default now(),
+  constraint answers_unique unique (user_id, module_id, field_id)
+);
+
+create index if not exists answers_user_module_idx on answers (user_id, module_id);
+
+alter table answers enable row level security;
+
+create policy "Users can read own answers" on answers
+  for select to authenticated using (user_id = auth.uid());
+
+create policy "Users can insert own answers" on answers
+  for insert to authenticated with check (user_id = auth.uid());
+
+create policy "Users can update own answers" on answers
+  for update to authenticated
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+
 -- ==========================================================================
 -- ROLLBACK (run manually if needed — never run automatically)
 -- drop table if exists admins;

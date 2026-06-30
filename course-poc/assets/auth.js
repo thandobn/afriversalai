@@ -105,6 +105,27 @@ async function getAllProgress() {
   return data || []
 }
 
+async function saveAnswer(moduleId, fieldId, text) {
+  const session = await getSession()
+  if (!session) return
+  const { error } = await _supabase.from('answers').upsert(
+    { user_id: session.user.id, module_id: moduleId, field_id: fieldId,
+      answer_text: text, updated_at: new Date().toISOString() },
+    { onConflict: 'user_id,module_id,field_id' }
+  )
+  if (error) console.error('[AfriversalAI] saveAnswer failed:', error.message, '| code:', error.code)
+}
+
+async function getAnswers(moduleId) {
+  const session = await getSession()
+  if (!session) return {}
+  const { data, error } = await _supabase
+    .from('answers').select('field_id, answer_text')
+    .eq('user_id', session.user.id).eq('module_id', moduleId)
+  if (error) { console.error('[AfriversalAI] getAnswers failed:', error.message); return {} }
+  return Object.fromEntries((data || []).map(function(r) { return [r.field_id, r.answer_text] }))
+}
+
 async function requireAuth(redirectTo) {
   const session = await getSession()
   if (!session) {

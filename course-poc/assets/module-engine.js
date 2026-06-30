@@ -133,6 +133,62 @@ function markCheck(names, fbPrefix, n, exp) {
   return { allAnswered: allAnswered, wrong: wrong };
 }
 
+// Unified answer persistence: localStorage (immediate) + Supabase (debounced 2s).
+// Call once per module after content is revealed, passing the module's textarea IDs.
+function initAnswerPersistence(moduleId, fieldIds, uid) {
+  var timers = {}
+  var lsPrefix = 'afv_' + uid + '_' + moduleId.replace('module-', 'm') + '_'
+
+  // 1. Restore from localStorage immediately (sync, 0ms)
+  fieldIds.forEach(function(id) {
+    var el = document.getElementById(id)
+    if (!el) return
+    var saved = localStorage.getItem(lsPrefix + id)
+    if (saved) el.value = saved
+  })
+
+  // 2. Restore from Supabase (async — cross-device sync)
+  if (typeof getAnswers === 'function') {
+    getAnswers(moduleId).then(function(saved) {
+      fieldIds.forEach(function(id) {
+        var el = document.getElementById(id)
+        if (!el) return
+        if (saved[id]) {
+          el.value = saved[id]
+          localStorage.setItem(lsPrefix + id, saved[id])
+        } else if (el.value && typeof saveAnswer === 'function') {
+          // One-time migration: localStorage has data, Supabase doesn't — push it up
+          saveAnswer(moduleId, id, el.value)
+        }
+      })
+    }).catch(function() {})
+  }
+
+  // 3. Input listeners: localStorage immediate + Supabase debounced 2s
+  fieldIds.forEach(function(id) {
+    var el = document.getElementById(id)
+    if (!el) return
+    el.addEventListener('input', function() {
+      localStorage.setItem(lsPrefix + id, el.value)
+      clearTimeout(timers[id])
+      timers[id] = setTimeout(function() {
+        if (typeof saveAnswer === 'function') saveAnswer(moduleId, id, el.value)
+      }, 2000)
+    })
+  })
+
+  // 4. Flush pending debounced writes on tab close
+  window.addEventListener('beforeunload', function() {
+    fieldIds.forEach(function(id) {
+      if (timers[id]) {
+        clearTimeout(timers[id])
+        var el = document.getElementById(id)
+        if (el && el.value && typeof saveAnswer === 'function') saveAnswer(moduleId, id, el.value)
+      }
+    })
+  }, { once: true })
+}
+
 // Reset one knowledge check for a retake.
 function resetCheck(names, fbPrefix, n) {
   for (var i = 0; i < n; i++) {
