@@ -251,6 +251,17 @@
     <div id="sp-msg" style="font-size:0.85em; margin-top:12px;"></div>
   </div>
 
+  <div class="adm-bar" style="margin-top:34px;"><h2>📧 Email system (Resend)</h2></div>
+  <div style="background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; max-width:640px;">
+    <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">The system emails registered users automatically (welcome on sign-up, partner invites, cohort access codes) through Resend. Send a test email here to confirm the integration is live.</p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;">
+      <div style="flex:1; min-width:220px;"><label class="co-lbl" for="te-email">Send a test email to</label><input id="te-email" class="co-inp" type="email" placeholder="you@example.com" /></div>
+      <button class="btn btn--primary" id="te-btn" onclick="adminSendTestEmail()">Send test email</button>
+    </div>
+    <div id="te-msg" style="font-size:0.85em; margin-top:12px;"></div>
+    <p style="font-size:0.78em; color:var(--muted); margin-top:12px;">Not sending yet? The <code>send-email</code> function needs to be deployed with a Resend API key and a verified <code>afriversal.ai</code> domain — see <code>supabase/functions/send-email</code>.</p>
+  </div>
+
   <div class="adm-bar" style="margin-top:34px;">
     <h2>All registered students</h2>
     <div style="display:flex; align-items:center; gap:10px;">
@@ -558,6 +569,26 @@ function cuGenPass() {
   for (var i = 0; i < 14; i++) pw += chars[arr[i] % chars.length];
   var el = document.getElementById('cu-pass');
   el.value = pw; el.focus();
+}
+
+// ----- Send a test email (verifies the Resend integration end-to-end) -----
+async function adminSendTestEmail() {
+  var msg = document.getElementById('te-msg'); var btn = document.getElementById('te-btn');
+  msg.style.color = '#DC2626';
+  var to = (document.getElementById('te-email').value || '').trim();
+  if (!to) { msg.textContent = 'Enter an email address.'; return; }
+  if (!window.afSendEmail) { msg.textContent = 'Email helper not loaded.'; return; }
+  btn.disabled = true; btn.textContent = 'Sending…';
+  var r = await afSendEmail({
+    to: to,
+    subject: 'AfriversalAI — test email',
+    html: '<div style="font-family:Inter,Arial,sans-serif;color:#1A1A2E;"><h2 style="color:#1B4332;">It works ✅</h2><p>This is a test email from the AfriversalAI admin console. If you received this, Resend is connected and the system can email registered users.</p></div>',
+    text: 'It works. This is a test email from the AfriversalAI admin console. Resend is connected.'
+  });
+  btn.disabled = false; btn.textContent = 'Send test email';
+  if (r && r.ok) { msg.style.color = 'var(--green-dark)'; msg.textContent = '✓ Sent to ' + to + '. Check the inbox (and spam) to confirm.'; }
+  else if (r && r.reason === 'not_configured') { msg.style.color = '#92400E'; msg.innerHTML = 'Not sent — the <code>send-email</code> function isn’t deployed / no Resend key set yet.'; }
+  else { msg.textContent = 'Send failed' + (r && r.error ? ': ' + escapeHtml(String(r.error)) : '') + '. Check the Supabase function logs.'; }
 }
 
 // ----- Add a partner (Partners tab) — provisions login + Portal access via admin-create-user -----
