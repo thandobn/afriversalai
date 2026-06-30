@@ -215,7 +215,7 @@
   <div class="adm-bar" style="margin-top:34px;"><h2>Create a user</h2></div>
   <div id="cu-needs-fn" style="display:none; background:#FFFBEB; border:1.5px solid #FDE68A; color:#92400E; border-radius:var(--radius-lg); padding:12px 15px; margin-bottom:12px; font-size:0.84em;">The <code>admin-create-user</code> Edge Function isn&rsquo;t deployed yet. Deploy it (see <code>supabase/functions/admin-create-user</code>) to create accounts here.</div>
   <div style="background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 20px; max-width:760px; margin-bottom:8px;">
-    <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">Create any account type. Leave the password blank to email them a secure set-password link instead.</p>
+    <p style="font-size:0.84em; color:var(--muted); margin:0 0 14px;">Create any account type. Choose <strong>Partner</strong> and set a password to add a partner with login credentials and full Partner Portal privileges — they can sign in straight away. Leave the password blank to email a secure set-password link instead.</p>
     <div class="co-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:14px 18px;">
       <div><label class="co-lbl" for="cu-role">Role</label>
         <select id="cu-role" class="co-inp" onchange="cuRoleChange()">
@@ -227,7 +227,7 @@
       </div>
       <div><label class="co-lbl" for="cu-name">Full name</label><input id="cu-name" class="co-inp" type="text" placeholder="Jane Doe" /></div>
       <div><label class="co-lbl" for="cu-email">Email *</label><input id="cu-email" class="co-inp" type="email" placeholder="user@example.com" /></div>
-      <div><label class="co-lbl" for="cu-pass">Password (optional)</label><input id="cu-pass" class="co-inp" type="text" placeholder="Blank = email a set-password link" /></div>
+      <div><label class="co-lbl" for="cu-pass">Password (optional)</label><input id="cu-pass" class="co-inp" type="text" placeholder="Blank = email a set-password link" /><button type="button" onclick="cuGenPass()" style="margin-top:6px; background:none; border:none; color:var(--green-mid); font-weight:700; font-size:0.78em; cursor:pointer; padding:0;">⚡ Generate a strong password</button></div>
       <div id="cu-f-cohort"><label class="co-lbl" for="cu-cohort">Cohort access code (optional)</label><input id="cu-cohort" class="co-inp" type="text" placeholder="e.g. ACME-2026-014’s cohort code" style="text-transform:uppercase;" /></div>
       <div id="cu-f-sector"><label class="co-lbl" for="cu-sector">Sector (optional)</label><input id="cu-sector" class="co-inp" type="text" placeholder="e.g. Finance" /></div>
       <div id="cu-f-level" style="display:none;"><label class="co-lbl" for="cu-level">Partner level</label>
@@ -534,6 +534,17 @@ async function adminSetPasswordByEmail() {
 }
 
 // ----- Admin: create any user type (via admin-create-user Edge Function) -----
+// Mint a strong, unambiguous password the admin can hand to a new user (esp. partners).
+function cuGenPass() {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+  var arr = new Uint32Array(14);
+  (window.crypto || window.msCrypto).getRandomValues(arr);
+  var pw = '';
+  for (var i = 0; i < 14; i++) pw += chars[arr[i] % chars.length];
+  var el = document.getElementById('cu-pass');
+  el.value = pw; el.focus();
+}
+
 function cuRoleChange() {
   var role = document.getElementById('cu-role').value;
   document.getElementById('cu-f-cohort').style.display = (role === 'learner') ? '' : 'none';
@@ -603,7 +614,10 @@ async function adminCreateUserSubmit() {
     emailed = !!(er && er.ok);
   }
   msg.style.color = 'var(--green-dark)';
-  if (pass) {
+  if (pass && role === 'partner') {
+    msg.innerHTML = '✓ Partner account created for <strong>' + escapeHtml(email) + '</strong> with full Partner Portal privileges. They can sign in now at <a href="partner-login.html" target="_blank" style="color:var(--green-mid);font-weight:700;">the Partner Portal &rarr;</a>' +
+      '<br><span style="display:inline-block; margin-top:8px; background:var(--gold-light); border:1px solid var(--border); border-radius:8px; padding:8px 12px;">Credentials to share &mdash; Email: <strong>' + escapeHtml(email) + '</strong> &middot; Password: <code style="font-family:ui-monospace,monospace;">' + escapeHtml(pass) + '</code></span>';
+  } else if (pass) {
     msg.innerHTML = '✓ Created ' + escapeHtml(role) + ' account for <strong>' + escapeHtml(email) + '</strong> with the password you set.';
   } else if (emailed) {
     msg.innerHTML = '✓ Created ' + escapeHtml(role) + ' account for <strong>' + escapeHtml(email) + '</strong>. A set-password link was emailed to them.';

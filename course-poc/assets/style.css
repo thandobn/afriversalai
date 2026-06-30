@@ -817,8 +817,24 @@ footer a { color: rgba(255,255,255,0.7); }
   border-radius: var(--radius-lg);
   padding: 24px 20px;
   transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
 }
 .sector-card.is-open { border-color: var(--green-mid); box-shadow: var(--shadow-md); }
+.sector-card__banner {
+  width: calc(100% + 40px);
+  height: 136px;
+  object-fit: cover;
+  object-position: center top;
+  margin: -24px -20px 16px;
+  display: block;
+}
+.sector-code {
+  display: inline-block;
+  font-size: 0.64em; font-weight: 800;
+  letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--gold-dark); background: var(--gold-light);
+  padding: 3px 9px; border-radius: 5px; margin-bottom: 8px;
+}
 .sector-icon { font-size: 1.8em; margin-bottom: 12px; }
 .sector-name { font-weight: 700; font-size: 0.95em; margin-bottom: 6px; color: var(--text); }
 .sector-desc { font-size: 0.81em; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }

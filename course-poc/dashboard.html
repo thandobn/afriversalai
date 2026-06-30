@@ -48,7 +48,9 @@
 
     /* Live video session cards */
     .vsession-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
-    .vcard { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; position: relative; border-top: 4px solid var(--green-mid); }
+    .vcard { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; position: relative; border-top: 4px solid var(--green-mid); overflow: hidden; }
+    .vcard__thumb { width: calc(100% + 40px); height: 84px; object-fit: cover; object-position: center 28%; margin: -18px -20px 13px; display: block; }
+    .vcard.is-done .vcard__thumb { filter: grayscale(0.4); }
     .vcard.is-upcoming { opacity: 0.92; }
     .vcard.is-soon { border-top-color: var(--gold); box-shadow: 0 10px 28px rgba(201,162,39,0.18); }
     .vcard.is-live { border-top-color: #DC2626; box-shadow: 0 10px 28px rgba(220,38,38,0.22); }
@@ -417,6 +419,7 @@
         <span id="lock-msg-module-4" style="font-size:0.82em; color:var(--muted);">Complete Module 3 to unlock</span>
       </div>
       <div class="module-card is-locked" id="card-module-5">
+        <img class="module-card__banner" src="assets/module-5-banner.jpg" alt="Module 5 — Accountability and Governance" loading="lazy" />
         <span class="module-card__badge badge--locked" id="badge-module-5">Locked</span>
         <h3>Module 5 — Accountability and Governance</h3>
         <p>AI Recruitment + Employment Equity Act. &ldquo;The algorithm decided&rdquo; is not a defence.</p>
@@ -428,6 +431,7 @@
         <span id="lock-msg-module-5" style="font-size:0.82em; color:var(--muted);">Complete Module 4 to unlock</span>
       </div>
       <div class="module-card is-locked" id="card-module-6">
+        <img class="module-card__banner" src="assets/module-6-banner.jpg" alt="Module 6 — When AI Works and When It Doesn't" loading="lazy" />
         <span class="module-card__badge badge--locked" id="badge-module-6">Locked</span>
         <h3>Module 6 — When AI Works and When It Doesn&rsquo;t</h3>
         <p>Dr Math vs Clinical AI Decision Support. The full Funda Five™ synthesis.</p>
@@ -491,11 +495,11 @@
 <script src="assets/lang.js"></script>
 <script>
 const SECTOR_MODULES = {
-  corporate:   { id: 'module-7-corporate',   href: 'module-7-corporate.html',   title: 'Module 7 — Corporate & Business',   desc: 'DCDT AI hallucination scandal. AI risk management for business professionals.' },
-  government:  { id: 'module-7-government',  href: 'module-7-government.html',  title: 'Module 7 — Government & Public Sector', desc: 'SASSA SRD automated exclusion. AI in public services and citizen impact.' },
-  finance:     { id: 'module-7-finance',     href: 'module-7-finance.html',     title: 'Module 7 — Finance & Banking',      desc: 'SA credit scoring exclusion. AI bias in financial decision-making.' },
-  healthcare:  { id: 'module-7-healthcare',  href: 'module-7-healthcare.html',  title: 'Module 7 — Healthcare',             desc: 'Mediclinic AI restructuring. AI tools in clinical and administrative settings.' },
-  education:   { id: 'module-7-education',   href: 'module-7-education.html',   title: 'Module 7 — Education',              desc: 'UCT AI detection tools. AI integrity, equity, and pedagogy.' },
+  corporate:   { id: 'module-7-corporate',   href: 'module-7-corporate.html',   img: 'assets/module-7-coabu-banner.jpg', title: 'Module 7 — COABU — Corporate & Business',   desc: 'DCDT AI hallucination scandal. AI risk management for business professionals.' },
+  government:  { id: 'module-7-government',  href: 'module-7-government.html',  img: 'assets/module-7-goaps-banner.jpg', title: 'Module 7 — GOAPS — Government & Public Sector', desc: 'SASSA SRD automated exclusion. AI in public services and citizen impact.' },
+  finance:     { id: 'module-7-finance',     href: 'module-7-finance.html',     img: 'assets/module-7-fiaba-banner.jpg', title: 'Module 7 — FIABA — Finance & Banking',      desc: 'SA credit scoring exclusion. AI bias in financial decision-making.' },
+  healthcare:  { id: 'module-7-healthcare',  href: 'module-7-healthcare.html',  img: 'assets/module-7-heaca-banner.jpg', title: 'Module 7 — HEACA — Healthcare',             desc: 'Mediclinic AI restructuring. AI tools in clinical and administrative settings.' },
+  education:   { id: 'module-7-education',   href: 'module-7-education.html',   img: 'assets/module-7-edaca-banner.jpg', title: 'Module 7 — EDACA — Education',              desc: 'UCT AI detection tools. AI integrity, equity, and pedagogy.' },
 }
 
 // Mark a module card as finished: COMPLETED + DEMONSTRATED badges
@@ -513,10 +517,10 @@ function markComplete(card) {
 
 // Live video-conference forums (Q3 2026 cohort). Status is computed from today's date.
 var VIDEO_SESSIONS = [
-  { n: 'Session 0', name: 'AfriversalAI Future Forum™',     theme: 'Future of Work',           date: '2026-08-03', label: 'Mon 3 Aug 2026',  time: '18:00–19:30 SAST' },
-  { n: 'Session 1', name: 'AfriversalAI ThinkLab™',         theme: 'Can AI Be Trusted?',       date: '2026-08-13', label: 'Thu 13 Aug 2026', time: '18:00–19:30 SAST' },
-  { n: 'Session 2', name: 'AfriversalAI Governance Forum™', theme: 'Who Is Responsible?',      date: '2026-08-27', label: 'Thu 27 Aug 2026', time: '18:00–19:30 SAST' },
-  { n: 'Session 3', name: 'AfriversalAI Strategy Lab™',     theme: 'How Should We Implement AI?', date: '2026-09-10', label: 'Thu 10 Sep 2026', time: '18:00–20:00 SAST' },
+  { n: 'Session 0', name: 'AfriversalAI Future Forum™',     theme: 'Future of Work',           date: '2026-08-03', label: 'Mon 3 Aug 2026',  time: '18:00–19:30 SAST', img: 'assets/event-1-future-forum.jpg' },
+  { n: 'Session 1', name: 'AfriversalAI ThinkLab™',         theme: 'Can AI Be Trusted?',       date: '2026-08-13', label: 'Thu 13 Aug 2026', time: '18:00–19:30 SAST', img: 'assets/event-2-thinklab.jpg' },
+  { n: 'Session 2', name: 'AfriversalAI Governance Forum™', theme: 'Who Is Responsible?',      date: '2026-08-27', label: 'Thu 27 Aug 2026', time: '18:00–19:30 SAST', img: 'assets/event-3-governance-forum.jpg' },
+  { n: 'Session 3', name: 'AfriversalAI Strategy Lab™',     theme: 'How Should We Implement AI?', date: '2026-09-10', label: 'Thu 10 Sep 2026', time: '18:00–20:00 SAST', img: 'assets/event-4-strategy-lab.jpg' },
   { n: 'Graduation', name: 'Certification Ceremony',         theme: 'Graduation',               date: '2026-10-01', label: 'Thu 1 Oct 2026',  time: '18:00 SAST', ceremony: true }
 ]
 
@@ -533,6 +537,7 @@ function renderVideoSessions() {
     else if (diff <= 7)  { status = 'In ' + diff + ' day' + (diff === 1 ? '' : 's'); cls = 'is-soon' }
     else               { status = 'Upcoming';   cls = 'is-upcoming' }
     return '<div class="vcard ' + cls + (s.ceremony ? ' vcard--ceremony' : '') + '">' +
+      (s.img ? '<img class="vcard__thumb" src="' + s.img + '" alt="' + s.name + ' — ' + s.theme + '" loading="lazy" />' : '') +
       '<div class="vcard__tag">' + (s.ceremony ? '🎓 Graduation' : '📹 Video Conference') + '</div>' +
       '<div class="vcard__name">' + s.name + '</div>' +
       '<div class="vcard__theme">' + s.theme + '</div>' +
@@ -923,8 +928,10 @@ function renderSectorCards(mods, progress, sectionLabel) {
     const dots = [0,1,2,3].map(i =>
       `<div class="phase-dot${doneNums.includes(i) ? ' done' : ''}"></div>`
     ).join('')
+    const banner = mod.img ? `<img class="module-card__banner" src="${mod.img}" alt="${mod.title}" loading="lazy" />` : ''
     return `
       <div class="module-card${isComplete ? ' is-complete' : ''}">
+        ${banner}
         <span class="module-card__badge ${badgeClass}">${badgeText}</span>
         <h3>${mod.title}</h3>
         <p>${mod.desc}</p>

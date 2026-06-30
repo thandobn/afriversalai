@@ -220,11 +220,11 @@
         <h2 style="color:white; margin-bottom:16px; font-size:1.75em;" data-i18n="sector_callout_h2">Whatever your profession, your sector is part of the course.</h2>
         <p style="color:rgba(255,255,255,0.7); margin-bottom:28px; line-height:1.75;" data-i18n="sector_callout_p">Every module builds judgment that applies anywhere — but AfriversalAI doesn't stop at general principles. Sector-specific case studies run through the whole course, and Module 7 is built entirely around the AI risks, tools, and decisions that define your line of work.</p>
         <div class="sector-chips" style="justify-content:flex-start;">
-          <span class="sector-chip">🏢 Corporate &amp; Business</span>
-          <span class="sector-chip">🏛️ Government</span>
-          <span class="sector-chip">💰 Finance &amp; Banking</span>
-          <span class="sector-chip">🏥 Healthcare</span>
-          <span class="sector-chip">🎓 Education</span>
+          <span class="sector-chip">🏢 COABU &middot; Corporate &amp; Business</span>
+          <span class="sector-chip">🏛️ GOAPS &middot; Government &amp; Public Sector</span>
+          <span class="sector-chip">💰 FIABA &middot; Finance &amp; Banking</span>
+          <span class="sector-chip">🏥 HEACA &middot; Healthcare</span>
+          <span class="sector-chip">🎓 EDACA &middot; Education</span>
         </div>
         <a href="#sectors" class="btn btn--gold" data-i18n="sector_callout_btn">Find your sector path &darr;</a>
       </div>
@@ -376,6 +376,7 @@
         <p style="font-size:0.82em;font-weight:600;color:var(--green-dark);margin-top:10px;">~70 min &middot; All sectors &middot; Builds on Module 3</p>
       </div>
       <div class="module-card">
+        <img class="module-card__thumb" src="assets/module-5-banner.jpg" alt="Module 5 — Accountability and Governance" loading="lazy" />
         <div class="module-card__num" data-i18n="mc5_num">Module 5</div>
         <h3 data-i18n="mc5_h3">Accountability and Governance</h3>
         <p style="font-size:0.9em;color:var(--muted);" data-i18n="mc5_p">"The algorithm decided" is not a legal or ethical defence. Who is accountable when AI affects people's livelihoods?</p>
@@ -383,6 +384,7 @@
         <p style="font-size:0.82em;font-weight:600;color:var(--green-dark);margin-top:10px;">~70 min &middot; All sectors &middot; Builds on Module 4</p>
       </div>
       <div class="module-card">
+        <img class="module-card__thumb" src="assets/module-6-banner.jpg" alt="Module 6 — When AI Works and When It Doesn't" loading="lazy" />
         <div class="module-card__num" data-i18n="mc6_num">Module 6</div>
         <h3 data-i18n="mc6_h3">When AI Works &mdash; and When It Doesn't</h3>
         <p style="font-size:0.9em;color:var(--muted);" data-i18n="mc6_p">Apply the full Funda Five™ to two contrasting SA cases: a clear success and a clear failure. Build your personal AI judgment statement.</p>
@@ -414,7 +416,8 @@
     <div class="sector-grid">
 
       <div class="sector-card" id="sc-corporate">
-        <div class="sector-icon">🏢</div>
+        <img class="sector-card__banner" src="assets/module-7-coabu-banner.jpg" alt="Module 7 — COABU — Corporate & Business" loading="lazy" />
+        <div class="sector-code">Module 7 &middot; COABU</div>
         <div class="sector-name" data-i18n="sector_corp_name">Corporate &amp; Business</div>
         <div class="sector-desc" data-i18n="sector_corp_desc">Operations, HR, marketing, and management teams using AI in professional workflows</div>
         <button class="sector-toggle" onclick="toggleSector('sc-corporate', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
@@ -429,7 +432,8 @@
       </div>
 
       <div class="sector-card" id="sc-government">
-        <div class="sector-icon">🏛️</div>
+        <img class="sector-card__banner" src="assets/module-7-goaps-banner.jpg" alt="Module 7 — GOAPS — Government & Public Sector" loading="lazy" />
+        <div class="sector-code">Module 7 &middot; GOAPS</div>
         <div class="sector-name" data-i18n="sector_gov_name">Government &amp; Public Sector</div>
         <div class="sector-desc" data-i18n="sector_gov_desc">Policy teams, administrators, and civil servants working with AI-assisted decisions</div>
         <button class="sector-toggle" onclick="toggleSector('sc-government', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
@@ -444,7 +448,8 @@
       </div>
 
       <div class="sector-card" id="sc-finance">
-        <div class="sector-icon">💰</div>
+        <img class="sector-card__banner" src="assets/module-7-fiaba-banner.jpg" alt="Module 7 — FIABA — Finance & Banking" loading="lazy" />
+        <div class="sector-code">Module 7 &middot; FIABA</div>
         <div class="sector-name" data-i18n="sector_fin_name">Finance &amp; Banking</div>
         <div class="sector-desc" data-i18n="sector_fin_desc">Financial services professionals navigating AI-driven credit scoring, fraud detection, and compliance</div>
         <button class="sector-toggle" onclick="toggleSector('sc-finance', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
@@ -459,7 +464,8 @@
       </div>
 
       <div class="sector-card" id="sc-medical">
-        <div class="sector-icon">🏥</div>
+        <img class="sector-card__banner" src="assets/module-7-heaca-banner.jpg" alt="Module 7 — HEACA — Healthcare" loading="lazy" />
+        <div class="sector-code">Module 7 &middot; HEACA</div>
         <div class="sector-name" data-i18n="sector_med_name">Medical &amp; Healthcare</div>
         <div class="sector-desc" data-i18n="sector_med_desc">Clinicians, health administrators, and public health professionals encountering clinical AI tools</div>
         <button class="sector-toggle" onclick="toggleSector('sc-medical', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
@@ -474,7 +480,8 @@
       </div>
 
       <div class="sector-card" id="sc-education">
-        <div class="sector-icon">🎓</div>
+        <img class="sector-card__banner" src="assets/module-7-edaca-banner.jpg" alt="Module 7 — EDACA — Education" loading="lazy" />
+        <div class="sector-code">Module 7 &middot; EDACA</div>
         <div class="sector-name" data-i18n="sector_edu_name">Education</div>
         <div class="sector-desc" data-i18n="sector_edu_desc">Educators and administrators in higher education and schools managing student AI use and institutional tools</div>
         <button class="sector-toggle" onclick="toggleSector('sc-education', this)" data-i18n="sector_toggle_open">See your path &rarr;</button>
