@@ -577,7 +577,7 @@
             </div>
 
             <div id="quiz-submit-wrap">
-              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit to the AI Tutor &rarr;</button>
+              <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit for marking &rarr;</button>
               <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
               <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
             </div>
@@ -1018,13 +1018,13 @@ function submitQuizConcept() {
     fb.style.display = 'block';
     if (isOk) {
       fb.className = 'quiz-feedback tutor-note tutor-note--ok';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 Correct</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].ok + '</div>';
       label.classList.add('quiz-opt--ok');
       document.querySelectorAll('input[name="q' + i + '"]').forEach(function(r) { r.disabled = true; });
     } else {
       wrongCount++;
       fb.className = 'quiz-feedback tutor-note tutor-note--no';
-      fb.innerHTML = '<div class="tutor-note__label">🎓 AI Tutor · Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
+      fb.innerHTML = '<div class="tutor-note__label">🎓 Review this</div><div class="tutor-note__text">' + QUIZ_CONCEPT_EXP[i].no + '</div>';
       label.classList.add('quiz-opt--no');
     }
   }

@@ -265,6 +265,8 @@
         <textarea class="reflect-q__field" id="ref-4" placeholder="In my work, the hardest thing to verify would be... because..."></textarea>
       </div>
 
+      <div class="fac-check"><button type="button" class="btn btn--outline btn--sm" onclick="afFacCheckReflect(this,{module:'Module 1'})">Check my answer</button></div>
+
       <div class="phase-nav">
         <button type="button" class="btn btn--outline" onclick="showPhase(0)">&larr; Encounter</button>
         <button class="btn btn--primary" onclick="advancePhase(1)">Done reflecting &mdash; show me the concept &rarr;</button>
@@ -663,6 +665,7 @@
 
         <textarea id="m1-task-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="AI was being used to... This is high / lower risk because..."></textarea>
         <p id="m1-step-err-1" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+        <div class="fac-check"><button type="button" class="btn btn--outline btn--sm" onclick="afFacCheck(this,'m1-task-answer',{module:'Module 1',step:'Task'})">Check my answer</button></div>
 
         <div class="phase-nav">
           <button type="button" class="btn btn--outline" onclick="showScreen(3,'intro')">&larr; Funda Five™</button>
@@ -690,6 +693,7 @@
 
         <textarea id="m1-data-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="The information produced included... The risk here is..."></textarea>
         <p id="m1-step-err-2" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+        <div class="fac-check"><button type="button" class="btn btn--outline btn--sm" onclick="afFacCheck(this,'m1-data-answer',{module:'Module 1',step:'Data'})">Check my answer</button></div>
 
         <div class="phase-nav">
           <button type="button" class="btn btn--outline" onclick="showScreen(3,'step1')">&larr; Step 1</button>
@@ -722,6 +726,7 @@
 
         <textarea id="m1-tool-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="A language model was probably used. It is good at... but unreliable at..."></textarea>
         <p id="m1-step-err-3" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+        <div class="fac-check"><button type="button" class="btn btn--outline btn--sm" onclick="afFacCheck(this,'m1-tool-answer',{module:'Module 1',step:'Tool'})">Check my answer</button></div>
 
         <div class="phase-nav">
           <button type="button" class="btn btn--outline" onclick="showScreen(3,'step2')">&larr; Step 2</button>
@@ -749,6 +754,7 @@
 
         <textarea id="m1-trust-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="I would verify by... If I could not verify, I would..."></textarea>
         <p id="m1-step-err-4" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+        <div class="fac-check"><button type="button" class="btn btn--outline btn--sm" onclick="afFacCheck(this,'m1-trust-answer',{module:'Module 1',step:'Trust'})">Check my answer</button></div>
 
         <div class="phase-nav">
           <button type="button" class="btn btn--outline" onclick="showScreen(3,'step3')">&larr; Step 3</button>
@@ -781,6 +787,7 @@
 
         <textarea id="m1-human-answer" style="width:100%; min-height:120px; border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; font-size:0.9em; line-height:1.6; font-family:inherit; resize:vertical; box-sizing:border-box;" placeholder="The responsible party is... What should have existed is a process where..."></textarea>
         <p id="m1-step-err-5" style="display:none; color:var(--red); font-size:0.85em; margin-top:6px;"></p>
+        <div class="fac-check"><button type="button" class="btn btn--outline btn--sm" onclick="afFacCheck(this,'m1-human-answer',{module:'Module 1',step:'Human'})">Check my answer</button></div>
 
         <div style="text-align:right; margin-top:16px;">
           <button type="button" class="btn btn--primary" id="m1-submit-btn" onclick="completeModule1()">Submit my Funda Five™ &rarr;</button>
@@ -837,6 +844,7 @@
 <script src="assets/auth.js"></script>
 <script src="assets/admins.js"></script>
 <script src="assets/module-engine.js"></script>
+<script src="assets/tutor.js"></script>
 <script src="assets/translations.js"></script>
 <script src="assets/lang.js"></script>
 <script src="assets/nav.js"></script>
