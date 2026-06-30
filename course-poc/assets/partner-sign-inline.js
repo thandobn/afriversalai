@@ -82,6 +82,9 @@
       if (node.closest && node.closest('#af-sign')) continue;       // skip our own block
       if (node.querySelector && node.querySelector('.af-fillin')) continue;
       var isLine = node.classList && node.classList.contains('sline');
+      // The AfriversalAI execution block is NOT partner-fillable — it's
+      // counter-signed by AfriversalAI on ratification. Leave it untouched.
+      if (groupOf(node) === 'AfriversalAI') continue;
       var raw = (node.textContent || '').trim();
       var ph = raw.replace(/_+/g, '').replace(/^[\[\(]+|[\]\)]+$/g, '').trim();
       // Build a clean, human-readable, stable key (e.g. "Partner — Capacity").
