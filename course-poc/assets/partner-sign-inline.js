@@ -349,6 +349,7 @@
     } else {
       makeFillable(null, false);                 // editable for completion
       makeCheckable(null, false);
+      autoSignAfriversal('1 June 2026');          // AfriversalAI side is static & pre-signed by the system
       renderForm();
     }
   }
