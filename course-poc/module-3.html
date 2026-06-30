@@ -219,14 +219,16 @@
   <div style="max-width:1440px; margin:0 auto;">
     <span class="eyebrow eyebrow--light">Module 3 &middot; Core Course &middot; Fairness &amp; Human Accountability</span>
     <h1>Bias &amp; Discrimination</h1>
-    <p class="lead">Discrimination can happen without discriminatory intent. In South Africa, AI trained on historical data carries the weight of apartheid and structural inequality forward &mdash; often invisibly. This module shows you how bias enters, how South African law sees it, and how to audit any tool for it.</p>
+    <p class="lead">Discrimination can happen without discriminatory intent. In South Africa, AI trained on historical information can reproduce patterns shaped by apartheid and ongoing structural inequality&mdash;often through variables that appear neutral on their face. This module shows you how bias enters, how South African law sees it, and how to audit any tool for it.</p>
     <div class="m0-objectives"><strong>By the end of this module, you will be able to:</strong><ol>
       <li>Define algorithmic bias in plain language for a non-technical audience</li>
-      <li>Tell disparate treatment from indirect discrimination (what US law calls &ldquo;disparate impact&rdquo;) &mdash; and spot proxy discrimination</li>
-      <li>Identify indirect discrimination on a listed ground in an AI recommendation, and explain when PEPUDA and POPIA s71 apply</li>
+      <li>Distinguish direct discrimination from indirect unfair discrimination, and recognise proxy discrimination in AI-assisted decisions</li>
+      <li>Recognise when an AI-assisted recommendation may raise equality, privacy, employment, credit, or automated-decision-making concerns &mdash; and know when to seek specialist advice</li>
       <li>Apply an equity lens to AI deployment decisions in your sector</li>
-      <li>Name who is accountable under South African law when AI discriminates</li>
-    </ol></div>
+      <li>Identify people and organisations that may carry responsibility when an AI-assisted decision produces unfair outcomes</li>
+    </ol>
+    <p style="margin:10px 0 0; font-size:0.82em; color:rgba(255,255,255,0.65); font-style:italic;">Unequal outcomes are a reason to investigate &mdash; not automatic proof that a system has broken the law.</p>
+    </div>
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">90 minutes &middot; 4 phases</span>
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">SA Case: Predictive Policing &amp; Spatial Profiling</span>
@@ -282,9 +284,6 @@
         </div>
       </div>
       <div class="phase__body">
-        <div class="phase-screen is-active" id="ps-2-content">
-        <button type="button" class="phase-back-top" onclick="goBack(1)">&larr; Back to Reflect</button>
-
         <!-- Lesson progress tracker -->
         <div class="lesson-tracker" id="lesson-progress-bar">
           <div class="lesson-dot current" id="ldot-1"></div>
@@ -297,11 +296,14 @@
           <span class="lesson-tracker-label" id="lesson-label">Lesson 1 of 7 &mdash; What algorithmic bias really is</span>
         </div>
 
+        <div class="phase-screen is-active" id="ps-2-les1">
+        <button type="button" class="phase-back-top" onclick="goBack(1)">&larr; Back to Reflect</button>
+
         <!-- Framing -->
         <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:24px 28px; margin-bottom:40px;">
           <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:14px;">The big idea</p>
           <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7; margin-top:0;">Algorithmic bias is rarely a glitch, and rarely malice. It is what happens when a system learns from an unequal past and then applies those patterns at scale &mdash; fast, cheaply, and wearing a mask of objectivity.</p>
-          <p style="margin-bottom:0; font-size:0.92em; line-height:1.7;">In South Africa, &ldquo;the past&rdquo; carries the weight of apartheid spatial planning and structural inequality. This phase gives you the vocabulary &mdash; <strong>disparate impact</strong> and <strong>proxy discrimination</strong> &mdash; and the South African law that governs both.</p>
+          <p style="margin-bottom:0; font-size:0.92em; line-height:1.7;">In South Africa, &ldquo;the past&rdquo; carries the weight of apartheid spatial planning and structural inequality. This phase gives you the vocabulary &mdash; <strong>indirect unfair discrimination</strong> and <strong>proxy discrimination</strong> &mdash; and the South African law that applies to both. (&ldquo;Disparate impact&rdquo; is a commonly used US term for a related idea.)</p>
         </div>
 
         <!-- Lesson 1 -->
@@ -313,7 +315,7 @@
           <p>Forget the word &ldquo;bias&rdquo; for a second. The thing we actually care about is <strong>systematically worse outcomes for a particular group</strong> &mdash; produced by an AI system, because of the data it learned from or how it was built.</p>
           <div class="concept-block">
             <h4>Plain-language definition</h4>
-            <p style="margin:0;">Algorithmic bias is when an AI system gives consistently different &mdash; and unfair &mdash; results to people based on race, gender, age, disability, language, or where they live, <strong>even when no one intended it to</strong>.</p>
+            <p style="margin:0;"><strong>Algorithmic bias</strong> occurs when an AI system systematically produces worse, less accurate, or less favourable outcomes for some groups because of the data, assumptions, design choices, or deployment conditions behind it. These patterns can raise fairness and discrimination concerns &mdash; <strong>even when nobody intended them</strong>.</p>
           </div>
           <p style="margin-top:16px;">Two things follow from that definition, and both matter:</p>
           <ul style="padding-left:20px; line-height:1.9; font-size:0.93em;">
@@ -321,6 +323,13 @@
             <li><strong>Intent is not required.</strong> A system can discriminate while everyone who built it had good intentions. That is the part most people get wrong.</li>
           </ul>
         </div>
+        <div class="phase-nav">
+          <span></span>
+          <button type="button" class="btn btn--primary" onclick="goLesson(2)">Next &rarr;</button>
+        </div>
+        </div><!-- /ps-2-les1 -->
+
+        <div class="phase-screen" id="ps-2-les2">
 
         <!-- Lesson 2 -->
         <div id="m0l-2" style="margin-bottom:36px;">
@@ -336,19 +345,26 @@
               <p style="margin:0; font-size:0.88em; color:var(--muted);">Overt and usually obvious &mdash; e.g. &ldquo;reject applicants from group X.&rdquo; Rare in AI, because no one codes it openly.</p>
             </div>
             <div style="border:1.5px solid #FCA5A5; border-radius:var(--radius-lg); padding:18px 20px; background:#FFF5F5;">
-              <p style="font-size:0.72em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Disparate impact</p>
-              <p style="margin:0 0 8px; font-weight:700; color:#7F1D1D;">A neutral-looking rule that lands harder on a protected group.</p>
-              <p style="margin:0; font-size:0.88em; color:#7F1D1D;">Invisible and common &mdash; the rule never mentions the group, but the <em>outcomes</em> fall unequally. <strong>This is the AI problem.</strong></p>
+              <p style="font-size:0.72em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Indirect unfair discrimination</p>
+              <p style="margin:0 0 8px; font-weight:700; color:#7F1D1D;">A neutral-looking rule, policy, or system may produce unequal effects on people linked to a protected ground.</p>
+              <p style="margin:0; font-size:0.88em; color:#7F1D1D;">Invisible and common &mdash; the rule never mentions the group, but the <em>outcomes</em> fall unequally. <strong>This is a major risk in AI-assisted decisions</strong> because models can scale neutral-looking rules and historical patterns across many people quickly.</p>
             </div>
           </div>
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px;">
             <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Example</p>
-            <p style="margin:0; font-size:0.92em;">A lender&rsquo;s AI never asks an applicant&rsquo;s race. But it rejects applicants from certain townships far more often. No disparate <em>treatment</em> &mdash; clear disparate <em>impact</em>. The harm is identical; only the mechanism is hidden.</p>
+            <p style="margin:0; font-size:0.92em;">A lender&rsquo;s AI does not ask applicants&rsquo; race, but applicants from certain townships are rejected far more often. This may indicate an indirect-unfair-discrimination or proxy-discrimination risk. The next step is to investigate the inputs, outcomes, justification, alternatives, and safeguards.</p>
           </div>
           <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
-            <strong>SA law note:</strong> What US legal doctrine calls &ldquo;disparate impact,&rdquo; South African law calls <strong><a href="glossary.html#I" style="color:inherit;">indirect discrimination</a></strong> &mdash; prohibited under PEPUDA (Act 4 of 2000) and the Constitution (s9) on <strong>listed grounds</strong> (race, gender, disability, age, language, and more). The test is the same: a neutral rule that produces unequal outcomes. But in SA, liability attaches regardless of intent.
+            <strong>SA law note:</strong> South African law calls this <strong><a href="glossary.html#I" style="color:inherit;">indirect unfair discrimination</a></strong> &mdash; prohibited under PEPUDA (Act 4 of 2000) and the Constitution (s9) on <strong>listed grounds</strong> (race, gender, disability, age, language, and more). <strong>Intent is not the only issue.</strong> A lack of discriminatory intent does not end the inquiry: a system can still produce unfair effects that require investigation, justification, and possible correction.
           </div>
         </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--ghost" onclick="goLesson(1)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(3)">Next &rarr;</button>
+        </div>
+        </div><!-- /ps-2-les2 -->
+
+        <div class="phase-screen" id="ps-2-les3">
 
         <!-- Lesson 3 -->
         <div id="m0l-3" style="margin-bottom:36px;">
@@ -360,12 +376,12 @@
           <div class="fail-card">
             <div class="fail-card__head"><span class="fail-card__num">!</span><strong>A proxy is an innocent-looking feature that stands in for a protected one</strong></div>
             <div class="fail-card__body">
-              <p class="fail-card__eg">Postal code &rarr; race &nbsp;&middot;&nbsp; First language &rarr; ethnicity &nbsp;&middot;&nbsp; School attended &rarr; class &nbsp;&middot;&nbsp; Name &rarr; gender / ethnicity &nbsp;&middot;&nbsp; Phone &amp; device &rarr; income</p>
-              <p style="margin-top:12px;">In South Africa, <strong>location is the most powerful proxy of all.</strong> Apartheid engineered where people live by race &mdash; so a model that uses suburb or postal code can discriminate by race almost perfectly, without ever seeing the word &ldquo;race.&rdquo;</p>
+              <p class="fail-card__eg">Postal code may correlate with race and socio-economic inequality &nbsp;&middot;&nbsp; First language may correlate with ethnicity or cultural background &nbsp;&middot;&nbsp; School attended may reflect unequal access to opportunity &nbsp;&middot;&nbsp; Name may correlate with gender, ethnicity, or language &nbsp;&middot;&nbsp; Device type may correlate with income or digital access</p>
+              <p style="margin-top:12px;">In South Africa, <strong>residential location can be a particularly powerful proxy</strong> for race and socio-economic inequality because apartheid spatial planning continues to shape where people live, work, access services, and experience policing. A model using suburb or postal code may reproduce racialised and class-based inequalities without receiving race as an explicit input.</p>
             </div>
           </div>
           <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
-            <strong>Takeaway:</strong> Deleting the protected field does not make a model fair. The bias hides in the proxies that remain.
+            <strong>Takeaway:</strong> Deleting the protected field does not make a model fair. The bias can remain in proxies and patterns that still need scrutiny. In South African law, a lack of discriminatory intent does not automatically make a discriminatory outcome lawful &mdash; unequal effects may still require a contextual assessment.
           </div>
         </div>
 
@@ -378,6 +394,13 @@
           </ul>
           <p style="font-size:0.9em; margin:10px 0 0; color:var(--muted);">Coming up: where bias enters the pipeline &rarr; SA legal instruments &rarr; what to do as an accountable professional.</p>
         </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--ghost" onclick="goLesson(2)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(4)">Next &rarr;</button>
+        </div>
+        </div><!-- /ps-2-les3 -->
+
+        <div class="phase-screen" id="ps-2-les4">
 
         <!-- Lesson 4 -->
         <div id="m0l-4" style="margin-bottom:36px;">
@@ -402,7 +425,18 @@
             <div class="fail-card__head"><span class="fail-card__num">4</span><strong>Proxy features &amp; feedback loops</strong></div>
             <div class="fail-card__body"><p style="margin:0;">Proxies (Lesson 3) smuggle protected attributes back in; feedback loops (Module 2) make a biased prediction come true and then cite itself as proof.</p></div>
           </div>
+          <div class="fail-card">
+            <div class="fail-card__head"><span class="fail-card__num">5</span><strong>Deployment and oversight bias</strong></div>
+            <div class="fail-card__body"><p style="margin:0;">A model may be used in a setting, population, or workflow it was not designed for. Reviewers may over-trust it, apply it unevenly, or lack the power to correct harmful outcomes.</p></div>
+          </div>
         </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--ghost" onclick="goLesson(3)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(5)">Next &rarr;</button>
+        </div>
+        </div><!-- /ps-2-les4 -->
+
+        <div class="phase-screen" id="ps-2-les5">
 
         <!-- Lesson 5 -->
         <div id="m0l-5" style="margin-bottom:36px;">
@@ -410,21 +444,28 @@
             <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 5</span>
             <h3 style="margin:0; font-size:1.15em;">The South African legal lens</h3>
           </div>
-          <p>This is where South Africa is different from a generic &ldquo;AI ethics&rdquo; course. Unfair discrimination &mdash; <em>including the indirect, no-intent kind</em> &mdash; is already unlawful here. AI does not get an exemption.</p>
+          <p>South African law prohibits <strong>unfair</strong> discrimination, including direct and indirect unfair discrimination. A lack of discriminatory intent does not automatically end the inquiry, but unequal outcomes still need context, evidence, and a fairness assessment.</p>
           <div class="concept-block">
             <h4>The instruments that already apply to AI decisions</h4>
             <ul style="margin:8px 0 0; padding-left:20px; line-height:1.9; font-size:0.92em;">
-              <li><strong>Constitution, s9 (Equality):</strong> prohibits unfair discrimination, <strong>direct or indirect</strong>, on listed grounds (race, gender, age, disability, language, and more).</li>
-              <li><strong>PEPUDA / Equality Act (Act 4 of 2000):</strong> outlaws unfair discrimination including <strong>indirect</strong> discrimination &mdash; a neutral rule with a discriminatory effect. Intent is <em>not</em> required to be liable.</li>
-              <li><strong>Employment Equity Act:</strong> governs fair hiring, promotion and assessment &mdash; so AI CV-screening and scoring tools fall squarely under it.</li>
-              <li><strong>POPIA, s71:</strong> gives people the right not to be subject to a decision based <strong>solely on automated processing</strong> that significantly affects them &mdash; and the right to ask for human intervention.</li>
-              <li><strong>National Credit Act (NCA ss70&ndash;71):</strong> governs credit bureau information and fairness in credit decisions, including automated scoring &mdash; a borrower's right to challenge an automated credit refusal is grounded in these provisions.</li>
+              <li><strong>Constitution, section 9:</strong> protects equality and prohibits unfair direct or indirect discrimination on listed grounds, including race, gender, disability, age, language, and others.</li>
+              <li><strong>PEPUDA (Act 4 of 2000):</strong> gives effect to the equality framework by prohibiting unfair discrimination. A neutral-looking rule can raise indirect-unfair-discrimination concerns if it produces unequal effects linked to a prohibited ground. Whether it is unlawful depends on the facts, impact, purpose, justification, and available alternatives.</li>
+              <li><strong>Employment Equity Act:</strong> prohibits unfair direct or indirect discrimination in employment policies and practices. AI-assisted hiring, promotion, assessment, and scoring tools may raise Employment Equity Act concerns where they affect applicants or employees.</li>
+              <li><strong>POPIA, section 71:</strong> restricts certain decisions based <strong>solely on automated processing</strong> of personal information for profiling, where the decision has legal consequences or substantially affects a person. The exact protection depends on the system and circumstances, including whether meaningful human involvement exists.</li>
+              <li><strong>National Credit Act:</strong> promotes a fair and non-discriminatory consumer-credit market, regulates credit information, and gives people rights to access and challenge credit records. These protections can be relevant where automated scoring is used, but the exact remedy depends on the facts and legal provisions involved.</li>
             </ul>
           </div>
           <div style="background:#FFF5F5; border:1px solid #FCA5A5; border-radius:var(--radius-lg); padding:16px 20px; margin-top:16px;">
-            <p style="margin:0; font-size:0.93em; color:#7F1D1D;"><strong>The line that matters:</strong> in South African law, &ldquo;we didn&rsquo;t mean to&rdquo; is not a defence. <strong>Indirect discrimination is unlawful even with no intent.</strong></p>
+            <p style="margin:0; font-size:0.93em; color:#7F1D1D;"><strong>The line that matters:</strong> &ldquo;We did not intend to discriminate&rdquo; does not end the inquiry. A neutral-looking AI system can still create unequal effects that require investigation, justification, correction, or legal advice.</p>
           </div>
         </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--ghost" onclick="goLesson(4)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(6)">Next &rarr;</button>
+        </div>
+        </div><!-- /ps-2-les5 -->
+
+        <div class="phase-screen" id="ps-2-les6">
 
         <!-- Lesson 6 -->
         <div id="m0l-6" style="margin-bottom:36px;">
@@ -441,7 +482,17 @@
             </div>
           </div>
           <p style="margin-top:14px; font-size:0.93em;">&ldquo;It&rsquo;s just maths, it can&rsquo;t be racist&rdquo; is the trap. The maths is real; the <em>data and the definitions</em> behind it carry human history.</p>
+          <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
+            <strong>Important:</strong> Human review only helps if the reviewer has authority, enough information, time to question the output, and a meaningful ability to override it.
+          </div>
         </div>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--ghost" onclick="goLesson(5)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(7)">Next &rarr;</button>
+        </div>
+        </div><!-- /ps-2-les6 -->
+
+        <div class="phase-screen" id="ps-2-les7">
 
         <!-- Lesson 7 -->
         <div id="m0l-7" style="margin-bottom:36px;">
@@ -453,34 +504,59 @@
           <div class="concept-block">
             <h4>Four questions that surface bias</h4>
             <ol style="margin:8px 0 0; padding-left:20px; line-height:1.9; font-size:0.92em;">
-              <li><strong>Outcomes by group:</strong> are approval / flag / score rates very different across race, gender, or area?</li>
-              <li><strong>Proxies:</strong> does the model use location, school, language, name, or device?</li>
+              <li><strong>Outcomes by group:</strong> are approval, flag, or score rates — including false positive and false negative rates — notably different across race, gender, age, disability, language, or area?</li>
+              <li><strong>Proxies:</strong> does the model use location, school, language, name, employment type, or device — variables that may reflect unequal access rather than underlying ability or risk?</li>
               <li><strong>Who&rsquo;s missing:</strong> which groups are thin or absent in the training data?</li>
-              <li><strong>Explainability:</strong> can you explain a single decision to the person it affected?</li>
+              <li><strong>Explanation and contestability:</strong> can the person affected understand why the decision was made — and is there a meaningful way to question or appeal it?</li>
             </ol>
           </div>
           <div style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; margin-top:16px; font-size:0.9em;">
-            <strong>Rule of thumb:</strong> if you can&rsquo;t measure outcomes by group, you can&rsquo;t claim the system is fair &mdash; you&rsquo;re only assuming it.
+            <strong>Rule of thumb:</strong> if you cannot test for unequal outcomes in a lawful, privacy-aware way, you cannot claim the system is fair &mdash; you are only assuming it. If meaningful differences appear across groups, the next step is to investigate and, where needed, seek specialist support.
           </div>
+        </div>
+
+        <!-- Compact additions -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div class="concept-block">
+            <h4>Fairness is not one metric</h4>
+            <p style="font-size:0.9em; margin:0;">Equal error rates across groups, equal positive rates, and equal accuracy can all be measured — and they can conflict with each other. Choosing which fairness measure matters most is a value decision, not a technical one. It depends on who bears the cost of a wrong answer.</p>
+          </div>
+          <div class="concept-block">
+            <h4>Intersectionality</h4>
+            <p style="font-size:0.9em; margin:0;">A system may perform adequately for women and adequately for Black people — but perform worse for Black women specifically. Checking one dimension at a time can miss harm that only appears at the intersection of multiple characteristics. Where possible, test for intersecting groups.</p>
+          </div>
+          <div class="concept-block">
+            <h4>Community voice</h4>
+            <p style="font-size:0.9em; margin:0;">People most affected by an AI system often identify failure modes that technical audits miss — through lived experience of the decisions it makes about them. Meaningful involvement of affected communities in design, testing, and review is not just ethical practice; it is also better engineering.</p>
+          </div>
+          <div class="concept-block">
+            <h4>Vendor and procurement accountability</h4>
+            <p style="font-size:0.9em; margin:0;">Buying or licensing an AI tool does not transfer responsibility. Before procuring or renewing, ask: What data was it trained on? What populations was it tested on? What are its known limitations? Who monitors ongoing fairness, and what audit rights do we have? What is the human-override procedure?</p>
+          </div>
+        </div>
+        <div class="concept-block" style="margin-bottom:36px;">
+          <h4>Remedies after detection</h4>
+          <p style="font-size:0.9em; margin:0;">Detecting unfair outcomes is not the end of the process. Remedies can include: retraining the model on more representative data; removing or replacing biased proxies; adjusting decision thresholds for different populations; adding or strengthening human-review steps; suspending or decommissioning a tool that cannot be made fair; and informing or compensating affected people where harm has occurred.</p>
         </div>
 
         <!-- Closing principle -->
         <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:40px 36px; margin-bottom:40px; text-align:center;">
           <span style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85); font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:20px; display:inline-block; margin-bottom:20px;">The key principle</span>
-          <h3 style="color:var(--gold); font-size:1.5em; margin:0 0 16px; line-height:1.3;">Fairness is not the default.<br>It is a design decision &mdash; and a legal duty.</h3>
-          <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto; line-height:1.8; font-size:0.95em;">AI inherits the inequality in its data and hands it back wearing the mask of objectivity. Detecting and correcting that is a <strong style="color:white;">human responsibility</strong> &mdash; and in South Africa, a legal one.</p>
+          <h3 style="color:var(--gold); font-size:1.5em; margin:0 0 16px; line-height:1.3;">Fairness is not the default.<br>It must be designed, tested, monitored, and governed.</h3>
+          <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto; line-height:1.8; font-size:0.95em;">AI inherits the inequality in its data and hands it back wearing the mask of objectivity. Detecting and correcting that is a <strong style="color:white;">human responsibility</strong> &mdash; and in South Africa, equality, employment, credit, privacy, and sector-specific duties may all apply.</p>
         </div>
 
-        <div class="phase-nav" style="justify-content:flex-end;">
-          <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the demonstration check &rarr;</button>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--ghost" onclick="goLesson(6)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
         </div>
-        </div><!-- /ps-0-content -->
+        </div><!-- /ps-2-les7 -->
 
         <div class="phase-screen" id="ps-2-quiz">
         <div style="margin-top:32px; border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--border);">
           <div style="background:var(--green-dark); color:white; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
             <span style="background:rgba(255,255,255,0.2); padding:3px 12px; border-radius:12px; font-size:0.75em; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Demonstration Check</span>
-            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">8 questions &middot; you must get <strong style="color:white;">all 8</strong> right to continue</span>
+            <span style="font-size:0.85em; color:rgba(255,255,255,0.7);">10 questions &middot; you must get <strong style="color:white;">all 10</strong> right to continue</span>
           </div>
 
           <!-- AI Tutor verdict banner -->
@@ -503,7 +579,7 @@
               <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">2. An AI loan tool never uses race, yet rejects applicants from certain townships far more often. This is best described as:</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="q1" value="0"> <span>Disparate treatment &mdash; it treats people differently by race directly</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="q1" value="1"> <span>Indirect discrimination (SA law) &mdash; a neutral rule that produces unequal outcomes on a listed ground, regardless of intent</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q1" value="1"> <span>A potential indirect-unfair-discrimination or proxy-discrimination concern &mdash; different outcomes are a reason to investigate, not automatic proof of a legal breach</span></label>
                 <label class="quiz-opt"><input type="radio" name="q1" value="2"> <span>Not discrimination at all, since race was never used</span></label>
                 <label class="quiz-opt"><input type="radio" name="q1" value="3"> <span>A random error with no pattern</span></label>
               </div>
@@ -537,54 +613,76 @@
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="q4" value="0"> <span>Only counts if someone intended to discriminate</span></label>
                 <label class="quiz-opt"><input type="radio" name="q4" value="1"> <span>Does not apply to software, only to people</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="q4" value="2"> <span>Includes indirect discrimination &mdash; a neutral rule with a discriminatory effect, even with no intent</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q4" value="2"> <span>Can include indirect unfair discrimination &mdash; a neutral-looking rule may produce unequal effects on a listed ground, even without intent, requiring a contextual fairness assessment</span></label>
                 <label class="quiz-opt"><input type="radio" name="q4" value="3"> <span>Is only about race, not gender, age or disability</span></label>
               </div>
               <div class="quiz-feedback" id="qf-4"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">6. POPIA section 71 gives a person affected by a significant, fully automated decision the right to:</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">6. POPIA section 71 may be relevant when a person is subject to which kind of decision?</p>
               <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q5" value="0"> <span>A free copy of the software&rsquo;s source code</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="q5" value="1"> <span>Not be subject to a decision based solely on automated processing &mdash; and to ask for human intervention</span></label>
-                <label class="quiz-opt"><input type="radio" name="q5" value="2"> <span>Have the decision deleted from the internet</span></label>
-                <label class="quiz-opt"><input type="radio" name="q5" value="3"> <span>Nothing &mdash; automated decisions are unregulated in SA</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="0"> <span>Any decision made with the help of a computer</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q5" value="1"> <span>A decision based solely on automated processing of personal information for profiling, with legal consequences or similarly substantial effects</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="2"> <span>Any decision that uses personal data of any kind</span></label>
+                <label class="quiz-opt"><input type="radio" name="q5" value="3"> <span>Only decisions made about public officials</span></label>
               </div>
               <div class="quiz-feedback" id="qf-5"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. Why is AI bias often <em>more</em> dangerous than an individual&rsquo;s bias?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">7. Why can AI-assisted bias be especially harmful?</p>
               <div class="quiz-opts">
-                <label class="quiz-opt"><input type="radio" name="q6" value="0"> <span>Computers are incapable of being accurate</span></label>
-                <label class="quiz-opt"><input type="radio" name="q6" value="1"> <span>It only affects people online</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="q6" value="2"> <span>It is scaled, consistent and instant &mdash; and people defer to it because &ldquo;the system said so&rdquo; (automation bias)</span></label>
-                <label class="quiz-opt"><input type="radio" name="q6" value="3"> <span>It is easier to notice than human bias</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="0"> <span>AI systems always record bias visibly in their logs</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="1"> <span>It only affects people who opt in to automated systems</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q6" value="2"> <span>It can scale decisions quickly, give them an appearance of neutrality, and encourage people to defer to the system&rsquo;s output without enough scrutiny</span></label>
+                <label class="quiz-opt"><input type="radio" name="q6" value="3"> <span>It is easier to detect and correct than human bias</span></label>
               </div>
               <div class="quiz-feedback" id="qf-6"></div>
             </div>
 
             <div class="quiz-q" style="margin-bottom:28px;">
-              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">8. What is the most practical first step to check whether a tool has a disparate impact?</p>
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">8. What is the most practical first step to check whether a tool may produce unequal outcomes?</p>
               <div class="quiz-opts">
                 <label class="quiz-opt"><input type="radio" name="q7" value="0"> <span>Ask the vendor whether the model is fair and trust the answer</span></label>
                 <label class="quiz-opt"><input type="radio" name="q7" value="1"> <span>Confirm the &ldquo;race&rdquo; and &ldquo;gender&rdquo; fields were deleted</span></label>
-                <label class="quiz-opt" data-correct="true"><input type="radio" name="q7" value="2"> <span>Compare outcome rates across groups &mdash; if they differ sharply, investigate</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q7" value="2"> <span>Compare relevant outcomes and error rates across groups in a lawful, privacy-aware way &mdash; if meaningful differences appear, investigate further</span></label>
                 <label class="quiz-opt"><input type="radio" name="q7" value="3"> <span>Assume it&rsquo;s fair because a computer produced it</span></label>
               </div>
               <div class="quiz-feedback" id="qf-7"></div>
             </div>
 
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">9. A hiring team trains a model on which past employees were rated &ldquo;high performers.&rdquo; What should they question first?</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q8" value="0"> <span>Whether the model has enough data to work well</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q8" value="1"> <span>Whether past &ldquo;high performer&rdquo; ratings were themselves influenced by biased judgements &mdash; because the model will learn that definition</span></label>
+                <label class="quiz-opt"><input type="radio" name="q8" value="2"> <span>Whether the model is fast enough to use at scale</span></label>
+                <label class="quiz-opt"><input type="radio" name="q8" value="3"> <span>Nothing &mdash; using historical performance data is always objective</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-8"></div>
+            </div>
+
+            <div class="quiz-q" style="margin-bottom:28px;">
+              <p style="font-weight:700; font-size:0.95em; margin-bottom:10px;">10. A manager is required to &ldquo;review&rdquo; every AI hiring recommendation but has 90 seconds per case, no access to the underlying data, and cannot override the system. This is best described as:</p>
+              <div class="quiz-opts">
+                <label class="quiz-opt"><input type="radio" name="q9" value="0"> <span>Meaningful human oversight &mdash; a person reviewed every case</span></label>
+                <label class="quiz-opt"><input type="radio" name="q9" value="1"> <span>An adequate safeguard as long as the review is documented</span></label>
+                <label class="quiz-opt" data-correct="true"><input type="radio" name="q9" value="2"> <span>Procedural review without meaningful oversight &mdash; the reviewer lacks the authority, time, and information needed to question the output</span></label>
+                <label class="quiz-opt"><input type="radio" name="q9" value="3"> <span>A legal compliance requirement that satisfies POPIA section 71</span></label>
+              </div>
+              <div class="quiz-feedback" id="qf-9"></div>
+            </div>
+
             <div id="quiz-submit-wrap">
               <button class="btn btn--primary" type="button" onclick="submitQuizConcept()">Submit for marking &rarr;</button>
               <button class="btn btn--outline" type="button" id="quiz-retake" style="display:none; margin-left:10px;" onclick="retakeQuizConcept()">↻ Retake the test</button>
-              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 8 questions before submitting.</div>
+              <div id="quiz-err" style="display:none; color:#DC2626; font-size:0.85em; margin-top:8px;">Please answer all 10 questions before submitting.</div>
             </div>
           </div>
         </div>
         <div class="phase-nav">
-          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'les7')">&larr; Back to reading</button>
           <button type="button" class="btn btn--primary" id="quiz-advance" style="display:none" onclick="advancePhase(2)">Continue to Apply &rarr;</button>
         </div>
         </div><!-- /ps-0-quiz -->
@@ -612,6 +710,7 @@
           <div style="background:var(--navy); color:white; padding:16px 24px;">
             <span style="font-size:0.72em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold);">Scenario &middot; Public Sector</span>
             <div style="font-size:1.1em; font-weight:700; margin-top:4px;">A &ldquo;data-driven&rdquo; predictive policing tool</div>
+            <p style="font-size:0.72em; color:rgba(255,255,255,0.55); margin:6px 0 0; font-style:italic;">Composite learning scenario based on documented South African surveillance, spatial inequality, and predictive-policing concerns. Not a finding that a named agency deployed this exact system or produced these exact outcomes.</p>
           </div>
           <div style="padding:24px 28px;">
             <p style="margin-top:0;">A metro police department buys an AI system to decide <strong>where to send patrols</strong>. The vendor&rsquo;s pitch:</p>
@@ -646,15 +745,15 @@
             <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px;">
               <p style="font-size:0.7em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Place-based AI</p>
               <p style="font-weight:700; color:var(--green-dark); margin:0 0 6px;">Camera network surveillance</p>
-              <p style="font-size:0.88em; color:var(--muted); margin:0; line-height:1.6;">Mass CCTV networks concentrated in Sandton and Rosebank, with far lower coverage in Soweto and other townships. The AI monitors <em>places</em> &mdash; but apartheid spatial planning means the places it watches most closely are defined by race.</p>
+              <p style="font-size:0.88em; color:var(--muted); margin:0; line-height:1.6;">Documented reporting has raised concerns that private surveillance networks in Johannesburg may be unevenly distributed and concentrated in wealthier areas. In a city shaped by apartheid spatial planning, where cameras are placed can affect which places and people become more visible to policing and data collection.</p>
             </div>
             <div style="background:#FFF5F5; border:1px solid #FCA5A5; border-radius:var(--radius); padding:16px;">
-              <p style="font-size:0.7em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 8px;">Person-based AI</p>
+              <p style="font-size:0.7em; font-weight:800; color:#DC2626; text-transform:uppercase; letter-spacing:1px; margin:0 0 4px;">Hypothetical person-based risk-scoring scenario</p>
               <p style="font-weight:700; color:#7F1D1D; margin:0 0 6px;">Automated risk-scoring</p>
-              <p style="font-size:0.88em; color:#7F1D1D; margin:0; line-height:1.6;">Systems that assign individual risk scores using residential area, employment type, and prior police contact &mdash; even contacts that led to no charges. The score follows the <em>person</em>, and the same apartheid geography is now encoded in their file.</p>
+              <p style="font-size:0.88em; color:#7F1D1D; margin:0; line-height:1.6;">A system that scores individuals using residential area, employment type, or prior police contact could reproduce unequal treatment if those inputs reflect historic over-policing, unequal economic opportunity, or prior biased enforcement.</p>
             </div>
           </div>
-          <div style="padding:0 24px 18px; font-size:0.88em; color:var(--muted); line-height:1.6;">Both patterns constitute <strong>indirect discrimination</strong> under PEPUDA: a neutral-looking criterion (place / employment type) that produces unequal outcomes by race because of South Africa&rsquo;s spatial legacy. Both trigger the right to human review under <strong>POPIA s71</strong>.</div>
+          <div style="padding:0 24px 18px; font-size:0.88em; color:var(--muted); line-height:1.6;">These patterns may raise concerns about indirect unfair discrimination, because apparently neutral criteria &mdash; such as location, employment type, or police-contact history &mdash; can produce unequal effects along racialised and spatial lines. A person-based automated risk score may also raise <strong>POPIA section 71</strong> concerns if it results in a solely automated decision with legal or similarly substantial effects.</div>
         </div>
 
         <!-- Diagnose interaction -->
@@ -667,42 +766,42 @@
             <div class="activity-card__name">Past arrest &amp; crime records</div>
             <div class="activity-card__hint">What the model learns &ldquo;crime&rdquo; looks like</div>
             <span class="reveal-badge">Bias source ✓</span>
-            <div class="reveal-explanation">Arrest data records where police <em>went and looked</em>, not where crime actually is. Decades of over-policing some areas become the model&rsquo;s definition of &ldquo;high crime.&rdquo; Historical bias, baked in.</div>
+            <div class="reveal-explanation">Arrest data reflects where police looked, stopped people, and recorded incidents &mdash; not simply where underlying crime occurred. Historical enforcement patterns can become the model&rsquo;s definition of &ldquo;high risk.&rdquo;</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
             <div class="activity-card__icon"><img src="assets/icons/icon-contact-address.png" alt="Location" /></div>
             <div class="activity-card__name">Location / suburb</div>
             <div class="activity-card__hint">Where the incident or person is</div>
             <span class="reveal-badge">Bias source ✓</span>
-            <div class="reveal-explanation">In South Africa, suburb is a near-perfect proxy for race because of apartheid spatial planning. The model profiles by race without ever using the word.</div>
+            <div class="reveal-explanation">In South Africa, residential location can be a powerful proxy for race and socio-economic inequality because apartheid spatial planning continues to shape where people live, work, access services, and experience policing.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
             <div class="activity-card__icon"><img src="assets/icons/icon-diag-patrol-cycle.png" alt="Patrol cycle" /></div>
             <div class="activity-card__name">&ldquo;More patrols → more arrests&rdquo;</div>
             <div class="activity-card__hint">How the system updates itself</div>
             <span class="reveal-badge">Bias source ✓</span>
-            <div class="reveal-explanation">A feedback loop. Sending patrols to an area produces more recorded arrests there, which the model treats as proof it was right &mdash; so it sends even more. The prediction causes the data.</div>
+            <div class="reveal-explanation">A feedback loop: sending more patrols to an area produces more observed incidents and arrests, which the model may treat as proof it was right &mdash; leading to still more patrols.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
             <div class="activity-card__icon"><img src="assets/icons/icon-diag-suburbs.png" alt="Wealthy suburbs" /></div>
-            <div class="activity-card__name">Wealthy suburbs barely recorded</div>
-            <div class="activity-card__hint">Thin data for some areas</div>
+            <div class="activity-card__name">Uneven recording across areas</div>
+            <div class="activity-card__hint">What the model can and cannot see</div>
             <span class="reveal-badge">Bias source ✓</span>
-            <div class="reveal-explanation">Missing data. Crime that is never reported or policed in well-off areas is invisible to the model, so those areas look &ldquo;safe&rdquo; by default &mdash; widening the gap.</div>
+            <div class="reveal-explanation">Crime, complaints, police activity, private-security activity, and surveillance coverage may be recorded differently across neighbourhoods. A model can mistake differences in visibility and enforcement for differences in underlying risk.</div>
           </div>
           <div class="activity-card" data-answer="not" onclick="sortCard(this)">
             <div class="activity-card__icon"><img src="assets/icons/icon-diag-ai-target.png" alt="AI targeting" /></div>
             <div class="activity-card__name">The AI &ldquo;decided&rdquo; to target a race</div>
             <div class="activity-card__hint">A deliberate choice by the system</div>
             <span class="reveal-badge">Not the cause ✗</span>
-            <div class="reveal-explanation">AI has no intent. It didn&rsquo;t choose to profile anyone &mdash; it learned a pattern from biased records and proxies. The discrimination is real, but inherited, not decided.</div>
+            <div class="reveal-explanation">The AI has no intent in the human sense. It learned patterns from data and proxies. The harm may be real, but the mechanism is inherited or amplified rather than consciously chosen.</div>
           </div>
           <div class="activity-card" data-answer="not" onclick="sortCard(this)">
             <div class="activity-card__icon"><img src="assets/icons/icon-diag-race-removed.png" alt="Race removed" /></div>
             <div class="activity-card__name">Race was removed, so it&rsquo;s fair</div>
             <div class="activity-card__hint">The project lead&rsquo;s assumption</div>
             <span class="reveal-badge">Not the cause ✗</span>
-            <div class="reveal-explanation">This is the trap, not the fix. Removing race changes nothing while location and arrest history act as proxies for it. The outcome is still disparate impact.</div>
+            <div class="reveal-explanation">Removing race does not remove the effects of racialised history when variables such as location, arrest history, employment type, or language can still carry related patterns.</div>
           </div>
         </div>
 
@@ -720,9 +819,14 @@
           </div>
           <div style="background:var(--green-dark); color:white; border-radius:var(--radius-lg); padding:28px 32px;">
             <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">&ldquo;We removed race&rdquo; misses the point</p>
-            <p style="font-size:1.05em; font-weight:700; color:white; margin-bottom:12px; line-height:1.5;">Three mechanisms from Phase 1 are running at once.</p>
-            <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;"><strong style="color:white;">Proxy discrimination</strong> (suburb stands in for race), <strong style="color:white;">a feedback loop</strong> (patrols manufacture the arrests that justify more patrols), and <strong style="color:white;">missing data</strong> (unrecorded crime in wealthy areas). The result is textbook <strong style="color:white;">indirect discrimination</strong> under PEPUDA &mdash; what US doctrine calls &ldquo;disparate impact&rdquo; &mdash; profiling by race with the race field deleted.</p>
-            <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;">Under the Constitution and PEPUDA this is <strong style="color:var(--gold);">indirect discrimination</strong> &mdash; unlawful regardless of intent. Accountability sits with the <strong style="color:var(--gold);">department and officials who deployed it</strong>, not the algorithm. &ldquo;The system flagged it&rdquo; is not a defence.</p>
+            <p style="font-size:1.05em; font-weight:700; color:white; margin-bottom:12px; line-height:1.5;">Three mechanisms may be operating at once.</p>
+            <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;"><strong style="color:white;">Proxy discrimination</strong>, where location or arrest history reflects racialised inequality; <strong style="color:white;">feedback loops</strong>, where patrol deployment creates records that justify more patrols; and <strong style="color:white;">uneven recording</strong>, where some communities become more visible to the system than others.</p>
+            <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;">The key question is not only &ldquo;Did the system use race?&rdquo; It is: <strong style="color:white;">Does the system produce unequal effects, and what data, proxies, feedback loops, and human choices are creating them?</strong></p>
+            <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;">These patterns may raise indirect-unfair-discrimination concerns. A lack of discriminatory intent does not end the inquiry. Responsibility remains with the people and institutions that chose the tool, defined its objective, supplied the data, deployed it, reviewed it, and acted on its outputs.</p>
+          </div>
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; margin-top:20px;">
+            <p style="font-size:0.82em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin:0 0 8px;">What evidence would you need before deciding this system is unfair?</p>
+            <p style="font-size:0.88em; color:var(--text); line-height:1.75; margin:0;">e.g. deployment data by area; stop, search, and arrest rates; false-positive and false-negative rates; evidence of harm; audit results; override and appeal records; community consultation.</p>
           </div>
           <div style="margin-top:24px; text-align:right;">
             <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(0)">Continue to Reflect &rarr;</button>
@@ -747,7 +851,7 @@
       <div class="phase__body">
         <div class="phase-screen is-active" id="ps-1-reflect">
         <button type="button" class="phase-back-top" onclick="goBack(0)">&larr; Back to Encounter</button>
-        <p>Every model carries hidden assumptions &mdash; decisions about what to measure, what counts as &ldquo;success,&rdquo; and whose history to learn from. The policing tool assumed <em>&ldquo;where we arrested before = where crime is.&rdquo;</em> That one assumption did the damage. Now turn the lens on your own world.</p>
+        <p>Every AI system reflects choices and assumptions: what to measure, what counts as &ldquo;success,&rdquo; whose history is included, and what is left out. The policing tool treated past arrests as evidence of future crime risk &mdash; an assumption that can confuse enforcement patterns with underlying harm. Now turn the lens on your own world.</p>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
           <p style="font-weight:700; margin-bottom:14px;">Assumptions hide in ordinary choices&hellip;</p>
@@ -759,24 +863,29 @@
           <p style="margin:14px 0 0; font-size:0.9em; color:var(--muted);">Each is a value judgement dressed as a data field.</p>
         </div>
 
-        <div style="margin: 20px 0;">
-          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;">1. The policing model assumed &ldquo;past arrests = future crime.&rdquo; What is wrong with that assumption in the South African context?</label>
-          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Arrests reflect where police looked, shaped by apartheid-era over-policing — not where crime actually is..."></textarea>
+        <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:20px 0;">
+          <p style="margin:0; font-size:0.88em; font-weight:600; color:var(--gold-dark);">Use general examples only. Do not name colleagues, customers, applicants, employers, confidential systems, or personal information.</p>
         </div>
 
         <div style="margin: 20px 0;">
-          <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">2. In your sector, which listed group could be harmed by a neutral-looking rule (indirect discrimination under PEPUDA) &mdash; and through which decision?</label>
-          <textarea id="reflect-2" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Rural or informal-economy applicants screened out by a &lsquo;thin credit file = high risk&rsquo; rule..."></textarea>
+          <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;">1. The policing model treated past arrests as evidence of future crime risk. Why is that assumption risky in the South African context?</label>
+          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Arrests can reflect where police looked and whom they stopped, shaped by unequal enforcement patterns &mdash; not only underlying crime..."></textarea>
         </div>
 
         <div style="margin: 20px 0;">
-          <label for="reflect-3" style="display:block; font-weight:600; margin-bottom:8px;">3. Name one proxy in your industry&rsquo;s data that could stand in for race, gender, or class &mdash; and explain how.</label>
-          <textarea id="reflect-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. Postal code → race; first language → ethnicity; device type → income..."></textarea>
+          <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">2. In your sector, which group could be adversely affected by a neutral-looking rule? Could that pattern raise concerns about indirect unfair discrimination or a proxy effect?</label>
+          <textarea id="reflect-2" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. rural or informal-economy applicants screened out by a &lsquo;thin credit file = high risk&rsquo; rule; employment gaps flagged as risk by a hiring tool..."></textarea>
+        </div>
+
+        <div style="margin: 20px 0;">
+          <label for="reflect-3" style="display:block; font-weight:600; margin-bottom:8px;">3. Name one variable in your industry&rsquo;s data that could act as a proxy for race, gender, disability, language, socio-economic status, or another protected characteristic. Explain why it needs scrutiny.</label>
+          <textarea id="reflect-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. postal code &rarr; race/socio-economic inequality; school attended &rarr; unequal access to opportunity; first language &rarr; ethnicity..."></textarea>
         </div>
 
         <div class="callout">
           <strong>One question to sit with:</strong> If you removed every protected attribute from your data tomorrow, would your model actually be fair &mdash; or just harder to interrogate?
         </div>
+        <p style="font-size:0.88em; color:var(--muted); margin-top:8px; line-height:1.65;">Removing a protected attribute may reduce one obvious input, but it does not remove the historical patterns or proxy variables around it. It can also make disparity testing harder if no lawful, privacy-aware way remains to monitor outcomes.</p>
 
         <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in all three boxes before continuing.</div>
         <div class="phase-nav">
@@ -799,7 +908,11 @@
       <div class="phase__body">
         <div class="phase-screen is-active" id="ps-3-content">
         <button type="button" class="phase-back-top" onclick="goBack(2)">&larr; Back to Concept</button>
-        <p>Pick <strong>one AI system used (or being considered) in your sector</strong> &mdash; CV screening, credit or insurance scoring, fraud flags, a chatbot, tenant or customer scoring, predictive scheduling. Run the disparate-impact test on it.</p>
+        <p>Pick <strong>one AI system used (or being considered) in your sector</strong> &mdash; CV screening, credit or insurance scoring, fraud flags, a chatbot, tenant or customer scoring, predictive scheduling. Run the equity lens on it.</p>
+
+        <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:0 0 20px;">
+          <p style="margin:0; font-size:0.88em; font-weight:600; color:var(--gold-dark);">Use general examples only. Do not name colleagues, customers, applicants, employers, confidential systems, or personal information.</p>
+        </div>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
           <p style="font-weight:700; margin-bottom:6px;">AI Equity Audit worksheet</p>
@@ -808,13 +921,13 @@
             <thead><tr><th>Question</th><th>Your answer</th></tr></thead>
             <tbody>
               <tr><td>Which AI tool are you auditing?</td><td><input type="text" id="ws-0" placeholder="e.g. CV-screening tool"></td></tr>
-              <tr><td>What decision does it drive?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
-              <tr><td>Which listed grounds under PEPUDA/Constitution could be affected?</td><td><input type="text" id="ws-2" placeholder="e.g. race, gender, age, disability, language"></td></tr>
+              <tr><td>What decision, recommendation, ranking, flag, or action does it influence?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
+              <tr><td>Who could be affected? Which protected or affected groups may need attention?</td><td><input type="text" id="ws-2" placeholder="e.g. applicants from rural/informal areas; older candidates; women; disabled people"></td></tr>
               <tr><td>What proxies are in its data?</td><td><input type="text" id="ws-3" placeholder="e.g. postal code, school, name, language"></td></tr>
-              <tr><td>Disparate-impact check: do outcomes differ by group?</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area — measured? unknown?"></td></tr>
+              <tr><td>Outcome-impact check: what would you measure across groups? (approval/rejection rates, scores, false positives, false negatives, appeal outcomes)</td><td><input type="text" id="ws-4" placeholder="e.g. approval rate by area — measured? unknown?"></td></tr>
               <tr><td>Who is harmed if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. qualified rural applicants filtered out"></td></tr>
-              <tr><td>What legal exposure applies?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / POPIA s71 (non-employment) — or EEA s6 / POPIA s71 if your tool is used in employment decisions"></td></tr>
-              <tr><td>What human oversight exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / none yet"></td></tr>
+              <tr><td>What legal, compliance, or governance concerns might this raise — and who should review them?</td><td><input type="text" id="ws-6" placeholder="e.g. PEPUDA / POPIA s71 / EEA — seek legal advice if unsure"></td></tr>
+              <tr><td>What oversight, explanation, appeal, correction, or override process exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / appeal form / none yet"></td></tr>
             </tbody>
           </table>
         </div>
@@ -822,17 +935,40 @@
         <div style="background:var(--white); border:1.5px solid var(--gold); border-radius:var(--radius-lg); padding:22px 26px; margin:20px 0;">
           <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Apply the equity lens</p>
           <div style="margin-bottom:14px;">
-            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">1. Where could this tool produce a disparate impact &mdash; and through which proxy?</label>
-            <textarea id="apply-1" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name the group, the neutral-looking rule, and the proxy that carries the bias..."></textarea>
+            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">1. Where could this tool produce unequal outcomes &mdash; and through which proxy or mechanism?</label>
+            <textarea id="apply-1" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name the group that could be affected, the neutral-looking rule or input, and the proxy or mechanism that may carry bias..."></textarea>
           </div>
+          <div style="margin-bottom:6px;">
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">2. How would you detect it &mdash; what would you measure, across which groups?</label>
+            <textarea id="apply-2" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. compare approval/flag/score rates and false positive rates across race, gender, age, or area groups; flag a meaningful gap..."></textarea>
+          </div>
+          <p style="font-size:0.83em; color:var(--muted); margin:6px 0 14px; line-height:1.6;">Outcome testing should be done in a lawful, privacy-aware way. If you cannot test for unequal outcomes without risking a POPIA breach, raise that constraint with your legal or compliance team.</p>
           <div style="margin-bottom:14px;">
-            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">2. How would you detect it &mdash; what would you measure, by which groups?</label>
-            <textarea id="apply-2" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. compare approval/flag rates across race and gender; flag a gap above X%..."></textarea>
+            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">3. Who may be responsible under SA law if this tool produces unfair outcomes &mdash; and what is your one recommended control?</label>
+            <textarea id="apply-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name a real person or role &mdash; not &lsquo;the system&rsquo; &mdash; and one control (e.g. group fairness check, meaningful human review, remove a proxy, suspend the tool, seek legal advice)..."></textarea>
+          </div>
+          <div style="background:#FFF5F5; border-left:4px solid #FCA5A5; border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:0 0 14px; font-size:0.88em;">
+            <strong>Can the person affected understand, challenge, or appeal the outcome?</strong> If not, who can correct wrong data or override the system &mdash; and is that process accessible to the people it affects?
           </div>
           <div>
-            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">3. Who is accountable under SA law if it discriminates &mdash; and what is your one recommended control?</label>
-            <textarea id="apply-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name a real person or role &mdash; not 'the system' &mdash; and one fix (e.g. group fairness check, human review, drop a proxy)..."></textarea>
+            <label for="apply-4" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">4. What evidence would you need to see before you were comfortable relying on this system?</label>
+            <textarea id="apply-4" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. independent fairness audit; outcome data by group; false positive rate by demographic; accessible appeal process; results of community consultation..."></textarea>
           </div>
+        </div>
+
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; margin:16px 0 24px; font-size:0.88em; line-height:1.7;">
+          <p style="font-weight:700; margin:0 0 6px;">If your analysis raises concerns:</p>
+          <ul style="margin:0; padding-left:18px;">
+            <li>Document what you observed and when</li>
+            <li>Raise it with your manager, legal, compliance, or data-protection officer</li>
+            <li>Do not suppress or delay a concern because the system is already deployed</li>
+            <li>If affected people have a right to know or appeal, that process should be accessible</li>
+          </ul>
+        </div>
+
+        <div id="m3-equity-snapshot" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:16px 0 24px;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 10px;">Your Equity Risk Snapshot</p>
+          <div id="m3-snapshot-content" style="font-size:0.9em; line-height:1.8;"></div>
         </div>
 
         <div style="text-align:right; margin-top:24px;">
@@ -881,7 +1017,7 @@
     <!-- MODULE COMPLETE -->
     <div id="module-complete" style="display:none;" class="preview-end">
       <h2>Module 3 complete.</h2>
-      <p>You can now define algorithmic bias in plain language, tell disparate treatment from disparate impact, spot proxy discrimination, name the South African law that applies &mdash; and run an equity audit on a real tool in your sector.</p>
+      <p>You can now define algorithmic bias in plain language, distinguish direct discrimination from indirect unfair discrimination, spot proxy discrimination, recognise when to seek specialist advice &mdash; and run an equity audit on a real tool in your sector.</p>
       <p style="color:rgba(255,255,255,0.55); font-size:0.85em; margin-bottom:24px;">Your equity-audit worksheet and answers have been recorded and will be reviewed as part of Cohort 1 assessment.</p>
       <div class="preview-end-phases">
         <span class="preview-phase">✅ What algorithmic bias is</span>
@@ -908,43 +1044,26 @@
 
 <script>
 // --- Lesson progress tracker ---
-(function() {
-  var lessons = [
-    { id: 'm0l-1', label: 'Lesson 1 of 7 — What algorithmic bias really is' },
-    { id: 'm0l-2', label: 'Lesson 2 of 7 — Disparate treatment vs disparate impact' },
-    { id: 'm0l-3', label: 'Lesson 3 of 7 — Proxy discrimination' },
-    { id: 'm0l-4', label: 'Lesson 4 of 7 — Where bias enters the pipeline' },
-    { id: 'm0l-5', label: 'Lesson 5 of 7 — The South African legal lens' },
-    { id: 'm0l-6', label: 'Lesson 6 of 7 — The "objective machine" trap' },
-    { id: 'm0l-7', label: 'Lesson 7 of 7 — Detecting it: the disparate-impact test' },
-  ];
-  var current = 0;
-  function setLesson(n) {
-    if (n === current) return;
-    current = n;
-    lessons.forEach(function(_, i) {
-      var dot = document.getElementById('ldot-' + (i + 1));
-      if (!dot) return;
-      dot.className = 'lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
-    });
-    var lbl = document.getElementById('lesson-label');
-    if (lbl) lbl.textContent = lessons[n].label;
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-    if (!window.IntersectionObserver) return;
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (!entry.isIntersecting) return;
-        var idx = lessons.findIndex(function(l) { return l.id === entry.target.id; });
-        if (idx >= 0) setLesson(idx);
-      });
-    }, { rootMargin: '-10% 0px -60% 0px', threshold: 0 });
-    lessons.forEach(function(l) {
-      var el = document.getElementById(l.id);
-      if (el) obs.observe(el);
-    });
+var M3_LESSON_LABELS = [
+  'Lesson 1 of 7 — What algorithmic bias really is',
+  'Lesson 2 of 7 — Disparate treatment vs disparate impact',
+  'Lesson 3 of 7 — Proxy discrimination — the postal-code problem',
+  'Lesson 4 of 7 — Where bias enters the pipeline',
+  'Lesson 5 of 7 — The South African legal lens',
+  'Lesson 6 of 7 — The “objective machine” trap',
+  'Lesson 7 of 7 — Detecting it: the indirect discrimination test'
+];
+function setLesson(n) {
+  document.querySelectorAll('.lesson-dot').forEach(function(d, i) {
+    d.className = 'lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
   });
-})();
+  var lbl = document.getElementById('lesson-label');
+  if (lbl) lbl.textContent = M3_LESSON_LABELS[n];
+}
+function goLesson(n) {
+  setLesson(n - 1);
+  showScreen(2, 'les' + n);
+}
 
 // Remember exactly where the learner is so they resume mid-session.
 function saveM3Pos(phase, screen) {
@@ -984,26 +1103,30 @@ function revealAnswers() {
   }
 }
 
-// --- Concept knowledge check: AI Tutor demonstration (must score 8/8) ---
+// --- Concept knowledge check: AI Tutor demonstration (must score 10/10) ---
 var QUIZ_CONCEPT_EXP = [
   { ok: 'Exactly — bias is patterned, group-level harm from the data or design, not a one-off bug or (usually) deliberate prejudice.',
     no: 'Algorithmic bias = systematically worse outcomes for a group, caused by the data or design. It is a pattern, not a single error — and intent is not required.' },
-  { ok: 'Correct &mdash; SA law calls this indirect discrimination under PEPUDA: a neutral rule that produces unequal outcomes on a listed ground (race, gender, disability, etc.), with no intent required.',
-    no: 'This is indirect discrimination under SA law (PEPUDA / Constitution s9) &mdash; a neutral-looking rule that produces unequal outcomes on a listed ground. No race field is needed for it to be unlawful.' },
+  { ok: 'Right — different outcomes are a reason to investigate, not automatic proof of a legal breach. The next step is to examine inputs, proxies, and context.',
+    no: 'This is a potential indirect-unfair-discrimination or proxy-discrimination concern. But different outcomes are a reason to investigate — not, on their own, proof of a legal breach.' },
   { ok: 'Correct — proxies (postal code, school, language, name) still carry the protected attribute.',
     no: 'Deleting the race field does not remove the bias. Proxies like postal code, school or language stand in for it.' },
-  { ok: 'Yes — apartheid spatial planning means area closely tracks race, so location discriminates by race without naming it.',
-    no: 'In South Africa, apartheid engineered where people live by race — so location is an extremely strong proxy for race.' },
-  { ok: 'Correct — the Constitution and PEPUDA prohibit indirect discrimination, with no intent required.',
-    no: 'SA law (Constitution s9, PEPUDA) covers indirect discrimination — a neutral rule with a discriminatory effect — even with no intent, across many grounds.' },
-  { ok: 'Right — POPIA s71 gives the right not to be subject to a solely-automated significant decision, and to request human intervention.',
-    no: 'POPIA s71 lets a person refuse a decision based solely on automated processing that significantly affects them, and ask for human intervention.' },
-  { ok: 'Exactly — it is scaled, consistent and instant, and automation bias makes people defer to it.',
-    no: 'AI bias is more dangerous because it is scaled, consistent and fast — and people trust it more than a human (automation bias).' },
-  { ok: 'Correct — compare outcome rates across groups; sharp differences signal disparate impact to investigate.',
-    no: 'The practical first step is to compare outcome rates across groups. If they differ sharply, you have potential disparate impact to investigate.' },
+  { ok: 'Yes — apartheid spatial planning means area closely tracks race, so location can act as a powerful proxy for race and socio-economic inequality.',
+    no: 'In South Africa, apartheid engineered where people live by race — so location is a particularly powerful proxy for race and inequality.' },
+  { ok: 'Correct — SA law can reach indirect unfair discrimination, meaning a neutral-looking rule that produces unequal effects on a listed ground may require a contextual fairness assessment even without intent.',
+    no: 'SA law (Constitution s9, PEPUDA) covers indirect unfair discrimination — a neutral-looking rule with a discriminatory effect — even without intent. Whether it is unlawful depends on facts, impact, purpose, and available alternatives.' },
+  { ok: 'Correct — POPIA s71 is specifically about solely automated processing for profiling with legal or substantially significant effects, not all AI-assisted decisions.',
+    no: 'POPIA s71 is narrower than it sounds: it applies to decisions based solely on automated processing for profiling, where the decision has legal consequences or similarly substantial effects. Not every AI-assisted decision triggers it.' },
+  { ok: 'Right — AI bias can scale quickly, appear neutral, and trigger automation bias, making it harder to question than individual human bias.',
+    no: 'AI-assisted bias can be especially harmful because it scales fast, carries an appearance of objectivity, and encourages deference — making it less likely to be questioned than an individual human judgement.' },
+  { ok: 'Correct — comparing outcomes and error rates across groups in a lawful, privacy-aware way is the practical starting point.',
+    no: 'The practical first step is to compare relevant outcomes and error rates across groups in a lawful, privacy-aware way. Meaningful differences signal something to investigate further.' },
+  { ok: 'Right — label bias is the key risk here: if past performance ratings were influenced by biased human judgements, the model learns that biased definition of "good."',
+    no: 'Label bias is the first question: if past "high performer" ratings reflected biased human judgements, the model will learn and replicate that definition at scale.' },
+  { ok: 'Exactly — procedural review without authority, data, or override power is not meaningful human oversight. It is a compliance formality that does not protect anyone.',
+    no: 'Having a person in the loop is not the same as meaningful oversight. A reviewer needs adequate information, time, and a real ability to override the system — otherwise the review is procedural, not substantive.' },
 ];
-var QUIZ_CONCEPT_N = 8;
+var QUIZ_CONCEPT_N = 10;
 
 function submitQuizConcept() {
   var allAnswered = true;
@@ -1113,12 +1236,33 @@ function advancePhase(fromPhase) {
     var a1 = document.getElementById('apply-1').value.trim();
     var a2 = document.getElementById('apply-2').value.trim();
     var a3 = document.getElementById('apply-3').value.trim();
-    if (a1.length < 5 || a2.length < 5 || a3.length < 10) {
+    var a4 = document.getElementById('apply-4').value.trim();
+    if (a1.length < 5 || a2.length < 5 || a3.length < 10 || a4.length < 5) {
       errEl.style.display = 'block';
-      errEl.textContent = 'Please complete the Equity Audit questions before finishing the module.';
+      errEl.textContent = 'Please complete all four Apply questions before finishing the module.';
       return;
     }
     errEl.style.display = 'none';
+    var snap = document.getElementById('m3-equity-snapshot');
+    var snapContent = document.getElementById('m3-snapshot-content');
+    if (snap && snapContent) {
+      var tool = (document.getElementById('ws-0') || {value:''}).value || '—';
+      var decision = (document.getElementById('ws-1') || {value:''}).value || '—';
+      var groups = (document.getElementById('ws-2') || {value:''}).value || '—';
+      var proxies = (document.getElementById('ws-3') || {value:''}).value || '—';
+      var concerns = (document.getElementById('ws-6') || {value:''}).value || '—';
+      var oversight = (document.getElementById('ws-7') || {value:''}).value || '—';
+      snapContent.innerHTML =
+        '<p style="margin:0 0 6px;"><strong>Tool:</strong> ' + tool + '</p>' +
+        '<p style="margin:0 0 6px;"><strong>Influences:</strong> ' + decision + '</p>' +
+        '<p style="margin:0 0 6px;"><strong>Groups to watch:</strong> ' + groups + '</p>' +
+        '<p style="margin:0 0 6px;"><strong>Key proxies:</strong> ' + proxies + '</p>' +
+        '<p style="margin:0 0 6px;"><strong>Legal / governance concerns:</strong> ' + concerns + '</p>' +
+        '<p style="margin:0 0 6px;"><strong>Oversight / appeal:</strong> ' + oversight + '</p>' +
+        '<p style="margin:0 0 6px;"><strong>Accountability:</strong> ' + a3 + '</p>' +
+        '<p style="margin:0;"><strong>Evidence needed before relying on it:</strong> ' + a4 + '</p>';
+      snap.style.display = 'block';
+    }
     saveProgress('module-3', 3);
     [0,1,2,3].forEach(function(i) {
       var step = document.getElementById('prog-' + i);
@@ -1240,7 +1384,7 @@ window.MODULE_CONFIG = {
         }
       }
 
-      initAnswerPersistence('module-3', ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3',
+      initAnswerPersistence('module-3', ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3','apply-4',
                     'ws-0','ws-1','ws-2','ws-3','ws-4','ws-5','ws-6','ws-7'], session.user.id);
     }).catch(function () {
       // On any error, fail safe to the locked screen
