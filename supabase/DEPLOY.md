@@ -60,6 +60,41 @@ insert into admins (email) values ('gorentaride@gmail.com') on conflict do nothi
 - **Create user:** Admin → Partners tab → **Add a partner** with a password → the success box
   shows the credentials and a Partner Portal link.
 
+## Email setup — Resend + Supabase SMTP (dashboard, no code)
+
+Two layers share **one** Resend account + verified domain:
+- **Auth emails** (signup confirmation, password reset) → Supabase sends them, via Resend as its SMTP.
+- **Branded emails** (welcome, cohort code, partner credentials) → the `send-email` function, via Resend's API.
+
+### A. Resend — verify the domain
+1. resend.com → **Domains → Add Domain** → `afriversal.ai`.
+2. Resend shows ~3 DNS records (MX + SPF TXT on a `send.` subdomain, and a DKIM TXT at
+   `resend._domainkey`). Copy them **exactly as shown** (values vary by account/region).
+3. Add them at whoever hosts `afriversal.ai` DNS (registrar / Cloudflare). Wait for "Verified".
+4. **API Keys → Create** → copy the `re_...` key (used in two places below).
+
+### B. Supabase — use Resend as SMTP (powers confirmation/reset emails)
+Supabase → project `evxvsldwulqvowaaurxf` → **Authentication → Emails → SMTP Settings → Enable custom SMTP**:
+- Host: `smtp.resend.com`   ·   Port: `465`
+- Username: `resend`
+- Password: *(the Resend API key)*
+- Sender email: `noreply@afriversal.ai`   ·   Sender name: `AfriversalAI`
+
+Then **Authentication → URL Configuration**: Site URL `https://afriversal.ai`, and add the
+course-poc reset/confirm pages to **Redirect URLs** (e.g. `https://afriversal.ai/course-poc/reset-password.html`).
+
+Decide **Authentication → Providers → Email → "Confirm email"**:
+- ON  → users must click a confirmation link before signing in (more secure; native "email on signup").
+- OFF → users sign in immediately; rely on the branded welcome email from `send-email`.
+
+### C. Branded emails — the function
+`supabase secrets set RESEND_API_KEY=re_...` + `EMAIL_FROM="AfriversalAI <noreply@afriversal.ai>"`
+then `supabase functions deploy send-email` (already covered above).
+
+### D. Verify
+- Auth: trigger a password reset from the login page → confirm the email arrives.
+- Branded: Admin → Students → *Email system* → **Send test email**.
+
 ## Security
 
 - Never put any of these keys in the repo or in front-end code — only in `supabase secrets`.
