@@ -219,17 +219,17 @@
   <div style="max-width:1440px; margin:0 auto;">
     <span class="eyebrow eyebrow--light">Module 2 &middot; Core Course &middot; Understanding Before Trust</span>
     <h1>How AI Learns &amp; Fails</h1>
-    <p class="lead">Most people believe AI thinks. It doesn't. AI learns patterns from historical information and uses those patterns to make predictions &mdash; and the same process that makes AI powerful is exactly why it fails. This module shows you how, using a real African case study.</p>
+    <p class="lead">AI does not understand in the human sense. It learns patterns from historical information and uses those patterns to generate, rank, classify, match, or predict &mdash; and the same process that makes AI powerful is exactly why it fails. This module shows you how, using a documented African case study.</p>
     <div class="m0-objectives"><strong>By the end of this module, you will be able to:</strong><ol>
-      <li>Explain how AI learns, in plain language &mdash; and the difference between intelligence and prediction</li>
-      <li>Identify the six common ways AI systems fail</li>
+      <li>Explain how AI learns, in plain language &mdash; and why prediction is not the same as understanding</li>
+      <li>Identify seven common ways AI systems fail</li>
       <li>Recognise how bias enters AI systems, even when nobody programs it</li>
       <li>Explain why human oversight remains necessary</li>
       <li>Assess the AI risks inside your own organisation</li>
     </ol></div>
     <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">100 minutes &middot; 4 phases</span>
-      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">SA Case: African Fintech Credit Scoring Bias (2025)</span>
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">African case study: fintech credit-scoring bias audit (2025)</span>
       <span style="font-size:0.85em; color:var(--gold); font-weight:600;">Funda Five™ theme: Understanding Before Trust</span>
     </div>
   </div>
@@ -301,8 +301,13 @@
         <!-- Framing -->
         <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius-lg) var(--radius-lg) 0; padding:24px 28px; margin-bottom:40px;">
           <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:14px;">The big idea</p>
-          <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7; margin-top:0;">Most people believe AI thinks. It doesn't. AI learns patterns from historical information and uses those patterns to make predictions.</p>
+          <p style="margin-bottom:12px; font-size:0.92em; line-height:1.7; margin-top:0;">AI can produce intelligent-seeming outputs without independently knowing whether they are true, fair, relevant, or appropriate. It learns patterns from historical information and uses those patterns to make predictions.</p>
           <p style="margin-bottom:0; font-size:0.92em; line-height:1.7;">The same process that makes AI powerful is also the reason AI can fail. Understand the process, and every failure mode in this module becomes predictable rather than mysterious.</p>
+        </div>
+
+        <!-- Part A grouping header -->
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:10px 18px; margin-bottom:28px;">
+          <p style="margin:0; font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px;">Part A &mdash; What the model learns from the past</p>
         </div>
 
         <!-- Lesson 1: AI Learns, It Doesn't Think -->
@@ -317,19 +322,24 @@
             <h4>The AI learning formula</h4>
             <p style="font-weight:700; font-size:1.0em; color:var(--green-dark);">Historical Data &nbsp;&times;&nbsp; Pattern Recognition &nbsp;&times;&nbsp; Prediction &nbsp;=&nbsp; AI Output</p>
           </div>
-          <div style="border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid #FCA5A5; margin:20px 0;">
-            <div style="background:#DC2626; padding:12px 20px;">
-              <span style="color:white; font-weight:800; font-size:0.85em; letter-spacing:0.5px;">Important truth &mdash; AI does NOT:</span>
+          <div style="border-radius:var(--radius-lg); overflow:hidden; border:1.5px solid var(--green-light); margin:20px 0;">
+            <div style="background:var(--green-dark); padding:12px 20px;">
+              <span style="color:white; font-weight:800; font-size:0.85em; letter-spacing:0.5px;">Important limit</span>
             </div>
-            <div style="padding:18px 20px; background:#FFF5F5;">
-              <p style="margin:0; font-size:0.92em; color:#7F1D1D; line-height:1.9;">❌ Understand &nbsp;&nbsp; ❌ Reason &nbsp;&nbsp; ❌ Know &nbsp;&nbsp; ❌ Think<br><strong>AI predicts.</strong></p>
+            <div style="padding:18px 20px; background:var(--green-pale);">
+              <p style="margin:0; font-size:0.92em; color:var(--green-dark); line-height:1.75;">AI can produce reasoning-like answers, but it does not independently know whether its output is true, complete, fair, or appropriate. It generates predictions from patterns and may need external evidence, tools, and human review.</p>
             </div>
           </div>
           <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
             <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Example</p>
-            <p style="margin-bottom:8px; font-size:0.92em;">When ChatGPT writes: <em>"The capital of South Africa is Pretoria."</em></p>
+            <p style="margin-bottom:8px; font-size:0.92em;">When ChatGPT writes: <em>"The capital of France is Paris."</em></p>
             <p style="margin-bottom:0; font-size:0.92em; color:var(--muted);">It isn't remembering a fact. It is <strong style="color:var(--text);">predicting the next most likely words</strong> based on training patterns. It happens to be right here &mdash; but the mechanism is prediction, not recall.</p>
           </div>
+        </div>
+
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">In the fintech case, the model didn't understand creditworthiness &mdash; it predicted approval likelihood based on past approvals.</p>
         </div>
 
         <!-- Lesson 2: Failure 1 — Biased Data -->
@@ -346,6 +356,11 @@
               <p style="margin-top:12px;">Nobody programmed discrimination. <strong>The system learned it</strong> &mdash; from the patterns already present in the data.</p>
             </div>
           </div>
+        </div>
+
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">In the fintech case, historical approval patterns may have reflected access to formal employment, not actual ability to repay.</p>
         </div>
 
         <!-- Lesson 3: Failure 2 — Missing Data -->
@@ -365,13 +380,18 @@
           </div>
         </div>
 
-        <div class="callout" style="background:var(--green-pale); border-left:4px solid var(--green-mid); padding:16px 20px; margin:0 0 36px;">
-          <strong style="font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted);">Checkpoint &mdash; halfway through</strong>
-          <ul style="margin:10px 0 0; padding-left:18px; font-size:0.9em; line-height:1.7;">
-            <li><strong>Failure 1 &mdash; Biased Data:</strong> the AI learns discrimination from historical patterns in its training data</li>
-            <li><strong>Failure 2 &mdash; Missing Data:</strong> absent groups produce systematic blind spots in the model&rsquo;s predictions</li>
-          </ul>
-          <p style="font-size:0.9em; margin:10px 0 0; color:var(--muted);">Coming up: Feedback Loops &rarr; Correlation traps &rarr; Hallucinations &rarr; Outdated Learning &rarr; Distributional Shift.</p>
+        <div class="callout" style="background:var(--bg); border-left:4px solid var(--border); padding:16px 20px; margin:0 0 16px;">
+          <p style="margin:0; font-size:0.9em; line-height:1.7; color:var(--muted);">The answer is not always &ldquo;collect more data.&rdquo; It may be to redesign the decision, involve humans, provide an appeal route, or avoid using AI for that judgment.</p>
+        </div>
+
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">In the fintech case, cash-based income and rural economic activity were missing from the data the model could see.</p>
+        </div>
+
+        <!-- Part B grouping header -->
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:10px 18px; margin-bottom:28px;">
+          <p style="margin:0; font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px;">Part B &mdash; What the model mistakes about the world</p>
         </div>
 
         <!-- Lesson 4: Failure 3 — Feedback Loops -->
@@ -384,11 +404,16 @@
           <div class="fail-card">
             <div class="fail-card__head"><span class="fail-card__num">3</span><strong>Feedback Loops</strong></div>
             <div class="fail-card__body">
-              <p>An AI labels an area as <strong>"high risk."</strong></p>
-              <p class="fail-card__eg">Investors avoid the area &rarr; economic activity drops &rarr; the AI now sees evidence it was "right" &rarr; the cycle continues.</p>
-              <p style="margin-top:12px;">The model didn't just predict the outcome. It helped <strong>cause</strong> it &mdash; then used that as proof of its own accuracy.</p>
+              <p>A system predicts that one neighbourhood has higher crime risk. Authorities send more patrols there. More policing produces more recorded incidents and arrests. The system is retrained on those records and becomes even more confident that the area is &ldquo;high risk.&rdquo;</p>
+              <p class="fail-card__eg">More patrols &rarr; more observed incidents &rarr; more data confirming &ldquo;high risk&rdquo; &rarr; model becomes more confident &rarr; more patrols.</p>
+              <p style="margin-top:12px;"><strong>Did the model discover risk &mdash; or help create the data that appears to confirm it?</strong></p>
             </div>
           </div>
+        </div>
+
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">Repeated rejection can produce less formal credit history &mdash; which later looks like evidence of future risk.</p>
         </div>
 
         <!-- Lesson 5: Failure 4 — Correlation vs Causation -->
@@ -408,6 +433,16 @@
           </div>
         </div>
 
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">The lender&rsquo;s model may have found that location predicts approvals &mdash; not because location causes creditworthiness, but because of historical access patterns.</p>
+        </div>
+
+        <!-- Part D grouping header -->
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:10px 18px; margin-bottom:28px;">
+          <p style="margin:0; font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px;">Part D &mdash; A different kind of failure: generative AI</p>
+        </div>
+
         <!-- Lesson 6: Failure 5 — Hallucinations -->
         <div id="m2l-6" style="margin-bottom:36px;">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
@@ -425,20 +460,35 @@
           </div>
         </div>
 
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">In a credit or legal context, a system that invents a regulation or precedent with confidence can cause serious harm.</p>
+        </div>
+
+        <!-- Part C grouping header -->
+        <div style="background:var(--gold-light); border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:10px 18px; margin-bottom:28px;">
+          <p style="margin:0; font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px;">Part C &mdash; What changes after deployment</p>
+        </div>
+
         <!-- Lesson 7: Failure 6 — Outdated Learning -->
         <div id="m2l-7" style="margin-bottom:36px;">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
             <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 7</span>
-            <h3 style="margin:0; font-size:1.15em;">Failure 6 &mdash; Outdated Learning</h3>
+            <h3 style="margin:0; font-size:1.15em;">Failure 6 &mdash; Temporal Drift: when yesterday&rsquo;s patterns no longer fit today</h3>
           </div>
-          <p>AI learns from yesterday. The world changes.</p>
+          <p>AI learns from yesterday. The world changes &mdash; but a model doesn&rsquo;t automatically update with it.</p>
           <div class="fail-card">
-            <div class="fail-card__head"><span class="fail-card__num">6</span><strong>Outdated Learning</strong></div>
+            <div class="fail-card__head"><span class="fail-card__num">6</span><strong>Temporal Drift</strong></div>
             <div class="fail-card__body">
-              <p class="fail-card__eg">COVID &middot; new legislation &middot; new economic conditions &middot; new technologies.</p>
-              <p style="margin-top:12px;">Yesterday's patterns may no longer work. A model trained before a major shift keeps predicting as if nothing changed.</p>
+              <p class="fail-card__eg">Economic shocks &middot; new legislation &middot; changing borrowing behaviour &middot; shifts in employment patterns.</p>
+              <p style="margin-top:12px;">A credit model trained before a major economic shock may keep treating old income and repayment patterns as reliable even after conditions have changed. Yesterday&rsquo;s patterns may no longer hold &mdash; but the model has no way to know that.</p>
             </div>
           </div>
+        </div>
+
+        <div class="concept-block" style="border-left-color:var(--gold); background:var(--gold-light); margin-bottom:36px;">
+          <h4 style="color:var(--gold-dark);">Back to the lender</h4>
+          <p style="margin:0;">A credit model trained before an economic shock may keep treating old income and repayment patterns as reliable even after conditions have changed.</p>
         </div>
 
         <!-- Lesson 8: Failure 7 — Distributional Shift -->
@@ -447,13 +497,33 @@
             <span style="background:var(--green-dark); color:white; font-size:0.7em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px;">Lesson 8</span>
             <h3 style="margin:0; font-size:1.15em;">Failure 7 &mdash; Distributional Shift</h3>
           </div>
-          <p>A model can be accurate for the population it was trained on &mdash; and systematically wrong for a different one.</p>
+          <p>A model can be accurate for the population it was trained on &mdash; and systematically wrong for a different one. This is distinct from temporal drift:</p>
+
+          <table style="width:100%; border-collapse:collapse; margin:16px 0; font-size:0.88em;">
+            <thead>
+              <tr style="background:var(--green-dark); color:white;">
+                <th style="padding:10px 14px; text-align:left; font-weight:700;">Temporal drift</th>
+                <th style="padding:10px 14px; text-align:left; font-weight:700;">Distributional shift</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:var(--green-pale);">
+                <td style="padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top;">Same population type, but conditions change over time</td>
+                <td style="padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top;">Different population, place, setting, or input mix from the one used for training</td>
+              </tr>
+              <tr style="background:var(--white);">
+                <td style="padding:10px 14px; vertical-align:top; color:var(--muted); font-style:italic;">"Yesterday no longer fits today"</td>
+                <td style="padding:10px 14px; vertical-align:top; color:var(--muted); font-style:italic;">"This is not the population it learned from"</td>
+              </tr>
+            </tbody>
+          </table>
+
           <div class="fail-card">
             <div class="fail-card__head"><span class="fail-card__num">7</span><strong>Distributional Shift</strong></div>
             <div class="fail-card__body">
-              <p>A model validated in a European hospital is deployed in a South African clinic. The disease patterns, demographics, and comorbidities differ. The model was accurate &mdash; for its training population.</p>
-              <p class="fail-card__eg">The model doesn&rsquo;t know it has moved out of its reliable range. Its confidence score stays high. Only the outcomes degrade.</p>
-              <p style="margin-top:12px;">You will see this live in <strong>Module 6</strong> &mdash; a TB X-ray AI trained on European data deployed in SA clinics, where HIV co-infection changes how TB presents radiologically.</p>
+              <p>A model validated in one setting is deployed in another with different demographics, disease patterns, or comorbidities. The model was accurate &mdash; for its training population.</p>
+              <p class="fail-card__eg">The model doesn&rsquo;t know it has moved out of its reliable range. Its confidence may remain high even as real-world performance degrades, especially when the model is poorly calibrated for the new setting.</p>
+              <p style="margin-top:12px;">In healthcare, models must be evaluated in the population and setting where they will actually be used. A model validated in one country may perform differently in another where disease patterns, demographics, or co-infections differ.</p>
             </div>
           </div>
         </div>
@@ -617,6 +687,7 @@
           <div style="background:var(--navy); color:white; padding:16px 24px;">
             <span style="font-size:0.72em; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold);">Case Study &middot; 2025</span>
             <div style="font-size:1.1em; font-weight:700; margin-top:4px;">African Fintech Credit Scoring Platform</div>
+            <div style="font-size:0.78em; color:rgba(255,255,255,0.55); margin-top:6px; font-style:italic;">Composite learning case based on documented African lending-access and credit-scoring patterns. Not a case about one named company.</div>
           </div>
           <div style="padding:24px 28px;">
             <p style="margin-top:0;">A financial technology company launches an AI-powered lending platform. The company advertises:</p>
@@ -658,14 +729,14 @@
             <div class="activity-card__name">Location / postal code</div>
             <div class="activity-card__hint">Where the applicant lives</div>
             <span class="reveal-badge">Bias source ✓</span>
-            <div class="reveal-explanation">In the South African context, location is a powerful proxy for apartheid-era spatial inequality. Using it lets the AI discriminate by geography without ever naming race.</div>
+            <div class="reveal-explanation">Location can act as a proxy for unequal access to opportunity, services, formal employment, and credit. A model may therefore reproduce geographic disadvantage even without using race as an explicit input.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
             <div class="activity-card__icon">🏦</div>
             <div class="activity-card__name">Banking transaction history</div>
             <div class="activity-card__hint">Formal account activity</div>
             <span class="reveal-badge">Bias source ✓</span>
-            <div class="reveal-explanation">Informal traders and the cash economy leave little formal transaction trail. The data is <strong>missing</strong> for them &mdash; so the model reads a thin file as high risk.</div>
+            <div class="reveal-explanation">Informal traders and cash-based businesses may have less formal transaction history available to the lender. If the model treats limited formal data as evidence of higher risk, it can systematically disadvantage people whose economic activity is less visible to conventional banking systems.</div>
           </div>
           <div class="activity-card" data-answer="bias" onclick="sortCard(this)">
             <div class="activity-card__icon">👥</div>
@@ -697,7 +768,10 @@
 
         <!-- Principles after reveal -->
         <div id="encounter-principles" style="display:none; margin-top:32px;">
-          <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+          <div class="callout" style="background:var(--bg); border-left:4px solid var(--border);">
+            <p style="margin:0; font-size:0.88em; line-height:1.7; color:var(--muted);">These are plausible bias pathways in this case. Different approval rates are a signal to investigate, not proof on their own. A real investigation would need outcome testing, data review, model documentation, and analysis of how decisions are made.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; margin:24px 0;">
             <div style="flex:1; height:1px; background:var(--border);"></div>
             <span style="font-size:0.78em; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1.2px; white-space:nowrap;">What this case teaches</span>
             <div style="flex:1; height:1px; background:var(--border);"></div>
@@ -706,7 +780,7 @@
             <p style="color:var(--gold); font-weight:800; font-size:0.78em; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:16px;">The CEO asked the wrong question</p>
             <p style="font-size:1.05em; font-weight:700; color:white; margin-bottom:12px; line-height:1.5;">"Nobody programmed discrimination" is true &mdash; and irrelevant.</p>
             <p style="color:rgba(255,255,255,0.78); font-size:0.92em; line-height:1.75; margin-bottom:16px;">The AI didn't <em>invent</em> discrimination. It <strong style="color:white;">learned</strong> it &mdash; from historical data, from location used as a proxy, and from the data that was missing for rural, informal, and women-owned businesses. Three failure modes from Phase 1, all at once.</p>
-            <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;">And accountability? Not the AI. Under South African law and good governance, it rests with the <strong style="color:var(--gold);">people and the company that deployed it</strong> &mdash; the executives and the lending department, supported by the developers. "The algorithm decided" is not a defence.</p>
+            <p style="color:rgba(255,255,255,0.65); font-size:0.88em; margin:0; line-height:1.7;"><strong style="color:var(--gold);">Accountability does not sit with the AI.</strong> Responsibility remains with the organisation and people who selected the system, supplied or approved the data, set the rules, reviewed outcomes, and acted on its recommendations. In high-impact credit decisions, legal and regulatory duties may also apply. "The algorithm decided" is not a defence.</p>
           </div>
           <div style="margin-top:24px; text-align:right;">
             <button id="btn-done-encounter" type="button" class="btn btn--primary btn--sm" onclick="advancePhase(0)">Continue to Reflect &rarr;</button>
@@ -731,7 +805,7 @@
       <div class="phase__body">
         <div class="phase-screen is-active" id="ps-1-reflect">
         <button type="button" class="phase-back-top" onclick="goBack(0)">&larr; Back to Encounter</button>
-        <p>The fintech bias didn't come from nowhere. It came from human decisions, captured in data. Think about your own workplace.</p>
+        <p>The fintech bias did not come from nowhere. It may reflect past human decisions, unequal access to formal systems, missing data, and design choices captured in &mdash; or left out of &mdash; the data. Think about your own workplace.</p>
 
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:20px 0;">
           <p style="font-weight:700; margin-bottom:14px;">Have you ever seen&hellip;</p>
@@ -743,24 +817,29 @@
           <p style="margin:14px 0 0; font-size:0.9em; color:var(--muted);">Now imagine an AI learning from years of those decisions.</p>
         </div>
 
+        <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:20px 0;">
+          <p style="margin:0; font-size:0.88em; font-weight:600; color:var(--gold-dark);">Use general examples only. Do not name colleagues, customers, employers, confidential systems, or personal information.</p>
+        </div>
+
         <div style="margin: 20px 0;">
           <label for="reflect-1" style="display:block; font-weight:600; margin-bottom:8px;">1. If humans make biased decisions, what happens when AI learns from those decisions?</label>
-          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The bias gets scaled and sped up &mdash; and it looks objective because a computer produced it..."></textarea>
+          <textarea id="reflect-1" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. The model may repeat, scale, or make past unequal decisions look more objective because they are now automated."></textarea>
         </div>
 
         <div style="margin: 20px 0;">
           <label for="reflect-2" style="display:block; font-weight:600; margin-bottom:8px;">2. What historical pattern in your industry could become AI bias if a model learned from it?</label>
-          <textarea id="reflect-2" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. In insurance, historic pricing by area; in hiring, which schools we recruited from..."></textarea>
+          <textarea id="reflect-2" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. which customers were historically approved, prioritised, investigated, recruited, insured, promoted, or offered support in your sector."></textarea>
         </div>
 
         <div style="margin: 20px 0;">
-          <label for="reflect-3" style="display:block; font-weight:600; margin-bottom:8px;">3. Would you trust an AI decision you could not explain? Why or why not?</label>
+          <label for="reflect-3" style="display:block; font-weight:600; margin-bottom:8px;">3. Would you rely on an AI decision if you could not explain the relevant factors, test whether it works fairly, or challenge an error? Why or why not?</label>
           <textarea id="reflect-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. No &mdash; if I can't explain it to the customer it affected, I can't defend it or fix it..."></textarea>
         </div>
 
         <div class="callout">
           <strong>One question to sit with:</strong> What is more dangerous &mdash; a wrong answer, or a wrong answer delivered <em>confidently</em>?
         </div>
+        <p style="font-size:0.88em; color:var(--muted); margin-top:8px; line-height:1.65;">Confidence does not create the error &mdash; but it can make people less likely to question it before acting.</p>
 
         <div id="err-1" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please write a few words in all three boxes before continuing.</div>
         <div class="phase-nav">
@@ -785,44 +864,69 @@
         <button type="button" class="phase-back-top" onclick="goBack(2)">&larr; Back to Concept</button>
         <p>Identify <strong>one AI system already used in your workplace</strong> &mdash; an HR screening tool, chatbot, fraud detection, credit scoring, marketing automation, or predictive maintenance.</p>
 
+        <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:20px 0;">
+          <p style="margin:0; font-size:0.88em; font-weight:600; color:var(--gold-dark);">Use general descriptions only. Do not enter confidential company, customer, employee, financial, health, legal, or personal information. You do not need to name a vendor, colleague, client, or employer.</p>
+        </div>
+
+        <!-- Step 1: Map the system -->
         <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:24px; margin:20px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 6px;">Step 1 &mdash; Map the system</p>
           <p style="font-weight:700; margin-bottom:6px;">AI Learning &amp; Failure Worksheet</p>
-          <p style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">Fill in what you can &mdash; the gaps you can't fill are findings in themselves.</p>
+          <p style="font-size:0.85em; color:var(--muted); margin-bottom:8px;">Fill in what you can &mdash; the gaps you can&rsquo;t fill are findings in themselves.</p>
           <table class="worksheet">
             <thead><tr><th>Question</th><th>Your answer</th></tr></thead>
             <tbody>
               <tr><td>Which AI system are you auditing?</td><td><input type="text" id="ws-0" placeholder="e.g. CV-screening tool"></td></tr>
-              <tr><td>What decision is it helping make?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
-              <tr><td>What data does it learn from?</td><td><input type="text" id="ws-2" placeholder="e.g. past successful hires"></td></tr>
-              <tr><td>What information might be missing?</td><td><input type="text" id="ws-3" placeholder="e.g. non-traditional career paths"></td></tr>
-              <tr><td>Who might be disadvantaged?</td><td><input type="text" id="ws-4" placeholder="e.g. career-changers, rural applicants"></td></tr>
-              <tr><td>What happens if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. strong candidates silently filtered out"></td></tr>
+              <tr><td>What decision or task does it support?</td><td><input type="text" id="ws-1" placeholder="e.g. who reaches interview"></td></tr>
+              <tr><td>What information does it use or appear to rely on?</td><td><input type="text" id="ws-2" placeholder="e.g. past successful hires, CVs"></td></tr>
+              <tr><td>What do you not know yet about its data or inputs?</td><td><input type="text" id="ws-3" placeholder="e.g. non-traditional career paths, gaps"></td></tr>
+              <tr><td>Who uses the output?</td><td><input type="text" id="ws-4" placeholder="e.g. hiring managers, customers"></td></tr>
+              <tr><td>What could happen if it is wrong?</td><td><input type="text" id="ws-5" placeholder="e.g. strong candidates silently filtered out"></td></tr>
               <tr><td>Who reviews the output?</td><td><input type="text" id="ws-6" placeholder="e.g. a recruiter / nobody"></td></tr>
-              <tr><td>What human oversight exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / none yet"></td></tr>
+              <tr><td>What human oversight or appeal process exists?</td><td><input type="text" id="ws-7" placeholder="e.g. spot-checks / none yet"></td></tr>
             </tbody>
           </table>
         </div>
 
+        <!-- Step 2: Judge with Funda Five -->
         <div style="background:var(--white); border:1.5px solid var(--gold); border-radius:var(--radius-lg); padding:22px 26px; margin:20px 0;">
-          <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Apply the Funda Five™</p>
+          <p style="font-size:0.78em; font-weight:800; color:var(--gold-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 6px;">Step 2 &mdash; Judge the system using Funda Five™</p>
+          <p style="font-size:0.85em; color:var(--muted); margin-bottom:16px;">Use what you know from Step 1 to evaluate the system across all five dimensions.</p>
           <div style="margin-bottom:14px;">
-            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">1. What data was used &mdash; and who is missing from it?</label>
-            <textarea id="apply-1" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Data sources, and the groups under-represented or absent..."></textarea>
+            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:4px;"><span style="color:var(--gold-dark); font-size:0.8em; text-transform:uppercase; letter-spacing:0.5px;">TASK</span></label>
+            <label for="apply-1" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">Is this an appropriate task to automate or support with AI, given the stakes and the people affected?</label>
+            <textarea id="apply-1" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Consider: what happens if it's wrong, who is affected, whether human judgment is needed..."></textarea>
           </div>
           <div style="margin-bottom:14px;">
-            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">2. Who benefits, and who could be harmed?</label>
-            <textarea id="apply-2" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name the groups on each side of this system..."></textarea>
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:4px;"><span style="color:var(--gold-dark); font-size:0.8em; text-transform:uppercase; letter-spacing:0.5px;">DATA</span></label>
+            <label for="apply-2" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">What information or groups may be missing, unevenly represented, or treated as a proxy for something else?</label>
+            <textarea id="apply-2" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Data sources, and the groups under-represented or absent..."></textarea>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:4px;"><span style="color:var(--gold-dark); font-size:0.8em; text-transform:uppercase; letter-spacing:0.5px;">TOOL</span></label>
+            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">What kind of system is it, and what failure modes are most plausible given how it works?</label>
+            <textarea id="apply-3" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. classification model prone to biased data, generative AI prone to hallucination..."></textarea>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label for="apply-4" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:4px;"><span style="color:var(--gold-dark); font-size:0.8em; text-transform:uppercase; letter-spacing:0.5px;">TRUST</span></label>
+            <label for="apply-4" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">What evidence, testing, or review would you need before you were comfortable relying on this system?</label>
+            <textarea id="apply-4" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="e.g. performance testing in the real target population, documentation of data sources, an appeal route..."></textarea>
           </div>
           <div>
-            <label for="apply-3" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">3. What oversight exists &mdash; and who is the accountability owner if it fails?</label>
-            <textarea id="apply-3" style="width:100%; min-height:80px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name a real person or role &mdash; not 'the system'..."></textarea>
+            <label for="apply-5" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:4px;"><span style="color:var(--gold-dark); font-size:0.8em; text-transform:uppercase; letter-spacing:0.5px;">HUMAN</span></label>
+            <label for="apply-5" style="display:block; font-weight:600; font-size:0.9em; margin-bottom:6px;">Who can challenge the outcome, override it, and take responsibility if harm occurs?</label>
+            <textarea id="apply-5" style="width:100%; min-height:64px; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Name a real person or role — not 'the system'..."></textarea>
           </div>
+        </div>
+
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:20px 0;">
+          <p style="font-size:0.88em; line-height:1.75; margin:0; color:var(--muted);">If you identify a high-impact decision, unclear data use, possible disadvantage, or no meaningful oversight, do not try to resolve it alone. Record the concern and raise it with the system owner, manager, compliance lead, data-protection team, or another appropriate reviewer.</p>
         </div>
 
         <div id="m2-apply-submit" style="text-align:right; margin-top:24px;">
           <button class="btn btn--primary btn--lg" onclick="advancePhase(3)">Complete Module 2 &rarr;</button>
         </div>
-        <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete the Funda Five™ questions before finishing the module.</div>
+        <div id="err-3" class="advance-err" role="alert" aria-live="polite" style="display:none;">Please complete all five Funda Five™ questions before finishing the module.</div>
         <div class="phase-nav" style="justify-content:flex-start;">
           <button type="button" class="btn btn--outline" onclick="goBack(2)">&larr; Concept</button>
         </div>
@@ -851,14 +955,17 @@
       </div>
     </div>
 
+    <!-- PRELIMINARY RISK SNAPSHOT — populated by advancePhase(3) -->
+    <div id="m2-risk-snapshot" style="display:none;"></div>
+
     <!-- MODULE COMPLETE -->
     <div id="module-complete" style="display:none;" class="preview-end">
       <h2>Module 2 complete.</h2>
-      <p>You can now explain how AI learns, name the six ways it fails, see how bias enters without anyone intending it &mdash; and audit a real system in your own organisation.</p>
+      <p>You can now explain how AI learns, name the seven ways it fails, see how bias enters without anyone intending it &mdash; and audit a real system in your own organisation.</p>
       <p style="color:rgba(255,255,255,0.55); font-size:0.85em; margin-bottom:24px;">Your worksheet and Funda Five™ answers have been recorded and will be reviewed as part of Cohort 1 assessment.</p>
       <div class="preview-end-phases">
         <span class="preview-phase">✅ How AI learns &amp; why it fails</span>
-        <span class="preview-phase">✅ Six failure modes</span>
+        <span class="preview-phase">✅ Seven failure modes</span>
         <span class="preview-phase">✅ How bias enters AI</span>
         <span class="preview-phase">✅ Audited a real system</span>
       </div>
@@ -889,7 +996,7 @@
     { id: 'm2l-4', label: 'Lesson 4 of 8 — Failure 3: Feedback Loops' },
     { id: 'm2l-5', label: 'Lesson 5 of 8 — Failure 4: Correlation vs Causation' },
     { id: 'm2l-6', label: 'Lesson 6 of 8 — Failure 5: Hallucinations' },
-    { id: 'm2l-7', label: 'Lesson 7 of 8 — Failure 6: Outdated Learning' },
+    { id: 'm2l-7', label: 'Lesson 7 of 8 — Failure 6: Temporal Drift' },
     { id: 'm2l-8', label: 'Lesson 8 of 8 — Failure 7: Distributional Shift' },
   ];
   var current = 0;
@@ -972,12 +1079,12 @@ var QUIZ_CONCEPT_EXP = [
     no: 'This is a feedback loop: the AI\'s prediction shaped the real world, which then looked like evidence the AI was correct.' },
   { ok: 'Correlation is not causation — rain causes both the umbrellas and the accidents.',
     no: 'The AI confused correlation with causation. Rain causes both; umbrellas don\'t cause accidents. Only a human investigates why.' },
-  { ok: 'Outdated learning — the world changed and yesterday\'s patterns no longer hold.',
-    no: 'This is outdated learning. A model trained before a major shift keeps predicting as if nothing changed.' },
+  { ok: 'Temporal drift — the world changed and yesterday\'s patterns no longer hold.',
+    no: 'This is temporal drift. A model trained before a major shift keeps predicting as if nothing changed — the population is the same, but conditions have moved.' },
   { ok: 'Accountability rests with the people and organisation that deployed it — never the algorithm.',
     no: '"Nobody programmed discrimination" is not a defence. Accountability rests with the people and organisation that deployed and used the AI.' },
-  { ok: 'Distributional shift — the model was accurate for its training population, but SA patients with HIV co-infection present TB differently. Clinical validation doesn\'t automatically transfer across populations.',
-    no: 'This is distributional shift: the model works for the population it was trained on, but meets a meaningfully different one at deployment. It wasn\'t wrong — it just wasn\'t built for this population.' },
+  { ok: 'Distributional shift — the model was clinically validated, but for a different population. Clinical validation does not automatically transfer across populations with different demographics or disease presentations.',
+    no: 'This is distributional shift (fictional composite scenario). The model works for the population it was trained on, but meets a meaningfully different one at deployment. It wasn\'t wrong — it just wasn\'t built for this population.' },
 ];
 var QUIZ_CONCEPT_N = 9;
 
@@ -1089,9 +1196,11 @@ function advancePhase(fromPhase) {
     var a1 = document.getElementById('apply-1').value.trim();
     var a2 = document.getElementById('apply-2').value.trim();
     var a3 = document.getElementById('apply-3').value.trim();
-    if (a1.length < 5 || a2.length < 5 || a3.length < 10) {
+    var a4 = document.getElementById('apply-4').value.trim();
+    var a5 = document.getElementById('apply-5').value.trim();
+    if (a1.length < 5 || a2.length < 5 || a3.length < 5 || a4.length < 5 || a5.length < 5) {
       errEl.style.display = 'block';
-      errEl.textContent = 'Please complete the Funda Five™ questions before finishing the module.';
+      errEl.textContent = 'Please complete all five Funda Five™ questions before finishing the module.';
       return;
     }
     errEl.style.display = 'none';
@@ -1102,6 +1211,24 @@ function advancePhase(fromPhase) {
     });
     syncProgressAria();
     document.getElementById('m2-apply-submit').style.display = 'none';
+    // Populate and show preliminary risk snapshot
+    var snap = document.getElementById('m2-risk-snapshot');
+    if (snap) {
+      function safeVal(id) { var el = document.getElementById(id); return el && el.value.trim() ? el.value.trim() : '—'; }
+      snap.innerHTML = '<div style="border:1.5px solid var(--green-light); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:24px;">'
+        + '<div style="background:var(--green-dark); padding:14px 24px;"><h4 style="color:var(--gold); margin:0; font-size:0.92em; letter-spacing:0.3px;">Your preliminary AI risk snapshot</h4></div>'
+        + '<div style="background:var(--white); padding:20px 24px;">'
+        + '<table style="width:100%; border-collapse:collapse; font-size:0.88em;">'
+        + '<tr><td style="padding:7px 0; border-bottom:1px solid var(--border); font-weight:600; width:45%; color:var(--muted);">System</td><td style="padding:7px 0 7px 12px; border-bottom:1px solid var(--border);">' + safeVal('ws-0') + '</td></tr>'
+        + '<tr><td style="padding:7px 0; border-bottom:1px solid var(--border); font-weight:600; color:var(--muted);">Decision supported</td><td style="padding:7px 0 7px 12px; border-bottom:1px solid var(--border);">' + safeVal('ws-1') + '</td></tr>'
+        + '<tr><td style="padding:7px 0; border-bottom:1px solid var(--border); font-weight:600; color:var(--muted);">Key unknowns</td><td style="padding:7px 0 7px 12px; border-bottom:1px solid var(--border);">' + safeVal('ws-3') + '</td></tr>'
+        + '<tr><td style="padding:7px 0; border-bottom:1px solid var(--border); font-weight:600; color:var(--muted);">People potentially affected</td><td style="padding:7px 0 7px 12px; border-bottom:1px solid var(--border);">' + safeVal('ws-4') + '</td></tr>'
+        + '<tr><td style="padding:7px 0; border-bottom:1px solid var(--border); font-weight:600; color:var(--muted);">Main failure modes</td><td style="padding:7px 0 7px 12px; border-bottom:1px solid var(--border);">' + safeVal('apply-3') + '</td></tr>'
+        + '<tr><td style="padding:7px 0; border-bottom:1px solid var(--border); font-weight:600; color:var(--muted);">Oversight owner</td><td style="padding:7px 0 7px 12px; border-bottom:1px solid var(--border);">' + safeVal('ws-6') + '</td></tr>'
+        + '<tr><td style="padding:7px 0; font-weight:600; color:var(--muted);">Recommended next step</td><td style="padding:7px 0 7px 12px;">' + safeVal('apply-5') + '</td></tr>'
+        + '</table></div></div>';
+      snap.style.display = 'block';
+    }
     var answers = document.getElementById('model-answers-m2');
     answers.style.display = 'block';
     setTimeout(function() { answers.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
@@ -1213,7 +1340,7 @@ window.MODULE_CONFIG = {
         }
       }
 
-      initAnswerPersistence('module-2', ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3',
+      initAnswerPersistence('module-2', ['reflect-1','reflect-2','reflect-3','apply-1','apply-2','apply-3','apply-4','apply-5',
                     'ws-0','ws-1','ws-2','ws-3','ws-4','ws-5','ws-6','ws-7'], session.user.id);
     }).catch(function () {
       // On any error, fail safe to the locked screen
