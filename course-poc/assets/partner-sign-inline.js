@@ -29,6 +29,8 @@
   var cfg = DOCS[docKey];
   var container = document.getElementById('af-sign');
   var fillEls = [];
+  var chkEls = [];
+  var chkLocked = false;
   var lastRec = null;
 
   // ---- semantic label derivation (clean, self-describing field keys) ----
@@ -100,8 +102,43 @@
       fillEls.push({ key: key, input: input, label: base });
     }
   }
-  function collectFields() { var o = {}; fillEls.forEach(function (f) { o[f.key] = (f.input.value || '').trim(); }); return o; }
-  function lockFills() { fillEls.forEach(function (f) { f.input.readOnly = true; f.input.style.background = 'transparent'; f.input.style.borderBottomColor = 'var(--border,#E5E7EB)'; }); }
+  // Turn display-only checkbox glyphs (.chk = ☐) into clickable toggles.
+  function makeCheckable(savedFields, locked) {
+    chkEls = [];
+    var usedKeys = {};
+    var spans = document.querySelectorAll('.chk');
+    function process(span) {
+      if (span.closest && span.closest('#af-sign')) return;
+      var optNode = span.nextSibling;
+      var opt = (optNode && optNode.nodeType === 3) ? optNode.textContent.replace(/ /g, ' ').trim() : '';
+      var grp = '';
+      var tr = span.closest && span.closest('tr');
+      if (tr) { var first = tr.querySelector('td,th'); if (first) grp = (first.textContent || '').trim(); }
+      var base = (grp ? grp + ': ' : '') + (opt || 'option');
+      var key = base, n = 2; while (usedKeys[key]) { key = base + ' (' + n + ')'; n++; }
+      usedKeys[key] = true;
+      var checked = !!(savedFields && savedFields[key]);
+      function paint() { span.innerHTML = checked ? '&#9745;' : '&#9744;'; span.style.color = checked ? 'var(--green-mid,#2D6A4F)' : ''; span.style.fontWeight = checked ? '800' : ''; }
+      if (!locked) { span.style.cursor = 'pointer'; span.title = 'Click to select'; }
+      paint();
+      span.addEventListener('click', function () { if (chkLocked) return; checked = !checked; paint(); });
+      chkEls.push({ key: key, get: function () { return checked; } });
+    }
+    for (var i = 0; i < spans.length; i++) process(spans[i]);
+    if (locked) chkLocked = true;
+  }
+
+  function collectFields() {
+    var o = {};
+    fillEls.forEach(function (f) { var v = (f.input.value || '').trim(); if (v) o[f.key] = v; });
+    chkEls.forEach(function (c) { if (c.get()) o[c.key] = 'Yes'; });
+    return o;
+  }
+  function lockFills() {
+    fillEls.forEach(function (f) { f.input.readOnly = true; f.input.style.background = 'transparent'; f.input.style.borderBottomColor = 'var(--border,#E5E7EB)'; });
+    chkEls.forEach(function (c) { /* state frozen via chkLocked */ });
+    chkLocked = true;
+  }
 
   // ---- 3. Signature step ----
   function renderForm() {
@@ -268,11 +305,13 @@
     } catch (e) {}
     if (signed) {
       makeFillable(signed.fields || {}, true);   // re-fill (read-only) for review
+      makeCheckable(signed.fields || {}, true);
       renderCertificate(signed, 'You signed this document on ' +
         new Date(signed.signed_at || signed.ts || Date.now()).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' }) +
         '. Download your signed copy below.');
     } else {
       makeFillable(null, false);                 // editable for completion
+      makeCheckable(null, false);
       renderForm();
     }
   }
