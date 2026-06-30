@@ -49,7 +49,7 @@
     /* Live video session cards */
     .vsession-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
     .vcard { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; position: relative; border-top: 4px solid var(--green-mid); overflow: hidden; }
-    .vcard__thumb { width: calc(100% + 40px); height: 84px; object-fit: cover; object-position: center 28%; margin: -18px -20px 13px; display: block; }
+    .vcard__thumb { width: calc(100% + 40px); height: 96px; object-fit: cover; object-position: left top; margin: -18px -20px 13px; display: block; }
     .vcard.is-done .vcard__thumb { filter: grayscale(0.4); }
     .vcard.is-upcoming { opacity: 0.92; }
     .vcard.is-soon { border-top-color: var(--gold); box-shadow: 0 10px 28px rgba(201,162,39,0.18); }
@@ -448,9 +448,15 @@
     <div class="module-grid" id="sector-grid"></div>
 
     <!-- Resource Library promo -->
-    <a href="resources.html" aria-label="Explore the Resource Library" style="display:block; width:100%; max-width:480px; margin:32px auto 0; border:1.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; background:#0c1a12; text-decoration:none; box-shadow:var(--shadow-sm); transition:box-shadow .2s, transform .2s;" onmouseover="this.style.boxShadow='var(--shadow-md)';this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='var(--shadow-sm)';this.style.transform='none';">
-      <img src="assets/resource-library-banner.jpg" alt="Resource Library — go deeper with curated case studies with sources, books and reports, podcasts worth following, and YouTube channels that explain what's inside the tools you use." style="width:100%; display:block;" />
-    </a>
+    <div style="margin-top:40px; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 24px; background:white; display:flex; align-items:center; gap:22px; flex-wrap:wrap;">
+      <img src="assets/resource-library-banner.jpg" alt="Resource Library" style="width:200px; height:120px; object-fit:cover; object-position:left center; border-radius:10px; flex-shrink:0;" />
+      <div style="flex:1; min-width:240px;">
+        <p style="font-size:0.7em; font-weight:800; text-transform:uppercase; letter-spacing:1.4px; color:var(--gold-dark); margin-bottom:6px;">Resource Library</p>
+        <h3 style="font-size:1em; font-weight:700; margin-bottom:5px; color:var(--green-dark);">Want to go deeper?</h3>
+        <p style="font-size:0.84em; color:var(--muted); margin:0; max-width:480px;">Case studies with sources, books and reports, podcasts worth following, and YouTube channels that explain what's actually inside the tools you use.</p>
+      </div>
+      <a href="resources.html" class="btn btn--outline" style="flex-shrink:0;">Explore resources &rarr;</a>
+    </div>
 
     <!-- LIVE VIDEO SESSIONS -->
     <div class="cj-head">
