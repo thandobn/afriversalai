@@ -19,6 +19,10 @@
 // email.js.
 (function () {
   var TEAM_EMAIL = 'ask@afriversal.ai';
+  // AfriversalAI's authorised signatories — auto-applied (counter-signed) the
+  // moment the partner signs, so the emailed form is fully executed.
+  var AF_SIGNATORY1 = { name: 'Thurston R. Davis II', title: 'Executive Director' };
+  var AF_SIGNATORY2 = { name: 'Ntando Barbara Davis', title: 'Co-Founder' };
   var DOCS = {
     nda: { title: 'Mutual Non-Disclosure Agreement', file: 'partner-docs/nda.html' },
     agreement: { title: 'Enterprise Partner Agreement', file: 'partner-docs/agreement.html' },
@@ -143,6 +147,34 @@
     chkLocked = true;
   }
 
+  // Auto-apply AfriversalAI's counter-signature into the AfriversalAI execution
+  // block (Signature 1 = signatory, Signature 2 = witness). Runs on partner
+  // signing and when reopening a signed doc, so the form is fully executed.
+  function autoSignAfriversal(dateStr) {
+    var script = function (txt) { return '<span style="font-family:\'Dancing Script\',cursive;font-size:1.55em;font-weight:700;color:var(--green-dark,#1B4332);">' + esc(txt) + '</span>'; };
+    var blocks = document.querySelectorAll('.sigblock');
+    for (var b = 0; b < blocks.length; b++) {
+      var blk = blocks[b];
+      var h = blk.querySelector('.party__h');
+      if (!h || !/afriversal/i.test(h.textContent || '')) continue;
+      var rows = blk.querySelectorAll('.sigrow');
+      for (var r = 0; r < rows.length; r++) {
+        var lbl = rows[r].querySelector('.lbl'); var line = rows[r].querySelector('.sline');
+        if (!lbl || !line) continue;
+        var L = (lbl.textContent || '').toLowerCase().trim();
+        var html = null;
+        if (/witness 1/.test(L)) html = script(AF_SIGNATORY2.name);
+        else if (/witness 2/.test(L)) html = '';
+        else if (/signature|authorised signatory/.test(L)) html = script(AF_SIGNATORY1.name);
+        else if (/^name/.test(L)) html = esc(AF_SIGNATORY1.name);
+        else if (/title|capacity/.test(L)) html = esc(AF_SIGNATORY1.title);
+        else if (/date/.test(L)) html = esc(dateStr);
+        if (html !== null) { line.innerHTML = html; line.style.borderBottom = (html === '') ? '' : 'none'; }
+      }
+    }
+  }
+  function fmtDate(d) { return new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' }); }
+
   // ---- 3. Signature step ----
   function renderForm() {
     var gd = 'var(--green-dark,#1B4332)';
@@ -239,6 +271,7 @@
     catch (ex) { fail('Could not record your signature. Please make sure you are signed in as a partner and try again.'); btn.disabled = false; btn.textContent = 'Sign & submit →'; return; }
 
     lockFills();                         // freeze the completed fields into the document
+    autoSignAfriversal(fmtDate(rec.ts)); // counter-sign AfriversalAI's side automatically
     renderCertificate(rec, 'Preparing your signed copy…');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     finishWithEmail(rec);
@@ -309,6 +342,7 @@
     if (signed) {
       makeFillable(signed.fields || {}, true);   // re-fill (read-only) for review
       makeCheckable(signed.fields || {}, true);
+      autoSignAfriversal(fmtDate(signed.signed_at || signed.ts || Date.now()));
       renderCertificate(signed, 'You signed this document on ' +
         new Date(signed.signed_at || signed.ts || Date.now()).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' }) +
         '. Download your signed copy below.');
