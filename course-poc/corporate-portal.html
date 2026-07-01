@@ -257,6 +257,10 @@
       + sign.map(function(d){ return row(d[1], signed[d[0]]?okBadge:waitBadge); }).join('')
       +'<div style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold-dark);margin:12px 0 4px;">Governing policies &mdash; acknowledged via the MSA (no signature)</div>'
       + ack.map(function(d){ return row(d[1], ackBadge); }).join('');
+    // Once a contract doc is signed, its dashboard link becomes "Review signed document".
+    var linkMap={'corporate-contract.html':'corporate-contract','publication-011.html':'commercial-schedule','publication-012.html':'sow','mnda.html':'mnda','publication-008.html':'dpa','publication-003.html':'charter'};
+    var links=document.querySelectorAll('.cp-main a[href]');
+    for(var i=0;i<links.length;i++){ var key=linkMap[links[i].getAttribute('href')]; if(key && signed[key]){ links[i].innerHTML='&#10004; Review signed document'; links[i].classList.remove('btn--primary'); links[i].classList.add('btn--outline'); } }
   }
 
   (async function initCorporate(){

@@ -117,8 +117,7 @@ create policy "Admins read all customers"
 create table if not exists partner_signatures (
   id            uuid default gen_random_uuid() primary key,
   partner_email text not null references partners(email) on delete cascade,
-  doc_key       text not null
-                  check (doc_key in ('nda','agreement','schedule','handbook','welcome')),
+  doc_key       text not null,   -- any publication key (e.g. corporate-contract, mnda, sow, dpa, charter…)
   signer_name   text not null,
   capacity      text,
   signed_at     timestamptz not null default now(),

@@ -153,10 +153,11 @@
       lsSave(p); return;
     }
     var email = await sbEmail();
-    await _supabase.from('partner_signatures').upsert({
+    var _up = await _supabase.from('partner_signatures').upsert({
       partner_email: email, doc_key: docKey, signer_name: rec.name, capacity: rec.title || null,
       signed_at: rec.signed_at, verify_id: rec.verifyId, fingerprint: rec.fingerprint, fields: rec.fields
     }, { onConflict: 'partner_email,doc_key' });
+    if (_up && _up.error) throw _up.error;   // surface RLS/constraint failures instead of faking success
     var patch = {};
     if (docKey === 'schedule' && rec.fields && rec.fields.level) patch.level = rec.fields.level;
     // Mark partner active once all three core docs are signed
