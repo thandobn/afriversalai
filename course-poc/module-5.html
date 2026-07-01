@@ -649,6 +649,7 @@
               <textarea id="app-6" rows="3" placeholder="Meridian should tell Lerato&hellip; / The internal process is&hellip; / External avenues available to her include&hellip;"></textarea>
             </div>
           </div>
+        </div>
 
         <div id="m5-incident-snapshot" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:16px 0 24px;">
           <p style="font-size:0.78em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 10px;">Recruitment AI Incident Response Snapshot</p>
@@ -697,7 +698,7 @@
   <!-- MODULE COMPLETE -->
   <div id="module-complete" style="display:none;" class="preview-end">
     <h2>Module 5 complete &mdash; AI in Recruitment</h2>
-    <p>You can now map the full accountability chain in an AI recruitment failure, identify EEA Section 6 indirect discrimination in employment contexts, and name the formal channels available to candidates &mdash; CCMA, Labour Court, SAHRC, Information Regulator. Module 6 brings all of this together.</p>
+    <p>You can now map the accountability chain in an AI-assisted recruitment process, recognise when a tool may raise indirect-unfair-discrimination or assessment-validity concerns, apply the Funda Five&trade; to a real recruitment incident, and identify escalation routes for candidates and employers alike. Module 6 brings all of this together.</p>
     <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">Module 6 is the capstone: you&rsquo;ll draw on every case from M1&ndash;M5 to write your own professional AI judgment statement &mdash; your documented position on AI in your work.</p>
     <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
       <a href="module-6.html" class="btn btn--gold btn--lg">Continue to Module 6 &rarr;</a>
@@ -725,6 +726,24 @@
 <script src="assets/nav.js"></script>
 
 <script>
+
+var M5_LESSON_LABELS = [
+  'Screen 1 of 4 — What recruitment systems actually do',
+  'Screen 2 of 4 — The accountability chain',
+  'Screen 3 of 4 — EEA legal framework and assessment validity',
+  'Screen 4 of 4 — POPIA and candidate recourse'
+];
+function setLesson(n) {
+  document.querySelectorAll('.m5-lesson-dot').forEach(function(d, i) {
+    d.className = 'm5-lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
+  });
+  var lbl = document.getElementById('m5-lesson-label');
+  if (lbl) lbl.textContent = M5_LESSON_LABELS[n];
+}
+function goLesson(n) {
+  setLesson(n - 1);
+  showScreen(2, 'les' + n);
+}
 
 function advancePhase(fromPhase) {
   var errEl = document.getElementById('err-' + fromPhase);
@@ -814,6 +833,29 @@ function completeModule5() {
   var prog3 = document.getElementById('prog-3');
   if (prog3) { prog3.classList.remove('is-active'); prog3.classList.add('is-done'); }
 
+  var snap = document.getElementById('m5-incident-snapshot');
+  var snapContent = document.getElementById('m5-snapshot-content');
+  if (snap && snapContent) {
+    var labels = [
+      'TASK — What the AI is being used for and what should happen now',
+      'DATA — Proxies, preserved evidence, and data concerns',
+      'TOOL — Assessment type, training data, and validity questions',
+      'TRUST — Audit steps and evidence needed',
+      'HUMAN — Accountability chain and immediate response map',
+      'CANDIDATE COMMUNICATION — What Meridian should tell Lerato'
+    ];
+    var html = '';
+    for (var n = 1; n <= 6; n++) {
+      var el = document.getElementById('app-' + n);
+      var val = el ? el.value.trim() : '';
+      if (n === 6 && val.length === 0) { val = '(not completed)'; }
+      html += '<p style="font-weight:700; font-size:0.78em; text-transform:uppercase; letter-spacing:0.8px; color:var(--green-dark); margin:12px 0 4px;">' + labels[n-1] + '</p>';
+      html += '<p style="margin:0; color:var(--text);">' + val.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</p>';
+    }
+    snapContent.innerHTML = html;
+    snap.style.display = 'block';
+  }
+
   document.getElementById('m5-apply-submit').style.display = 'none';
   var answers = document.getElementById('model-answers-m5');
   answers.style.display = 'block';
@@ -859,7 +901,7 @@ function completeModule5() {
   gateLocked.style.display   = 'none';
   content.style.display      = 'block';
 
-  initAnswerPersistence('module-5', ['enc-reaction', 'ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5'], session.user.id);
+  initAnswerPersistence('module-5', ['enc-reaction', 'ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5', 'app-6'], session.user.id);
 
   const phases = await getModuleProgress('module-5');
   if (phases.length === 0) return;
