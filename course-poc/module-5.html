@@ -629,7 +629,7 @@
             <div class="funda-apply-step__num">4</div>
             <div style="flex:1;">
               <div class="funda-apply-step__name">TRUST &mdash; How do you audit this system? What data do you need?</div>
-              <div style="font-size:0.85em; color:var(--muted);">What does a meaningful equity audit of an AI recruitment system look like? What specific data do you need from the vendor? What do the 18 months of outcome data tell you?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What audit steps and evidence are needed? A meaningful recruitment-AI audit should examine: purpose and job relevance of each criterion; training/validation data and the definition of &ldquo;success&rdquo;; model inputs, weights, thresholds, rules, and vendor documentation; candidate flow (applied &rarr; screened &rarr; shortlisted &rarr; interviewed &rarr; hired); outcomes across relevant groups; whether candidates can correct inaccurate data; whether human review is meaningful; logs, overrides, complaints, and changes over 18 months. Group-outcome testing must be lawful and privacy-aware.</div>
               <textarea id="app-4" rows="4" placeholder="A meaningful audit would require... From the vendor, I need... The 18 months of data tell me..."></textarea>
             </div>
           </div>
@@ -637,10 +637,22 @@
             <div class="funda-apply-step__num">5</div>
             <div style="flex:1;">
               <div class="funda-apply-step__name">HUMAN &mdash; Map the accountability chain and state what Meridian must do now</div>
-              <div style="font-size:0.85em; color:var(--muted);">Who bears accountability at each link in the chain? What does each party need to do? What are Meridian&rsquo;s immediate obligations under EEA and POPIA? What do you tell Lerato?</div>
-              <textarea id="app-5" rows="5" placeholder="The ATS vendor is accountable for... The previous HR Director is accountable for... Meridian must immediately... Lerato&rsquo;s formal channels are..."></textarea>
+              <div style="font-size:0.85em; color:var(--muted);">Who must act now? Who owns recruitment governance, data protection, vendor management, candidate communication, and executive oversight? What immediate actions should Meridian take: preserve evidence, stop or limit automatic rejection, put meaningful human review in place, notify HR/legal/compliance/IT/executive sponsor. What should Meridian say to Lerato &mdash; and what remedy or control should it consider? Do not prejudge the complaint.</div>
+              <textarea id="app-5" rows="5" placeholder="The people who must act now are&hellip; / Evidence to preserve immediately is&hellip; / Automatic rejection should be&hellip; / What Meridian should tell Lerato is&hellip; / Recommended interim control is&hellip;"></textarea>
             </div>
           </div>
+          <div class="funda-apply-step" style="border-bottom:none;">
+            <div class="funda-apply-step__num" style="background:var(--green-light); color:var(--green-dark);">+</div>
+            <div style="flex:1;">
+              <div class="funda-apply-step__name">CANDIDATE COMMUNICATION &mdash; What should Meridian tell Lerato now?</div>
+              <div style="font-size:0.85em; color:var(--muted);">Acknowledge the complaint; confirm review is underway; preserve her records; avoid unsupported claims about the tool; explain internal process and available external avenues; do not retaliate or quietly alter records; do not promise an outcome before investigation.</div>
+              <textarea id="app-6" rows="3" placeholder="Meridian should tell Lerato&hellip; / The internal process is&hellip; / External avenues available to her include&hellip;"></textarea>
+            </div>
+          </div>
+
+        <div id="m5-incident-snapshot" style="display:none; background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:20px 24px; margin:16px 0 24px;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 10px;">Recruitment AI Incident Response Snapshot</p>
+          <div id="m5-snapshot-content" style="font-size:0.9em; line-height:1.8;"></div>
         </div>
 
         <div id="m5-apply-submit" style="text-align:right; margin-top:24px;">
