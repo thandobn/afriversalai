@@ -38,6 +38,7 @@
   var chkEls = [];
   var chkLocked = false;
   var lastRec = null;
+  var corpData = null;   // logged-in corporate's record, for prefilling customer details
 
   // ---- semantic label derivation (clean, self-describing field keys) ----
   function groupOf(node) {
@@ -67,14 +68,16 @@
     return 'AAI-SIG-' + t + '-' + r;
   }
 
-  // ---- 1. Personalise to the logged-in partner ----
+  // ---- 1. Personalise to the logged-in signer + prefill customer details ----
   async function personalise() {
-    var names = document.querySelectorAll('.af-pname');
-    if (!names.length) return;
     var pname = '';
     try { if (typeof getProfile === 'function') { var p = await getProfile(); pname = (p && p.full_name) || ''; } } catch (e) {}
     if (!pname) { try { var s = await getSession(); pname = (s && s.user && s.user.user_metadata && s.user.user_metadata.full_name) || ''; } catch (e) {} }
-    if (pname) for (var i = 0; i < names.length; i++) { names[i].textContent = pname; names[i].style.color = 'inherit'; }
+    // Load the corporate's record (if the signer is a corporate) for prefilling.
+    try { var ss = await getSession(); if (ss && ss.user && ss.user.email) { corpData = (await _supabase.from('corporates').select('*').eq('email', (ss.user.email || '').toLowerCase()).maybeSingle()).data || null; } } catch (e) {}
+    var fillSpan = function (cls, val) { if (val == null || val === '') return; var els = document.querySelectorAll('.' + cls); for (var i = 0; i < els.length; i++) { els[i].textContent = val; els[i].style.color = 'inherit'; } };
+    fillSpan('af-pname', pname);
+    if (corpData) { fillSpan('af-cname', corpData.company_name); fillSpan('af-cemail', corpData.email); fillSpan('af-csector', corpData.sector); }
   }
 
   // ---- 2. Turn every .fill blank into an inline input ----
@@ -107,6 +110,7 @@
       node.innerHTML = '<input class="af-fillin" data-key="' + key + '" type="text"' + (ph ? ' placeholder="' + esc(ph) + '"' : '') + ' style="' + style + '"' + (locked ? ' readonly' : '') + ' />';
       var input = node.querySelector('.af-fillin');
       if (savedFields && savedFields[key] != null) input.value = savedFields[key];
+      else { var pf = node.getAttribute && node.getAttribute('data-prefill'); if (pf && corpData && corpData[pf] != null && corpData[pf] !== '') input.value = corpData[pf]; }
       if (locked) { input.style.background = 'transparent'; input.style.borderBottomColor = 'var(--border,#E5E7EB)'; }
       fillEls.push({ key: key, input: input, label: base });
     }

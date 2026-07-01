@@ -3,112 +3,319 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Corporate Services Agreement — AfriversalAI</title>
+<title>Publication 010 — Enterprise Master Services Agreement — AfriversalAI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
 <style>
 :root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.65;}
-.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;}
-.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
-.doc-top__inner .l{display:flex;align-items:center;gap:10px;}
-.doc-top__inner .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:940px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
 .doc-top a{color:#fff;text-decoration:none;opacity:.85;}
-.wrap{max-width:900px;margin:26px auto 70px;padding:0 20px;}
-.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:44px 52px;box-shadow:0 6px 24px rgba(0,0,0,.06);}
-.eyebrow{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
-h1{color:var(--green-dark);font-size:1.7em;margin:6px 0 4px;}
-.sub{color:var(--muted);font-size:.95em;margin-bottom:22px;}
-h2{color:var(--green-dark);font-size:1.05em;margin:26px 0 8px;padding-top:18px;border-top:1px solid var(--border);}
-h2:first-of-type{border-top:none;padding-top:0;}
+.wrap{max-width:940px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:46px 60px;}
+@media(max-width:640px){.pad{padding:30px 24px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:66px 60px;position:relative;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.4em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:20px 0 26px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:2.15em;line-height:1.14;font-weight:700;margin:0 0 12px;}
+.cover .pillars{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--gold);font-weight:600;font-size:.9em;}
+.cover .between{margin-top:32px;font-size:.95em;color:rgba(255,255,255,.8);}
+.cover .party-name{font-size:1.25em;font-weight:800;color:#fff;margin:4px 0;}
+.cover .meta{margin-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:40px 24px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:12px 18px;margin:36px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.15em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.06em;font-weight:800;margin:22px 0 4px;scroll-margin-top:70px;}
+h2.sec .num{color:var(--gold-dark);}
 p{margin:8px 0;font-size:.93em;}
-ol,ul{margin:8px 0 8px 22px;font-size:.93em;}
-li{margin:5px 0;}
-.parties{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+.clause{margin:7px 0;font-size:.93em;}
+.clause b.cn{color:var(--green-dark);}
+ol,ul{margin:8px 0 8px 24px;font-size:.93em;}
+li{margin:4px 0;}
+.lead{color:var(--muted);font-size:.95em;}
+.principle{background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--radius);padding:12px 16px;margin:10px 0;font-size:.92em;}
+.principle b{color:var(--green-dark);}
+.toc{background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius-lg);padding:24px 28px;}
+.toc h3{font-family:Fraunces,serif;color:var(--green-dark);margin-bottom:8px;}
+.toc .grp{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold-dark);margin:12px 0 4px;}
+.toc ul{list-style:none;margin:0;columns:2;column-gap:36px;}
+@media(max-width:640px){.toc ul{columns:1;}}
+.toc a{color:var(--text);text-decoration:none;font-size:.85em;}
+.toc a:hover{color:var(--green-mid);}
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0;}
 @media(max-width:640px){.parties{grid-template-columns:1fr;}}
-.party{background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius);padding:14px 16px;font-size:.9em;}
+.party{background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius);padding:16px 18px;font-size:.9em;}
 .party b{color:var(--green-dark);}
-.fill{display:inline-block;min-width:120px;border-bottom:1px solid var(--gold-dark);color:var(--ink);}
-.keynote{background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--radius);padding:12px 16px;margin:16px 0;font-size:.88em;}
-.keynote__l{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold-dark);margin-bottom:4px;}
+.fill{display:inline-block;min-width:130px;border-bottom:1px solid var(--gold-dark);color:var(--ink);}
+.def{margin:6px 0;font-size:.92em;}
+.def b{color:var(--green-dark);}
+.tbl{width:100%;border-collapse:collapse;font-size:.88em;margin:12px 0;}
+.tbl th{background:var(--green-dark);color:#fff;text-align:left;padding:9px 12px;}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border);}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;font-size:.86em;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .row{display:flex;gap:8px;}
+.dcgrid .k{color:var(--muted);min-width:150px;}
 .sigwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px;}
 @media(max-width:640px){.sigwrap{grid-template-columns:1fr;}}
 .sigblock{border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
 .party__h{background:var(--green-dark);color:#fff;font-weight:700;padding:12px 18px;}
 .sigbody{padding:16px 18px;}
 .sigrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.sigrow .lbl{width:110px;flex-shrink:0;color:var(--muted);font-weight:600;font-size:.86em;}
+.sigrow .lbl{width:108px;flex-shrink:0;color:var(--muted);font-weight:600;font-size:.86em;}
 .sigrow .sline{flex:1;border-bottom:1.5px solid var(--border);min-height:1.4em;}
-.docfoot{margin-top:28px;padding-top:16px;border-top:1px solid var(--border);font-size:.78em;color:var(--muted);}
-.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-top:8px;}
-.dcgrid .row{display:flex;gap:8px;}
-.dcgrid .k{color:var(--muted);min-width:120px;}
 </style>
 </head>
 <body>
-<div class="doc-top"><div class="doc-top__inner"><span class="l"><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Corporate Services Agreement</span><a href="corporate-portal.html">&larr; Corporate Portal</a></div></div>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 010 — Enterprise Master Services Agreement</span><a href="corporate-portal.html">&larr; Corporate Portal</a></div></div>
 
-<div id="cc-denied" class="wrap" style="display:none;"><div class="paper" style="text-align:center;"><h1>Corporate access only</h1><p class="sub">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in to the Corporate Portal</a> to view and sign your agreement.</p></div></div>
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Corporate access only</h1><p class="lead">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in to the Corporate Portal</a> to view and execute this Agreement.</p></div></div></div>
 
 <div id="cc-body" class="wrap" style="display:none;">
 <div class="paper">
-  <div class="eyebrow">Publication 010 · Form 1</div>
-  <h1>Corporate Services Agreement</h1>
-  <p class="sub">AI-literacy training services &mdash; AfriversalAI (Pty) Ltd as supplier.</p>
-
-  <p>This Corporate Services Agreement (the &ldquo;<b>Agreement</b>&rdquo;) is entered into between:</p>
-  <div class="parties">
-    <div class="party"><b>The Supplier</b><br>AfriversalAI (Pty) Ltd<br>Registration no. 2026/492783/07<br>A private company incorporated in the Republic of South Africa<br>Notice email: ask@afriversal.ai</div>
-    <div class="party"><b>The Customer</b><br><span class="fill">[Company legal name]</span><br>Registration no. <span class="fill">[Reg. no.]</span><br>Registered address: <span class="fill">[Registered address]</span><br>Represented by: <span class="af-pname">[Authorised representative]</span></div>
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div>
+    <hr class="rule"/>
+    <h1>Enterprise Master Services Agreement</h1>
+    <div class="pillars"><span>AI Literacy</span><span>&bull;</span><span>Workforce Transformation</span><span>&bull;</span><span>AI Governance</span><span>&bull;</span><span>Enterprise Learning</span></div>
+    <div class="between">Between<div class="party-name">AfriversalAI (Pty) Ltd</div>and<div class="party-name"><span class="af-cname">The Customer</span></div></div>
+    <div class="meta"><span>Publication AAI-P010</span><span>Official Corporate Publication</span><span>Version 1.0</span><span>Confidential</span></div>
   </div>
 
-  <div class="keynote"><div class="keynote__l">To complete before signing</div>Confirm the Customer&rsquo;s legal details and the commercial particulars below (number of seats, cohort intake). The access code is released once the corresponding invoice is paid and confirmed.</div>
+  <div class="pad">
+  <!-- Document Control -->
+  <div class="dc" style="margin-bottom:22px;">
+    <div style="font-weight:800;color:var(--green-dark);margin-bottom:6px;">Document Control</div>
+    <div class="dcgrid">
+      <div class="row"><span class="k">Publication</span><span>AAI-P010</span></div>
+      <div class="row"><span class="k">Title</span><span>Enterprise Master Services Agreement</span></div>
+      <div class="row"><span class="k">Version</span><span>1.0</span></div>
+      <div class="row"><span class="k">Classification</span><span>Official Publication · Confidential</span></div>
+      <div class="row"><span class="k">Effective Date</span><span>1 July 2026</span></div>
+      <div class="row"><span class="k">Review Cycle</span><span>Annual</span></div>
+      <div class="row"><span class="k">Document Owner</span><span>Legal &amp; Governance</span></div>
+      <div class="row"><span class="k">Approval Authority</span><span>Board of Directors</span></div>
+    </div>
+  </div>
 
-  <h2>1. Definitions</h2>
-  <p><b>&ldquo;Programme&rdquo;</b> means AfriversalAI&rsquo;s AI-literacy training programme. <b>&ldquo;Learners&rdquo;</b> means the Customer&rsquo;s employees enrolled under this Agreement. <b>&ldquo;Access Code&rdquo;</b> means the unique enrolment code issued for the Customer&rsquo;s cohort. <b>&ldquo;Fees&rdquo;</b> means the amounts payable as set out in clause 4. <b>&ldquo;POPIA&rdquo;</b> means the Protection of Personal Information Act 4 of 2013.</p>
+  <!-- TOC -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <div class="grp">Part A — The Agreement</div>
+    <ul><li><a href="#s1">1. Parties</a></li><li><a href="#s2">2. Purpose &amp; Principles</a></li><li><a href="#s3">3. Definitions</a></li><li><a href="#s4">4. Interpretation</a></li></ul>
+    <div class="grp">Part B — The Services</div>
+    <ul><li><a href="#s5">5. Scope of Services</a></li><li><a href="#s6">6. Programme Delivery</a></li><li><a href="#s7">7. Professional Services</a></li><li><a href="#s8">8. Learning Platform</a></li><li><a href="#s9">9. Corporate Portal</a></li><li><a href="#s10">10. Support Services</a></li></ul>
+    <div class="grp">Part C — Commercial Terms</div>
+    <ul><li><a href="#s11">11. Orders</a></li><li><a href="#s12">12. Statements of Work</a></li><li><a href="#s13">13. Commercial Schedule</a></li><li><a href="#s14">14. Fees</a></li><li><a href="#s15">15. Taxes</a></li><li><a href="#s16">16. Payment</a></li><li><a href="#s17">17. Late Payments</a></li><li><a href="#s18">18. Suspension</a></li></ul>
+    <div class="grp">Part D — Customer Use</div>
+    <ul><li><a href="#s19">19. Enterprise Licence</a></li><li><a href="#s20">20. Access Codes</a></li><li><a href="#s21">21. Learner Registration</a></li><li><a href="#s22">22. Customer Responsibilities</a></li><li><a href="#s23">23. Programme Administrator</a></li><li><a href="#s24">24. Acceptable Use</a></li></ul>
+    <div class="grp">Part E — Certification</div>
+    <ul><li><a href="#s25">25. Assessments</a></li><li><a href="#s26">26. Certification</a></li><li><a href="#s27">27. Digital Credentials</a></li><li><a href="#s28">28. Verification</a></li><li><a href="#s29">29. Academic Integrity</a></li></ul>
+    <div class="grp">Part F — Ownership</div>
+    <ul><li><a href="#s30">30. Intellectual Property</a></li><li><a href="#s31">31. Proprietary Methodologies</a></li><li><a href="#s32">32. Funda Five&trade;</a></li><li><a href="#s33">33. AI Literacy Framework</a></li><li><a href="#s34">34. Learning Content</a></li><li><a href="#s35">35. Customer Data</a></li><li><a href="#s36">36. Learner Records</a></li><li><a href="#s37">37. Customer Ownership</a></li><li><a href="#s38">38. Referral Customers</a></li><li><a href="#s39">39. Channel Partners</a></li></ul>
+    <div class="grp">Part G — Risk</div>
+    <ul><li><a href="#s40">40. Confidentiality</a></li><li><a href="#s41">41. POPIA</a></li><li><a href="#s42">42. Information Security</a></li><li><a href="#s43">43. Warranties</a></li><li><a href="#s44">44. Indemnities</a></li><li><a href="#s45">45. Liability</a></li><li><a href="#s46">46. Insurance</a></li></ul>
+    <div class="grp">Part H — Legal</div>
+    <ul><li><a href="#s47">47. Term</a></li><li><a href="#s48">48. Renewal</a></li><li><a href="#s49">49. Termination</a></li><li><a href="#s50">50. Force Majeure</a></li><li><a href="#s51">51. Dispute Resolution</a></li><li><a href="#s52">52. Governing Law</a></li><li><a href="#s53">53. Notices</a></li><li><a href="#s54">54. Assignment</a></li><li><a href="#s55">55. Entire Agreement</a></li><li><a href="#s56">56. Electronic Signatures</a></li></ul>
+  </div>
 
-  <h2>2. Appointment &amp; Services</h2>
-  <p>The Customer appoints AfriversalAI to deliver the Programme to its Learners, and AfriversalAI accepts that appointment on the terms of this Agreement. AfriversalAI will provide access to the online Programme and, where specified, live facilitated cohort sessions, for the following:</p>
-  <ul>
-    <li>Cohort / intake: <span class="fill">[Intake label]</span></li>
-    <li>Number of seats: <span class="fill">[Seats]</span></li>
-    <li>Price per seat (excl. VAT): R <span class="fill">[Price per seat]</span></li>
-    <li>Sector: <span class="fill">[Sector]</span></li>
-  </ul>
+  <!-- PART A -->
+  <div class="partband"><div class="pk">Part A</div><div class="pt">The Agreement</div></div>
 
-  <h2>3. Access Codes &amp; Enrolment</h2>
-  <p>On confirmation of payment, AfriversalAI issues the Customer a unique Access Code. Each Learner registers with the Access Code, is grouped into the Customer&rsquo;s cohort, and is issued a cohort-stamped Member ID that appears on their certificate. The number of enrolments may not exceed the number of seats purchased without a further order.</p>
+  <h2 class="sec" id="s1"><span class="num">1.</span> Parties</h2>
+  <p>This Enterprise Master Services Agreement (the &ldquo;<b>Agreement</b>&rdquo; or &ldquo;<b>MSA</b>&rdquo;) is entered into on the Effective Date between:</p>
+  <div class="parties">
+    <div class="party"><b>The Supplier</b><br>AfriversalAI (Pty) Ltd<br>Registration no. 2026/492783/07<br>Republic of South Africa<br>Notice email: ask@afriversal.ai</div>
+    <div class="party"><b>The Customer</b><br><span class="fill" data-prefill="company_name">[Customer legal name]</span><br>Registration no. <span class="fill">[Registration no.]</span><br>VAT no. <span class="fill">[VAT no.]</span><br>Registered address: <span class="fill">[Registered address]</span><br>Represented by: <span class="af-pname">[Authorised representative]</span><br>Notice email: <span class="fill" data-prefill="email">[Notice email]</span></div>
+  </div>
 
-  <h2>4. Fees &amp; Payment</h2>
-  <p>The Customer will pay the Fees set out in the tax invoice issued by AfriversalAI. Fees are exclusive of VAT, which is charged at the prevailing rate. Payment is made by electronic funds transfer to AfriversalAI&rsquo;s nominated account, using the invoice number as reference. <b>Access Codes and enrolment are released only once cleared funds are received.</b> The Customer will upload proof of payment to its Corporate Portal.</p>
+  <h2 class="sec" id="s2"><span class="num">2.</span> Purpose &amp; Principles</h2>
+  <p>AfriversalAI provides enterprise AI capability development services to organisations seeking to build AI literacy, governance capability, responsible AI adoption, and workforce transformation across their employees. This Agreement establishes the legal framework governing all products, services, subscriptions, learning programmes, certifications, consulting engagements, workshops, executive briefings, implementation services and enterprise learning solutions delivered by AfriversalAI. Unless expressly agreed otherwise in writing, this Agreement governs every Order placed by the Customer.</p>
+  <p>AfriversalAI delivers its services according to five enterprise principles:</p>
+  <div class="principle"><b>Principle 1.</b> AI should improve human judgement &mdash; not replace it.</div>
+  <div class="principle"><b>Principle 2.</b> Every learner should understand how AI learns, reasons, fails, and should be questioned.</div>
+  <div class="principle"><b>Principle 3.</b> Certification represents demonstrated competence rather than simple attendance.</div>
+  <div class="principle"><b>Principle 4.</b> Enterprise AI capability requires continual learning as technology evolves.</div>
+  <div class="principle"><b>Principle 5.</b> The AfriversalAI methodology is proprietary intellectual property.</div>
 
-  <h2>5. Term</h2>
-  <p>This Agreement commences on the Effective Date and continues for the duration of the cohort and any agreed support period, unless terminated earlier in accordance with its terms.</p>
+  <h2 class="sec" id="s3"><span class="num">3.</span> Definitions</h2>
+  <p>In this Agreement, unless the context indicates otherwise, each defined term has a single authoritative meaning used consistently across the publication suite:</p>
+  <div class="def"><b>Access Code</b> — a unique, single-use enrolment code entitling one Learner to enrol in a Cohort.</div>
+  <div class="def"><b>Assessment</b> — any test, task or evaluation used to determine competence.</div>
+  <div class="def"><b>Business Day</b> — any day other than a Saturday, Sunday or South African public holiday.</div>
+  <div class="def"><b>Certificate / Digital Credential</b> — a credential confirming a Learner is assessed as demonstrated.</div>
+  <div class="def"><b>Cohort</b> — a group of Learners enrolled under a common Access Code and intake.</div>
+  <div class="def"><b>Commercial Schedule</b> — Publication 011, recording pricing and commercial particulars.</div>
+  <div class="def"><b>Confidential Information</b> — non-public information of a Party disclosed under this Agreement.</div>
+  <div class="def"><b>Corporate Portal</b> — the secure environment for managing the Customer&rsquo;s programme, contracts, invoices and reporting.</div>
+  <div class="def"><b>Customer Data</b> — data provided by the Customer, including Learner details.</div>
+  <div class="def"><b>Effective Date</b> — the date of last signature on the Signature Page.</div>
+  <div class="def"><b>Enterprise Licence</b> — the limited licence granted under clause 19.</div>
+  <div class="def"><b>Facilitator</b> — a person delivering Programme sessions for AfriversalAI.</div>
+  <div class="def"><b>Fees</b> — the amounts payable under the Commercial Schedule.</div>
+  <div class="def"><b>Funda Five&trade;</b> — AfriversalAI&rsquo;s proprietary framework (Task &rarr; Data &rarr; Tool &rarr; Trust &rarr; Human).</div>
+  <div class="def"><b>Learner</b> — an employee or authorised individual of the Customer enrolled in the Programme.</div>
+  <div class="def"><b>Learning Platform</b> — the online systems through which the Programme is delivered.</div>
+  <div class="def"><b>Member ID</b> — the cohort-stamped unique identifier issued to each Learner.</div>
+  <div class="def"><b>Programme</b> — the AI-literacy and enablement programme and related materials.</div>
+  <div class="def"><b>Services</b> — the services described in clause 5 and any applicable Statement of Work.</div>
+  <div class="def"><b>Statement of Work / SOW</b> — Publication 012, describing a specific engagement.</div>
+  <div class="def"><b>Support Services</b> — the support described in clause 10.</div>
 
-  <h2>6. Intellectual Property</h2>
-  <p>All content, materials, methodologies and the Funda Five framework comprising the Programme are and remain the exclusive property of AfriversalAI. The Customer and its Learners receive a limited, non-exclusive, non-transferable licence to access the Programme for internal training purposes only. No content may be copied, resold, sublicensed or used to build a competing offering.</p>
+  <h2 class="sec" id="s4"><span class="num">4.</span> Interpretation</h2>
+  <p>Headings are for convenience only. Words importing the singular include the plural and vice versa. References to legislation include amendments. &ldquo;Including&rdquo; means &ldquo;including without limitation&rdquo;. This Agreement is not to be construed against the drafter.</p>
 
-  <h2>7. Confidentiality</h2>
-  <p>Each party will keep confidential the non-public information of the other disclosed under this Agreement and use it only for the purposes of this Agreement, save where disclosure is required by law.</p>
+  <!-- PART B -->
+  <div class="partband"><div class="pk">Part B</div><div class="pt">The Services</div></div>
 
-  <h2>8. Data Protection (POPIA)</h2>
-  <p>Each party will comply with POPIA in respect of personal information processed under this Agreement. AfriversalAI processes Learner personal information to deliver the Programme, issue Member IDs and certificates, and report progress to the Customer&rsquo;s nominated representative. The Customer confirms it has a lawful basis to share Learner details for enrolment.</p>
+  <h2 class="sec" id="s5"><span class="num">5.</span> Scope of Services</h2>
+  <p>AfriversalAI may provide one or more of the following under this Agreement: AI literacy learning programmes; executive education; workforce transformation programmes; AI governance programmes; AI strategy workshops; sector-specific learning pathways; instructor-led training; virtual learning events; enterprise webinars; executive briefings; consulting services; assessments; certification; learning analytics; digital credentialing; enterprise reporting; implementation support; and other professional services agreed in writing. The precise Services for an engagement are set out in the applicable Commercial Schedule, Statement of Work or accepted Order.</p>
 
-  <h2>9. Warranties</h2>
-  <p>AfriversalAI will deliver the Programme with reasonable skill and care. The Customer warrants that the information it provides (including Learner details and its own registration particulars) is accurate and that its signatory is authorised to bind it.</p>
+  <h2 class="sec" id="s6"><span class="num">6.</span> Programme Delivery</h2>
+  <p>AfriversalAI delivers the Services with reasonable skill and care and in accordance with any Service Level Schedule. Delivery may be self-paced, virtual-live, classroom or hybrid. AfriversalAI may schedule reasonable maintenance and may substitute Facilitators of equivalent competence.</p>
+  <h2 class="sec" id="s7"><span class="num">7.</span> Professional Services</h2>
+  <p>Consulting, advisory and implementation services are provided as described in the applicable Statement of Work, on a time-and-materials or fixed-fee basis as agreed.</p>
+  <h2 class="sec" id="s8"><span class="num">8.</span> Learning Platform</h2>
+  <p>AfriversalAI provides access to the Learning Platform for the licensed term. AfriversalAI may update, improve or modify the Platform provided that it does not materially reduce core functionality during the term.</p>
+  <h2 class="sec" id="s9"><span class="num">9.</span> Corporate Portal</h2>
+  <p>The Customer is provided secure Corporate Portal access to manage its programme, contracts, invoices, proof of payment, downloads and reporting, subject to clause 24.</p>
+  <h2 class="sec" id="s10"><span class="num">10.</span> Support Services</h2>
+  <p>AfriversalAI provides reasonable Learner and administrator support during Business Days, as further described in the Service Level Schedule (Publication 013) where applicable.</p>
 
-  <h2>10. Limitation of Liability</h2>
-  <p>To the maximum extent permitted by law, neither party is liable for indirect or consequential loss. AfriversalAI&rsquo;s total liability under this Agreement is limited to the Fees paid by the Customer in respect of the affected cohort.</p>
+  <!-- PART C -->
+  <div class="partband"><div class="pk">Part C</div><div class="pt">Commercial Terms</div></div>
 
-  <h2>11. Termination</h2>
-  <p>Either party may terminate on written notice if the other commits a material breach that is not remedied within 14 days of notice. Fees for Access Codes already issued are non-refundable.</p>
+  <h2 class="sec" id="s11"><span class="num">11.</span> Orders</h2>
+  <p>Each engagement is constituted by three documents: this Master Services Agreement (the legal framework), the Commercial Schedule (the commercial details), and the Statement of Work (the implementation). The Customer places Orders by signing a Commercial Schedule or issuing a Purchase Order referencing this Agreement.</p>
+  <h2 class="sec" id="s12"><span class="num">12.</span> Statements of Work</h2>
+  <p>Individual projects, cohorts or workshops may be documented in a Statement of Work (Publication 012), which incorporates and is governed by this Agreement and is effective when signed by both Parties or on AfriversalAI&rsquo;s acceptance of a valid Purchase Order.</p>
+  <h2 class="sec" id="s13"><span class="num">13.</span> Commercial Schedule</h2>
+  <p>All pricing and commercial particulars are set out in the Commercial Schedule (Publication 011). No pricing is contained in this Agreement.</p>
+  <h2 class="sec" id="s14"><span class="num">14.</span> Fees</h2>
+  <p>The Customer pays the Fees set out in the Commercial Schedule. Fees are exclusive of VAT.</p>
+  <h2 class="sec" id="s15"><span class="num">15.</span> Taxes</h2>
+  <p>All amounts are exclusive of taxes, duties and withholdings, which are for the Customer&rsquo;s account, save for taxes on AfriversalAI&rsquo;s income.</p>
+  <h2 class="sec" id="s16"><span class="num">16.</span> Payment</h2>
+  <p>Payment is made by electronic funds transfer to AfriversalAI&rsquo;s nominated account using the invoice number as reference, and proof of payment is uploaded to the Corporate Portal. Access Codes, enrolment and Certificates are released only on receipt of cleared funds unless otherwise agreed.</p>
+  <h2 class="sec" id="s17"><span class="num">17.</span> Late Payments</h2>
+  <p>Overdue amounts may bear interest at the maximum rate permitted by law, and AfriversalAI may recover reasonable collection costs.</p>
+  <h2 class="sec" id="s18"><span class="num">18.</span> Suspension</h2>
+  <p>AfriversalAI may suspend Portal access, Access Codes, Certificates, support and reporting for overdue accounts, on reasonable notice where practicable.</p>
 
-  <h2>12. General</h2>
-  <p>This Agreement constitutes the entire agreement between the parties and is governed by the laws of the Republic of South Africa. No variation is effective unless recorded in writing. If any provision is unenforceable, the remainder continues in effect.</p>
+  <!-- PART D -->
+  <div class="partband"><div class="pk">Part D</div><div class="pt">Customer Use</div></div>
 
-  <h2>Execution</h2>
-  <p style="font-size:.88em;color:var(--muted);">By signing below, the parties agree to be bound by this Agreement. Signing electronically is legally binding under the Electronic Communications and Transactions Act 25 of 2002.</p>
+  <h2 class="sec" id="s19"><span class="num">19.</span> Enterprise Licence</h2>
+  <p>The Customer purchases a limited licence to access the AfriversalAI Services. The Customer does <b>not</b> purchase ownership, copyright, source material, methodologies, certification systems, assessment content, course architecture or any intellectual property. The licence is non-exclusive, non-transferable, revocable in accordance with this Agreement, and limited to the number of purchased Learner seats.</p>
+  <h2 class="sec" id="s20"><span class="num">20.</span> Access Codes</h2>
+  <p>Each Access Code is unique, single-use, non-transferable, may expire, and may be revoked for misuse or non-payment. Access Codes may not be shared, sold or reused.</p>
+  <h2 class="sec" id="s21"><span class="num">21.</span> Learner Registration</h2>
+  <p>Learners register with an Access Code, are grouped into the Customer&rsquo;s Cohort, and are issued a Member ID. Enrolments may not exceed purchased seats without a further Order.</p>
+  <h2 class="sec" id="s22"><span class="num">22.</span> Customer Responsibilities</h2>
+  <p>The Customer nominates a Programme Administrator, provides accurate Learner information, pays invoices, ensures Learner participation and suitable access, maintains account security, does not share Access Codes, and complies with the Acceptable Use Policy.</p>
+  <h2 class="sec" id="s23"><span class="num">23.</span> Programme Administrator</h2>
+  <p>The Customer maintains a nominated Programme Administrator responsible for managing its Portal, Learners and reporting, and for the confidentiality of administrator credentials.</p>
+  <h2 class="sec" id="s24"><span class="num">24.</span> Acceptable Use</h2>
+  <p>The Customer and its Learners will use the Services in accordance with the Acceptable Use Policy (Publication 015) and will not misuse, probe, or attempt to circumvent the Learning Platform.</p>
+
+  <!-- PART E -->
+  <div class="partband"><div class="pk">Part E</div><div class="pt">Certification</div></div>
+
+  <h2 class="sec" id="s25"><span class="num">25.</span> Assessments</h2>
+  <p>Assessments determine Learner competence. AfriversalAI sets and may vary assessment methods and pass marks.</p>
+  <h2 class="sec" id="s26"><span class="num">26.</span> Certification</h2>
+  <p>Certificates are issued only to Learners assessed as demonstrated and carried against a verifiable Member ID.</p>
+  <h2 class="sec" id="s27"><span class="num">27.</span> Digital Credentials</h2>
+  <p>Certificates may be issued as verifiable digital credentials carrying the Learner&rsquo;s Member ID.</p>
+  <h2 class="sec" id="s28"><span class="num">28.</span> Verification</h2>
+  <p>AfriversalAI provides digital verification of Certificates and may withhold, revoke or replace credentials where integrity is compromised.</p>
+  <h2 class="sec" id="s29"><span class="num">29.</span> Academic Integrity</h2>
+  <p>Fraud, impersonation or misrepresentation in Assessments may result in revocation of Certificates and suspension of access, without refund.</p>
+
+  <!-- PART F -->
+  <div class="partband"><div class="pk">Part F</div><div class="pt">Ownership</div></div>
+
+  <h2 class="sec" id="s30"><span class="num">30.</span> Intellectual Property</h2>
+  <p>All intellectual property in and to the Programme and the AfriversalAI ecosystem is and remains the exclusive property of AfriversalAI, including logos and brand, frameworks and methodologies, slides, videos, books, graphics, assessments, reports, dashboards, learning architecture, AI prompts, the certification system and Member IDs.</p>
+  <h2 class="sec" id="s31"><span class="num">31.</span> Proprietary Methodologies</h2>
+  <p>AfriversalAI&rsquo;s methodologies are proprietary and confidential. No right to reproduce or repurpose them is granted except as expressly licensed.</p>
+  <h2 class="sec" id="s32"><span class="num">32.</span> Funda Five&trade;</h2>
+  <p>The Funda Five&trade; framework is a proprietary methodology of AfriversalAI. The Customer and its Learners receive a limited licence to use it for internal learning only and acquire no ownership of it.</p>
+  <h2 class="sec" id="s33"><span class="num">33.</span> AI Literacy Framework</h2>
+  <p>AfriversalAI&rsquo;s AI-literacy competency framework and assessment criteria are proprietary and remain owned by AfriversalAI.</p>
+  <h2 class="sec" id="s34"><span class="num">34.</span> Learning Content</h2>
+  <p>All learning content is licensed, not sold, and may not be copied, duplicated, shared, resold or used to build a competing offering.</p>
+  <h2 class="sec" id="s35"><span class="num">35.</span> Customer Data</h2>
+  <p>The Customer retains ownership of Customer Data. AfriversalAI processes it to deliver the Services and provide reporting, subject to clause 41.</p>
+  <h2 class="sec" id="s36"><span class="num">36.</span> Learner Records</h2>
+  <p>AfriversalAI owns and maintains Member IDs, certification records, assessment history, digital transcripts, learning analytics and verification records generated through the Programme. The Customer receives reporting in respect of its Learners.</p>
+  <h2 class="sec" id="s37"><span class="num">37.</span> Enterprise Customer Ownership</h2>
+  <ol>
+    <li>Unless otherwise agreed in writing, AfriversalAI remains the contracting supplier of the Services delivered under this Agreement.</li>
+    <li>Customer relationships, learner records, certification records, programme history, Member IDs and associated learning data remain administered within the AfriversalAI platform and ecosystem.</li>
+    <li>Where a customer is introduced by a referral partner, reseller, implementation partner or strategic alliance, that introduction does not by itself transfer ownership of the customer relationship or the right to represent AfriversalAI.</li>
+    <li>Any exclusive customer-management arrangement or transfer of commercial rights must be documented in a separate written agreement signed by authorised representatives of AfriversalAI.</li>
+  </ol>
+  <h2 class="sec" id="s38"><span class="num">38.</span> Referral Customers</h2>
+  <p>Where the Customer is introduced by a Partner, the Customer remains a customer of AfriversalAI. A Partner may not replace AfriversalAI as the contracting supplier or assume ownership of Learner records or certification.</p>
+  <h2 class="sec" id="s39"><span class="num">39.</span> Channel Partners</h2>
+  <p>Resellers, implementation partners and strategic alliances operate under separate written terms (Publication 017) and do not acquire rights in the AfriversalAI ecosystem beyond those expressly granted.</p>
+
+  <!-- PART G -->
+  <div class="partband"><div class="pk">Part G</div><div class="pt">Risk</div></div>
+
+  <h2 class="sec" id="s40"><span class="num">40.</span> Confidentiality</h2>
+  <p>Each Party keeps the other&rsquo;s Confidential Information confidential, uses it only for the purposes of this Agreement, and protects it with reasonable care, subter to disclosures required by law. These obligations survive for 5 years, and indefinitely for trade secrets.</p>
+  <h2 class="sec" id="s41"><span class="num">41.</span> POPIA &amp; Data Protection</h2>
+  <p>Each Party complies with POPIA. Detailed terms are in the Data Processing Addendum (Publication 014). AfriversalAI processes Learner personal information to deliver the Programme, issue Member IDs and Certificates and report to the Customer. The Customer warrants it has a lawful basis to share Learner personal information.</p>
+  <h2 class="sec" id="s42"><span class="num">42.</span> Information Security</h2>
+  <p>AfriversalAI applies reasonable technical and organisational measures including access controls, encryption in transit and access logging.</p>
+  <h2 class="sec" id="s43"><span class="num">43.</span> Warranties</h2>
+  <p>AfriversalAI warrants it will provide the Services with reasonable skill and care. Except as expressly stated, the Services are provided &ldquo;as is&rdquo; without further warranty. The Customer warrants the accuracy of information it provides and its signatory&rsquo;s authority.</p>
+  <h2 class="sec" id="s44"><span class="num">44.</span> Indemnities</h2>
+  <p>The Customer indemnifies AfriversalAI against claims arising from the Customer&rsquo;s breach, misuse of the Programme or Access Codes, or unlawful processing of personal information.</p>
+  <h2 class="sec" id="s45"><span class="num">45.</span> Limitation of Liability</h2>
+  <p>Neither Party is liable to the other for indirect, incidental, consequential, special, exemplary or punitive damages, including loss of profits, revenue, business opportunity or goodwill, whether in contract, delict (tort), statute or otherwise. Subject to applicable law, AfriversalAI&rsquo;s aggregate liability arising out of or in connection with this Agreement shall not exceed the total Fees paid by the Customer under the applicable Statement of Work giving rise to the claim during the twelve (12) months preceding the event giving rise to liability.</p>
+  <h2 class="sec" id="s46"><span class="num">46.</span> Insurance</h2>
+  <p>AfriversalAI maintains reasonable and appropriate insurance for a business of its nature and scale.</p>
+
+  <!-- PART H -->
+  <div class="partband"><div class="pk">Part H</div><div class="pt">Legal</div></div>
+
+  <h2 class="sec" id="s47"><span class="num">47.</span> Term</h2>
+  <p>This Agreement commences on the Effective Date and continues until terminated in accordance with its terms.</p>
+  <h2 class="sec" id="s48"><span class="num">48.</span> Renewal</h2>
+  <p>Engagements renew as set out in the applicable Commercial Schedule or Statement of Work.</p>
+  <h2 class="sec" id="s49"><span class="num">49.</span> Termination</h2>
+  <p>Either Party may terminate on written notice if the other commits a material breach not remedied within 14 days, or becomes insolvent or subject to business rescue. On termination all licences cease and outstanding Fees fall due; Fees for Access Codes already issued are non-refundable. Clauses intended to survive do so.</p>
+  <h2 class="sec" id="s50"><span class="num">50.</span> Force Majeure</h2>
+  <p>Neither Party is liable for failure or delay caused by events beyond its reasonable control; the affected Party will mitigate and resume performance.</p>
+  <h2 class="sec" id="s51"><span class="num">51.</span> Dispute Resolution</h2>
+  <p>Disputes are first escalated to senior executives; failing resolution within 15 Business Days, referred to mediation and then arbitration in Johannesburg, in English. Either Party may seek urgent interim relief from a court.</p>
+  <h2 class="sec" id="s52"><span class="num">52.</span> Governing Law</h2>
+  <p>This Agreement is governed by the laws of the Republic of South Africa.</p>
+  <h2 class="sec" id="s53"><span class="num">53.</span> Notices</h2>
+  <p>Notices are in writing to the notice details on the Signature Page; email notice is effective on delivery during Business Hours.</p>
+  <h2 class="sec" id="s54"><span class="num">54.</span> Assignment</h2>
+  <p>Neither Party may assign this Agreement without the other&rsquo;s written consent, save that AfriversalAI may assign to an affiliate or in connection with a reorganisation.</p>
+  <h2 class="sec" id="s55"><span class="num">55.</span> Entire Agreement</h2>
+  <p>This Agreement with its Supporting Publications is the entire agreement and supersedes prior discussions. Variations must be in writing and signed. If any provision is unenforceable, the remainder continues.</p>
+  <h2 class="sec" id="s56"><span class="num">56.</span> Electronic Signatures</h2>
+  <p>This Agreement may be executed by electronic signature, which the Parties accept as legally binding and equivalent to a handwritten signature under the Electronic Communications and Transactions Act 25 of 2002. Each signature is recorded with a date stamp, secure timestamp, verification ID, document fingerprint and verification barcode, and a signed PDF is issued to the Customer.</p>
+
+  <!-- Order of precedence -->
+  <h2 class="sec"><span class="num"></span> Order of Precedence</h2>
+  <p>In the event of conflict, precedence is: (1) this Master Services Agreement; (2) the Statement of Work; (3) the Commercial Schedule; (4) the Purchase Order; (5) the Invoice.</p>
+
+  <!-- Signature page -->
+  <div class="partband"><div class="pk">Execution</div><div class="pt">Signature Page</div></div>
+  <p style="font-size:.88em;color:var(--muted);">By signing below, the Parties agree to be bound by this Enterprise Master Services Agreement. Signing electronically is legally binding under the Electronic Communications and Transactions Act 25 of 2002.</p>
   <div class="sigwrap">
     <div class="sigblock">
       <div class="party__h">AfriversalAI (Pty) Ltd</div>
@@ -131,23 +338,23 @@ li{margin:5px 0;}
     </div>
   </div>
 
-  <div class="docfoot"><b>Document Control</b>
-    <div class="dcgrid">
-      <div class="row"><span class="k">Document Number</span><span>AAI-CSA-010</span></div>
-      <div class="row"><span class="k">Version</span><span>1.0 · Official Publication</span></div>
-      <div class="row"><span class="k">Supplier</span><span>AfriversalAI (Pty) Ltd</span></div>
-      <div class="row"><span class="k">Effective Date</span><span>1 June 2026</span></div>
-    </div>
-  </div>
+  <h2 class="sec"><span class="num"></span> Supporting Publications</h2>
+  <table class="tbl"><thead><tr><th>Publication</th><th>Document</th></tr></thead><tbody>
+    <tr><td>AAI-P010</td><td>Enterprise Master Services Agreement</td></tr>
+    <tr><td>AAI-P011</td><td>Commercial Schedule</td></tr>
+    <tr><td>AAI-P012</td><td>Statement of Work (SOW)</td></tr>
+    <tr><td>AAI-P013</td><td>Service Level Agreement</td></tr>
+    <tr><td>AAI-P014</td><td>Data Processing Addendum (POPIA)</td></tr>
+    <tr><td>AAI-P015</td><td>Acceptable Use Policy</td></tr>
+    <tr><td>AAI-P016</td><td>Certification &amp; Assessment Policy</td></tr>
+    <tr><td>AAI-P005</td><td>Mutual Non-Disclosure Agreement</td></tr>
+  </tbody></table>
 
-  <div style="max-width:860px;margin:0 auto;padding:0 0 10px;"><div id="af-sign"></div></div>
+  <div style="max-width:900px;margin:8px auto 0;"><div id="af-sign"></div></div>
+  </div><!-- /pad -->
 </div>
 </div>
 
-<script>
-  // Gate: only approved corporates may open the contract.
-  window.__ccGate = true;
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
@@ -164,11 +371,8 @@ li{margin:5px 0;}
     if (!s){ window.location.href = 'corporate-login.html'; return; }
     if (await isCorporate((s.user && s.user.email) || '')) {
       document.getElementById('cc-body').style.display = 'block';
-      // Load the signing engine only once access is confirmed.
       var sc = document.createElement('script'); sc.src = 'assets/partner-sign-inline.js'; document.body.appendChild(sc);
-    } else {
-      document.getElementById('cc-denied').style.display = 'block';
-    }
+    } else { document.getElementById('cc-denied').style.display = 'block'; }
   })();
 </script>
 </body>
