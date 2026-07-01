@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Publication 012 — Enterprise Statement of Work — AfriversalAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+:root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+.doc-top a{color:#fff;text-decoration:none;opacity:.85;}
+.wrap{max-width:900px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:44px 56px;}
+@media(max-width:640px){.pad{padding:28px 22px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:58px 56px;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.2em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:18px 0 22px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:1.95em;font-weight:700;margin:0 0 6px;}
+.cover .subtitle{color:var(--gold);font-weight:600;}
+.cover .meta{margin-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:36px 22px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;margin:30px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.1em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.02em;font-weight:800;margin:22px 0 6px;}
+h2.sec .num{color:var(--gold-dark);}
+h3.sub{color:var(--green-mid);font-size:.95em;font-weight:700;margin:12px 0 2px;}
+p{margin:8px 0;font-size:.93em;}
+.lead{color:var(--muted);font-size:.95em;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;}
+@media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+.fld{margin:6px 0;font-size:.92em;}
+.fld .k{color:var(--muted);font-weight:600;display:inline-block;min-width:170px;}
+.fill{display:inline-block;min-width:150px;border-bottom:1px solid var(--gold-dark);color:var(--ink);}
+ul{margin:8px 0 8px 22px;font-size:.92em;}li{margin:3px 0;}
+.kpi{background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--radius);padding:12px 16px;margin:10px 0;font-size:.9em;}
+.kpi b{color:var(--green-dark);}
+.tbl{width:100%;border-collapse:collapse;font-size:.86em;margin:10px 0;}
+.tbl th{background:var(--green-dark);color:#fff;text-align:left;padding:8px 10px;font-size:.84em;}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border);}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:.86em;margin:14px 0;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .k{color:var(--muted);min-width:130px;display:inline-block;}
+.sigwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px;}
+@media(max-width:640px){.sigwrap{grid-template-columns:1fr;}}
+.sigblock{border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+.party__h{background:var(--green-dark);color:#fff;font-weight:700;padding:12px 18px;}
+.sigbody{padding:16px 18px;}
+.sigrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.sigrow .lbl{width:108px;flex-shrink:0;color:var(--muted);font-weight:600;font-size:.86em;}
+.sigrow .sline{flex:1;border-bottom:1.5px solid var(--border);min-height:1.4em;}
+</style>
+</head>
+<body>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 012 — Statement of Work</span><a href="corporate-portal.html">&larr; Corporate Portal</a></div></div>
+
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Corporate access only</h1><p class="lead">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in</a> to complete this Statement of Work.</p></div></div></div>
+
+<div id="cc-body" class="wrap" style="display:none;">
+<div class="paper">
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div><hr class="rule"/>
+    <h1>Enterprise Statement of Work</h1>
+    <div class="subtitle">Project governance &amp; delivery &mdash; <span class="af-cname">The Customer</span></div>
+    <div class="meta"><span>Publication AAI-P012</span><span>Customer Specific</span><span>Version 1.0</span><span>Linked: AAI-P010 / P011</span></div>
+  </div>
+  <div class="pad">
+  <p class="lead">This Statement of Work forms part of the Enterprise Master Services Agreement (Publication 010) and Commercial Schedule (Publication 011). It describes how AfriversalAI will deliver this engagement &mdash; from kick-off through delivery, reporting and close-out &mdash; and the outcomes and success measures AfriversalAI commits to.</p>
+
+  <div class="dc"><div style="font-weight:800;color:var(--green-dark);margin-bottom:4px;">Document Control</div>
+    <div class="dcgrid"><div><span class="k">Publication</span> AAI-P012</div><div><span class="k">Version</span> 1.0</div><div><span class="k">Classification</span> Customer Specific</div><div><span class="k">Linked</span> AAI-P010 / AAI-P011</div></div>
+  </div>
+
+  <div class="partband"><div class="pk">Part A</div><div class="pt">Project Information</div></div>
+  <h2 class="sec"><span class="num">1.</span> Project Information</h2>
+  <div class="grid2">
+    <div class="fld"><span class="k">Customer</span> <span class="fill" data-prefill="company_name">[Customer]</span></div>
+    <div class="fld"><span class="k">Programme</span> <span class="fill">[Programme]</span></div>
+    <div class="fld"><span class="k">Industry</span> <span class="fill" data-prefill="sector">[Industry]</span></div>
+    <div class="fld"><span class="k">Project number</span> <span class="fill">[Project no.]</span></div>
+    <div class="fld"><span class="k">Cohort</span> <span class="fill">[Cohort]</span></div>
+    <div class="fld"><span class="k">Executive sponsor</span> <span class="fill">[Sponsor]</span></div>
+    <div class="fld"><span class="k">Programme Administrator</span> <span class="af-pname">[Administrator]</span></div>
+    <div class="fld"><span class="k">AfriversalAI Project Manager</span> <span class="fill">[PM]</span></div>
+    <div class="fld"><span class="k">Start date</span> <span class="fill">[Start]</span></div>
+    <div class="fld"><span class="k">Completion date</span> <span class="fill">[Completion]</span></div>
+  </div>
+
+  <h2 class="sec"><span class="num">2.</span> Business Objectives</h2>
+  <p>Typical objectives include: increase organisational AI literacy; establish a common AI vocabulary; improve responsible-AI awareness; prepare employees for AI-enabled ways of working; support organisational AI adoption; strengthen governance capability; improve confidence in evaluating AI-generated outputs; build a sustainable AI learning culture. Customer-specific objectives: <span class="fill" style="min-width:280px;">[Objectives]</span></p>
+
+  <h2 class="sec"><span class="num">3.</span> Expected Business Outcomes</h2>
+  <h3 class="sub">3.1 Organisational Capability</h3>
+  <p>Establish a common AI knowledge baseline; improve understanding of AI concepts, terminology and practical applications; increase confidence in responsible AI adoption; strengthen critical evaluation of AI outputs; support consistent AI literacy across departments.</p>
+  <h3 class="sub">3.2 Workforce Readiness</h3>
+  <p>Improve readiness for AI-enabled work; strengthen adaptability and continuous learning; build practical AI skills; reduce uncertainty around AI adoption.</p>
+  <h3 class="sub">3.3 Responsible AI &amp; Governance</h3>
+  <p>Promote responsible and ethical AI use; improve awareness of AI-related risks; support compliance with governance requirements; reinforce human oversight of AI-assisted decision-making.</p>
+  <h3 class="sub">3.4 Operational Effectiveness</h3>
+  <p>Where appropriate, contribute to more efficient knowledge work, improved quality and consistency of AI-assisted outputs, better-informed decision-making and productivity. Operational improvements depend on organisational adoption, leadership support, technology and employee engagement.</p>
+  <h3 class="sub">3.5 Learning Outcomes</h3>
+  <p>Completion of required modules; participation in scheduled live sessions; successful completion of assessments; achievement of certification requirements; demonstrated understanding of core AI-literacy principles.</p>
+  <h3 class="sub">3.6 Executive Outcomes</h3>
+  <p>On completion, AfriversalAI provides an Executive Completion Report covering learner participation, completion statistics, assessment performance, certification outcomes, engagement metrics, implementation observations and recommendations.</p>
+  <h3 class="sub">3.7 Success Indicators</h3>
+  <div class="kpi"><b>AfriversalAI commits to the following illustrative success measures</b> (final measures per this SOW):
+    <ul><li><b>95%</b> of purchased learner seats activated.</li><li><b>90%</b> attendance at mandatory live sessions.</li><li>Agreed programme completion rate achieved.</li><li>Agreed certification rate achieved.</li><li>Executive reporting delivered within agreed timeframes.</li></ul>
+    Customer-specific measures: <span class="fill" style="min-width:260px;">[Measures]</span>
+  </div>
+
+  <div class="partband"><div class="pk">Part B</div><div class="pt">Scope of Work</div></div>
+  <h2 class="sec"><span class="num">4.</span> Scope of Services</h2>
+  <p>Project initiation; Corporate Portal configuration; learner enrolment; Access Code issuance; live onboarding session; online learning modules; facilitated live events; assessments; certification; reporting; project close-out. Exclusions: <span class="fill" style="min-width:240px;">[Exclusions]</span></p>
+  <h2 class="sec"><span class="num">5.</span> Deliverables</h2>
+  <table class="tbl"><thead><tr><th>Deliverable</th><th>Owner</th><th>Due date</th><th>Acceptance criteria</th></tr></thead>
+    <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+  <h2 class="sec"><span class="num">6.</span> Programme Structure</h2>
+  <p>Learning pathway, delivery model, live sessions, assessments, certification requirements and estimated learner effort as agreed: <span class="fill" style="min-width:240px;">[Structure]</span></p>
+  <h2 class="sec"><span class="num">7.</span> Implementation Methodology</h2>
+  <p>The engagement follows four phases: <b>1) Project Initiation</b>; <b>2) Configuration &amp; Onboarding</b>; <b>3) Programme Delivery</b>; <b>4) Completion &amp; Close-Out</b> &mdash; each with activities, responsibilities and expected outputs.</p>
+
+  <div class="partband"><div class="pk">Part C</div><div class="pt">Project Governance</div></div>
+  <h2 class="sec"><span class="num">8.</span> Governance Structure</h2>
+  <p>Customer Executive Sponsor; Programme Administrator; HR/L&amp;D Representative; AfriversalAI Project Manager; Learning Success Manager; Lead Facilitator; Certification Administrator.</p>
+  <h2 class="sec"><span class="num">9.</span> Roles &amp; Responsibilities</h2>
+  <p>Responsibilities for both Parties are defined to support successful delivery: <span class="fill" style="min-width:240px;">[Notes]</span></p>
+  <h2 class="sec"><span class="num">10.</span> Project Timeline</h2>
+  <p>Milestones: contract execution; kick-off; portal ready; learner import; programme launch; live sessions; mid-programme review; final assessment; certification; project closure.</p>
+  <h2 class="sec"><span class="num">11.</span> Communication Plan</h2>
+  <p>Project meetings, reporting frequency, escalation contacts, executive reviews and stakeholder communications as agreed.</p>
+
+  <div class="partband"><div class="pk">Part D</div><div class="pt">Delivery Management</div></div>
+  <h2 class="sec"><span class="num">12.</span> Dependencies</h2>
+  <p>Assumptions relating to learner information, payment, technology readiness, availability of facilitators and Customer resources.</p>
+  <h2 class="sec"><span class="num">13.</span> Risks &amp; Assumptions</h2>
+  <p>A live risk register is maintained covering payment delays, learner participation, technical issues, schedule and organisational changes, with mitigation actions and owners (Schedule C).</p>
+  <h2 class="sec"><span class="num">14.</span> Success Measures</h2>
+  <p>Agreed measures of project success: learner activation; participation; completion; assessment performance; certification; customer satisfaction; executive reporting (see 3.7).</p>
+  <h2 class="sec"><span class="num">15.</span> Acceptance Criteria</h2>
+  <p>Deliverables are accepted once agreed services are delivered, acceptance criteria are met, and outstanding issues are resolved or formally documented.</p>
+  <h2 class="sec"><span class="num">16.</span> Change Control</h2>
+  <p>All changes to scope, pricing, timelines, cohorts, deliverables or implementation approach must be approved in writing by authorised representatives of both Parties before implementation.</p>
+
+  <div class="partband"><div class="pk">Part E</div><div class="pt">Approvals</div></div>
+  <h2 class="sec"><span class="num">17.</span> Sign-Off</h2>
+  <div class="sigwrap">
+    <div class="sigblock"><div class="party__h">AfriversalAI (Pty) Ltd</div><div class="sigbody">
+      <div class="sigrow"><span class="lbl">Name</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Title</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Signature</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Date</span><span class="sline"></span></div>
+    </div></div>
+    <div class="sigblock"><div class="party__h">The Customer</div><div class="sigbody">
+      <div class="sigrow"><span class="lbl">Organisation</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Representative</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Title</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Date</span><span class="sline"></span></div>
+    </div></div>
+  </div>
+
+  <h2 class="sec"><span class="num"></span> Schedule B — Learner Register</h2>
+  <table class="tbl"><thead><tr><th>Learner</th><th>Department</th><th>Email</th><th>Member ID</th><th>Status</th></tr></thead>
+    <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+  <h2 class="sec"><span class="num"></span> Schedule C — Risk Register</h2>
+  <table class="tbl"><thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th><th>Owner</th><th>Status</th></tr></thead>
+    <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+  <h2 class="sec"><span class="num"></span> Schedule D — Milestone &amp; Deliverable Tracker</h2>
+  <table class="tbl"><thead><tr><th>Milestone</th><th>Planned</th><th>Actual</th><th>Acceptance</th></tr></thead>
+    <tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+
+  <div style="max-width:900px;margin:8px auto 0;"><div id="af-sign"></div></div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script src="assets/esign.js"></script>
+<script src="assets/email.js"></script>
+<script>
+  window.AF_SIGN_DOC = 'sow';
+  (async function gate(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'corporate-login.html'; return; }
+    if (await isCorporate((s.user && s.user.email) || '')) {
+      document.getElementById('cc-body').style.display = 'block';
+      var sc = document.createElement('script'); sc.src = 'assets/partner-sign-inline.js'; document.body.appendChild(sc);
+    } else { document.getElementById('cc-denied').style.display = 'block'; }
+  })();
+</script>
+</body>
+</html>
