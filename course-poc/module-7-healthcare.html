@@ -42,10 +42,7 @@
     .funda-step textarea { width: 100%; min-height: 64px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.88em; resize: vertical; margin-top: 8px; background: var(--bg); }
     .funda-step textarea:focus { outline: none; border-color: var(--green-mid); background: var(--white); }
 
-    .module-progress { display: flex; gap: 8px; padding: 16px 28px; background: var(--bg); border-bottom: 1px solid var(--border); }
-    .prog-step { flex: 1; height: 4px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
-    .prog-step.is-active { background: var(--gold); }
-    .prog-step.is-done { background: var(--green-mid); }
+    .progress-sticky-wrap { position:sticky; top:100px; z-index:50; background:var(--white); border-bottom:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,.07); }
 
     .preview-end { display: none; background: var(--green-dark); color: white; padding: 48px 32px; text-align: center; border-radius: var(--radius-lg); margin: 32px 0; }
     .preview-end h2 { color: white; margin-bottom: 12px; }
@@ -133,22 +130,34 @@
 <div style="background:#0c1a12;"><img src="assets/module-7-heaca-banner.jpg" alt="Module 7 — HEACA — Healthcare" style="width:100%; max-width:1280px; margin:0 auto; display:block;" /></div>
 
 <div class="module-hero">
-  <div style="max-width:1440px; margin:0 auto;">
-    <span class="eyebrow eyebrow--light">Module 7 &middot; HEACA &middot; Healthcare</span>
+  <div class="module-hero__inner">
+    <div class="breadcrumb"><a href="course.html">Core Course</a> / Module 7 &middot; HEACA</div>
     <h1>AI in Healthcare:<br>Efficiency, Accountability, and Who Pays</h1>
     <p class="lead">When a hospital group announces AI will replace hundreds of administrative staff to save R2 billion &mdash; who asks whether that's good for patients? This module starts with a real SA case where those questions went unanswered, and builds the framework to ask them in your own work.</p>
-    <div style="display:flex; gap:24px; margin-top:24px; flex-wrap:wrap;">
-      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">60 minutes &middot; 4 phases</span>
-      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">Medical &amp; Healthcare track &middot; Requires Module 0 foundation</span>
+    <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
+      <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
+      <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
+        <li>Identify the accountability gap when a healthcare AI system is involved in a patient outcome</li>
+        <li>Apply HPCSA professional standards and POPIA health data rules to AI-assisted clinical contexts</li>
+        <li>Distinguish between AI that augments clinical judgment and AI that displaces it</li>
+        <li>Use the Funda Five&trade; to make a responsible clinical decision when an AI system is involved</li>
+      </ul>
+    </div>
+    <div style="margin-top:16px;">
+      <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">60 minutes &middot; 4 phases &middot; Healthcare track &middot; Builds on Module 0</span>
     </div>
   </div>
 </div>
 
-<div class="module-progress" id="progressBar">
-  <div class="prog-step is-active" id="prog-0"></div>
-  <div class="prog-step" id="prog-1"></div>
-  <div class="prog-step" id="prog-2"></div>
-  <div class="prog-step" id="prog-3"></div>
+<div class="progress-sticky-wrap">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="progress-track" id="progressBar" role="progressbar" aria-label="Module 7 progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="4">
+      <div class="progress-step is-active" id="prog-0">1 &middot; Encounter</div>
+      <div class="progress-step" id="prog-1">2 &middot; Reflect</div>
+      <div class="progress-step" id="prog-2">3 &middot; Concept</div>
+      <div class="progress-step" id="prog-3">4 &middot; Apply</div>
+    </div>
+  </div>
 </div>
 
 <section class="bg-pale">

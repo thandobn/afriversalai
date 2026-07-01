@@ -1014,3 +1014,35 @@ Admin needs full read+update access — grant via Supabase service role or add a
 **Files changed:**
 - `course-poc/module-1.html` — 10 council remediation edits (quiz explanations, Lesson 2 definition, Further Reading fixes, Apply scaffolding, micro-labels)
 - `HANDOFF.md` — this entry + previous uncommitted 2026-06-27 (continued) session entry
+
+---
+
+## Session: 2026-07-01
+
+**What was worked on:**
+- Module 4 full content review and revision per Ntando's brief (AfriversalAI_Module_4_Review_and_Revision_Brief.md, 854 lines) + inline additions from mom
+- Implemented all 13 must-fix items and all 8 strong-improvement additions
+
+**Key changes:**
+- Header: lead text no longer claims "IEC formally flagged clips as AI-manipulated"; two header notes added (detector-as-evidence, no single deepfake law)
+- Objectives updated: removed statute name-list; refocused on durable skills (verification, context-based governance)
+- Encounter: audio card labelled as "Training simulation — fictional transcript"; "Claimed: IEC under review" tag; context note no longer cites IEC "multiple cases" or "under 3 minutes" claim; key learning line added; placeholder updated
+- Reflect: Q1/Q2 reframed from confidence/legal-exposure to harms/responsibility; legal-safe note added after Q2
+- Concept: SA 2024 paragraph corrected (no "primary threat was audio deepfakes" / no IEC formal-complaint claim); deepfake definition updated to include synthetic identity + wholly generated event; 4 heuristic-cards replaced with "why clues expire" section; "12-18 months" removed; liar's dividend callout added; context manipulation section added; detection-vs-verification 2-column added; legal section renamed; Electoral Act, Cybercrimes Act s14, Films & Publications cards all rewritten to context-dependent framing; blanket "I just forwarded it" red box replaced with nuanced caution; verification list expanded to 6 steps (added preservation); triage visual, privacy/no-upload rule, safety note for harmful content, and reporting routes added
+- Quiz: Q1 reframed; Q2 replaced with context-based legal question; Q4 added (cannot confirm in 10 min → do not amplify); JS updated to check 4 questions; updated explanations for all 4
+- Apply: public-AI data caution added before Funda Five; TOOL/TRUST/HUMAN prompts updated (removed "What AI tool would produce a voice clone"; added 45-min playbook structure; removed Cybercrimes s14 forwarding-offence language from HUMAN; added response-chain map); containment callout added; Incident Response Snapshot div added + completeModule4() populates from app-1..5
+- Module completion text updated: no "name the three SA statutes"; reframed as durable skills
+
+**Decisions made:**
+- Model answers section left as-is — they are expert-written sample responses and can reference specific laws with appropriate nuance; the instructional guidance (prompts, callouts, quiz) was the target
+- No Concept screen restructure — single scrollable ps-2-content is appropriate for M4's content volume
+- Heuristic-card CSS classes left in `<style>` block (unused after D3 replacement) — will clean up in a future CSS pass; not worth disrupting this commit
+- Context compaction mid-session: plan was rebuilt from session summary; all prior decisions preserved
+
+**Open items / next steps:**
+- i18n translations for all EN strings changed this session (AF/ZU/FR backlog)
+- Interactive triage widget deferred to design sprint
+- Module 5 and 6 content review briefs pending from Ntando
+
+**Files changed:**
+- `course-poc/module-4.html` — 151 insertions, 73 deletions (pushed to master at dda390e / 14018ba)

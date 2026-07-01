@@ -77,6 +77,12 @@
     .preview-end { background:var(--green-dark); color:white; padding:48px 32px; text-align:center; border-radius:var(--radius-lg); margin:32px 0; }
     .preview-end h2 { color:white; margin-bottom:12px; }
     .preview-end p { color:rgba(255,255,255,0.75); margin-bottom:28px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.7; }
+
+    .lesson-tracker { display:flex; align-items:center; gap:8px; padding:12px 0 16px; margin-bottom:4px; }
+    .lesson-tracker-label { font-size:0.82em; color:var(--muted); font-weight:600; margin-left:4px; }
+    .m5-lesson-dot { width:10px; height:10px; border-radius:50%; background:var(--border); flex-shrink:0; transition:background .2s; }
+    .m5-lesson-dot.current { background:var(--green-mid); }
+    .m5-lesson-dot.visited { background:var(--green-light); }
   </style>
 </head>
 <body>
@@ -132,15 +138,17 @@
   <div class="module-hero__inner">
     <div class="breadcrumb"><a href="course.html">Core Course</a> / Module 5</div>
     <h1>AI in Recruitment</h1>
-    <p class="lead lead--light">AI applicant tracking systems are screening South African job seekers before any human sees their CV. The SA Board for People Practices formally documented this in 2023. This module maps the accountability chain when AI recruitment produces unfair outcomes &mdash; and shows you which law applies, where to complain, and who bears responsibility.</p>
+    <p class="lead lead--light">AI-assisted recruitment tools can parse CVs, rank candidates, recommend matches, schedule interviews, and support early screening before or alongside human review. These systems can save time &mdash; but they can also reproduce unfair patterns, obscure why someone was excluded, and make accountability harder to trace. This module maps the recruitment accountability chain: from data collection and screening criteria to shortlist, interview, and hiring decision. It shows where Employment Equity Act, assessment-validity, privacy, and governance concerns may arise &mdash; and what an affected candidate or responsible employer can do next.</p>
     <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
       <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
       <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
         <li>Map the accountability chain in an AI-assisted recruitment process from data collection to hiring decision</li>
-        <li>Identify which EEA provisions apply when AI recruitment tools produce indirect unfair discrimination in employment</li>
-        <li>Name at least two formal channels through which an affected candidate can raise an AI recruitment complaint</li>
+        <li>Recognise when an AI recruitment tool may raise indirect-unfair-discrimination concerns under the Employment Equity Act, and know what evidence and specialist review may be needed</li>
+        <li>Distinguish administrative automation from AI-assisted assessment or scoring, and identify questions about validity, reliability, fairness, and bias</li>
+        <li>Identify internal and external routes for raising a recruitment concern, including employer processes and, where appropriate, the CCMA, Labour Court, Department of Employment and Labour, SAHRC, or Information Regulator</li>
       </ul>
     </div>
+    <p style="margin:10px 0 0; font-size:0.82em; color:rgba(255,255,255,0.65); font-style:italic;">Important: A lower interview rate or a rejected application is a reason to ask questions &mdash; not automatic proof that a recruitment system has broken the law.</p>
     <div style="margin-top:16px;">
       <span style="font-size:0.85em; color:rgba(255,255,255,0.65);">~70 min &middot; 4 phases &middot; All sectors &middot; Builds on Module 4</span>
     </div>
@@ -192,7 +200,7 @@
       <div class="phase__task">
         Lerato Dube applied for a Senior Financial Analyst role at a Johannesburg financial services firm. She has 7 years of experience, a BCom from the University of Limpopo, and a CFA Level II. This is the email she received 4 hours after submitting her application. <strong>What do you notice? What questions does this raise?</strong>
       </div>
-      <p style="font-size:0.78em; color:var(--muted); font-style:italic; margin:0 0 12px;"><strong>Fictional composite scenario:</strong> Meridian Financial Services is not a real company. This case combines documented risks from AI-supported recruitment systems in SA financial services into a South African workplace context.</p>
+      <p style="font-size:0.78em; color:var(--muted); font-style:italic; margin:0 0 12px;"><strong>Composite learning scenario:</strong> Meridian Financial Services is fictional. This case combines documented international and South African concerns about AI-assisted recruitment, including opaque screening criteria, potential proxy effects, limited explanation, and weak human oversight. It is not a finding about a named South African employer or a specific SABPP investigation.</p>
 
       <div class="rejection-email">
         <div class="rejection-email__header">
@@ -212,11 +220,12 @@
       </div>
 
       <div style="background:rgba(27,67,50,0.06); border-left:4px solid var(--green-mid); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:20px 0; font-size:0.88em; line-height:1.6;">
-        <strong>Context:</strong> The South African Board for People Practices (SABPP) formally documented the use of AI applicant tracking systems in SA financial services and professional services firms in a 2023 guidance paper. SABPP raised concerns about indirect unfair discrimination and the absence of human review in early-stage screening. This scenario is representative of documented practice.
+        <strong>Scenario fact:</strong> In this exercise, no recruiter reviewed Lerato&rsquo;s application before the rejection was sent.<br><br>
+        A rapid rejection and automated wording are signals to ask questions. They do not, on their own, prove that a recruitment system made an unlawful or unfair decision. A fast rejection could reflect eligibility rules, duplicate checks, incomplete applications, bulk workflow tools, keyword filters, or a fully automated screen.
       </div>
 
-      <div style="margin-bottom:8px; font-weight:600; font-size:0.95em;">What do you notice about this email? What questions does Lerato&rsquo;s situation raise for you?</div>
-      <textarea id="enc-reaction" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I notice... / The phrase &lsquo;our system has reviewed&rsquo; suggests... / If I were Lerato, I would want to know... / What concerns me is..."></textarea>
+      <div style="margin-bottom:8px; font-weight:600; font-size:0.95em;">What do you notice about the timing, explanation, decision-maker, and opportunity to challenge the result? What would you want to know about the criteria, data, review process, and ability to challenge the outcome?</div>
+      <textarea id="enc-reaction" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I notice&hellip; / The phrase &lsquo;our system has reviewed&rsquo; suggests&hellip; / I would want to know&hellip; / My concern is&hellip;"></textarea>
 
       <div style="text-align:right; margin-top:20px;">
         <button class="btn btn--primary" onclick="advancePhase(0)">I&rsquo;ve reacted &rarr;</button>
@@ -243,13 +252,20 @@
         Two questions to surface your existing thinking on accountability and fairness in hiring.
       </div>
 
+      <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:0 0 20px;">
+        <p style="margin:0; font-size:0.88em; font-weight:600; color:var(--gold-dark);">Use general examples only. Do not name employers, colleagues, applicants, recruitment vendors, or confidential hiring criteria.</p>
+      </div>
+
       <div style="margin-bottom:28px;">
-        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">1. Lerato has a BCom from the University of Limpopo. The AI system was trained on historical hiring success data from Meridian &mdash; a firm that has historically hired graduates from Wits, UCT, and Stellenbosch. What might the model have &ldquo;learned&rdquo; about University of Limpopo graduates, and why might that be a problem?</div>
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">1. Lerato has a BCom from the University of Limpopo. Meridian&rsquo;s historical hiring data contains many graduates from Wits, UCT, and Stellenbosch, and far fewer from other institutions. What might the model learn from that history? Why might that be an unreliable or unfair basis for screening applicants today?</div>
         <textarea id="ref-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="The model might have learned that... This could be a problem because..."></textarea>
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg); padding:12px 16px; margin:8px 0 0; font-size:0.88em; line-height:1.65; color:var(--muted);">
+          A university can reflect educational opportunity, geography, social networks, language, race, class, school resources, and access to internships &mdash; but it does not determine an individual candidate&rsquo;s ability.
+        </div>
       </div>
 
       <div style="margin-bottom:20px;">
-        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">2. Who is responsible when an AI recruitment tool produces unfair outcomes? The vendor who built the tool? The HR team who deployed it? The hiring manager who never saw Lerato&rsquo;s CV? The company&rsquo;s board?</div>
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">2. Who may share responsibility when an AI-assisted recruitment process produces unfair outcomes? Consider the employer, HR/recruitment team, hiring manager, vendor, data owner, system administrator, executive sponsor, and board. What decisions did each make &mdash; or fail to make? What should Lerato be able to ask for, correct, challenge, or escalate?</div>
         <textarea id="ref-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="I think responsibility falls on... because... I think the board / hiring manager / vendor is / isn&rsquo;t responsible because..."></textarea>
       </div>
 
@@ -275,14 +291,41 @@
     </div>
     <div class="phase__body">
 
-      <!-- ── SCREEN 1: Concept reading ──────────────────────────────────── -->
-      <div class="phase-screen is-active" id="ps-2-content">
+      <div class="lesson-tracker" id="m5-lesson-progress">
+        <div class="m5-lesson-dot current"></div>
+        <div class="m5-lesson-dot"></div>
+        <div class="m5-lesson-dot"></div>
+        <div class="m5-lesson-dot"></div>
+        <span class="lesson-tracker-label" id="m5-lesson-label">Screen 1 of 4 &mdash; What recruitment systems actually do</span>
+      </div>
+
+      <!-- ── SCREEN 1: What recruitment systems actually do ─────────────── -->
+      <div class="phase-screen is-active" id="ps-2-les1">
 
         <div class="concept-section">
           <h4>How AI applicant tracking systems work in SA</h4>
-          <p>An Applicant Tracking System (ATS) is a software platform that receives, stores, and processes job applications. Modern ATS platforms include AI scoring: they rank candidates against each other and against a model of a &ldquo;successful hire&rdquo; derived from the company&rsquo;s historical data. In many SA deployments documented by SABPP, the system filters candidates before any human reads a single CV.</p>
-          <p style="margin-top:12px;">The model&rsquo;s definition of &ldquo;success&rdquo; is learned from historical hiring data. If the company&rsquo;s past hires skewed toward graduates of historically white universities (as they did in most formal SA employers before aggressive EEA compliance), the model learns that this pattern predicts success &mdash; and scores candidates from historically Black universities lower. The algorithm is doing exactly what it was designed to do. The discrimination is in what it was trained on.</p>
+          <p>An Applicant Tracking System (ATS) is a software platform that receives, stores, and processes job applications. Modern ATS platforms include AI scoring: they rank candidates against each other and against a model of a &ldquo;successful hire&rdquo; derived from the company&rsquo;s historical data. The key question is not whether a tool is called &ldquo;AI.&rdquo; It is <strong>what role it plays in the decision</strong>: administration, recommendation, ranking, assessment, or automatic exclusion.</p>
+          <p style="margin-top:12px;">If a system is trained on historical hiring, promotion, or performance data, it may learn patterns associated with people the organisation previously hired or labelled as successful. Those patterns may reflect job-relevant experience &mdash; but they may also reflect historical recruitment networks, unequal opportunity, managerial preferences, inconsistent performance ratings, or biased definitions of &ldquo;success.&rdquo; The question is not whether history is automatically discriminatory. It is whether the organisation has tested whether historical patterns are relevant, reliable, fair, and appropriate for the role being filled.</p>
         </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Which use needs the highest scrutiny?</p>
+          <p style="font-size:0.9em; color:var(--muted); margin:0 0 12px;">Tap to reveal:</p>
+          <details style="font-size:0.9em; line-height:1.7;">
+            <summary style="cursor:pointer; font-weight:600; list-style:none; color:var(--green-mid);">Scheduling interviews / Parsing CV formatting / Ranking candidates by keyword match / Automatically rejecting based on predicted future performance / Analysing face, voice, or emotion in a video interview</summary>
+            <p style="margin:14px 0 0;">The more a tool assesses people, excludes them automatically, or affects access to work, the more employers need to test validity, fairness, accessibility, human review, and candidate recourse. <strong>Automated rejection based on predicted future performance</strong> and <strong>emotion/voice/face analysis in video interviews</strong> require the highest level of scrutiny &mdash; and may engage EEA section 8 assessment-validity requirements.</p>
+          </details>
+        </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showPhase(1)">&larr; Reflect</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(2)">Next &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les1 -->
+
+      <!-- ── SCREEN 2: The accountability chain ────────────────────────── -->
+      <div class="phase-screen" id="ps-2-les2">
 
         <div class="concept-section">
           <h4>The accountability chain &mdash; who is in it</h4>
@@ -294,35 +337,45 @@
             <div class="chain-node">1</div>
             <div class="chain-content">
               <div class="chain-content__role">ATS Vendor &mdash; the builder</div>
-              <div class="chain-content__desc">Responsible for the model architecture, training methodology, and auditing for bias before deployment. If the vendor knowingly deploys a system with foreseeable discriminatory impact without disclosing this, they bear significant liability. Vendors sometimes claim their system is &ldquo;neutral&rdquo; &mdash; but a model trained on historical SA hiring data is structurally biased toward historical hiring patterns.</div>
+              <div class="chain-content__desc">The vendor should be able to explain the tool&rsquo;s intended use, data requirements, validation evidence, known limitations, human-review design, and monitoring recommendations. Contractual and product responsibility may sit with the vendor, but buying a vendor system does not remove the employer&rsquo;s employment-equity obligations.</div>
             </div>
           </div>
           <div class="chain-row">
             <div class="chain-node">2</div>
             <div class="chain-content">
               <div class="chain-content__role">HR Director &mdash; the deployer</div>
-              <div class="chain-content__desc">Responsible for procurement decisions, configuration of the system, and monitoring outcomes. Under EEA, employers are required to actively implement employment equity. Deploying an AI screening tool without auditing it for EEA compliance is not a neutral act &mdash; it is an abdication of the employer&rsquo;s affirmative equity obligations.</div>
+              <div class="chain-content__desc">HR and recruitment leaders influence procurement, screening criteria, configuration, candidate communication, review processes, and monitoring. Before using a high-impact screening or assessment tool, the employer should assess risks, document purpose and criteria, test outcomes where appropriate, and establish escalation and review processes.</div>
             </div>
           </div>
           <div class="chain-row">
             <div class="chain-node">3</div>
             <div class="chain-content">
               <div class="chain-content__role">Hiring Manager &mdash; the decision-maker</div>
-              <div class="chain-content__desc">Receives a shortlist from the ATS and interviews from it. If the hiring manager never knows the demographics of who was screened out, they cannot identify the problem. But they are still a node in the chain: if they raise no questions about the shortlist&rsquo;s diversity, they bear some accountability for the outcome.</div>
+              <div class="chain-content__desc">The hiring manager should understand what the shortlist represents, question unexplained exclusions, and avoid treating an AI ranking as a final decision. Meaningful involvement includes reviewing role requirements, challenging obvious anomalies, and escalating concerns &mdash; not merely accepting a shortlist.</div>
             </div>
           </div>
           <div class="chain-row">
             <div class="chain-node">4</div>
             <div class="chain-content">
               <div class="chain-content__role">Board / CEO &mdash; the principal</div>
-              <div class="chain-content__desc">The company is the juristic person ultimately accountable for EEA compliance. The Employment Equity Plan submitted to the Department of Employment and Labour is a board-level commitment. Systemic AI discrimination that undermines the EEA plan is a compliance failure that flows to the top of the organisation.</div>
+              <div class="chain-content__desc">Senior leadership is responsible for governance, risk appetite, resourcing, oversight, and ensuring that appropriate people are assigned to implement employment-equity obligations. For designated employers, senior managers must be assigned responsibility for implementing and monitoring the Employment Equity Plan.</div>
             </div>
           </div>
         </div>
 
         <div class="callout">
-          <strong>The monitoring obligation:</strong> The accountability chain doesn&rsquo;t end at deployment. Under EEA Sections 19&ndash;27, designated employers submit Employment Equity Plans with measurable equity targets to the Department of Employment and Labour. An AI tool that systematically undermines those targets is a compliance failure &mdash; and the EEA creates an affirmative duty to monitor outcomes, not just report inputs. Meridian&rsquo;s 18-month gap between deployment and complaint is the failure mode the monitoring obligation is designed to prevent.
+          <strong>The monitoring obligation:</strong> The accountability chain doesn&rsquo;t end at deployment. For designated employers &mdash; generally employers with 50 or more employees, as well as organs of state &mdash; the Employment Equity Act requires Employment Equity Plans, reporting, and implementation aligned with applicable sectoral targets. An AI tool that systematically undermines those targets is a compliance concern. A long gap between tool deployment and a complaint is a practical warning sign: organisations should not wait for a candidate complaint before checking whether a high-impact recruitment process is producing concerning patterns.
         </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson(1)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(3)">Next &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les2 -->
+
+      <!-- ── SCREEN 3: EEA legal framework and assessment validity ─────── -->
+      <div class="phase-screen" id="ps-2-les3">
 
         <div class="concept-section">
           <h4>The legal framework &mdash; EEA in the employment context</h4>
@@ -332,23 +385,69 @@
         <div class="law-card">
           <div class="law-card__name">EEA Section 6</div>
           <div class="law-card__full">Employment Equity Act 55 of 1998 &mdash; Section 6: Prohibition of Unfair Discrimination</div>
-          <div class="law-card__desc">Prohibits unfair discrimination in employment decisions on any listed ground &mdash; including race, gender, disability, and &ldquo;arbitrary grounds.&rdquo; Critically, Section 6 covers <strong>indirect unfair discrimination</strong>: a criterion that appears neutral but produces discriminatory outcomes on a listed ground. University attended, as a proxy for race in SA, is indirect discrimination under Section 6. The employer bears the burden of proving the discrimination was fair or not discrimination.</div>
+          <div class="law-card__desc">Section 6 prohibits unfair direct or indirect discrimination in employment policies and practices, including recruitment and selection. A neutral-looking criterion may raise concern if it produces unequal effects linked to a listed ground. Whether it is unlawful requires evidence and a contextual fairness assessment. University attended can act as a proxy for unequal access and historically shaped opportunity &mdash; if a recruitment rule relying on it produces unequal effects linked to a listed ground, it may raise indirect-unfair-discrimination concerns and should be investigated. Under section 11, where unfair discrimination is alleged on a listed ground, the employer bears an important burden to show that the discrimination did not occur as alleged or was rational, not unfair, or otherwise justifiable.</div>
+        </div>
+
+        <div class="law-card">
+          <div class="law-card__name">EEA Section 8</div>
+          <div class="law-card__full">Employment Equity Act 55 of 1998 &mdash; Section 8: Psychological Testing and Similar Assessments</div>
+          <div class="law-card__desc">Some AI recruitment tools do more than organise applications. They assess personality, suitability, ability, communication, future performance, or &ldquo;fit.&rdquo; Where a tool functions like a psychological or similar assessment, employers should ask whether it is valid, reliable, fair, non-biased, and appropriately certified or governed. A tool should not be trusted simply because it produces a score. Examples where section 8 scrutiny may be relevant: video-interview analysis of face, voice, or emotion; personality or &ldquo;culture fit&rdquo; scoring; communication or tone assessment; future-performance prediction; leadership-potential or cognitive-ability scoring; honesty or reliability scoring.</div>
         </div>
 
         <div class="law-card">
           <div class="law-card__name">EEA Sections 19&ndash;27</div>
           <div class="law-card__full">Employment Equity Plan &mdash; Affirmative Obligations</div>
-          <div class="law-card__desc">Designated employers (50+ employees, or certain thresholds) must submit an Employment Equity Plan to the Department of Employment and Labour. The plan commits the company to measurable equity targets. An AI system that systematically screens out candidates from designated groups undermines the EEA plan and creates a direct compliance failure that can trigger fines and public reporting.</div>
+          <div class="law-card__desc">For designated employers &mdash; generally employers with 50 or more employees, as well as organs of state &mdash; the Employment Equity Act requires Employment Equity Plans with measurable equity targets submitted to the Department of Employment and Labour. An AI system that systematically screens out candidates from designated groups may undermine the EEA plan and create a compliance concern that can trigger fines and public reporting. Sectoral targets, plans, reporting, and compliance rules were updated in the 2025 EEA regulations.</div>
         </div>
+
+        <div class="callout" style="margin-top:16px;">
+          <strong>Meaningful human review:</strong> A human reviewer is not meaningful if they only click &ldquo;approve,&rdquo; never see excluded candidates, cannot inspect the reasons for a score, cannot correct errors, or cannot override the tool. Human oversight needs information, authority, time, and a genuine ability to change the decision.
+        </div>
+
+        <div class="callout">
+          <strong>Accessibility and disability:</strong> Fairness is not only about university, race, or gender. Recruitment AI can disadvantage candidates with non-standard CV formats, disability-related employment gaps, assistive-technology use, speech differences, video-interview accessibility needs, or different communication styles. A recruitment process should be tested for accessibility, disability accommodation, language, and non-standard career paths.
+        </div>
+
+        <div class="callout">
+          <strong>Language and multilingual candidates:</strong> Language models and keyword tools may favour dominant business-English patterns or familiar terminology. Evaluate whether language requirements are genuinely job-relevant and whether the system mistakes communication style for competence.
+        </div>
+
+        <div class="callout">
+          <strong>Data minimisation and retention:</strong> Collect and retain only what is necessary for a lawful recruitment purpose. Ask where applicant data travels, who can access it, how long it is stored, whether it is reused for training, and whether vendors can use it for their own model development.
+        </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Before buying or renewing a recruitment-AI tool, ask the vendor:</p>
+          <ul style="font-size:0.9em; line-height:1.9; padding-left:20px; margin:0; color:var(--text);">
+            <li>What does the tool do: organise, rank, assess, or exclude?</li>
+            <li>What data does it use and infer?</li>
+            <li>How was it validated for this role and population?</li>
+            <li>What evidence exists on reliability, fairness, and accessibility?</li>
+            <li>What known limitations or error patterns exist?</li>
+            <li>Can the employer audit, log, override, and appeal outcomes?</li>
+            <li>Does the vendor use applicant data for model training?</li>
+            <li>What happens if the tool produces a concerning disparity?</li>
+          </ul>
+        </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson(2)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="goLesson(4)">Next &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les3 -->
+
+      <!-- ── SCREEN 4: POPIA and candidate recourse ─────────────────────── -->
+      <div class="phase-screen" id="ps-2-les4">
 
         <div class="law-card">
           <div class="law-card__name">POPIA Section 71</div>
           <div class="law-card__full">Protection of Personal Information Act &mdash; Section 71 (<a href="glossary.html#A" style="color:inherit;">Automated Decision</a> Right)</div>
-          <div class="law-card__desc">Also applies in recruitment: the ATS is processing personal information (CV data) to make or significantly influence a consequential employment decision. Lerato has the right to request human review of the decision before it is finalised. She also has the right to know what information was used and to make representations. Section 71 also entitles Lerato to a reasoned explanation of the specific factors used to reach the outcome &mdash; not just what data was processed, but why her application was screened out. &ldquo;Our system reviewed your application&rdquo; is not sufficient disclosure of automated processing under POPIA.</div>
+          <div class="law-card__desc">Section 71 may be relevant where an applicant is subject to a decision that has legal consequences or substantially affects them, is based solely on automated processing of personal information, and is intended to profile them &mdash; for example, in relation to work performance, reliability, preferences, or conduct. A recruitment tool that only assists a recruiter may not trigger section 71 in the same way as a system that automatically rejects an applicant without meaningful human involvement. Where section 71 applies, the responsible party may need measures that allow the applicant to make representations and receive sufficient information about the underlying logic of the automated processing. A generic automated email may be inadequate for a high-impact solely automated decision, but whether section 71 applies depends on the actual decision process and statutory conditions. The key question is: <strong>Was there meaningful human involvement before the exclusion decision took effect?</strong></div>
         </div>
 
         <div class="callout">
-          <strong>Why EEA here and PEPUDA in Module 3:</strong> EEA applies to employment decisions specifically. PEPUDA applies to all public and private conduct. When AI discriminates in a policing or bail context, PEPUDA is the hook. When AI discriminates in a recruitment or employment context, EEA Section 6 is the primary hook &mdash; with POPIA Section 71 for the automated decision right. Both apply in recruitment; PEPUDA may also apply but EEA is the lex specialis (the more specific statute) for employment.
+          <strong>EEA, POPIA, and other frameworks in recruitment:</strong> In recruitment and employment, the Employment Equity Act is usually the most directly relevant employment-discrimination framework. POPIA may also matter where personal information or automated decision-making is involved. Other equality, constitutional, contractual, and sector-specific rules may be relevant depending on the facts.
         </div>
 
         <div class="concept-section">
@@ -358,19 +457,19 @@
         <div class="channel-card">
           <div class="channel-card__name">CCMA</div>
           <div class="channel-card__full">Commission for Conciliation, Mediation and Arbitration</div>
-          <div class="channel-card__desc">The primary forum for unfair labour practices and unfair discrimination in employment. Candidates who believe they were unfairly discriminated against in a recruitment process can refer to the CCMA. The CCMA can order reinstatement, compensation, or require the employer to revise its processes. Fast and accessible &mdash; no legal representation required.</div>
+          <div class="channel-card__desc">Applicants and employees may refer certain unfair-discrimination disputes to the CCMA. The CCMA generally begins with conciliation; depending on the claim, earnings threshold, consent, and statutory route, the dispute may be arbitrated there or proceed to the Labour Court. The process has time limits, so early advice is important.</div>
         </div>
 
         <div class="channel-card">
           <div class="channel-card__name">South African Human Rights Commission (SAHRC)</div>
           <div class="channel-card__full">Constitutional body investigating human rights violations</div>
-          <div class="channel-card__desc">Can investigate systemic discrimination patterns &mdash; including AI recruitment systems that produce widespread discriminatory outcomes across multiple candidates. The SAHRC is particularly relevant when the discrimination is systemic (affecting a class of candidates) rather than a single incident. They can investigate and make binding recommendations.</div>
+          <div class="channel-card__desc">The SAHRC can receive and investigate equality and human-rights complaints, including systemic concerns, and can assist affected people in seeking redress. It may be especially relevant where a concern appears to affect a broader class of applicants rather than only one individual.</div>
         </div>
 
         <div class="channel-card">
           <div class="channel-card__name">Labour Court</div>
           <div class="channel-card__full">Specialist court for employment disputes</div>
-          <div class="channel-card__desc">For complex discrimination cases, including interdicts against employer conduct and declaratory relief. More formal than the CCMA; legal representation typical. Can award substantial damages in serious indirect discrimination cases and can order mandatory equity audits of AI systems.</div>
+          <div class="channel-card__desc">The Labour Court hears employment-equity and discrimination matters that fall within its jurisdiction and can grant appropriate relief. It is generally the more formal route, so legal advice is often useful.</div>
         </div>
 
         <div class="channel-card">
@@ -379,33 +478,43 @@
           <div class="channel-card__desc">If Lerato is denied information about how her personal data was processed (what the system used, how it scored her), she can complain to the Information Regulator under POPIA. The Regulator can compel disclosure and investigate whether the employer complied with Section 71&rsquo;s automated decision requirements.</div>
         </div>
 
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Which response is most responsible?</p>
+          <p style="font-size:0.9em; margin:0 0 10px; color:var(--text);">A system shows a meaningful disparity in who advances. Which next step is most responsible?</p>
+          <details style="font-size:0.9em; line-height:1.7;">
+            <summary style="cursor:pointer; font-weight:600; list-style:none; color:var(--green-mid);">Delete the race field and declare the issue fixed / Ask the vendor to confirm the model is fair / Measure the disparity, inspect data/labels/proxies, introduce interim safeguards, seek specialist review, and remediate before continuing unchanged / Ignore the issue because average accuracy is high</summary>
+            <p style="margin:14px 0 0;"><strong>Measure, investigate, safeguard, escalate, and remediate.</strong> Deleting a field does not remove proxy patterns already embedded in the model. A vendor confirmation is not an independent audit. Ignoring disparity while average accuracy is high is the most common and most dangerous response. The appropriate route is: measure the disparity, inspect data and proxies, introduce interim human-review safeguards, seek specialist HR/legal/data-protection support, and remediate before deploying unchanged.</p>
+          </details>
+        </div>
+
         <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:24px 0;">
           <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); margin-bottom:10px;">Further reading</p>
           <ul style="font-size:0.88em; line-height:1.8; margin:0; padding-left:18px; color:var(--text);">
-            <li>SABPP &mdash; <em>Guidance on Artificial Intelligence in People Practices</em> (2023, SA Board for People Practices)</li>
-            <li>EEA Section 6 full text &mdash; SAFLII (saflii.org)</li>
+            <li>EEA Section 6, 8, and 19&ndash;27 full text &mdash; SAFLII (saflii.org)</li>
             <li>CCMA Guide to Unfair Discrimination &mdash; ccma.org.za</li>
+            <li>Information Regulator (South Africa) &mdash; inforegulator.org.za</li>
           </ul>
         </div>
 
-        <div class="phase-nav" style="justify-content:flex-end;">
-          <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson(3)">&larr; Back</button>
+          <button type="button" class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
         </div>
 
-      </div><!-- /ps-2-content -->
+      </div><!-- /ps-2-les4 -->
 
       <!-- ── SCREEN 2: Quiz ─────────────────────────────────────────────── -->
       <div class="phase-screen" id="ps-2-quiz">
 
         <h3 style="margin-bottom:4px;">Knowledge Check</h3>
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Three questions. All must be correct before you advance to Apply.</p>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Four questions. All must be correct before you advance to Apply.</p>
 
         <!-- Q1 -->
         <div style="margin-bottom:28px;">
-          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. An AI ATS is trained on Meridian Financial Services&rsquo; 10 years of hiring decisions. Historically, Meridian hired predominantly from Wits, UCT, and Stellenbosch. The model scores graduates from University of Limpopo lower. What type of discrimination does this constitute under SA law?</div>
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. An ATS scores candidates from one university lower because its training data reflects the company&rsquo;s past hiring patterns. What is the most accurate conclusion?</div>
           <div class="quiz-opts" id="m5_q0_opts">
             <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q0" value="0"> Direct unfair discrimination &mdash; the AI is explicitly using race as a criterion</label>
-            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q0" value="1"> Indirect unfair discrimination under EEA Section 6 &mdash; university attended is a facially neutral criterion that produces discriminatory outcomes along a listed ground (race), because university attended in SA correlates with race due to apartheid-era education policy</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q0" value="1"> It may raise an indirect-unfair-discrimination or proxy-discrimination concern under the Employment Equity Act and should be investigated</label>
             <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q0" value="2"> No discrimination &mdash; the AI is matching historical success patterns which is a legitimate business interest</label>
             <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q0" value="3"> PEPUDA violation &mdash; PEPUDA is the correct law for employment discrimination, not EEA</label>
           </div>
@@ -414,26 +523,38 @@
 
         <!-- Q2 -->
         <div style="margin-bottom:28px;">
-          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. Lerato received a rejection from &ldquo;our system&rdquo; with no indication of what criteria were used. Which SA law gives her the right to request human review of this automated employment decision before it is finalised?</div>
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. When may POPIA section 71 be relevant in an AI-assisted recruitment process?</div>
           <div class="quiz-opts" id="m5_q1_opts">
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="0"> EEA Section 6 &mdash; prohibition on indirect unfair discrimination</label>
-            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q1" value="1"> POPIA Section 71 &mdash; the right not to be subject to a consequential decision based solely on automated processing of personal information, including the right to make representations</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="2"> EEA Section 27 &mdash; the employer&rsquo;s equity plan reporting requirements</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="3"> There is no SA law that requires human review of AI recruitment screening</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="0"> Whenever a recruiter reads a CV that was submitted via an online portal</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q1" value="1"> When an applicant is subject to a consequential decision based solely on automated processing of personal information for profiling, without meaningful human involvement</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="2"> Only when the employer has more than 50 employees</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q1" value="3"> There is no SA law that requires human involvement in AI recruitment screening</label>
           </div>
           <div class="quiz-feedback" id="m5qf-1"></div>
         </div>
 
         <!-- Q3 -->
         <div style="margin-bottom:28px;">
-          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. An HR Director discovers their AI ATS has been producing racially skewed screening outcomes for 18 months. Aside from suspending the tool, which formal channels can affected candidates use to raise a complaint?</div>
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. Which body is commonly used to start an employment unfair-discrimination dispute in South Africa?</div>
           <div class="quiz-opts" id="m5_q2_opts">
-            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q2" value="0"> The CCMA (unfair discrimination complaints), Labour Court, and/or the South African Human Rights Commission &mdash; all three have jurisdiction over employment discrimination of this type</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="1"> Only the Labour Court &mdash; the CCMA does not handle discrimination complaints</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="2"> Only the Information Regulator &mdash; this is a POPIA data processing issue, not an employment law issue</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="3"> Only the company&rsquo;s internal grievance procedure &mdash; external channels open only after internal remedies are exhausted</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q2" value="0"> The CCMA</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="1"> The Information Regulator</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="2"> The Department of Basic Education</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q2" value="3"> Internal grievance only &mdash; external channels open only after internal remedies are exhausted</label>
           </div>
           <div class="quiz-feedback" id="m5qf-2"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">4. An AI recruitment tool scores applicants&rsquo; &ldquo;future performance,&rdquo; personality, and culture fit. What should the employer ask before relying on it?</div>
+          <div class="quiz-opts" id="m5_q3_opts">
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m5_q3" value="0"> Whether the assessment is valid, reliable, fair, non-biased, job-relevant, and appropriately governed &mdash; not merely efficient or vendor-approved</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q3" value="1"> Whether the tool has been approved by the vendor and integrates with the existing ATS</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q3" value="2"> Whether average scores across the full applicant pool are within a normal distribution</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m5_q3" value="3"> Whether candidates are informed that their responses are being recorded</label>
+          </div>
+          <div class="quiz-feedback" id="m5qf-3"></div>
         </div>
 
         <div id="quiz-m5-submit-wrap">
@@ -443,7 +564,7 @@
         <button id="quiz-m5-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Apply &rarr;</button>
 
         <div class="phase-nav">
-          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'les4')">&larr; Back to reading</button>
         </div>
 
       </div><!-- /ps-2-quiz -->
@@ -484,7 +605,7 @@
             <div class="funda-apply-step__num">1</div>
             <div style="flex:1;">
               <div class="funda-apply-step__name">TASK &mdash; What is the AI being used for? Is this the right use, and is it being used correctly?</div>
-              <div style="font-size:0.85em; color:var(--muted);">What decision is the ATS making or influencing? What does &ldquo;no human reviews CVs before shortlist&rdquo; mean for accountability? What would the correct use of AI in this recruitment process look like?</div>
+              <div style="font-size:0.85em; color:var(--muted);">What decision is this system making or materially influencing? Is automatic exclusion appropriate for this task? What should happen immediately while the complaint is investigated? Should Meridian continue unchanged, limit use, require human review, suspend automatic rejection, or pause the tool entirely?</div>
               <textarea id="app-1" rows="4" placeholder="The ATS is being used to... The absence of human review means... The correct use would look like..."></textarea>
             </div>
           </div>
@@ -492,15 +613,15 @@
             <div class="funda-apply-step__num">2</div>
             <div style="flex:1;">
               <div class="funda-apply-step__name">DATA &mdash; What data is the ATS using? What proxies might be encoding race?</div>
-              <div style="font-size:0.85em; color:var(--muted);">What CV data does an ATS typically use? Which of those fields are proxies for race in the SA context? Which law applies to this data processing?</div>
-              <textarea id="app-2" rows="4" placeholder="The ATS likely uses... In SA, the proxies for race in CV data include... The relevant law is..."></textarea>
+              <div style="font-size:0.85em; color:var(--muted);">What applicant data, metadata, and proxy variables might influence the result? Consider: university/school attended, postcode/location, home language, employment gaps, prior salary, name, referral source, work-history patterns, device or application-source data. Which may reflect unequal access, historical opportunity, or protected characteristics? What information must be preserved for audit? Do not assume removing a direct race field removes the need for fairness or privacy review.</div>
+              <textarea id="app-2" rows="4" placeholder="The ATS may use&hellip; In SA, proxies that could reflect protected characteristics or unequal opportunity include&hellip; What must be preserved is&hellip;"></textarea>
             </div>
           </div>
           <div class="funda-apply-step">
             <div class="funda-apply-step__num">3</div>
             <div style="flex:1;">
-              <div class="funda-apply-step__name">TOOL &mdash; What type of AI is this? Why is training on historical hiring data in SA structurally biased?</div>
-              <div style="font-size:0.85em; color:var(--muted);">What kind of model underlies an ATS scoring system? What was it trained on? Why does training on Meridian&rsquo;s historical hires create structural bias in the SA context?</div>
+              <div class="funda-apply-step__name">TOOL &mdash; What type of AI is this? What should Meridian ask about validity and fairness?</div>
+              <div style="font-size:0.85em; color:var(--muted);">Is this tool only administering applications, or is it assessing suitability, personality, future performance, or &ldquo;fit&rdquo;? Why might training on historical hiring data create fairness risk in the South African context? What assumptions, labels, historical patterns, or proxy variables could be carried into the model? What evidence of validity, reliability, fairness, and job relevance should Meridian require?</div>
               <textarea id="app-3" rows="4" placeholder="The ATS is a ranking/classification model that... It was trained on... In SA, this creates structural bias because..."></textarea>
             </div>
           </div>
@@ -623,15 +744,17 @@ function submitQuizM5() {
   var allAnswered = true;
   var wrongCount = 0;
   var explanations = [
-    { ok: 'Correct. University attended is a facially neutral criterion that in SA correlates with race due to apartheid-era education policy: historically Black universities served Black students while historically white universities served white students. When an AI scores graduates from these institutions differently, it produces racially discriminatory outcomes through a neutral-looking criterion. This is indirect unfair discrimination under EEA Section 6. The employer cannot defend it simply by saying &ldquo;university quality differs&rdquo; &mdash; the burden is on the employer to prove the criterion is not discriminatory or that the discrimination is fair.',
-      no: 'Direct discrimination requires the AI to use race explicitly as an input &mdash; it doesn\'t here. &ldquo;Historical success patterns&rdquo; is the most common employer defence, but the EEA specifically prohibits indirect discrimination: neutral criteria that produce discriminatory outcomes. The employer bears the burden to prove the criterion is not discriminatory. PEPUDA applies to non-employment contexts; EEA is the lex specialis for employment decisions. The correct answer is indirect unfair discrimination under EEA Section 6.' },
-    { ok: 'Correct. POPIA Section 71 gives every data subject the right not to be subject to a consequential decision based solely on automated processing, and the right to make representations before the decision is finalised. This applies directly to Lerato\'s situation: an ATS made an employment decision about her with no human review. POPIA Section 71 creates a legal obligation for Meridian to either: provide human review before the decision, or clearly disclose that automated processing was used and give her a right to contest.',
-      no: 'EEA Section 6 is the right tool for challenging the discrimination itself &mdash; but not the automated decision right. EEA Section 27 is about employer equity plan reporting requirements, not candidate rights. The statement that no SA law requires human review is wrong: POPIA Section 71 creates exactly this requirement for consequential automated decisions. Both POPIA Section 71 (automated decision right) and EEA Section 6 (discrimination) are relevant here &mdash; POPIA 71 is the specific right to request human review.' },
-    { ok: 'Correct. The CCMA has jurisdiction over unfair labour practices and unfair discrimination claims, including recruitment discrimination &mdash; it does handle EEA Section 6 complaints. The South African Human Rights Commission can investigate systemic discrimination affecting a class of candidates. The Labour Court handles more complex cases and can award significant damages and order mandatory audits. Additionally, the Information Regulator is available for POPIA-specific complaints (denial of access to processing information). Candidates do not need to exhaust internal remedies before accessing the CCMA or SAHRC.',
-      no: 'The CCMA does handle unfair discrimination complaints &mdash; including EEA Section 6 employment discrimination. The Information Regulator is relevant for POPIA issues specifically, but the employment discrimination itself falls under the CCMA and Labour Court. There is no requirement to exhaust internal remedies before accessing the CCMA or SAHRC for discrimination complaints. Multiple channels are available simultaneously.' }
+    { ok: 'Correct. When training data reflects historical hiring patterns, the model may learn proxies linked to protected characteristics &mdash; such as university attended, which in SA can correlate with unequal educational opportunity historically shaped by race. Whether this constitutes unlawful indirect discrimination requires evidence and a contextual fairness assessment. The right first step is investigation, not a conclusion.',
+      no: 'Direct discrimination requires the tool to use race explicitly as an input. &ldquo;Historical success patterns&rdquo; is a common employer position, but neutral criteria that produce unequal effects linked to a listed ground may raise indirect-unfair-discrimination concerns under EEA Section 6. PEPUDA applies to non-employment contexts. The most accurate conclusion is that the pattern may raise a concern and should be investigated.' },
+    { ok: 'Correct. POPIA section 71 may be engaged where a decision with legal consequences or that substantially affects a person is based solely on automated processing of personal information for profiling, without meaningful human involvement. It is not triggered simply by any use of an online portal or any digital process &mdash; the conditions of section 71 must be met.',
+      no: 'POPIA section 71 is not triggered by any online or digital recruitment process. Its conditions are specific: solely automated processing, for profiling, with legal consequences or substantial effect. The employee-size threshold in that option relates to designated employers under the EEA, not POPIA section 71. The statement that no law is relevant is incorrect &mdash; section 71 may apply when all conditions are present.' },
+    { ok: 'Correct. The CCMA is commonly used to start unfair-labour-practice and unfair-discrimination disputes. Depending on the type of claim, earnings threshold, and other factors, the matter may proceed to arbitration or to the Labour Court. Other channels &mdash; SAHRC, Information Regulator, Department of Employment and Labour &mdash; may also be relevant depending on the nature of the complaint.',
+      no: 'The Information Regulator handles data-protection complaints under POPIA, not employment-discrimination disputes. The Department of Basic Education is not an employment-dispute forum. There is no requirement to exhaust internal remedies before accessing the CCMA for unfair discrimination claims. The CCMA is the most common starting point for employment discrimination disputes.' },
+    { ok: 'Correct. Where an AI tool functions like an assessment of personality, suitability, ability, communication, future performance, or &ldquo;fit,&rdquo; EEA section 8 requires employers to ask whether it is valid, reliable, fair, and non-biased &mdash; and appropriately certified or governed. Vendor approval and ATS integration confirm usability, not fairness. Average score distribution does not address whether the tool produces equitable outcomes across groups. Informing candidates is good practice but not the primary governance question.',
+      no: 'Vendor approval and ATS integration address usability, not validity or fairness. Average score distribution does not reveal whether outcomes are equitable across different groups. Candidate notification is good practice but not the primary governance check. EEA section 8 requires employers to ask whether the assessment is valid, reliable, fair, non-biased, and job-relevant &mdash; not merely whether it is approved and working.' }
   ];
 
-  [0,1,2].forEach(function(i) {
+  [0,1,2,3].forEach(function(i) {
     var sel = document.querySelector('input[name="m5_q' + i + '"]:checked');
     var fb = document.getElementById('m5qf-' + i);
     if (!sel) { allAnswered = false; return; }
@@ -654,7 +777,7 @@ function submitQuizM5() {
   });
 
   var errEl = document.getElementById('quiz-m5-err');
-  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 3 questions before checking.'; return; }
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 4 questions before checking.'; return; }
   errEl.style.display = 'none';
   if (wrongCount === 0) {
     document.getElementById('quiz-m5-submit-wrap').style.display = 'none';

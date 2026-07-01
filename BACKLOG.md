@@ -2,7 +2,7 @@
 
 Items that require external action, outreach, production work, or legal/operational decisions. These stay here until resolved — do not delete until confirmed complete.
 
-Last updated: June 2026
+Last updated: July 2026
 
 ---
 
@@ -15,34 +15,39 @@ Last updated: June 2026
 
 ---
 
-## Critical — Must resolve before public launch
+## URGENT — Cohort 1 launches August 1 (4 weeks)
+
+Cohort 1 has a real corporate client. Invoice due July 29. These must be resolved before learners arrive.
+
+| # | Item | Owner | Effort | Blocks |
+|---|------|-------|--------|--------|
+| U1 | **Domain categorization submission** — submit `afriversal.ai` and `app.afriversal.ai` to Cisco Umbrella, Zscaler, McAfee SiteAdvisor, Fortiguard. Takes 24–72hrs to propagate. Corporate learners on enterprise networks will hit "Web Page Blocked" without this (already happened with mom's UniFi). `.com` would reduce risk long-term but submit `.ai` now. | Thando | 1–2 hrs | All corporate learner access |
+| U2 | **Corporate learner flow smoke test** — log in as a provisioned corporate learner, navigate M0–M6 + M7-corporate, confirm access code works, confirm signing is complete, confirm progress tracking. End-to-end walkthrough, not a code review. This is the dress rehearsal before the real cohort shows up. | Thando | 1–2 hrs | Proving the product works for the paying client |
+| U3 | **Confirm Formspree endpoints are live** — verify form IDs in `register.html` and `contact.html` are the real live endpoints, not dev placeholders. New registrations from the cohort landing must reach you. | Thando | 15 min | Registration + contact forms |
+| U4 | **Welcome video** — mom records a 2–3 min founder intro on her phone. Script is already in `course-outline.html`. Thando uploads and embeds in the course landing page. This is the first thing the paying cohort sees. | Mom + Thando | 2 hrs | First impression |
+| U5 | **Lead follow-up process** — confirm who owns inbound form replies, write a 3-sentence response template, confirm the 2-business-day SLA is achievable with current capacity. Cohort 1 client is live — inbound must not go cold. | Thando | 1 hr | Lead conversion and client comms |
+
+---
+
+## Critical — Before public launch
 
 | # | Item | Owner | Effort | Blocks |
 |---|------|-------|--------|--------|
 | C1 | **CIPC trademark check on "AfriversalAI"** — search cipc.co.za to confirm name is available before investing further in brand | Thando | 15 min | Everything |
-| C2 | **Terms of service + refund policy** — needed before any payment is taken; at minimum: refund window, what happens if learner fails capstone, cohort cancellation policy | Thando | Half day (draft) | Payments going live |
-| C3 | **Named SA educator or practitioner to co-validate curriculum** — someone with standing in SA adult education or AI policy who can speak to the "African-centered" claim; their name should appear on the site or course outline | Thando | Outreach + relationship | Credibility with L&D buyers; council raised this as Critical |
+| C2 | **Terms of service adequacy check** — `terms.html` exists; verify it covers: refund window, what happens if a learner fails the capstone, cohort cancellation policy, and B2B vs consumer terms distinction. The corporate contract (MSA, SOW) is in the publication system — this is about the individual learner-facing T&C. | Thando | Half day (review) | Payments going live at scale |
+| C3 | **Named SA educator or practitioner to co-validate curriculum** — someone with standing in SA adult education or AI policy whose name appears on the site or course outline. Council flagged this as critical for credibility with L&D buyers who will ask "who validated this?" | Thando | Outreach + relationship | Credibility with enterprise buyers |
 
 ---
 
-## Major — Fix before Cohort 1
+## Major — Before Cohort 2
 
 | # | Item | Owner | Effort | Blocks |
 |---|------|-------|--------|--------|
-| M1 | **Formative assessment checkpoints (Modules 1–5)** — brief check-in activity at end of each module before the capstone (not just a quiz — should be a short written judgment prompt that the assessor can see) | Both | Curriculum sprint | Pedagogical soundness |
-| M2 | **Record welcome video** — script already exists in course-outline.html; short (2–3 min) founder intro from mom, recorded on phone is fine for pilot | Mom (+ Thando for upload) | 2 hrs production | First impression for registrants |
-| M3 | **Named external pilot partner** — at least one organisation that isn't friends/family who has agreed to send learners; L&D manager name and org name preferred | Thando | Outreach | Credibility; needed to test the team registration flow with a real client |
-| M4 | **Assessor governance document** — who does the capstone assessment, what are their qualifications, what is the moderation process if a learner disputes a grade | Thando | Half day (light doc) | Certificate integrity; SETA accreditation prep |
-| M5 | **Lead follow-up process** — response template for registration form submissions, confirm who owns replies, confirm 2-business-day SLA is achievable | Thando | 1 hr | Lead conversion |
-| M6 | **Local facilitator pathway** — in the 12-month plan, is there a pathway to train local facilitators? Needed for scale; relevant for SETA accreditation | Both | Roadmap doc | 12-month plan credibility |
-
----
-
-## Content — Future modules
-
-| # | Item | Owner | Effort | Notes |
-|---|------|-------|--------|-------|
-| CM1 | **Module 7: Sector-specific module** — one additional module per sector trajectory (Healthcare, Finance, HR, Public Sector, etc.) bringing total to 8 modules per cohort; this is what makes the B2B sector pitch credible — learners get a module that speaks directly to their job | Both | Major content sprint | Not blocking Cohort 1; build before Cohort 2 |
+| M1 | **Module 7 formatting parity** — all 5 sector variants (corporate, education, finance, government, healthcare) exist with real content but are not formatted to match M0–M6 (progress tracker, phase structure, nav style). Need a format pass to bring them in line. | Both | Design sprint (1–2 sessions) | Professional look for the paying cohort's sector module |
+| M2 | **Formative assessment checkpoints (M1–M6)** — brief written judgment prompts at end of each module that an assessor can review, before the capstone. Module content reviews (M1, M4 done; M5, M6 pending) are separate — this is about adding the assessor-visible checkpoint artifact. | Both | Curriculum sprint | Pedagogical soundness; SETA accreditation |
+| M3 | **Module 5 + 6 content reviews** — M1 and M4 went through Ntando's full brief process (M4 was an 854-line doc + full remediation sprint). M5 and M6 need the same treatment before they're at the same standard. | Mom + Thando | 2 × curriculum sprints | Course quality parity across all modules |
+| M4 | **Assessor governance document** — who does the capstone assessment, what are their qualifications, what is the moderation process if a learner disputes a grade | Thando | Half day | Certificate integrity; SETA accreditation prep |
+| M5 | **Local facilitator pathway** — in the 12-month plan, is there a pathway to train local facilitators? Needed for scale and SETA accreditation narrative | Both | Roadmap doc | 12-month credibility |
 
 ---
 
@@ -50,21 +55,18 @@ Last updated: June 2026
 
 | # | Item | Owner | Effort | Notes |
 |---|------|-------|--------|-------|
-| ~~T4~~ | ~~**Deploy `tutor-review` Edge Function**~~ — **DONE.** Confirmed live: POST returns 401 (auth required), not 404. Tutor feedback is active for logged-in M1 learners. | — | — | Done |
-| T3 | **Domain categorization submission** — `.ai` TLD is treated as uncategorized by many corporate content filters (UniFi, Cisco Umbrella, Zscaler, Palo Alto etc.), causing "Web Page Blocked" on strict enterprise/government networks. Submit `afriversal.ai` and `app.afriversal.ai` to the major categorization portals: Cisco Umbrella (umbrella.com), Zscaler, McAfee SiteAdvisor, Fortiguard. Takes 24–72hrs to propagate. Do this before first corporate pilot demo. Note: switching primary to `afriversalai.com` would reduce (not eliminate) the risk since `.com` has higher default trust — worth considering before Series A / government pilots. | Thando | 1–2 hrs submission | Must do before first corporate pilot |
-| ~~T2~~ | ~~**DocuSign migration**~~ — **SUPERSEDED.** Mom built in-house fillable in-document signing (`partner-sign-inline.js`) — partners sign all 5 docs directly in-browser, captured and archived to Supabase Storage. Legally grounded under ECTA 25 of 2002. Revisit only if a major enterprise client's procurement team specifically requires a named third-party provider. | — | — | No longer blocking |
-| ~~T1~~ | ~~**Knowledge check answer persistence**~~ — **DONE** (commit b24b5fb). Mom shipped localStorage persistence for M1, M4, M5, M6 free-text answers. M0, M2, M3 still use in-memory only — low priority since those are shorter phases. | — | — | Done |
+| T1 | **Answer persistence for M2, M3, M7 variants** — `initAnswerPersistence` was added to M1/M4/M5/M6 by mom. M2, M3, and the 5 M7-sector variants still use in-memory only (answers clear on nav). Low priority since those phases are shorter, but worth adding before Cohort 2. | Claude | 1 hr | Answer persistence parity |
+| T2 | **DEPLOY.md cleanup** — `supabase/DEPLOY.md` shows `tutor-review` as not deployed (stale). Also confirm whether `admin-provision-user` and `admin-create-user` are both needed or one is superseded. | Thando | 30 min | Documentation accuracy |
 
 ---
 
-## Minor — Do before going fully public
+## Minor — Before going fully public
 
 | # | Item | Owner | Effort | Blocks |
 |---|------|-------|--------|--------|
-| mn1 | **Multilingual content translations** — i18n architecture is implemented (EN/AF/FR/ZU nav and UI strings); full body content translations (module text, course outline) need native speaker review | Thando | Translator outreach | Full multilingual claim |
-| mn2 | **Formspree endpoint confirmation** — confirm the Formspree form IDs in register.html and contact.html are the correct live endpoints (not placeholders) | Thando | 15 min | Forms working in production |
-| mn3 | **SETA accreditation application** — begin formal MICT SETA accreditation application; SDL rebate claim on pricing page is pending this | Both | Weeks–months (external process) | SETA rebate for corporate learners |
-| mn4 | **Course-outline.html PDF version** — L&D buyers will want to download/print the stakeholder document; PDF export or print stylesheet needed | Thando | Half day | B2B sales process |
+| mn1 | **Multilingual content translations** — i18n architecture is implemented; M1, M4, and all M7 sector content (heavily revised or new) needs native speaker translation for AF/FR/ZU before the language switcher is promoted | Thando | Translator outreach | Full multilingual claim |
+| mn2 | **SETA accreditation application** — begin formal MICT SETA accreditation application; SDL rebate claim on pricing page is pending this. First step is QCTO Letter of Intent. | Both | Weeks–months (external process) | SETA rebate for corporate learners |
+| mn3 | **Course-outline.html PDF version** — L&D buyers want to download/print the stakeholder document; PDF export or print stylesheet needed | Thando | Half day | B2B sales process |
 
 ---
 
@@ -72,12 +74,27 @@ Last updated: June 2026
 
 | # | Item | Owner | Effort | Notes |
 |---|------|-------|--------|-------|
-| RD1 | **CITATIONS.md — source tracking log** — create a single file that logs every statistic, case study, and external claim used across the course and marketing pages. Each entry: the claim, the source, validation status (confirmed / qualified / unverified), where it appears in the course, and any evidence-tier notes (e.g. synthetic profiles, methodology caveats). Purpose: instant response when a pilot client or L&D buyer asks "where does that number come from?" Known entries to seed it with: 37% gender penalty (Dzreke & Dzreke 2025 — validated, synthetic audit profiles), 1.4M Microsoft SA training figure, 5–15% self-paced completion rate, Vumacam SA deployment docs. | Thando | Half day to seed; ongoing | Credibility with B2B buyers; legal/compliance due diligence |
+| RD1 | **CITATIONS.md — source tracking log** — single file logging every statistic, case study, and external claim used across the course and marketing pages. Each entry: claim, source, validation status (confirmed / qualified / unverified), where it appears, evidence-tier notes. Seed with: 37% gender penalty (Dzreke & Dzreke 2025 — validated, synthetic audit profiles), 1.4M Microsoft SA training figure, 5–15% self-paced completion rate, Vumacam SA deployment docs. Purpose: instant response when a pilot client asks "where does that number come from?" | Thando | Half day to seed; ongoing | Credibility with B2B buyers; legal/compliance |
+
+---
+
+## Done / Superseded
+
+| # | Item | Notes |
+|---|------|-------|
+| T-old | Knowledge check answer persistence (M1/M4/M5/M6) | Done — commit b24b5fb |
+| T-old | DocuSign migration | Superseded — mom built in-house signing (`partner-sign-inline.js`), ECTA 2002 compliant |
+| T-old | Deploy `tutor-review` Edge Function | Done — confirmed ACTIVE; all 9 Edge Functions live |
+| T-old | Module engine extraction (T6) | Done — 234 lines removed from modules, 6 functions in `module-engine.js` |
+| CM1 | Module 7 sector-specific modules | Done — all 5 variants shipped (corporate, education, finance, government, healthcare); need formatting pass (see M1 above) |
+| M-old | Named external pilot partner | Done — Cohort 1 corporate client confirmed (invoice issued, August 1 start date) |
 
 ---
 
 ## Notes
 
-- **SETA disclaimer** is already live on pricing.html and certificate.html — both say "application in preparation, SDL rebate pending accreditation approval." This language is correct and protects you until accreditation is confirmed.
-- **Privacy policy** is live and POPIA-compliant (Section 18 + Section 72 cross-border transfer notice for Formspree). Review annually or if data practices change.
-- **Module 0 (AI Fundamentals)** is now live and free — no registration required. This addresses council feedback about assuming too much AI foundation from learners.
+- **SETA disclaimer** is live on `pricing.html` and `certificate.html` — correct language until accreditation is confirmed.
+- **Privacy policy** is live and POPIA-compliant. Review annually.
+- **Module 0** is live and free — no registration required.
+- **Corporate workflow** is live end-to-end: signing (6 publication docs), tax invoice, POP upload, admin approval, access code provisioning.
+- **Partner workflow** is live: signup, opportunity registration, commission tiers (Y1/Y2/Y3+), commission statement, corporate invoices in partner view.
