@@ -21,6 +21,10 @@
     .cp-wrap { max-width:1180px; margin:28px auto; padding:0 24px 64px; }
     .cp-denied { max-width:520px; margin:80px auto; background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:40px; text-align:center; box-shadow:var(--shadow-md); }
     .cp-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:28px 30px; }
+    .cp-layout { display:grid; grid-template-columns:minmax(0,1fr) 344px; gap:26px; align-items:start; }
+    .cp-side { position:sticky; top:16px; }
+    .cp-side .cp-card { padding:18px 20px; }
+    @media (max-width:980px){ .cp-layout{ grid-template-columns:1fr; } .cp-side{ position:static; } }
   </style>
 </head>
 <body>
@@ -45,10 +49,8 @@
 <div id="cp-portal" class="cp-wrap" style="display:none;">
   <div class="eyebrow" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);">Corporate Dashboard</div>
   <h1 id="cp-greeting" style="color:var(--green-dark);margin:6px 0 8px;">Welcome</h1>
-  <div id="cp-code" style="margin:0 0 18px;"></div>
-  <div class="cp-card" id="cp-overview" style="margin-bottom:20px;"></div>
-  <div class="cp-card" id="cp-docstatus" style="margin-bottom:24px;"></div>
-
+  <div class="cp-layout">
+  <div class="cp-main">
   <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Your Programme Administrator</div>
   <div class="cp-card" style="margin-bottom:24px;">
     <p style="color:var(--muted);font-size:.9em;line-height:1.6;margin:0 0 12px;">Every programme must appoint a <strong>Programme Administrator</strong> &mdash; your L&amp;D / HR contact who runs the programme day-to-day and is AfriversalAI&rsquo;s primary operational contact. Confirm yours below. See <a href="publication-014.html" style="color:var(--green-mid);font-weight:700;">Publication 014 &mdash; Programme Administration Guide</a>.</p>
@@ -60,19 +62,18 @@
     <span id="pa-msg" style="font-size:.84em;margin-left:10px;"></span>
   </div>
 
-  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Procurement &amp; Legal</div>
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">A &middot; Contract Documents &mdash; Signature Required</div>
   <div class="cp-card" style="margin-bottom:20px;">
-    <p style="color:var(--muted);font-size:.86em;line-height:1.6;margin:0 0 8px;">Your details are pre-filled and AfriversalAI&rsquo;s side is auto-signed. Complete your fields, sign, and a signed PDF is emailed to you and saved here.</p>
+    <p style="color:var(--muted);font-size:.86em;line-height:1.6;margin:0 0 8px;">These form the legal agreement. Your details are pre-filled and AfriversalAI&rsquo;s side is auto-signed &mdash; complete your fields, sign, and a signed PDF is emailed to you and saved here.</p>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 010 &mdash; Master Services Agreement</div><div style="font-size:.8em;color:var(--muted);">The master agreement for all enterprise learning services.</div></div><a href="corporate-contract.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 011 &mdash; Commercial Schedule</div><div style="font-size:.8em;color:var(--muted);">Pricing, licensing and payment terms.</div></div><a href="publication-011.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 012 &mdash; Statement of Work</div><div style="font-size:.8em;color:var(--muted);">How your programme is delivered, governed and measured.</div></div><a href="publication-012.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 009 &mdash; Service Level Agreement</div><div style="font-size:.8em;color:var(--muted);">Availability, support, response times, reporting.</div></div><a href="publication-009.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 005 &mdash; Mutual Non-Disclosure Agreement</div><div style="font-size:.8em;color:var(--muted);">Confidentiality between you and AfriversalAI.</div></div><a href="mnda.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 008 &mdash; Data Processing &amp; Privacy Addendum (POPIA)</div><div style="font-size:.8em;color:var(--muted);">Data-protection terms for learner personal information.</div></div><a href="publication-008.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
     <p style="font-size:.78em;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--border);padding-top:10px;">Company registration: <strong>2026/492783/07</strong> &middot; VAT and Tax Clearance available on request &middot; Banking (EFT) details appear on every invoice.</p>
   </div>
 
-  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Programme Implementation</div>
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">C &middot; Operational Guides &mdash; Reference (no signature)</div>
   <div class="cp-card" style="margin-bottom:20px;">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;"><div><div style="font-weight:700;color:var(--green-dark);">Publication 004 &mdash; Customer Implementation Guide</div><div style="font-size:.8em;color:var(--muted);">Your onboarding roadmap and implementation journey.</div></div><a href="publication-004.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 014 &mdash; Programme Administration Guide</div><div style="font-size:.8em;color:var(--muted);">For your Programme Administrator (L&amp;D / HR).</div></div><a href="publication-014.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
@@ -80,11 +81,19 @@
     <p style="font-size:.78em;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--border);padding-top:10px;">Your Implementation Plan and Live Session Calendar are set out in your Statement of Work (Publication 012).</p>
   </div>
 
-  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Governance</div>
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">B &middot; Governing Policies &mdash; Acknowledged via the MSA</div>
   <div class="cp-card" style="margin-bottom:20px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;"><div><div style="font-weight:700;color:var(--green-dark);">Publication 007 &mdash; Acceptable Use Policy</div><div style="font-size:.8em;color:var(--muted);">Rules protecting the platform, content, assessments and brand.</div></div><a href="publication-007.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 016 &mdash; Certification, Assessment &amp; Credentialing Policy</div><div style="font-size:.8em;color:var(--muted);">What certificates mean; verification and revocation.</div></div><a href="publication-016.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 017 &mdash; Intellectual Property, Brand &amp; Innovation Policy</div><div style="font-size:.8em;color:var(--muted);">Ownership, licensing and brand-use terms.</div></div><a href="publication-017.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <p style="color:var(--muted);font-size:.86em;line-height:1.6;margin:0 0 8px;">You accept these policies through the Master Services Agreement &mdash; <strong>no separate signature required</strong>. Open to review at any time.</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 009 &mdash; Service Level Agreement</div><div style="font-size:.8em;color:var(--muted);">Availability, support, response times, reporting.</div></div><a href="publication-009.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 007 &mdash; Acceptable Use Policy</div><div style="font-size:.8em;color:var(--muted);">Rules protecting the platform, content, assessments and brand.</div></div><a href="publication-007.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 016 &mdash; Certification, Assessment &amp; Credentialing Policy</div><div style="font-size:.8em;color:var(--muted);">What certificates mean; verification and revocation.</div></div><a href="publication-016.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 017 &mdash; Intellectual Property, Brand &amp; Innovation Policy</div><div style="font-size:.8em;color:var(--muted);">Ownership, licensing and brand-use terms.</div></div><a href="publication-017.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+  </div>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">D &middot; Frameworks &amp; Thought Leadership &mdash; Reference</div>
+  <div class="cp-card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;"><div><div style="font-weight:700;color:var(--green-dark);">Publication 006 &mdash; Enterprise AI Capability Framework&trade;</div><div style="font-size:.8em;color:var(--muted);">The strategic framework behind your programme &mdash; part of what you&rsquo;re buying.</div></div><a href="publication-006.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <p style="font-size:.78em;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--border);padding-top:10px;">Further frameworks (AI Governance, Adoption &amp; Change, Benefits Realisation) form part of your programme and are provided during delivery.</p>
   </div>
 
   <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Executive</div>
@@ -105,14 +114,20 @@
     </ul>
   </div>
 
-  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Invoices &amp; payment</div>
-  <div id="cp-invoices" style="margin-bottom:24px;"></div>
-
-  <div class="cp-card">
-    <h2 style="color:var(--green-dark);font-size:1.0em;margin:0 0 10px;">EFT / banking details</h2>
-    <div id="cp-bank" style="font-size:.88em;color:var(--text);line-height:1.9;"></div>
-    <p style="font-size:.78em;color:var(--muted);margin:12px 0 0;">Use your <strong>invoice number</strong> as the payment reference. After paying, upload your proof of payment against the invoice above.</p>
-  </div>
+  </div><!-- /cp-main -->
+  <aside class="cp-side">
+    <div id="cp-code" style="margin:0 0 14px;"></div>
+    <div class="cp-card" id="cp-overview" style="margin-bottom:16px;"></div>
+    <div class="cp-card" id="cp-docstatus" style="margin-bottom:16px;"></div>
+    <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:6px 0 8px;">Invoices &amp; payment</div>
+    <div id="cp-invoices" style="margin-bottom:16px;"></div>
+    <div class="cp-card">
+      <h2 style="color:var(--green-dark);font-size:1.0em;margin:0 0 10px;">EFT / banking details</h2>
+      <div id="cp-bank" style="font-size:.86em;color:var(--text);line-height:1.9;"></div>
+      <p style="font-size:.78em;color:var(--muted);margin:12px 0 0;">Use your <strong>invoice number</strong> as the payment reference. After paying, upload proof of payment against the invoice above.</p>
+    </div>
+  </aside>
+  </div><!-- /cp-layout -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>

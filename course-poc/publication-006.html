@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Publication 006 — Enterprise AI Capability Framework™ — AfriversalAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+:root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+.doc-top a,.doc-top button{color:#fff;text-decoration:none;opacity:.9;background:none;border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:5px 12px;font-family:inherit;font-size:.95em;cursor:pointer;}
+.wrap{max-width:900px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:44px 56px;}
+@media(max-width:640px){.pad{padding:28px 22px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:64px 56px;text-align:center;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.3em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:18px auto 22px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:2.1em;font-weight:700;margin:0 0 10px;}
+.cover .subtitle{color:var(--gold);font-weight:600;font-style:italic;}
+.cover .meta{margin-top:24px;display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:40px 22px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;margin:30px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.1em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.02em;font-weight:800;margin:22px 0 6px;}
+h2.sec .num{color:var(--gold-dark);}
+p{margin:8px 0;font-size:.93em;}
+.lead{color:var(--muted);font-size:.95em;}
+ul,ol{margin:8px 0 8px 22px;font-size:.92em;}li{margin:3px 0;}
+.quote{background:var(--gold-light);border-left:4px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:14px 18px;margin:12px 0;font-size:.95em;color:var(--green-dark);font-style:italic;}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+@media(max-width:640px){.pillars{grid-template-columns:1fr;}}
+.pillar{background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius);padding:14px 16px;font-size:.9em;}
+.pillar b{color:var(--green-dark);display:block;margin-bottom:4px;}
+.funda{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.funda span{background:var(--green-dark);color:#fff;border-radius:20px;padding:5px 14px;font-size:.82em;font-weight:700;}
+.tbl{width:100%;border-collapse:collapse;font-size:.87em;margin:10px 0;}
+.tbl th{background:var(--green-dark);color:#fff;text-align:left;padding:8px 10px;font-size:.84em;}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border);}
+.tbl tr:nth-child(even) td{background:#FAFBFB;}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:.86em;margin:14px 0;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .k{color:var(--muted);min-width:150px;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 006 — Enterprise AI Capability Framework&trade;</span><span><button onclick="dlPdf()">&#11015; Download PDF</button> &nbsp; <a href="corporate-portal.html">&larr; Portal</a></span></div></div>
+
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Corporate access only</h1><p class="lead">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in</a> to view this Framework.</p></div></div></div>
+
+<div id="cc-body" class="wrap" style="display:none;">
+<div class="paper" id="cc-paper">
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div><hr class="rule"/>
+    <h1>Enterprise AI Capability Framework&trade;</h1>
+    <div class="subtitle">A strategic framework for responsible AI adoption, workforce capability and organisational transformation.</div>
+    <div class="meta"><span>Publication AAI-P006</span><span>Official Enterprise Publication</span><span>Version 1.0</span></div>
+  </div>
+  <div class="pad">
+  <div class="dc"><div style="font-weight:800;color:var(--green-dark);margin-bottom:4px;">Document Control</div>
+    <div class="dcgrid"><div><span class="k">Publication</span> AAI-P006</div><div><span class="k">Version</span> 1.0</div><div><span class="k">Classification</span> Official Enterprise Publication</div><div><span class="k">Owner</span> Strategy, Curriculum &amp; Research</div><div><span class="k">Approval</span> Executive Leadership</div><div><span class="k">Review</span> Annual</div></div>
+  </div>
+
+  <div class="partband"><div class="pk">Part I</div><div class="pt">Why AI Capability Matters</div></div>
+  <h2 class="sec"><span class="num">1.</span> Executive Summary</h2>
+  <p>Artificial Intelligence is changing how organisations operate, compete, innovate and deliver value. Technology alone, however, does not create successful AI adoption. Organisations require capable leaders, informed employees, effective governance, practical skills and a culture of continuous learning. The AfriversalAI Enterprise AI Capability Framework&trade; provides a structured approach for developing these capabilities across the workforce.</p>
+  <h2 class="sec"><span class="num">2.</span> The AI Opportunity</h2>
+  <p>AI can help organisations improve productivity, support better decision-making, enhance customer experiences, automate repetitive work, strengthen innovation, improve knowledge management and support workforce development. Realising these opportunities requires investment in people as well as technology.</p>
+  <h2 class="sec"><span class="num">3.</span> The AI Challenge</h2>
+  <p>Many organisations face inconsistent AI knowledge, low confidence in AI use, governance uncertainty, concerns about privacy and ethics, uneven adoption across departments and limited internal capability. Without a structured approach, AI initiatives may struggle to deliver sustainable value.</p>
+
+  <div class="partband"><div class="pk">Part II</div><div class="pt">The AfriversalAI Framework</div></div>
+  <h2 class="sec"><span class="num">5.</span> What is AI Capability?</h2>
+  <div class="quote">The organisational ability to understand, evaluate, govern and responsibly apply artificial intelligence in ways that improve decision-making, operational effectiveness and long-term business performance.</div>
+  <p>AI capability is broader than technical proficiency. It includes leadership, judgement, governance, culture and continuous learning.</p>
+  <h2 class="sec"><span class="num">6.</span> The Five Capability Pillars</h2>
+  <div class="pillars">
+    <div class="pillar"><b>1. AI Literacy</b>A shared understanding of AI concepts, terminology, opportunities and limitations across the workforce.</div>
+    <div class="pillar"><b>2. Human Judgement</b>Critical thinking so employees evaluate AI outputs rather than relying on them unquestioningly.</div>
+    <div class="pillar"><b>3. Responsible AI &amp; Governance</b>Ethical, accountable and policy-aligned use of AI throughout the organisation.</div>
+    <div class="pillar"><b>4. Workplace Application</b>Integrating AI into daily work in practical, secure and productive ways.</div>
+    <div class="pillar"><b>5. Continuous Capability Development</b>Capability evolves with the technology through ongoing learning and improvement.</div>
+  </div>
+  <h2 class="sec"><span class="num">7.</span> The Funda Five&trade; Learning Methodology</h2>
+  <p>The Framework is delivered using the proprietary Funda Five&trade; methodology, moving learners beyond knowledge acquisition toward practical workplace application and professional judgement:</p>
+  <div class="funda"><span>1. Understand</span><span>2. Question</span><span>3. Apply</span><span>4. Reflect</span><span>5. Lead</span></div>
+  <h2 class="sec"><span class="num">8.</span> AI Capability Maturity Model</h2>
+  <table class="tbl"><thead><tr><th>Level</th><th>Description</th></tr></thead><tbody>
+    <tr><td>1 — Aware</td><td>AI awareness is emerging; use is informal and inconsistent.</td></tr>
+    <tr><td>2 — Developing</td><td>Employees are building foundational skills and common understanding.</td></tr>
+    <tr><td>3 — Enabled</td><td>AI is used confidently in defined processes with appropriate governance.</td></tr>
+    <tr><td>4 — Integrated</td><td>AI capability is embedded across functions and supported by leadership and policy.</td></tr>
+    <tr><td>5 — Transforming</td><td>AI is part of culture, continuous improvement and strategic decision-making.</td></tr>
+  </tbody></table>
+
+  <div class="partband"><div class="pk">Part III</div><div class="pt">Building an AI-Capable Organisation</div></div>
+  <h2 class="sec"><span class="num">9.</span> Leadership</h2>
+  <p>Executive leaders define strategic direction, sponsor capability-building, model responsible AI use, allocate resources and monitor progress and outcomes.</p>
+  <h2 class="sec"><span class="num">10.</span> Workforce</h2>
+  <p>An AI-capable workforce understands AI fundamentals, applies critical judgement, uses AI responsibly, collaborates effectively and continuously develops new skills.</p>
+  <h2 class="sec"><span class="num">11.</span> Governance</h2>
+  <p>Effective governance addresses accountability, policy, privacy, security, risk management, ethical decision-making and regulatory compliance.</p>
+  <h2 class="sec"><span class="num">12.</span> Technology</h2>
+  <p>Technology should enable &mdash; not drive &mdash; transformation. Select AI solutions that align with business objectives, governance standards and workforce capability.</p>
+  <h2 class="sec"><span class="num">13.</span> Continuous Improvement</h2>
+  <p>Review AI capability regularly through learning analytics, capability assessments, employee feedback, executive reviews and organisational performance indicators.</p>
+
+  <div class="partband"><div class="pk">Part IV</div><div class="pt">Implementation</div></div>
+  <h2 class="sec"><span class="num">14.</span> The Enterprise AI Journey</h2>
+  <ol><li>Assess current capability.</li><li>Define strategic objectives.</li><li>Develop leadership alignment.</li><li>Build workforce AI literacy.</li><li>Establish governance.</li><li>Embed AI into business processes.</li><li>Measure outcomes.</li><li>Expand and continuously improve.</li></ol>
+  <h2 class="sec"><span class="num">15.</span> Measuring Success</h2>
+  <p>Evaluate progress using workforce participation, capability assessment results, completion rates, confidence in AI use, governance adoption, business-process improvements and employee feedback.</p>
+  <h2 class="sec"><span class="num">16.</span> Benefits Realisation</h2>
+  <p>Expected benefits: increased workforce confidence; more informed decision-making; stronger AI governance; improved productivity; reduced risk; enhanced innovation; greater organisational readiness for AI adoption.</p>
+  <h2 class="sec"><span class="num">17.</span> Next Steps</h2>
+  <p>The Framework is applied through AfriversalAI programmes, executive workshops, governance initiatives and ongoing workforce development. Review progress periodically and refine your AI capability roadmap as priorities evolve.</p>
+
+  <div class="partband"><div class="pk">Appendices</div><div class="pt">Assessment &amp; Planning Tools</div></div>
+  <h2 class="sec"><span class="num"></span> Appendix A — Enterprise AI Capability Assessment</h2>
+  <p class="lead">A self-assessment questionnaire to establish current maturity across the five capability pillars.</p>
+  <h2 class="sec"><span class="num"></span> Appendix B — AI Capability Roadmap Template</h2>
+  <p class="lead">A planning template for strategic priorities, initiatives, milestones, owners and target maturity levels.</p>
+  <h2 class="sec"><span class="num"></span> Appendix C — Executive Discussion Guide</h2>
+  <p class="lead">Facilitated discussion questions for executive teams on AI strategy, governance, workforce readiness and change.</p>
+  <h2 class="sec"><span class="num"></span> Appendix D — Capability Maturity Scorecard</h2>
+  <p class="lead">A scorecard for tracking progress over time, supporting executive reporting and annual reviews.</p>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script>
+  function dlPdf(){ if(window.html2pdf){ html2pdf().set({margin:[10,10,12,10],filename:'AfriversalAI-AI-Capability-Framework.pdf',image:{type:'jpeg',quality:0.9},html2canvas:{scale:1.3,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}}).from(document.getElementById('cc-paper')).save(); } }
+  (async function gate(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'corporate-login.html'; return; }
+    if (await isCorporate((s.user && s.user.email) || '')) { document.getElementById('cc-body').style.display = 'block'; }
+    else { document.getElementById('cc-denied').style.display = 'block'; }
+  })();
+</script>
+</body>
+</html>
