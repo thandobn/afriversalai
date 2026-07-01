@@ -241,6 +241,9 @@
   <div class="section-label" style="margin-top:28px;">Commission statement</div>
   <div id="pp-statement"></div>
 
+  <div class="section-label" style="margin-top:28px;">Invoices &amp; commission payments</div>
+  <div id="pp-finance"></div>
+
   <div class="section-label" style="margin-top:28px;">Registered opportunities</div>
   <div id="pp-opportunities"></div>
 
@@ -323,9 +326,35 @@ var _oppsByCustomer = {};
 var _custMap = {};
 var _oppModalCid = null;
 
+function _fMoney(n){ return 'R ' + (Number(n)||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function _fBadge(kind){
+  var m = { paid:['#D1FAE5','#065F46','PAID'], pop:['#DBEAFE','#1E40AF','POP uploaded'], await:['#FEF3C7','#92400E','Awaiting payment'], payable:['#FEF3C7','#92400E','Payable'] }[kind] || ['#E5E7EB','#374151',kind];
+  return '<span style="background:'+m[0]+';color:'+m[1]+';padding:3px 10px;border-radius:999px;font-size:.78em;font-weight:700;">'+m[2]+'</span>';
+}
+async function loadPartnerFinance(email){
+  var box = document.getElementById('pp-finance'); if(!box) return;
+  if(!email){ box.innerHTML = '<p style="font-size:.86em;color:var(--muted);">Invoices and commission payments will appear here for your corporate deals.</p>'; return; }
+  var invs=[], pays=[];
+  try { invs=(await _supabase.from('invoices').select('*').eq('partner_email',email).order('issued_at',{ascending:false})).data||[]; } catch(e){}
+  try { pays=(await _supabase.from('partner_payments').select('*').eq('partner_email',email).order('created_at',{ascending:false})).data||[]; } catch(e){}
+  var html = '<div style="font-size:.8em;font-weight:800;color:var(--green-dark);margin:4px 0 8px;">Corporate invoices</div>';
+  html += invs.length
+    ? '<table class="ctable"><thead><tr><th>Invoice</th><th>Corporate</th><th>Total</th><th>Status</th></tr></thead><tbody>'
+      + invs.map(function(i){ return '<tr><td>'+(i.invoice_number||'')+'</td><td>'+(i.corporate_email||'')+'</td><td>'+_fMoney(i.total)+'</td><td>'+_fBadge(i.status==='paid'?'paid':(i.pop_path?'pop':'await'))+'</td></tr>'; }).join('')
+      + '</tbody></table>'
+    : '<p style="font-size:.84em;color:var(--muted);">No invoices yet.</p>';
+  html += '<div style="font-size:.8em;font-weight:800;color:var(--green-dark);margin:18px 0 8px;">Your commission payments</div>';
+  html += pays.length
+    ? '<table class="ctable"><thead><tr><th>Corporate</th><th>Commission</th><th>Status</th><th>Paid</th></tr></thead><tbody>'
+      + pays.map(function(c){ return '<tr><td>'+(c.corporate_email||'')+'</td><td>'+_fMoney(c.amount)+'</td><td>'+_fBadge(c.status==='paid'?'paid':'payable')+'</td><td>'+(c.paid_at?new Date(c.paid_at).toLocaleDateString('en-ZA'):'—')+'</td></tr>'; }).join('')
+      + '</tbody></table>'
+    : '<p style="font-size:.84em;color:var(--muted);">No commission due yet — commissions are recorded when a corporate invoice is paid, and payable within 15 days of cleared funds.</p>';
+  box.innerHTML = html;
+}
 async function renderAll(){
   var p = await loadPartner();
   _currentPartner = p;
+  loadPartnerFinance(p && p.email);
 
   var opps = [];
   try { opps = await loadOpportunities(); } catch(e) {}
