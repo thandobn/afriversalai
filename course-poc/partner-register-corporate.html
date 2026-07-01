@@ -262,6 +262,29 @@ async function submitCorporate(){
     return;
   }
   btn.disabled=false; btn.textContent='Submit cohort for approval & generate access code';
+
+  // Also create a Corporate entity (Pending) so it lands in the admin approval
+  // queue — approving it provisions the Corporate Portal login + issues the invoice.
+  try {
+    var _s = await getSession();
+    var _pEmail = _s && _s.user && _s.user.email ? _s.user.email : null;
+    var _cEmail = (document.getElementById('rc-email').value.trim() || '').toLowerCase();
+    if (_pEmail && _cEmail) {
+      await _supabase.from('corporates').upsert({
+        company_name: name,
+        contact_name: document.getElementById('rc-contact').value.trim() || null,
+        email: _cEmail,
+        partner_email: _pEmail,
+        organisation_id: co.id || null,
+        sector: document.getElementById('rc-sector').value || null,
+        seats: seats,
+        price_per_seat: parseFloat(document.getElementById('rc-price').value) || null,
+        status: 'pending',
+        created_by: 'partner'
+      }, { onConflict: 'email', ignoreDuplicates: true });
+    }
+  } catch (e) { /* non-blocking — cohort is already created */ }
+
   RC_NEW_CODE = co.code || '';
   document.getElementById('rc-new-code').textContent = RC_NEW_CODE;
   document.getElementById('rc-success').style.display='block';
