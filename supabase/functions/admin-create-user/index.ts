@@ -52,7 +52,7 @@ Deno.serve(async (req) => {
   const password = b.password || "";
   if (!email) return json({ error: "Missing email" }, 400);
   if (password && password.length < 8) return json({ error: "Password must be at least 8 characters" }, 400);
-  if (["learner", "partner", "facilitator", "admin"].indexOf(role) === -1) return json({ error: "Invalid role" }, 400);
+  if (["learner", "partner", "facilitator", "admin", "corporate"].indexOf(role) === -1) return json({ error: "Invalid role" }, 400);
 
   // 1. Create the auth user (email pre-confirmed so they can sign in / set a password).
   const createOpts: Record<string, unknown> = { email, email_confirm: true, user_metadata: { full_name: fullName } };
@@ -91,6 +91,15 @@ Deno.serve(async (req) => {
     await admin.from("facilitators").upsert({ email, full_name: fullName || null }, { onConflict: "email", ignoreDuplicates: false });
   } else if (role === "admin") {
     await admin.from("admins").upsert({ email }, { onConflict: "email", ignoreDuplicates: true });
+  } else if (role === "corporate") {
+    // Corporate row is normally created by the partner; approve it (preserving its
+    // details), or create a minimal one if approving directly.
+    const { data: existingCorp } = await admin.from("corporates").select("email").eq("email", email).maybeSingle();
+    if (existingCorp) {
+      await admin.from("corporates").update({ status: "approved", approved_at: new Date().toISOString() }).eq("email", email);
+    } else {
+      await admin.from("corporates").insert({ email, company_name: fullName || email, contact_name: fullName || null, status: "approved", approved_at: new Date().toISOString() });
+    }
   }
 
   // 4. If no password was set, return a set-password link to email them.

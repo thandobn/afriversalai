@@ -356,6 +356,10 @@
       <strong>Organisations table not ready.</strong> Run <code>course-poc/supabase-partner-migration.sql</code> in the Supabase SQL Editor to enable corporate cohort creation and access codes.
     </div>
 
+    <div class="adm-bar"><h2>Corporate accounts &mdash; approval</h2><span class="adm-sub" id="corp-acc-count"></span></div>
+    <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 14px; max-width:760px;">Corporate entities created by partners land here as <strong>Pending</strong>. Approving one provisions the Corporate Portal login (credentials emailed), issues an invoice, and emails the invoice + EFT/banking details to the corporate manager for payment.</p>
+    <div id="corp-accounts" style="margin-bottom:34px;"></div>
+
     <div class="adm-bar"><h2>Onboard a corporate (direct sale)</h2></div>
     <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 16px; max-width:700px;">Create a cohort for a corporate you've sold directly. This generates a unique <strong>access code</strong> their staff enter at registration to be linked to this cohort. Partner-sourced deals are created by the partner in their portal &mdash; those appear in the list below marked with the partner's email.</p>
 
@@ -1002,7 +1006,7 @@ function switchTab(name) {
     if (btn) btn.classList.toggle('is-active', t === name);
   });
   if (name === 'partners') loadPartnersData();
-  if (name === 'corporates') loadCorporates();
+  if (name === 'corporates') { loadCorporates(); loadCorporateAccounts(); }
 }
 
 async function loadPartnersData() {
@@ -1253,6 +1257,7 @@ async function initAdmin() {
   loadPartnersData(); // populate the Partners tab + applications badge in the background
   renderCohortRegs(); // live Layer 3 cohort opt-ins
   loadCorporates();   // corporate cohorts list (admin-created + partner-sourced)
+  loadCorporateAccounts();   // corporate entity accounts (approval)
 }
 
 // ---------- Corporate cohorts (admin-created direct sales) ----------
@@ -1298,6 +1303,78 @@ function coCardHtml(co, enrolled) {
     '<button class="co-toggle" onclick="toggleAdminMembers(this,\'' + escapeHtml(co.id) + '\')">View members &rarr;</button>' +
     '<div class="co-members" id="cm-' + escapeHtml(co.id) + '" style="display:none;"></div>' +
     '</div>';
+}
+
+function genCorpPass() { var c = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'; var a = new Uint32Array(12); (window.crypto || window.msCrypto).getRandomValues(a); var p = ''; for (var i = 0; i < 12; i++) p += c[a[i] % c.length]; return p; }
+
+async function loadCorporateAccounts() {
+  var box = document.getElementById('corp-accounts'); if (!box) return;
+  var rows = [];
+  try { rows = (await _supabase.from('corporates').select('*').order('created_at', { ascending: false })).data || []; }
+  catch (e) { box.innerHTML = '<p style="color:var(--muted);font-size:.86em;">Corporates table not found. Run <code>supabase-corporate-migration.sql</code>.</p>'; return; }
+  var cnt = document.getElementById('corp-acc-count'); if (cnt) cnt.textContent = rows.length ? (rows.length + ' corporate' + (rows.length === 1 ? '' : 's')) : '';
+  if (!rows.length) { box.innerHTML = '<p style="color:var(--muted);font-size:.86em;">No corporates yet. Partners create these from their portal; approved ones get Corporate Portal access.</p>'; return; }
+  box.innerHTML = rows.map(function (c) {
+    var pending = c.status === 'pending';
+    var pill = pending ? '<span class="pill pill--new">Pending</span>' : ((c.status === 'approved' || c.status === 'active') ? '<span class="pill pill--approved">Approved</span>' : '<span class="pill">' + escapeHtml(c.status || '') + '</span>');
+    var amt = (Number(c.seats) || 0) * (Number(c.price_per_seat) || 0);
+    var id = encodeURIComponent(c.email);
+    return '<div class="co-card" style="border-left-color:' + (pending ? '#C9A227' : 'var(--green-mid)') + ';">'
+      + '<div class="co-card__head"><div><div class="co-card__name">' + escapeHtml(c.company_name || '—') + '</div>'
+      + '<div class="co-card__sub">' + escapeHtml(c.contact_name || '') + (c.contact_role ? ' &middot; ' + escapeHtml(c.contact_role) : '') + ' &middot; ' + escapeHtml(c.email) + (c.partner_email ? ' &middot; partner: ' + escapeHtml(c.partner_email) : '') + '</div></div>' + pill + '</div>'
+      + (pending
+        ? '<div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;">'
+          + '<div><label class="co-lbl" for="corpamt-' + id + '">Invoice total (R, incl. 15% VAT)</label>'
+          + '<input id="corpamt-' + id + '" class="co-inp" style="width:210px;" type="number" value="' + (amt || '') + '" placeholder="e.g. 149950" /></div>'
+          + '<button class="btn btn--primary btn--sm" onclick="approveCorporateAccount(\'' + escapeHtml(c.email) + '\')">Approve &rarr; send access + invoice</button></div>'
+        : '<div style="margin-top:8px;font-size:.82em;color:var(--muted);">Approved' + (c.approved_at ? ' ' + new Date(c.approved_at).toLocaleDateString('en-ZA') : '') + ' &middot; portal access + invoice emailed.</div>')
+      + '<div id="corpmsg-' + id + '" style="font-size:.84em;margin-top:8px;"></div></div>';
+  }).join('');
+}
+
+async function approveCorporateAccount(email) {
+  var id = encodeURIComponent(email);
+  var msg = document.getElementById('corpmsg-' + id);
+  var say = function (t, ok) { if (msg) { msg.innerHTML = t; msg.style.color = ok ? 'var(--green-dark)' : '#DC2626'; } };
+  say('Approving…', true);
+  var corp;
+  try { corp = (await _supabase.from('corporates').select('*').eq('email', email).maybeSingle()).data; } catch (e) {}
+  if (!corp) { say('Corporate record not found.', false); return; }
+  var totalInput = document.getElementById('corpamt-' + id);
+  var total = Number(totalInput && totalInput.value) || 0;
+
+  // 1. Provision the Corporate Portal account (generated password).
+  var pass = genCorpPass();
+  var r = await adminCreateUser({ email: email, role: 'corporate', full_name: corp.contact_name || corp.company_name, password: pass });
+  if (r.reason === 'not_configured' || r.reason === 'unreachable') { say('Couldn’t reach the create-user function — deploy it first.', false); return; }
+  if (!r.ok && !(r.error && /already/i.test(r.error))) { say(r.error || 'Could not provision the account.', false); return; }
+
+  // 2. Email the Corporate Portal login credentials.
+  if (window.afSendEmail && window.afEmail) {
+    try { await afSendEmail(afEmail.accountCredentials({ name: corp.contact_name || corp.company_name, email: email, password: pass, role: 'corporate', roleLabel: 'corporate' })); } catch (e) {}
+  }
+
+  // 3. Issue the invoice (total incl. 15% VAT → back-compute subtotal/VAT).
+  var sub = total ? +(total / 1.15).toFixed(2) : 0;
+  var vat = +(total - sub).toFixed(2);
+  var invNo = 'AAI-INV-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-6);
+  try {
+    await _supabase.from('invoices').insert({
+      invoice_number: invNo, corporate_email: email, partner_email: corp.partner_email || null,
+      organisation_id: corp.organisation_id || null, description: 'AfriversalAI training — ' + (corp.company_name || ''),
+      amount: sub, vat: vat, total: total, status: 'issued', created_by: 'admin'
+    });
+  } catch (e) {}
+
+  // 4. Email the invoice + EFT/banking details to the manager.
+  if (window.afSendEmail && window.afEmail) {
+    try { await afSendEmail(afEmail.corporateInvoice({ company: corp.company_name, contact: corp.contact_name, email: email, invoiceNumber: invNo, description: 'AfriversalAI training — ' + (corp.company_name || ''), amount: sub, vat: vat, total: total, currency: 'R' })); } catch (e) {}
+  }
+
+  // 5. Mark approved.
+  try { await _supabase.from('corporates').update({ status: 'approved', approved_at: new Date().toISOString() }).eq('email', email); } catch (e) {}
+  say('✓ Approved. Login credentials + invoice ' + invNo + ' emailed to ' + escapeHtml(email) + '.', true);
+  setTimeout(loadCorporateAccounts, 1200);
 }
 
 async function loadCorporates() {
