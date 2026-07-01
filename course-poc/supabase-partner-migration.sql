@@ -116,7 +116,7 @@ create policy "Admins read all customers"
 --    One row per (partner, document). Unique constraint enables upsert / re-sign.
 create table if not exists partner_signatures (
   id            uuid default gen_random_uuid() primary key,
-  partner_email text not null references partners(email) on delete cascade,
+  partner_email text not null,   -- signer email (partner OR corporate); no FK so corporates can sign
   doc_key       text not null,   -- any publication key (e.g. corporate-contract, mnda, sow, dpa, charter…)
   signer_name   text not null,
   capacity      text,
