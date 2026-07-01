@@ -31,7 +31,12 @@
     mnda: { title: 'Enterprise Mutual Non-Disclosure Agreement (Publication 005)', file: 'mnda.html' },
     'commercial-schedule': { title: 'Enterprise Commercial Schedule (Publication 011)', file: 'publication-011.html' },
     sow: { title: 'Enterprise Statement of Work (Publication 012)', file: 'publication-012.html' },
-    sla: { title: 'Enterprise Service Level Agreement (Publication 009)', file: 'publication-009.html' }
+    sla: { title: 'Enterprise Service Level Agreement (Publication 009)', file: 'publication-009.html' },
+    dpa: { title: 'Data Processing &amp; Privacy Addendum (Publication 008)', file: 'publication-008.html' },
+    aup: { title: 'Acceptable Use Policy (Publication 007)', file: 'publication-007.html' },
+    'cert-policy': { title: 'Certification, Assessment &amp; Credentialing Policy (Publication 016)', file: 'publication-016.html' },
+    'ip-policy': { title: 'Intellectual Property, Brand &amp; Innovation Policy (Publication 017)', file: 'publication-017.html' },
+    'partner-agreement-002': { title: 'Enterprise Partner Agreement (Publication 002)', file: 'publication-002.html' }
   };
 
   var docKey = window.AF_SIGN_DOC;

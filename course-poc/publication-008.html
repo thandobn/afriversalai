@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Publication 008 — Data Processing &amp; Privacy Addendum — AfriversalAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+:root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+.doc-top a{color:#fff;text-decoration:none;opacity:.85;}
+.wrap{max-width:900px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:44px 56px;}
+@media(max-width:640px){.pad{padding:28px 22px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:58px 56px;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.2em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:18px 0 22px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:1.9em;font-weight:700;margin:0 0 6px;}
+.cover .subtitle{color:var(--gold);font-weight:600;}
+.cover .meta{margin-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:36px 22px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;margin:30px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.1em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.02em;font-weight:800;margin:22px 0 6px;}
+h2.sec .num{color:var(--gold-dark);}
+p{margin:8px 0;font-size:.93em;}
+.lead{color:var(--muted);font-size:.95em;}
+ul{margin:8px 0 8px 22px;font-size:.92em;}li{margin:3px 0;}
+.fill{display:inline-block;min-width:150px;border-bottom:1px solid var(--gold-dark);color:var(--ink);}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0;}
+@media(max-width:640px){.roles{grid-template-columns:1fr;}}
+.role{background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius);padding:14px 16px;font-size:.9em;}
+.role b{color:var(--green-dark);}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:.86em;margin:14px 0;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .k{color:var(--muted);min-width:130px;display:inline-block;}
+.sigwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px;}
+@media(max-width:640px){.sigwrap{grid-template-columns:1fr;}}
+.sigblock{border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+.party__h{background:var(--green-dark);color:#fff;font-weight:700;padding:12px 18px;}
+.sigbody{padding:16px 18px;}
+.sigrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.sigrow .lbl{width:108px;flex-shrink:0;color:var(--muted);font-weight:600;font-size:.86em;}
+.sigrow .sline{flex:1;border-bottom:1.5px solid var(--border);min-height:1.4em;}
+</style>
+</head>
+<body>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 008 — Data Processing &amp; Privacy Addendum</span><a href="corporate-portal.html">&larr; Corporate Portal</a></div></div>
+
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Corporate access only</h1><p class="lead">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in</a> to view this Addendum.</p></div></div></div>
+
+<div id="cc-body" class="wrap" style="display:none;">
+<div class="paper">
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div><hr class="rule"/>
+    <h1>Data Processing &amp; Privacy Addendum</h1>
+    <div class="subtitle">Protection of Personal Information (POPIA) &mdash; <span class="af-cname">The Customer</span></div>
+    <div class="meta"><span>Publication AAI-P008</span><span>Official Publication · Confidential</span><span>Version 1.0</span><span>Linked: AAI-P010</span></div>
+  </div>
+  <div class="pad">
+  <p class="lead">Issued under Publication AAI-P010 (Enterprise Master Services Agreement). This Addendum governs the processing of Personal Information in connection with AfriversalAI&rsquo;s enterprise learning services.</p>
+
+  <div class="dc"><div style="font-weight:800;color:var(--green-dark);margin-bottom:4px;">Document Control</div>
+    <div class="dcgrid"><div><span class="k">Publication</span> AAI-P008</div><div><span class="k">Version</span> 1.0</div><div><span class="k">Classification</span> Official Publication</div><div><span class="k">Effective Date</span> 1 July 2026</div><div><span class="k">Review</span> Annual</div><div><span class="k">Linked MSA</span> AAI-P010</div></div>
+  </div>
+
+  <div class="partband"><div class="pk">Part A</div><div class="pt">Introduction</div></div>
+  <h2 class="sec"><span class="num">1.</span> Purpose</h2>
+  <p>This Data Processing &amp; Privacy Addendum (&ldquo;DPA&rdquo;) forms part of the Enterprise Master Services Agreement and establishes the obligations of the Parties regarding the processing of Personal Information in connection with AfriversalAI&rsquo;s enterprise learning services. The Parties intend that all processing of Personal Information be undertaken lawfully, fairly, securely and transparently, in accordance with applicable data-protection legislation.</p>
+  <h2 class="sec"><span class="num">2.</span> Scope</h2>
+  <p>This DPA applies whenever AfriversalAI processes Personal Information relating to learners, programme administrators, customer representatives, facilitators, executive sponsors or other authorised users in connection with the Services.</p>
+  <h2 class="sec"><span class="num">3.</span> Applicable Legislation</h2>
+  <p>Processing complies with applicable legislation, including where relevant: the Protection of Personal Information Act, 2013 (POPIA); the Electronic Communications and Transactions Act; the Promotion of Access to Information Act; and any applicable data-protection legislation in jurisdictions where Services are delivered.</p>
+  <h2 class="sec"><span class="num">4.</span> Roles</h2>
+  <div class="roles"><div class="role"><b>Customer</b><br>normally acts as the <b>Responsible Party</b>.</div><div class="role"><b>AfriversalAI</b><br>normally acts as the <b>Operator</b>, unless otherwise agreed.</div></div>
+
+  <div class="partband"><div class="pk">Part B</div><div class="pt">Personal Information</div></div>
+  <h2 class="sec"><span class="num">5.</span> Categories of Personal Information</h2>
+  <p>Examples include: name; surname; business email; business telephone; department; job title; employee number; organisation; learning progress; assessment results; certificate number; Member ID. Only information reasonably necessary for delivery of the Services is processed.</p>
+  <h2 class="sec"><span class="num">6.</span> Processing Activities</h2>
+  <p>AfriversalAI may process Personal Information for: learner registration; authentication; Access Code management; programme delivery; assessments; certification; reporting; customer support; audit records; compliance; and security.</p>
+  <h2 class="sec"><span class="num">7.</span> Special Personal Information</h2>
+  <p>AfriversalAI does not intentionally require Special Personal Information for ordinary programme delivery. If it becomes necessary for a particular engagement, the Parties will ensure an appropriate lawful basis exists before processing.</p>
+  <h2 class="sec"><span class="num">8.</span> Cross-Border Processing</h2>
+  <p>Where Personal Information is transferred across national borders, AfriversalAI takes reasonable steps to ensure appropriate safeguards are in place and that applicable legal requirements are observed.</p>
+
+  <div class="partband"><div class="pk">Part C</div><div class="pt">Security &amp; Lifecycle</div></div>
+  <h2 class="sec"><span class="num">9.</span> Security Measures</h2>
+  <p>AfriversalAI maintains reasonable administrative, organisational and technical safeguards designed to protect Personal Information against unauthorised access, accidental disclosure, alteration, destruction and misuse. Safeguards may include access controls, authentication, encryption where appropriate, secure hosting, monitoring and staff confidentiality obligations.</p>
+  <h2 class="sec"><span class="num">10.</span> Access Control</h2>
+  <p>Access is limited to authorised personnel who require it to perform their responsibilities, with appropriate authentication and role-based permissions.</p>
+  <h2 class="sec"><span class="num">11.</span> Retention</h2>
+  <p>Personal Information is retained only for as long as reasonably necessary to deliver the Services, maintain certification records, comply with legal obligations, resolve disputes or enforce contractual rights. Retention periods may differ by record type and legal requirement.</p>
+  <h2 class="sec"><span class="num">12.</span> Deletion</h2>
+  <p>Subject to legal or contractual obligations, Personal Information is securely deleted or anonymised following expiry of the applicable retention period or on a valid Customer request.</p>
+  <h2 class="sec"><span class="num">13.</span> Security Incidents &amp; Breaches</h2>
+  <p>Where AfriversalAI becomes aware of a Personal Information security incident affecting Customer data, it will investigate and, where required by law or contract, notify the Customer without undue delay, including where reasonably available a description of the incident, the categories of information affected, the likely impact, and actions taken or proposed.</p>
+
+  <div class="partband"><div class="pk">Part D</div><div class="pt">Responsibilities &amp; Rights</div></div>
+  <h2 class="sec"><span class="num">14.</span> Customer Responsibilities</h2>
+  <p>The Customer is responsible for ensuring it has an appropriate lawful basis to provide learner information; ensuring Personal Information supplied is accurate; informing learners where required; obtaining any necessary permissions or consents; and maintaining the security of its own systems.</p>
+  <h2 class="sec"><span class="num">15.</span> AfriversalAI Responsibilities</h2>
+  <p>AfriversalAI will process Personal Information only for authorised purposes; implement reasonable security measures; ensure personnel are subject to confidentiality obligations; cooperate with reasonable data-protection requests; and assist, where appropriate, with lawful requests from data subjects.</p>
+  <h2 class="sec"><span class="num">16.</span> Learner Rights</h2>
+  <p>Where applicable under law, learners may have rights to access, correction, deletion (where legally permissible), objection to certain processing, and complaint to the relevant regulator. Requests are directed through the appropriate Customer contact or AfriversalAI privacy contact.</p>
+  <h2 class="sec"><span class="num">17.</span> Subprocessors</h2>
+  <p>AfriversalAI may engage trusted third-party service providers to support delivery, and remains responsible for ensuring such subprocessors are bound by appropriate confidentiality and data-protection obligations.</p>
+  <h2 class="sec"><span class="num">18.</span> Confidentiality</h2>
+  <p>Any person authorised to process Personal Information on behalf of AfriversalAI is subject to appropriate confidentiality obligations.</p>
+
+  <div class="partband"><div class="pk">Part E</div><div class="pt">Legal</div></div>
+  <h2 class="sec"><span class="num">19.</span> Liability</h2>
+  <p>Each Party remains responsible for its own compliance with applicable data-protection laws. Nothing in this DPA limits liability where such limitation would be prohibited by law.</p>
+  <h2 class="sec"><span class="num">20.</span> Audit &amp; Compliance</h2>
+  <p>Upon reasonable notice and where appropriate to verify compliance, the Parties may cooperate in responding to reasonable information requests relating to data-protection practices, subject to confidentiality, security and legal restrictions.</p>
+  <h2 class="sec"><span class="num">21.</span> Governing Law</h2>
+  <p>This DPA is governed by the laws of the Republic of South Africa unless otherwise agreed in writing.</p>
+
+  <h2 class="sec"><span class="num">22.</span> Signatures</h2>
+  <div class="sigwrap">
+    <div class="sigblock"><div class="party__h">AfriversalAI (Pty) Ltd</div><div class="sigbody">
+      <div class="sigrow"><span class="lbl">Name</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Title</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Signature</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Date</span><span class="sline"></span></div>
+    </div></div>
+    <div class="sigblock"><div class="party__h">The Customer</div><div class="sigbody">
+      <div class="sigrow"><span class="lbl">Organisation</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Representative</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Title</span><span class="sline"></span></div>
+      <div class="sigrow"><span class="lbl">Date</span><span class="sline"></span></div>
+    </div></div>
+  </div>
+
+  <h2 class="sec"><span class="num"></span> Appendix A — Data Categories Register</h2>
+  <table class="tbl"><thead><tr><th>Category</th><th>Examples</th><th>Purpose</th><th>Retention</th></tr></thead><tbody>
+    <tr><td>Identity</td><td>Name, surname, employee number</td><td>Enrolment, certification</td><td>Duration + 5 years</td></tr>
+    <tr><td>Contact</td><td>Business email, telephone</td><td>Authentication, support</td><td>Duration + 5 years</td></tr>
+    <tr><td>Organisational</td><td>Department, job title, organisation</td><td>Cohort grouping, reporting</td><td>Duration + 5 years</td></tr>
+    <tr><td>Learning</td><td>Progress, assessment results, Member ID, certificate no.</td><td>Delivery, certification, verification</td><td>Certification records: 7 years</td></tr>
+  </tbody></table>
+  <h2 class="sec"><span class="num"></span> Appendix B — Data Retention Schedule</h2>
+  <table class="tbl"><thead><tr><th>Record type</th><th>Retention period</th></tr></thead><tbody>
+    <tr><td>Account &amp; contact data</td><td>Programme duration + 5 years</td></tr>
+    <tr><td>Certification &amp; assessment records</td><td>7 years (verification)</td></tr>
+    <tr><td>Support &amp; incident logs</td><td>3 years</td></tr>
+    <tr><td>Billing records</td><td>As required by law</td></tr>
+  </tbody></table>
+  <h2 class="sec"><span class="num"></span> Appendix C — Security Incident Notification Template</h2>
+  <table class="tbl"><thead><tr><th>Field</th><th>Detail</th></tr></thead><tbody>
+    <tr><td>Incident reference</td><td>&nbsp;</td></tr><tr><td>Date/time detected</td><td>&nbsp;</td></tr><tr><td>Categories of data affected</td><td>&nbsp;</td></tr><tr><td>Likely impact</td><td>&nbsp;</td></tr><tr><td>Actions taken / proposed</td><td>&nbsp;</td></tr>
+  </tbody></table>
+  <h2 class="sec"><span class="num"></span> Appendix D — Cross-Border Data Transfer Register</h2>
+  <table class="tbl"><thead><tr><th>Data</th><th>Destination</th><th>Safeguard</th></tr></thead><tbody>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+  </tbody></table>
+  <h2 class="sec"><span class="num"></span> Appendix E — Subprocessor Register</h2>
+  <table class="tbl"><thead><tr><th>Subprocessor</th><th>Purpose</th><th>Location</th></tr></thead><tbody>
+    <tr><td>Cloud hosting &amp; database</td><td>Platform hosting, learner records</td><td>Managed cloud infrastructure</td></tr>
+    <tr><td>Email delivery</td><td>Transactional email</td><td>Managed email provider</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+  </tbody></table>
+
+  <div style="max-width:900px;margin:8px auto 0;"><div id="af-sign"></div></div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script src="assets/esign.js"></script>
+<script src="assets/email.js"></script>
+<script>
+  window.AF_SIGN_DOC = 'dpa';
+  (async function gate(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'corporate-login.html'; return; }
+    if (await isCorporate((s.user && s.user.email) || '')) {
+      document.getElementById('cc-body').style.display = 'block';
+      var sc = document.createElement('script'); sc.src = 'assets/partner-sign-inline.js'; document.body.appendChild(sc);
+    } else { document.getElementById('cc-denied').style.display = 'block'; }
+  })();
+</script>
+</body>
+</html>
