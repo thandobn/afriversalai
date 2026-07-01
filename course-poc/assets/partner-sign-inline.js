@@ -26,7 +26,8 @@
   var DOCS = {
     nda: { title: 'Mutual Non-Disclosure Agreement', file: 'partner-docs/nda.html' },
     agreement: { title: 'Enterprise Partner Agreement', file: 'partner-docs/agreement.html' },
-    schedule: { title: 'Partner Commercial Schedule', file: 'partner-docs/commercial-schedule.html' }
+    schedule: { title: 'Partner Commercial Schedule', file: 'partner-docs/commercial-schedule.html' },
+    'corporate-contract': { title: 'Corporate Services Agreement', file: 'corporate-contract.html' }
   };
 
   var docKey = window.AF_SIGN_DOC;
@@ -347,7 +348,12 @@
 
     var btn = document.getElementById('afs-submit'); btn.disabled = true; btn.textContent = 'Recording signature…';
     try { await savePartnerSignature(docKey, rec); }
-    catch (ex) { fail('Could not record your signature. Please make sure you are signed in as a partner and try again.'); btn.disabled = false; btn.textContent = 'Sign & submit →'; return; }
+    catch (ex) { fail('Could not record your signature. Please make sure you are signed in and try again.'); btn.disabled = false; btn.textContent = 'Sign & submit →'; return; }
+
+    // Corporate contract: flag the corporate as contract-signed.
+    if (docKey === 'corporate-contract') {
+      try { var _cs = await getSession(); if (_cs && _cs.user) await _supabase.from('corporates').update({ contract_signed: true }).eq('email', (_cs.user.email || '').toLowerCase()); } catch (e) {}
+    }
 
     lockFills();                         // freeze the completed fields into the document
     autoSignAfriversal(fmtDate(rec.ts)); // counter-sign AfriversalAI's side automatically
