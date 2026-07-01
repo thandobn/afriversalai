@@ -53,6 +53,13 @@
   // Absolute URL so the real logo renders in any email client (hard-coded to the
   // production host, not the sending page's origin).
   var LOGO_URL = 'https://app.afriversal.ai/assets/logo.png';
+  // AfriversalAI EFT / banking details (for invoices + payment instructions).
+  var AF_BANK = {
+    holder: 'AFRIVERSALAI (PTY) LTD', reg: '2026/492783/07', bank: 'First National Bank (FNB)',
+    accountType: 'Gold Business Account', accountNo: '63216149096', branchCode: '250655',
+    branchName: 'FNB Remote Banking', swift: 'FIRNZAJJ'
+  };
+  window.AF_BANK = AF_BANK;
   function wrap(title, bodyHtml) {
     return '<div style="font-family:Inter,Arial,sans-serif;max-width:560px;margin:0 auto;color:#1A1A2E;">' +
       '<div style="text-align:center;padding:6px 0 18px;">' +
@@ -101,17 +108,21 @@
       return { to: p.email, subject: 'Set your password — AfriversalAI', html: wrap('Welcome to AfriversalAI', body) };
     },
     accountCredentials: function (p) {
-      var isPartner = (p.role === 'partner' || p.roleLabel === 'partner');
-      var signin = isPartner ? (BASE + '/partner-login.html') : (BASE + '/login.html');
-      var roleLabel = p.roleLabel || 'account';
+      var role = p.role || p.roleLabel || '';
+      var isCorp = role === 'corporate';
+      var isPartner = role === 'partner';
+      var signin = isCorp ? (BASE + '/corporate-login.html') : (isPartner ? (BASE + '/partner-login.html') : (BASE + '/login.html'));
+      var portalLabel = isCorp ? 'Open the Corporate Portal' : (isPartner ? 'Open the Partner Portal' : 'Sign in');
+      var portalName = isCorp ? 'Corporate Portal ' : (isPartner ? 'Partner Portal ' : '');
+      var roleLabel = p.roleLabel || role || 'account';
       var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
-        '<p>An AfriversalAI ' + roleLabel + ' account has been created for you. You can sign in now using the details below:</p>' +
+        '<p>An AfriversalAI ' + roleLabel + ' account has been created for you. You can sign in to your ' + (portalName || 'account').trim() + ' now using the details below:</p>' +
         '<p style="background:#F3F4F6;border:1px solid #E5E7EB;border-radius:8px;padding:14px 16px;font-size:15px;">' +
           '<strong>Email:</strong> ' + (p.email || '') + '<br>' +
           '<strong>Password:</strong> <code style="font-family:monospace;">' + (p.password || '') + '</code></p>' +
-        btn(signin, isPartner ? 'Open the Partner Portal' : 'Sign in') +
+        btn(signin, portalLabel) +
         '<p style="font-size:12px;color:#6B7280;">For your security, please change your password after signing in &mdash; use &ldquo;Forgot password&rdquo; on the sign-in page if you ever need to reset it.</p>';
-      return { to: p.email, subject: 'Your AfriversalAI ' + (isPartner ? 'Partner Portal ' : '') + 'login details', html: wrap('Your account is ready', body) };
+      return { to: p.email, subject: 'Your AfriversalAI ' + portalName + 'login details', html: wrap('Your account is ready', body) };
     },
     signatureConfirmation: function (p) {
       // p: { name, email, docName, docUrl, verifyId, fingerprint, signedAtText, capacity }
@@ -130,6 +141,31 @@
         (p.docUrl ? btn(p.docUrl, 'View the document') : '') +
         '<p style="font-size:12px;color:#6B7280;">This electronic signature is legally binding and equivalent to a handwritten (wet-ink) signature under South Africa&rsquo;s Electronic Communications and Transactions Act 25 of 2002 (ECTA).</p>';
       return { to: p.email, subject: 'Signed &amp; recorded: ' + (p.docName || 'AfriversalAI document'), html: wrap('Signature confirmed', body) };
+    },
+    // Invoice + EFT payment instructions, emailed to the corporate manager on approval.
+    corporateInvoice: function (p) {
+      var cur = p.currency || 'R';
+      var money = function (n) { return cur + ' ' + (Number(n) || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+      var line = function (k, v, strong) { return '<tr><td style="padding:7px 10px;border-bottom:1px solid #E5E7EB;color:#6B7280;">' + k + '</td><td style="padding:7px 10px;border-bottom:1px solid #E5E7EB;text-align:right;' + (strong ? 'font-weight:800;color:#1B4332;' : '') + '">' + v + '</td></tr>'; };
+      var bankRow = function (k, v) { return '<tr><td style="padding:6px 10px;border-bottom:1px solid #E5E7EB;color:#6B7280;width:48%;">' + k + '</td><td style="padding:6px 10px;border-bottom:1px solid #E5E7EB;font-weight:600;">' + v + '</td></tr>'; };
+      var body = '<p>Hi ' + (p.contact || 'there') + ',</p>' +
+        '<p>Thank you &mdash; <strong>' + (p.company || 'your organisation') + '</strong> has been approved. Please find your invoice below and settle it via EFT using the banking details provided. Use your invoice number as the payment reference.</p>' +
+        '<p style="margin:14px 0 4px;font-weight:800;color:#1B4332;">Invoice ' + (p.invoiceNumber || '') + '</p>' +
+        '<table style="width:100%;border-collapse:collapse;font-size:14px;border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;">' +
+          line('Description', p.description || 'AfriversalAI training') +
+          line('Subtotal', money(p.amount)) +
+          line('VAT', money(p.vat)) +
+          line('Total due', money(p.total), true) +
+        '</table>' +
+        '<p style="margin:18px 0 4px;font-weight:800;color:#1B4332;">EFT / banking details</p>' +
+        '<table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;">' +
+          bankRow('Account holder', AF_BANK.holder) + bankRow('Bank', AF_BANK.bank) +
+          bankRow('Account type', AF_BANK.accountType) + bankRow('Account number', AF_BANK.accountNo) +
+          bankRow('Branch code', AF_BANK.branchCode) + bankRow('Branch', AF_BANK.branchName) +
+          bankRow('SWIFT', AF_BANK.swift) + bankRow('Payment reference', p.invoiceNumber || '(your invoice number)') +
+        '</table>' +
+        '<p style="font-size:12px;color:#6B7280;margin-top:16px;">Once your payment reflects, upload your proof of payment in your Corporate Portal. Your cohort access code is released once payment is confirmed.</p>';
+      return { to: p.email, subject: 'AfriversalAI invoice ' + (p.invoiceNumber || '') + ' & payment details', html: wrap('Your invoice &amp; payment details', body) };
     },
     cohortCode: function (p) {
       var body = '<p>Hi ' + (p.name || 'there') + ',</p>' +
