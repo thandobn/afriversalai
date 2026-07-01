@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Publication 014 — Programme Administration Guide — AfriversalAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+:root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+.doc-top a,.doc-top button{color:#fff;text-decoration:none;opacity:.9;background:none;border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:5px 12px;font-family:inherit;font-size:.95em;cursor:pointer;}
+.wrap{max-width:900px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:44px 56px;}
+@media(max-width:640px){.pad{padding:28px 22px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:58px 56px;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.2em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:18px 0 22px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:1.9em;font-weight:700;margin:0 0 6px;}
+.cover .subtitle{color:var(--gold);font-weight:600;}
+.cover .meta{margin-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:38px 22px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;margin:30px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.1em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.02em;font-weight:800;margin:22px 0 6px;}
+h2.sec .num{color:var(--gold-dark);}
+p{margin:8px 0;font-size:.93em;}
+.lead{color:var(--muted);font-size:.95em;}
+ul{margin:8px 0 8px 22px;font-size:.92em;}li{margin:3px 0;}
+.chklist{list-style:none;margin-left:0;}
+.chklist li{padding-left:26px;position:relative;}
+.chklist li::before{content:"\2713";position:absolute;left:0;color:var(--green-mid);font-weight:800;}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:.86em;margin:14px 0;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .k{color:var(--muted);min-width:150px;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 014 — Programme Administration Guide</span><span><button onclick="dlPdf()">&#11015; Download PDF</button> &nbsp; <a href="corporate-portal.html">&larr; Portal</a></span></div></div>
+
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Corporate access only</h1><p class="lead">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in</a> to view this Guide.</p></div></div></div>
+
+<div id="cc-body" class="wrap" style="display:none;">
+<div class="paper" id="cc-paper">
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div><hr class="rule"/>
+    <h1>Enterprise Programme Administration Guide</h1>
+    <div class="subtitle">Corporate Programme Administrator Handbook &mdash; supporting successful AI capability programmes</div>
+    <div class="meta"><span>Publication AAI-P014</span><span>Official Customer Publication</span><span>Version 1.0</span></div>
+  </div>
+  <div class="pad">
+  <div class="dc"><div style="font-weight:800;color:var(--green-dark);margin-bottom:4px;">Document Control</div>
+    <div class="dcgrid"><div><span class="k">Publication</span> AAI-P014</div><div><span class="k">Version</span> 1.0</div><div><span class="k">Classification</span> Official Customer Publication</div><div><span class="k">Effective Date</span> 1 July 2026</div><div><span class="k">Owner</span> Customer Success</div><div><span class="k">Review</span> Annual</div></div>
+  </div>
+  <p class="lead">Issued to Programme Administrators in Learning &amp; Development, HR, Talent and Organisational Development. Every corporate customer must appoint a Programme Administrator &mdash; the day-to-day operational contact between the organisation and AfriversalAI.</p>
+
+  <div class="partband"><div class="pk">Part A</div><div class="pt">The Role</div></div>
+  <h2 class="sec"><span class="num">1.</span> Introduction</h2>
+  <p>Congratulations on your appointment as the Programme Administrator for your organisation&rsquo;s AfriversalAI learning programme. You are the primary operational contact between your organisation and AfriversalAI, central to ensuring the programme is implemented smoothly, learners remain engaged, and organisational objectives are achieved.</p>
+  <h2 class="sec"><span class="num">2.</span> Your Role</h2>
+  <p>The Programme Administrator coordinates programme activities on behalf of the Customer: coordinating learner enrolment; maintaining learner records; communicating programme information; supporting attendance; monitoring learner progress; coordinating with AfriversalAI; and assisting executive reporting.</p>
+  <h2 class="sec"><span class="num">3.</span> Key Responsibilities</h2>
+  <p><b>Before launch:</b> confirm the learner list; verify employee details; coordinate internal communications; schedule launch activities; ensure participants understand expectations. <b>During delivery:</b> monitor participation; encourage engagement; resolve administrative queries; coordinate attendance; escalate issues where necessary. <b>At completion:</b> review completion reports; coordinate recognition; support executive reporting; identify future learning needs.</p>
+
+  <div class="partband"><div class="pk">Part B</div><div class="pt">Before Programme Launch</div></div>
+  <h2 class="sec"><span class="num">4.</span> Preparing for Launch</h2>
+  <ul class="chklist"><li>Learner list approved</li><li>Executive Sponsor confirmed</li><li>Internal communications distributed</li><li>Live session dates communicated</li><li>Programme calendar published</li><li>Project team informed</li></ul>
+  <h2 class="sec"><span class="num">5.</span> Learner Registration</h2>
+  <p>Verify learner information; submit the approved learner register; confirm email addresses; review departmental allocations; notify AfriversalAI of required changes before launch.</p>
+  <h2 class="sec"><span class="num">6.</span> Access Codes</h2>
+  <p>Access Codes are issued after the commercial requirements in the applicable agreement have been satisfied. The Programme Administrator distributes Access Codes only to authorised learners and reports any suspected misuse.</p>
+  <h2 class="sec"><span class="num">7.</span> Internal Communication</h2>
+  <p>Suggested communications: executive announcement; programme launch invitation; live session reminders; assessment reminders; certification announcement; completion recognition. AfriversalAI can provide templates where agreed.</p>
+
+  <div class="partband"><div class="pk">Part C</div><div class="pt">During Delivery</div></div>
+  <h2 class="sec"><span class="num">8.</span> Monitoring Participation</h2>
+  <p>Regularly review learner activation, module completion, attendance at live sessions, assessment completion and learners requiring additional support.</p>
+  <h2 class="sec"><span class="num">9.</span> Attendance</h2>
+  <p>Where live participation is required: encourage attendance; monitor absences; communicate changes promptly; coordinate make-up sessions where available.</p>
+  <h2 class="sec"><span class="num">10.</span> Supporting Learners</h2>
+  <p>The Programme Administrator is the first point of contact for routine administrative questions. Technical, assessment or certification matters are referred to AfriversalAI through the agreed support channels.</p>
+  <h2 class="sec"><span class="num">11.</span> Reporting</h2>
+  <p>Standard reports may include enrolment status, participation, completion, assessment outcomes and certification progress &mdash; supporting operational management and executive decision-making.</p>
+
+  <div class="partband"><div class="pk">Part D</div><div class="pt">Programme Completion</div></div>
+  <h2 class="sec"><span class="num">12.</span> Certification</h2>
+  <p>Before certificates are issued, confirm that any required organisational information has been verified. Certificates are issued in accordance with Publication AAI-P016 (Certification, Assessment &amp; Credentialing Policy).</p>
+  <h2 class="sec"><span class="num">13.</span> Executive Reporting</h2>
+  <p>At completion, AfriversalAI provides a summary report (participation, completion rates, assessment outcomes, certification statistics, observations and recommendations). Review it with the Executive Sponsor and stakeholders.</p>
+  <h2 class="sec"><span class="num">14.</span> Programme Review &amp; Future Pathways</h2>
+  <p>A post-implementation review covers achievements, lessons learned, learner feedback, future learning opportunities and organisational priorities. Consider advanced learning pathways, leadership programmes, governance workshops, department-specific learning and follow-up capability assessments.</p>
+
+  <div class="partband"><div class="pk">Appendices</div><div class="pt">Toolkit</div></div>
+  <h2 class="sec"><span class="num"></span> Appendix A — Programme Administrator Checklist</h2>
+  <ul class="chklist"><li>Before launch: learner list, communications, calendar</li><li>During delivery: participation, attendance, escalations</li><li>At close-out: reports, recognition, future needs</li></ul>
+  <h2 class="sec"><span class="num"></span> Appendix B — Communication Templates</h2>
+  <p class="lead">Sample email and announcement templates for executive sponsors, managers and learners (available on request).</p>
+  <h2 class="sec"><span class="num"></span> Appendix C — Reporting Calendar</h2>
+  <p class="lead">Reporting dates, review meetings, live-session milestones, assessment windows and certification milestones.</p>
+  <h2 class="sec"><span class="num"></span> Appendix D — Escalation Guide</h2>
+  <p class="lead">When and how to escalate operational, technical, assessment or commercial issues to AfriversalAI (see Publication 009 SLA).</p>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script>
+  function dlPdf(){ if(window.html2pdf){ html2pdf().set({margin:[10,10,12,10],filename:'AfriversalAI-Programme-Administration-Guide.pdf',image:{type:'jpeg',quality:0.9},html2canvas:{scale:1.3,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}}).from(document.getElementById('cc-paper')).save(); } }
+  (async function gate(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'corporate-login.html'; return; }
+    if (await isCorporate((s.user && s.user.email) || '')) { document.getElementById('cc-body').style.display = 'block'; }
+    else { document.getElementById('cc-denied').style.display = 'block'; }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Publication 015 — Enterprise Learner Guide — AfriversalAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+:root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+.doc-top a,.doc-top button{color:#fff;text-decoration:none;opacity:.9;background:none;border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:5px 12px;font-family:inherit;font-size:.95em;cursor:pointer;}
+.wrap{max-width:900px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:44px 56px;}
+@media(max-width:640px){.pad{padding:28px 22px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:60px 56px;text-align:center;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.3em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:18px auto 22px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:2em;font-weight:700;margin:0 0 10px;}
+.cover .tag{color:var(--gold);font-weight:700;}
+.cover .meta{margin-top:24px;display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:40px 22px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;margin:30px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.1em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.02em;font-weight:800;margin:22px 0 6px;}
+h2.sec .num{color:var(--gold-dark);}
+p{margin:8px 0;font-size:.93em;}
+.lead{color:var(--muted);font-size:.95em;}
+ul{margin:8px 0 8px 22px;font-size:.92em;}li{margin:3px 0;}
+.journey{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.jstep{background:var(--green-pale);border:1px solid var(--green-light);border-radius:20px;padding:5px 14px;font-size:.82em;font-weight:600;color:var(--green-dark);}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:.86em;margin:14px 0;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .k{color:var(--muted);min-width:150px;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 015 — Enterprise Learner Guide</span><span><button onclick="dlPdf()">&#11015; Download PDF</button> &nbsp; <a href="corporate-portal.html">&larr; Portal</a></span></div></div>
+
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Sign in required</h1><p class="lead">Please <a href="login.html" style="color:var(--green-mid);font-weight:700;">sign in</a> to view this Guide.</p></div></div></div>
+
+<div id="cc-body" class="wrap" style="display:none;">
+<div class="paper" id="cc-paper">
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div><hr class="rule"/>
+    <h1>Welcome to Your AI Capability Journey</h1>
+    <div class="tag">Empowering African Professionals. Delivering Global Impact.</div>
+    <div class="meta"><span>Publication AAI-P015</span><span>Enterprise Learner Guide</span><span>Version 1.0</span></div>
+  </div>
+  <div class="pad">
+  <div class="dc"><div style="font-weight:800;color:var(--green-dark);margin-bottom:4px;">Document Control</div>
+    <div class="dcgrid"><div><span class="k">Publication</span> AAI-P015</div><div><span class="k">Version</span> 1.0</div><div><span class="k">Classification</span> Official Customer Publication</div><div><span class="k">Audience</span> Enterprise Learners</div><div><span class="k">Owner</span> Curriculum &amp; Customer Success</div><div><span class="k">Review</span> Annual</div></div>
+  </div>
+
+  <div class="partband"><div class="pk">Part A</div><div class="pt">Getting Started</div></div>
+  <h2 class="sec"><span class="num">1.</span> Welcome</h2>
+  <p>Welcome to AfriversalAI. You are joining a programme designed to help professionals develop the knowledge, judgement and confidence needed to work effectively with artificial intelligence. Success depends not only on understanding the technology, but on applying it responsibly, ethically and thoughtfully &mdash; this programme helps you build those capabilities.</p>
+  <h2 class="sec"><span class="num">2.</span> About AfriversalAI</h2>
+  <p>AfriversalAI partners with organisations across Africa and beyond to develop AI capability within the workforce, combining practical learning, critical thinking, responsible AI principles and workplace application to prepare individuals and organisations for the future of work.</p>
+  <h2 class="sec"><span class="num">3.</span> Your Learning Journey</h2>
+  <div class="journey"><span class="jstep">Online modules</span><span class="jstep">Interactive activities</span><span class="jstep">Workplace exercises</span><span class="jstep">Live sessions</span><span class="jstep">Group discussion</span><span class="jstep">Assessments</span><span class="jstep">Certification</span></div>
+  <h2 class="sec"><span class="num">4.</span> Programme Overview</h2>
+  <p>Your organisation has enrolled you in a structured learning journey. The specific modules, timetable and live sessions will be communicated by your Programme Administrator.</p>
+
+  <div class="partband"><div class="pk">Part B</div><div class="pt">Your Learning Experience</div></div>
+  <h2 class="sec"><span class="num">5.</span> How Learning Works</h2>
+  <p>You progress through modules in sequence. Modules may include videos, readings, knowledge checks, case studies, reflective exercises and practical activities. Complete each module before progressing unless instructed otherwise.</p>
+  <h2 class="sec"><span class="num">6.</span> Live Sessions</h2>
+  <p>Depending on your programme you may join the Live Programme Launch, AI ThinkLab&trade;, Governance Forum&trade;, Strategy Lab&trade; and Executive Q&amp;A sessions. Attendance at certain live sessions may be mandatory for certification.</p>
+  <h2 class="sec"><span class="num">7.</span> Assessments</h2>
+  <p>Assessments help you demonstrate understanding and practical application, and may include quizzes, case studies, workplace scenarios, practical exercises and reflective activities. Follow all instructions carefully.</p>
+  <h2 class="sec"><span class="num">8.</span> Certification</h2>
+  <p>On successful completion, eligible learners receive a digital certificate, a unique AfriversalAI Member ID, and access to certificate verification. Requirements are described in Publication AAI-P016.</p>
+
+  <div class="partband"><div class="pk">Part C</div><div class="pt">Expectations</div></div>
+  <h2 class="sec"><span class="num">9.</span> Learner Responsibilities</h2>
+  <p>Participate actively; complete required activities; attend mandatory live sessions; complete assessments honestly; protect your login credentials; and contact your Programme Administrator if you encounter difficulties.</p>
+  <h2 class="sec"><span class="num">10.</span> Responsible Use of AI</h2>
+  <p>When using AI tools: verify outputs before relying on them; apply independent judgement; protect confidential information; follow your organisation&rsquo;s AI policies; and acknowledge AI assistance where required. AI can make mistakes &mdash; human judgement remains essential.</p>
+  <h2 class="sec"><span class="num">11.</span> Academic Integrity</h2>
+  <p>Your work should reflect your own understanding. Do not submit another person&rsquo;s work as your own, share assessment answers, misuse AI contrary to instructions, or impersonate another learner. Integrity protects the value of your certification.</p>
+  <h2 class="sec"><span class="num">12.</span> Professional Conduct</h2>
+  <p>Treat others respectfully, contribute constructively during live sessions, maintain confidentiality where required, and behave professionally in all programme activities.</p>
+
+  <div class="partband"><div class="pk">Part D</div><div class="pt">Support</div></div>
+  <h2 class="sec"><span class="num">13.</span> Getting Help</h2>
+  <p>For organisational questions, contact your Programme Administrator. For technical, assessment or certification queries, contact AfriversalAI through the agreed support channels. Support is provided per the Service Level Agreement (Publication 009).</p>
+  <h2 class="sec"><span class="num">14.</span> Frequently Asked Questions</h2>
+  <p>Common topics: logging in; accessing learning materials; live-session attendance; assessment requirements; certificates; technical support.</p>
+  <h2 class="sec"><span class="num">15.</span> Continuing Your Learning Journey</h2>
+  <p>Completing this programme is the beginning of your AI capability journey. Future opportunities may include advanced AI literacy programmes, AI governance, AI leadership, industry-specific pathways and executive programmes. Discuss options with your Programme Administrator or manager.</p>
+
+  <div class="partband"><div class="pk">Appendices</div><div class="pt">Learner Toolkit</div></div>
+  <h2 class="sec"><span class="num"></span> Appendix A — Learner Checklist</h2>
+  <ul><li>Enrolment confirmed &amp; logged in</li><li>Modules completed in sequence</li><li>Live sessions attended</li><li>Assessments completed honestly</li><li>Certification requirements met</li></ul>
+  <h2 class="sec"><span class="num"></span> Appendix B — Learning Calendar</h2>
+  <p class="lead">Your personalised timetable of milestones, live sessions, assessment windows and completion dates (provided by your Programme Administrator).</p>
+  <h2 class="sec"><span class="num"></span> Appendix C — AI Good-Practice Guide</h2>
+  <p class="lead">Evaluate AI outputs; protect confidential information; use prompts responsibly; recognise where human judgement is essential.</p>
+  <h2 class="sec"><span class="num"></span> Appendix D — Certificate &amp; Member ID Guide</h2>
+  <p class="lead">Understanding digital certificates, Member IDs, verification, replacement certificates and sharing credentials professionally.</p>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+  function dlPdf(){ if(window.html2pdf){ html2pdf().set({margin:[10,10,12,10],filename:'AfriversalAI-Learner-Guide.pdf',image:{type:'jpeg',quality:0.9},html2canvas:{scale:1.3,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}}).from(document.getElementById('cc-paper')).save(); } }
+  (async function gate(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'login.html'; return; }
+    document.getElementById('cc-body').style.display = 'block';   // available to all enrolled learners
+  })();
+</script>
+</body>
+</html>

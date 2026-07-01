@@ -36,7 +36,8 @@
     aup: { title: 'Acceptable Use Policy (Publication 007)', file: 'publication-007.html' },
     'cert-policy': { title: 'Certification, Assessment &amp; Credentialing Policy (Publication 016)', file: 'publication-016.html' },
     'ip-policy': { title: 'Intellectual Property, Brand &amp; Innovation Policy (Publication 017)', file: 'publication-017.html' },
-    'partner-agreement-002': { title: 'Enterprise Partner Agreement (Publication 002)', file: 'publication-002.html' }
+    'partner-agreement-002': { title: 'Enterprise Partner Agreement (Publication 002)', file: 'publication-002.html' },
+    charter: { title: 'Executive Project Charter (Publication 003)', file: 'publication-003.html' }
   };
 
   var docKey = window.AF_SIGN_DOC;

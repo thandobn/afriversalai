@@ -44,47 +44,53 @@
 
 <div id="cp-portal" class="cp-wrap" style="display:none;">
   <div class="eyebrow" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);">Corporate Dashboard</div>
-  <h1 id="cp-greeting" style="color:var(--green-dark);margin:6px 0 18px;">Welcome</h1>
+  <h1 id="cp-greeting" style="color:var(--green-dark);margin:6px 0 8px;">Welcome</h1>
+  <div id="cp-code" style="margin:0 0 18px;"></div>
+  <div class="cp-card" id="cp-overview" style="margin-bottom:20px;"></div>
+  <div class="cp-card" id="cp-docstatus" style="margin-bottom:24px;"></div>
 
-  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Your documents</div>
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Your Programme Administrator</div>
   <div class="cp-card" style="margin-bottom:24px;">
-    <p style="color:var(--muted);font-size:.9em;line-height:1.6;margin:0 0 14px;">Review, complete and sign your agreements below. AfriversalAI&rsquo;s details are pre-filled and signed automatically &mdash; complete your company&rsquo;s details and sign. A signed PDF is emailed to you and saved to your account.</p>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 005 &mdash; Mutual Non-Disclosure Agreement</div><div style="font-size:.82em;color:var(--muted);">Confidentiality between you and AfriversalAI.</div></div>
-      <a href="mnda.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
+    <p style="color:var(--muted);font-size:.9em;line-height:1.6;margin:0 0 12px;">Every programme must appoint a <strong>Programme Administrator</strong> &mdash; your L&amp;D / HR contact who runs the programme day-to-day and is AfriversalAI&rsquo;s primary operational contact. Confirm yours below. See <a href="publication-014.html" style="color:var(--green-mid);font-weight:700;">Publication 014 &mdash; Programme Administration Guide</a>.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;">
+      <div><label style="display:block;font-size:.78em;font-weight:700;margin-bottom:5px;">Administrator name</label><input id="pa-name" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;" /></div>
+      <div><label style="display:block;font-size:.78em;font-weight:700;margin-bottom:5px;">Role / department</label><input id="pa-role" placeholder="e.g. L&amp;D Manager" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;" /></div>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 010 &mdash; Enterprise Master Services Agreement</div><div style="font-size:.82em;color:var(--muted);">The master agreement for AfriversalAI enterprise learning services.</div></div>
-      <a href="corporate-contract.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 011 &mdash; Commercial Schedule</div><div style="font-size:.82em;color:var(--muted);">Pricing, licensing and payment terms for your engagement.</div></div>
-      <a href="publication-011.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 012 &mdash; Statement of Work</div><div style="font-size:.82em;color:var(--muted);">How your programme is delivered, governed and measured.</div></div>
-      <a href="publication-012.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 009 &mdash; Service Level Agreement</div><div style="font-size:.82em;color:var(--muted);">Availability, support, response times and reporting commitments.</div></div>
-      <a href="publication-009.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 008 &mdash; Data Processing &amp; Privacy Addendum</div><div style="font-size:.82em;color:var(--muted);">POPIA data-protection terms for learner personal information.</div></div>
-      <a href="publication-008.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 007 &mdash; Acceptable Use Policy</div><div style="font-size:.82em;color:var(--muted);">Rules protecting the platform, content, assessments and brand.</div></div>
-      <a href="publication-007.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 016 &mdash; Certification, Assessment &amp; Credentialing Policy</div><div style="font-size:.82em;color:var(--muted);">What certificates mean, how they&rsquo;re assessed, verified and revoked.</div></div>
-      <a href="publication-016.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--border);">
-      <div><div style="font-weight:700;color:var(--green-dark);">Publication 017 &mdash; Intellectual Property, Brand &amp; Innovation Policy</div><div style="font-size:.82em;color:var(--muted);">Ownership, licensing and brand-use terms.</div></div>
-      <a href="publication-017.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a>
-    </div>
+    <button class="btn btn--primary btn--sm" style="margin-top:12px;" onclick="saveAdmin()">Save administrator</button>
+    <span id="pa-msg" style="font-size:.84em;margin-left:10px;"></span>
+  </div>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Procurement &amp; Legal</div>
+  <div class="cp-card" style="margin-bottom:20px;">
+    <p style="color:var(--muted);font-size:.86em;line-height:1.6;margin:0 0 8px;">Your details are pre-filled and AfriversalAI&rsquo;s side is auto-signed. Complete your fields, sign, and a signed PDF is emailed to you and saved here.</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 010 &mdash; Master Services Agreement</div><div style="font-size:.8em;color:var(--muted);">The master agreement for all enterprise learning services.</div></div><a href="corporate-contract.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 011 &mdash; Commercial Schedule</div><div style="font-size:.8em;color:var(--muted);">Pricing, licensing and payment terms.</div></div><a href="publication-011.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 012 &mdash; Statement of Work</div><div style="font-size:.8em;color:var(--muted);">How your programme is delivered, governed and measured.</div></div><a href="publication-012.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 009 &mdash; Service Level Agreement</div><div style="font-size:.8em;color:var(--muted);">Availability, support, response times, reporting.</div></div><a href="publication-009.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 005 &mdash; Mutual Non-Disclosure Agreement</div><div style="font-size:.8em;color:var(--muted);">Confidentiality between you and AfriversalAI.</div></div><a href="mnda.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 008 &mdash; Data Processing &amp; Privacy Addendum (POPIA)</div><div style="font-size:.8em;color:var(--muted);">Data-protection terms for learner personal information.</div></div><a href="publication-008.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <p style="font-size:.78em;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--border);padding-top:10px;">Company registration: <strong>2026/492783/07</strong> &middot; VAT and Tax Clearance available on request &middot; Banking (EFT) details appear on every invoice.</p>
+  </div>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Programme Implementation</div>
+  <div class="cp-card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;"><div><div style="font-weight:700;color:var(--green-dark);">Publication 004 &mdash; Customer Implementation Guide</div><div style="font-size:.8em;color:var(--muted);">Your onboarding roadmap and implementation journey.</div></div><a href="publication-004.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 014 &mdash; Programme Administration Guide</div><div style="font-size:.8em;color:var(--muted);">For your Programme Administrator (L&amp;D / HR).</div></div><a href="publication-014.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 015 &mdash; Enterprise Learner Guide</div><div style="font-size:.8em;color:var(--muted);">Share with every enrolled learner.</div></div><a href="publication-015.html" class="btn btn--outline btn--sm">Open &rarr;</a></div>
+    <p style="font-size:.78em;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--border);padding-top:10px;">Your Implementation Plan and Live Session Calendar are set out in your Statement of Work (Publication 012).</p>
+  </div>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Governance</div>
+  <div class="cp-card" style="margin-bottom:20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;"><div><div style="font-weight:700;color:var(--green-dark);">Publication 007 &mdash; Acceptable Use Policy</div><div style="font-size:.8em;color:var(--muted);">Rules protecting the platform, content, assessments and brand.</div></div><a href="publication-007.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 016 &mdash; Certification, Assessment &amp; Credentialing Policy</div><div style="font-size:.8em;color:var(--muted);">What certificates mean; verification and revocation.</div></div><a href="publication-016.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;border-top:1px solid var(--border);"><div><div style="font-weight:700;color:var(--green-dark);">Publication 017 &mdash; Intellectual Property, Brand &amp; Innovation Policy</div><div style="font-size:.8em;color:var(--muted);">Ownership, licensing and brand-use terms.</div></div><a href="publication-017.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+  </div>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Documents &mdash; Executive</div>
+  <div class="cp-card" style="margin-bottom:24px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:11px 0;"><div><div style="font-weight:700;color:var(--green-dark);">Publication 003 &mdash; Executive Project Charter</div><div style="font-size:.8em;color:var(--muted);">Why, business case, benefits, success measures and governance.</div></div><a href="publication-003.html" class="btn btn--primary btn--sm">Review &amp; sign &rarr;</a></div>
+    <p style="font-size:.78em;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--border);padding-top:10px;">Your Executive Brief, Benefits Realisation review and Capability Roadmap are delivered with your executive reporting during and after the programme.</p>
   </div>
 
   <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Programme commitments</div>
@@ -176,6 +182,51 @@
     } catch (e){ if (errEl){ errEl.style.color='#B91C1C'; errEl.textContent = 'Upload failed: ' + ((e && e.message) || 'please try again.'); } }
   }
 
+  async function saveAdmin(){
+    var name=(document.getElementById('pa-name').value||'').trim();
+    var role=(document.getElementById('pa-role').value||'').trim();
+    var msg=document.getElementById('pa-msg');
+    if(!name){ if(msg){msg.style.color='#DC2626';msg.textContent='Enter the administrator name.';} return; }
+    try{ var u=await _supabase.from('corporates').update({contact_name:name,contact_role:role}).eq('email',CP_EMAIL); if(u.error) throw u.error; if(msg){msg.style.color='var(--green-dark)';msg.textContent='✓ Administrator saved.';} }
+    catch(e){ if(msg){msg.style.color='#DC2626';msg.textContent='Could not save right now.';} }
+  }
+
+  async function loadOverview(){
+    var corp=null; try{ corp=(await _supabase.from('corporates').select('*').eq('email',CP_EMAIL).maybeSingle()).data; }catch(e){}
+    if(!corp) return;
+    var org=null, regs=0;
+    if(corp.organisation_id){
+      try{ org=(await _supabase.from('organisations').select('*').eq('id',corp.organisation_id).maybeSingle()).data; }catch(e){}
+      try{ regs=(await _supabase.from('profiles').select('id',{count:'exact',head:true}).eq('organisation_id',corp.organisation_id)).count||0; }catch(e){}
+    }
+    var seats=(org&&org.max_seats)||corp.seats||0;
+    var code=org&&org.code;
+    var active=(org&&org.active)||corp.status==='active';
+    var codeEl=document.getElementById('cp-code');
+    if(codeEl){ codeEl.innerHTML = code
+      ? '<span style="display:inline-block;background:var(--gold-light);border:1.5px solid var(--gold);border-radius:10px;padding:9px 16px;font-weight:800;color:var(--green-dark);">Access code: <span style="font-family:ui-monospace,monospace;letter-spacing:1px;">'+esc(code)+'</span></span> <span style="font-size:.8em;color:var(--muted);">'+(active?'Share with your staff to enrol.':'Activates once your invoice is paid.')+'</span>'
+      : '<span style="font-size:.85em;color:var(--muted);">Your cohort access code appears here once your programme is approved.</span>'; }
+    var pct=seats?Math.min(100,Math.round(regs/seats*100)):0;
+    var ov=document.getElementById('cp-overview');
+    if(ov){ ov.innerHTML='<h2 style="color:var(--green-dark);font-size:1.05em;margin:0 0 12px;">Programme overview</h2>'
+      +'<div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end;">'
+      +'<div><div style="font-size:1.9em;font-weight:800;color:var(--green-dark);line-height:1;">'+seats+'</div><div style="font-size:.8em;color:var(--muted);">Seats purchased</div></div>'
+      +'<div><div style="font-size:1.9em;font-weight:800;color:var(--green-dark);line-height:1;">'+regs+'</div><div style="font-size:.8em;color:var(--muted);">Learners registered</div></div>'
+      +'<div style="flex:1;min-width:200px;"><div style="font-size:.8em;color:var(--muted);margin-bottom:4px;">Registration progress</div><div style="background:var(--green-pale);border-radius:999px;height:12px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:var(--green-mid);"></div></div><div style="font-size:.78em;color:var(--muted);margin-top:4px;">'+regs+' of '+seats+' seats ('+pct+'%) &middot; learners are matched to your cohort by the access code above</div></div>'
+      +'</div>'; }
+  }
+
+  async function loadDocStatus(){
+    var box=document.getElementById('cp-docstatus'); if(!box) return;
+    var signed={};
+    try{ var sigs=(await _supabase.from('partner_signatures').select('doc_key').eq('partner_email',CP_EMAIL)).data||[]; sigs.forEach(function(s){signed[s.doc_key]=true;}); }catch(e){}
+    var docs=[['mnda','Pub 005 — NDA'],['corporate-contract','Pub 010 — Master Services Agreement'],['commercial-schedule','Pub 011 — Commercial Schedule'],['sow','Pub 012 — Statement of Work'],['sla','Pub 009 — Service Level Agreement'],['dpa','Pub 008 — Data Processing Addendum'],['aup','Pub 007 — Acceptable Use'],['cert-policy','Pub 016 — Certification Policy'],['ip-policy','Pub 017 — IP Policy'],['charter','Pub 003 — Executive Charter']];
+    var done=docs.filter(function(d){return signed[d[0]];}).length;
+    box.innerHTML='<h2 style="color:var(--green-dark);font-size:1.05em;margin:0 0 4px;">Document status</h2>'
+      +'<div style="font-size:.82em;color:var(--muted);margin-bottom:8px;">'+done+' of '+docs.length+' signed</div>'
+      + docs.map(function(d){ var ok=signed[d[0]]; return '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:.87em;border-bottom:1px solid var(--border);"><span>'+esc(d[1])+'</span>'+(ok?'<span style="color:#065F46;font-weight:700;">&#10004; Signed</span>':'<span style="color:#92400E;font-weight:700;">&#9675; Not signed</span>')+'</div>'; }).join('');
+  }
+
   (async function initCorporate(){
     var session = await getSession();
     if (!session){ window.location.href = 'corporate-login.html'; return; }
@@ -185,13 +236,17 @@
     document.getElementById('cp-who').textContent = CP_EMAIL;
     document.getElementById('cp-portal').style.display = 'block';
     try {
-      var r = await _supabase.from('corporates').select('company_name,contact_name').eq('email', CP_EMAIL).maybeSingle();
+      var r = await _supabase.from('corporates').select('company_name,contact_name,contact_role').eq('email', CP_EMAIL).maybeSingle();
       var co = r && r.data;
-      if (co && (co.company_name || co.contact_name)) {
-        document.getElementById('cp-greeting').textContent = 'Welcome, ' + (co.contact_name ? co.contact_name.split(' ')[0] : co.company_name);
+      if (co) {
+        if (co.company_name || co.contact_name) document.getElementById('cp-greeting').textContent = 'Welcome, ' + (co.contact_name ? co.contact_name.split(' ')[0] : co.company_name);
+        if (document.getElementById('pa-name')) document.getElementById('pa-name').value = co.contact_name || '';
+        if (document.getElementById('pa-role')) document.getElementById('pa-role').value = co.contact_role || '';
       }
     } catch (e) {}
     renderBank();
+    loadOverview();
+    loadDocStatus();
     loadInvoices();
   })();
 </script>

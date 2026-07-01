@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Publication 004 — Enterprise Customer Implementation Guide — AfriversalAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+<style>
+:root{ --ink:#123528; --green-dark:#1B4332; --green-mid:#2D6A4F; --green-light:#D8F3DC; --green-pale:#F0F7F4; --gold:#E9C46A; --gold-dark:#C9A227; --gold-light:#FDF6E3; --text:#1A1A2E; --muted:#667085; --border:#E5E7EB; --radius:8px; --radius-lg:14px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:#EEF1F0;color:var(--text);line-height:1.7;}
+.doc-top{background:var(--green-dark);color:#fff;padding:12px 0;position:sticky;top:0;z-index:5;}
+.doc-top__inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.82em;}
+.doc-top .pub{color:var(--gold);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:.9em;}
+.doc-top a,.doc-top button{color:#fff;text-decoration:none;opacity:.9;background:none;border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:5px 12px;font-family:inherit;font-size:.95em;cursor:pointer;}
+.wrap{max-width:900px;margin:24px auto 80px;padding:0 20px;}
+.paper{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:0 6px 26px rgba(0,0,0,.07);overflow:hidden;}
+.pad{padding:44px 56px;}
+@media(max-width:640px){.pad{padding:28px 22px;}}
+.cover{background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%);color:#fff;padding:60px 56px;}
+.cover .brand{font-family:Fraunces,serif;font-size:2.3em;font-weight:700;}
+.cover .brand sup{font-size:.4em;vertical-align:super;}
+.cover .rule{height:2px;width:70px;background:var(--gold);margin:18px 0 22px;border:0;}
+.cover h1{font-family:Fraunces,serif;font-size:2em;font-weight:700;margin:0 0 6px;}
+.cover .subtitle{color:var(--gold);font-weight:600;}
+.cover .tag{margin-top:14px;font-style:italic;color:rgba(255,255,255,.85);}
+.cover .meta{margin-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.72em;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.75);}
+@media(max-width:640px){.cover{padding:38px 22px;}}
+.partband{background:var(--green-pale);border-left:5px solid var(--green-mid);border-radius:0 var(--radius) var(--radius) 0;padding:10px 16px;margin:30px 0 4px;}
+.partband .pk{font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);}
+.partband .pt{font-family:Fraunces,serif;color:var(--green-dark);font-size:1.1em;font-weight:700;}
+h2.sec{color:var(--green-dark);font-size:1.02em;font-weight:800;margin:22px 0 6px;}
+h2.sec .num{color:var(--gold-dark);}
+p{margin:8px 0;font-size:.93em;}
+.lead{color:var(--muted);font-size:.95em;}
+ul,ol{margin:8px 0 8px 22px;font-size:.92em;}li{margin:3px 0;}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.step{background:var(--green-pale);border:1px solid var(--green-light);border-radius:20px;padding:5px 14px;font-size:.82em;font-weight:600;color:var(--green-dark);}
+.tbl{width:100%;border-collapse:collapse;font-size:.87em;margin:10px 0;}
+.tbl th{background:var(--green-dark);color:#fff;text-align:left;padding:8px 10px;font-size:.84em;}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border);}
+.tbl tr:nth-child(even) td{background:#FAFBFB;}
+.chklist{list-style:none;margin-left:0;}
+.chklist li{padding-left:26px;position:relative;}
+.chklist li::before{content:"\2713";position:absolute;left:0;color:var(--green-mid);font-weight:800;}
+.dc{border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:.86em;margin:14px 0;}
+.dcgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;}
+.dcgrid .k{color:var(--muted);min-width:150px;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="doc-top"><div class="doc-top__inner"><span><span class="pub">AfriversalAI</span> &nbsp;|&nbsp; Publication 004 — Customer Implementation Guide</span><span><button onclick="dlPdf()">&#11015; Download PDF</button> &nbsp; <a href="corporate-portal.html">&larr; Portal</a></span></div></div>
+
+<div id="cc-denied" class="wrap" style="display:none;"><div class="paper"><div class="pad" style="text-align:center;"><h1 style="font-family:Fraunces,serif;color:var(--green-dark);">Corporate access only</h1><p class="lead">Please <a href="corporate-login.html" style="color:var(--green-mid);font-weight:700;">sign in</a> to view this Guide.</p></div></div></div>
+
+<div id="cc-body" class="wrap" style="display:none;">
+<div class="paper" id="cc-paper">
+  <div class="cover">
+    <div class="brand">AfriversalAI<sup>&trade;</sup></div><hr class="rule"/>
+    <h1>Enterprise Customer Implementation Guide</h1>
+    <div class="subtitle">Enterprise AI Capability &amp; Workforce Transformation Programme &mdash; <span class="af-cname">The Customer</span></div>
+    <div class="tag">&ldquo;Empowering African Professionals. Delivering Global Impact.&rdquo;</div>
+    <div class="meta"><span>Publication AAI-P004</span><span>Official Customer Publication</span><span>Version 1.0</span></div>
+  </div>
+  <div class="pad">
+  <div class="dc"><div style="font-weight:800;color:var(--green-dark);margin-bottom:4px;">Document Control</div>
+    <div class="dcgrid"><div><span class="k">Publication</span> AAI-P004</div><div><span class="k">Version</span> 1.0</div><div><span class="k">Classification</span> Official Customer Publication</div><div><span class="k">Effective Date</span> 1 July 2026</div><div><span class="k">Owner</span> Customer Success &amp; Enterprise Delivery</div><div><span class="k">Review</span> Annual</div></div>
+  </div>
+
+  <div class="partband"><div class="pk">Part 1</div><div class="pt">Welcome</div></div>
+  <h2 class="sec"><span class="num">1.</span> Welcome to AfriversalAI</h2>
+  <p>Thank you for choosing AfriversalAI as your enterprise AI capability partner. Artificial intelligence is transforming how organisations work, make decisions, serve customers and develop their people. Successful AI adoption requires more than access to technology &mdash; it requires informed leadership, capable employees and responsible governance. We look forward to partnering with your organisation to build practical AI capability that supports your strategic objectives.</p>
+  <h2 class="sec"><span class="num">2.</span> About Your Programme</h2>
+  <p>Your organisation has enrolled in an enterprise learning programme designed to help employees understand AI, evaluate AI outputs critically, apply AI responsibly, strengthen professional judgement and support organisational AI readiness. Your programme may include self-paced online learning, live facilitator-led sessions, practical workplace activities, assessments, digital certification and executive reporting.</p>
+  <h2 class="sec"><span class="num">3.</span> What Happens Next</h2>
+  <div class="steps"><span class="step">1. Kick-off</span><span class="step">2. Configuration</span><span class="step">3. Administrator orientation</span><span class="step">4. Learner registration</span><span class="step">5. Access-code distribution</span><span class="step">6. Programme launch</span><span class="step">7. Live sessions</span><span class="step">8. Assessments</span><span class="step">9. Certification</span><span class="step">10. Executive report</span></div>
+
+  <div class="partband"><div class="pk">Part 2</div><div class="pt">Your Project</div></div>
+  <h2 class="sec"><span class="num">4.</span> Your Implementation Team</h2>
+  <p><b>Customer:</b> Executive Sponsor; Programme Administrator; HR / Learning Representative; IT Representative (if required); Department Managers. <b>AfriversalAI:</b> Customer Success Manager; Project Manager; Learning Success Lead; Lead Facilitator; Certification Administrator.</p>
+  <h2 class="sec"><span class="num">5.</span> Roles &amp; Responsibilities</h2>
+  <p><b>Executive Sponsor</b> — champions the programme, removes barriers, reviews outcomes, supports adoption. <b>Programme Administrator</b> — coordinates enrolment, maintains learner lists, communicates with participants, primary customer contact. <b>AfriversalAI Customer Success Manager</b> — oversees implementation, coordinates delivery, monitors progress, provides executive updates, supports continuous improvement.</p>
+  <h2 class="sec"><span class="num">6.</span> Implementation Timeline</h2>
+  <table class="tbl"><thead><tr><th>Phase</th><th>Activity</th></tr></thead><tbody>
+    <tr><td>Week 1</td><td>Kick-off meeting</td></tr><tr><td>Week 1</td><td>Portal configuration</td></tr><tr><td>Week 1</td><td>Learner upload</td></tr><tr><td>Week 2</td><td>Programme launch</td></tr><tr><td>Throughout</td><td>Live sessions</td></tr><tr><td>Final week</td><td>Assessments</td></tr><tr><td>Completion</td><td>Certification</td></tr><tr><td>Completion</td><td>Executive review</td></tr>
+  </tbody></table>
+  <p class="lead">A detailed implementation plan is included in the Statement of Work (Publication 012).</p>
+
+  <div class="partband"><div class="pk">Part 3</div><div class="pt">Programme Delivery</div></div>
+  <h2 class="sec"><span class="num">7.</span> Learner Registration</h2>
+  <p>Your Programme Administrator submits the approved learner list, confirms participant details, reviews seat allocations and validates departments. AfriversalAI issues Access Codes after the agreed commercial requirements have been satisfied.</p>
+  <h2 class="sec"><span class="num">8.</span> Live Sessions</h2>
+  <p>Depending on your programme, live sessions may include the Executive Launch Session, AI ThinkLab&trade;, Governance Forum&trade;, Strategy Lab&trade; and Ask-the-Expert sessions. Attendance requirements are communicated in advance.</p>
+  <h2 class="sec"><span class="num">9.</span> Assessments &amp; Certification</h2>
+  <p>Successful learners receive a digital certificate, a unique Member ID and a certificate verification record. Certification requirements are described in Publication AAI-P016 (Certification, Assessment &amp; Credentialing Policy).</p>
+
+  <div class="partband"><div class="pk">Part 4</div><div class="pt">Customer Success</div></div>
+  <h2 class="sec"><span class="num">10.</span> Reporting</h2>
+  <p>Your organisation may receive reports including enrolment status, learner participation, completion rates, assessment results, certification summary, executive dashboard and programme recommendations. Report frequency is defined in the Statement of Work.</p>
+  <h2 class="sec"><span class="num">11.</span> Customer Support</h2>
+  <p>AfriversalAI provides support for learner access, password assistance, registration queries, programme administration, certification enquiries and reporting requests. Support arrangements are governed by Publication AAI-P009 (Enterprise Service Level Agreement).</p>
+  <h2 class="sec"><span class="num">12.</span> Escalation</h2>
+  <p>If an issue cannot be resolved through normal support channels: 1) Customer Success Manager &rarr; 2) Project Manager &rarr; 3) Head of Enterprise Delivery &rarr; 4) Executive Sponsor.</p>
+
+  <div class="partband"><div class="pk">Part 5</div><div class="pt">Next Steps</div></div>
+  <h2 class="sec"><span class="num">13.</span> Programme Completion</h2>
+  <p>At completion, your organisation receives an Executive Completion Report, Learner Completion Report, Certification Summary, recommendations for future learning pathways and a Benefits Realisation review.</p>
+  <h2 class="sec"><span class="num">14.</span> Continuing Your AI Journey</h2>
+  <p>Completion represents the beginning of your organisation&rsquo;s AI capability journey. AfriversalAI can support continued development through Advanced AI Literacy Programmes, Executive AI Leadership, AI Governance, AI Policy Development, department-specific learning pathways and workforce transformation consulting.</p>
+
+  <div class="partband"><div class="pk">Appendices</div><div class="pt">Checklists &amp; References</div></div>
+  <h2 class="sec"><span class="num"></span> Appendix A — Customer Implementation Checklist</h2>
+  <ul class="chklist"><li>MSA executed</li><li>Commercial Schedule approved</li><li>Statement of Work signed</li><li>Project kick-off completed</li><li>Programme Administrator appointed</li><li>Learner list submitted</li><li>Access Codes issued</li><li>Live sessions scheduled</li><li>Reports configured</li><li>Programme launch approved</li></ul>
+  <h2 class="sec"><span class="num"></span> Appendix B — Programme Contacts</h2>
+  <p class="lead">Customer and AfriversalAI contact details, roles, escalation paths and communication channels (completed at kick-off).</p>
+  <h2 class="sec"><span class="num"></span> Appendix C — Key Dates Calendar</h2>
+  <p class="lead">Project milestones, live sessions, assessment windows, reporting dates and certification milestones (completed in the Statement of Work).</p>
+  <h2 class="sec"><span class="num"></span> Appendix D — Frequently Asked Questions</h2>
+  <p class="lead">Answers to common questions about enrolment, delivery, assessments, certificates, reporting and support, maintained on the Corporate Portal.</p>
+  </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script>
+  function dlPdf(){ if(window.html2pdf){ html2pdf().set({margin:[10,10,12,10],filename:'AfriversalAI-Implementation-Guide.pdf',image:{type:'jpeg',quality:0.9},html2canvas:{scale:1.3,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}}).from(document.getElementById('cc-paper')).save(); } }
+  (async function gate(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'corporate-login.html'; return; }
+    if (await isCorporate((s.user && s.user.email) || '')) {
+      document.getElementById('cc-body').style.display = 'block';
+      // Prefill company name on the cover.
+      try { var r = await _supabase.from('corporates').select('company_name').eq('email',(s.user.email||'').toLowerCase()).maybeSingle(); if(r&&r.data&&r.data.company_name){ var els=document.querySelectorAll('.af-cname'); for(var i=0;i<els.length;i++){els[i].textContent=r.data.company_name;} } } catch(e){}
+    } else { document.getElementById('cc-denied').style.display = 'block'; }
+  })();
+</script>
+</body>
+</html>
