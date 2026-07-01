@@ -1,20 +1,32 @@
 # AfriversalAI — Supabase Edge Functions deployment
 
-The static site is fully wired to these functions, but they must be **deployed once** (and a
-few secrets set) before they do anything. Until then:
+**All 9 functions are deployed and ACTIVE** (confirmed July 2026 via `supabase functions list`).
 
-- ✅ **Self-service signup works** — `register.html` creates the user directly via Supabase Auth.
-- ❌ **Admin "Add a partner" / "Create a user"** → "Failed to fetch" (needs `admin-create-user`).
-- ❌ **Signup / invite / cohort emails** are silently skipped (needs `send-email` + Resend).
-- ❌ **Facilitator answer feedback** falls back to a generic note (needs `tutor-review`).
+| Function | Status | Notes |
+|---|---|---|
+| `admin-create-user` | ✅ ACTIVE | Admin creates learners / partners / facilitators / admins |
+| `admin-set-password` | ✅ ACTIVE | Admin sets / resets a password |
+| `admin-provision-user` | ✅ ACTIVE | Provision portal account + email credentials |
+| `create-user` | ✅ ACTIVE | Self-service learner creation |
+| `partner-invite` | ✅ ACTIVE | Provision partner login + set-password link |
+| `partner-signup` | ✅ ACTIVE | Partner self-service signup flow |
+| `send-email` | ✅ ACTIVE | Transactional email via Resend |
+| `tutor-review` | ✅ ACTIVE | Facilitator-style AI answer feedback |
+| `grade-apply` | ✅ ACTIVE | Module 0 Apply phase grading |
+
+**CLI is installed and linked on this machine** — binary at `C:\Users\techhub\AppData\Local\supabase-cli\supabase.exe`, project linked to `evxvsldwulqvowaaurxf`. Run from `afriversalai/` directory.
 
 Do this from the **repo root** (`afriversalai/`) in a terminal.
 
 ## 1. One-time setup
 
-```bash
-# Install the CLI if needed:  brew install supabase/tap/supabase
+Already done on Thando's Windows machine (July 2026). If setting up a new machine:
+
+```powershell
+# Windows — download binary from https://github.com/supabase/cli/releases
+# Extract supabase.exe, add folder to PATH, then:
 supabase login
+cd "C:\path\to\afriversalai"
 supabase link --project-ref evxvsldwulqvowaaurxf
 ```
 

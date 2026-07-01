@@ -855,6 +855,7 @@ window.MODULE_CONFIG = {
       var step = document.getElementById('prog-' + i);
       if (step) step.classList.add('is-done');
     });
+    initAnswerPersistence('module-7-corporate', ['ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5'], session.user.id);
     return;
   }
 
@@ -874,6 +875,7 @@ window.MODULE_CONFIG = {
   gateChecking.style.display = 'none';
   gateLocked.style.display   = 'none';
   content.style.display      = 'block';
+  initAnswerPersistence('module-7-corporate', ['ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5'], session.user.id);
 
   const progress = await getAllProgress();
   const phases = progress

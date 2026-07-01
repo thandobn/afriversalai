@@ -639,6 +639,7 @@ function advancePhase(fromPhase) {
       var curS = document.getElementById('prog-' + cur); if (curS) curS.classList.add('is-active');
       setTimeout(function() { if (curP) curP.scrollIntoView({ behavior:'smooth', block:'start' }); }, 200);
     }
+    initAnswerPersistence('module-7-healthcare', ['enc-1', 'enc-2', 'ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5'], session.user.id);
   }).catch(function() { window.location.href = 'login.html?next=module-7-healthcare.html'; });
 })();
 </script>
