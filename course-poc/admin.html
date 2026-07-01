@@ -360,6 +360,14 @@
     <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 14px; max-width:760px;">Corporate entities created by partners land here as <strong>Pending</strong>. Approving one provisions the Corporate Portal login (credentials emailed), issues an invoice, and emails the invoice + EFT/banking details to the corporate manager for payment.</p>
     <div id="corp-accounts" style="margin-bottom:34px;"></div>
 
+    <div class="adm-bar"><h2>Invoices &amp; payments</h2><span class="adm-sub" id="inv-count"></span></div>
+    <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 14px; max-width:760px;">When a corporate uploads proof of payment, review it here and <strong>mark the invoice paid</strong>. That records the partner's commission (payable within 15 days of cleared funds).</p>
+    <div id="corp-invoices-admin" style="margin-bottom:34px;"></div>
+
+    <div class="adm-bar"><h2>Partner commissions</h2><span class="adm-sub" id="comm-count"></span></div>
+    <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 14px; max-width:760px;">Once the partner's commission is paid, upload the proof of payment and mark it <strong>PAID</strong> &mdash; the date, who marked it, and the POP are tracked, and it shows PAID in the partner's dashboard.</p>
+    <div id="partner-commissions" style="margin-bottom:30px;"></div>
+
     <div class="adm-bar"><h2>Onboard a corporate (direct sale)</h2></div>
     <p style="font-size:0.84em; color:var(--muted); margin:-6px 0 16px; max-width:700px;">Create a cohort for a corporate you've sold directly. This generates a unique <strong>access code</strong> their staff enter at registration to be linked to this cohort. Partner-sourced deals are created by the partner in their portal &mdash; those appear in the list below marked with the partner's email.</p>
 
@@ -1006,7 +1014,7 @@ function switchTab(name) {
     if (btn) btn.classList.toggle('is-active', t === name);
   });
   if (name === 'partners') loadPartnersData();
-  if (name === 'corporates') { loadCorporates(); loadCorporateAccounts(); }
+  if (name === 'corporates') { loadCorporates(); loadCorporateAccounts(); loadInvoicesAdmin(); loadCommissions(); }
 }
 
 async function loadPartnersData() {
@@ -1258,6 +1266,8 @@ async function initAdmin() {
   renderCohortRegs(); // live Layer 3 cohort opt-ins
   loadCorporates();   // corporate cohorts list (admin-created + partner-sourced)
   loadCorporateAccounts();   // corporate entity accounts (approval)
+  loadInvoicesAdmin();       // invoices + mark-paid
+  loadCommissions();         // partner commissions + POP
 }
 
 // ---------- Corporate cohorts (admin-created direct sales) ----------
@@ -1375,6 +1385,84 @@ async function approveCorporateAccount(email) {
   try { await _supabase.from('corporates').update({ status: 'approved', approved_at: new Date().toISOString() }).eq('email', email); } catch (e) {}
   say('✓ Approved. Login credentials + invoice ' + invNo + ' emailed to ' + escapeHtml(email) + '.', true);
   setTimeout(loadCorporateAccounts, 1200);
+}
+
+function admMoney(n) { return 'R ' + (Number(n) || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+async function admViewPop(path) {
+  if (!path) return;
+  try { var r = await _supabase.storage.from('pops').createSignedUrl(path, 3600); if (r && r.data && r.data.signedUrl) { window.open(r.data.signedUrl, '_blank'); return; } } catch (e) {}
+  alert('Could not open the file.');
+}
+async function loadInvoicesAdmin() {
+  var box = document.getElementById('corp-invoices-admin'); if (!box) return;
+  var rows = []; try { rows = (await _supabase.from('invoices').select('*').order('issued_at', { ascending: false })).data || []; }
+  catch (e) { box.innerHTML = '<p style="color:var(--muted);font-size:.86em;">Invoices table not found. Run <code>supabase-corporate-migration.sql</code>.</p>'; return; }
+  var cnt = document.getElementById('inv-count'); if (cnt) cnt.textContent = rows.length ? rows.length + ' invoice' + (rows.length === 1 ? '' : 's') : '';
+  if (!rows.length) { box.innerHTML = '<p style="color:var(--muted);font-size:.86em;">No invoices yet. Approving a corporate issues one.</p>'; return; }
+  box.innerHTML = rows.map(function (inv) {
+    var paid = inv.status === 'paid';
+    var pill = paid ? '<span class="pill pill--approved">PAID' + (inv.paid_at ? ' &middot; ' + new Date(inv.paid_at).toLocaleDateString('en-ZA') : '') + '</span>' : (inv.pop_path ? '<span class="pill pill--reviewing">POP uploaded</span>' : '<span class="pill pill--new">Awaiting payment</span>');
+    return '<div class="co-card" style="border-left-color:' + (paid ? 'var(--green-mid)' : '#C9A227') + ';">'
+      + '<div class="co-card__head"><div><div class="co-card__name">' + escapeHtml(inv.invoice_number || '') + ' &middot; ' + admMoney(inv.total) + '</div>'
+      + '<div class="co-card__sub">' + escapeHtml(inv.corporate_email || '') + (inv.partner_email ? ' &middot; partner: ' + escapeHtml(inv.partner_email) : '') + '</div></div>' + pill + '</div>'
+      + '<div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">'
+      + (inv.pop_path ? '<button class="btn btn--outline btn--sm" onclick="admViewPop(\'' + escapeHtml(inv.pop_path) + '\')">View POP</button>' : '<span style="font-size:.82em;color:var(--muted);">No POP uploaded yet</span>')
+      + (paid ? '' : '<button class="btn btn--primary btn--sm" onclick="markInvoicePaid(\'' + escapeHtml(inv.id) + '\')">Mark invoice PAID</button>')
+      + '</div><div id="invmsg-' + escapeHtml(inv.id) + '" style="font-size:.84em;margin-top:6px;"></div></div>';
+  }).join('');
+}
+async function markInvoicePaid(id) {
+  var msg = document.getElementById('invmsg-' + id); var say = function (t, ok) { if (msg) { msg.textContent = t; msg.style.color = ok ? 'var(--green-dark)' : '#DC2626'; } };
+  say('Marking paid…', true);
+  var inv; try { inv = (await _supabase.from('invoices').select('*').eq('id', id).maybeSingle()).data; } catch (e) {}
+  if (!inv) { say('Invoice not found.', false); return; }
+  try { await _supabase.from('invoices').update({ status: 'paid', paid_at: new Date().toISOString(), pop_approved_at: new Date().toISOString() }).eq('id', id); }
+  catch (e) { say('Could not update the invoice.', false); return; }
+  try { if (inv.corporate_email) await _supabase.from('corporates').update({ status: 'active' }).eq('email', inv.corporate_email); } catch (e) {}
+  if (inv.partner_email) {
+    var rate = 0.15; try { var p = (await _supabase.from('partners').select('level').eq('email', inv.partner_email).maybeSingle()).data; if (p && window.partnerRate) rate = window.partnerRate(p.level); } catch (e) {}
+    var commission = +(Number(inv.amount || 0) * rate).toFixed(2);
+    try {
+      var existing = (await _supabase.from('partner_payments').select('id').eq('invoice_id', id).maybeSingle()).data;
+      if (!existing) await _supabase.from('partner_payments').insert({ partner_email: inv.partner_email, invoice_id: id, corporate_email: inv.corporate_email, organisation_id: inv.organisation_id, amount: commission, status: 'pending' });
+    } catch (e) {}
+  }
+  say('✓ Invoice marked paid. Corporate activated; partner commission recorded.', true);
+  setTimeout(function () { loadInvoicesAdmin(); loadCommissions(); }, 1000);
+}
+async function loadCommissions() {
+  var box = document.getElementById('partner-commissions'); if (!box) return;
+  var rows = []; try { rows = (await _supabase.from('partner_payments').select('*').order('created_at', { ascending: false })).data || []; }
+  catch (e) { box.innerHTML = '<p style="color:var(--muted);font-size:.86em;">partner_payments table not found.</p>'; return; }
+  var cnt = document.getElementById('comm-count'); if (cnt) cnt.textContent = rows.length ? rows.length + ' commission' + (rows.length === 1 ? '' : 's') : '';
+  if (!rows.length) { box.innerHTML = '<p style="color:var(--muted);font-size:.86em;">No commissions yet. Marking an invoice paid records one.</p>'; return; }
+  box.innerHTML = rows.map(function (c) {
+    var paid = c.status === 'paid';
+    var pill = paid ? '<span class="pill pill--approved">PAID' + (c.paid_at ? ' &middot; ' + new Date(c.paid_at).toLocaleDateString('en-ZA') : '') + '</span>' : '<span class="pill pill--new">Payable</span>';
+    return '<div class="co-card" style="border-left-color:' + (paid ? 'var(--green-mid)' : '#C9A227') + ';">'
+      + '<div class="co-card__head"><div><div class="co-card__name">' + escapeHtml(c.partner_email || '') + ' &middot; ' + admMoney(c.amount) + '</div>'
+      + '<div class="co-card__sub">' + escapeHtml(c.corporate_email || '') + (c.due_terms ? ' &middot; ' + escapeHtml(c.due_terms) : '') + '</div></div>' + pill + '</div>'
+      + (paid
+        ? '<div style="margin-top:8px;font-size:.82em;color:var(--muted);">Paid ' + (c.paid_at ? new Date(c.paid_at).toLocaleDateString('en-ZA') : '') + (c.marked_by ? ' by ' + escapeHtml(c.marked_by) : '') + '. ' + (c.pop_path ? '<a href="#" onclick="admViewPop(\'' + escapeHtml(c.pop_path) + '\');return false;" style="color:var(--green-mid);font-weight:700;">View POP</a>' : '') + '</div>'
+        : '<div style="margin-top:10px;"><label style="display:block;font-size:.78em;font-weight:700;margin-bottom:6px;">Upload partner POP &amp; mark paid</label><input type="file" accept="application/pdf,image/*" onchange="markCommissionPaid(\'' + escapeHtml(c.id) + '\',this)" style="font-size:.85em;" /></div>')
+      + '<div id="commmsg-' + escapeHtml(c.id) + '" style="font-size:.84em;margin-top:6px;"></div></div>';
+  }).join('');
+}
+async function markCommissionPaid(id, input) {
+  var msg = document.getElementById('commmsg-' + id); var say = function (t, ok) { if (msg) { msg.textContent = t; msg.style.color = ok ? 'var(--green-dark)' : '#DC2626'; } };
+  var file = input && input.files && input.files[0]; if (!file) return;
+  say('Uploading POP…', true);
+  var me = '', uid = ''; try { var s = await getSession(); me = (s && s.user && s.user.email) || ''; uid = (s && s.user && s.user.id) || ''; } catch (e) {}
+  try {
+    var ext = (file.name.split('.').pop() || 'pdf').toLowerCase().replace(/[^a-z0-9]/g, '');
+    var path = uid + '/commission-' + id + '.' + ext;
+    var up = await _supabase.storage.from('pops').upload(path, file, { upsert: true, contentType: file.type || 'application/octet-stream' });
+    if (up.error) throw up.error;
+    var u = await _supabase.from('partner_payments').update({ status: 'paid', paid_at: new Date().toISOString(), pop_path: path, marked_by: me }).eq('id', id);
+    if (u.error) throw u.error;
+    say('✓ Commission marked PAID with POP evidence.', true);
+    setTimeout(loadCommissions, 1000);
+  } catch (e) { say('Failed: ' + ((e && e.message) || 'try again'), false); }
 }
 
 async function loadCorporates() {
