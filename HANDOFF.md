@@ -1118,3 +1118,35 @@ Admin needs full read+update access — grant via Supabase service role or add a
 
 **Files changed:**
 - `course-poc/module-6.html` — full M6 revision (all 8 groups committed this session)
+
+---
+
+## Session: 2026-07-01 — Module 7 COABU content review and revision
+
+**What was worked on:**
+- Module 7 (Corporate & Business) full revision per brief (AfriversalAI_Module_7_COABU_Review_and_Revision_Brief.md, 1126 lines) — all 37 must-fix items + all 8 strong-improvement items
+
+**Key changes (12 groups):**
+- A: Title → "Verification, Governance & Accountability"; lead rewrite; 5 new objectives (was 4); case note added; dependency → "Modules 0–1"
+- B: Encounter intro → "nine realistic corporate-workplace scenarios"; risk principle callout added; retrenchment card → Medium/potentially High; 9th low-risk card added (reformatting non-confidential notes); DCDT case tightened (removed "6 of 67", "not verifying a single reference", "two officials suspended"; source changed to SAnews/Reuters; corporate bridge sentence added)
+- C: Reflect opening line updated; confidentiality guardrail added; Prompt 1 reframed (facts + source + data + context); Prompt 2 reframed (accountability mapping); Prompt 3 added (7-item weakness-scan checklist); takeaway rewrite
+- D+E+F: Concept restructured from 1 scrolling screen → 4 lesson screens (les1-les4) with dot tracker + goLesson7Corp/setLesson7Corp/M7CORP_LESSON_LABELS:
+  - les1: generation-vs-retrieval (rewritten for RAG/enterprise), WWWorx 67%/15%/32%/20% correctly cited, "which claim can you verify" interaction
+  - les2: 3 tool cards (all rewritten — Copilot conditional, ChatGPT "may create risks" not automatic breach, DeepSeek → broader unapproved-tool governance), "approved tool ≠ approved use" callout, data-classification table (5 rows: public/internal/confidential/personal/regulated)
+  - les3: 4 legal frameworks — POPIA (s72 conditions not prohibition), CPA s41 (consumer-facing only), EEA (indirect concern not automatic verdict), B-BBEE (removed unsupported 2024 code claim → conditional procurement governance)
+  - les4: Enbi corrected metrics (22M requests / 1.8M clients not 10M/50%), reframed as "illustrative governance features" not "proven exclusive causes"; vendor/procurement checklist (9 questions); verification-threshold matrix (4-row table); "spot the governance failure" interaction (6 failure categories)
+- G: All 4 quiz questions and correct answers rewritten; all feedback updated (correct + wrong)
+- H+I+J: Apply restructured from 1 scrolling form → 3 screens (syn1/syn2/syn3) with advanceApply7Corp() validation:
+  - syn1: Scenario + confidentiality warning + TASK (AI assistance vs evidence) + DATA (evidence provenance, not just personal data)
+  - syn2: TOOL (retrieval vs synthesis) + TRUST (verification checklist; "higher consequence = higher bar")
+  - syn3: HUMAN (accountability map, no "under which law?") + INCIDENT RESPONSE field (app-6 — what must happen now) + 6-radio recommendation selector + model answers (6 items) + submit
+- K: Module completion text updated
+- L: Full JS replacement — M7CORP_LESSON_LABELS, setLesson7Corp, goLesson7Corp, advanceApply7Corp, ANSWERS array (9 cards, retrenchment → risk-med), quiz feedback strings, completeModuleM7Corp (validates app-1..6 + recommendation), initAnswerPersistence (adds app-6), restore logic (adds showScreen(3,'syn3')), MODULE_CONFIG (hides lesson tracker during quiz)
+
+**Open items / next steps:**
+- Remaining sector modules: Education, Finance, Government, Healthcare (module-7-education.html etc.)
+- i18n translations for all new/changed EN strings M7 (AF/FR/ZU — standing backlog)
+- Standing: BACKLOG T1 (answer persistence), T2 (DocuSign), RD1 (CITATIONS.md)
+
+**Files changed:**
+- `course-poc/module-7-corporate.html` — committed d9ca633 (408 ins, 187 del)
