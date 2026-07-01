@@ -21,6 +21,8 @@
     .cp-wrap { max-width:1180px; margin:28px auto; padding:0 24px 64px; }
     .cp-denied { max-width:520px; margin:80px auto; background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:40px; text-align:center; box-shadow:var(--shadow-md); }
     .cp-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:28px 30px; }
+    .cp-hero { background:linear-gradient(160deg,#123528 0%,#1B4332 60%,#2D6A4F 130%); color:#fff; border-radius:var(--radius-lg); padding:26px 32px; margin-bottom:22px; }
+    .cp-hero h1 { color:#fff; }
     .cp-layout { display:grid; grid-template-columns:minmax(0,1fr) 344px; gap:26px; align-items:start; }
     .cp-side { position:sticky; top:16px; }
     .cp-side .cp-card { padding:18px 20px; }
@@ -47,8 +49,24 @@
 </div>
 
 <div id="cp-portal" class="cp-wrap" style="display:none;">
-  <div class="eyebrow" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);">Corporate Dashboard</div>
-  <h1 id="cp-greeting" style="color:var(--green-dark);margin:6px 0 8px;">Welcome</h1>
+  <div class="cp-hero">
+    <div style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold);">Corporate Dashboard</div>
+    <h1 id="cp-greeting" style="color:#fff;margin:6px 0 6px;">Welcome</h1>
+    <div id="cp-code" style="margin:2px 0 16px;"></div>
+    <div id="cp-overview"></div>
+  </div>
+
+  <!-- Prominent Invoices & Payment band -->
+  <div class="cp-card" style="margin-bottom:22px;border:2px solid var(--gold);border-radius:var(--radius-lg);">
+    <h2 style="color:var(--green-dark);font-size:1.15em;margin:0 0 12px;">💳 Invoices &amp; Payment</h2>
+    <div id="cp-invoices" style="margin-bottom:16px;"></div>
+    <div style="background:var(--green-pale);border:1px solid var(--green-light);border-radius:var(--radius);padding:14px 16px;">
+      <div style="font-weight:800;color:var(--green-dark);margin-bottom:6px;">EFT / banking details</div>
+      <div id="cp-bank" style="font-size:.88em;color:var(--text);line-height:1.9;"></div>
+      <p style="font-size:.8em;color:var(--muted);margin:10px 0 0;">Use your <strong>invoice number</strong> as the payment reference. After paying, <strong>upload your proof of payment (POP)</strong> against the invoice above &mdash; AfriversalAI confirms it and marks the invoice paid.</p>
+    </div>
+  </div>
+
   <div class="cp-layout">
   <div class="cp-main">
   <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Your Programme Administrator</div>
@@ -116,16 +134,7 @@
 
   </div><!-- /cp-main -->
   <aside class="cp-side">
-    <div id="cp-code" style="margin:0 0 14px;"></div>
-    <div class="cp-card" id="cp-overview" style="margin-bottom:16px;"></div>
     <div class="cp-card" id="cp-docstatus" style="margin-bottom:16px;"></div>
-    <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:6px 0 8px;">Invoices &amp; payment</div>
-    <div id="cp-invoices" style="margin-bottom:16px;"></div>
-    <div class="cp-card">
-      <h2 style="color:var(--green-dark);font-size:1.0em;margin:0 0 10px;">EFT / banking details</h2>
-      <div id="cp-bank" style="font-size:.86em;color:var(--text);line-height:1.9;"></div>
-      <p style="font-size:.78em;color:var(--muted);margin:12px 0 0;">Use your <strong>invoice number</strong> as the payment reference. After paying, upload proof of payment against the invoice above.</p>
-    </div>
   </aside>
   </div><!-- /cp-layout -->
 </div>
@@ -223,11 +232,10 @@
       : '<span style="font-size:.85em;color:var(--muted);">Your cohort access code appears here once your programme is approved.</span>'; }
     var pct=seats?Math.min(100,Math.round(regs/seats*100)):0;
     var ov=document.getElementById('cp-overview');
-    if(ov){ ov.innerHTML='<h2 style="color:var(--green-dark);font-size:1.05em;margin:0 0 12px;">Programme overview</h2>'
-      +'<div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end;">'
-      +'<div><div style="font-size:1.9em;font-weight:800;color:var(--green-dark);line-height:1;">'+seats+'</div><div style="font-size:.8em;color:var(--muted);">Seats purchased</div></div>'
-      +'<div><div style="font-size:1.9em;font-weight:800;color:var(--green-dark);line-height:1;">'+regs+'</div><div style="font-size:.8em;color:var(--muted);">Learners registered</div></div>'
-      +'<div style="flex:1;min-width:200px;"><div style="font-size:.8em;color:var(--muted);margin-bottom:4px;">Registration progress</div><div style="background:var(--green-pale);border-radius:999px;height:12px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:var(--green-mid);"></div></div><div style="font-size:.78em;color:var(--muted);margin-top:4px;">'+regs+' of '+seats+' seats ('+pct+'%) &middot; learners are matched to your cohort by the access code above</div></div>'
+    if(ov){ ov.innerHTML='<div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-end;">'
+      +'<div><div style="font-size:2.1em;font-weight:800;color:#fff;line-height:1;">'+seats+'</div><div style="font-size:.78em;color:rgba(255,255,255,.8);">Seats purchased</div></div>'
+      +'<div><div style="font-size:2.1em;font-weight:800;color:#fff;line-height:1;">'+regs+'</div><div style="font-size:.78em;color:rgba(255,255,255,.8);">Learners registered</div></div>'
+      +'<div style="flex:1;min-width:220px;"><div style="font-size:.78em;color:rgba(255,255,255,.8);margin-bottom:4px;">Registration progress</div><div style="background:rgba(255,255,255,.22);border-radius:999px;height:12px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:var(--gold);"></div></div><div style="font-size:.76em;color:rgba(255,255,255,.75);margin-top:4px;">'+regs+' of '+seats+' seats ('+pct+'%) &middot; learners are matched to your cohort by the access code above</div></div>'
       +'</div>'; }
   }
 
