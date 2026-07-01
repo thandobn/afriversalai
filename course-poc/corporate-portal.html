@@ -45,9 +45,21 @@
 <div id="cp-portal" class="cp-wrap" style="display:none;">
   <div class="eyebrow" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);">Corporate Dashboard</div>
   <h1 id="cp-greeting" style="color:var(--green-dark);margin:6px 0 18px;">Welcome</h1>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Your contract</div>
+  <div class="cp-card" style="margin-bottom:24px;">
+    <h2 style="color:var(--green-dark);font-size:1.05em;margin:0 0 6px;">Form 1 — Corporate Contract with AfriversalAI</h2>
+    <p style="color:var(--muted);font-size:.9em;line-height:1.6;margin:0 0 12px;">Review and sign your services agreement with AfriversalAI (AfriversalAI is the supplier). Once signed, your invoice is confirmed for payment.</p>
+    <a href="corporate-contract.html" class="btn btn--primary btn--sm">Review &amp; sign the contract &rarr;</a>
+  </div>
+
+  <div class="section-label" style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--green-mid);margin:8px 0 10px;">Invoices &amp; payment</div>
+  <div id="cp-invoices" style="margin-bottom:24px;"></div>
+
   <div class="cp-card">
-    <h2 style="color:var(--green-dark);font-size:1.1em;margin:0 0 8px;">Your dashboard is being set up</h2>
-    <p style="color:var(--muted);font-size:.92em;line-height:1.6;margin:0;">This is where you'll review and sign your <strong>Corporate Contract</strong> with AfriversalAI, see your <strong>cohort &amp; access code</strong>, and manage your <strong>invoices and proof of payment</strong>. These sections are being activated for your account.</p>
+    <h2 style="color:var(--green-dark);font-size:1.0em;margin:0 0 10px;">EFT / banking details</h2>
+    <div id="cp-bank" style="font-size:.88em;color:var(--text);line-height:1.9;"></div>
+    <p style="font-size:.78em;color:var(--muted);margin:12px 0 0;">Use your <strong>invoice number</strong> as the payment reference. After paying, upload your proof of payment against the invoice above.</p>
   </div>
 </div>
 
@@ -56,22 +68,85 @@
 <script src="assets/auth.js"></script>
 <script src="assets/partners.js"></script>
 <script src="assets/partner-data.js"></script>
+<script src="assets/email.js"></script>
 <script>
+  var CP_EMAIL = '', CP_UID = '';
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function money(n){ return 'R ' + (Number(n)||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   async function cpSignOut(){ try { await _supabase.auth.signOut(); } catch(e){} window.location.href = 'corporate-login.html'; }
+
+  function renderBank(){
+    var b = window.AF_BANK; var el = document.getElementById('cp-bank'); if (!el || !b) return;
+    el.innerHTML = '<strong>Account holder:</strong> ' + esc(b.holder) + '<br>'
+      + '<strong>Bank:</strong> ' + esc(b.bank) + ' &middot; ' + esc(b.accountType) + '<br>'
+      + '<strong>Account number:</strong> ' + esc(b.accountNo) + '<br>'
+      + '<strong>Branch code:</strong> ' + esc(b.branchCode) + ' &middot; ' + esc(b.branchName) + '<br>'
+      + '<strong>SWIFT:</strong> ' + esc(b.swift);
+  }
+
+  async function loadInvoices(){
+    var box = document.getElementById('cp-invoices'); if (!box) return;
+    var rows = [];
+    try { rows = (await _supabase.from('invoices').select('*').eq('corporate_email', CP_EMAIL).order('issued_at',{ascending:false})).data || []; } catch(e){}
+    if (!rows.length){ box.innerHTML = '<div class="cp-card"><p style="color:var(--muted);font-size:.9em;margin:0;">No invoices yet. Your invoice will appear here once AfriversalAI issues it.</p></div>'; return; }
+    box.innerHTML = rows.map(function(inv){
+      var paid = inv.status === 'paid';
+      var hasPop = !!inv.pop_path;
+      var status = paid
+        ? '<span class="pill" style="background:#D1FAE5;color:#065F46;">PAID' + (inv.paid_at ? ' &middot; ' + new Date(inv.paid_at).toLocaleDateString('en-ZA') : '') + '</span>'
+        : (hasPop ? '<span class="pill" style="background:#DBEAFE;color:#1E40AF;">POP uploaded &middot; awaiting confirmation</span>'
+                  : '<span class="pill" style="background:#FEF3C7;color:#92400E;">Awaiting payment</span>');
+      var action = paid ? ''
+        : '<div style="margin-top:12px;">'
+          + '<label style="display:block;font-size:.78em;font-weight:700;color:var(--text);margin-bottom:6px;">' + (hasPop ? 'Re-upload proof of payment' : 'Upload proof of payment (PDF/JPG/PNG)') + '</label>'
+          + '<input type="file" accept="application/pdf,image/*" onchange="uploadPop(\'' + esc(inv.id) + '\', this)" style="font-size:.85em;" />'
+          + '<span id="poperr-' + esc(inv.id) + '" style="display:block;font-size:.82em;color:#B91C1C;margin-top:6px;"></span></div>';
+      return '<div class="cp-card" style="margin-bottom:14px;">'
+        + '<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;">'
+        + '<div><div style="font-weight:800;color:var(--green-dark);">Invoice ' + esc(inv.invoice_number||'') + '</div>'
+        + '<div style="font-size:.85em;color:var(--muted);margin-top:2px;">' + esc(inv.description||'') + '</div></div>' + status + '</div>'
+        + '<table style="width:100%;border-collapse:collapse;font-size:.88em;margin-top:12px;max-width:360px;">'
+        + '<tr><td style="padding:4px 0;color:var(--muted);">Subtotal</td><td style="padding:4px 0;text-align:right;">' + money(inv.amount) + '</td></tr>'
+        + '<tr><td style="padding:4px 0;color:var(--muted);">VAT</td><td style="padding:4px 0;text-align:right;">' + money(inv.vat) + '</td></tr>'
+        + '<tr><td style="padding:4px 0;font-weight:800;color:var(--green-dark);">Total due</td><td style="padding:4px 0;text-align:right;font-weight:800;color:var(--green-dark);">' + money(inv.total) + '</td></tr>'
+        + '</table>' + action + '</div>';
+    }).join('');
+  }
+
+  async function uploadPop(invoiceId, input){
+    var errEl = document.getElementById('poperr-' + invoiceId);
+    var file = input && input.files && input.files[0];
+    if (!file) return;
+    if (errEl){ errEl.style.color = 'var(--muted)'; errEl.textContent = 'Uploading…'; }
+    try {
+      var ext = (file.name.split('.').pop() || 'pdf').toLowerCase().replace(/[^a-z0-9]/g,'');
+      var path = CP_UID + '/inv-' + invoiceId + '.' + ext;
+      var up = await _supabase.storage.from('pops').upload(path, file, { upsert:true, contentType: file.type || 'application/octet-stream' });
+      if (up.error) throw up.error;
+      var u = await _supabase.from('invoices').update({ pop_path: path, pop_uploaded_at: new Date().toISOString() }).eq('id', invoiceId);
+      if (u.error) throw u.error;
+      if (errEl){ errEl.style.color = 'var(--green-dark)'; errEl.textContent = '✓ Proof of payment uploaded. AfriversalAI will confirm and mark the invoice paid.'; }
+      setTimeout(loadInvoices, 1200);
+    } catch (e){ if (errEl){ errEl.style.color='#B91C1C'; errEl.textContent = 'Upload failed: ' + ((e && e.message) || 'please try again.'); } }
+  }
+
   (async function initCorporate(){
     var session = await getSession();
     if (!session){ window.location.href = 'corporate-login.html'; return; }
-    var email = ((session.user && session.user.email) || '').toLowerCase();
-    if (!(await isCorporate(email))){ document.getElementById('cp-denied').style.display = 'block'; return; }
-    document.getElementById('cp-who').textContent = email;
+    CP_EMAIL = ((session.user && session.user.email) || '').toLowerCase();
+    CP_UID = (session.user && session.user.id) || '';
+    if (!(await isCorporate(CP_EMAIL))){ document.getElementById('cp-denied').style.display = 'block'; return; }
+    document.getElementById('cp-who').textContent = CP_EMAIL;
     document.getElementById('cp-portal').style.display = 'block';
     try {
-      var r = await _supabase.from('corporates').select('company_name,contact_name').eq('email', email).maybeSingle();
+      var r = await _supabase.from('corporates').select('company_name,contact_name').eq('email', CP_EMAIL).maybeSingle();
       var co = r && r.data;
       if (co && (co.company_name || co.contact_name)) {
         document.getElementById('cp-greeting').textContent = 'Welcome, ' + (co.contact_name ? co.contact_name.split(' ')[0] : co.company_name);
       }
     } catch (e) {}
+    renderBank();
+    loadInvoices();
   })();
 </script>
 <script src="assets/icon-swap.js"></script>

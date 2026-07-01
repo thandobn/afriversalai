@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corporate Contract — AfriversalAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <style>
+    body { background:#EEF1F0; min-height:100vh; margin:0; }
+    .cc-top { background:var(--green-dark); color:#fff; padding:14px 0; }
+    .cc-top__inner { max-width:900px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+    .cc-top__inner img { height:28px; }
+    .cc-top a { color:#fff; font-size:.84em; text-decoration:none; opacity:.85; }
+    .cc-wrap { max-width:760px; margin:40px auto; padding:0 16px; }
+    .cc-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:34px; box-shadow:var(--shadow-md); }
+  </style>
+</head>
+<body>
+<div class="cc-top"><div class="cc-top__inner"><img src="assets/logo-white.png" alt="AfriversalAI" /><a href="corporate-portal.html">&larr; Corporate Portal</a></div></div>
+<div class="cc-wrap">
+  <div id="cc-denied" class="cc-card" style="display:none;text-align:center;">
+    <h1 style="color:var(--green-dark);font-size:1.3em;">Corporate access only</h1>
+    <p style="color:var(--muted);">Please <a href="corporate-login.html">sign in to the Corporate Portal</a>.</p>
+  </div>
+  <div id="cc-body" class="cc-card" style="display:none;">
+    <div style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);">Form 1</div>
+    <h1 style="color:var(--green-dark);font-size:1.5em;margin:6px 0 10px;">Corporate Contract with AfriversalAI</h1>
+    <p style="color:var(--muted);font-size:.95em;line-height:1.6;">Your services agreement is being finalised for signing. It will appear here with your company details pre-filled, ready to review and sign electronically — AfriversalAI counter-signs automatically, and a signed PDF is emailed to you.</p>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/auth.js"></script>
+<script src="assets/partners.js"></script>
+<script src="assets/partner-data.js"></script>
+<script>
+  (async function(){
+    var s = await getSession();
+    if (!s){ window.location.href = 'corporate-login.html'; return; }
+    if (await isCorporate((s.user && s.user.email) || '')) document.getElementById('cc-body').style.display = 'block';
+    else document.getElementById('cc-denied').style.display = 'block';
+  })();
+</script>
+</body>
+</html>
