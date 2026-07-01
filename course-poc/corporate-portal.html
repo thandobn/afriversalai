@@ -170,33 +170,64 @@
       + '<strong>SWIFT:</strong> ' + esc(b.swift);
   }
 
+  function cpCountdown(id, due){
+    function tick(){
+      var el=document.getElementById(id); if(!el) return;
+      var diff=due.getTime()-Date.now();
+      if(diff<=0){ el.innerHTML='<span style="color:#DC2626;font-weight:800;">&#9200; Payment overdue</span>'; return; }
+      var d=Math.floor(diff/86400000), h=Math.floor(diff%86400000/3600000), m=Math.floor(diff%3600000/60000), s=Math.floor(diff%60000/1000);
+      el.innerHTML='&#9200; Pay within <strong style="color:var(--green-dark);font-variant-numeric:tabular-nums;">'+d+'d '+h+'h '+m+'m '+s+'s</strong> &mdash; due 29 July 2026 (3 days before your 1 Aug cohort)';
+      setTimeout(tick,1000);
+    }
+    tick();
+  }
   async function loadInvoices(){
     var box = document.getElementById('cp-invoices'); if (!box) return;
     var rows = [];
     try { rows = (await _supabase.from('invoices').select('*').eq('corporate_email', CP_EMAIL).order('issued_at',{ascending:false})).data || []; } catch(e){}
-    if (!rows.length){ box.innerHTML = '<div class="cp-card"><p style="color:var(--muted);font-size:.9em;margin:0;">No invoices yet. Your invoice will appear here once AfriversalAI issues it.</p></div>'; return; }
-    box.innerHTML = rows.map(function(inv){
+    var company=''; try { var c=(await _supabase.from('corporates').select('company_name').eq('email',CP_EMAIL).maybeSingle()).data; company=(c&&c.company_name)||''; } catch(e){}
+    if (!rows.length){ box.innerHTML = '<p style="color:var(--muted);font-size:.9em;margin:0;">No invoices yet. Your invoice will appear here once AfriversalAI issues it.</p>'; return; }
+    var DUE = new Date('2026-07-29T23:59:59');
+    box.innerHTML = rows.map(function(inv, idx){
       var paid = inv.status === 'paid';
       var hasPop = !!inv.pop_path;
-      var status = paid
-        ? '<span class="pill" style="background:#D1FAE5;color:#065F46;">PAID' + (inv.paid_at ? ' &middot; ' + new Date(inv.paid_at).toLocaleDateString('en-ZA') : '') + '</span>'
-        : (hasPop ? '<span class="pill" style="background:#DBEAFE;color:#1E40AF;">POP uploaded &middot; awaiting confirmation</span>'
-                  : '<span class="pill" style="background:#FEF3C7;color:#92400E;">Awaiting payment</span>');
+      var statusBanner = paid
+        ? '<div style="background:#059669;color:#fff;font-weight:800;font-size:1.15em;letter-spacing:1.5px;text-align:center;padding:12px;border-radius:8px;">&#10004; PAID' + (inv.paid_at ? ' &nbsp;&middot;&nbsp; ' + new Date(inv.paid_at).toLocaleDateString('en-ZA') : '') + '</div>'
+        : (hasPop
+          ? '<div style="background:#DBEAFE;color:#1E40AF;font-weight:700;text-align:center;padding:10px;border-radius:8px;">&#8987; Proof of payment uploaded &middot; awaiting AfriversalAI confirmation</div>'
+          : '<div style="background:#FEF3C7;color:#92400E;font-weight:800;letter-spacing:1px;text-align:center;padding:10px;border-radius:8px;">PENDING PAYMENT</div>');
+      var countdown = paid ? '' : '<div id="cp-cd-'+idx+'" style="text-align:center;font-size:.84em;color:var(--muted);margin-top:8px;"></div>';
       var action = paid ? ''
-        : '<div style="margin-top:12px;">'
-          + '<label style="display:block;font-size:.78em;font-weight:700;color:var(--text);margin-bottom:6px;">' + (hasPop ? 'Re-upload proof of payment' : 'Upload proof of payment (PDF/JPG/PNG)') + '</label>'
+        : '<div style="margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;">'
+          + '<label style="display:block;font-size:.82em;font-weight:800;color:var(--green-dark);margin-bottom:6px;">' + (hasPop ? '&#11015; Re-upload proof of payment' : '&#11015; Upload proof of payment (PDF / JPG / PNG)') + '</label>'
           + '<input type="file" accept="application/pdf,image/*" onchange="uploadPop(\'' + esc(inv.id) + '\', this)" style="font-size:.85em;" />'
           + '<span id="poperr-' + esc(inv.id) + '" style="display:block;font-size:.82em;color:#B91C1C;margin-top:6px;"></span></div>';
-      return '<div class="cp-card" style="margin-bottom:14px;">'
-        + '<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;">'
-        + '<div><div style="font-weight:800;color:var(--green-dark);">Invoice ' + esc(inv.invoice_number||'') + '</div>'
-        + '<div style="font-size:.85em;color:var(--muted);margin-top:2px;">' + esc(inv.description||'') + '</div></div>' + status + '</div>'
-        + '<table style="width:100%;border-collapse:collapse;font-size:.88em;margin-top:12px;max-width:360px;">'
-        + '<tr><td style="padding:4px 0;color:var(--muted);">Subtotal</td><td style="padding:4px 0;text-align:right;">' + money(inv.amount) + '</td></tr>'
-        + '<tr><td style="padding:4px 0;color:var(--muted);">VAT</td><td style="padding:4px 0;text-align:right;">' + money(inv.vat) + '</td></tr>'
-        + '<tr><td style="padding:4px 0;font-weight:800;color:var(--green-dark);">Total due</td><td style="padding:4px 0;text-align:right;font-weight:800;color:var(--green-dark);">' + money(inv.total) + '</td></tr>'
-        + '</table>' + action + '</div>';
+      var mono='font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace;';
+      return '<div style="border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;">'
+        // invoice header band
+        + '<div style="background:var(--green-dark);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">'
+          + '<div><div style="font-family:Fraunces,serif;font-size:1.25em;font-weight:700;letter-spacing:1px;">TAX INVOICE</div><div style="font-size:.8em;color:rgba(255,255,255,.82);'+mono+'">' + esc(inv.invoice_number||'') + '</div></div>'
+          + '<div style="text-align:right;font-size:.76em;color:rgba(255,255,255,.85);">Issued<br><strong>' + (inv.issued_at?new Date(inv.issued_at).toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'}):'&mdash;') + '</strong></div>'
+        + '</div>'
+        + '<div style="padding:18px 20px;">'
+          // from / bill-to
+          + '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.82em;margin-bottom:16px;">'
+            + '<div><div style="color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-size:.82em;margin-bottom:2px;">From</div><strong style="color:var(--green-dark);">AfriversalAI (Pty) Ltd</strong><br>Reg 2026/492783/07</div>'
+            + '<div style="text-align:right;"><div style="color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-size:.82em;margin-bottom:2px;">Bill to</div><strong style="color:var(--green-dark);">' + esc(company||inv.corporate_email) + '</strong><br>' + esc(inv.corporate_email) + '</div>'
+          + '</div>'
+          // line items
+          + '<table style="width:100%;border-collapse:collapse;font-size:.92em;">'
+            + '<thead><tr><th style="text-align:left;border-bottom:2px solid var(--green-mid);padding:7px 0;color:var(--muted);font-size:.82em;text-transform:uppercase;letter-spacing:.5px;">Description</th><th style="text-align:right;border-bottom:2px solid var(--green-mid);padding:7px 0;color:var(--muted);font-size:.82em;text-transform:uppercase;letter-spacing:.5px;">Amount</th></tr></thead>'
+            + '<tbody>'
+              + '<tr><td style="padding:9px 0;border-bottom:1px solid var(--border);">' + esc(inv.description||'AfriversalAI enterprise training') + '</td><td style="padding:9px 0;border-bottom:1px solid var(--border);text-align:right;'+mono+'">' + money(inv.amount) + '</td></tr>'
+              + '<tr><td style="padding:9px 0;border-bottom:1px solid var(--border);color:var(--muted);">VAT (15%)</td><td style="padding:9px 0;border-bottom:1px solid var(--border);text-align:right;color:var(--muted);'+mono+'">' + money(inv.vat) + '</td></tr>'
+              + '<tr><td style="padding:12px 0;font-weight:800;color:var(--green-dark);font-size:1.05em;">Total due</td><td style="padding:12px 0;text-align:right;font-weight:800;color:var(--green-dark);font-size:1.3em;'+mono+'">' + money(inv.total) + '</td></tr>'
+            + '</tbody></table>'
+          + '<div style="margin-top:14px;">' + statusBanner + countdown + '</div>'
+          + action
+        + '</div></div>';
     }).join('');
+    rows.forEach(function(inv, idx){ if(inv.status!=='paid'){ cpCountdown('cp-cd-'+idx, DUE); } });
   }
 
   async function uploadPop(invoiceId, input){
