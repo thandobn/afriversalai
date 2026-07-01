@@ -91,6 +91,12 @@
     .preview-end { background:var(--green-dark); color:white; padding:48px 32px; text-align:center; border-radius:var(--radius-lg); margin:32px 0; }
     .preview-end h2 { color:white; margin-bottom:12px; }
     .preview-end p { color:rgba(255,255,255,0.75); margin-bottom:28px; max-width:520px; margin-left:auto; margin-right:auto; line-height:1.7; }
+
+    .lesson-tracker { display:flex; align-items:center; gap:8px; padding:12px 0 16px; margin-bottom:4px; }
+    .lesson-tracker-label { font-size:0.82em; color:var(--muted); font-weight:600; margin-left:4px; }
+    .m6-lesson-dot { width:10px; height:10px; border-radius:50%; background:var(--border); flex-shrink:0; transition:background .2s; }
+    .m6-lesson-dot.current { background:var(--green-mid); }
+    .m6-lesson-dot.visited { background:var(--green-light); }
   </style>
 </head>
 <body>
@@ -146,13 +152,14 @@
   <div class="module-hero__inner">
     <div class="breadcrumb"><a href="course.html">Core Course</a> / Module 6 &mdash; Capstone</div>
     <h1>Responsible AI</h1>
-    <p class="lead lead--light">This is the capstone module. You don&rsquo;t apply the Funda Five™ to another case. You synthesize what you&rsquo;ve learned across five cases and write your own documented professional position on AI &mdash; something that could serve as accountability evidence in a professional review.</p>
+    <p class="lead lead--light">This is the capstone module. You don&rsquo;t apply the Funda Five™ to another case. You synthesise what you&rsquo;ve learned across five scenarios and real-world contexts and write a documented Professional AI Judgment Statement &mdash; a form that can contribute to an organisation&rsquo;s accountability record in a professional review, internal investigation, governance process, or audit.</p>
     <div style="margin-top:20px; background:rgba(255,255,255,0.08); border-radius:8px; padding:16px 20px;">
       <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.5); margin-bottom:8px;">By the end of this module, you will be able to:</p>
       <ul style="margin:0; padding-left:18px; font-size:0.9em; color:rgba(255,255,255,0.85); line-height:1.7;">
         <li>Synthesize your Funda Five™ applications from Modules 1&ndash;5 into a generalized professional AI judgment standard</li>
         <li>Articulate a documented professional stance on AI use that could serve as accountability evidence in a professional review, disciplinary inquiry, or audit</li>
-        <li>Distinguish human oversight by design from human oversight by constraint, and evaluate which form is present in a given AI deployment</li>
+        <li>Distinguish meaningful human oversight from a rubber-stamp review or a person who is only asked to intervene after harm occurs</li>
+        <li>Identify when an AI concern should be documented, paused, escalated, or referred to HR, legal/compliance, data protection, technical specialists, clinical leadership, or executive leadership</li>
       </ul>
     </div>
     <div style="margin-top:16px;">
@@ -213,10 +220,10 @@
           <div class="compare-card__label">System A &mdash; Dr Math</div>
           <div class="compare-card__title">Human tutor via MXit (CSIR/UP, 2007&ndash;2015)</div>
           <div class="compare-card__body">
-            <p>A maths tutoring service for SA school learners, delivered via MXit &mdash; the text-based messaging app that had 8 million SA users before smartphones arrived. Every learner query was answered by a human tutor: largely university student volunteers coordinated by CSIR and the University of Pretoria.</p>
-            <p style="margin-top:10px;">The AI component was limited to routing and matching. <strong>The human was the answer.</strong> Human-in-the-loop was the design intent, not a regulation or a safety constraint. Dr Math put a person in the loop because that was the service it was offering.</p>
+            <p>A South African mobile mathematics-support service accessed through MXit and developed through the CSIR&rsquo;s Meraka Institute. Learners sent mathematics questions by message; trained human tutors &mdash; many of them University of Pretoria students &mdash; responded online.</p>
+            <p style="margin-top:10px;">Technology helped connect learners, tutors, and supporting resources. <strong>The tutor remained responsible for explaining the mathematics, responding to misunderstanding, and adapting help to the learner&rsquo;s question.</strong> The human was the service.</p>
           </div>
-          <div class="compare-card__detail">Won multiple education innovation awards. Served over 60,000 learners at peak. Discontinued ~2015 as MXit declined.</div>
+          <div class="compare-card__detail">Won education innovation awards. The CSIR Meraka Institute and University of Pretoria were central to its development and tutor network.</div>
         </div>
 
         <div class="compare-card compare-card--b">
@@ -225,17 +232,18 @@
           <div class="compare-card__body">
             <div class="cad4tb-output">
               <div class="cad4tb-output__label">CAD4TB Report &mdash; Chest X-ray Analysis</div>
+              <div style="font-size:0.68em; color:rgba(255,255,255,0.25); margin-bottom:6px; font-style:italic;">Simplified training simulation based on a real type of TB-screening workflow</div>
               <div class="cad4tb-output__finding">ABNORMALITY DETECTED &mdash; Confidence: 0.84</div>
               <div class="cad4tb-output__detail">
                 Findings consistent with: pulmonary TB pattern<br>
                 Priority score: HIGH &mdash; recommend clinical review<br>
-                AI model version: CAD4TB v7 &mdash; trained on European + limited SA dataset
+                Model context: Performance and threshold settings should be evaluated for the actual screening population and care pathway.
               </div>
               <div class="cad4tb-output__footer">This output is a decision-support tool. Diagnosis requires clinician review. CAD4TB does not diagnose.</div>
             </div>
-            <p style="margin-top:14px; font-size:0.85em;">Dutch company. European-dominated training data. Deployed in SA public health clinics &mdash; where radiology expertise is scarce. <strong>A clinician must review every AI flag before any clinical action is taken.</strong></p>
+            <p style="margin-top:14px; font-size:0.85em;">CAD4TB is used to support TB screening and triage in settings including southern Africa, particularly where access to experienced image readers is limited. <strong>Its output is not a diagnosis.</strong> Qualified clinical teams remain accountable for the care pathway.</p>
           </div>
-          <div class="compare-card__detail" style="color:rgba(255,255,255,0.3);">Used in SA TB screening programs in under-resourced settings where there are not enough trained radiologists.</div>
+          <div class="compare-card__detail" style="color:rgba(255,255,255,0.3);">Used in TB screening and triage programmes in high-burden settings. Performance depends on version, threshold, population, image quality, and the wider clinical pathway.</div>
         </div>
 
       </div>
@@ -259,23 +267,35 @@
       <div class="phase__num">2</div>
       <div>
         <div class="phase__label">Reflect</div>
-        <div style="font-size:0.8em;color:var(--muted);">Looking back across five cases before we synthesise &middot; ~15 min</div>
+        <div style="font-size:0.8em;color:var(--muted);">Looking back across five scenarios and contexts before we synthesise &middot; ~15 min</div>
       </div>
     </div>
     <div class="phase__body">
 
       <div class="phase__task">
-        These two reflection questions ask you to look back across everything you&rsquo;ve done in this course &mdash; not just this module.
+        These reflection questions ask you to look back across everything you&rsquo;ve done in this course &mdash; not just this module.
+      </div>
+
+      <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:0 0 24px;">
+        <p style="margin:0; font-size:0.88em; color:var(--gold-dark); line-height:1.6;"><strong>Course note:</strong> Some learning scenarios in this course are fictional composites based on documented risks; others draw on real systems or incidents. As you reflect, distinguish verified facts from scenario details and focus on the professional pattern each example teaches.</p>
       </div>
 
       <div style="margin-bottom:28px;">
-        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">1. Across the five cases you&rsquo;ve examined (DCDT policy scandal, fintech credit scoring, Vumacam surveillance and risk-scoring systems, 2024 election deepfake, Meridian recruitment ATS), what single pattern appears in <em>every</em> case where AI caused harm?</div>
-        <textarea id="ref-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Looking across all five cases, the common pattern is... In each case..."></textarea>
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:6px; line-height:1.5;">1. Across the five scenarios and real-world contexts you examined, what recurring pattern made harm more likely when AI was used?</div>
+        <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px; line-height:1.6;">Consider: What did people assume? What did they fail to verify, monitor, or question? Who had authority to stop, question, or correct the outcome?</div>
+        <textarea id="ref-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="The recurring pattern I noticed was... In each scenario, what made harm more likely was..."></textarea>
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:6px; line-height:1.5;">2. The DATA step of the Funda Five™ has appeared in every module. Across all five scenarios and contexts, what has it most reliably helped you question or uncover?</div>
+        <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px; line-height:1.6;">Think beyond training data: sources and citations, historical records, arrest data, locations, original audio/video, CVs, scores, system logs, and missing information.</div>
+        <textarea id="ref-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Every time I applied the DATA step, it helped me question or uncover... The pattern I&rsquo;ve seen is..."></textarea>
       </div>
 
       <div style="margin-bottom:20px;">
-        <div style="font-weight:600; font-size:0.95em; margin-bottom:8px; line-height:1.5;">2. The DATA step of the Funda Five™ has appeared in every module. Across all five cases, what has it most reliably revealed?</div>
-        <textarea id="ref-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Every time I applied the DATA step, it revealed... The pattern I&rsquo;ve seen is..."></textarea>
+        <div style="font-weight:600; font-size:0.95em; margin-bottom:6px; line-height:1.5;">3. What is the difference between having a human somewhere in an AI workflow and having meaningful human oversight?</div>
+        <div style="font-size:0.85em; color:var(--muted); margin-bottom:8px; line-height:1.6;">Meaningful oversight requires&hellip; / A human rubber stamp looks like&hellip; / The person must be able to&hellip;</div>
+        <textarea id="ref-3" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Meaningful oversight requires... / A human rubber stamp looks like... / The person must be able to..."></textarea>
       </div>
 
       <div class="phase-nav">
@@ -295,135 +315,247 @@
       <div class="phase__num">3</div>
       <div>
         <div class="phase__label">Concept</div>
-        <div style="font-size:0.8em;color:var(--muted);">Human-in-loop by design vs by constraint &mdash; and a worked example &middot; ~20 min</div>
+        <div style="font-size:0.8em;color:var(--muted);">Meaningful oversight, the Professional AI Judgment Statement, and a worked example &middot; ~25 min</div>
       </div>
     </div>
     <div class="phase__body">
 
-      <!-- ── SCREEN 1: Concept reading ──────────────────────────────────── -->
-      <div class="phase-screen is-active" id="ps-2-content">
+      <!-- Lesson tracker — visible across all Concept screens -->
+      <div class="lesson-tracker">
+        <div class="m6-lesson-dot current"></div>
+        <div class="m6-lesson-dot"></div>
+        <div class="m6-lesson-dot"></div>
+        <div class="m6-lesson-dot"></div>
+        <span class="lesson-tracker-label" id="m6-lesson-label">Screen 1 of 4 &mdash; What meaningful human oversight looks like</span>
+      </div>
+
+      <!-- ── SCREEN 1: Meaningful oversight ──────────────────────────────── -->
+      <div class="phase-screen is-active" id="ps-2-les1">
 
         <div class="concept-section">
-          <h4>Human-in-loop by design vs by constraint &mdash; why the distinction matters</h4>
-          <p>Both Dr Math and CAD4TB have a human reviewing before action. But the reasons are different, and the difference has real implications for what happens when the human review is removed or compromised.</p>
-          <p style="margin-top:12px;"><strong>Dr Math: human-in-loop by design intent.</strong> The human tutor was the product. Dr Math didn&rsquo;t route queries to a human because a regulation required it &mdash; it routed them because human tutoring was the point. If you remove the human, you have no service. This is the most robust form of human oversight: the human is structurally load-bearing (meaning the human is what makes the service function at all).</p>
-          <p style="margin-top:12px;"><strong>CAD4TB: human-in-loop by constraint.</strong> The clinician reviews the AI flag because: (1) SA law does not allow AI to diagnose; (2) the CAD4TB system&rsquo;s terms of use require clinician review; (3) HPCSA (Health Professions Council of SA) holds the clinician, not the software, accountable for the diagnosis. If you remove the human review &mdash; if a harassed clinician starts rubber-stamping AI outputs without genuine review &mdash; the system appears to have oversight while actually losing it. The human is there by legal constraint, not structural necessity. This is a weaker form.</p>
-          <p style="margin-top:12px;">Neither is bad. Both are legitimate designs. But when you evaluate any AI system, you should ask: <strong>Is the human in the loop because they&rsquo;re structurally necessary, or because a rule says they have to be?</strong> The answer tells you how robust the oversight actually is.</p>
+          <h4>Three categories of human involvement in AI systems</h4>
+          <p>Both Dr Math and CAD4TB have a human reviewing before action. But the nature of that human involvement is fundamentally different &mdash; and the difference matters when you evaluate whether oversight is genuine.</p>
+          <p style="margin-top:12px;"><strong>1. Human-led service with AI support.</strong> The human provides the substantive service; technology helps with access, routing, retrieval, administration, or scale. Remove the human and you have no service. <em>Example: Dr Math. The tutor was the answer.</em></p>
+          <p style="margin-top:12px;"><strong>2. AI-supported professional judgment.</strong> AI provides a score, signal, ranking, or suggestion; a qualified person interprets it in context and remains responsible for the decision. The human brings context, clinical or professional history, threshold choices, and accountability for the outcome. <em>Example: CAD4TB in a defined clinical pathway.</em></p>
+          <p style="margin-top:12px;"><strong>3. Human rubber stamp.</strong> A person is technically present but cannot see the relevant evidence, question the system, access excluded alternatives, or meaningfully override the output. Oversight appears intact but has been hollowed out. <em>Example: a recruiter who sees an AI shortlist but cannot inspect rejected candidates or the reasons for exclusion.</em></p>
+          <p style="margin-top:14px;">The right question for any AI system is not &ldquo;is there a human in the loop?&rdquo; It is: <strong>Does the person have the context, information, authority, time, and ability to change the outcome?</strong></p>
         </div>
 
-        <div class="concept-section">
-          <h4>CAD4TB in the SA context &mdash; the training data question</h4>
-          <p>CAD4TB is built by Delft Imaging, a Dutch company. Its model was trained predominantly on European chest X-ray datasets. This is relevant in SA for two reasons:</p>
-          <ol style="padding-left:20px; line-height:1.9; font-size:0.93em; margin-top:10px;">
-            <li><strong>TB presentation variation:</strong> TB patterns on chest X-rays can look different in populations with high HIV co-infection rates (common in SA) than in lower-HIV European populations. A model trained on European data may have lower sensitivity for SA-specific presentations.</li>
-            <li><strong>Resource deployment context:</strong> CAD4TB is deployed in SA because radiology capacity is scarce in under-resourced public health clinics. The very settings where it&rsquo;s used most are those with the least clinician capacity to critically review AI flags. The oversight is formally present but practically thin.</li>
-          </ol>
-          <p style="margin-top:14px;">This is not a reason to refuse to use CAD4TB &mdash; it performs better than no TB screening in low-resource settings, and the alternative is no radiological assessment at all. But a responsible clinician using it knows these limits and applies judgment accordingly.</p>
+        <div class="callout">
+          <strong>Human in the loop vs human in control:</strong> A human reviewer is not meaningful if they only receive an AI output after the system has already excluded alternatives, if they lack reasons or evidence, if they cannot override, or if workload makes review performative. Human oversight needs information, authority, time, and a genuine ability to change the decision &mdash; not just formal presence in the process.
         </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showPhase(1)">&larr; Reflect</button>
+          <button class="btn btn--primary" onclick="goLesson6(2)">Next &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les1 -->
+
+      <!-- ── SCREEN 2: CAD4TB local context ──────────────────────────────── -->
+      <div class="phase-screen" id="ps-2-les2">
+
+        <div class="concept-section">
+          <h4>CAD4TB and local-context questions &mdash; why validation matters</h4>
+          <p>CAD4TB analyses chest X-rays and produces a score and image-based outputs that can help identify people who may need further TB assessment. It is designed to support screening and programme decisions, particularly where access to experienced image readers is limited.</p>
+          <p style="margin-top:12px;"><strong>Its output is not a diagnosis.</strong> Thresholds, local population characteristics, symptoms, clinical history, image quality, confirmatory testing, and available follow-up care all affect what should happen next. In responsible use, qualified clinical teams remain accountable for the care pathway.</p>
+          <p style="margin-top:14px;">Responsible deployment does not assume that a tool&rsquo;s performance transfers automatically from one setting to another. Organisations should examine validation evidence relevant to the population and care pathway where the tool will be used, set appropriate thresholds, and monitor outcomes after deployment. AI should support, not replace, the accountable health practitioner&rsquo;s professional judgment in clinical care.</p>
+        </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Questions any organisation should ask before deploying a clinical AI tool in a new setting</p>
+          <ul style="font-size:0.9em; line-height:1.9; padding-left:20px; margin:0; color:var(--text);">
+            <li>What population, care pathway, and disease burden was the tool validated on?</li>
+            <li>Does that match the setting where it will be used?</li>
+            <li>What threshold is appropriate for this workflow and patient population?</li>
+            <li>What confirmatory testing, follow-up pathway, and escalation route is in place?</li>
+            <li>Who is responsible for monitoring outcomes and flagging performance concerns?</li>
+            <li>What happens when the tool&rsquo;s output conflicts with clinical assessment?</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Equity and accessibility:</strong> Before approving any AI use, ask: who might be missing, misread, excluded, or disproportionately burdened by this process &mdash; and how would we know? In a clinical setting this includes patients with atypical presentations, disability-related histories, language barriers, or limited access to confirmatory care.
+        </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson6(1)">&larr; Back</button>
+          <button class="btn btn--primary" onclick="goLesson6(3)">Next &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les2 -->
+
+      <!-- ── SCREEN 3: Professional AI Judgment Statement ─────────────────── -->
+      <div class="phase-screen" id="ps-2-les3">
 
         <div class="concept-section">
           <h4>What is a <a href="glossary.html#responsible-ai" style="color:var(--green-mid);">Responsible AI</a> stance, and what is a Professional AI Judgment Statement?</h4>
-          <p><strong><a href="glossary.html#responsible-ai" style="color:var(--green-mid);">Responsible AI</a></strong> is a broad term for the set of principles and practices that govern how AI is developed and deployed in ways that are safe, fair, accountable, transparent, and respectful of human rights. In the AfriversalAI course, Responsible AI is not a compliance checkbox &mdash; it is the ongoing professional judgment you exercise every time AI is involved in a consequential decision in your work.</p>
-          <p style="margin-top:12px;">A <strong><a href="glossary.html#professional-ai-judgment-statement" style="color:var(--green-mid);">Professional AI Judgment Statement</a></strong> is a documented professional declaration of how a named professional evaluates AI-assisted decisions and what accountability they retain. It is not a policy; it is a personal professional commitment. It could serve as evidence in a disciplinary inquiry, a professional review, or an audit: evidence that you thought about the AI you used, applied a framework, and retained human judgment.</p>
+          <p><strong><a href="glossary.html#responsible-ai" style="color:var(--green-mid);">Responsible AI</a></strong> is not a compliance checkbox &mdash; it is the ongoing professional judgment you exercise every time AI is involved in a consequential decision in your work. It is not deciding whether AI is &ldquo;good&rdquo; or &ldquo;bad.&rdquo; It is deciding, in a specific situation, whether the task is appropriate, whether the evidence is sufficient, who could be harmed, what safeguards are required, who can stop or override the system, and when the responsible choice is to pause.</p>
+          <p style="margin-top:12px;">A <strong><a href="glossary.html#professional-ai-judgment-statement" style="color:var(--green-mid);">Professional AI Judgment Statement</a></strong> is a documented record of how a professional evaluated an AI-assisted decision in a specific context: what the tool was used for, what evidence and limits were considered, what safeguards were applied, who retained decision authority, and what would trigger escalation.</p>
+          <p style="margin-top:8px; font-size:0.88em; color:var(--muted);">It is <strong>not</strong> a legal shield, policy substitute, or full audit report. A contemporaneous judgment statement can contribute to an accountability record by showing what the practitioner knew, what they verified, what limits they considered, what action they took, and when they escalated &mdash; but it does not replace institutional policy, evidence of competence, or formal investigation.</p>
         </div>
 
-        <!-- WORKED EXAMPLE -->
-        <p style="font-size:0.9em; font-weight:700; margin-top:28px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; color:var(--green-dark);">Worked Example</p>
+        <div class="concept-section">
+          <h4>The six-element structure</h4>
+          <ol style="padding-left:20px; line-height:1.9; font-size:0.92em; margin-top:10px;">
+            <li><strong>TASK</strong> &mdash; What the tool is being used for; whether the use is appropriate for the stakes; what should happen if output is wrong or uncertain.</li>
+            <li><strong>DATA</strong> &mdash; What information the system uses; what may be missing; what assumptions or proxy variables may shape the output; whether the data is appropriate and lawful.</li>
+            <li><strong>TOOL</strong> &mdash; The tool&rsquo;s intended use, known limits, validation evidence, and whether it is being used in a setting different from the one it was evaluated on.</li>
+            <li><strong>TRUST</strong> &mdash; What verification steps are taken before acting on high-impact output; what independent evidence is consulted; what would make the output unreliable.</li>
+            <li><strong>HUMAN</strong> &mdash; Who retains accountability; what authority they have to question, override, or stop the outcome; who they escalate to.</li>
+            <li><strong>ESCALATION AND DOCUMENTATION</strong> &mdash; Specific triggers for pausing, limiting, or referring the concern; what is recorded; who is responsible for the next decision.</li>
+          </ol>
+        </div>
+
+        <div class="callout">
+          <strong>Documented uncertainty:</strong> A responsible statement should name what is unknown &mdash; not only what is known. &ldquo;I cannot verify this yet&rdquo; can be a responsible conclusion when the stakes are high. Claiming certainty you do not have is itself a professional risk.
+        </div>
+
+        <div class="callout">
+          <strong>Escalation needs named owners:</strong> When you escalate, name the destination &mdash; line manager, clinical lead, legal/compliance, HR, Information Officer, vendor, IT/security, procurement, board committee, or regulator. &ldquo;Escalate&rdquo; alone is not a plan.
+        </div>
+
+        <div class="callout">
+          <strong>Stop/pause rule:</strong> Your statement should include a specific trigger for pausing or limiting use &mdash; what evidence, error pattern, complaint, data gap, or change in context would make continued use unsafe until a review is complete?
+        </div>
+
+        <div class="callout">
+          <strong>Your statement records your role &mdash; it does not replace organisational duties:</strong> A personal judgment statement documents your reasoning and choices. It does not substitute for the organisation&rsquo;s duty to have policy, governance, training, logging, procurement controls, monitoring, and complaint routes.
+        </div>
+
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson6(2)">&larr; Back</button>
+          <button class="btn btn--primary" onclick="goLesson6(4)">Next &rarr;</button>
+        </div>
+
+      </div><!-- /ps-2-les3 -->
+
+      <!-- ── SCREEN 4: Worked example ─────────────────────────────────────── -->
+      <div class="phase-screen" id="ps-2-les4">
+
+        <p style="font-size:0.9em; font-weight:700; margin-top:4px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; color:var(--green-dark);">Worked Example</p>
 
         <div class="worked-example">
           <div class="worked-example__header">
-            <div class="worked-example__header-label">Professional AI Judgment Statement &mdash; Worked Example <span style="font-weight:400; font-style:italic; font-size:0.85em;">(fictional scenario for practice)</span></div>
-            <h4>Sister Thembeka Dlamini, Professional Nurse &mdash; Limpopo District Hospital</h4>
+            <div class="worked-example__header-label">Professional AI Judgment Statement &mdash; Worked Example <span style="font-weight:400; font-style:italic; font-size:0.85em;">(fictional practice scenario)</span></div>
+            <h4>Dr Thembeka Dlamini, Medical Officer &mdash; Limpopo District Hospital</h4>
           </div>
           <div class="worked-example__body">
 
             <div class="worked-example__section">
-              <div class="worked-example__section-label">Context</div>
-              <p>Our facility uses CAD4TB (Delft Imaging v7) for AI-assisted chest X-ray reading. Radiologist review is not available on-site. All clinical decisions remain mine as the responsible clinician. I document this judgment statement as my professional position on how I evaluate CAD4TB outputs.</p>
+              <div class="worked-example__section-label">TASK &mdash; What the tool is being used for</div>
+              <p>Our facility uses CAD4TB (Delft Imaging) for AI-assisted chest X-ray screening to support TB triage where on-site radiology capacity is limited. The tool is used to prioritise patients for further clinical assessment, not to replace clinical diagnosis or determine treatment. If CAD4TB output is unavailable or unreliable, patients proceed through clinical symptom assessment alone.</p>
             </div>
 
             <div class="worked-example__section">
-              <div class="worked-example__section-label">What I verify before acting on a CAD4TB flag (TRUST step)</div>
-              <p>When CAD4TB flags an X-ray as abnormal, I do not act on the AI output alone. I: (1) review the X-ray image myself against the clinical presentation; (2) take a full symptom history with attention to cough duration, weight loss, night sweats, and HIV status; (3) cross-reference the AI confidence score against my own clinical assessment &mdash; if these disagree significantly, I note the disagreement and do not default to the AI; (4) consider whether this patient&rsquo;s clinical context (HIV co-infection, prior TB treatment, nutritional status) may affect X-ray presentation in ways that a European-trained model might miss.</p>
+              <div class="worked-example__section-label">DATA &mdash; What information is involved</div>
+              <p>The system processes digital chest X-ray images. Clinically relevant context &mdash; symptom history, HIV status, prior TB treatment, weight loss, cough duration, nutritional status, and image quality &mdash; is not automatically available to the model. I ensure that each clinical assessment integrates the imaging output with the full patient presentation.</p>
             </div>
 
             <div class="worked-example__section">
-              <div class="worked-example__section-label">What I know about the tool&rsquo;s limits (TOOL step)</div>
-              <p>CAD4TB was trained predominantly on European datasets. HIV co-infection, which affects TB radiological presentation, is prevalent in our patient population. I treat CAD4TB&rsquo;s outputs as a triage priority signal, not a diagnostic conclusion. A HIGH confidence flag increases my index of suspicion; it does not confirm TB. A low-confidence or negative output does not exclude TB in a high-risk presentation.</p>
+              <div class="worked-example__section-label">TOOL &mdash; Limits and fitness for purpose</div>
+              <p>CAD4TB produces a priority score and image-based output that may help identify patients who need further assessment. I treat this score as a triage priority signal, not a diagnostic conclusion. A HIGH confidence flag increases my index of suspicion; it does not confirm TB. A low-confidence or negative output does not exclude TB in a high-risk clinical presentation. I have reviewed the validation evidence available for our programme setting and apply the threshold recommended for our pathway.</p>
             </div>
 
             <div class="worked-example__section">
-              <div class="worked-example__section-label">What I retain (HUMAN step)</div>
-              <p>I retain full clinical accountability for every decision made using CAD4TB. Under HPCSA (Health Professions Council of South Africa) guidelines, my registration as a professional nurse is the accountability unit &mdash; not the software. &ldquo;CAD4TB flagged it&rdquo; is not a clinical finding; &ldquo;Sister Dlamini assessed the patient and found findings consistent with TB&rdquo; is a clinical finding. The AI supports my capacity. It does not replace my professional judgment or my legal accountability.</p>
+              <div class="worked-example__section-label">TRUST &mdash; What I verify before acting</div>
+              <p>When CAD4TB flags an X-ray as abnormal, I do not act on the AI output alone. I correlate the score with the patient assessment, available history, and image quality. If the AI output and my clinical assessment disagree significantly, I note the disagreement, do not default to the AI, and follow the referral pathway. I cannot verify this score alone &mdash; that is why the clinical correlation step is non-negotiable.</p>
+            </div>
+
+            <div class="worked-example__section">
+              <div class="worked-example__section-label">HUMAN &mdash; Accountability and oversight</div>
+              <p>I retain full clinical accountability for every decision made using CAD4TB, in accordance with HPCSA ethical guidelines for AI-assisted clinical practice. My professional registration is the accountability unit &mdash; not the software. &ldquo;CAD4TB flagged it&rdquo; is not a clinical finding; &ldquo;Dr Dlamini assessed the patient and found findings consistent with TB&rdquo; is a clinical finding. The AI supports my capacity. It does not replace my professional judgment or my legal accountability.</p>
             </div>
 
             <div class="worked-example__section" style="margin-bottom:0;">
-              <div class="worked-example__section-label">When I escalate</div>
-              <p>I escalate to the district Medical Officer when: a CAD4TB flag contradicts my clinical assessment and I cannot resolve the disagreement through additional history or repeat X-ray; when I suspect the AI output may be affected by image quality issues (poor positioning, motion artifact); or when a patient has a complex comorbidity profile I believe is outside the model&rsquo;s training distribution. I document every escalation.</p>
+              <div class="worked-example__section-label">ESCALATION AND DOCUMENTATION</div>
+              <p>I pause my reliance on CAD4TB and escalate to the district TB Programme Lead or supervising consultant when: a CAD4TB output contradicts my clinical assessment and I cannot resolve the disagreement; when image quality problems (poor positioning, motion artifact) may have affected the output; or when a patient has a complex presentation I believe is outside the expected model performance. I document every escalation. If I observe a pattern of outputs that consistently diverge from clinical outcomes, I report this to the programme supervisor responsible for tool monitoring.</p>
             </div>
 
           </div>
         </div>
 
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin:24px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px;">Which is a strong professional AI statement?</p>
+          <details style="font-size:0.9em; line-height:1.7;">
+            <summary style="cursor:pointer; font-weight:600; list-style:none; color:var(--green-mid);">Statement A: &ldquo;The AI is accurate, so I trust its recommendation.&rdquo; &nbsp;|&nbsp; Statement B: &ldquo;I use the tool only within its intended purpose, verify high-impact output, retain decision responsibility, document uncertainty, and escalate defined concerns.&rdquo;</summary>
+            <p style="margin:14px 0 0;"><strong>Statement B.</strong> Accuracy alone does not make a statement professional. A model can have high average accuracy and still be unreliable for a specific patient, context, or presentation. Trusting accuracy without verification, named accountability, or an escalation trigger is a rubber stamp &mdash; not oversight. A strong professional AI statement names what the tool does, what it cannot see, who is responsible, and what would make continued use unsafe.</p>
+          </details>
+        </div>
+
         <div class="callout">
-          <strong>What makes this a Professional AI Judgment Statement:</strong> It names the tool, names its limits, specifies the verification steps, explicitly retains human accountability, and states escalation criteria. If Sister Dlamini ever faced a HPCSA inquiry about a CAD4TB-related clinical decision, this document is accountability evidence &mdash; proof that she applied professional judgment, not just deferred to the AI.
+          <strong>What makes the worked example a Professional AI Judgment Statement:</strong> It names all six elements: task scope, data context, tool limits, verification steps, named human accountability with HPCSA grounding, and specific escalation criteria with a named owner. It can contribute to an accountability record in a professional review &mdash; as evidence of deliberate professional judgment, not passive deference to the AI.
         </div>
 
         <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:18px 22px; margin:24px 0;">
           <p style="font-size:0.82em; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--muted); margin-bottom:10px;">Further reading</p>
           <ul style="font-size:0.88em; line-height:1.8; margin:0; padding-left:18px; color:var(--text);">
-            <li>HPCSA &mdash; <em>Booklet 20: Ethical Guidelines for the Use of Artificial Intelligence (2025)</em> (hpcsa-blogs.co.za)</li>
-            <li>Delft Imaging &mdash; CAD4TB Clinical Validation Studies (delft-imaging.com)</li>
+            <li>HPCSA &mdash; <em>Booklet 20: Ethical Guidelines for the Use of Artificial Intelligence in Health</em> (hpcsa.co.za/ethics)</li>
+            <li>SANC &mdash; <em>Code of Ethics for Nursing in South Africa</em> (sanc.co.za)</li>
+            <li>CAD4TB validation evidence in high TB/HIV-burden settings (academic.oup.com; pmc.ncbi.nlm.nih.gov)</li>
             <li>Information Regulator &mdash; <em>POPIA Guidance for Responsible Parties</em> (informationregulator.org.za)</li>
           </ul>
         </div>
 
-        <div class="phase-nav" style="justify-content:flex-end;">
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="goLesson6(3)">&larr; Back</button>
           <button class="btn btn--primary" onclick="showScreen(2,'quiz')">Take the knowledge check &rarr;</button>
         </div>
 
-      </div><!-- /ps-2-content -->
+      </div><!-- /ps-2-les4 -->
 
       <!-- ── SCREEN 2: Quiz ─────────────────────────────────────────────── -->
       <div class="phase-screen" id="ps-2-quiz">
 
         <h3 style="margin-bottom:4px;">Knowledge Check</h3>
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Three questions. All must be correct before you advance to Synthesise.</p>
+        <p style="font-size:0.9em; color:var(--muted); margin-bottom:28px;">Four questions. All must be correct before you advance to Synthesise.</p>
 
         <!-- Q1 -->
         <div style="margin-bottom:28px;">
-          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. Dr Math put human tutors in the loop because the human was the service. CAD4TB puts clinicians in the loop because regulations and HPCSA accountability rules require it. What does this difference mean for the robustness of human oversight in each system?</div>
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">1. Which description best captures meaningful human oversight in an AI-assisted clinical system?</div>
           <div class="quiz-opts" id="m6_q0_opts">
-            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q0" value="0"> Dr Math&rsquo;s oversight is more structurally robust &mdash; removing the human destroys the service. CAD4TB&rsquo;s oversight is weaker: a clinician who rubber-stamps AI flags without genuine review appears compliant but provides no real oversight. The human can be present in form but absent in substance.</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="1"> CAD4TB&rsquo;s oversight is more robust because it is legally mandated; Dr Math&rsquo;s was optional and therefore weaker</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="2"> There is no meaningful difference &mdash; &ldquo;human in the loop&rdquo; means the same thing in both systems</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="3"> Neither system has genuine human oversight because AI is making the primary decision in both</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q0" value="0"> The clinician has context, access to relevant evidence, authority to question or override the AI output, and responsibility for the patient-care decision</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="1"> A clinician is present somewhere in the process and signs off on outcomes before action is taken</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="2"> The AI system meets regulatory requirements and has been approved by the relevant professional body</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q0" value="3"> A senior professional reviews summary outputs at the end of each day and flags any concerns</label>
           </div>
           <div class="quiz-feedback" id="m6qf-0"></div>
         </div>
 
         <!-- Q2 -->
         <div style="margin-bottom:28px;">
-          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. CAD4TB was trained on European chest X-ray datasets and is deployed in SA clinics with high HIV co-infection rates. Sister Dlamini notes that HIV co-infection affects TB&rsquo;s radiological presentation. What does this mean for how she should use CAD4TB?</div>
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">2. Why does local validation matter when an AI-supported medical imaging tool is deployed in a new clinical setting?</div>
           <div class="quiz-opts" id="m6_q1_opts">
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="0"> She should stop using CAD4TB until a SA-specific training dataset is produced</label>
-            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q1" value="1"> She should use CAD4TB as a triage priority signal, not a diagnostic conclusion &mdash; treating it with increased skepticism in high HIV-prevalence presentations and applying clinical judgment that goes beyond the AI output, rather than deferring to it</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="2"> She should trust high-confidence CAD4TB flags fully and apply extra skepticism only to low-confidence flags</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="3"> The training data concern is irrelevant &mdash; AI models generalise across populations once trained to sufficient accuracy</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="0"> It does not &mdash; once a tool achieves a high accuracy score in trials, that performance transfers reliably across settings</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="1"> Only the image-processing algorithm matters; clinical context does not affect AI performance</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q1" value="2"> Performance can depend on the population, disease prevalence, image quality, workflow, threshold settings, and available follow-up care; organisations should use evidence relevant to their setting and monitor outcomes after deployment</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q1" value="3"> It matters only in settings with no trained clinicians; if a clinician reviews every output, performance concerns are resolved</label>
           </div>
           <div class="quiz-feedback" id="m6qf-1"></div>
         </div>
 
         <!-- Q3 -->
         <div style="margin-bottom:28px;">
-          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. A Professional AI Judgment Statement is a documented professional declaration of how a named professional evaluates AI-assisted decisions and what accountability they retain. What is its primary purpose in a professional accountability context?</div>
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">3. What is the primary purpose of a Professional AI Judgment Statement?</div>
           <div class="quiz-opts" id="m6_q2_opts">
             <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="0"> It transfers liability from the professional to the AI vendor if the AI output causes harm</label>
-            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q2" value="1"> It serves as accountability evidence &mdash; proof that the professional applied a framework, retained human judgment, and made a deliberate professional decision rather than passively deferring to the AI output. This matters in disciplinary inquiries, professional reviews, and audits.</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="2"> It is a compliance form required by SA law when using AI in professional practice</label>
-            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="3"> It is a technical document for IT departments describing how an AI system works</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="1"> It is a compliance form required by SA law when using AI in professional practice</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q2" value="2"> To document how a professional evaluated an AI-assisted decision &mdash; the task, evidence, limits, safeguards, human responsibility, and escalation criteria &mdash; in a form that can contribute to an accountability record</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q2" value="3"> To certify that the AI tool has been validated for use in the professional&rsquo;s specific sector</label>
           </div>
           <div class="quiz-feedback" id="m6qf-2"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div style="margin-bottom:28px;">
+          <div style="font-weight:600; font-size:0.95em; margin-bottom:10px; line-height:1.5;">4. Which response shows a human rubber stamp rather than meaningful oversight?</div>
+          <div class="quiz-opts" id="m6_q3_opts">
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q3" value="0"> A clinician reviews each AI flag against the patient&rsquo;s symptom history and clinical context, and documents disagreements</label>
+            <label class="quiz-opt" data-correct="true"><input type="radio" name="m6_q3" value="1"> A clinician or manager sees only the AI recommendation, cannot inspect the relevant evidence or excluded alternatives, has no practical time to challenge it, and routinely approves it unchanged</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q3" value="2"> A reviewer spends 15 minutes on each case examining the AI rationale before deciding</label>
+            <label class="quiz-opt" data-correct="false"><input type="radio" name="m6_q3" value="3"> A team meets weekly to review AI-flagged cases before any action is taken</label>
+          </div>
+          <div class="quiz-feedback" id="m6qf-3"></div>
         </div>
 
         <div id="quiz-m6-submit-wrap">
@@ -433,7 +565,7 @@
         <button id="quiz-m6-advance" class="btn btn--primary" style="display:none;" onclick="advancePhase(2)">All correct &mdash; continue to Synthesise &rarr;</button>
 
         <div class="phase-nav">
-          <button type="button" class="btn btn--outline" onclick="showScreen(2,'content')">&larr; Back to reading</button>
+          <button type="button" class="btn btn--outline" onclick="showScreen(2,'les4')">&larr; Back to reading</button>
         </div>
 
       </div><!-- /ps-2-quiz -->
@@ -463,51 +595,123 @@
         </div>
       </div>
 
-      <div class="phase-screen is-active" id="ps-3-apply">
+      <!-- ── SCREEN 1: Course synthesis ──────────────────────────────────── -->
+      <div class="phase-screen is-active" id="ps-3-syn1">
 
         <div class="phase__task">
-          This is not another Funda Five™ application. You are not evaluating someone else&rsquo;s case. You are synthesising your own professional position from five cases you have examined &mdash; and writing it down in a form that could serve as accountability evidence. This is what it means to practice Responsible AI.
+          This is not another Funda Five™ application. You are not evaluating someone else&rsquo;s case. You are synthesising your own professional position from five scenarios and real-world contexts you have examined &mdash; and writing it down in a form that can contribute to an accountability record. This is what it means to practise Responsible AI.
         </div>
 
-        <!-- PART 1: SYNTHESIS -->
+        <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:0 0 24px;">
+          <p style="margin:0; font-size:0.88em; color:var(--gold-dark); line-height:1.6;"><strong>Course note:</strong> Some learning scenarios in this course are fictional composites based on documented risks; others draw on real systems or incidents. As you reflect, distinguish verified facts from scenario details and focus on the professional pattern each example teaches.</p>
+        </div>
+
         <h3 style="font-size:1.05em; font-weight:800; margin-top:0; margin-bottom:20px; color:var(--green-dark);">Part 1 &mdash; Synthesis (looking back)</h3>
 
         <div class="synthesis-step">
           <div class="synthesis-step__num">1</div>
-          <div class="synthesis-step__name">The pattern across five cases</div>
-          <div class="synthesis-step__hint">DCDT (M1), fintech credit (M2), Vumacam/risk-scoring (M3), election deepfake (M4), Meridian ATS (M5). What single pattern appears in every case where AI caused harm? State it precisely &mdash; not &ldquo;AI did bad things,&rdquo; but a specific structural pattern you observed repeatedly.</div>
-          <textarea id="app-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Across all five cases, the structural pattern I observed is..."></textarea>
+          <div class="synthesis-step__name">The recurring pattern across the five scenarios</div>
+          <div class="synthesis-step__hint">Across the five scenarios and real-world contexts you examined, what recurring pattern made harm more likely when AI was used? State it precisely &mdash; not &ldquo;AI did bad things,&rdquo; but a specific structural pattern you observed repeatedly.<br><br>Consider: What did people assume? What did they fail to verify, monitor, or question? Who had authority to stop, question, or correct the outcome?</div>
+          <textarea id="app-1" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Across all five scenarios, the structural pattern I observed is..."></textarea>
         </div>
 
         <div class="synthesis-step">
           <div class="synthesis-step__num">2</div>
-          <div class="synthesis-step__name">What the DATA step consistently revealed</div>
-          <div class="synthesis-step__hint">You applied the DATA step five times. What has it most reliably exposed across all five cases? If you could give one sentence of DATA-step guidance to a colleague starting this course, what would it be?</div>
-          <textarea id="app-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Across all five cases, the DATA step revealed... The single sentence of guidance I would give is..."></textarea>
+          <div class="synthesis-step__name">What the DATA step consistently helped you question or uncover</div>
+          <div class="synthesis-step__hint">You applied the DATA step five times. What has it most reliably helped you question or uncover across the scenarios? If you could give one sentence of DATA-step guidance to a colleague starting this course, what would it be?<br><br>Think beyond training data: sources and citations, historical records, arrest data, locations, original audio/video, CVs, scores, system logs, and missing information.</div>
+          <textarea id="app-2" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Across all five scenarios, the DATA step helped me question or uncover... The single sentence of guidance I would give is..."></textarea>
         </div>
 
         <div class="synthesis-step">
           <div class="synthesis-step__num">3</div>
-          <div class="synthesis-step__name">Your generalised standard for HUMAN accountability</div>
-          <div class="synthesis-step__hint">In each module, the HUMAN step assigned accountability. What generalised principle about human accountability in AI-assisted decisions have you extracted from these five cases? When should a human always be in the loop? When is the loop not enough?</div>
-          <textarea id="app-3" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="My generalised principle for human accountability is... The loop is not enough when..."></textarea>
+          <div class="synthesis-step__name">What conditions make a human accountable rather than a rubber stamp</div>
+          <div class="synthesis-step__hint">In each module, the HUMAN step assigned accountability. What generalised principle about meaningful human accountability in AI-assisted decisions have you extracted from these five scenarios?<br><br>Meaningful oversight requires&hellip; / A human rubber stamp looks like&hellip; / The person must be able to&hellip;</div>
+          <textarea id="app-3" rows="4" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="Meaningful oversight requires... / A human rubber stamp looks like... / The person must be able to..."></textarea>
         </div>
 
-        <!-- PART 2: STATEMENT -->
-        <h3 style="font-size:1.05em; font-weight:800; margin-top:32px; margin-bottom:20px; color:var(--green-dark);">Part 2 &mdash; Your Professional AI Judgment Statement</h3>
+        <div class="phase-nav" style="justify-content:flex-end;">
+          <button class="btn btn--primary" onclick="advanceSyn(1)">Build my statement &rarr;</button>
+        </div>
+        <p id="err-syn1" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
 
-        <p style="font-size:0.9em; color:var(--muted); margin-bottom:20px; line-height:1.6;">Write your statement as if it would be read by a professional body, an auditor, or a manager reviewing how you use AI in your work. It should be specific enough to be credible and brief enough to be kept. Use Sister Dlamini&rsquo;s statement as a format reference.</p>
+      </div><!-- /ps-3-syn1 -->
+
+      <!-- ── SCREEN 2: Build the statement ───────────────────────────────── -->
+      <div class="phase-screen" id="ps-3-syn2">
+
+        <h3 style="font-size:1.05em; font-weight:800; margin-top:0; margin-bottom:16px; color:var(--green-dark);">Part 2 &mdash; Your Professional AI Judgment Statement</h3>
+
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:16px 20px; margin-bottom:20px; font-size:0.88em; line-height:1.7;">
+          <p style="margin:0 0 8px;"><strong>A Professional AI Judgment Statement</strong> is a documented record of how you evaluate an AI-assisted decision in a specific context. Use the six-element structure below as your guide.</p>
+          <p style="margin:0; color:var(--muted);">It is <strong>not</strong> a legal shield, a substitute for organisational policy, or a full audit report. It records your reasoning, verification steps, safeguards, and escalation choices &mdash; and can contribute to an accountability record.</p>
+        </div>
+
+        <div style="background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:20px; font-size:0.88em; line-height:1.85;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin:0 0 12px;">Statement structure</p>
+          <p><strong>TASK</strong> &mdash; When AI is used for [specific task], confirm its use is appropriate for the stakes and does not replace a decision requiring human judgment.</p>
+          <p><strong>DATA</strong> &mdash; Consider what information the system uses, what may be missing, what assumptions or proxy variables may shape the output, and whether the data is appropriate and lawful.</p>
+          <p><strong>TOOL</strong> &mdash; State the tool&rsquo;s intended use, known limits, validation evidence, and whether it is being used in a setting different from the one it was evaluated on.</p>
+          <p><strong>TRUST</strong> &mdash; Before acting on high-impact output, verify through [specific checks, confirmatory steps, or independent review]. Do not treat a score, confidence level, or polished output as evidence by itself.</p>
+          <p><strong>HUMAN</strong> &mdash; Retain responsibility for [decision or recommendation]. Ensure that you or another accountable person has context, authority, time, and evidence to question, override, or stop the AI-supported outcome.</p>
+          <p style="margin-bottom:0;"><strong>ESCALATION AND RECORD</strong> &mdash; Pause, limit, document, or escalate when [specific trigger] occurs. Record the concern, evidence reviewed, action taken, and person or team responsible for the next decision.</p>
+        </div>
+
+        <div style="background:#FFF8E7; border-left:4px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:12px 16px; margin:0 0 16px;">
+          <p style="margin:0; font-size:0.88em; font-weight:600; color:var(--gold-dark);">Use a generalised example only. Do not include confidential client information, patient data, employee records, passwords, source code, internal financial information, or identifiable personal data.</p>
+        </div>
 
         <div class="statement-block">
           <div class="statement-block__label">4. Your Professional AI Judgment Statement</div>
-          <textarea id="app-4" rows="7" style="width:100%; padding:12px; border:1.5px solid var(--green-light); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical; background:var(--white);" placeholder="I, [your name/role], evaluate AI-assisted decisions using the following standard:&#10;&#10;When AI is used in my work for [specific type of decision], I verify by...&#10;I know this tool's limits: it...&#10;I retain accountability for... because...&#10;I escalate when..."></textarea>
+          <textarea id="app-4" rows="10" style="width:100%; padding:12px; border:1.5px solid var(--green-light); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical; background:var(--white);" placeholder="I, [your name/role], evaluate AI-assisted decisions using the following standard:&#10;&#10;TASK — When AI is used in my work for [specific type of decision], I confirm that...&#10;DATA — I consider what information the system uses, including...&#10;TOOL — I understand this tool's limits: it...&#10;TRUST — Before acting on high-impact output, I verify by...&#10;HUMAN — I retain accountability for... because...&#10;ESCALATION — I pause or escalate when... I escalate to [named role]..."></textarea>
         </div>
 
-        <div class="synthesis-step" style="margin-bottom:0; border:1.5px solid var(--border);">
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'syn1')">&larr; Back to synthesis</button>
+          <button class="btn btn--primary" onclick="advanceSyn(2)">Apply my statement &rarr;</button>
+        </div>
+        <p id="err-syn2" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
+
+      </div><!-- /ps-3-syn2 -->
+
+      <!-- ── SCREEN 3: Apply + decision + submit ─────────────────────────── -->
+      <div class="phase-screen" id="ps-3-syn3">
+
+        <h3 style="font-size:1.05em; font-weight:800; margin-top:0; margin-bottom:20px; color:var(--green-dark);">Part 3 &mdash; Apply your statement to a specific situation</h3>
+
+        <div class="synthesis-step" style="border:1.5px solid var(--border);">
           <div class="synthesis-step__num">5</div>
           <div class="synthesis-step__name">Apply your statement to a specific situation</div>
-          <div class="synthesis-step__hint">Describe a specific situation in your own work or professional context where AI is being used (or could reasonably be used). Now apply your own judgment statement to it: what does your statement require you to do in that specific situation?</div>
+          <div class="synthesis-step__hint">Describe a specific situation in your own work or professional context where AI is being used (or could reasonably be used). Apply your own judgment statement to it: what does your statement require you to do in that specific situation?<br><br>Consider: who might be missing, misread, excluded, or disproportionately burdened by this process &mdash; and how would we know?</div>
           <textarea id="app-5" rows="5" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="In my work, AI is used for [specific situation]... My judgment statement requires me to... This means in practice that I..."></textarea>
+        </div>
+
+        <div class="synthesis-step" style="border:1.5px solid var(--border);">
+          <div class="synthesis-step__num">6</div>
+          <div class="synthesis-step__name">My recommendation for this use of AI</div>
+          <div class="synthesis-step__hint">Based on your assessment, choose the most appropriate course of action and explain why.</div>
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.9em; cursor:pointer;"><input type="radio" name="m6-decision" value="proceed" style="margin-top:3px; accent-color:var(--green-mid);"> Proceed with the safeguards described</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.9em; cursor:pointer;"><input type="radio" name="m6-decision" value="low-risk" style="margin-top:3px; accent-color:var(--green-mid);"> Use only for low-risk assistance, not high-stakes decisions</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.9em; cursor:pointer;"><input type="radio" name="m6-decision" value="human-review" style="margin-top:3px; accent-color:var(--green-mid);"> Require human review before any action is taken</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.9em; cursor:pointer;"><input type="radio" name="m6-decision" value="limit" style="margin-top:3px; accent-color:var(--green-mid);"> Limit or redesign the use before deployment</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.9em; cursor:pointer;"><input type="radio" name="m6-decision" value="pause" style="margin-top:3px; accent-color:var(--green-mid);"> Pause pending validation or investigation</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.9em; cursor:pointer;"><input type="radio" name="m6-decision" value="escalate" style="margin-top:3px; accent-color:var(--green-mid);"> Escalate for specialist review before proceeding</label>
+          </div>
+          <div style="font-size:0.88em; font-weight:600; margin-bottom:6px; color:var(--text);">Why?</div>
+          <textarea id="app-6" rows="3" style="width:100%; padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:0.92em; resize:vertical;" placeholder="My recommendation is based on..."></textarea>
+        </div>
+
+        <div style="background:var(--green-pale); border:1px solid var(--green-light); border-radius:var(--radius-lg); padding:16px 20px; margin:20px 0;">
+          <p style="font-size:0.78em; font-weight:800; color:var(--green-dark); text-transform:uppercase; letter-spacing:1px; margin:0 0 12px;">Before submitting, check that your statement:</p>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:0.88em; line-height:1.5;">
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Names a specific task or decision</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Identifies the data, evidence, and unknowns</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Names a real accountable person or role</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Includes a verification step</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Includes an escalation trigger with a named owner</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Does not contain confidential or personal information</label>
+            <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;"><input type="checkbox" style="margin-top:2px; accent-color:var(--green-mid);"> Does not claim that AI made the final decision</label>
+          </div>
         </div>
 
         <div id="m6-apply-submit" style="text-align:right; margin-top:24px;">
@@ -515,7 +719,11 @@
         </div>
         <p id="err-3" class="advance-err" style="display:none;" role="alert" aria-live="polite"></p>
 
-      </div><!-- /ps-3-apply -->
+        <div class="phase-nav">
+          <button type="button" class="btn btn--outline" onclick="showScreen(3,'syn2')">&larr; Back to statement</button>
+        </div>
+
+      </div><!-- /ps-3-syn3 -->
 
     </div>
   </div>
@@ -527,16 +735,16 @@
         <h4>Model Answers &mdash; Synthesis &amp; Professional AI Judgment Statement</h4>
       </div>
       <div class="model-answer-item">
-        <div class="model-answer-item__label">1. The pattern across five cases</div>
-        <p>The structural pattern that appears in every case where AI caused harm: <strong>the AI was deployed in a consequential decision context without adequate human oversight of the AI&rsquo;s outputs &mdash; often because the human oversight was nominal, bypassed by time pressure, or absent by design.</strong> In each case: the DCDT hallucinated a policy and no human caught it before it spread; the fintech AI scored using proxy discrimination and no human reviewed the outcomes; Riskio scored Siyanda with no human contesting the factors; the election deepfake circulated without source verification; the Meridian ATS screened Lerato without any human seeing her CV. The pattern is not &ldquo;AI was wrong.&rdquo; It is: <em>the accountability gap between what the AI decided and what a human verified was never closed.</em></p>
+        <div class="model-answer-item__label">1. The recurring pattern across the five scenarios</div>
+        <p>The structural pattern that recurs across every scenario where harm became more likely: <strong>AI was used in a consequential decision context without adequate meaningful human oversight &mdash; because the human oversight was nominal, bypassed by time pressure, absent by design, or not backed by enough information, authority, or time to be genuine.</strong> In each scenario: no human caught the hallucinated DCDT policy before it spread; no human reviewed fintech scoring outcomes for proxy discrimination; no human contested the risk score applied to Siyanda; the deepfake circulated without source verification; Lerato&rsquo;s application was screened without any human seeing her CV. The pattern is not &ldquo;AI was wrong.&rdquo; It is: <em>the accountability gap between what the AI decided and what a human verified was never closed.</em></p>
       </div>
       <div class="model-answer-item">
-        <div class="model-answer-item__label">2. What the DATA step consistently revealed</div>
-        <p>The DATA step consistently revealed that the data being processed was not neutral &mdash; it was carrying history: apartheid geography, historical policing intensity, apartheid-era hiring patterns, manipulated political content. In every case, the AI was not processing objective facts; it was processing the recorded outputs of systems that were themselves biased or manipulated. The DATA step also consistently revealed that the data subjects had rights they weren&rsquo;t being told about: POPIA Section 71 rights, PEPUDA rights, EEA rights. The one-sentence guidance: <em>&ldquo;Always ask: what history is encoded in this data, and whose interests shaped how it was collected?&rdquo;</em></p>
+        <div class="model-answer-item__label">2. What the DATA step consistently helped you question or uncover</div>
+        <p>The DATA step consistently helped uncover that the data being processed was not neutral &mdash; it was carrying history: apartheid geography, historical policing intensity, apartheid-era hiring patterns, manipulated political content, missing information about who was not in the data at all. In every scenario, the AI was not processing objective facts; it was processing the recorded outputs of systems that were themselves shaped by power, exclusion, or manipulation. The DATA step also revealed that the data subjects had rights they were not being told about. The one-sentence guidance: <em>&ldquo;Always ask: what history is encoded in this data, what is missing, and whose interests shaped how it was collected?&rdquo;</em></p>
       </div>
       <div class="model-answer-item">
-        <div class="model-answer-item__label">3. Generalised principle for HUMAN accountability</div>
-        <p>The principle that emerges across all five cases: <strong>A human must be in the loop not just in form, but in substance &mdash; meaning they have the information, the time, and the authority to genuinely contest the AI&rsquo;s output before the consequential decision is finalised.</strong> A human who rubber-stamps AI outputs under time pressure, without access to the factors used, is present in form and absent in substance. Human oversight is not enough when: the human lacks the information to contest the AI (the algorithm is opaque); the human faces structural incentives to defer to the AI (time pressure, liability shield, convenience); or the AI is structurally load-bearing (the human can&rsquo;t reverse its outputs). In those situations, the loop must be redesigned, not assumed.</p>
+        <div class="model-answer-item__label">3. What conditions make a human accountable rather than a rubber stamp</div>
+        <p>The principle that emerges across all five scenarios: <strong>Meaningful human accountability requires that the person has the information, time, and authority to genuinely question the AI&rsquo;s output before a consequential decision is finalised.</strong> A human who approves AI outputs without seeing the evidence, understanding the factors used, or having any practical ability to override is present in form and absent in substance. A rubber stamp looks like: the person sees only the recommendation, cannot inspect excluded alternatives, has no time to engage, and routinely approves. The loop is not enough when the human lacks the information to contest the output, faces structural pressure to defer, or cannot reverse the AI&rsquo;s decision. In those situations the oversight must be redesigned, not assumed.</p>
       </div>
       <div class="model-answer-item">
         <div class="model-answer-item__label">4. Professional AI Judgment Statement (example)</div>
@@ -554,7 +762,7 @@
   <!-- MODULE + COURSE COMPLETE -->
   <div id="module-complete" style="display:none;" class="preview-end">
     <h2>Course Complete &mdash; You have your Funda Five™.</h2>
-    <p>You have now examined five SA AI cases, applied the Funda Five™ framework across all of them, and written your own Professional AI Judgment Statement. That statement &mdash; what you just wrote &mdash; is the output of this course. Keep it. Update it as AI in your work evolves. It is your documented professional position, and it is accountability evidence.</p>
+    <p>You have now examined five SA AI scenarios, applied the Funda Five™ framework across all of them, and written a documented Professional AI Judgment Statement that records your reasoning, verification steps, safeguards, and escalation thinking. That statement can contribute to an accountability record as AI in your work evolves. Keep it, apply it, and update it when the tools or context changes.</p>
     <p style="color:rgba(255,255,255,0.65); font-size:0.9em; margin-bottom:28px;">If you&rsquo;re in a sector track (Education, Finance, Government, Healthcare, Corporate), continue there. Your Funda Five™ will go deeper in your specific context.</p>
     <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
       <a href="course.html" class="btn btn--gold btn--lg">Choose a Sector Track &rarr;</a>
@@ -595,7 +803,8 @@ function advancePhase(fromPhase) {
   if (fromPhase === 1) {
     var t1 = document.getElementById('ref-1').value.trim();
     var t2 = document.getElementById('ref-2').value.trim();
-    if (t1.length < 10 || t2.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words in both boxes before moving on.'; return; }
+    var t3 = document.getElementById('ref-3').value.trim();
+    if (t1.length < 10 || t2.length < 10 || t3.length < 10) { errEl.style.display='block'; errEl.textContent='Please write a few words in all three boxes before moving on.'; return; }
     errEl.style.display = 'none';
     if (window._m6UserLoggedIn) saveProgress('module-6', 1);
   }
@@ -609,19 +818,62 @@ function advancePhase(fromPhase) {
   showPhase(fromPhase + 1);
 }
 
+var M6_LESSON_LABELS = [
+  'Screen 1 of 4 — What meaningful human oversight looks like',
+  'Screen 2 of 4 — CAD4TB and local-context questions',
+  'Screen 3 of 4 — What a Professional AI Judgment Statement is',
+  'Screen 4 of 4 — Worked example'
+];
+function setLesson6(n) {
+  document.querySelectorAll('.m6-lesson-dot').forEach(function(d, i) {
+    d.className = 'm6-lesson-dot' + (i < n ? ' visited' : '') + (i === n ? ' current' : '');
+  });
+  var lbl = document.getElementById('m6-lesson-label');
+  if (lbl) lbl.textContent = M6_LESSON_LABELS[n];
+}
+function goLesson6(n) {
+  setLesson6(n - 1);
+  showScreen(2, 'les' + n);
+}
+function advanceSyn(fromScreen) {
+  var errEl = document.getElementById('err-syn' + fromScreen);
+  if (fromScreen === 1) {
+    var v1 = document.getElementById('app-1').value.trim();
+    var v2 = document.getElementById('app-2').value.trim();
+    var v3 = document.getElementById('app-3').value.trim();
+    if (v1.length < 20 || v2.length < 20 || v3.length < 20) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Please complete all three reflection steps before continuing.';
+      return;
+    }
+  }
+  if (fromScreen === 2) {
+    var v4 = document.getElementById('app-4').value.trim();
+    if (v4.length < 40) {
+      errEl.style.display = 'block';
+      errEl.textContent = 'Your judgment statement should be substantive before continuing.';
+      return;
+    }
+  }
+  errEl.style.display = 'none';
+  showScreen(3, 'syn' + (fromScreen + 1));
+}
+
 function submitQuizM6() {
   var allAnswered = true;
   var wrongCount = 0;
   var explanations = [
-    { ok: 'Correct. Dr Math\'s oversight is load-bearing &mdash; remove the human tutor and there is no service. CAD4TB\'s oversight is legally mandated but structurally optional from the system\'s perspective: the AI generates an output regardless of whether the clinician reviews it carefully or rubber-stamps it. A clinician present in form but absent in substance (reviewing under extreme time pressure, without genuine clinical engagement) means the oversight has been hollowed out while appearing intact. This is why "human in the loop" as a phrase is insufficient &mdash; you need to ask whether the human has the information, time, and authority to actually exercise judgment.',
-      no: 'Legal mandate doesn\'t make oversight more robust if it can be fulfilled nominally without substance. The key distinction is structural: removing the human from Dr Math destroys the service; removing genuine human judgment from CAD4TB leaves the system formally compliant but substantively unchecked. "Human in the loop" is not binary &mdash; it exists on a spectrum from structurally necessary to nominally present.' },
-    { ok: 'Correct. CAD4TB is a useful clinical tool in low-resource settings &mdash; better than no radiological assessment. But using it responsibly means knowing its training data limits and compensating with clinical judgment. A model trained on lower-HIV-prevalence populations may have different sensitivity for HIV-TB co-infection presentations. The responsible approach: use it as a triage signal, apply elevated scrutiny in high-risk presentations, and document when your clinical judgment diverges from the AI flag.',
-      no: 'Stopping use isn\'t the answer &mdash; the alternative is no radiological assessment at all. Trusting high-confidence flags fully ignores the training data mismatch. And AI models do not generalise automatically across populations with different disease presentations &mdash; transfer from European to high-HIV SA populations requires specific validation, not assumption. The correct stance: use the tool as a signal, compensate with clinical judgment that goes beyond the AI output, and document divergences.' },
-    { ok: 'Correct. A Professional AI Judgment Statement is not a liability transfer document (it doesn\'t shift accountability away from you), not a statutory compliance form (no SA law requires it in this exact form), and not a technical IT document. Its function is accountability evidence: if you ever face a professional review, audit, or inquiry about an AI-assisted decision you made, the statement shows that you applied a framework, retained judgment, and made a deliberate professional decision rather than passively deferring to the AI output.',
-      no: 'A Professional AI Judgment Statement does not transfer liability to the AI vendor &mdash; it does the opposite, it explicitly retains your own accountability. No SA law currently requires it in this specific form. It is not a technical IT document. Its function is to serve as accountability evidence: proof of deliberate professional judgment, not passive AI deference.' }
+    { ok: 'Correct. Having context, access to relevant evidence, authority to question or override, and responsibility for the outcome defines meaningful oversight. A person appearing somewhere in the process is not enough &mdash; oversight is meaningful when the human can actually see what happened, question it, access alternatives, and change the result.',
+      no: 'Meaningful oversight is not defined by formal presence, sign-off procedures, or regulatory approval. It depends on whether the person has context, relevant evidence, authority to override, time to engage, and genuine responsibility for the outcome. A rubber stamp satisfies the form without the substance.' },
+    { ok: 'Correct. Performance can depend on the population, disease prevalence, image quality, workflow design, threshold selection, available follow-up care, and clinical pathway. Responsible deployment means using evidence relevant to your setting and monitoring outcomes after deployment &mdash; not assuming that performance elsewhere guarantees the same here.',
+      no: 'AI performance does not transfer automatically across populations, care pathways, or clinical settings. Clinician review does not cancel out model performance concerns &mdash; it depends on whether the clinician has the information needed to meaningfully override. Local validation is about fitness for your specific context, not just general accuracy.' },
+    { ok: 'Correct. A Professional AI Judgment Statement documents how a professional evaluated an AI-assisted decision: the task, evidence, limits, safeguards, human responsibility, and escalation criteria. It can contribute to an accountability record. It is not a legal shield, compliance form, or substitute for institutional policy and clinical records.',
+      no: 'The statement does not transfer accountability away from the professional &mdash; it explicitly retains it. No SA law currently requires it in this specific form. It is not a certification document. Its function is to document deliberate professional judgment and contribute to an accountability record.' },
+    { ok: 'Correct. This describes a rubber stamp: the reviewer sees only the recommendation, cannot inspect what was excluded or why, has no practical ability to challenge, and approves routinely. Meaningful oversight requires the reviewer to have context, evidence, authority, time, and a genuine ability to change the outcome.',
+      no: 'Time spent, seniority, and formal review steps that are not genuinely substantive do not define meaningful oversight. The test is whether the human can actually see the relevant evidence, question the system, access excluded alternatives, and override if needed. Routine approval without those conditions is a rubber stamp regardless of how it appears on paper.' }
   ];
 
-  [0,1,2].forEach(function(i) {
+  [0,1,2,3].forEach(function(i) {
     var sel = document.querySelector('input[name="m6_q' + i + '"]:checked');
     var fb = document.getElementById('m6qf-' + i);
     if (!sel) { allAnswered = false; return; }
@@ -644,14 +896,14 @@ function submitQuizM6() {
   });
 
   var errEl = document.getElementById('quiz-m6-err');
-  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 3 questions before checking.'; return; }
+  if (!allAnswered) { errEl.style.display='block'; errEl.textContent='Please answer all 4 questions before checking.'; return; }
   errEl.style.display = 'none';
   if (wrongCount === 0) {
     document.getElementById('quiz-m6-submit-wrap').style.display = 'none';
     document.getElementById('quiz-m6-advance').style.display = 'inline-block';
   } else {
     errEl.style.display = 'block';
-    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look &mdash; check the hints above and try again.';
+    errEl.textContent = wrongCount + ' question' + (wrongCount > 1 ? 's' : '') + ' need' + (wrongCount === 1 ? 's' : '') + ' another look — check the hints above and try again.';
   }
 }
 
@@ -660,7 +912,7 @@ function completeModule6() {
   var errEl = document.getElementById('err-3');
   if (vals.some(function(v) { return v.length < 20; })) {
     errEl.style.display = 'block';
-    errEl.textContent = 'Please complete all five sections before submitting. Your judgment statement in particular should be substantive.';
+    errEl.textContent = 'Please complete all five sections before submitting. Your judgment statement in Part 2 should be substantive.';
     return;
   }
   errEl.style.display = 'none';
@@ -714,7 +966,7 @@ function completeModule6() {
   gateLocked.style.display   = 'none';
   content.style.display      = 'block';
 
-  initAnswerPersistence('module-6', ['enc-reaction', 'ref-1', 'ref-2', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5'], session.user.id);
+  initAnswerPersistence('module-6', ['enc-reaction', 'ref-1', 'ref-2', 'ref-3', 'app-1', 'app-2', 'app-3', 'app-4', 'app-5', 'app-6'], session.user.id);
 
   const phases = await getModuleProgress('module-6');
   if (phases.length === 0) return;
@@ -729,7 +981,7 @@ function completeModule6() {
     showPhase(maxPhase + 1);
   } else {
     showPhase(3);
-    showScreen(3, 'apply');
+    showScreen(3, 'syn3');
     document.getElementById('m6-apply-submit').style.display = 'none';
     document.getElementById('model-answers-m6').style.display = 'block';
     document.getElementById('module-complete').style.display  = 'block';

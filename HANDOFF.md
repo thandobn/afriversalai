@@ -1046,3 +1046,75 @@ Admin needs full read+update access — grant via Supabase service role or add a
 
 **Files changed:**
 - `course-poc/module-4.html` — 151 insertions, 73 deletions (pushed to master at dda390e / 14018ba)
+
+---
+
+## Session: 2026-07-01 (continued) — Module 5 content review and revision
+
+**What was worked on:**
+- Module 5 full content review and revision per Ntando's brief (AfriversalAI_Module_5_Review_and_Revision_Brief.md, 940 lines) + 6 inline additions from mom
+- All 8 groups (A–H) of changes implemented; committed across two commits
+
+**Key discovery mid-session:** Commit 508dc45 (already on master) contained all HTML structural changes from Ntando's brief — 4 lesson screens (ps-2-les1 through ps-2-les4), EEA Section 8 card, Q4, app-6 textarea, m5-incident-snapshot div, all content fixes. This session's commit (f8d2319) added the missing JS layer that 508dc45 left incomplete.
+
+**What f8d2319 added (JS completion layer):**
+- `goLesson(n)` / `setLesson(n)` functions — lesson screen navigation with dot-tracker state management
+- `M5_LESSON_LABELS` array — 4 screen label strings
+- `.m5-lesson-dot` / `.lesson-tracker` CSS added to `<style>` block
+- `completeModule5()` snapshot population — reads app-1..6, renders Incident Response Snapshot HTML
+- `initAnswerPersistence` updated to include `'app-6'` (candidate communication textarea)
+- Fixed structural bug: app-6 `funda-apply-step` was outside `funda-apply` container due to premature `</div>`; corrected with two targeted edits
+
+**Key content decisions (all in 508dc45 HTML):**
+- Legal precision principle: "may raise concern / needs investigation" — no categorical conclusions like "is indirect discrimination"
+- POPIA s71 narrow framing: only engages for solely automated processing + profiling + legal/substantial consequences; NOT a universal human-review right
+- Designated employers = 50 or more employees OR organs of state (not old "50+ or certain thresholds" wording)
+- EEA s8 assessment-validity content added — was entirely absent from M5 before; covers video-interview analysis, personality scoring, culture fit, future-performance prediction
+- SABPP claims removed throughout; replaced with documented patterns from international/SA research without named-company attribution
+- CCMA, SAHRC, Labour Court descriptions all qualified (no "reinstatement guaranteed", no "binding recommendations", no "mandatory equity audits")
+
+**Module completion text updated:**
+> "You can now map the accountability chain in an AI-assisted recruitment process, recognise when a tool may raise indirect-unfair-discrimination or assessment-validity concerns, apply the Funda Five™ to a real recruitment incident, and identify escalation routes for candidates and employers alike. Module 6 brings all of this together."
+
+**Open items / next steps:**
+- i18n translations for all new/changed EN strings in M5 (AF/FR/ZU backlog — deferred)
+- Standing open items: BACKLOG T1 (answer persistence), T2 (DocuSign), RD1 (CITATIONS.md), AF/FR/ZU translations for prior sessions
+
+**Files changed:**
+- `course-poc/module-5.html` — committed as f8d2319 (JS completion); HTML base from 508dc45
+
+---
+
+## Session: 2026-07-01 — Module 6 content review and revision
+
+**What was worked on:**
+- Module 6 full content review and revision per Ntando's brief (AfriversalAI_Module_6_Review_and_Revision_Brief.md, 897 lines) + 7 inline additions from mom
+- All 8 change groups (A–H) implemented in a single session across two context windows (context compacted mid-session)
+
+**Key decisions made:**
+- **Option A for character fix:** Sister Thembeka Dlamini, Professional Nurse → Dr Thembeka Dlamini, Medical Officer — makes all HPCSA Booklet 20 references professionally accurate (HPCSA = medical practitioners, SANC = nurses)
+- **Q3 placement:** Meaningful oversight question placed in Reflect phase (ref-3 textarea); equity/accessibility question placed in Synthesise Screen 3 (ps-3-syn3)
+- **CAD4TB European training data claims:** All removed (from encounter card body, card detail, worked example TOOL section, Concept Screen 2) — replaced with local-validation framing
+- **Three-category oversight model** replaces "human by design vs constraint": (1) Human-led service, (2) AI-supported professional judgment, (3) Human rubber stamp
+- **Professional AI Judgment Statement** structure: TASK / DATA / TOOL / TRUST / HUMAN / ESCALATION AND DOCUMENTATION (six elements)
+
+**What changed (by group):**
+- A: Lead text softened + Objective #3 rewritten (meaningful oversight vs rubber stamp) + Objective #4 added (escalation routing)
+- B: Dr Math card — removed "8 million SA users" + CSIR Meraka/UP framing corrected + "Won education innovation awards" detail added; CAD4TB card — removed European training data narrative + triage/pathway framing added + "Simplified training simulation" label + performance/threshold note
+- C: Course-status callout added (fictional composites note); Q1 prompt reframed ("recurring pattern" not "AI caused harm"); Q1 hint added; Q2 prompt updated ("question or uncover" not "revealed"); Q2 hint added; Q3 (ref-3) added — meaningful oversight vs rubber stamp question; phase subtitle updated
+- D: Concept phase split from 1 screen → 4 lesson screens (les1-les4) + lesson tracker with 4 dots + `goLesson6(n)` / `setLesson6(n)` / `M6_LESSON_LABELS` JS
+  - les1: Three-category model + "Human in the loop vs human in control" callout (mom addition A)
+  - les2: CAD4TB local context (6-question checklist) + equity/accessibility callout (mom addition F)
+  - les3: Responsible AI definition + Professional AI Judgment Statement definition + "not a legal shield" framing + documented uncertainty callout (B) + named escalation owners callout (C) + stop/pause rule callout (D) + individual vs org duties callout (E)
+  - les4: Dr Thembeka Dlamini, Medical Officer worked example (all 6 PAJS sections) + weak vs strong interaction (mom addition G) + why this is strong callout + SANC added to Further Reading
+- E: Quiz 3 questions → 4 questions; all 4 rewritten; back nav fixed to `showScreen(2,'les4')`; `submitQuizM6()` fully replaced (loops [0,1,2,3], 4 explanations)
+- F: Synthesise 1 screen → 3 screens (syn1/syn2/syn3); `advanceSyn(fromScreen)` function with validation; course-status note in syn1; confidentiality callout in syn2; equity/access consideration in syn3 hint; 7-item self-review checklist; 6-radio decision recommendation
+- G: JS additions — M6_LESSON_LABELS, setLesson6, goLesson6, advanceSyn; `advancePhase(1)` updated (validates ref-3); `initAnswerPersistence` updated (includes ref-3, app-1..6); restore logic updated; `completeModule6()` error message updated; model answers in syn1 updated to match revised Q1/Q2/Q3 prompts
+- H: Module completion text updated — references "five SA AI scenarios" + Funda Five™ + Professional AI Judgment Statement
+
+**Open items / next steps:**
+- i18n translations for all new/changed EN strings in M6 (AF/FR/ZU — standing backlog)
+- Standing open items: BACKLOG T1 (answer persistence localStorage), T2 (DocuSign), RD1 (CITATIONS.md), AF/FR/ZU translations M1-M6
+
+**Files changed:**
+- `course-poc/module-6.html` — full M6 revision (all 8 groups committed this session)
