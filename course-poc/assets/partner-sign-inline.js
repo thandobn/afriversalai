@@ -30,7 +30,8 @@
     'corporate-contract': { title: 'Enterprise Master Services Agreement (Publication 010)', file: 'corporate-contract.html' },
     mnda: { title: 'Enterprise Mutual Non-Disclosure Agreement (Publication 005)', file: 'mnda.html' },
     'commercial-schedule': { title: 'Enterprise Commercial Schedule (Publication 011)', file: 'publication-011.html' },
-    sow: { title: 'Enterprise Statement of Work (Publication 012)', file: 'publication-012.html' }
+    sow: { title: 'Enterprise Statement of Work (Publication 012)', file: 'publication-012.html' },
+    sla: { title: 'Enterprise Service Level Agreement (Publication 009)', file: 'publication-009.html' }
   };
 
   var docKey = window.AF_SIGN_DOC;
