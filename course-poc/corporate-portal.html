@@ -146,6 +146,17 @@
 <script src="assets/email.js"></script>
 <script>
   var CP_EMAIL = '', CP_UID = '';
+  var CP_REVIEWMAP = {'publication-009.html':'sla','publication-007.html':'aup','publication-016.html':'cert-policy','publication-017.html':'ip-policy','publication-004.html':'impl-guide','publication-014.html':'admin-guide','publication-015.html':'learner-guide','publication-006.html':'framework'};
+  async function cpMarkReviewed(key){
+    if(!key) return;
+    try{ var r=(await _supabase.from('corporates').select('reviewed').eq('email',CP_EMAIL).maybeSingle()).data; var rev=(r&&r.reviewed)||{}; rev[key]=new Date().toISOString(); await _supabase.from('corporates').update({reviewed:rev}).eq('email',CP_EMAIL); }catch(e){}
+  }
+  async function loadReviewed(){
+    var rev={};
+    try{ var r=(await _supabase.from('corporates').select('reviewed').eq('email',CP_EMAIL).maybeSingle()).data; rev=(r&&r.reviewed)||{}; }catch(e){}
+    var links=document.querySelectorAll('.cp-main a[href]');
+    for(var i=0;i<links.length;i++){ var key=CP_REVIEWMAP[links[i].getAttribute('href')]; if(key && rev[key]){ links[i].innerHTML='&#10004; Reviewed &middot; open again'; links[i].classList.remove('btn--primary'); if(!links[i].classList.contains('btn--outline')) links[i].classList.add('btn--outline'); } }
+  }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function money(n){ return 'R ' + (Number(n)||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   async function cpSignOut(){ try { await _supabase.auth.signOut(); } catch(e){} window.location.href = 'corporate-login.html'; }
@@ -283,7 +294,15 @@
     renderBank();
     loadOverview();
     loadDocStatus();
+    loadReviewed();
     loadInvoices();
+    // Mark reference documents (B/C/D) as reviewed when opened from the dashboard.
+    document.addEventListener('click', function(e){
+      var a = e.target && e.target.closest ? e.target.closest('.cp-main a[href]') : null;
+      if(!a) return; var key = CP_REVIEWMAP[a.getAttribute('href')]; if(!key) return;
+      e.preventDefault(); var href = a.getAttribute('href');
+      cpMarkReviewed(key).then(function(){ window.location.href = href; }, function(){ window.location.href = href; });
+    });
   })();
 </script>
 <script src="assets/icon-swap.js"></script>
