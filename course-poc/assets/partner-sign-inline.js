@@ -27,7 +27,8 @@
     nda: { title: 'Mutual Non-Disclosure Agreement', file: 'partner-docs/nda.html' },
     agreement: { title: 'Enterprise Partner Agreement', file: 'partner-docs/agreement.html' },
     schedule: { title: 'Partner Commercial Schedule', file: 'partner-docs/commercial-schedule.html' },
-    'corporate-contract': { title: 'Corporate Services Agreement', file: 'corporate-contract.html' }
+    'corporate-contract': { title: 'Enterprise Master Services Agreement (Publication 010)', file: 'corporate-contract.html' },
+    mnda: { title: 'Enterprise Mutual Non-Disclosure Agreement (Publication 005)', file: 'mnda.html' }
   };
 
   var docKey = window.AF_SIGN_DOC;
