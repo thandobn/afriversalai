@@ -227,8 +227,11 @@
     var active=(org&&org.active)||corp.status==='active';
     var codeEl=document.getElementById('cp-code');
     if(codeEl){ codeEl.innerHTML = code
-      ? '<span style="display:inline-block;background:var(--gold-light);border:1.5px solid var(--gold);border-radius:10px;padding:9px 16px;font-weight:800;color:var(--green-dark);">Access code: <span style="font-family:ui-monospace,monospace;letter-spacing:1px;">'+esc(code)+'</span></span> <span style="font-size:.8em;color:var(--muted);">'+(active?'Share with your staff to enrol.':'Activates once your invoice is paid.')+'</span>'
-      : '<span style="font-size:.85em;color:var(--muted);">Your cohort access code appears here once your programme is approved.</span>'; }
+      ? '<div style="display:inline-block;background:#fff;border:2px solid var(--gold);border-radius:12px;padding:10px 24px;text-align:center;">'
+        +'<div style="font-size:.68em;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--gold-dark);">Cohort access code</div>'
+        +'<div style="font-family:ui-monospace,Menlo,monospace;font-size:2.1em;font-weight:800;letter-spacing:2px;color:var(--green-dark);line-height:1.15;">'+esc(code)+'</div>'
+        +'<div style="font-size:.72em;color:var(--muted);">'+(active?'Staff enter this to enrol &mdash; it assigns them to your cohort.':'Activates once your invoice is paid.')+'</div></div>'
+      : '<span style="font-size:.9em;color:rgba(255,255,255,.85);">Your cohort access code appears here once your programme is approved.</span>'; }
     var pct=seats?Math.min(100,Math.round(regs/seats*100)):0;
     var ov=document.getElementById('cp-overview');
     if(ov){ ov.innerHTML='<div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-end;">'
@@ -242,11 +245,18 @@
     var box=document.getElementById('cp-docstatus'); if(!box) return;
     var signed={};
     try{ var sigs=(await _supabase.from('partner_signatures').select('doc_key').eq('partner_email',CP_EMAIL)).data||[]; sigs.forEach(function(s){signed[s.doc_key]=true;}); }catch(e){}
-    var docs=[['mnda','Pub 005 — NDA'],['corporate-contract','Pub 010 — Master Services Agreement'],['commercial-schedule','Pub 011 — Commercial Schedule'],['sow','Pub 012 — Statement of Work'],['sla','Pub 009 — Service Level Agreement'],['dpa','Pub 008 — Data Processing Addendum'],['aup','Pub 007 — Acceptable Use'],['cert-policy','Pub 016 — Certification Policy'],['ip-policy','Pub 017 — IP Policy'],['charter','Pub 003 — Executive Charter']];
-    var done=docs.filter(function(d){return signed[d[0]];}).length;
+    var sign=[['mnda','Pub 005 — NDA'],['corporate-contract','Pub 010 — Master Services Agreement'],['commercial-schedule','Pub 011 — Commercial Schedule'],['sow','Pub 012 — Statement of Work'],['dpa','Pub 008 — Data Processing Addendum'],['charter','Pub 003 — Executive Charter']];
+    var ack=[['sla','Pub 009 — Service Level Agreement'],['aup','Pub 007 — Acceptable Use Policy'],['cert-policy','Pub 016 — Certification Policy'],['ip-policy','Pub 017 — IP Policy']];
+    var done=sign.filter(function(d){return signed[d[0]];}).length;
+    var row=function(label,right){ return '<div style="display:flex;justify-content:space-between;gap:8px;padding:5px 0;font-size:.87em;border-bottom:1px solid var(--border);"><span>'+esc(label)+'</span>'+right+'</div>'; };
+    var okBadge='<span style="color:#059669;font-weight:700;white-space:nowrap;">&#10004; Signed</span>';
+    var waitBadge='<span style="color:#DC2626;font-weight:700;white-space:nowrap;">&#10007; Awaiting</span>';
+    var ackBadge='<span style="color:#059669;font-weight:700;white-space:nowrap;">&#10004; Acknowledged</span>';
     box.innerHTML='<h2 style="color:var(--green-dark);font-size:1.05em;margin:0 0 4px;">Document status</h2>'
-      +'<div style="font-size:.82em;color:var(--muted);margin-bottom:8px;">'+done+' of '+docs.length+' signed</div>'
-      + docs.map(function(d){ var ok=signed[d[0]]; return '<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:.87em;border-bottom:1px solid var(--border);"><span>'+esc(d[1])+'</span>'+(ok?'<span style="color:#059669;font-weight:700;">&#10004; Signed</span>':'<span style="color:#DC2626;font-weight:700;">&#10007; Awaiting signature</span>')+'</div>'; }).join('');
+      +'<div style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold-dark);margin:6px 0 4px;">Signatures required &mdash; '+done+' of '+sign.length+' signed</div>'
+      + sign.map(function(d){ return row(d[1], signed[d[0]]?okBadge:waitBadge); }).join('')
+      +'<div style="font-size:.72em;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold-dark);margin:12px 0 4px;">Governing policies &mdash; acknowledged via the MSA (no signature)</div>'
+      + ack.map(function(d){ return row(d[1], ackBadge); }).join('');
   }
 
   (async function initCorporate(){
