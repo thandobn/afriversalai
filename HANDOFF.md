@@ -1150,3 +1150,55 @@ Admin needs full read+update access — grant via Supabase service role or add a
 
 **Files changed:**
 - `course-poc/module-7-corporate.html` — committed d9ca633 (408 ins, 187 del)
+
+---
+
+## Session: 2026-07-01 (continued) — M7 sector format parity, T1 answer persistence, T2 DEPLOY.md, U1 domain categorization
+
+**What was worked on:**
+
+- **Supabase CLI confirmed live:** CLI binary at `C:\Users\techhub\AppData\Local\supabase-cli\supabase.exe`, project linked to `evxvsldwulqvowaaurxf`, all 9 functions ACTIVE (confirmed via `supabase functions list`).
+
+- **BACKLOG.md rewritten:** Removed stale items, added URGENT section (August 1 Cohort 1 deadline), reordered all items by urgency. Open: U1–U5 (urgent), C1–C3 (critical), M1–M5 (major), T1–T2 (tech), mn1–mn3 (minor), RD1 (research).
+
+- **M7 sector format parity (M1):** All 5 sector variants reformatted to match M0–M6 pattern: sticky labeled progress tracker (`.progress-sticky-wrap`), learning objectives in hero (`module-hero__inner` + breadcrumb + 4 sector-specific objectives). Committed alongside BACKLOG.
+
+- **T1 — Answer persistence on M7 sector variants:** `initAnswerPersistence` added to all 5 M7 sector files. M2 and M3 were already done. Corporate gets 7 fields (ref + apply only — Encounter uses risk-rating cards, not freetext). Education, finance, healthcare get 9 fields (enc + ref + apply). Government gets 7 fields (no encounter freetext). Corporate has two insertion points (admin bypass path + regular gate pass).
+
+- **T2 — DEPLOY.md:** Replaced stale "not deployed" status block with accurate 9-function ACTIVE table. CLI setup section updated for Windows binary path. Committed with T1.
+
+- **U1 — Domain categorization submissions:**
+  - Cisco Talos: submitted Content Category ticket (#9254839, NEW) + Web Reputation ticket (PENDING). 3–5 business day turnaround.
+  - Trellix (trustedsource.org): submitted with Trellix Real-Time Database as product, Education category.
+  - Zscaler: skipped — portal requires Zscaler customer network access. If a client flags it, they can submit from inside their own network.
+  - Fortiguard: skipped — site returned 408/down at time of attempt. Retry at `fortiguard.com/webfilter`.
+
+**Decisions made:**
+
+- Corporate and government M7 variants do not have Encounter freetext (different interaction type) — 7-field persistence array is correct for both.
+- `initAnswerPersistence` placement for redirect-based M7 variants: after the `if/else if` progress-restore block, before `.catch()` — runs regardless of whether user is new, returning, or completed.
+- Fortiguard and Zscaler are lower priority than Cisco and Trellix — skip for now, revisit if a client reports a block.
+
+**Open items / next steps:**
+
+- U1: Retry Fortiguard when site is back up (`fortiguard.com/webfilter`, no login needed)
+- U2: Corporate learner flow smoke test (user action — log in as a corporate learner and walk all 4 phases of a M7 sector module)
+- U3: Confirm Formspree endpoints live (15 min, user action — submit a test form on contact.html)
+- U4: Welcome video (mom records, Thando uploads)
+- U5: Lead follow-up process
+- C1: CIPC trademark check
+- C2: Terms of service adequacy
+- C3: Named SA educator outreach
+- Standing: T2 DocuSign migration, RD1 CITATIONS.md, AF/FR/ZU translations for M1–M7 EN string changes
+
+**Files changed:**
+
+- `course-poc/module-7-corporate.html` — format parity (sticky tracker, hero objectives, breadcrumb) + initAnswerPersistence (2 insertion points)
+- `course-poc/module-7-education.html` — format parity + initAnswerPersistence (9 fields)
+- `course-poc/module-7-finance.html` — format parity + initAnswerPersistence (9 fields)
+- `course-poc/module-7-government.html` — format parity + initAnswerPersistence (7 fields)
+- `course-poc/module-7-healthcare.html` — format parity + initAnswerPersistence (9 fields)
+- `supabase/DEPLOY.md` — ACTIVE status table + Windows CLI setup
+- `BACKLOG.md` — full rewrite with URGENT section and urgency ordering
+
+**Commits:** 88b2c77 (T1+T2 — pushed to master)
